@@ -51,6 +51,15 @@ Rocket uses the .gitignore file to manage it's requirements. If you skip this st
    };
    ```
 
+5. (optionally) Create a file `.eleventyignore` (this file will be needed once you start customizing presets)
+
+   ```
+   node_modules/**
+   /docs/_assets
+   /docs/_includes
+   /docs/_data
+   ```
+
 <inline-notification type="warning" title="note">
 
 All further pathes are relative to your project root (my-project in this case)

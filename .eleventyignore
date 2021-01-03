@@ -1,2 +1,4 @@
 node_modules/**
-/docs/_assets/head.html
+/docs/_assets
+/docs/_includes
+/docs/_data
