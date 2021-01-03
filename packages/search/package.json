@@ -1,0 +1,49 @@
+{
+  "name": "@rocket/search",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Search Preset for Rocket",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/search"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/presets/search/",
+  "type": "module",
+  "exports": {
+    ".": "./node.js",
+    "./node": "./node.js",
+    "./web": "./web.js",
+    "./rocket-search.js": "./rocket-search.js"
+  },
+  "scripts": {
+    "debug": "cd ../../ && npm run debug -- --group search",
+    "test": "npm run test:node && npm run test:web",
+    "test:node": "mocha test-node/**/*.test.js test-node/*.test.js",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.js' -- npm run test:node",
+    "test:web": "cd ../../ && npm run test:web -- --group search"
+  },
+  "files": [
+    "*.js",
+    "assets",
+    "dist",
+    "dist-types",
+    "preset",
+    "src"
+  ],
+  "keywords": [
+    "rocket",
+    "search"
+  ],
+  "dependencies": {
+    "@lion/combobox": "^0.1.16",
+    "@open-wc/scoped-elements": "^1.3.2",
+    "minisearch": "^3.0.2",
+    "plugins-manager": "^0.1.0",
+    "sax-wasm": "^2.0.0"
+  }
+}

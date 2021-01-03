@@ -1,0 +1,42 @@
+## editors
+/.idea
+/.vscode
+
+## system files
+.DS_Store
+
+## code coverage folders
+coverage/
+
+## npm
+node_modules
+npm-debug.log
+yarn-error.log
+
+## temp folders
+/.tmp/
+
+## we prefer yarn.lock
+package-lock.json
+## lock files in packages we do not need to save
+packages/*/yarn.lock
+
+## build output
+dist
+dist-types
+stats.html
+*.tsbuildinfo
+
+## Rocket ignore files (need to be the full relative path to the folders)
+docs/_merged_data/
+docs/_merged_assets/
+docs/_merged_includes/
+_site
+_site-dev
+
+## Ignore Rocket Test Builds
+_merged_data
+_merged_assets
+_merged_includes
+__output
+__output-dev

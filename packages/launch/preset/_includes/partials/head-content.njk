@@ -1,0 +1,51 @@
+{% set _pageTitle = title %}
+{% if title != site.name %}
+  {% set _pageTitle = title + ': ' + site.name %}
+{% endif %}
+{% if pageTitle %}
+  {% set _pageTitle = pageTitle %}
+{% endif %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ _pageTitle }}</title>
+
+<meta name="generator" content="rocket 0.1">
+
+<link rel="apple-touch-icon" sizes="180x180" href="{{ '/_assets/_static/icons/apple-touch-icon.png' | asset | url }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ '/_assets/_static/icons/favicon-32x32.png' | asset | url }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ '/_assets/_static/icons/favicon-16x16.png' | asset | url }}">
+<link rel="manifest" href="{{ '/_assets/webmanifest.json' | asset | url }}">
+<link rel="mask-icon" href="{{ '/_assets/_static/icons/safari-pinned-tab.svg' | asset | url }}" color="{{ site.iconColorMaskIcon }}">
+<meta name="msapplication-TileColor" content="{{ site.iconColorMsapplicationTileColor }}">
+<meta name="theme-color" content="{{ site.iconColorThemeColor }}">
+
+<link rel="canonical" href="{{ page.url }}"/>
+
+<meta property="og:site_name" content="{{ site.name }}"/>
+<meta property="og:title" content="{{ _pageTitle }}"/>
+<meta property="og:type" content="website"/>
+
+{% set _socialMediaImage = '/_assets/social-media-image.jpg' | asset | url %}
+{% if socialMediaImage %}
+  {% set _socialMediaImage = socialMediaImage %}
+{% endif %}
+<meta property="og:image" content="{{ _socialMediaImage | url }}"/>
+<meta property="og:url" content="{{ page.url }}"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+
+{% set _description = site.description %}
+{% if description %}
+  {% set _description = description %}
+{% endif %}
+<meta name="description" content="{{ _description }}"/>
+<meta property="og:description" content="{{ _description }}"/>
+
+<link rel="stylesheet" href="{{ '/_assets/variables.css' | asset | url }}">
+<link rel="stylesheet" href="{{ '/_assets/layout.css' | asset | url }}">
+<link rel="stylesheet" href="{{ '/_assets/markdown.css' | asset | url }}">
+<link rel="stylesheet" href="{{ '/_assets/style.css' | asset | url }}">
+<noscript><link rel="stylesheet" href="{{ '/_assets/noscript.css' | asset | url }}"/></noscript>
+
+{% include 'partials/head.njk' %}

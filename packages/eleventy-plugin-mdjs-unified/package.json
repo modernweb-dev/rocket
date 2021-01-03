@@ -1,0 +1,39 @@
+{
+  "name": "@rocket/eleventy-plugin-mdjs-unified",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Use mdjs with eleventy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/eleventy-plugin-mdjs-unified"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/markdown-javascript/overview/",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test-node/**/*.test.js test-node/*.test.js",
+    "test:watch": "mocha test-node/**/*.test.js test-node/*.test.js --watch"
+  },
+  "files": [
+    "*.js",
+    "dist-types",
+    "src",
+    "types"
+  ],
+  "keywords": [
+    "11ty",
+    "markdown",
+    "javascript",
+    "mdjs"
+  ],
+  "dependencies": {
+    "@mdjs/core": "^0.6.0",
+    "es-module-lexer": "^0.3.26",
+    "unist-util-visit": "^2.0.3"
+  },
+  "types": "dist-types/index.d.ts"
+}

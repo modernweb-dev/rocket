@@ -1,0 +1,37 @@
+{
+  "name": "@rocket/launch",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Launch Preset for Rocket",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/launch"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/presets/launch/",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./preset/": "./preset/",
+    "./inline-notification": "./inline-notification/index.js",
+    "./inline-notification/inline-notification.js": "./inline-notification/inline-notification.js"
+  },
+  "files": [
+    "*.js",
+    "inline-notification",
+    "preset"
+  ],
+  "keywords": [
+    "rocket",
+    "preset"
+  ],
+  "dependencies": {
+    "@rocket/drawer": "^0.0.0",
+    "@rocket/navigation": "^0.0.0"
+  }
+}

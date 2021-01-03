@@ -1,0 +1,72 @@
+{
+  "name": "@mdjs/core",
+  "version": "0.6.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Combine Markdown with JavaScript",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/mdjs-core"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/markdown-javascript/overview/",
+  "main": "./index.js",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "default": "./index.mjs"
+    }
+  },
+  "scripts": {
+    "start": "npm run start:stories",
+    "start:script": "web-dev-server -c demo/script/server.js --root-dir ../../",
+    "start:stories": "web-dev-server -c demo/stories/server.js --root-dir ../../",
+    "test": "npm run test:node",
+    "test:node": "mocha test-node",
+    "test:watch": "mocha test-node --watch",
+    "types:copy": "copyfiles -f \"./types/**/*.d.ts\" dist-types/types"
+  },
+  "files": [
+    "*.d.ts",
+    "*.js",
+    "dist-types",
+    "src",
+    "types"
+  ],
+  "keywords": [
+    "open-wc",
+    "markdown",
+    "unified",
+    "remark"
+  ],
+  "dependencies": {
+    "@mdjs/mdjs-preview": "^0.3.0",
+    "@mdjs/mdjs-story": "^0.1.0",
+    "@types/unist": "^2.0.3",
+    "es-module-lexer": "^0.3.26",
+    "github-markdown-css": "^4.0.0",
+    "plugins-manager": "^0.1.0",
+    "rehype-autolink-headings": "^5.0.1",
+    "rehype-prism-template": "^0.4.1",
+    "rehype-raw": "^5.0.0",
+    "rehype-slug": "^4.0.1",
+    "rehype-stringify": "^8.0.0",
+    "remark": "^11.0.2",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^8.0.0",
+    "unified": "^8.4.2",
+    "unist-util-remove": "^2.0.1",
+    "unist-util-visit": "^2.0.3"
+  },
+  "devDependencies": {
+    "demo-wc-card": "^0.1.0",
+    "remark-autolink-headings": "^6.0.1",
+    "remark-html": "^13.0.1",
+    "remark-slug": "^6.0.0",
+    "remark-stringify": "^9.0.1"
+  },
+  "types": "dist-types/index.d.ts"
+}

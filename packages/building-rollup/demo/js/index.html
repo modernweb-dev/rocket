@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="expires" content="0" />
+
+    <title>My Demo</title>
+  </head>
+
+  <body>
+    <h1>Static content in index.html is preserved</h1>
+
+    <demo-app></demo-app>
+
+    <div id="test"></div>
+
+    <script type="module">
+      import './demo-app.js';
+
+      function waitForTest(test) {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve(false);
+          }, 1000);
+          test.then(resolve);
+        });
+      }
+
+      (async () => {
+        window.__tests = {
+          partialCSS: window.__partialCSS || false,
+          litElement: await waitForTest(window.__litElement),
+          startsWith: window.__startsWith || false,
+          map: window.__map || false,
+          asyncFunction: await waitForTest(window.__asyncFunction),
+          forOf: window.__forOf || false,
+          optionalChaining: window.__optionalChaining || false,
+          nullishCoalescing: window.__nullishCoalescing || false,
+          asyncIterator: await waitForTest(window.__asyncIterator),
+        };
+
+        document.getElementById('test').innerHTML = `<pre>${JSON.stringify(
+          window.__tests,
+          null,
+          2,
+        )}</pre>`;
+      })();
+    </script>
+  </body>
+</html>

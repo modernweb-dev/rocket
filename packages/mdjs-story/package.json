@@ -1,0 +1,37 @@
+{
+  "name": "@mdjs/mdjs-story",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rendering storybook story functions inside a story window with show code capabilities",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/mdjs-story"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/markdown-javascript/story/",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./mdjs-story.js": "./mdjs-story.js"
+  },
+  "scripts": {
+    "debug": "cd ../../ && npm run debug -- --group mdjs-story",
+    "test": "npm run test:web",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.js' -- npm run test:node",
+    "test:web": "cd ../../ && npm run test:web -- --group mdjs-story"
+  },
+  "files": [
+    "*.js",
+    "assets",
+    "dist-types",
+    "src"
+  ],
+  "dependencies": {
+    "lit-element": "^2.4.0"
+  },
+  "types": "dist-types/index.d.ts"
+}

@@ -1,0 +1,40 @@
+{
+  "name": "@rocket/drawer",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rocket stuff",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/drawer"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "web-dev-server --node-resolve --root-dir ../../ --open packages/drawer/ --watch",
+    "rocket:build": "node src/build/cli.js -c demo/docs",
+    "rocket:start": "node src/start/cli.js -c demo/docs --root-dir ../../ --open packages/cli/demo/docs/README.md",
+    "start": "npm run rocket:start",
+    "test": "mocha test-node/**/*.test.js test-node/*.test.js",
+    "test:watch": "mocha test-node/**/*.test.js test-node/*.test.js --watch"
+  },
+  "files": [
+    "*.js",
+    "dist-types",
+    "src"
+  ],
+  "keywords": [
+    "storybook",
+    "demo",
+    "demo-states",
+    "testing"
+  ],
+  "dependencies": {
+    "@lion/overlays": "^0.22.8",
+    "lit-element": "^2.4.0"
+  },
+  "types": "dist-types/index.d.ts"
+}

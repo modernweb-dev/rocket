@@ -1,0 +1,12 @@
+/coverage/
+/packages/*/coverage
+node_modules
+dist
+dist-types
+demo
+CHANGELOG.md
+.changeset
+_site
+_site-dev
+__output
+__output-dev

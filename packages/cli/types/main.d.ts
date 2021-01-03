@@ -1,0 +1,48 @@
+import { DevServerConfig } from '@web/dev-server';
+
+export interface RocketPreset {
+  path: string;
+
+  // TODO: improve all setup functions
+  setupUnifiedPlugins?: function[];
+  setupDevAndBuildPlugins: function[];
+  setupBuildPlugins: function[];
+  setupDevPlugins: function[];
+  setupCliPlugins: function[];
+  setupEleventyPlugins: function[];
+}
+
+export interface RocketCliOptions {
+  presets: Array<RocketPreset>;
+  pathPrefix?: string;
+  inputDir: string;
+  outputDir: string;
+  emptyOutputDir?: boolen;
+  absoluteBaseUrl?: string;
+  watch: boolean;
+
+  // TODO: improve all setup functions
+  setupUnifiedPlugins?: function[];
+  setupDevAndBuildPlugins: function[];
+  setupBuildPlugins: function[];
+  setupDevPlugins: function[];
+  setupCliPlugins: function[];
+  setupEleventyPlugins: function[];
+
+  // advanced
+  devServer: DevServerConfig;
+  eleventy: function; // TODO: improve
+  plugins: RocketPlugin[];
+
+  // rarely used
+  command: string;
+  configFile?: string;
+  outputDevDir: string;
+
+  private _inputDirCwdRelative: string;
+  private _presetPathes?: Array<string>;
+}
+
+export interface RocketPlugin {
+  commands: Array<string>;
+}

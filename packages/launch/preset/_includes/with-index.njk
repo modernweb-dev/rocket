@@ -1,0 +1,32 @@
+{% extends 'with-sidebar.njk' %}
+
+{% block sidebar %}
+  <rocket-drawer id="sidebar">
+    <nav slot="content" id="sidebar-nav">
+      {% include 'partials/logoLink.njk' %}
+      <rocket-navigation>
+        {{ collections[section] | rocketNav | rocketNavToHtml({
+          listItemClass: "menu-item",
+          activeListItemClass: "current",
+          activeKey: eleventyNavigation.key
+      }) | safe }}
+        {% include 'partials/mobile-sidebar-bottom.njk' %}
+      </rocket-navigation>
+    </nav>
+  </rocket-drawer>
+{% endblock sidebar %}
+
+{% block main %}
+  <main class="markdown-body">
+    {% include 'partials/addTitleHeadline.njk' %}
+
+    {{ content.html | safe }}
+
+    <h3>Find out more on the following pages:</h3>
+    {{ collections[section] | rocketNav(eleventyNavigation.key) | rocketNavToHtml({
+        listItemClass: "index-item",
+        activeKey: eleventyNavigation.key
+    }) | safe }}
+    {% include 'partials/previousNext.njk' %}
+  </main>
+{% endblock main %}

@@ -1,0 +1,42 @@
+{
+  "name": "@rocket/core",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rocket Core",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/core"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/",
+  "type": "module",
+  "exports": {
+    "./title": {
+      "require": "./dist/title.cjs",
+      "default": "./src/title/index.js"
+    },
+    "./helpers": {
+      "default": "./src/helpers/index.js"
+    }
+  },
+  "scripts": {
+    "build:package": "rimraf dist && esbuild --platform=node --format=cjs --bundle --outfile=dist/title.cjs ./src/title/index.js",
+    "build:types": "tsc -p tsconfig.build.types.json",
+    "test": "cd ../../ && yarn test:browser \"packages/navigation2/test/**/*.test.js\"",
+    "test:watch": "yarn test --watch"
+  },
+  "files": [
+    "*.js",
+    "dist",
+    "dist-types",
+    "src"
+  ],
+  "keywords": [
+    "rocket"
+  ],
+  "types": "dist-types/src/index.d.ts"
+}
