@@ -28,4 +28,16 @@ describe('metaConfigToRollupConfig', () => {
     expect(config.plugins).to.deep.equal(['firstPlugin', '-- insertPlugin --']);
     expect(config.setupPlugins).to.be.undefined;
   });
+
+  it('prefers a user set config.plugins', async () => {
+    const config = metaConfigToRollupConfig(
+      {
+        setupPlugins: [addPlugin({ name: 'insert', plugin: insertPlugin })],
+        plugins: ['user-set'],
+      },
+      threeExistingPlugin,
+    );
+    expect(config.plugins).to.deep.equal(['user-set']);
+    expect(config.setupPlugins).to.be.undefined;
+  });
 });

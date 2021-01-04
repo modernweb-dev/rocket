@@ -216,7 +216,11 @@ const plugins = finalMetaPlugins.map(pluginObj => {
 
 **Examples**
 
-Rollup has a more specific helper
+Rollup has a more specific helper that handles
+
+- `config.setupPlugins`
+
+Note: if you provide `config.plugins` then it will return that directly ignoring `setupPlugins`
 
 ```js
 import { metaConfigToRollupConfig } from 'plugins-manager';
@@ -224,14 +228,19 @@ import { metaConfigToRollupConfig } from 'plugins-manager';
 const finalConfig = metaConfigToRollupConfig(currentConfig, defaultMetaPlugins);
 ```
 
-Web Dev Server has a more specific helper
+Web Dev Server has a more specific helper that handles
+
+- `config.setupPlugins`
+- `config.setupRollupPlugins`
+
+Note: if you provide `config.plugins` then it will return that directly ignoring `setupPlugins` and `setupRollupPlugins`
 
 ```js
 import { metaConfigToWebDevServerConfig } from 'plugins-manager';
 import { fromRollup } from '@web/dev-server-rollup';
 
 const finalConfig = metaConfigToWebDevServerConfig(currentConfig, defaultMetaPlugins, {
-  wrapperFunction: fromRollup,
+  rollupWrapperFunction: fromRollup,
 });
 ```
 

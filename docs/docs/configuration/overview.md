@@ -23,11 +23,22 @@ New plugins can be added and all default plugins can be adjusted or even removed
 
 ```js
 export default {
+  // add remark/unified plugin to the markdown processing (e.g. enable special code blocks)
   setupUnifiedPlugins: [],
+
+  // add a rollup plugins to the web dev server (will be wrapped with @web/dev-server-rollup) AND the rollup build (e.g. enable json importing)
   setupDevAndBuildPlugins: [],
+
+  // add a plugin to the web dev server (will not be wrapped) (e.g. esbuild for typescript)
   setupDevPlugins: [],
+
+  // add a plugin to the rollup build (e.g. optimization steps)
   setupBuildPlugins: [],
+
+  // add a plugin to eleventy (e.g. a filter packs)
   setupEleventyPlugins: [],
+
+  // add a plugin to the cli (e.g. a new command like "rocket my-command")
   setupCliPlugins: [],
 };
 ```
