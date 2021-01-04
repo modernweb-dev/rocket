@@ -122,7 +122,7 @@ describe('RocketCli e2e', () => {
   });
 
   describe('setupDevAndBuildPlugins in config', () => {
-    it('can add a rollup plugin to build', async () => {
+    it('can add a rollup plugin via setupDevAndBuildPlugins for build command', async () => {
       cli = new RocketCli({
         argv: [
           'build',
@@ -135,7 +135,7 @@ describe('RocketCli e2e', () => {
       expect(inlineModule).to.equal('var a={test:"data"};console.log(a);');
     });
 
-    it('can add a rollup plugin to dev', async () => {
+    it('can add a rollup plugin via setupDevAndBuildPlugins for start command', async () => {
       cli = new RocketCli({
         argv: [
           'start',

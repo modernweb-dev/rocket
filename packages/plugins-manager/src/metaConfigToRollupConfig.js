@@ -7,6 +7,10 @@ import { executeSetupFunctions } from 'plugins-manager';
  * @param {MetaPlugin[]} [metaPlugins]
  */
 export function metaConfigToRollupConfig(config, metaPlugins = []) {
+  if (config.plugins) {
+    delete config.setupPlugins;
+    return config;
+  }
   const _metaPlugins = executeSetupFunctions(config.setupPlugins, [...metaPlugins]);
 
   const plugins = _metaPlugins.map(pluginObj => {

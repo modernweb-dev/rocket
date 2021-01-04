@@ -24,11 +24,6 @@ async function buildAndWrite(config) {
 }
 
 async function productionBuild(config) {
-  // const serviceWorkerFileName =
-  //   config.build && config.build.serviceWorkerFileName
-  //     ? config.build.serviceWorkerFileName
-  //     : 'service-worker.js';
-
   const mpaConfig = createMpaConfig({
     input: '**/*.html',
     output: {

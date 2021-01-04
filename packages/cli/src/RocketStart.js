@@ -39,10 +39,11 @@ export class RocketStart {
         clearTerminalOnReload: false,
         ...this.config.devServer,
 
-        setupPlugins: [...this.config.setupDevAndBuildPlugins, ...this.config.setupDevPlugins],
+        setupRollupPlugins: this.config.setupDevAndBuildPlugins,
+        setupPlugins: this.config.setupDevPlugins,
       },
       [],
-      { wrapperFunction: fromRollup },
+      { rollupWrapperFunction: fromRollup },
     );
 
     this.devServer = await startDevServer({
