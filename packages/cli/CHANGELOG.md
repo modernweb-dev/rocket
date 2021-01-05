@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- 641c7e5: Add a pathPrefix option to allow deployment to a subdirectory
+
 ## 0.1.1
 
 ### Patch Changes
