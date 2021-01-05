@@ -1,6 +1,6 @@
 {
   "name": "@rocket/blog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -38,6 +38,6 @@
     "testing"
   ],
   "dependencies": {
-    "plugins-manager": "^0.1.0"
+    "plugins-manager": "^0.2.0"
   }
 }
