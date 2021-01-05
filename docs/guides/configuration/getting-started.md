@@ -12,7 +12,6 @@ import { absoluteBaseUrlNetlify } from '@rocket/core/helpers';
 
 export default /** @type {Partial<import('@rocket/cli').RocketCliOptions>} */ ({
   presets: [rocketLaunch(), rocketBlog(), rocketSearch()],
-  emptyOutputDir: false,
   absoluteBaseUrl: absoluteBaseUrlNetlify('http://localhost:8080'),
 });
 ```

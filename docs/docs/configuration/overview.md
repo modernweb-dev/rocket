@@ -9,11 +9,8 @@ import { rocketLaunch } from '@rocket/launch';
 
 export default {
   presets: [rocketLaunch()],
-  build: {
-    emptyOutputDir: true,
-    pathPrefix: 'subfolder-only-for-build',
-    serviceWorkerFileName: 'service-worker.js',
-  },
+  emptyOutputDir: true,
+  pathPrefix: 'subfolder-only-for-build',
 };
 ```
 

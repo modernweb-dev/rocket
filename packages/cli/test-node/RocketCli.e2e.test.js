@@ -203,35 +203,43 @@ describe('RocketCli e2e', () => {
     );
   });
 
-  it.skip('can add a pathprefix for the build output', async () => {
+  it('can add a pathprefix that will not influence the start command', async () => {
     cli = new RocketCli({
       argv: [
-        'build',
+        'start',
         '--config-file',
-        path.join(__dirname, 'e2e-fixtures', 'content', 'eleventy.rocket.config.js'),
+        path.join(__dirname, 'e2e-fixtures', 'content', 'pathprefix.rocket.config.js'),
       ],
     });
     await execute();
 
-    // const indexHtml = await readOutput('index.html', {
-    //   type: 'start',
-    // });
-    // expect(indexHtml).to.equal("<p>Markdown in 'docs/page/index.md'</p>");
+    const indexHtml = await readOutput('link/index.html', {
+      type: 'start',
+    });
+    expect(indexHtml).to.equal(
+      ['<p><a href="../../">home</a></p>', '<p><a href="/">absolute home</a></p>'].join('\n'),
+    );
   });
 
-  it.skip('works with an empty object in rocket.config.js', async () => {
+  it('can add a pathPrefix that will be used in the build command', async () => {
     cli = new RocketCli({
       argv: [
         'build',
         '--config-file',
-        path.join(__dirname, 'e2e-fixtures', 'content', 'empty.rocket.config.js'),
+        path.join(__dirname, 'e2e-fixtures', 'content', 'pathPrefix.rocket.config.js'),
       ],
     });
     await execute();
 
-    // const indexHtml = await readOutput('index.html', {
-    //   type: 'start',
-    // });
-    // expect(indexHtml).to.equal("<p>Markdown in 'docs/page/index.md'</p>");
+    const indexHtml = await readOutput('link/index.html', {
+      stripServiceWorker: true,
+      stripToBody: true,
+    });
+    expect(indexHtml).to.equal(
+      [
+        '<p><a href="../../">home</a></p>',
+        '<p><a href="/my-sub-folder/">absolute home</a></p>',
+      ].join('\n'),
+    );
   });
 });
