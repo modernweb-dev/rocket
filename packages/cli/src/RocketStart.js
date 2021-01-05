@@ -10,6 +10,14 @@ export class RocketStart {
   commands = ['start'];
 
   /**
+   * @param {RocketCliOptions} config
+   */
+  setupCommand(config) {
+    delete config.pathPrefix;
+    return config;
+  }
+
+  /**
    * @param {object} options
    * @param {RocketCliOptions} options.config
    * @param {any} options.argv
