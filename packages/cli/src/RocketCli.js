@@ -79,27 +79,11 @@ export class RocketCli {
       const rel = path.relative(process.cwd(), path.join(__dirname));
       const relCwdPathToConfig = path.join(rel, 'shared', '.eleventy.cjs');
       elev.setConfigPathOverride(relCwdPathToConfig);
-      // elev.setDryRun(true); // do not write to file system
       await elev.init();
 
       if (this.config.watch) {
         elev.watch();
       }
-
-      // // 11ty will bind this hook to itself
-      // const that = this;
-      // elev.config.filters['hook-for-rocket'] = async function hook(html, outputPath) {
-      //   // that.requestUpdate();
-      //   // const data = await this.getData();
-      //   // const { layout, title, inputPath } = data;
-      //   // const url = data.page.url;
-      //   // for (const plugin of that.plugins) {
-      //   //   if (typeof plugin.transformHtml === 'function') {
-      //   //     await plugin.transformHtml({ html, inputPath, outputPath, layout, title, url });
-      //   //   }
-      //   // }
-      //   return html;
-      // };
 
       this.eleventy = elev;
     }
@@ -135,12 +119,12 @@ export class RocketCli {
     if (this.config) {
       for (const plugin of this.config.plugins) {
         if (this.considerPlugin(plugin)) {
-          if (typeof plugin.setup === 'function') {
-            await plugin.setup({ config: this.config, argv: this.subArgv });
-          }
-
           if (typeof plugin.setupCommand === 'function') {
             this.config = plugin.setupCommand(this.config);
+          }
+
+          if (typeof plugin.setup === 'function') {
+            await plugin.setup({ config: this.config, argv: this.subArgv });
           }
         }
       }

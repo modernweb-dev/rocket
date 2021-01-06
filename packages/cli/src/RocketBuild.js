@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
-import commandLineArgs from 'command-line-args';
 import { rollup } from 'rollup';
 import fs from 'fs-extra';
 import { copy } from '@web/rollup-plugin-copy';
 
 import { createMpaConfig } from '@rocket/building-rollup';
-import { addPlugin } from 'plugins-manager';
+import { addPlugin, adjustPluginOptions } from 'plugins-manager';
 
 /**
  * @param {object} config
@@ -24,6 +23,22 @@ async function buildAndWrite(config) {
 }
 
 async function productionBuild(config) {
+  const defaultSetupPlugins = [
+    addPlugin({
+      name: 'copy',
+      plugin: copy,
+      options: {
+        patterns: ['!(*.md|*.html)*', '_merged_assets/_static/**/*.{png,gif,jpg,json,css,svg,ico}'],
+        rootDir: config.outputDevDir,
+      },
+    }),
+  ];
+  if (config.pathPrefix) {
+    defaultSetupPlugins.push(
+      adjustPluginOptions('html', { absolutePathPrefix: config.pathPrefix }),
+    );
+  }
+
   const mpaConfig = createMpaConfig({
     input: '**/*.html',
     output: {
@@ -33,17 +48,7 @@ async function productionBuild(config) {
     rootDir: config.outputDevDir,
     absoluteBaseUrl: config.absoluteBaseUrl,
     setupPlugins: [
-      addPlugin({
-        name: 'copy',
-        plugin: copy,
-        options: {
-          patterns: [
-            '!(*.md|*.html)*',
-            '_merged_assets/_static/**/*.{png,gif,jpg,json,css,svg,ico}',
-          ],
-          rootDir: config.outputDevDir,
-        },
-      }),
+      ...defaultSetupPlugins,
       ...config.setupDevAndBuildPlugins,
       ...config.setupBuildPlugins,
     ],
@@ -60,26 +65,10 @@ export class RocketBuild {
     return config;
   }
 
-  async setup({ config, argv }) {
-    const buildDefinitions = [
-      {
-        name: 'mode',
-        alias: 'm',
-        type: String,
-        defaultValue: 'full',
-        description: 'What build to run [full, site, optimize]',
-      },
-      { name: 'help', type: Boolean, description: 'See all options' },
-    ];
-    const buildOptions = commandLineArgs(buildDefinitions, { argv });
-
+  async setup({ config }) {
     this.config = {
-      ...config,
       emptyOutputDir: true,
-      build: {
-        ...config.build,
-        ...buildOptions,
-      },
+      ...config,
     };
   }
 

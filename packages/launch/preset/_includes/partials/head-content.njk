@@ -26,7 +26,7 @@
 <meta property="og:title" content="{{ _pageTitle }}"/>
 <meta property="og:type" content="website"/>
 
-{% set _socialMediaImage = '/_assets/social-media-image.jpg' | asset | url %}
+{% set _socialMediaImage = '/_assets/social-media-image.jpg' | asset %}
 {% if socialMediaImage %}
   {% set _socialMediaImage = socialMediaImage %}
 {% endif %}

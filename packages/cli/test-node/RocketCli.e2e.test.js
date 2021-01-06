@@ -213,12 +213,16 @@ describe('RocketCli e2e', () => {
     });
     await execute();
 
-    const indexHtml = await readOutput('link/index.html', {
+    const linkHtml = await readOutput('link/index.html', {
       type: 'start',
     });
-    expect(indexHtml).to.equal(
+    expect(linkHtml).to.equal(
       ['<p><a href="../../">home</a></p>', '<p><a href="/">absolute home</a></p>'].join('\n'),
     );
+    const assetHtml = await readOutput('use-assets/index.html', {
+      type: 'start',
+    });
+    expect(assetHtml).to.equal('<link rel="stylesheet" href="/_merged_assets/some.css">');
   });
 
   it('can add a pathPrefix that will be used in the build command', async () => {
@@ -231,15 +235,21 @@ describe('RocketCli e2e', () => {
     });
     await execute();
 
-    const indexHtml = await readOutput('link/index.html', {
+    const linkHtml = await readOutput('link/index.html', {
       stripServiceWorker: true,
       stripToBody: true,
     });
-    expect(indexHtml).to.equal(
+    expect(linkHtml).to.equal(
       [
         '<p><a href="../../">home</a></p>',
         '<p><a href="/my-sub-folder/">absolute home</a></p>',
       ].join('\n'),
+    );
+    const assetHtml = await readOutput('use-assets/index.html', {
+      stripServiceWorker: true,
+    });
+    expect(assetHtml).to.equal(
+      '<html><head><link rel="stylesheet" href="../41297ffa.css">\n\n\n\n</head><body>\n\n</body></html>',
     );
   });
 });
