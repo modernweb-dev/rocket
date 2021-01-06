@@ -1860,10 +1860,10 @@
   dependencies:
     glob "^7.0.0"
 
-"@web/rollup-plugin-html@^1.3.3":
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/@web/rollup-plugin-html/-/rollup-plugin-html-1.3.3.tgz#366f1a889a93ef6a26afd227611deb23c52cd232"
-  integrity sha512-SSgL72jIV0+N68wafDW7M40yry2RfJfcZsVOhTlir+U6RdEz0hdQPXkf/o9sHxIxo3w0sgL6tN+q7VlHMOWQGw==
+"@web/rollup-plugin-html@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@web/rollup-plugin-html/-/rollup-plugin-html-1.4.0.tgz#bf94d1ee525e5f41dc527bbff9f7e24973a82238"
+  integrity sha512-AYOeRuNsPXQmNpxlJRFLlfVMm4EazXcJEz0bbVd6wKQVcEBM71kRboGfupxhoIkDcVyThefw9gETcMZ4ntUcTw==
   dependencies:
     "@web/parse5-utils" "^1.1.2"
     glob "^7.1.6"
