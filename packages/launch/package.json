@@ -1,6 +1,6 @@
 {
   "name": "@rocket/launch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -31,7 +31,7 @@
     "preset"
   ],
   "dependencies": {
-    "@rocket/drawer": "^0.1.0",
+    "@rocket/drawer": "^0.1.1",
     "@rocket/navigation": "^0.1.0"
   }
 }

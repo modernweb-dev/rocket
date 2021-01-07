@@ -1,5 +1,13 @@
 # @rocket/cli
 
+## 0.1.3
+
+### Patch Changes
+
+- 3468ff9: Pass prefix to rollup-plugin-html so assets can still be extracted
+- Updated dependencies [3468ff9]
+  - @rocket/building-rollup@0.1.1
+
 ## 0.1.2
 
 ### Patch Changes
