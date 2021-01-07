@@ -64,6 +64,11 @@ export class RocketDrawer extends OverlayMixin(LitElement) {
     }
   }
 
+  _teardownOverlayCtrl() {
+    super._teardownOverlayCtrl();
+    this._overlayCtrl.contentNode.style.transform = 'translateX(0)';
+  }
+
   /** @param {import('lit-element').PropertyValues } changedProperties */
   updated(changedProperties) {
     super.updated(changedProperties);
