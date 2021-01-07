@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.1.4
+
+### Patch Changes
+
+- 32f39ae: An updated triggered via watch should not hide the main navgiation.
+
 ## 0.1.3
 
 ### Patch Changes
