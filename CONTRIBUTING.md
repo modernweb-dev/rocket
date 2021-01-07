@@ -15,7 +15,7 @@ git clone git@github.com:modernweb-dev/rocket.git
 Once cloning is complete, change directory to the repo.
 
 ```sh
-cd web
+cd rocket
 ```
 
 Now add your fork as a remote
@@ -89,7 +89,7 @@ Exceptions:
 
 ## Committing Your Changes
 
-Commit messages must follow the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0-beta.2/)
+Commit messages must follow the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/)
 Modern-web uses package name as scope. So for example if you fix a _terrible bug_ in the package `@web/test-runner`, the commit message should look like this:
 
 ```sh
