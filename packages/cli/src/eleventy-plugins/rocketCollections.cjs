@@ -9,30 +9,25 @@ function getDirectories(source) {
     .map(dirent => dirent.name);
 }
 
-let needSetForAll = true;
-
 /**
  * adds title from markdown headline to all pages
  *
  * @param collection
  */
 function setTitleForAll(collection) {
-  if (needSetForAll) {
-    const all = collection.getAll();
-    all.forEach(page => {
-      page.data.addTitleHeadline = true;
-      const titleData = processContentWithTitle(
-        page.template.inputContent,
-        page.template._templateRender._engineName,
-      );
-      if (titleData) {
-        page.data.title = titleData.title;
-        page.data.eleventyNavigation = { ...titleData.eleventyNavigation };
-        page.data.addTitleHeadline = false;
-      }
-    });
-    needSetForAll = false;
-  }
+  const all = collection.getAll();
+  all.forEach(page => {
+    page.data.addTitleHeadline = true;
+    const titleData = processContentWithTitle(
+      page.template.inputContent,
+      page.template._templateRender._engineName,
+    );
+    if (titleData) {
+      page.data.title = titleData.title;
+      page.data.eleventyNavigation = { ...titleData.eleventyNavigation };
+      page.data.addTitleHeadline = false;
+    }
+  });
 }
 
 const rocketCollections = {
@@ -57,7 +52,6 @@ const rocketCollections = {
 
           // docs = addPrevNextUrls(docs);
 
-          setTitleForAll(collection);
           return docs;
         });
       }
@@ -76,6 +70,9 @@ const rocketCollections = {
             (b.data && b.data.eleventyNavigation && b.data.eleventyNavigation.order) || 0;
           return aOrder - bOrder;
         });
+
+        setTitleForAll(collection);
+
         return headers;
       });
     }
