@@ -1,16 +1,33 @@
-<!--Handcrafted by Saleh Riaz Qureshi - www.salehriaz.com - salehriazq@gmail.com - dribbble.com/salehriaz - behance.net/salehriaz - twitter.com/salehriazq - facebook.com/salehriazqureshi - instagram.com/salehriaz
-
-Please use this SVG with attribution to the author i.e Saleh Riaz
--->
-<svg
-	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57.83 41.92">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57.83 41.92">
 	<defs>
-		<style>.cls-rocket-1{fill:#5bcbf5;}.cls-rocket-2{fill:#ffcb39;}.cls-rocket-3{fill:#ff9600;}.cls-rocket-4{fill:#007bbd;}.cls-rocket-5{fill:#c7f4f9;}.cls-rocket-6{fill:#5c546a;}.cls-rocket-7{fill:#e87e04;}</style>
+		<style>
+			.cls-rocket-1 {
+				fill: #5bcbf5;
+			}
+			.cls-rocket-2 {
+				fill: #ffcb39;
+			}
+			.cls-rocket-3 {
+				fill: #ff9600;
+			}
+			.cls-rocket-4 {
+				fill: #007bbd;
+			}
+			.cls-rocket-5 {
+				fill: #c7f4f9;
+			}
+			.cls-rocket-6 {
+				fill: #5c546a;
+			}
+			.cls-rocket-7 {
+				fill: #e87e04;
+			}
+		</style>
 	</defs>
 	<title>rocket_1</title>
-	<g id="Layer_2" data-name="Layer 2">
-		<g id="Layer_1-2" data-name="Layer 1">
-			<g id="rocket">
+	<g data-name="Layer 2">
+		<g data-name="Layer 1">
+			<g>
 				<path class="cls-rocket-1" d="M16.31,41.57a7.89,7.89,0,0,0,1.91-1,9.68,9.68,0,0,0-6-17.66A10,10,0,0,0,7.3,24.57,10.1,10.1,0,0,0,5.67,26a13.83,13.83,0,1,1,26.81,6.43,13.67,13.67,0,0,1-5.35,7A13.41,13.41,0,0,1,16.31,41.57Z"/>
 				<path class="cls-rocket-2" d="M57.81,2.35a.92.92,0,0,0-.53-.78A21.75,21.75,0,0,0,36.75,3.9C32.63,6.7,22.38,15.2,12.89,23.65a3.69,3.69,0,0,0-.59,4.82l4.05,5.94a3.69,3.69,0,0,0,4.7,1.2c11.33-5.74,23-12.19,27.1-15A21.75,21.75,0,0,0,57.81,2.35Zm0,0"/>
 				<path class="cls-rocket-3" d="M14.33,31.44l-2-3a3.69,3.69,0,0,1,.59-4.82C22.38,15.2,32.63,6.7,36.75,3.9A21.75,21.75,0,0,1,57.28,1.57a.92.92,0,0,1,.37.32h0Zm0,0"/>
