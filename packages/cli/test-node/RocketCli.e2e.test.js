@@ -252,4 +252,71 @@ describe('RocketCli e2e', () => {
       '<html><head><link rel="stylesheet" href="../41297ffa.css">\n\n\n\n</head><body>\n\n</body></html>',
     );
   });
+
+  it('will extract a title from markdown and set first folder as section', async () => {
+    cli = new RocketCli({
+      argv: [
+        'start',
+        '--config-file',
+        path.join(__dirname, 'e2e-fixtures', 'headlines', 'rocket.config.js'),
+      ],
+    });
+    await execute();
+
+    const indexHtml = await readOutput('index.html', {
+      type: 'start',
+    });
+    const [indexTitle, indexSection] = indexHtml.split('\n');
+    expect(indexTitle).to.equal('Root');
+    expect(indexSection).to.be.undefined;
+
+    const subHtml = await readOutput('sub/index.html', {
+      type: 'start',
+    });
+    const [subTitle, subSection] = subHtml.split('\n');
+    expect(subTitle).to.equal('Root: Sub');
+    expect(subSection).to.equal('sub');
+
+    const subSubHtml = await readOutput('sub/subsub/index.html', {
+      type: 'start',
+    });
+    const [subSubTitle, subSubSection] = subSubHtml.split('\n');
+    expect(subSubTitle).to.equal('Sub: SubSub');
+    expect(subSubSection).to.equal('sub');
+
+    const sub2Html = await readOutput('sub2/index.html', {
+      type: 'start',
+    });
+    const [sub2Title, sub2Section] = sub2Html.split('\n');
+    expect(sub2Title).to.equal('Root: Sub2');
+    expect(sub2Section).to.equal('sub2');
+
+    const withDataHtml = await readOutput('with-data/index.html', {
+      type: 'start',
+    });
+    const [withDataTitle, withDataSection] = withDataHtml.split('\n');
+    expect(withDataTitle).to.equal('Set via data');
+    expect(withDataSection).be.undefined;
+  });
+
+  it('will create a social media image for every page', async () => {
+    cli = new RocketCli({
+      argv: [
+        'start',
+        '--config-file',
+        path.join(__dirname, 'e2e-fixtures', 'social-images', 'rocket.config.js'),
+      ],
+    });
+    await execute();
+
+    const indexHtml = await readOutput('index.html', {
+      type: 'start',
+    });
+    expect(indexHtml).to.equal('/_merged_assets/11ty-img/c0a892f2-1200.png');
+
+    const guidesHtml = await readOutput('guides/first-pages/getting-started/index.html', {
+      type: 'start',
+    });
+    expect(guidesHtml).to.equal('/_merged_assets/11ty-img/58b7e437-1200.png');
+  });
 });

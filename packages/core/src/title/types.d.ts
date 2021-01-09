@@ -6,4 +6,5 @@ export interface EleventyPage {
     parent?: string;
     order?: number;
   };
+  parts: string[];
 }

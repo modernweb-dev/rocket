@@ -1,4 +1,4 @@
-# Presets >> Overriding presets ||20
+# Presets >> Overriding ||20
 
 All loaded presets will be combined but you can override each file.
 

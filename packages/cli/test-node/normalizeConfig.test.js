@@ -23,7 +23,8 @@ describe('normalizeConfig', () => {
 
     // testing pathes is always a little more complicted 😅
     expect(config._inputDirCwdRelative).to.match(/empty\/docs$/);
-    expect(config._presetPathes[0]).to.match(/empty\/docs$/);
+    expect(config._presetPathes[0]).to.match(/cli\/preset$/);
+    expect(config._presetPathes[1]).to.match(/empty\/docs$/);
     expect(config.outputDevDir).to.match(/_site-dev$/);
 
     expect(cleanup(config)).to.deep.equal({

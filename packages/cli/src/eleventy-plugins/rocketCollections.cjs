@@ -1,33 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 const { readdirSync } = require('fs');
-const { processContentWithTitle } = require('@rocket/core/title');
 
 function getDirectories(source) {
   return readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name);
-}
-
-/**
- * adds title from markdown headline to all pages
- *
- * @param collection
- */
-function setTitleForAll(collection) {
-  const all = collection.getAll();
-  all.forEach(page => {
-    page.data.addTitleHeadline = true;
-    const titleData = processContentWithTitle(
-      page.template.inputContent,
-      page.template._templateRender._engineName,
-    );
-    if (titleData) {
-      page.data.title = titleData.title;
-      page.data.eleventyNavigation = { ...titleData.eleventyNavigation };
-      page.data.addTitleHeadline = false;
-    }
-  });
 }
 
 const rocketCollections = {
@@ -45,12 +23,7 @@ const rocketCollections = {
           let docs = [
             ...collection.getFilteredByGlob(`${_inputDirCwdRelative}/${section}/**/*.md`),
           ];
-          docs.forEach(page => {
-            page.data.section = section;
-          });
           docs = docs.filter(page => page.inputPath !== `./${indexSection}`);
-
-          // docs = addPrevNextUrls(docs);
 
           return docs;
         });
@@ -70,8 +43,6 @@ const rocketCollections = {
             (b.data && b.data.eleventyNavigation && b.data.eleventyNavigation.order) || 0;
           return aOrder - bOrder;
         });
-
-        setTitleForAll(collection);
 
         return headers;
       });
