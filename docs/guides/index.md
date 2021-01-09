@@ -1,6 +1,5 @@
 ---
 title: Learning Rocket
-description: 'foo'
 eleventyNavigation:
   key: Guides
   order: 10

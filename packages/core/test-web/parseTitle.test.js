@@ -10,6 +10,7 @@ describe('parseTitle', () => {
         key: 'heading',
         order: 0,
       },
+      parts: ['heading'],
     });
   });
 
@@ -21,6 +22,7 @@ describe('parseTitle', () => {
         key: 'Foo >>',
         order: 0,
       },
+      parts: ['Foo'],
     });
   });
 
@@ -33,6 +35,7 @@ describe('parseTitle', () => {
         parent: 'Foo',
         order: 0,
       },
+      parts: ['Bar', 'Foo'],
     });
   });
 
@@ -45,6 +48,7 @@ describe('parseTitle', () => {
         parent: 'Foo >> Bar',
         order: 0,
       },
+      parts: ['Baz', 'Bar', 'Foo'],
     });
   });
 
@@ -56,6 +60,7 @@ describe('parseTitle', () => {
         key: 'heading',
         order: 4,
       },
+      parts: ['heading'],
     });
 
     expect(parseTitle('Foo >> Bar >> Baz ||4')).to.deep.equal({
@@ -66,6 +71,7 @@ describe('parseTitle', () => {
         order: 4,
         parent: 'Foo >> Bar',
       },
+      parts: ['Baz', 'Bar', 'Foo'],
     });
   });
 

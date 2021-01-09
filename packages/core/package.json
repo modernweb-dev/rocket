@@ -26,7 +26,8 @@
   "scripts": {
     "build:package": "rimraf dist && esbuild --platform=node --format=cjs --bundle --outfile=dist/title.cjs ./src/title/index.js",
     "build:types": "tsc -p tsconfig.build.types.json",
-    "test": "cd ../../ && yarn test:browser \"packages/navigation2/test/**/*.test.js\"",
+    "debug": "cd ../../ && yarn debug --group core",
+    "test": "cd ../../ && yarn test:web --group core",
     "test:watch": "yarn test --watch"
   },
   "files": [

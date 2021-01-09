@@ -26,11 +26,7 @@
 <meta property="og:title" content="{{ _pageTitle }}"/>
 <meta property="og:type" content="website"/>
 
-{% set _socialMediaImage = '/_assets/social-media-image.jpg' | asset %}
-{% if socialMediaImage %}
-  {% set _socialMediaImage = socialMediaImage %}
-{% endif %}
-<meta property="og:image" content="{{ _socialMediaImage | url }}"/>
+<meta property="og:image" content="{{ socialMediaImage }}"/>
 <meta property="og:url" content="{{ page.url }}"/>
 
 <meta name="twitter:card" content="summary_large_image"/>

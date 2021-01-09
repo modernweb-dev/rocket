@@ -14,6 +14,10 @@ import { readConfig } from '@web/config-loader';
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
 
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 /**
  * @param {Partial<RocketCliOptions>} inConfig
  * @returns {Promise<RocketCliOptions>}
@@ -75,7 +79,8 @@ export async function normalizeConfig(inConfig) {
   const _configDirCwdRelative = path.relative(process.cwd(), path.resolve(__configDir));
   const _inputDirCwdRelative = path.join(_configDirCwdRelative, config.inputDir);
 
-  config._presetPathes = [];
+  // cli core preset is always first
+  config._presetPathes = [path.join(__dirname, '..', 'preset')];
   for (const preset of config.presets) {
     config._presetPathes.push(preset.path);
 

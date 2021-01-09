@@ -38,6 +38,7 @@
     "*.mjs",
     "dist",
     "dist-types",
+    "preset",
     "src"
   ],
   "keywords": [
@@ -50,6 +51,7 @@
   ],
   "dependencies": {
     "@11ty/eleventy": "^0.11.1",
+    "@11ty/eleventy-img": "^0.7.3",
     "@rocket/building-rollup": "^0.1.1",
     "@rocket/core": "^0.1.0",
     "@rocket/eleventy-plugin-mdjs-unified": "^0.1.0",

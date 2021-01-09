@@ -25,6 +25,7 @@ export function parseTitle(inTitle) {
   let order = 0;
   let navigationTitle = title;
   let parent;
+  let titleParts = [title];
   if (title.includes('>>')) {
     const parts = title
       .split('>>')
@@ -41,6 +42,7 @@ export function parseTitle(inTitle) {
         title = `${parts[parts.length - 2]}: ${parts[parts.length - 1]}`;
       }
     }
+    titleParts = [...parts].reverse();
   }
 
   if (title.includes('||')) {
@@ -51,12 +53,15 @@ export function parseTitle(inTitle) {
     if (parts.length !== 2) {
       throw new Error('You can use || only once in `parseTitle`');
     }
+    // remove || in titleParts
+    titleParts = titleParts.map(part => part.split('||')[0]).map(part => part.trim());
 
     navigationTitle = navigationTitle.split('||').map(part => part.trim())[0];
     key = key.split('||').map(part => part.trim())[0];
     title = parts[0];
     order = parseInt(parts[1]);
   }
+  data.parts = titleParts;
   data.title = title;
   data.eleventyNavigation = {
     key,
