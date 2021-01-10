@@ -1,5 +1,11 @@
 # @rocket/launch
 
+## 0.1.2
+
+### Patch Changes
+
+- 496a1b0: Improves accessibility of the 404 page
+
 ## 0.1.1
 
 ### Patch Changes
