@@ -94,13 +94,10 @@ function findNavigationEntries(nodes = [], key = '') {
         entry.title = entry.key;
       }
       if (entry.key) {
-        if (!headingsCache.has(entry.templateContent.html)) {
-          headingsCache.set(
-            entry.templateContent.html,
-            getHeadingsOfHtml(entry.templateContent.html),
-          );
+        if (!headingsCache.has(entry.templateContent)) {
+          headingsCache.set(entry.templateContent, getHeadingsOfHtml(entry.templateContent));
         }
-        const headings = /** @type {Heading[]} */ (headingsCache.get(entry.templateContent.html));
+        const headings = /** @type {Heading[]} */ (headingsCache.get(entry.templateContent));
         const anchors = headings.map(heading => ({
           key: heading.text + Math.random(),
           parent: entry.key,
@@ -125,13 +122,10 @@ function findNavigationEntries(nodes = [], key = '') {
 function rocketPageAnchors(nodes, { title }) {
   for (const entry of nodes) {
     if (entry.data && entry.data.title === title) {
-      if (!headingsCache.has(entry.templateContent.html)) {
-        headingsCache.set(
-          entry.templateContent.html,
-          getHeadingsOfHtml(entry.templateContent.html),
-        );
+      if (!headingsCache.has(entry.templateContent)) {
+        headingsCache.set(entry.templateContent, getHeadingsOfHtml(entry.templateContent));
       }
-      const headings = /** @type {Heading[]} */ (headingsCache.get(entry.templateContent.html));
+      const headings = /** @type {Heading[]} */ (headingsCache.get(entry.templateContent));
       const anchors = headings.map(heading => ({
         key: heading.text + Math.random(),
         parent: entry.key,

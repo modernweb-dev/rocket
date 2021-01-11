@@ -18,38 +18,6 @@ module.exports = function (eleventyConfig) {
 };
 ```
 
-As mdjs does return html AND javascript at the same time we need to have a template that can understand it. For that we create a layout file.
-
-👉 `_includes/layout.njk`
-
-{% raw %}
-
-```js
-<main>
-  {{ content.html | safe }}
-</main>
-
-<script type="module">
-  {{ content.jsCode | safe }}
-</script>
-```
-
-{% endraw %}
-
-And in our content we then need to make sure to use that template.
-
-👉 `index.md`
-
-```
----
-layout: layout.njk
----
-
-# Hello World
-```
-
-You can see a minimal setup in the [examples repo](https://github.com/daKmoR/rocket-example-projects/tree/master/eleventy-and-mdjs).
-
 ## Configure a unified or remark plugin with mdjs
 
 By providing a `setupUnifiedPlugins` function as an option to `eleventy-plugin-mdjs` you can set options for all unified/remark plugins.

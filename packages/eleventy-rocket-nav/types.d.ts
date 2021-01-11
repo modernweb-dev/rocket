@@ -4,9 +4,7 @@ export interface NavigationNode {
   key: string;
   url: string;
   pluginType?: string;
-  templateContent: {
-    html: string;
-  };
+  templateContent: string;
   data?: {
     title: string;
     page: {

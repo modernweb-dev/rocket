@@ -57,6 +57,11 @@ describe('RocketCli e2e', () => {
     return text;
   }
 
+  function readStartOutput(fileName, options = {}) {
+    options.type = 'start';
+    return readOutput(fileName, options);
+  }
+
   async function execute() {
     await cli.setup();
     cli.config.outputDevDir = path.join(__dirname, 'e2e-fixtures', '__output-dev');
@@ -65,6 +70,17 @@ describe('RocketCli e2e', () => {
     cli.config.watch = false;
     cli.config.outputDir = path.join(__dirname, 'e2e-fixtures', '__output');
     await cli.run();
+  }
+
+  async function executeStart(pathToConfig) {
+    cli = new RocketCli({
+      argv: [
+        'start',
+        '--config-file',
+        path.join(__dirname, pathToConfig.split('/').join(path.sep)),
+      ],
+    });
+    await execute();
   }
 
   afterEach(async () => {
@@ -249,7 +265,7 @@ describe('RocketCli e2e', () => {
       stripServiceWorker: true,
     });
     expect(assetHtml).to.equal(
-      '<html><head><link rel="stylesheet" href="../41297ffa.css">\n\n\n\n</head><body>\n\n</body></html>',
+      '<html><head><link rel="stylesheet" href="../41297ffa.css">\n\n</head><body>\n\n</body></html>',
     );
   });
 
@@ -318,5 +334,76 @@ describe('RocketCli e2e', () => {
       type: 'start',
     });
     expect(guidesHtml).to.equal('/_merged_assets/11ty-img/58b7e437-1200.png');
+  });
+
+  it('will add "../" for links and image urls only within named template files', async () => {
+    await executeStart('e2e-fixtures/image-link/rocket.config.js');
+
+    const namedMdContent = [
+      '<p><a href="../">Root</a>',
+      '<a href="../guides/#with-anchor">Guides</a>',
+      '<a href="../one-level/raw/">Raw</a>',
+      '<a href="../../up-one-level/template/">Template</a>',
+      '<img src="../images-one-level/my-img.svg" alt="my-img">',
+      '<img src="/absolute-img.svg" alt="absolute-img"></p>',
+    ];
+
+    const namedHtmlContent = [
+      '<div>',
+      '  <a href="../">Root</a>',
+      '  <a href="../guides/#with-anchor">Guides</a>',
+      '  <a href="../one-level/raw/">Raw</a>',
+      '  <a href="../../up-one-level/template/">Template</a>',
+      '  <img src="../images-one-level/my-img.svg" alt="my-img">',
+      '  <img src="/absolute-img.svg" alt="absolute-img">',
+      '  <picture>',
+      '    <source media="(min-width:465px)" srcset="../picture-min-465.jpg">',
+      '    <img src="../../images-up-one-level/picture-fallback.jpg" alt="Fallback" style="width:auto;">',
+      '  </picture>',
+      '</div>',
+    ];
+
+    const rawHtml = await readStartOutput('raw/index.html');
+    expect(rawHtml, 'raw/index.html does not match').to.equal(namedHtmlContent.join('\n'));
+
+    const templateHtml = await readStartOutput('template/index.html');
+    expect(templateHtml, 'template/index.html does not match').to.equal(
+      namedHtmlContent.join('\n'),
+    );
+
+    const guidesHtml = await readStartOutput('guides/index.html');
+    expect(guidesHtml, 'guides/index.html does not match').to.equal(
+      [...namedMdContent, ...namedHtmlContent].join('\n'),
+    );
+
+    const noAdjustHtml = await readStartOutput('no-adjust/index.html');
+    expect(noAdjustHtml, 'no-adjust/index.html does not match').to.equal(
+      '<p>Nothing to adjust in here</p>',
+    );
+
+    // for index files no '../' will be added
+    const indexHtml = await readStartOutput('index.html');
+    expect(indexHtml, 'index.html does not match').to.equal(
+      [
+        '<p><a href="./">Root</a>',
+        '<a href="guides/#with-anchor">Guides</a>',
+        '<a href="./one-level/raw/">Raw</a>',
+        '<a href="../up-one-level/template/">Template</a>',
+        '<img src="./images-one-level/my-img.svg" alt="my-img">',
+        '<img src="/absolute-img.svg" alt="absolute-img"></p>',
+        '<div>',
+        '  <a href="./">Root</a>',
+        '  <a href="guides/#with-anchor">Guides</a>',
+        '  <a href="./one-level/raw/">Raw</a>',
+        '  <a href="../up-one-level/template/">Template</a>',
+        '  <img src="./images-one-level/my-img.svg" alt="my-img">',
+        '  <img src="/absolute-img.svg" alt="absolute-img">',
+        '  <picture>',
+        '    <source media="(min-width:465px)" srcset="./picture-min-465.jpg">',
+        '    <img src="../images-up-one-level/picture-fallback.jpg" alt="Fallback" style="width:auto;">',
+        '  </picture>',
+        '</div>',
+      ].join('\n'),
+    );
   });
 });
