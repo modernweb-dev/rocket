@@ -49,7 +49,7 @@
     {% endif %}
     {% include 'partials/addTitleHeadline.njk' %}
 
-    {{ content.html | safe }}
+    {{ content | safe }}
 
     {% include 'partials/previousNext.njk' %}
     {% include 'partials/blog-content-footer.njk' %}

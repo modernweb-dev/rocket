@@ -20,7 +20,7 @@
   <main class="markdown-body">
     {% include 'partials/addTitleHeadline.njk' %}
 
-    {{ content.html | safe }}
+    {{ content | safe }}
 
     <h3>Find out more on the following pages:</h3>
     {{ collections[section] | rocketNav(eleventyNavigation.key) | rocketNavToHtml({

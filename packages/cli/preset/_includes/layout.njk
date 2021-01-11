@@ -1,7 +1,1 @@
-{{ content.html | safe }}
-
-{% if content.jsCode %}
-  <script type="module">
-    {{ content.jsCode | safe }}
-  </script>
-{% endif %}
+{{ content | safe }}

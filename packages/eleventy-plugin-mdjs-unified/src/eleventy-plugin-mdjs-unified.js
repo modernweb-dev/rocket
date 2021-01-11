@@ -12,61 +12,6 @@ const { parseTitle } = require('@rocket/core/title');
 /** @typedef {import('../types/code').NodeElement} NodeElement */
 /** @typedef {import('unist').Node} Node */
 
-/**
- * @param {string} link
- */
-function isInternalLink(link) {
-  if (link.startsWith('http') || link.startsWith('/')) {
-    return false;
-  }
-  return true;
-}
-
-/**
- * @param {*} pluginOptions
- */
-function adjustLinks(pluginOptions) {
-  /**
-   * @param {NodeElement} node
-   */
-  const elementVisitor = node => {
-    if (node.tagName === 'a') {
-      const fullHref = node.properties && node.properties.href ? node.properties.href : undefined;
-      if (fullHref) {
-        const [href, anchor] = fullHref.split('#');
-        const suffix = anchor ? `#${anchor}` : '';
-        const { inputPath } = pluginOptions.page;
-
-        if (isInternalLink(href) && href.endsWith('.md')) {
-          if (href.endsWith('index.md')) {
-            node.properties.href = `${href.substring(0, href.lastIndexOf('/') + 1)}${suffix}`;
-          } else {
-            node.properties.href = `${href.substring(0, href.length - 3)}/${suffix}`;
-          }
-
-          if (inputPath.endsWith('.md')) {
-            if (inputPath.endsWith('index.md')) {
-              // nothing
-            } else {
-              node.properties.href = `../${node.properties.href}`;
-            }
-          }
-        }
-      }
-    }
-  };
-
-  /**
-   * @param {Node} tree
-   */
-  function transformer(tree) {
-    visit(tree, 'element', elementVisitor);
-    return tree;
-  }
-
-  return transformer;
-}
-
 function cleanupTitleHeadline() {
   /**
    * @param {NodeChildren} node
@@ -103,21 +48,6 @@ function addCleanupTitleHeadline(plugins) {
     plugins.splice(markdownPluginIndex + 1, 0, {
       name: 'cleanupTitleHeadline',
       plugin: cleanupTitleHeadline,
-    });
-  }
-  return plugins;
-}
-
-/**
- * @param {MdjsProcessPlugin[]} plugins
- */
-function addAdjustLinksForEleventy(plugins) {
-  if (plugins.findIndex(plugin => plugin.name === 'adjustLinks') === -1) {
-    // add plugins right after remark2rehype
-    const remark2rehypePluginIndex = plugins.findIndex(plugin => plugin.name === 'remark2rehype');
-    plugins.splice(remark2rehypePluginIndex + 1, 0, {
-      name: 'adjustLinks',
-      plugin: adjustLinks,
     });
   }
   return plugins;
@@ -196,7 +126,6 @@ function eleventyUnified(pluginOptions) {
     const result = await mdjsProcess(mdjs, {
       setupUnifiedPlugins: [
         addCleanupTitleHeadline,
-        addAdjustLinksForEleventy,
         ...userSetupUnifiedPlugins,
         addEleventyPageToEveryPlugin,
       ],
@@ -204,7 +133,15 @@ function eleventyUnified(pluginOptions) {
 
     result.jsCode = await processImports(result.jsCode, eleventySettings.page.inputPath);
 
-    return result;
+    let code = result.html;
+    if (result.jsCode) {
+      code += `
+        <script type="module">
+          ${result.jsCode}
+        </script>
+      `;
+    }
+    return code;
   }
   return {
     set: () => {

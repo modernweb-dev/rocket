@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const { processLocalReferences } = require('./processLocalReferences.cjs');
 
 function inlineFilePath(filePath) {
   let data = fs.readFileSync(filePath, function (err, contents) {
@@ -22,6 +23,8 @@ const rocketFilters = {
     });
 
     eleventyConfig.addFilter('inlineFilePath', inlineFilePath);
+
+    eleventyConfig.addTransform('processLocalReferences', processLocalReferences);
   },
 };
 
