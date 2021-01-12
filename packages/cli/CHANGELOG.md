@@ -1,5 +1,24 @@
 # @rocket/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- ef3b846: Add a default "core" preset to the cli package which provides fundaments like eleventConfig data, eleventyComputed data, logo, site name, simple layout, ...
+- 4858271: Process local relative links and images via html (11ty transform) to support all 11ty template systems
+- 4858271: Adjust templates for change in `@rocket/eleventy-plugin-mdjs-unified` as it now returns html directly instead of an object with html, js, stories
+
+### Patch Changes
+
+- ef3b846: Move setting of title, eleventyNavigation and section page meta data to eleventyComputed
+- ef3b846: Auto create social media images for every page
+- Updated dependencies [ef3b846]
+- Updated dependencies [4858271]
+- Updated dependencies [4858271]
+  - @rocket/core@0.1.1
+  - @rocket/eleventy-plugin-mdjs-unified@0.2.0
+  - @rocket/eleventy-rocket-nav@0.2.0
+
 ## 0.1.4
 
 ### Patch Changes
