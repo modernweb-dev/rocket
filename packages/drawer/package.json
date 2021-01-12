@@ -33,7 +33,7 @@
     "testing"
   ],
   "dependencies": {
-    "@lion/overlays": "^0.22.8",
+    "@lion/overlays": "^0.23.2",
     "lit-element": "^2.4.0"
   },
   "types": "dist-types/index.d.ts"
