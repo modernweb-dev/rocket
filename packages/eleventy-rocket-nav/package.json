@@ -27,7 +27,7 @@
     "eleventy-plugin"
   ],
   "dependencies": {
-    "dependency-graph": "^0.9.0",
+    "dependency-graph": "^0.10.0",
     "sax-wasm": "^2.0.0"
   },
   "types": "dist-types/index.d.ts"
