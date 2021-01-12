@@ -1,5 +1,16 @@
 # @rocket/launch
 
+## 0.2.0
+
+### Minor Changes
+
+- ef3b846: Add a default "core" preset to the cli package which provides fundaments like eleventConfig data, eleventyComputed data, logo, site name, simple layout, ...
+- 4858271: Adjust templates for change in `@rocket/eleventy-plugin-mdjs-unified` as it now returns html directly instead of an object with html, js, stories
+
+### Patch Changes
+
+- 25adb74: feat(launch): add icons for discord and telegram
+
 ## 0.1.2
 
 ### Patch Changes
