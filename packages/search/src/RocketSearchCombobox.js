@@ -2,11 +2,21 @@ import { css } from '@lion/core';
 import { LionCombobox } from '@lion/combobox';
 import { withDropdownConfig } from '@lion/overlays';
 
-const tmpl = document.createElement('template');
-tmpl.innerHTML = `
-  <button arrow-left>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
-      <path d="M34 20a.872.872 0 00-.428-.751L20.31 6.25a.875.875 0 00-1.226 1.25l11.861 11.625H6.875a.876.876 0 000 1.75H31.02L19.158 32.5a.877.877 0 00.613 1.5.87.87 0 00.612-.25l13.353-13.089a.876.876 0 00.264-.626l-.001-.017L34 20z" />
+const closeBtnTmpl = document.createElement('template');
+closeBtnTmpl.innerHTML = `
+  <button close-btn aria-label="Back">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+`;
+
+const searchBtnTmpl = document.createElement('template');
+searchBtnTmpl.innerHTML = `
+  <button search-btn aria-label="Search">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129">
+      <path d="M51.6 96.7c11 0 21-3.9 28.8-10.5l35 35c.8.8 1.8 1.2 2.9 1.2s2.1-.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-35-35c6.5-7.8 10.5-17.9 10.5-28.8 0-24.9-20.2-45.1-45.1-45.1-24.8 0-45.1 20.3-45.1 45.1 0 24.9 20.3 45.1 45.1 45.1zm0-82c20.4 0 36.9 16.6 36.9 36.9C88.5 72 72 88.5 51.6 88.5S14.7 71.9 14.7 51.6c0-20.3 16.6-36.9 36.9-36.9z"/>
     </svg>
   </button>
 `;
@@ -35,8 +45,8 @@ export class RocketSearchCombobox extends LionCombobox {
           fill: var(--rocket-search-fill-color, #000);
         }
 
-        ::slotted([slot='prefix'][arrow-left]) {
-          transform: rotate(180deg);
+        ::slotted([slot='prefix'][close-btn]) {
+          height: 25px;
           display: none;
         }
 
@@ -79,11 +89,11 @@ export class RocketSearchCombobox extends LionCombobox {
           background: var(--rocket-search-background-color, #fff);
         }
 
-        :host([show-input]) ::slotted([slot='prefix'][arrow-left]) {
+        :host([show-input]) ::slotted([slot='prefix'][close-btn]) {
           display: block;
         }
 
-        :host([show-input]) ::slotted([slot='prefix'][magnifying-glass]) {
+        :host([show-input]) ::slotted([slot='prefix'][search-btn]) {
           display: none;
         }
 
@@ -115,6 +125,7 @@ export class RocketSearchCombobox extends LionCombobox {
           :host {
             background: transparent;
           }
+
           .input-group__input {
             display: block;
           }
@@ -164,9 +175,9 @@ export class RocketSearchCombobox extends LionCombobox {
   }
 
   static get properties() {
-    return {
+    return /** @type {typeof LionCombobox['properties'] & { showInput: import("lit-element").PropertyDeclaration } } */ ({
       showInput: { type: Boolean, reflect: true, attribute: 'show-input' },
-    };
+    });
   }
 
   _connectSlotMixin() {
@@ -174,7 +185,9 @@ export class RocketSearchCombobox extends LionCombobox {
       Object.keys(this.slots).forEach(slotName => {
         if (!this.querySelector(`[slot=${slotName}]`)) {
           const slotFactory = this.slots[slotName];
+          /** @type {HTMLElement | undefined | HTMLElement[]} */
           let slotEls = slotFactory();
+          if (!slotEls) return;
           if (!Array.isArray(slotEls)) {
             slotEls = [slotEls];
           }
@@ -183,6 +196,7 @@ export class RocketSearchCombobox extends LionCombobox {
             if (slotEl instanceof Element) {
               slotEl.setAttribute('slot', slotName);
               this.appendChild(slotEl);
+              // @ts-expect-error: explicitly using private field on LionCombobox
               this.__privateSlots.add(slotName);
             }
           }
@@ -193,48 +207,33 @@ export class RocketSearchCombobox extends LionCombobox {
   }
 
   _defineOverlayConfig() {
+    /** @type {'bottom'} */
+    const placement = 'bottom';
     return {
       ...withDropdownConfig(),
       popperConfig: {
-        placement: 'bottom-center',
-        // modifiers: {
-        //   ...parentConfig?.popperConfig?.modifiers,
-        //   offset: {
-        //     offset: 100,
-        //     enabled: false,
-        //   },
-        //   keepTogether: {
-        //     enabled: true,
-        //   },
-        //   arrow: {
-        //     enabled: true,
-        //   }
-        // },
+        placement,
       },
     };
   }
 
+  /** @type {LionCombobox['slots']} */
+  // @ts-expect-error: explicitly overriding with accessor
   get slots() {
     return {
       ...super.slots,
+      // @ts-expect-error: error in LionCombobox types.
       prefix: () => {
-        const arrowLeft = document.importNode(tmpl.content, true).children[0];
-        arrowLeft.addEventListener('click', () => {
+        const [closeButton] = closeBtnTmpl.content.cloneNode(true).children;
+        closeButton.addEventListener('click', () => {
           if (window.innerWidth < 1024) {
             this.showInput = false;
           }
         });
 
-        tmpl.innerHTML = `
-          <button magnifying-glass>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129">
-              <path d="M51.6 96.7c11 0 21-3.9 28.8-10.5l35 35c.8.8 1.8 1.2 2.9 1.2s2.1-.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-35-35c6.5-7.8 10.5-17.9 10.5-28.8 0-24.9-20.2-45.1-45.1-45.1-24.8 0-45.1 20.3-45.1 45.1 0 24.9 20.3 45.1 45.1 45.1zm0-82c20.4 0 36.9 16.6 36.9 36.9C88.5 72 72 88.5 51.6 88.5S14.7 71.9 14.7 51.6c0-20.3 16.6-36.9 36.9-36.9z"/>
-            </svg>
-          </button>
-        `;
-        const magnifyingClass = document.importNode(tmpl.content, true).children[0];
+        const [searchButton] = searchBtnTmpl.content.cloneNode(true).children;
 
-        magnifyingClass.addEventListener('click', () => {
+        searchButton.addEventListener('click', () => {
           if (window.innerWidth < 1024) {
             this.showInput = true;
             this.updateComplete.then(() => {
@@ -245,7 +244,7 @@ export class RocketSearchCombobox extends LionCombobox {
           }
         });
 
-        return [arrowLeft, magnifyingClass];
+        return [closeButton, searchButton];
       },
     };
   }
@@ -256,10 +255,12 @@ export class RocketSearchCombobox extends LionCombobox {
 
   constructor() {
     super();
+    /** @type {'none'} */
     this.autocomplete = 'none';
     this.selectionFollowsFocus = false;
     this.rotateKeyboardNavigation = false;
     this.showInput = false;
   }
 }
+
 customElements.define('rocket-search-combobox', RocketSearchCombobox);
