@@ -6,6 +6,7 @@
 
 const unified = require('unified');
 const markdown = require('remark-parse');
+const gfm = require('remark-gfm');
 const remark2rehype = require('remark-rehype');
 const raw = require('rehype-raw');
 const htmlStringify = require('rehype-stringify');
@@ -21,6 +22,7 @@ const { mdjsStoryParse } = require('./mdjsStoryParse.js');
 /** @type {MdjsProcessPlugin[]} */
 const defaultMetaPlugins = [
   { name: 'markdown', plugin: markdown },
+  { name: 'gfm', plugin: gfm },
   { name: 'mdjsParse', plugin: mdjsParse },
   { name: 'mdjsStoryParse', plugin: mdjsStoryParse },
   // @ts-ignore

@@ -27,7 +27,7 @@
     "release": "changeset publish && yarn format",
     "rocket:build": "node packages/cli/src/cli.js build",
     "search": "node packages/cli/src/cli.js search",
-    "setup": "npm run setup:patches && npm run setup:ts-configs",
+    "setup": "npm run setup:ts-configs",
     "setup:patches": "npx patch-package",
     "setup:ts-configs": "node scripts/generate-ts-configs.mjs",
     "start": "node packages/cli/src/cli.js start",

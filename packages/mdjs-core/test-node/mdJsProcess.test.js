@@ -136,4 +136,18 @@ describe('mdjsProcess', () => {
     });
     expect(resultOfArray.html).to.equal(expectedForArray);
   });
+
+  it('handles tables', async () => {
+    const input = [
+      //
+      '| Page  | Type |',
+      '| ----- | ---- |',
+      '| About | Info |',
+    ].join('\n');
+
+    const expected =
+      '<table><thead><tr><th>Page</th><th>Type</th></tr></thead><tbody><tr><td>About</td><td>Info</td></tr></tbody></table>';
+    const result = await mdjsProcess(input);
+    expect(result.html.trim()).to.equal(expected);
+  });
 });
