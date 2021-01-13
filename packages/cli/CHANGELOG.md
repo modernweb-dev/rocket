@@ -1,5 +1,15 @@
 # @rocket/cli
 
+## 0.2.1
+
+### Patch Changes
+
+- 897892d: bump dependencies
+- 295cfbd: Better support for windows paths
+- Updated dependencies [897892d]
+  - @rocket/building-rollup@0.1.2
+  - @rocket/eleventy-rocket-nav@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

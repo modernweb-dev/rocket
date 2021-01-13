@@ -1,5 +1,11 @@
 # @rocket/drawer
 
+## 0.1.2
+
+### Patch Changes
+
+- 897892d: bump dependencies
+
 ## 0.1.1
 
 ### Patch Changes

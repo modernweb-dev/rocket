@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.6.2
+
+### Patch Changes
+
+- 897892d: bump dependencies
+- b68923b: Add gfm to support markdown tables
+
 ## 0.6.1
 
 ### Patch Changes

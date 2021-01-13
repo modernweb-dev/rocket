@@ -1,6 +1,6 @@
 {
   "name": "@rocket/cli",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "publishConfig": {
     "access": "public"
   },
@@ -52,10 +52,10 @@
   "dependencies": {
     "@11ty/eleventy": "^0.11.1",
     "@11ty/eleventy-img": "^0.7.4",
-    "@rocket/building-rollup": "^0.1.1",
+    "@rocket/building-rollup": "^0.1.2",
     "@rocket/core": "^0.1.1",
     "@rocket/eleventy-plugin-mdjs-unified": "^0.2.0",
-    "@rocket/eleventy-rocket-nav": "^0.2.0",
+    "@rocket/eleventy-rocket-nav": "^0.2.1",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@web/config-loader": "^0.1.3",
