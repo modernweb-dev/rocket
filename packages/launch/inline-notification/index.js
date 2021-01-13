@@ -31,26 +31,29 @@ export class InlineNotification extends LitElement {
       }
 
       :host([type='tip']) {
-        background-color: rgba(221, 221, 221, 0.3);
-        border-color: #42b983;
+        background-color: var(--inline-notification-tip-background-color, rgba(221, 221, 221, 0.3));
+        border-color: var(--inline-notification-tip-border-color, #42b983);
       }
 
       :host([type='warning']) {
-        background-color: rgba(255, 229, 100, 0.2);
-        border-color: #e7c000;
-      }
-
-      :host([type='warning']) h3 {
-        color: #b29400;
+        background-color: var(
+          --inline-notification-warning-background-color,
+          rgba(255, 229, 100, 0.2)
+        );
+        border-color: var(--inline-notification-warning-border-color, #e7c000);
       }
 
       :host([type='danger']) {
-        background-color: rgba(192, 0, 0, 0.1);
-        border-color: #c00;
+        background-color: var(--inline-notification-danger-background-color, rgba(192, 0, 0, 0.1));
+        border-color: var(--inline-notification-danger-border-color, #c00);
+      }
+
+      :host([type='warning']) h3 {
+        color: var(--inline-notification-warning-heading-color, #b29400);
       }
 
       :host([type='danger']) h3 {
-        color: #900;
+        color: var(--inline-notification-danger-heading-color, #900);
       }
 
       ::slotted(p) {
