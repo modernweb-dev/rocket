@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const { processContentWithTitle } = require('@rocket/core/title');
 const { createPageSocialImage } = require('./createPageSocialImage.cjs');
 
@@ -36,7 +35,7 @@ module.exports = {
     if (data.page.filePathStem) {
       // filePathStem: '/sub/subsub/index'
       // filePathStem: '/index',
-      const parts = data.page.filePathStem.split(path.sep);
+      const parts = data.page.filePathStem.split('/');
       if (parts.length > 2) {
         return parts[1];
       }

@@ -36,7 +36,7 @@ export async function normalizeConfig(inConfig) {
     watch: true,
     inputDir: 'docs',
     outputDir: '_site',
-    outputDevDir: path.resolve('_site-dev'),
+    outputDevDir: '_site-dev',
     build: {},
     devServer: {},
 
