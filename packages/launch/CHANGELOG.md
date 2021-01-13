@@ -1,5 +1,14 @@
 # @rocket/launch
 
+## 0.2.1
+
+### Patch Changes
+
+- 86c3a4b: adds themable CSS custom properties to <inline-notification>
+- 7dd6f4c: Make default logo work with auto generating social media images
+- Updated dependencies [897892d]
+  - @rocket/drawer@0.1.2
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @rocket/eleventy-rocket-nav
 
+## 0.2.1
+
+### Patch Changes
+
+- 897892d: bump dependencies
+
 ## 0.2.0
 
 ### Minor Changes
