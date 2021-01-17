@@ -1,0 +1,1 @@
+<a href="mailto:foo@bar.com"></a>
