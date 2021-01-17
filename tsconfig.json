@@ -20,6 +20,9 @@
       "path": "./packages/core/tsconfig.json"
     },
     {
+      "path": "./packages/check-html-links/tsconfig.json"
+    },
+    {
       "path": "./packages/eleventy-plugin-mdjs-unified/tsconfig.json"
     },
     {

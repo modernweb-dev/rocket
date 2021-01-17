@@ -21,6 +21,7 @@
     "lint": "run-p lint:*",
     "lint:eslint": "eslint --ext .ts,.js,.mjs,.cjs .",
     "lint:prettier": "node node_modules/prettier/bin-prettier.js \"**/*.{ts,js,mjs,cjs,md}\" --check --ignore-path .eslintignore",
+    "lint:rocket": "rocket lint",
     "lint:types": "npm run types",
     "lint:versions": "node scripts/lint-versions.js",
     "postinstall": "npm run setup",

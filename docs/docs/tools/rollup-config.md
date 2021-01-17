@@ -1,4 +1,4 @@
-# Tools >> Rollup Config
+# Tools >> Rollup Config ||20
 
 Rollup configuration to help you get started building modern web applications.
 You write modern javascript using the latest browser-features, rollup will optimize your code for production and ensure it runs on all supported browsers.
@@ -52,7 +52,7 @@ You write modern javascript using the latest browser-features, rollup will optim
 
 Our config sets you up with good defaults for most projects. Additionally you can add more plugins and adjust predefined plugins or even remove them if needed.
 
-We use the [plugins-manager](../plugins-manager/overview.md) for it.
+We use the [plugins-manager](./plugins-manager.md) for it.
 
 ### Customizing the babel config
 
@@ -83,7 +83,7 @@ SPA and MPA plugins:
 - [polyfills-loader](https://modern-web.dev/docs/building/rollup-plugin-polyfills-loader/)
 - [workbox](https://www.npmjs.com/package/rollup-plugin-workbox)
 
-You can customize options for these plugins by using [adjustPluginOptions](../plugins-manager/overview.md#adjusting-plugin-options).
+You can customize options for these plugins by using [adjustPluginOptions](./plugins-manager.md#adjusting-plugin-options).
 
 ```js
 import { createSpaConfig } from '@rocket/building-rollup';
