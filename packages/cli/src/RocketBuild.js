@@ -58,21 +58,28 @@ async function productionBuild(config) {
 }
 
 export class RocketBuild {
+  static pluginName = 'RocketBuild';
   commands = ['build'];
 
+  /**
+   * @param {RocketCliOptions} config
+   */
   setupCommand(config) {
     config.watch = false;
+    config.lintInputDir = config.outputDir;
     return config;
   }
 
-  async setup({ config }) {
+  async setup({ config, eleventy }) {
     this.config = {
       emptyOutputDir: true,
       ...config,
     };
+    this.eleventy = eleventy;
   }
 
-  async build() {
+  async buildCommand() {
+    await this.eleventy.write();
     if (this.config.emptyOutputDir) {
       await fs.emptyDir(this.config.outputDir);
     }

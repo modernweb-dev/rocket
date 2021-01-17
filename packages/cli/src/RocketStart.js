@@ -7,6 +7,7 @@ import { metaConfigToWebDevServerConfig } from 'plugins-manager';
 /** @typedef {import('@web/dev-server').DevServerConfig} DevServerConfig */
 
 export class RocketStart {
+  static pluginName = 'RocketStart';
   commands = ['start'];
 
   /**
@@ -22,7 +23,7 @@ export class RocketStart {
    * @param {RocketCliOptions} options.config
    * @param {any} options.argv
    */
-  async setup({ config, argv }) {
+  async setup({ config, argv, eleventy }) {
     this.__argv = argv;
     this.config = {
       ...config,
@@ -30,11 +31,18 @@ export class RocketStart {
         ...config.devServer,
       },
     };
+    this.eleventy = eleventy;
   }
 
-  async execute() {
+  async startCommand() {
     if (!this.config) {
       return;
+    }
+
+    if (this.config.watch) {
+      await this.eleventy.watch();
+    } else {
+      await this.eleventy.write();
     }
 
     /** @type {DevServerConfig} */

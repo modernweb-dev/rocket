@@ -2,6 +2,6 @@
 layout: layout.njk
 ---
 
-[home](../index.md)
+[home](./index.md)
 
 <a href="{{ '/' | url }}">absolute home</a>

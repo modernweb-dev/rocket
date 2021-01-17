@@ -28,23 +28,15 @@ export class RocketEleventy extends Eleventy {
   }
 
   async write() {
-    /** @type {function} */
-    let finishBuild;
-    this.__rocketCli.updateComplete = new Promise(resolve => {
-      finishBuild = resolve;
-    });
-
     await this.__rocketCli.mergePresets();
-
     await super.write();
     await this.__rocketCli.update();
-    // @ts-ignore
-    finishBuild();
   }
 }
 
 export class RocketCli {
-  updateComplete = new Promise(resolve => resolve(null));
+  /** @type {string[]} */
+  errors = [];
 
   constructor({ argv } = { argv: undefined }) {
     const mainDefinitions = [
@@ -72,7 +64,10 @@ export class RocketCli {
     if (!this.eleventy) {
       const { _inputDirCwdRelative, outputDevDir } = this.config;
 
-      await fs.emptyDir(outputDevDir);
+      // We need to merge before we setup 11ty as the write phase is too late for _data
+      // TODO: find a way so we don't need to double merge
+      await this.mergePresets();
+
       const elev = new RocketEleventy(_inputDirCwdRelative, outputDevDir, this);
       elev.isVerbose = false;
       // 11ty always wants a relative path to cwd - why?
@@ -80,10 +75,6 @@ export class RocketCli {
       const relCwdPathToConfig = path.join(rel, 'shared', '.eleventy.cjs');
       elev.setConfigPathOverride(relCwdPathToConfig);
       await elev.init();
-
-      if (this.config.watch) {
-        elev.watch();
-      }
 
       this.eleventy = elev;
     }
@@ -116,48 +107,43 @@ export class RocketCli {
   async run() {
     await this.setup();
 
-    if (this.config) {
-      for (const plugin of this.config.plugins) {
-        if (this.considerPlugin(plugin)) {
-          if (typeof plugin.setupCommand === 'function') {
-            this.config = plugin.setupCommand(this.config);
-          }
-
-          if (typeof plugin.setup === 'function') {
-            await plugin.setup({ config: this.config, argv: this.subArgv });
-          }
-        }
+    for (const plugin of this.config.plugins) {
+      if (this.considerPlugin(plugin) && typeof plugin.setupCommand === 'function') {
+        this.config = plugin.setupCommand(this.config);
       }
     }
 
-    await this.mergePresets();
+    await fs.emptyDir(this.config.outputDevDir);
     await this.setupEleventy();
 
-    if (this.config) {
-      await this.updateComplete;
-
-      for (const plugin of this.config.plugins) {
-        if (this.considerPlugin(plugin) && typeof plugin.execute === 'function') {
-          await plugin.execute();
-        }
+    for (const plugin of this.config.plugins) {
+      if (typeof plugin.setup === 'function') {
+        await plugin.setup({ config: this.config, argv: this.subArgv, eleventy: this.eleventy });
       }
+    }
 
-      if (this.config.watch === false && this.eleventy) {
-        await this.eleventy.write();
+    // execute the actual command
+    let executedAtLeastOneCommand = false;
+    const commandFn = `${this.config.command}Command`;
+    for (const plugin of this.config.plugins) {
+      if (this.considerPlugin(plugin) && typeof plugin[commandFn] === 'function') {
+        console.log(`Rocket executes ${commandFn} of ${plugin.constructor.pluginName}`);
+        executedAtLeastOneCommand = true;
+        await plugin[commandFn]();
       }
+    }
+    if (executedAtLeastOneCommand === false) {
+      throw new Error(`No Rocket Cli Plugin had a ${commandFn} function.`);
+    }
 
-      // Build Phase
-      if (this.config.command === 'build') {
-        for (const plugin of this.config.plugins) {
-          if (typeof plugin.build === 'function') {
-            await plugin.build();
-          }
-        }
+    for (const plugin of this.config.plugins) {
+      if (this.considerPlugin(plugin) && typeof plugin.postCommand === 'function') {
+        await plugin.postCommand();
       }
+    }
 
-      if (this.config.command === 'help') {
-        console.log('Help is here: use build or start');
-      }
+    if (this.config.command === 'help') {
+      console.log('Help is here: use build or start');
     }
   }
 
