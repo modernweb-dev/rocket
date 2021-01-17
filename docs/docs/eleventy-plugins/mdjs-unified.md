@@ -22,7 +22,7 @@ module.exports = function (eleventyConfig) {
 
 By providing a `setupUnifiedPlugins` function as an option to `eleventy-plugin-mdjs` you can set options for all unified/remark plugins.
 
-We do use [plugins-manager](../plugins-manager/overview.md).
+We do use [plugins-manager](../tools/plugins-manager.md).
 
 This example adds a CSS class to the `htmlHeading` plugin so heading links can be selected in CSS.
 

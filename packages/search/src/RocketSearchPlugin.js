@@ -12,8 +12,8 @@ export class RocketSearchPlugin {
   excludeLayouts = ['with-index.njk'];
   documents = [];
 
-  async setup({ config, argv }) {
-    const searcDefinitions = [
+  async setup({ config, argv, eleventy }) {
+    const searchDefinitions = [
       {
         name: 'mode',
         alias: 'm',
@@ -24,25 +24,13 @@ export class RocketSearchPlugin {
       { name: 'term', type: String, defaultOption: true, defaultValue: '' },
       { name: 'help', type: Boolean, description: 'See all options' },
     ];
-    const searchOptions = commandLineArgs(searcDefinitions, { argv });
+    const searchOptions = commandLineArgs(searchDefinitions, { argv });
 
     this.config = {
       ...config,
       search: searchOptions,
     };
-  }
-
-  async execute() {
-    if (this.config.command !== 'search') {
-      return;
-    }
-    const { mode } = this.config.search;
-    switch (mode) {
-      case 'search':
-        await this.search();
-        break;
-      /* no default */
-    }
+    this.eleventy = eleventy;
   }
 
   async inspectRenderedHtml({ html, url, layout, title, data, eleventy }) {
@@ -67,7 +55,8 @@ export class RocketSearchPlugin {
     }
   }
 
-  async search() {
+  async searchCommand() {
+    await this.eleventy.write();
     await this.setupIndex();
 
     process.stderr.write('\u001B[?25l'); // hide default cursor

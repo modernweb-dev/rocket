@@ -353,7 +353,7 @@ describe('RocketCli e2e', () => {
     expect(guidesHtml).to.equal('/_merged_assets/11ty-img/58b7e437-1200.png');
   });
 
-  it('will add "../" for links and image urls only within named template files', async () => {
+  it.only('will add "../" for links and image urls only within named template files', async () => {
     await executeStart('e2e-fixtures/image-link/rocket.config.js');
 
     const namedMdContent = [
@@ -376,9 +376,6 @@ describe('RocketCli e2e', () => {
       '</div>',
     ];
 
-    // const rawHtml = await readStartOutput('one-level/raw/index.html');
-    // expect(rawHtml, 'raw/index.html does not match').to.equal(namedHtmlContent.join('\n'));
-
     const templateHtml = await readStartOutput('template/index.html');
     expect(templateHtml, 'template/index.html does not match').to.equal(
       namedHtmlContent.join('\n'),
@@ -392,6 +389,22 @@ describe('RocketCli e2e', () => {
     const noAdjustHtml = await readStartOutput('no-adjust/index.html');
     expect(noAdjustHtml, 'no-adjust/index.html does not match').to.equal(
       '<p>Nothing to adjust in here</p>',
+    );
+
+    const rawHtml = await readStartOutput('one-level/raw/index.html');
+    expect(rawHtml, 'raw/index.html does not match').to.equal(
+      [
+        '<div>',
+        '  <a href="../../">Root</a>',
+        '  <a href="../../guides/#with-anchor">Guides</a>',
+        '  <img src="../../images/my-img.svg" alt="my-img">',
+        '  <img src="/images/my-img.svg" alt="absolute-img">',
+        '  <picture>',
+        '    <source media="(min-width:465px)" srcset="/images/picture-min-465.jpg">',
+        '    <img src="../../images/picture-fallback.jpg" alt="Fallback" style="width:auto;">',
+        '  </picture>',
+        '</div>',
+      ].join('\n'),
     );
 
     // for index files no '../' will be added
