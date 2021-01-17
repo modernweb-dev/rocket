@@ -1,5 +1,15 @@
 # @rocket/launch
 
+## 0.3.0
+
+### Minor Changes
+
+- cd22231: Adjustments to work with the restructured CLI Plugin System
+
+### Patch Changes
+
+- cd22231: Move `noscript.css` into `_assets/_static` as it does not get detected/moved automatically by `@web/rollup-plugin-html`.
+
 ## 0.2.1
 
 ### Patch Changes

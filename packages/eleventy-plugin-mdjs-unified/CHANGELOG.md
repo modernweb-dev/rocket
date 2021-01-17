@@ -1,5 +1,11 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.3.0
+
+### Minor Changes
+
+- cd22231: Adjustments to work with the restructured CLI Plugin System
+
 ## 0.2.0
 
 ### Minor Changes
