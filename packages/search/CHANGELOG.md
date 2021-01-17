@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.2.0
+
+### Minor Changes
+
+- cd22231: Adjustments to work with the restructured CLI Plugin System
+
 ## 0.1.2
 
 ### Patch Changes

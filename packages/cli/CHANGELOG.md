@@ -1,5 +1,19 @@
 # @rocket/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- cd22231: Restructure and simplify Rocket Cli Plugin System
+
+### Patch Changes
+
+- cd22231: Add a default Rocket Cli Plugin which checks all links on every save (during start) and after a production build
+- Updated dependencies [cd22231]
+- Updated dependencies [cd22231]
+  - @rocket/eleventy-plugin-mdjs-unified@0.3.0
+  - check-html-links@0.1.0
+
 ## 0.2.1
 
 ### Patch Changes
