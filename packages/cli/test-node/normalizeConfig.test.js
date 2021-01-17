@@ -39,7 +39,11 @@ describe('normalizeConfig', () => {
       setupEleventyPlugins: [],
       setupCliPlugins: [],
       presets: [],
-      plugins: [{ commands: ['start'] }, { commands: ['build'] }],
+      plugins: [
+        { commands: ['start'] },
+        { commands: ['build'] },
+        { commands: ['start', 'build', 'lint'] },
+      ],
       inputDir: 'docs',
       outputDir: '_site',
     });
@@ -68,7 +72,11 @@ describe('normalizeConfig', () => {
       setupEleventyPlugins: [],
       setupCliPlugins: [],
       presets: [],
-      plugins: [{ commands: ['start'] }, { commands: ['build'] }],
+      plugins: [
+        { commands: ['start'] },
+        { commands: ['build'] },
+        { commands: ['start', 'build', 'lint'] },
+      ],
       inputDir: 'docs',
       outputDir: '_site',
     });
@@ -94,7 +102,11 @@ describe('normalizeConfig', () => {
       setupEleventyPlugins: [],
       setupCliPlugins: [],
       presets: [],
-      plugins: [{ commands: ['start'] }, { commands: ['build'] }],
+      plugins: [
+        { commands: ['start'] },
+        { commands: ['build'] },
+        { commands: ['start', 'build', 'lint'] },
+      ],
       inputDir: 'docs',
       outputDir: '_site',
     });
@@ -123,7 +135,11 @@ describe('normalizeConfig', () => {
       setupEleventyPlugins: [],
       setupCliPlugins: [],
       presets: [],
-      plugins: [{ commands: ['start'] }, { commands: ['build'] }],
+      plugins: [
+        { commands: ['start'] },
+        { commands: ['build'] },
+        { commands: ['start', 'build', 'lint'] },
+      ],
       inputDir: 'docs',
       outputDir: '_site',
     });

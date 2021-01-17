@@ -62,6 +62,7 @@
     "@web/dev-server": "^0.1.4",
     "@web/dev-server-rollup": "^0.3.2",
     "@web/rollup-plugin-copy": "^0.2.0",
+    "check-html-links": "^0.0.0",
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "fs-extra": "^9.0.1",

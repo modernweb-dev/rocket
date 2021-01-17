@@ -13,6 +13,7 @@ import { readConfig } from '@web/config-loader';
 
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
+import { RocketLint } from './RocketLint.js';
 
 import { fileURLToPath } from 'url';
 
@@ -114,8 +115,9 @@ export async function normalizeConfig(inConfig) {
 
   /** @type {MetaPlugin[]} */
   let pluginsMeta = [
-    { name: 'rocket-start', plugin: RocketStart },
-    { name: 'rocket-build', plugin: RocketBuild },
+    { name: 'RocketStart', plugin: RocketStart },
+    { name: 'RocketBuild', plugin: RocketBuild },
+    { name: 'RocketLint', plugin: RocketLint },
   ];
 
   if (Array.isArray(config.setupCliPlugins)) {
