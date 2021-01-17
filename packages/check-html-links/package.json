@@ -1,0 +1,43 @@
+{
+  "name": "check-html-links",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A fast low dependency checker of html links/references",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/check-html-links"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/tools/check-html-links/",
+  "bin": {
+    "check-html-links": "src/cli.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+  },
+  "files": [
+    "*.js",
+    "dist",
+    "dist-types",
+    "src"
+  ],
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "glob": "^7.0.0",
+    "sax-wasm": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.0.0"
+  },
+  "types": "dist-types/index.d.ts"
+}
