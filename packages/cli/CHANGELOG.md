@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.3.1
+
+### Patch Changes
+
+- a498a5d: Make sure links to `*index.md` files are not treated as folder index files like `index.md`
+
 ## 0.3.0
 
 ### Minor Changes
