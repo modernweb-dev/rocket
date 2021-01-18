@@ -2,6 +2,7 @@
 [Guides](./guides.md#with-anchor)
 [Raw](./one-level/raw.html)
 [Template](./template.njk)
+[EndingIndex](./rules/tabindex.md)
 ![my-img](./images/my-img.svg)
 ![absolute-img](/images/my-img.svg)
 
@@ -10,6 +11,7 @@
   <a href="./guides.md#with-anchor">Guides</a>
   <a href="./one-level/raw.html">Raw</a>
   <a href="./template.njk">Template</a>
+  <a href="./rules/tabindex.md">EndingIndex</a>
   <img src="./images/my-img.svg" alt="my-img">
   <img src="/images/my-img.svg" alt="absolute-img">
   <picture>

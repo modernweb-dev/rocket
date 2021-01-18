@@ -39,22 +39,25 @@ const templateEndings = [
   '.pug',
 ];
 
-function endsWithAny(string, suffixes) {
-  for (let suffix of suffixes) {
-    if (string.endsWith(suffix)) {
+function isTemplateFile(href) {
+  for (const templateEnding of templateEndings) {
+    if (href.endsWith(templateEnding)) {
       return true;
     }
   }
   return false;
 }
 
-function isTemplateFile(href) {
-  return endsWithAny(href, templateEndings);
-}
-
 function isIndexTemplateFile(href) {
+  const hrefParsed = path.parse(href);
   const indexTemplateEndings = templateEndings.map(ending => `index${ending}`);
-  return endsWithAny(href, indexTemplateEndings);
+
+  for (const indexTemplateEnding of indexTemplateEndings) {
+    if (hrefParsed.base === indexTemplateEnding) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -91,12 +94,46 @@ function extractReferences(html, inputPath) {
   return { hrefs, assets };
 }
 
+/**
+ * @param {string} inValue
+ */
+function getValueAndAnchor(inValue) {
+  let value = inValue.replace(/&#/g, '--__check-html-links__--');
+  let anchor = '';
+  let suffix = '';
+
+  if (value.includes('#')) {
+    [value, anchor] = value.split('#');
+    suffix = `#${anchor}`;
+  }
+  if (value.includes('?')) {
+    value = value.split('?')[0];
+  }
+  if (anchor.includes(':~:')) {
+    anchor = anchor.split(':~:')[0];
+  }
+  if (value.includes(':~:')) {
+    value = value.split(':~:')[0];
+  }
+
+  value = value.replace(/--__check-html-links__--/g, '&#');
+  anchor = anchor.replace(/--__check-html-links__--/g, '&#');
+  suffix = suffix.replace(/--__check-html-links__--/g, '&#');
+  value = value.trim();
+  anchor = anchor.trim();
+
+  return {
+    value,
+    anchor,
+    suffix,
+  };
+}
+
 function calculateNewHrefs(hrefs, inputPath) {
   const newHrefs = [];
   for (const hrefObj of hrefs) {
     const newHrefObj = { ...hrefObj };
-    const [href, anchor] = newHrefObj.value.split('#');
-    const suffix = anchor ? `#${anchor}` : '';
+    const { value: href, suffix } = getValueAndAnchor(hrefObj.value);
 
     if (isRelativeLink(href) && isTemplateFile(href)) {
       const hrefParsed = path.parse(href);
