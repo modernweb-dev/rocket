@@ -353,7 +353,7 @@ describe('RocketCli e2e', () => {
     expect(guidesHtml).to.equal('/_merged_assets/11ty-img/58b7e437-1200.png');
   });
 
-  it.only('will add "../" for links and image urls only within named template files', async () => {
+  it('will add "../" for links and image urls only within named template files', async () => {
     await executeStart('e2e-fixtures/image-link/rocket.config.js');
 
     const namedMdContent = [
@@ -415,6 +415,7 @@ describe('RocketCli e2e', () => {
         '<a href="guides/#with-anchor">Guides</a>',
         '<a href="./one-level/raw/">Raw</a>',
         '<a href="template/">Template</a>',
+        '<a href="./rules/tabindex/">EndingIndex</a>',
         '<img src="./images/my-img.svg" alt="my-img">',
         '<img src="/images/my-img.svg" alt="absolute-img"></p>',
         '<div>',
@@ -422,6 +423,7 @@ describe('RocketCli e2e', () => {
         '  <a href="guides/#with-anchor">Guides</a>',
         '  <a href="./one-level/raw/">Raw</a>',
         '  <a href="template/">Template</a>',
+        '  <a href="./rules/tabindex/">EndingIndex</a>',
         '  <img src="./images/my-img.svg" alt="my-img">',
         '  <img src="/images/my-img.svg" alt="absolute-img">',
         '  <picture>',
