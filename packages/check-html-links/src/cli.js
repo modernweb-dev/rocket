@@ -13,7 +13,17 @@ async function main() {
 
   console.log('👀 Checking if all internal links work...');
   const files = await listFiles('**/*.html', rootDir);
-  const errors = await validateFiles(files, rootDir);
+
+  const filesOutput =
+    files.length == 0
+      ? '🧐 No files to check. Did you select the correct folder?'
+      : `🔥 Found a total of ${chalk.green.bold(files.length)} files to check!`;
+  console.log(filesOutput);
+
+  const { errors, numberLinks } = await validateFiles(files, rootDir);
+
+  console.log(`🔗 Found a total of ${chalk.green.bold(numberLinks)} links to validate!\n`);
+
   const performance = process.hrtime(performanceStart);
   if (errors.length > 0) {
     let referenceCount = 0;

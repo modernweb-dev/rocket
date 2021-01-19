@@ -267,13 +267,15 @@ export async function validateFiles(files, rootDir) {
   errors = [];
   checkLocalFiles = [];
   idCache = new Map();
+  let numberLinks = 0;
   for (const htmlFilePath of files) {
     const { links } = await extractReferences(htmlFilePath);
+    numberLinks += links.length;
     await resolveLinks(links, { htmlFilePath, rootDir });
   }
   await validateLocalFiles(checkLocalFiles);
 
-  return errors;
+  return { errors: errors, numberLinks: numberLinks };
 }
 
 /**
@@ -282,6 +284,6 @@ export async function validateFiles(files, rootDir) {
 export async function validateFolder(inRootDir) {
   const rootDir = path.resolve(inRootDir);
   const files = await listFiles('**/*.html', rootDir);
-  const errors = await validateFiles(files, rootDir);
+  const { errors } = await validateFiles(files, rootDir);
   return errors;
 }

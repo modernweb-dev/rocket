@@ -16,7 +16,7 @@ npx check-html-links _site
 
 For docs please see our homepage [https://rocket.modern-web.dev/docs/tools/check-html-links/](https://rocket.modern-web.dev/docs/tools/check-html-links/).
 
-## Comparision
+## Comparison
 
 Checking the output of [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
 
