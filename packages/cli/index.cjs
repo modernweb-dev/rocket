@@ -1,10 +1,10 @@
 const { setComputedConfig, getComputedConfig } = require('./src/public/computedConfig.cjs');
-const rocketEleventyComputed = require('./src/public/rocketEleventyComputed.cjs');
-const { createPageSocialImage } = require('./src/public/createPageSocialImage.cjs');
+const { generateEleventyComputed } = require('./src/public/generateEleventyComputed.cjs');
+const { createSocialImage } = require('./src/public/createSocialImage.cjs');
 
 module.exports = {
   setComputedConfig,
   getComputedConfig,
-  rocketEleventyComputed,
-  createPageSocialImage,
+  generateEleventyComputed,
+  createSocialImage,
 };

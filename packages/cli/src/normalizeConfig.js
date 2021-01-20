@@ -31,6 +31,7 @@ export async function normalizeConfig(inConfig) {
     setupDevPlugins: [],
     setupBuildPlugins: [],
     setupEleventyPlugins: [],
+    setupEleventyComputedConfig: [],
     setupCliPlugins: [],
     eleventy: () => {},
     command: 'help',
@@ -104,6 +105,12 @@ export async function normalizeConfig(inConfig) {
       config.setupEleventyPlugins = [
         ...config.setupEleventyPlugins,
         ...preset.setupEleventyPlugins,
+      ];
+    }
+    if (preset.setupEleventyComputedConfig) {
+      config.setupEleventyComputedConfig = [
+        ...config.setupEleventyComputedConfig,
+        ...preset.setupEleventyComputedConfig,
       ];
     }
     if (preset.setupCliPlugins) {

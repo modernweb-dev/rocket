@@ -8,6 +8,7 @@ const rocketCollections = require('../eleventy-plugins/rocketCollections.cjs');
 
 module.exports = function (eleventyConfig) {
   const config = getComputedConfig();
+
   const { pathPrefix, _inputDirCwdRelative, outputDevDir } = config;
 
   let metaPlugins = [
@@ -46,12 +47,16 @@ module.exports = function (eleventyConfig) {
     }
   }
 
-  for (const pluginObj of metaPlugins) {
-    if (pluginObj.options) {
-      eleventyConfig.addPlugin(pluginObj.plugin, pluginObj.options);
-    } else {
-      eleventyConfig.addPlugin(pluginObj.plugin);
+  try {
+    for (const pluginObj of metaPlugins) {
+      if (pluginObj.options) {
+        eleventyConfig.addPlugin(pluginObj.plugin, pluginObj.options);
+      } else {
+        eleventyConfig.addPlugin(pluginObj.plugin);
+      }
     }
+  } catch (err) {
+    console.log('An eleventy plugin had an error', err);
   }
 
   if (config.eleventy) {

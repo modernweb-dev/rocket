@@ -10,6 +10,7 @@ export interface RocketPreset {
   setupDevPlugins: function[];
   setupCliPlugins: function[];
   setupEleventyPlugins: function[];
+  setupEleventyComputedConfig: function[];
 }
 
 export interface RocketCliOptions {
@@ -28,6 +29,7 @@ export interface RocketCliOptions {
   setupDevPlugins: function[];
   setupCliPlugins: function[];
   setupEleventyPlugins: function[];
+  setupEleventyComputedConfig: function[];
 
   // advanced
   devServer: DevServerConfig;
