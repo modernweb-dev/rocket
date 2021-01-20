@@ -35,6 +35,9 @@ export default {
   // add a plugin to eleventy (e.g. a filter packs)
   setupEleventyPlugins: [],
 
+  // add a computedConfig to eleventy (e.g. site wide default variables like socialMediaImage)
+  setupEleventyComputedConfig: [],
+
   // add a plugin to the cli (e.g. a new command like "rocket my-command")
   setupCliPlugins: [],
 };

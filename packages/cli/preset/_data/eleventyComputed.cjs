@@ -1,5 +1,5 @@
-const { rocketEleventyComputed } = require('@rocket/cli');
+const { generateEleventyComputed } = require('@rocket/cli');
 
 module.exports = {
-  ...rocketEleventyComputed,
+  ...generateEleventyComputed(),
 };

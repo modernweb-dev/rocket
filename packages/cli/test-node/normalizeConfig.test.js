@@ -37,6 +37,7 @@ describe('normalizeConfig', () => {
       setupDevAndBuildPlugins: [],
       setupDevPlugins: [],
       setupEleventyPlugins: [],
+      setupEleventyComputedConfig: [],
       setupCliPlugins: [],
       presets: [],
       plugins: [
@@ -71,6 +72,7 @@ describe('normalizeConfig', () => {
       setupDevPlugins: [],
       setupEleventyPlugins: [],
       setupCliPlugins: [],
+      setupEleventyComputedConfig: [],
       presets: [],
       plugins: [
         { commands: ['start'] },
@@ -101,6 +103,7 @@ describe('normalizeConfig', () => {
       setupDevPlugins: [],
       setupEleventyPlugins: [],
       setupCliPlugins: [],
+      setupEleventyComputedConfig: [],
       presets: [],
       plugins: [
         { commands: ['start'] },
@@ -134,6 +137,7 @@ describe('normalizeConfig', () => {
       setupDevPlugins: [],
       setupEleventyPlugins: [],
       setupCliPlugins: [],
+      setupEleventyComputedConfig: [],
       presets: [],
       plugins: [
         { commands: ['start'] },

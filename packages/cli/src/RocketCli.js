@@ -199,7 +199,7 @@ export class RocketCli {
     setComputedConfig({});
     if (this.eleventy) {
       this.eleventy.finish();
-      // this.eleventy.stopWatch();
+      // await this.eleventy.stopWatch();
     }
     this.stop();
   }
