@@ -1,5 +1,12 @@
 # @rocket/cli
 
+## 0.4.1
+
+### Patch Changes
+
+- c92769a: Processing links and asset urls to generate the final html output is now utf8 safe
+- 562e91f: Make sure logos do not have "<?xml" in their code
+
 ## 0.4.0
 
 ### Minor Changes
