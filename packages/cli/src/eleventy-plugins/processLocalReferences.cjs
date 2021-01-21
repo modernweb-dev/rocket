@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const utf8 = require('utf8');
 const { SaxEventType, SAXParser } = require('sax-wasm');
 
 const saxPath = require.resolve('sax-wasm/lib/sax-wasm.wasm');
@@ -204,15 +205,15 @@ function applyChanges(_changes, _content) {
   return content.replace(/XXXRocketProcessLocalReferencesXXX/g, '\n');
 }
 
-async function processLocalReferences(content) {
+async function processLocalReferences(_content) {
+  const content = utf8.encode(_content);
   const inputPath = this.inputPath;
   const { hrefs, assets } = extractReferences(content, inputPath);
   const newHrefs = calculateNewHrefs(hrefs, inputPath);
   const newAssets = calculateNewAssets(assets, inputPath);
 
   const newContent = applyChanges([...newHrefs, ...newAssets], content);
-
-  return newContent;
+  return utf8.decode(newContent);
 }
 
 module.exports = {
