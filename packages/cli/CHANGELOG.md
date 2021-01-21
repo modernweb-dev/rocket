@@ -1,5 +1,12 @@
 # @rocket/cli
 
+## 0.4.0
+
+### Minor Changes
+
+- 0eb507d: Adds the capability to configure the svg template for the social media images.
+- 0eb507d: Adds `setupEleventyComputedConfig` option to enable configuration of 11ty's `eleventyComputed`. The plugins-manager system is used for it.
+
 ## 0.3.1
 
 ### Patch Changes
