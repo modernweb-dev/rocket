@@ -9,7 +9,7 @@ It will look like this but with your logo
 
 There are multiple ways you can modify it.
 
-Note: If your logo has an `<xml>` tag it will throw an error as it will be inlined into this svg and nested xml tags are not allowed.
+Note: If your logo has an `<?xml>` tag it will throw an error as it will be inlined into this svg and nested xml tags are not allowed.
 
 ## Setting it via frontMatter
 
@@ -69,22 +69,24 @@ const config = {
         logo = '',
       }) => {
         let svgStr = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-            <defs></defs>
-            <rect width="100%" height="100%" fill="#ddd" />
-            <circle cx="1000" cy="230" r="530" fill="#efefef"></circle>
-            <rect width="100%" height="100%" style="fill:none; stroke-width:20; stroke:red;" />
-            <g transform="matrix(0.6, 0, 0, 0.6, 580, 100)">${logo}</g>
-            <text x="70" y="200" font-family="'Bitstream Vera Sans','Helvetica',sans-serif" font-weight="700" font-size="80">
-              ${title}
-            </text>
-            <text x="70" y="320" font-family="'Bitstream Vera Sans','Helvetica',sans-serif" font-weight="700" font-size="60">
-              ${subTitle}
-            </text>
-            <text x="70" y="420" font-family="'Bitstream Vera Sans','Helvetica',sans-serif" font-weight="700" font-size="60">
-              ${subTitle2}
-            </text>
-            <text x="70" y="560" fill="gray" font-size="40">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" style="fill: #ecedef;">
+            <defs/>
+            <rect width="100%" height="100%" fill="#38393e"/>
+            <g transform="matrix(0.45, 0, 0, 0.45, 300, 60)">${logo}</g>
+            <g style="
+              font-size: 70px;
+              text-anchor: middle;
+              font-family: 'Bitstream Vera Sans','Helvetica',sans-serif;
+              font-weight: 700;
+            ">
+              <text x="50%" y="470">
+                ${title}
+              </text>
+              <text x="50%" y="520" style="font-size: 30px;">
+                ${subTitle}
+              </text>
+            </g>
+            <text x="10" y="620" style="font-size: 30px; fill: gray;">
               ${footer}
             </text>
           </svg>

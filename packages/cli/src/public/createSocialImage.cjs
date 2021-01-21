@@ -22,8 +22,8 @@ async function createSocialImage(args) {
   const logoBuffer = await fs.promises.readFile(logoPath);
   const logo = logoBuffer.toString();
 
-  if (logo.includes('<xml')) {
-    throw new Error('You should not have an "<xml" tag in your logo.svg');
+  if (logo.includes('<?xml')) {
+    throw new Error('You should not have an "<?xml" tag in your logo.svg');
   }
 
   const svgStr = await createSocialImageSvg({ logo, ...args });
