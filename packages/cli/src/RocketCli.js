@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import commandLineArgs from 'command-line-args';
 import { normalizeConfig } from './normalizeConfig.js';
+import { orderedCopyFiles } from './orderedCopyFiles.js';
 
 /** @typedef {import('../types/main').RocketPlugin} RocketPlugin */
 
@@ -87,7 +88,11 @@ export class RocketCli {
       for (const sourceDir of this.config._presetPathes) {
         const from = path.join(sourceDir, folder);
         if (fs.existsSync(from)) {
-          await fs.copy(from, to);
+          if (folder === '_includes') {
+            await orderedCopyFiles({ from, to });
+          } else {
+            await fs.copy(from, to);
+          }
         }
       }
     }

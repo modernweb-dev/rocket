@@ -37,5 +37,6 @@ And it will correctly replaced with a Welcome and the page title.
   { name: 'eleventyNavigation', plugin: eleventyNavigationPlugin },
   { name: 'section', plugin: sectionPlugin },
   { name: 'socialMediaImage', plugin: socialMediaImagePlugin },
+  { name: 'templateBlocks', plugin: templateBlocksPlugin, options: rocketConfig },
 ];
 ```

@@ -1,0 +1,10 @@
+<h2 class="reason-header">{{ reasonHeader }}</h2>
+
+<section class="reasons">
+  {% for reason in reasons %}
+    <article>
+      <h3>{{ reason.header }}</h3>
+      {{ reason.text | safe }}
+    </article>
+  {% endfor %}
+</section>
