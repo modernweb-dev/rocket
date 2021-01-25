@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { processContentWithTitle } = require('@rocket/core/title');
 const { createSocialImage: defaultcreateSocialImage } = require('./createSocialImage.cjs');
 const { getComputedConfig } = require('./computedConfig.cjs');
@@ -85,6 +86,27 @@ function socialMediaImagePlugin(args = {}) {
   };
 }
 
+function dirToTree(sourcePath, extra = '') {
+  const dirPath = path.resolve(sourcePath, extra);
+	const tree = {};
+  fs.readdirSync(dirPath, { withFileTypes: true }).forEach(entry => {
+    const relativePath = path.join(extra, entry.name);
+    if (entry.isDirectory()) {
+      tree[entry.name] = dirToTree(sourcePath, relativePath);
+    } else {
+      tree[entry.name] = relativePath;
+    }
+  });
+  return tree;
+}
+
+function templateBlocksPlugin(rocketConfig) {
+  const { inputDir } = rocketConfig;
+  const partialsSource = path.resolve(inputDir, '_merged_includes');
+	const templateBlocks = dirToTree(partialsSource);
+  return async () => templateBlocks;
+}
+
 function generateEleventyComputed() {
   const rocketConfig = getComputedConfig();
 
@@ -94,6 +116,7 @@ function generateEleventyComputed() {
     { name: 'eleventyNavigation', plugin: eleventyNavigationPlugin },
     { name: 'section', plugin: sectionPlugin },
     { name: 'socialMediaImage', plugin: socialMediaImagePlugin },
+    { name: 'templateBlocks', plugin: templateBlocksPlugin, options: rocketConfig },
   ];
 
   const finalMetaPlugins = executeSetupFunctions(

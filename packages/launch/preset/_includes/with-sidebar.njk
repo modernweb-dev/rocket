@@ -5,28 +5,9 @@
 {% endblock bodyTag %}
 
 {% block sidebar %}
-  <rocket-drawer id="sidebar">
-    <nav slot="content" id="sidebar-nav">
-      {% include 'partials/logoLink.njk' %}
-      <rocket-navigation>
-        {{ collections[section] | rocketNav | rocketNavToHtml({
-        listItemClass: "menu-item",
-        activeListItemClass: "current",
-        activeKey: eleventyNavigation.key
-    }) | safe }}
-        {% include 'partials/mobile-sidebar-bottom.njk' %}
-      </rocket-navigation>
-    </nav>
-  </rocket-drawer>
+	{% include 'partials/sidebar.njk' %}
 {% endblock sidebar %}
 
-{% block main %}
-  <main class="markdown-body">
-    {% include 'partials/addTitleHeadline.njk' %}
-
-    {{ content | safe }}
-
-    {% include 'partials/previousNext.njk' %}
-    {% include 'partials/content-footer.njk' %}
-  </main>
-{% endblock main %}
+{% block content %}
+	{% include 'partials/contentWithSidebar.njk' %}
+{% endblock content %}
