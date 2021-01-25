@@ -1,33 +1,5 @@
 <footer id="main-footer">
-  {% if rocketLaunch.newsletter %}
-    <div id="newsletter">
-      <div class="content-area">
-        <h4>Modern Web Newsletter</h4>
-        <p>
-          Get the latest Modern Web news to your inbox, curated by the core team and contributors.
-        </p>
-        <form>
-          <input type="text"/>
-          <button type="submit">subscribe</button>
-        </form>
-      </div>
-    </div>
-  {% endif %}
-
-  <div id="footer-menu">
-    <div class="content-area">
-      {% for category in footer %}
-        <nav>
-          <h3>{{category.name}}</h3>
-          <ul>
-            {% for entry in category.children %}
-              <li>
-                <a href="{{entry.href | url}}">{{entry.text}}</a>
-              </li>
-            {% endfor %}
-          </ul>
-        </nav>
-      {% endfor %}
-    </div>
-  </div>
+  {% for blockName, blockPath in templateBlocks.partials.footer %}
+    {% include blockPath %}
+  {% endfor %}
 </footer>

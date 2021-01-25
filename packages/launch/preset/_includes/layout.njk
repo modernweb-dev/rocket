@@ -19,18 +19,22 @@
 
     <div id="content-wrapper">
       <div class="content-area">
-        {% block sidebar %}{% endblock sidebar %}
-
-        {% block main %}
-          {{ content | safe }}
-        {% endblock main %}
+        {% block sidebar %}
+          {% include 'partials/sidebar.njk' %}
+        {% endblock sidebar %}
+        {% block content %}
+          {% include 'partials/content.njk' %}
+        {% endblock content %}
       </div>
     </div>
 
     {% block footer %}
       {% include 'partials/footer.njk' %}
-      {% include 'partials/pageJs.njk' %}
-      {% include 'partials/mobileNavigationJs.njk' %}
     {% endblock footer %}
+
+  {% block bodyTagEnd %}
   </body>
+  {% endblock bodyTagEnd %}
+{% block htmlTagEnd %}
 </html>
+{% endblock htmlTagEnd %}
