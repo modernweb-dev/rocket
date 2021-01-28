@@ -1,4 +1,4 @@
-# Presets >> Search ||20
+# Presets >> Search ||30
 
 Add a search for all your static content.
 

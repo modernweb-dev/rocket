@@ -1,4 +1,4 @@
-# Presets >> Blog ||30
+# Presets >> Blog ||40
 
 Enable writing blog posts within your Rocket site.
 
