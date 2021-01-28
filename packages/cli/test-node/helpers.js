@@ -89,3 +89,11 @@ export async function executeLint(pathToConfig) {
   await execute(cli, path.dirname(configFile));
   return cli;
 }
+
+export function trimWhiteSpace(inString) {
+  return inString
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line)
+    .join('\n');
+}

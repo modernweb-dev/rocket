@@ -1,4 +1,4 @@
-# Presets >> Launch ||10
+# Presets >> Launch ||20
 
 Rocket comes with a preset you will love. Simple, responsive and behaving like native, it sure is going to be a hit among your users.
 
