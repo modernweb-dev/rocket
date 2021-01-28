@@ -15,10 +15,12 @@ import path from 'path';
 const require = createRequire(import.meta.url);
 const { SaxEventType, SAXParser } = saxWasm;
 
+const streamOptions = { highWaterMark: 256 * 1024 };
+
 const saxPath = require.resolve('sax-wasm/lib/sax-wasm.wasm');
 const saxWasmBuffer = fs.readFileSync(saxPath);
-const parserReferences = new SAXParser(SaxEventType.Attribute);
-const parserIds = new SAXParser(SaxEventType.Attribute /*, { highWaterMark: 256 * 1024 } */);
+const parserReferences = new SAXParser(SaxEventType.Attribute, streamOptions);
+const parserIds = new SAXParser(SaxEventType.Attribute, streamOptions);
 
 /** @type {Error[]} */
 let checkLocalFiles = [];
@@ -76,7 +78,7 @@ function extractReferences(htmlFilePath) {
   };
 
   return new Promise(resolve => {
-    const readable = fs.createReadStream(htmlFilePath);
+    const readable = fs.createReadStream(htmlFilePath, streamOptions);
     readable.on('data', chunk => {
       // @ts-expect-error
       parserReferences.write(chunk);
@@ -112,7 +114,7 @@ function idExists(filePath, id) {
   };
 
   return new Promise(resolve => {
-    const readable = fs.createReadStream(filePath);
+    const readable = fs.createReadStream(filePath, streamOptions);
     readable.on('data', chunk => {
       // @ts-expect-error
       parserIds.write(chunk);
