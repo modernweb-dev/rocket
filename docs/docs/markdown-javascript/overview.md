@@ -1,6 +1,6 @@
 # Markdown JavaScript >> Overview || 10
 
-Markdown JavaScript (Mdjs) is a format that allows you to use JavaScript with Markdown, to create interactive demos. It does so by "annotating" JavaScript that should be executed in Markdown.
+Markdown JavaScript (mdjs) is a format that allows you to use JavaScript with Markdown, to create interactive demos. It does so by "annotating" JavaScript that should be executed in Markdown.
 
 To annotate we use a code block with `js script`.
 

@@ -1,4 +1,4 @@
-# Eleventy Plugins >> Markdown JavaScript (Mdjs)
+# Eleventy Plugins >> Markdown JavaScript (mdjs)
 
 Use mdjs in your Eleventy site.
 

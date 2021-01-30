@@ -91,7 +91,7 @@ Alright, enough talk, you can see it live here:
 
 **How does it work**
 
-Mdjs hooks into [remark](https://remark.js.org/) and extracts all those tagged JavaScript blocks.
+mdjs hooks into [remark](https://remark.js.org/) and extracts all those tagged JavaScript blocks.
 In the end, HTML and JS are separately available.
 
 ```js
