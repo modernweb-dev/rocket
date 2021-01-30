@@ -18,8 +18,11 @@
   },
   "type": "module",
   "exports": {
-    "require": "./index.cjs",
-    "default": "./index.js"
+    ".": {
+      "require": "./index.cjs",
+      "default": "./index.js"
+    },
+    "./test-helpers": "./test-helpers/index.js"
   },
   "scripts": {
     "build": "npm run rocket:build",
@@ -39,7 +42,8 @@
     "dist",
     "dist-types",
     "preset",
-    "src"
+    "src",
+    "test-helpers"
   ],
   "keywords": [
     "rocket",

@@ -1,5 +1,5 @@
 <main class="markdown-body">
-{% for blockName, blockPath in templateBlocks.partials.contentWithIndex %}
-	{% include blockPath %}
-{% endfor %}
+  {% for blockName, blockPath in templateBlocks._joiningBlocks.contentWithIndex %}
+    {% include blockPath %}
+  {% endfor %}
 </main>

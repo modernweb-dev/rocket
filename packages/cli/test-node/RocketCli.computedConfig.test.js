@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import { executeStart, readOutput, readStartOutput } from './helpers.js';
+import { executeStart, readOutput, readStartOutput, setFixtureDir } from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
@@ -10,6 +10,7 @@ describe('RocketCli computedConfig', () => {
   before(() => {
     // ignore colors in tests as most CIs won't support it
     chalk.level = 0;
+    setFixtureDir(import.meta.url);
   });
 
   afterEach(async () => {

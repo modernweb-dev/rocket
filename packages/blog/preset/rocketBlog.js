@@ -13,9 +13,6 @@ export function rocketBlog({ section = SECTION, postCollection = POST_COLLECTION
 
   const eleventyPluginRocketBlog = {
     configFunction: eleventyConfig => {
-      eleventyConfig.addLayoutAlias('blog', 'blog-overview.njk');
-      eleventyConfig.addLayoutAlias('post', 'blog-details.njk');
-
       eleventyConfig.addCollection('posts', collection => {
         /*
         // It's not working beacuse it's a paginated collection.
@@ -41,7 +38,7 @@ export function rocketBlog({ section = SECTION, postCollection = POST_COLLECTION
 
         const posts = eleventyConfig.collections[section](collection);
         posts.forEach(page => {
-          page.data.layout = 'post';
+          page.data.layout = 'layout-blog-details';
         });
         return posts;
       });

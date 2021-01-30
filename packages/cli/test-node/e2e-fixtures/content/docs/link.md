@@ -1,5 +1,5 @@
 ---
-layout: layout.njk
+layout: layout-raw
 ---
 
 [home](./index.md)

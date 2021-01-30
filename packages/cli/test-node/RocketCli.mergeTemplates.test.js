@@ -1,15 +1,21 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import { executeStart, readStartOutput, trimWhiteSpace } from './helpers.js';
+import {
+  executeStart,
+  readStartOutput,
+  trimWhiteSpace,
+  setFixtureDir,
+} from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
-describe.only('RocketCli mergeTemplates', () => {
+describe('RocketCli mergeTemplates', () => {
   let cli;
 
   before(() => {
     // ignore colors in tests as most CIs won't support it
     chalk.level = 0;
+    setFixtureDir(import.meta.url);
   });
 
   afterEach(async () => {

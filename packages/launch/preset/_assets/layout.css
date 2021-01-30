@@ -133,13 +133,10 @@ hr {
   position: sticky;
   z-index: 100;
   background-color: var(--page-background);
-}
-
-body:not([layout='home']) #main-header {
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
-body[layout='home'] #main-header {
+body[layout^='layout-home'] #main-header {
   position: relative;
 }
 
@@ -147,6 +144,7 @@ body[layout='home'] #main-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 30px;
 }
 
 #main-header a {
@@ -157,8 +155,12 @@ body[layout='home'] #main-header {
   order: 2;
 }
 
-body:not([layout='home']) #main-header a:hover {
+#main-header a:hover {
   color: var(--primary-color);
+}
+
+body[layout^='layout-home'] #main-header a:hover {
+  color: inherit;
 }
 
 #mobile-menu-trigger {
@@ -182,7 +184,7 @@ body:not([layout='home']) #main-header a:hover {
 }
 
 #main-header .search {
-  order: 2;
+  order: 3;
 }
 
 #main-header .logo-link span {
@@ -228,11 +230,11 @@ body:not([layout='home']) #main-header a:hover {
     display: block;
   }
 
-  body[layout='home'][home-layout='background'] #main-header a {
+  body[layout='layout-home-background'] #main-header a {
     color: var(--contrast-color-light, #fff);
   }
 
-  body[layout='home'][home-layout='background'] .social-link {
+  body[layout='layout-home-background'] .social-link {
     color: var(--contrast-color-light, #fff);
   }
 }
@@ -388,8 +390,7 @@ li.current > ul > li.anchor {
     top: 70px;
     overflow-y: auto;
     scroll-behavior: smooth;
-    display: block;
-    min-width: 260px;
+    min-width: 270px;
     z-index: 10;
     margin-right: 50px;
   }
@@ -417,8 +418,8 @@ li.current > ul > li.anchor {
     padding: 0 25px 0 0;
   }
 
-  body:not([layout='with-sidebar']) #sidebar {
-    display: none;
+  body[layout='layout-sidebar'] #sidebar {
+    display: block;
   }
 }
 
@@ -451,7 +452,7 @@ rocket-navigation h3 {
   min-height: 60vh;
 }
 
-body[layout='home'] #content-wrapper {
+body[layout='layout-home'] #content-wrapper {
   margin-top: 0;
 }
 
@@ -567,16 +568,20 @@ main > * {
 
 /** HOME ******************************************************************************************/
 
-body[layout='home'] main {
+.page-background {
+  display: none;
+}
+
+body[layout^='layout-home'] main {
   padding-top: 50px;
 }
 
-body[layout='home'] .page-title {
+body[layout^='layout-home'] .page-title {
   color: var(--primary-color);
   font-size: 32px;
 }
 
-body[layout='home'] .page-logo {
+body[layout^='layout-home'] .page-logo {
   display: block;
   margin: 0 auto;
   width: 35vw;
@@ -584,23 +589,23 @@ body[layout='home'] .page-logo {
   color: var(--primary-color);
 }
 
-body[layout='home'] .page-title,
-body[layout='home'] .reason-header,
-body[layout='home'] .page-slogan {
+body[layout^='layout-home'] .page-title,
+body[layout^='layout-home'] .reason-header,
+body[layout^='layout-home'] .page-slogan {
   text-align: center;
   border-bottom: none;
   color: var(--text-color);
 }
 
-body[layout='home'] .page-slogan {
+body[layout^='layout-home'] .page-slogan {
   font-size: 18px;
 }
 
-body[layout='home'] .reason-header {
+body[layout^='layout-home'] .reason-header {
   margin-top: 60px;
 }
 
-body[layout='home'] .reasons {
+body[layout^='layout-home'] .reasons {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   column-gap: 100px;
@@ -608,53 +613,57 @@ body[layout='home'] .reasons {
   color: var(--text-color);
 }
 
-body[layout='home'] .markdown-body .call-to-action {
+body[layout^='layout-home'] .markdown-body .call-to-action {
   margin: 10px;
 }
 
-body[layout='home'] .markdown-body .call-to-action:nth-child(1) {
+body[layout^='layout-home'] .markdown-body .call-to-action:nth-child(1) {
   margin-left: 0;
 }
 
 @media screen and (min-width: 380px) {
-  body[layout='home'] .page-slogan {
+  body[layout^='layout-home'] #main-header {
+    box-shadow: none;
+  }
+
+  body[layout^='layout-home'] .page-slogan {
     font-size: 25px;
   }
 
-  body[layout='home'] .page-title {
+  body[layout^='layout-home'] .page-title {
     font-size: 50px;
   }
 }
 
 /** HOME WITH BACKGROUND **************************************************************************/
-body[layout='home'][home-layout='background'] .page-background {
+body[layout='layout-home-background'] .page-background {
   display: none;
 }
 
 @media screen and (min-width: 1024px) {
-  body[layout='home'][home-layout='background'] .page-title,
-  body[layout='home'][home-layout='background'] .page-slogan {
+  body[layout='layout-home-background'] .page-title,
+  body[layout='layout-home-background'] .page-slogan {
     text-align: left;
   }
 
-  body[layout='home'][home-layout='background'] .page-title {
+  body[layout='layout-home-background'] .page-title {
     margin-top: 110px;
   }
 
-  body[layout='home'][home-layout='background'] .page-slogan {
+  body[layout='layout-home-background'] .page-slogan {
     max-width: 500px;
   }
 
-  body[layout='home'][home-layout='background'] .markdown-body .call-to-action-list {
+  body[layout='layout-home-background'] .markdown-body .call-to-action-list {
     text-align: left;
   }
 
-  body[layout='home'][home-layout='background'] #main-header {
+  body[layout='layout-home-background'] #main-header {
     background: transparent;
     border-bottom: none;
   }
 
-  body[layout='home'][home-layout='background'] .page-background {
+  body[layout='layout-home-background'] .page-background {
     display: block;
     position: absolute;
     top: -52px;
@@ -662,11 +671,20 @@ body[layout='home'][home-layout='background'] .page-background {
     z-index: -1;
   }
 
-  body[layout='home'][home-layout='background'] .page-logo {
+  body[layout='layout-home-background'] .page-logo {
     display: none;
   }
 
-  body[layout='home'][home-layout='background'] #main-header .logo-link {
+  body[layout='layout-home-background'] #main-header .logo-link {
     color: var(--contrast-color-dark, #000);
+  }
+
+  body[layout='layout-home-background'] #main-header .logo-link span {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 }

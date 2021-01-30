@@ -1,6 +1,5 @@
 ---
-title: Rocket Blog
-layout: blog
+layout: layout-blog-overview
 eleventyNavigation:
   key: Blog
   order: 30
@@ -10,5 +9,7 @@ pagination:
   reverse: true
   alias: posts
 ---
+
+# Rocket Blog
 
 Discover articles from the core team and contributors about Rocket, tips and tricks included!
