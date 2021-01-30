@@ -1,6 +1,6 @@
 # Presets >> Launch ||10
 
-Rocket comes with a preset you will love. Simple, Responsive and behaving like native it sure is going to be a hit among your users.
+Rocket comes with a preset you will love. Simple, responsive and behaving like native, it sure is going to be a hit among your users.
 
 ## Installation
 

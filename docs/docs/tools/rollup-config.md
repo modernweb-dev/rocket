@@ -68,7 +68,7 @@ For example to add support for class properties:
 
 ### Customizing default plugins
 
-Our config creators install a number of rollup plugins by default:
+Our config creators install a number of Rollup plugins by default:
 
 Basic, SPA and MPA plugins:
 

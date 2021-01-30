@@ -52,7 +52,7 @@ customElements.define('my-el', MyEl);
 
 ## Demo Support (Story)
 
-mdjs comes with some additional helpers you can choose to import via
+mdjs comes with some additional helpers you can choose to import:
 
 ````md
 ```js script
@@ -61,7 +61,7 @@ import '@mdjs/mdjs-preview/mdjs-preview.js';
 ```
 ````
 
-once loaded you can use them like so.
+Once loaded you can use them like so:
 
 ````md
 ```js script
@@ -146,7 +146,7 @@ Preview your mdjs readme with live demos and auto reload.
   }
   ```
 
-- Create a `es-dev-server.config.js` in the root of your repo.
+- Create a `es-dev-server.config.js` in the root of your repository.
 
   ```js
   const { mdjsTransformer } = require('@mdjs/core');

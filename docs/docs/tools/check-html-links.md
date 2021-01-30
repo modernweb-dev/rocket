@@ -26,7 +26,7 @@ npx check-html-links _site
 
 ![Test Run Screenshot](./images/check-html-links-screenshot.png)
 
-## Comparision
+## Comparison
 
 Checking the output of [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
 

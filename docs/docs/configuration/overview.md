@@ -2,7 +2,7 @@
 
 The configuration file is `rocket.config.js` or `rocket.config.mjs`.
 
-The config files consists of the following parts:
+The config files consist of the following parts:
 
 ```js
 import { rocketLaunch } from '@rocket/launch';
@@ -51,9 +51,9 @@ For some projects you might want to enable non-standard behaviors like importing
 import data from './data.json';
 ```
 
-You can accomplish this with rollup and dev server plugins. Make sure to add both the dev-server plugin as well as the rollup plugin, so that the behaviors is the same during development as it is in the production build.
+You can accomplish this with Rollup and dev server plugins. Make sure to add both the dev-server plugin as well as the Rollup plugin, so that the behaviors is the same during development as it is in the production build.
 
-For these cases you can use `setupDevAndBuildPlugins`, which will automatically add the plugin for you to both rollup and dev-server:
+For these cases you can use `setupDevAndBuildPlugins`, which will automatically add the plugin for you to both Rollup and dev-server:
 
 ```js
 import json from '@rollup/plugin-json';
@@ -69,8 +69,8 @@ const config = {
 export default config;
 ```
 
-This will add the rollup plugin `json` with the id `json` at the top of the plugin list of rollup and the dev server. It needs to be at the top so further plugins down the line can work with json imports.
-For the Dev Server the plugins are automatically wrapped by `@web/dev-server-rollup`. Note that [not all rollup plugins](https://modern-web.dev/docs/dev-server/plugins/rollup/#compatibility-with-rollup-plugins) will work with the dev-server.
+This will add the Rollup plugin `json` with the id `json` at the top of the plugin list of Rollup and the dev server. It needs to be at the top so further plugins down the line can work with JSON imports.
+For the Dev Server the plugins are automatically wrapped by `@web/dev-server-rollup`. Note that [not all Rollup plugins](https://modern-web.dev/docs/dev-server/plugins/rollup/#compatibility-with-rollup-plugins) will work with the dev-server.
 
 ## Modifying Options of Plugins
 
