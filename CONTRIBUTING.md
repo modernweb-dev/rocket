@@ -4,27 +4,27 @@
 
 > Please note that this project is released with a [Contributor Code of Conduct](./CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-First, create a fork of the [modernweb-dev/rocket](https://github.com/modernweb-dev/rocket) repo by hitting the `fork` button on the GitHub page.
+First, create a fork of the [modernweb-dev/rocket](https://github.com/modernweb-dev/rocket) repository by hitting the `fork` button on the GitHub page.
 
-Next, clone our repository onto your computer with this command (replacing YOUR_USERNAME with your actual GitHub username)
+Next, clone our repository onto your computer.
 
 ```sh
 git clone git@github.com:modernweb-dev/rocket.git
 ```
 
-Once cloning is complete, change directory to the repo.
+Once cloning is complete, change directory to the repository.
 
 ```sh
 cd rocket
 ```
 
-Now add your fork as a remote
+Now add your fork as a remote (replacing YOUR_USERNAME with your GitHub username).
 
 ```sh
-git remote add fork git@github.com:<YOUR_NAME>/rocket.git
+git remote add fork git@github.com:<YOUR_USERNAME>/rocket.git
 ```
 
-Create a new local branch
+Create a new local branch.
 
 ```sh
 git checkout -b my-awesome-fix
@@ -32,7 +32,7 @@ git checkout -b my-awesome-fix
 
 ## Preparing Your Local Environment for Development
 
-Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed run the following commands to set up the development environment.
+Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed, then run the following commands to set up the development environment.
 
 ```sh
 yarn install
@@ -42,7 +42,7 @@ This will download and install all packages needed.
 
 ## Making Your Changes
 
-Make your changes to the project. Commits are linted using precommit hooks, meaning that any code that raises linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an eslint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
+Make your changes to the project. Commits are linted using precommit hooks, meaning that any code that raises a linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an ESLint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
 
 ### Compiling the typescript code
 
