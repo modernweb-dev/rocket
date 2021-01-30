@@ -16,7 +16,7 @@ reasons:
   - header: Zero Configuration
     text: Automatic code splitting, filesystem based routing, and javascript in markdown.
   - header: Meta Framework
-    text: 'Build on top of giants like <a href="https://www.11ty.dev/">eleventy</a>, <a href="https://rollupjs.org/">Rollup</a>, and <a href="https://www.modern-web.dev/">Modern Web</a>.'
+    text: 'Build on top of giants like <a href="https://www.11ty.dev/">Eleventy</a>, <a href="https://rollupjs.org/">Rollup</a>, and <a href="https://www.modern-web.dev/">Modern Web</a>.'
   - header: Powerful Default Template
     text: Provide content and you are ready to go.
   - header: Ready for Production

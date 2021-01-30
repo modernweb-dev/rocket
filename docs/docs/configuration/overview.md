@@ -32,10 +32,10 @@ export default {
   // add a plugin to the rollup build (e.g. optimization steps)
   setupBuildPlugins: [],
 
-  // add a plugin to eleventy (e.g. a filter packs)
+  // add a plugin to Eleventy (e.g. a filter packs)
   setupEleventyPlugins: [],
 
-  // add a computedConfig to eleventy (e.g. site wide default variables like socialMediaImage)
+  // add a computedConfig to Eleventy (e.g. site wide default variables like socialMediaImage)
   setupEleventyComputedConfig: [],
 
   // add a plugin to the cli (e.g. a new command like "rocket my-command")

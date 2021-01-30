@@ -1,6 +1,6 @@
 # Configuration >> setupEleventyComputedConfig ||20
 
-If you want to add data that depends on other data then you can do it via [11ty's computed data](https://www.11ty.dev/docs/data-computed/).
+If you want to add data that depends on other data then you can do it via [Eleventy's computed data](https://www.11ty.dev/docs/data-computed/).
 
 Rocket exposes it via `setupEleventyComputedConfig`.
 

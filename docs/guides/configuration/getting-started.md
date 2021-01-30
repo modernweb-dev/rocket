@@ -16,7 +16,7 @@ export default /** @type {Partial<import('@rocket/cli').RocketCliOptions>} */ ({
 });
 ```
 
-The Plugins Manager helps you register and execute your plugins across the various Rocket components - rollup, dev-server, eleventy, and markdown. It replaces the specific registration/execution call in a given plugin system by an intent to use that plugin.
+The Plugins Manager helps you register and execute your plugins across the various Rocket components - Rollup, Web Dev Server, Eleventy, and Markdown. It replaces the specific registration/execution call in a given plugin system by an intent to use that plugin.
 
 ## Adding Remark/Unified Plugins
 

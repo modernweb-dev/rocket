@@ -1,6 +1,6 @@
 # Eleventy Plugins >> Markdown JavaScript (Mdjs)
 
-Use mdjs in your 11ty site.
+Use mdjs in your Eleventy site.
 
 ## Setup
 
@@ -8,7 +8,7 @@ Use mdjs in your 11ty site.
 npm install @rocket/eleventy-plugin-mdjs
 ```
 
-Create an 11ty config file `.eleventy.js`
+Create an Eleventy config file `.eleventy.js`
 
 ```js
 const pluginMdjs = require('@rocket/eleventy-plugin-mdjs');
