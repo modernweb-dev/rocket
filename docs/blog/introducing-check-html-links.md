@@ -18,7 +18,7 @@ Luckily, with the rise of SSG (Static Site Generators), this problem becomes eas
 ## Evaluation and the decision for a new tool
 
 Of course, I am not the first one to come up with that idea and there are multiple tools available on the market already.
-However, when checking existing solutions I found out that most of them didn't satisfy me in at least on way 😅. Things I noticed: slow to execute, deprecated, large dependency tree, confusing output for the user, ...
+However, when checking existing solutions I found out that most of them didn't satisfy me in at least one way 😅. Things I noticed: slow to execute, deprecated, large dependency tree, confusing output for the user, ...
 
 Reviewing these tools I decided to create my own, with the following requirements :
 
@@ -130,8 +130,8 @@ I called it `check-html-links` and its slogan is "no more broken links or assets
 
 The features so far are:
 
-- extracts every attribute value of id, href, src, srset
-- use a wasm parser (sax-wasm)
+- extracts every attribute value of id, href, src, srcset
+- use a Wasm parser (sax-wasm)
 - streams the HTML for performance
 - check if file or id within file exist
 - focus on missing references/sources
@@ -168,7 +168,7 @@ jobs:
 
 ## Comparison
 
-Checking the output of [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
+Checking the output of the [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
 
 | Tool             | Lines printed | Duration | Lang | Dependency Tree |
 | ---------------- | ------------- | -------- | ---- | --------------- |
