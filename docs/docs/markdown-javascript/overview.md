@@ -165,9 +165,9 @@ Please check out [@open-wc/demoing-storybook](https://open-wc.org/demoing/) for 
 
 It includes [storybook-addon-markdown-docs](https://open-wc.org/demoing/storybook-addon-markdown-docs.html) which uses mdjs under the hood.
 
-### Chrome Extension (currently only for Github)
+### Chrome Extension (currently only for GitHub)
 
-See live demos directly inside github page, markdown files, issues, pull requests...
+See live demos directly inside GitHub pages, Markdown files, issues, pull requests...
 
 Please check out [mdjs-viewer](https://github.com/open-wc/mdjs-viewer).
 

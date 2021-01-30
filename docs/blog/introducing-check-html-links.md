@@ -144,9 +144,9 @@ It does check your final html output so you need to execute it after your Static
 npx check-html-links _site
 ```
 
-## Usage Github Action
+## GitHub Action Usage
 
-[Julien](https://twitter.com/jlengrand) created a Github action available for the tool, so you can easily plug it in your existing CI. You can find it [on the GitHub Marketplace](https://github.com/marketplace/actions/check-html-links-action).
+[Julien](https://twitter.com/jlengrand) created a GitHub action available for the tool, so you can easily plug it in your existing CI. You can find it [on the GitHub Marketplace](https://github.com/marketplace/actions/check-html-links-action).
 
 Here is a complete example workflow that will check the result of the folder `_site` in the root of your repository on each push:
 
@@ -193,13 +193,13 @@ Topic to work on:
 
 ## Acknowledgements
 
-Thank you for following along on my journey on creating `check-html-links`. You can find the code on [Github](https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links).
+Thank you for following along on my journey on creating `check-html-links`. You can find the code on [GitHub](https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links).
 
 Follow us on [Twitter](https://twitter.com/modern_web_dev), or follow me on my personal [Twitter](https://twitter.com/dakmor).
 
 Thanks to [Julien](https://twitter.com/jlengrand) for feedback and helping turn my scribbles to a followable story.
 
-If you think my open source work is valuable then I would like you to check out my personal [Github Sponsor Page](https://github.com/sponsors/daKmoR). Or you can support our whole group via the [Modern Web Open Collective](https://opencollective.com/modern-web).
+If you think my open source work is valuable then I would like you to check out my personal [GitHub Sponsor Page](https://github.com/sponsors/daKmoR). Or you can support our whole group via the [Modern Web Open Collective](https://opencollective.com/modern-web).
 
 ---
 
