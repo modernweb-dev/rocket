@@ -37,7 +37,7 @@ The fastest way to get started is by using an existing preset like the launch pr
 
 You may be tempted to skip the step above, because you're not ready to commit to git yet!
 
-Rocket uses the .gitignore file to manage it's requirements. If you skip this step, rocket will fail to deploy!
+Rocket uses the .gitignore file to manage its requirements. If you skip this step, Rocket will fail to deploy!
 
 </inline-notification>
 

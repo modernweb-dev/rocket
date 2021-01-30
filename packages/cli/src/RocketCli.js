@@ -45,7 +45,7 @@ export class RocketCli {
         name: 'config-file',
         alias: 'c',
         type: String,
-        description: 'Location of rocket configuration',
+        description: 'Location of Rocket configuration',
       },
     ];
     const options = commandLineArgs(mainDefinitions, {

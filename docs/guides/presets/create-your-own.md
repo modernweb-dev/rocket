@@ -35,7 +35,7 @@ body {
 }
 ```
 
-Once you have that you can add it to your Rocket Config.
+Once you have that you can add it to your Rocket config.
 
 NOTE: The order of presets is important, as for example in this case we take everything from `rocketLaunch` but later override via `fireTheme`.
 

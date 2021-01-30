@@ -1,1 +1,1 @@
-You can show rocket config data like rocketConfig.absoluteBaseUrl = {{rocketConfig.absoluteBaseUrl}}
+You can show Rocket config data like rocketConfig.absoluteBaseUrl = {{rocketConfig.absoluteBaseUrl}}

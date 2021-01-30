@@ -1,6 +1,6 @@
 # Rocket Drawer
 
-For mobile navigation on [Rocket Sites](https://rocket.modern-web.dev/).
+For mobile navigation on [Rocket sites](https://rocket.modern-web.dev/).
 
 --
 
