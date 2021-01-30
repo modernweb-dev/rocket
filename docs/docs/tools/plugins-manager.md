@@ -42,7 +42,7 @@ This means if you wish to define default plugins and allow your user to override
 
 ## Solution
 
-The plugins manager let's you orchestrate a set of "meta plugins" which are defined by
+The plugins manager lets you orchestrate a set of "meta plugins" which are defined by
 
 - name
 - plugin

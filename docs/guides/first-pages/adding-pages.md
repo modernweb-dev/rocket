@@ -10,7 +10,7 @@ It can help to examine each new page and menu carefully, to come to terms with t
 
 ## Add a section
 
-In most cases you will have multiple sections in your website and each of those sections will come with it's own sidebar navigation.
+In most cases you will have multiple sections in your website and each of those sections will come with its own sidebar navigation.
 
 To create a section you need to create a folder with an `index.md`.
 

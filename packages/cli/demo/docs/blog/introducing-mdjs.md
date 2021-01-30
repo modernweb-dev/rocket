@@ -150,7 +150,7 @@ Under the hood, this adds an extra step to the processing:
 
 1. Extract `js script` and separate from md
 2. Extract `js story` and `js preview-story` and separate from md
-3. Put a placeholder `<mdjs-story mdjs-story-name="demo"></mdjs-story>` or `mdjs-preview` at it's place
+3. Put a placeholder `<mdjs-story mdjs-story-name="demo"></mdjs-story>` or `mdjs-preview` at its place
 4. Render Markdown
 5. Provide HTML, JavaScript, and stories
 

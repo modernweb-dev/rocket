@@ -14,7 +14,7 @@ export default {
 };
 ```
 
-Rocket is primarily build around plugins for each of it's systems.
+Rocket is primarily build around plugins for each of its systems.
 
 New plugins can be added and all default plugins can be adjusted or even removed by using the following functions.
 
