@@ -1,4 +1,4 @@
-> This project is in it's BETA phase
+> This project is in its BETA phase
 
 <p align="center">
   <img
@@ -46,7 +46,7 @@
 > Our goal is to provide developers with a meta framework for static websites with a spricle of JavaScript.
 
 Get a site up and running in no time and focus on the content.
-You can still tweak every details of every underlying tool that get's used.
+You can still tweak every detail of every underlying tool that gets used.
 
 Rocket is part of the [Modern Web Family](https://twitter.com/modern_web_dev).
 
