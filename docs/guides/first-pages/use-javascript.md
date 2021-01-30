@@ -1,6 +1,6 @@
 # First Pages >> Use JavaScript ||40
 
-You can use `js script` to execute javascript (type = module)
+You can use `js script` to execute JavaScript (`type="module"`).
 
 ````
 ```js script

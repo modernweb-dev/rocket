@@ -1,15 +1,15 @@
 # Tools >> Rollup Config ||20
 
 Rollup configuration to help you get started building modern web applications.
-You write modern javascript using the latest browser-features, rollup will optimize your code for production and ensure it runs on all supported browsers.
+You write modern JavaScript using the latest browser features. Rollup will optimize your code for production and ensure it runs on all supported browsers.
 
 ## Features
 
-- Set HTML or JS as input and/or output
+- Set HTML or JavaScript as input and/or output
 - Optimized for browsers which support modules
 - Loads polyfills using feature detection
 - Generates a service worker
-- Minifies JS
+- Minifies JavaScript
 - Minifies lit-html templates
 
 ## Setup

@@ -197,7 +197,7 @@ const page = await mdjsDocPage(markdownString);
 
 #### `mdjsProcess`
 
-Pass in multiple markdown documents and you get back all the JS code and rendered HTML.
+Pass in multiple markdown documents and you get back all the JavaScript code and rendered HTML.
 
 ```js
 const { mdjsProcess } = require('@mdjs/core');

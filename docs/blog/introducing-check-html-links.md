@@ -25,7 +25,7 @@ Reviewing these tools I decided to create my own, with the following requirement
 - Blazing fast
 - User-focused output
 - Few dependencies, to keep it lean
-- Preferably in the NodeJS ecosystem
+- Preferably in the Node.js ecosystem
 
 ## Focusing on Useful Output
 
@@ -113,14 +113,14 @@ Results are gatherd on January 26, 2021:
 | web.dev     | 830   | ~3.7s    |
 | eslint.org  | 3475  | ~12.4s   |
 
-## Being part of the NodeJS ecosystem
+## Being part of the Node.js ecosystem
 
 My daily workflow is hugely dominated by JavaScript, so it was only natural to want to stay in the same environment if I could reach my earlier requirements with it.
-On top of this, the end goal is to integrate it within a bigger WIP system called [Rocket](https://github.com/modernweb-dev/rocket) which is node-based so therefore it will need to at least support NodeJS. Having it standalone (usable via `npx`) also makes it more versatile and easier to maintain/test.
+On top of this, the end goal is to integrate it within a bigger WIP system called [Rocket](https://github.com/modernweb-dev/rocket) which is node-based so therefore it will need to at least support Node.js. Having it standalone (usable via `npx`) also makes it more versatile and easier to maintain/test.
 
 ## Focusing on a small Dependency Tree
 
-The JavaScript and NodeJs ecosystem is very active and constantly shifting. Lots of changes/improvements happen all the time. It's often hard to keep up. Therefore having a small dependency tree is something to always thrive for because it will reduce the maintenance burden down the line. And as an added benefit, it makes it smaller and easily embeddable as less stuff has to go down the wire. Lean is king 👑.
+The JavaScript and Node.js ecosystem is very active and constantly shifting. Lots of changes/improvements happen all the time. It's often hard to keep up. Therefore having a small dependency tree is something to always thrive for because it will reduce the maintenance burden down the line. And as an added benefit, it makes it smaller and easily embeddable as less stuff has to go down the wire. Lean is king 👑.
 
 ## Solution
 

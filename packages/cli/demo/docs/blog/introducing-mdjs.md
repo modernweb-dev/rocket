@@ -41,7 +41,7 @@ For Vue, as an example, you can use VuePress which auto registers all Vue compon
 ```
 
 - supports vue components and has "magical" import for them
-- no support for generic javascript or passing properties to components
+- no support for generic JavaScript or passing properties to components
 
 ### React
 
@@ -91,8 +91,8 @@ Alright, enough talk, you can see it live here:
 
 **How does it work**
 
-Mdjs hooks into [remark](https://remark.js.org/) and extracts all those tagged js blocks.
-In the end, HTML and js is separately available.
+Mdjs hooks into [remark](https://remark.js.org/) and extracts all those tagged JavaScript blocks.
+In the end, HTML and JS are separately available.
 
 ```js
 {
@@ -107,7 +107,7 @@ The process looks like this:
 
 1. Extract `js script` and separate it from md
 2. Render md
-3. Provide HTML & js
+3. Provide HTML & JS
 
 ![mdjs script transform](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/mdjs-script-transform-resized.gif)
 
@@ -154,7 +154,7 @@ Under the hood, this adds an extra step to the processing:
 4. Render markdown
 5. Provide HTML, JavaScript, and stories
 
-This is all the information we need to create full javascript and demo capable pages purely from markdown.
+This is all the information we need to create full JavaScript and demo capable pages purely from markdown.
 
 By default Mdjs takes it a small step further by supporting an actual template system - namely [lit-html](https://lit-html.polymer-project.org/).
 
