@@ -26,7 +26,7 @@ export default {
   // add a rollup plugins to the web dev server (will be wrapped with @web/dev-server-rollup) AND the rollup build (e.g. enable json importing)
   setupDevAndBuildPlugins: [],
 
-  // add a plugin to the web dev server (will not be wrapped) (e.g. esbuild for typescript)
+  // add a plugin to the web dev server (will not be wrapped) (e.g. esbuild for TypeScript)
   setupDevPlugins: [],
 
   // add a plugin to the rollup build (e.g. optimization steps)

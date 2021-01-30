@@ -44,9 +44,9 @@ This will download and install all packages needed.
 
 Make your changes to the project. Commits are linted using precommit hooks, meaning that any code that raises a linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an ESLint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
 
-### Compiling the typescript code
+### Compiling the TypeScript code
 
-If you're making cross-package changes, you need to compile the typescript code. We recommend executing `tsc:watch` from the root of the package and keeping that running while you make your changes.
+If you're making cross-package changes, you need to compile the TypeScript code. We recommend executing `tsc:watch` from the root of the package and keeping that running while you make your changes.
 
 ### Running tests
 
