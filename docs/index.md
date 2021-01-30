@@ -1,6 +1,6 @@
 ---
 title: Rocket
-layout: home.njk
+layout: layout-home-background
 slogan: The modern web setup for static sites with a sprinkle of JavaScript.
 callToActionItems:
   - text: Follow Guides

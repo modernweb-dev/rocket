@@ -1,4 +1,5 @@
 import path from 'path';
+// import { addPlugin } from 'plugins-manager';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

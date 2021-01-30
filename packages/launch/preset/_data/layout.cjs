@@ -1,1 +1,1 @@
-module.exports = 'with-sidebar.njk';
+module.exports = 'layout-sidebar';

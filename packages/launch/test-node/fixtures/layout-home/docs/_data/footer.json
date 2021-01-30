@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Discover",
+    "children": [
+      {
+        "text": "Help and Feedback",
+        "href": "https://github.com/modernweb-dev/rocket/issues"
+      }
+    ]
+  }
+]

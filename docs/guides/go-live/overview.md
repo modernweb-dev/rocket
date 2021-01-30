@@ -15,7 +15,7 @@ To enable it, you need to create a 404.md and use the 404 layout.
 
 ```
 ---
-layout: 404.njk
+layout: layout-404
 permalink: 404.html
 ---
 ```
@@ -32,7 +32,7 @@ You can create one by adding this file:
 
 ```
 ---
-layout: pure-content.njk
+layout: layout-raw
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---

@@ -21,6 +21,10 @@
     "./inline-notification": "./inline-notification/index.js",
     "./inline-notification/inline-notification.js": "./inline-notification/inline-notification.js"
   },
+  "scripts": {
+    "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test"
+  },
   "files": [
     "*.js",
     "inline-notification",
