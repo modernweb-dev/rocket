@@ -20,7 +20,7 @@ The Plugins Manager helps you register and execute your plugins across the vario
 
 ## Adding Remark/Unified Plugins
 
-If you want to a plugin to the markdown processing you can use `setupUnifiedPlugins`.
+If you want to a plugin to the Markdown processing you can use `setupUnifiedPlugins`.
 
 ```js
 import emoji from 'remark-emoji';
@@ -34,5 +34,5 @@ const config = {
 export default config;
 ```
 
-For plugins that should handle the markdown <abbr title="Abstract Syntax Tree">AST</abbr> you should use `addPlugin({ location: 'markdown', name: 'my-plugin', plugin: MyPlugin})`. <br>
-While for the rehype ast you should use `addPlugin({ location: 'remark2rehype', name: 'my-plugin', plugin: MyPlugin})`.
+For plugins that should handle the Markdown <abbr title="Abstract Syntax Tree">AST</abbr> you should use `addPlugin({ location: 'markdown', name: 'my-plugin', plugin: MyPlugin})`. <br>
+While for the rehype AST you should use `addPlugin({ location: 'remark2rehype', name: 'my-plugin', plugin: MyPlugin})`.

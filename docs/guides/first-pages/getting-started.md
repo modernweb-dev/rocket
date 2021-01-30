@@ -73,7 +73,7 @@ All further pathes are relative to your project root (my-project in this case)
 ```md
 # Welcome to your Rocket site
 
-Text here, like any markdown file.
+Text here, like any Markdown file.
 ```
 
 This tutorial assumes you are familiar with Markdown, for page authoring.

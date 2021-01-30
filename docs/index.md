@@ -14,7 +14,7 @@ reasons:
   - header: Pre-Rendered
     text: Statically generated content means less JavaScript to ship and process.
   - header: Zero Configuration
-    text: Automatic code splitting, filesystem based routing, and JavaScript in markdown.
+    text: Automatic code splitting, filesystem based routing, and JavaScript in Markdown.
   - header: Meta Framework
     text: 'Build on top of giants like <a href="https://www.11ty.dev/">Eleventy</a>, <a href="https://rollupjs.org/">Rollup</a>, and <a href="https://www.modern-web.dev/">Modern Web</a>.'
   - header: Powerful Default Template

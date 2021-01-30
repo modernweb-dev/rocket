@@ -71,7 +71,7 @@ The primary goals are
 
 - minimal complexity
 - follows progressive enhancement
-- stick close to valid markdown syntax
+- stick close to valid Markdown syntax
 - code highlighting in editors without additional tools
 - looks good on github/gitlab/any source code management tool
 
@@ -105,8 +105,8 @@ It can then be combined/processed by any tool to create an actual documentation 
 
 The process looks like this:
 
-1. Extract `js script` and separate it from md
-2. Render md
+1. Extract `js script` and separate it from Markdown
+2. Render Markdown
 3. Provide HTML & JS
 
 ![mdjs script transform](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/mdjs-script-transform-resized.gif)
@@ -151,12 +151,12 @@ Under the hood, this adds an extra step to the processing:
 1. Extract `js script` and separate from md
 2. Extract `js story` and `js preview-story` and separate from md
 3. Put a placeholder `<mdjs-story mdjs-story-name="demo"></mdjs-story>` or `mdjs-preview` at it's place
-4. Render markdown
+4. Render Markdown
 5. Provide HTML, JavaScript, and stories
 
-This is all the information we need to create full JavaScript and demo capable pages purely from markdown.
+This is all the information we need to create full JavaScript and demo capable pages purely from Markdown.
 
-By default Mdjs takes it a small step further by supporting an actual template system - namely [lit-html](https://lit-html.polymer-project.org/).
+By default mdjs takes it a small step further by supporting an actual template system - namely [lit-html](https://lit-html.polymer-project.org/).
 
     ```js script
     import './demo-wc-card.js';
@@ -198,7 +198,7 @@ All of this happens under the hood for you 🤗
 
 ### You can use it locally via es-dev-server
 
-Here i'll show you how you can create a github like markdown view for all your local markdown files including live demos.
+Here i'll show you how you can create a github like Markdown view for all your local Markdown files including live demos.
 
 ![es-dev-server screenshot](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/es-dev-server-screenshot.png)
 
@@ -245,7 +245,7 @@ If you want to work on individual components or get a list of all demos you can 
   }
   ```
 
-- Adjust your `.storybook/main.js` to load markdown files
+- Adjust your `.storybook/main.js` to load Markdown files
 
   ```js
   module.exports = {
@@ -258,7 +258,7 @@ If you want to work on individual components or get a list of all demos you can 
   };
   ```
 
-- Add to every markdown file that should be in storybook a name via
+- Add to every Markdown file that should be in storybook a name via
 
   ```js
   export default {
@@ -267,13 +267,13 @@ If you want to work on individual components or get a list of all demos you can 
   ```
 
 And just like that, you are good to go.
-No additional changes to any files are needed; a plugin will take care of everything by converting your markdown files to the support Storybook's mdx format.
+No additional changes to any files are needed; a plugin will take care of everything by converting your Markdown files to the support Storybook's mdx format.
 
 For more detailed information please see [https://open-wc.org/demoing-storybook/](https://open-wc.org/demoing-storybook/).
 
 ### Show it on github
 
-Since Github supports markdown out of the box, we can take things even further by using Mdjs.
+Since GitHub supports Markdown out of the box, we can take things even further by using mdjs.
 
 ![github screenshot](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/github-screenshot.png)
 
@@ -283,18 +283,18 @@ As it's not supported by github directly you will need a chrome extension called
 - Do you want to show a live example of the issue you are having? mdjs-viewer!
 
 Almost looks like black magic, huh?
-All you did was install a Chrome extension and suddenly Github got superpowers.
+All you did was install a Chrome extension and suddenly GitHub got superpowers.
 
 All that you need is to have some Markdown files with the correct code fence blocks, and have your code up and running on [unpkg.com](https://unpkg.com).
 
 **How does it actually work?**
 
-The extension detects which Github page you are on.
-If it actually finds a markdown file or an issue with mdjs code then it adds a "show demo" button to activate it.
+The extension detects which GitHub page you are on.
+If it actually finds a Markdown file or an issue with mdjs code then it adds a "show demo" button to activate it.
 Only if you click the button it will start gathering all the needed info.
 
 - find the nearest `package.json`
-- read the actual markdown file/issue content
+- read the actual Markdown file/issue content
 - replace all bare import with `unpkg.com` imports
 - replace all relative imports with `unpkg.com` and the name of the package.json + relative path for it
 - create a secured iframe

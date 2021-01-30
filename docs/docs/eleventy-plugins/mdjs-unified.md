@@ -46,9 +46,9 @@ module.exports = function (eleventyConfig) {
 ## Add a unified or remark plugin
 
 The order of plugins is important in unified as each plugin processes the content and passes on its result.
-Some plugins do work with the markdown AST and some with the rehype (e.g. HTML) AST. In order to get access to the correct AST the plugin needs to be in a specific location in the processing order.
+Some plugins do work with the Markdown AST and some with the rehype (e.g. HTML) AST. In order to get access to the correct AST the plugin needs to be in a specific location in the processing order.
 
-Examples on how to insert a plugin right after creating the markdown AST.
+Examples on how to insert a plugin right after creating the Markdown AST.
 
 ```js
 const pluginMdjs = require('@rocket/eleventy-plugin-mdjs');

@@ -20,7 +20,7 @@ New plugins can be added and all default plugins can be adjusted or even removed
 
 ```js
 export default {
-  // add remark/unified plugin to the markdown processing (e.g. enable special code blocks)
+  // add remark/unified plugin to the Markdown processing (e.g. enable special code blocks)
   setupUnifiedPlugins: [],
 
   // add a rollup plugins to the web dev server (will be wrapped with @web/dev-server-rollup) AND the rollup build (e.g. enable json importing)

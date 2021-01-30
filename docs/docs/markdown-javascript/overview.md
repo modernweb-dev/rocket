@@ -13,9 +13,9 @@ To annotate we use a code block with `js script`.
 ## Web Components
 
 One very good use case for that can be web components.
-HTML already works in markdown so all you need is to load a web components definition file.
+HTML already works in Markdown so all you need is to load a web components definition file.
 
-You could even do so within the same markdown file.
+You could even do so within the same Markdown file.
 
 ````md
 ## This is my-card
@@ -179,7 +179,7 @@ mdjs offers two more "basic" integrations
 
 #### `mdjsDocPage`
 
-Creates a full blown HTML page by passing in the markdown.
+Creates a full blown HTML page by passing in the Markdown.
 
 ```js
 const { mdjsDocPage } = require('@mdjs/core');
@@ -197,7 +197,7 @@ const page = await mdjsDocPage(markdownString);
 
 #### `mdjsProcess`
 
-Pass in multiple markdown documents and you get back all the JavaScript code and rendered HTML.
+Pass in multiple Markdown documents and you get back all the JavaScript code and rendered HTML.
 
 ```js
 const { mdjsProcess } = require('@mdjs/core');
