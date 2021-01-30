@@ -1,6 +1,6 @@
-# Tools >> Check Html Links ||30
+# Tools >> Check HTML Links ||30
 
-A fast checker for broken links/references in html.
+A fast checker for broken links/references in HTML.
 
 ## Features
 
@@ -8,7 +8,7 @@ A fast checker for broken links/references in html.
 - Focuses on the broken reference targets and groups references to it
 - Fast (can process 500-1000 documents in ~2-3 seconds)
 - Has only 3 dependencies (and 19 in the full tree)
-- Uses [sax-wasm](https://github.com/justinwilaby/sax-wasm) for parsing streamed html
+- Uses [sax-wasm](https://github.com/justinwilaby/sax-wasm) for parsing streamed HTML
 
 ## Installation
 

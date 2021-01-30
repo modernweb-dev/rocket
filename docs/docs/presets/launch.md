@@ -30,7 +30,7 @@ The footer data comes from `footer.json`
 
 Notification are web components that bring in some styles.
 
-To use them in Markdown you need to write the html tag and have it separated by an empty line.
+To use them in Markdown you need to write the HTML tag and have it separated by an empty line.
 
 ```js script
 import '@rocket/launch/inline-notification/inline-notification.js';

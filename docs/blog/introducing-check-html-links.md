@@ -1,7 +1,7 @@
 ---
-title: Introducing check html links - no more bad links
+title: Introducing Check HTMl Links - no more bad links
 published: true
-description: A fast link checker for static html
+description: A fast link checker for static HTML
 tags: [html, javascript, webdev, node]
 cover_image: https://dev-to-uploads.s3.amazonaws.com/i/an9z6f4hdll2jlne43u3.jpg
 ---
@@ -132,13 +132,13 @@ The features so far are:
 
 - extracts every attribute value of id, href, src, srset
 - use a wasm parser (sax-wasm)
-- streams the html for performance
+- streams the HTML for performance
 - check if file or id within file exist
 - focus on missing references/sources
 
 ## Usage
 
-It does check your final html output so you need to execute it after your Static Site Generator.
+It checks your final HTML output so you need to execute it after your Static Site Generator.
 
 ```
 npx check-html-links _site

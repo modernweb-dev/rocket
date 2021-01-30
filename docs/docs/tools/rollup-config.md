@@ -25,7 +25,7 @@ You write modern javascript using the latest browser-features, rollup will optim
    ```js
    import { createSpaConfig } from '@rocket/building-rollup';
    // use `import { createBasicConfig }` to do regular JS to JS bundling
-   // use `import { createMpaConfig }` to bundle multiple html files
+   // use `import { createMpaConfig }` to bundle multiple HTML files
 
    export default createSpaConfig({
      input: 'index.html',

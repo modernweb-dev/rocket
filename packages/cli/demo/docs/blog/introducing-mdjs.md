@@ -27,7 +27,7 @@ In this context, users probably do expect a live demo to see all the different o
 
 ### Vue
 
-For Vue, as an example, you can use VuePress which auto registers all Vue components in a certain folder and then you can use as normal html tags since Markdown supports html
+For Vue, as an example, you can use VuePress which auto registers all Vue components in a certain folder and then you can use as normal HTML tags since Markdown supports HTML
 
 ```
 .
@@ -92,7 +92,7 @@ Alright, enough talk, you can see it live here:
 **How does it work**
 
 Mdjs hooks into [remark](https://remark.js.org/) and extracts all those tagged js blocks.
-In the end, html and js is separately available.
+In the end, HTML and js is separately available.
 
 ```js
 {
@@ -107,7 +107,7 @@ The process looks like this:
 
 1. Extract `js script` and separate it from md
 2. Render md
-3. Provide html & js
+3. Provide HTML & js
 
 ![mdjs script transform](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/mdjs-script-transform-resized.gif)
 
@@ -152,7 +152,7 @@ Under the hood, this adds an extra step to the processing:
 2. Extract `js story` and `js preview-story` and separate from md
 3. Put a placeholder `<mdjs-story mdjs-story-name="demo"></mdjs-story>` or `mdjs-preview` at it's place
 4. Render markdown
-5. Provide html, javascript, and stories
+5. Provide HTML, JavaScript, and stories
 
 This is all the information we need to create full javascript and demo capable pages purely from markdown.
 
@@ -299,7 +299,7 @@ Only if you click the button it will start gathering all the needed info.
 - replace all relative imports with `unpkg.com` and the name of the package.json + relative path for it
 - create a secured iframe
 - position the iframe absolute as an overlays
-- put the javascript and html code inside the iframe
+- put the JavaScript and HTML code inside the iframe
 - the button becomes a toggle to show/hide the iframe
 
 Some of the tasks are more complicated and require some extra work to make it secure but in essence, that's it.

@@ -1,6 +1,6 @@
-# Check Html Links
+# Check HTML Links
 
-A fast checker for broken links/references in html.
+A fast checker for broken links/references in HTML.
 
 ## Installation
 

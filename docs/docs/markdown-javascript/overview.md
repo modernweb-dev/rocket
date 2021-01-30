@@ -179,7 +179,7 @@ mdjs offers two more "basic" integrations
 
 #### `mdjsDocPage`
 
-Creates a full blown html page by passing in the markdown.
+Creates a full blown HTML page by passing in the markdown.
 
 ```js
 const { mdjsDocPage } = require('@mdjs/core');
@@ -197,7 +197,7 @@ const page = await mdjsDocPage(markdownString);
 
 #### `mdjsProcess`
 
-Pass in multiple markdown documents and you get back all the jsCode and rendered html.
+Pass in multiple markdown documents and you get back all the JS code and rendered HTML.
 
 ```js
 const { mdjsProcess } = require('@mdjs/core');

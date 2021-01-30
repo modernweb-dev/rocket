@@ -18,11 +18,11 @@ No overblown tools and frontend frameworks.
 
 ### Fast
 
-By shipping html
+By shipping HTML
 
 ### Simple
 
-Pure html with little js helpers here and there allows you to debug and enhance where needed.
+Pure HTML with little JavaScript helpers here and there allows you to debug and enhance where needed.
 
 ### Meta Framework
 
