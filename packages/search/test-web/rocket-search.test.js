@@ -38,7 +38,7 @@ describe('rocket-search', () => {
     const el = await fixture(html`<rocket-search></rocket-search>`);
     await expectThrowsAsync(
       () => el.setupSearch(),
-      'You need to provide a url to your json index. use for example: <rocket-search json-url="https://.../search-index.json"></rocket-search>',
+      'You need to provide a URL to your JSON index. For example: <rocket-search json-url="https://.../search-index.json"></rocket-search>',
     );
   });
 

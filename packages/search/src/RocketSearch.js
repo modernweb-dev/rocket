@@ -65,7 +65,7 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
   async setupSearch() {
     if (!this.jsonUrl) {
       throw new Error(
-        'You need to provide a url to your json index. use for example: <rocket-search json-url="https://.../search-index.json"></rocket-search>',
+        'You need to provide a URL to your JSON index. For example: <rocket-search json-url="https://.../search-index.json"></rocket-search>',
       );
     }
 
