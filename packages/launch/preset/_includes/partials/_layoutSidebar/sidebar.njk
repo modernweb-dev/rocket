@@ -1,6 +1,6 @@
 <rocket-drawer id="sidebar">
   <nav slot="content" id="sidebar-nav">
-    {% for blockName, blockPath in templateBlocks._joiningBlocks.sidebar %}
+    {% for blockName, blockPath in templateBlocks._joiningBlocks._layoutSidebar.sidebar %}
       {% include blockPath %}
     {% endfor %}
   </nav>
