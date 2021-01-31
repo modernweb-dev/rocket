@@ -50,7 +50,7 @@ export default {
 };
 ```
 
-## Publish a preset
+## Publish a Preset
 
 If you would like to publish a preset to use it on multiple websites or share it with your friends you can do like so.
 

@@ -62,7 +62,7 @@ I am a tip
 </inline-notification>
 ```
 
-### Modify the title
+### Modify the Title
 
 To override the title you can provide a property success.
 

@@ -66,12 +66,12 @@ All further pathes are relative to your project root (my-project in this case)
 
 </inline-notification>
 
-## Add your first page
+## Add your First Page
 
 👉 `docs/index.md`
 
 ```md
-# Welcome to your Rocket site
+# Welcome to Your Rocket Site
 
 Text here, like any Markdown file.
 ```
@@ -80,7 +80,7 @@ This tutorial assumes you are familiar with Markdown, for page authoring.
 
 Please note that the heading - text prefixed with `#` or `##` - is not optional for each page in this tutorial. Everything below that first line is optional Markdown text.
 
-## Start up:
+## Startup:
 
 👉 `package.json`
 

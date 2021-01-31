@@ -41,7 +41,7 @@
   <a href="https://rocket.modern-web.dev/guides/"><strong>Explore the Rocket Guides&nbsp;&nbsp;▶</strong></a>
 </p>
 
-## The goal for Rocket
+## The Goal for Rocket
 
 > Our goal is to provide developers with a meta framework for static websites with a spricle of JavaScript.
 

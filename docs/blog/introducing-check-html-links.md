@@ -15,7 +15,7 @@ It's really hard to catch especially if you have a dynamic page like with WordPr
 
 Luckily, with the rise of SSG (Static Site Generators), this problem becomes easier to tackle and can be solved in large part. The reason for that is that with all HTML rendered upfront as static files we can read all of them and check every link.
 
-## Evaluation and the decision for a new tool
+## Evaluation and the Decision for a New Tool
 
 Of course, I am not the first one to come up with that idea and there are multiple tools available on the market already.
 However, when checking existing solutions I found out that most of them didn't satisfy me in at least one way 😅. Things I noticed: slow to execute, deprecated, large dependency tree, confusing output for the user, ...
@@ -81,7 +81,7 @@ Let us turn that around and focus on missing references indeed. Here is the outp
 We get one 5 line error for `/speedlify/` and it tells us it's missing 495 times + 3 examples usages.
 Afterward, we find very clearly more missing references and where they occurred.
 
-### A clear winner
+### A Clear Winner
 
 Comparing those two outputs makes it pretty clear to me that `Missing File Focused` will make more sense if there is a chance that some links will be broken everywhere. My implementation focuses on missing links in its output. This is crucial because it allows developers to know where to focus their efforts first to get the biggest wins.
 
@@ -113,12 +113,12 @@ Results are gatherd on January 26, 2021:
 | web.dev     | 830   | ~3.7s    |
 | eslint.org  | 3475  | ~12.4s   |
 
-## Being part of the Node.js ecosystem
+## Being Part of the Node.js Ecosystem
 
 My daily workflow is hugely dominated by JavaScript, so it was only natural to want to stay in the same environment if I could reach my earlier requirements with it.
 On top of this, the end goal is to integrate it within a bigger WIP system called [Rocket](https://github.com/modernweb-dev/rocket) which is node-based so therefore it will need to at least support Node.js. Having it standalone (usable via `npx`) also makes it more versatile and easier to maintain/test.
 
-## Focusing on a small Dependency Tree
+## Focusing on a Small Dependency Tree
 
 The JavaScript and Node.js ecosystem is very active and constantly shifting. Lots of changes/improvements happen all the time. It's often hard to keep up. Therefore having a small dependency tree is something to always thrive for because it will reduce the maintenance burden down the line. And as an added benefit, it makes it smaller and easily embeddable as less stuff has to go down the wire. Lean is king 👑.
 

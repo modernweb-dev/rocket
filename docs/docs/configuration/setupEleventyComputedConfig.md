@@ -4,7 +4,7 @@ If you want to add data that depends on other data then you can do it via [Eleve
 
 Rocket exposes it via `setupEleventyComputedConfig`.
 
-## Set your own data
+## Set Your Own Data
 
 Let's say you want to add a `Welcome to the contact page` everywhere. (A filter might be a better choice, but it's a good example of the concept.)
 

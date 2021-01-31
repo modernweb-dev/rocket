@@ -8,7 +8,7 @@ It can help to examine each new page and menu carefully, to come to terms with t
 
 </inline-notification>
 
-## Add a section
+## Add a Section
 
 In most cases you will have multiple sections in your website and each of those sections will come with its own sidebar navigation.
 
@@ -38,7 +38,7 @@ Don't worry if this isn't how you would have styled or placed your menu bar or s
 
 It might be more practical to stay below 5 sections.
 
-## Adding a category
+## Adding a Category
 
 Often each section will have multiple categories.
 
@@ -54,7 +54,7 @@ mkdir docs/guides/first-pages/
 # First Pages
 ```
 
-## Adding a page to a category
+## Adding a Page to a Category
 
 👉 `docs/guides/first-pages/getting-started.md`
 
@@ -64,14 +64,14 @@ mkdir docs/guides/first-pages/
 This is how you get started.
 ```
 
-## Headings as anchor and menu items
+## Headings as Anchor and Menu Items
 
 _**Within**_ any page, you can still add links to your navigation!
 
 Note that md text prefixed with one or two # signs also becomes and anchor in the page and a link in the sidebar navigation when the page is open.
 
 ```md
-## Headings as anchor and menu items
+## Headings as Anchor and Menu Items
 
 _**Within**_ any page, you can still add links to your navigation!
 ```
@@ -80,6 +80,6 @@ _**Within**_ any page, you can still add links to your navigation!
 import '@rocket/launch/inline-notification/inline-notification.js';
 ```
 
-## Example as a reference
+## Example as a Reference
 
 If implicit navigation, derived from content, is a bit too much to grasp in one sitting, feel free to examine the **docs** folder in [the rocket codebase behind the pages you are reading](https://github.com/modernweb-dev/rocket) for more examples.

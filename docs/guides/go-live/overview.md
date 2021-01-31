@@ -2,7 +2,7 @@
 
 A few things are usually needed before going live "for real".
 
-## Add a not found page
+## Add a Not Found Page
 
 When a user enters a url that does not exists then a "famous" 404 page not found error occures.
 Many servers are configured to handle this automatically and to serve a 404.html page instead.

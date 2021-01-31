@@ -70,9 +70,7 @@ import '@mdjs/mdjs-preview/mdjs-preview.js';
 ```
 ````
 
-once loaded you can use them like so.
-
-### story
+### Story
 
 The code snippet will actually get executed at that place and you will have a live demo
 
@@ -88,7 +86,7 @@ export const JsStory = () => html` <demo-wc-card>JS Story</demo-wc-card> `;
 ```
 ````
 
-#### full code support
+#### Full Code Support
 
 ````md
 ```js story
@@ -101,7 +99,7 @@ export const JsStory = () => {
 ```
 ````
 
-### preview story
+### Preview Story
 
 Will become a live demo wrapped in a container with a show code button.
 

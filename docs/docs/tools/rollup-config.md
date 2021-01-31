@@ -54,7 +54,7 @@ Our config sets you up with good defaults for most projects. Additionally you ca
 
 We use the [plugins-manager](./plugins-manager.md) for it.
 
-### Customizing the babel config
+### Customizing the Babel Config
 
 You can define custom babel plugins to be loaded by adding a `.babelrc` or `babel.config.js` to your project. See [babeljs config](https://babeljs.io/docs/en/configuration) for more information.
 
@@ -66,7 +66,7 @@ For example to add support for class properties:
 }
 ```
 
-### Customizing default plugins
+### Customizing Default Plugins
 
 Our config creators install a number of Rollup plugins by default:
 

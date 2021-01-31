@@ -2,7 +2,7 @@
 layout: layout.njk
 ---
 
-# Loading json
+# Loading JSON
 
 ```js script
 import testData from './test-data.json';

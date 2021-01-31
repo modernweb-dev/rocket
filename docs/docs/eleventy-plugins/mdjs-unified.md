@@ -18,7 +18,7 @@ module.exports = function (eleventyConfig) {
 };
 ```
 
-## Configure a unified or remark plugin with mdjs
+## Configure a unified or remark Plugin with mdjs
 
 By providing a `setupUnifiedPlugins` function as an option to `eleventy-plugin-mdjs` you can set options for all unified/remark plugins.
 
@@ -43,7 +43,7 @@ module.exports = function (eleventyConfig) {
 };
 ```
 
-## Add a unified or remark plugin
+## Add a unified or remark Plugin
 
 The order of plugins is important in unified as each plugin processes the content and passes on its result.
 Some plugins do work with the Markdown AST and some with the rehype (e.g. HTML) AST. In order to get access to the correct AST the plugin needs to be in a specific location in the processing order.

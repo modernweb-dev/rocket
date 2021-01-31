@@ -15,13 +15,13 @@ However, one thing almost all of them have in common is that they rely on [Markd
 
 And it's no surprise, because Markdown is supported practically everywhere (vscode, atom, github, gitlab, dev.to, npmjs, ...)
 
-## For tools that do not run in the browser
+## For Tools that Do Not Run in the Browser
 
 In this case, you will mostly share code snippets that people will need to run in their own projects in which case traditional static site generators like [Docusaurus](https://docusaurus.io/), [VuePress](https://vuepress.vuejs.org/), [Gatsby](https://www.gatsbyjs.org/), et al work great. All of them have full support for Markdown and allow you to easily create beautiful documentation pages with code snippets/highlighting, and more.
 
 And frankly, if that is your use case almost everything you need should be possible with those tools as long as you feel comfortable with the ecosystem/framework.
 
-## For (visual) components that do run in the browser
+## For (Visual) Components that Do Run in the Browser
 
 In this context, users probably do expect a live demo to see all the different options of your component in action. So pure Markdown is usually not enough as we now want to actually execute code and "insert" our working component in our documentation somehow. This would require specialized handling for each framework.
 
@@ -50,7 +50,7 @@ For React you can use [Mdx](https://mdxjs.com/) which extends Markdown with JSX 
 ```md
 import { Chart } from '../components/chart'
 
-# Here’s a chart
+# Here’s a Chart
 
 The chart is rendered inside our MDX document.
 <Chart />
@@ -115,7 +115,7 @@ The process looks like this:
 
 This already is powerful enough to directly include JavaScript and render web components with attributes.
 
-## Enhancing mdjs with demo format
+## Enhancing mdjs with Demo Format
 
 Now that we can execute JavaScript within our Markdown this opens the door for more advanced features.
 
@@ -177,7 +177,7 @@ Here another playground mimicking a full documentation page.
 
 [==> Link to editable demo <==](https://webcomponents.dev/edit/PqrQkg3abvFJ7vxyZuqa?pm=1&sv=1)
 
-## mdjs default docs page
+## mdjs Default Docs Page
 
 Once all this meta-information is available you can render a specific docs page.
 
@@ -194,9 +194,9 @@ for (const story of stories) {
 
 All of this happens under the hood for you 🤗
 
-## Where can you use mdjs?
+## Where Can You Use mdjs?
 
-### You can use it locally via es-dev-server
+### Locally with ES Dev Server
 
 Here i'll show you how you can create a github like Markdown view for all your local Markdown files including live demos.
 
@@ -229,7 +229,7 @@ After executing `npm run start` you can happily browse your live documentation v
 
 You can see an example setup in the [demo-wc-card repo](https://github.com/daKmoR/demo-wc-card).
 
-### You can use it via Storybook
+### Storybook
 
 If you want to work on individual components or get a list of all demos you can use Storybook.
 
@@ -271,7 +271,7 @@ No additional changes to any files are needed; a plugin will take care of everyt
 
 For more detailed information please see [https://open-wc.org/demoing-storybook/](https://open-wc.org/demoing-storybook/).
 
-### Show it on github
+### GitHub
 
 Since GitHub supports Markdown out of the box, we can take things even further by using mdjs.
 
@@ -312,7 +312,7 @@ Especially as the readme and issue content still remain useful even without the 
 
 For more detailed information please see [https://github.com/open-wc/mdjs-viewer](https://github.com/open-wc/mdjs-viewer).
 
-### Supported on webcomponents.dev
+### webcomponents.dev
 
 Fully supported by this awesome online editor.
 
@@ -330,7 +330,7 @@ All the demo links are actually from [webcomponents.dev](https://webcomponents.d
 
 Be sure to [check it out](https://webcomponents.dev/).
 
-## How you can add support for mdjs
+## How You Can Add Support for mdjs
 
 Please check the official documentation page at [https://open-wc.org/mdjs/](https://open-wc.org/mdjs/).
 
