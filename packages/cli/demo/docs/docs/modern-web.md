@@ -15,8 +15,8 @@ eleventyNavigation:
 | /learn/codelabs/                           | - Codelabs Overview                      |
 | /learn/codelabs/x/                         | ???                                      |
 | /learn/fundaments/                         | - Fundaments                             |
-| /learn/fundaments/html/                    | -- html                                  |
-| /learn/fundaments/css/                     | -- css Basics                            |
+| /learn/fundaments/html/                    | -- HTML                                  |
+| /learn/fundaments/css/                     | -- CSS Basics                            |
 | /learn/fundaments/browser/                 | -- Browser Basics                        |
 | /learn/fundaments/specs/                   | -- Specs Basics                          |
 | /learn/fundaments/server/                  | -- Web Server Basics                     |

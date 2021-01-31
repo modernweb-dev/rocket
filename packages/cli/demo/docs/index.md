@@ -14,7 +14,7 @@ The modern web setup with less complexity
 
 ### Small
 
-No overblown tools and frontend frameworks.
+No overblown tools and front-end frameworks.
 
 ### Fast
 

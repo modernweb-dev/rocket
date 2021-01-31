@@ -13,7 +13,7 @@ Users should at least be able to get a high level understanding of what they are
 On the web, we have many many different ways of writing documentation.
 However, one thing almost all of them have in common is that they rely on [Markdown](https://en.wikipedia.org/wiki/Markdown) or some kind of variation of it.
 
-And it's no surprise, because Markdown is supported practically everywhere (vscode, atom, github, gitlab, dev.to, npmjs, ...)
+And it's no surprise, because Markdown is supported practically everywhere (VS Code, Atom, GitHub, GitLab, dev.to, npmjs, ...)
 
 ## For Tools that Do Not Run in the Browser
 
@@ -40,12 +40,12 @@ For Vue, as an example, you can use VuePress which auto registers all Vue compon
 <demo-1 />
 ```
 
-- supports vue components and has "magical" import for them
+- supports Vue components and has "magical" import for them
 - no support for generic JavaScript or passing properties to components
 
 ### React
 
-For React you can use [Mdx](https://mdxjs.com/) which extends Markdown with JSX support. Mdx is available via multiple tools like [Gatsby](https://www.gatsbyjs.org/), [docz](https://www.docz.site/), [storybook](https://storybook.js.org/), etc.
+For React you can use [MDX](https://mdxjs.com/) which extends Markdown with JSX support. MDX is available via multiple tools like [Gatsby](https://www.gatsbyjs.org/), [docz](https://www.docz.site/), [storybook](https://storybook.js.org/), etc.
 
 ```md
 import { Chart } from '../components/chart'
@@ -58,7 +58,7 @@ The chart is rendered inside our MDX document.
 
 - supports import/export JavaScript
 - passes everything through JSX
-- Doesn't look _great_ on github, requires special tools in editors to get highlighting
+- doesn't look _great_ on GitHub, requires special tools in editors to get highlighting
 
 ## Limitations
 
@@ -119,7 +119,7 @@ This already is powerful enough to directly include JavaScript and render web co
 
 Now that we can execute JavaScript within our Markdown this opens the door for more advanced features.
 
-Our first step is to create another enhanced js code block, namely; `js story`.
+Our first step is to create another enhanced JS code block, namely; `js story`.
 From this code block you can export a function to be executed on demand:
 
     ```js script
@@ -198,7 +198,7 @@ All of this happens under the hood for you 🤗
 
 ### Locally with ES Dev Server
 
-Here i'll show you how you can create a github like Markdown view for all your local Markdown files including live demos.
+Here I'll show you how you can create a GitHub-like Markdown view for all your local Markdown files including live demos.
 
 ![es-dev-server screenshot](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/es-dev-server-screenshot.png)
 
@@ -212,7 +212,7 @@ Here i'll show you how you can create a github like Markdown view for all your l
   }
   ```
 
-- Create a `es-dev-server.config.js` in the root of your repo.
+- Create a `es-dev-server.config.js` in the root of your repository.
 
   ```js
   const { mdjsTransformer } = require('@mdjs/core');
@@ -227,7 +227,7 @@ Here i'll show you how you can create a github like Markdown view for all your l
 
 After executing `npm run start` you can happily browse your live documentation via [http://localhost:8000/README.md](http://localhost:8000/README.md).
 
-You can see an example setup in the [demo-wc-card repo](https://github.com/daKmoR/demo-wc-card).
+You can see an example setup in the [demo-wc-card repository](https://github.com/daKmoR/demo-wc-card).
 
 ### Storybook
 
@@ -267,7 +267,7 @@ If you want to work on individual components or get a list of all demos you can 
   ```
 
 And just like that, you are good to go.
-No additional changes to any files are needed; a plugin will take care of everything by converting your Markdown files to the support Storybook's mdx format.
+No additional changes to any files are needed; a plugin will take care of everything by converting your Markdown files to the support Storybook's MDX format.
 
 For more detailed information please see [https://open-wc.org/demoing-storybook/](https://open-wc.org/demoing-storybook/).
 
@@ -344,7 +344,7 @@ Now go out there and write good documentation for your components!
 
 ## Future
 
-- Have a separate github repo (potentially group as well).
+- Have a separate GitHub repository (potentially group as well).
 - Have a dedicated homepage
 - The default story preview frame should look a little nicer
 - Support multiple renderers - discussion in [issue](https://github.com/open-wc/open-wc/issues/1498)

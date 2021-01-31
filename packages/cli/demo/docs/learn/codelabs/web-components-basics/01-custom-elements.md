@@ -35,7 +35,7 @@ class CoolHeading extends HTMLElement {
 }
 ```
 
-After creating our class we can associate it with a tagname by defining it in the custom elements registry. This way, whenever the browser's parser gets to the `<cool-heading>` tag, it will instantiate and apply our class to that specific element:
+After creating our class we can associate it with a tag name by defining it in the custom elements registry. This way, whenever the browser's parser gets to the `<cool-heading>` tag, it will instantiate and apply our class to that specific element:
 
 ```js
 customElements.define('cool-heading', CoolHeading);
