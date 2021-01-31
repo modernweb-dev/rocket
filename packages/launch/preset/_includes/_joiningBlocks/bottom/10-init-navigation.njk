@@ -1,1 +1,17 @@
-<script type="module" src="{{ '/_assets/scripts/init-navigation.js' | asset }}"></script>
+{# 
+  src leads to the file not being included/executed? bug in rollup-plugin-html? 
+  <script type="module" src="{{ '/_assets/scripts/init-navigation.js' | asset }}"></script>
+#}
+<script type="module">
+  import '@rocket/navigation/rocket-navigation.js';
+  import '@rocket/drawer/rocket-drawer.js';
+  const drawer = document.querySelector('#sidebar');
+
+  // Toggle button
+  const triggers = document.querySelectorAll('[data-action="trigger-mobile-menu"]');
+  for (const trigger of [...triggers]) {
+    trigger.addEventListener('click', function () {
+      drawer.opened = true;
+    });
+  }
+</script>
