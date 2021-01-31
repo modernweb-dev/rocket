@@ -1,4 +1,4 @@
-# Configuration >> setupEleventyComputedConfig ||20
+# Configuration >> Computed Config ||20
 
 If you want to add data that depends on other data then you can do it via [Eleventy's computed data](https://www.11ty.dev/docs/data-computed/).
 

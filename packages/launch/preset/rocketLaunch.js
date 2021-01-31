@@ -1,4 +1,5 @@
 import path from 'path';
+import { adjustPluginOptions } from 'plugins-manager';
 // import { addPlugin } from 'plugins-manager';
 import { fileURLToPath } from 'url';
 
@@ -48,5 +49,8 @@ export function rocketLaunch() {
   return {
     path: path.resolve(__dirname),
     setupUnifiedPlugins: [addOcticonToHeadlines],
+    setupEleventyComputedConfig: [
+      adjustPluginOptions('layout', { defaultLayout: 'layout-sidebar' }),
+    ],
   };
 }
