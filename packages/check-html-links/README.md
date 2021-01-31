@@ -18,7 +18,7 @@ For docs please see our homepage [https://rocket.modern-web.dev/docs/tools/check
 
 ## Comparison
 
-Checking the output of [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
+Checking the output of the [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
 
 | Tool             | Lines printed | Times  | Lang | Dependency Tree |
 | ---------------- | ------------- | ------ | ---- | --------------- |
