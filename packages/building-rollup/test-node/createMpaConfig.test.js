@@ -59,13 +59,13 @@ describe('createMapConfig', () => {
       stripToBody: true,
       stripServiceWorker: true,
     });
-    expect(indexHtml).to.equal('<h1>Only static html content in index.html</h1>');
+    expect(indexHtml).to.equal('<h1>Only static HTML content in index.html</h1>');
 
     const subHtmlIndexHtml = await readOutput('sub-html/index.html', {
       stripToBody: true,
       stripServiceWorker: true,
     });
-    expect(subHtmlIndexHtml).to.equal('<h1>Only static html content in sub-html/index.html</h1>');
+    expect(subHtmlIndexHtml).to.equal('<h1>Only static HTML content in sub-html/index.html</h1>');
 
     const subJsIndexHtml = await readOutput('sub-js/index.html', {
       stripToBody: true,

@@ -64,7 +64,7 @@ describe('RocketCli computedConfig', () => {
     expect(indexHtml).to.equal('/_merged_assets/11ty-img/c4c29ec7-1200.png');
 
     const guidesHtml = await readStartOutput(cli, 'guides/index.html');
-    expect(guidesHtml).to.equal('/_merged_assets/11ty-img/5e6f6f8c-1200.png');
+    expect(guidesHtml).to.equal('/_merged_assets/11ty-img/c593a8cd-1200.png');
 
     const gettingStartedHtml = await readStartOutput(
       cli,

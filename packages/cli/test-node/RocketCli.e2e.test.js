@@ -217,7 +217,7 @@ describe('RocketCli e2e', () => {
       type: 'start',
     });
     expect(indexHtml).to.equal(
-      '<p>You can show rocket config data like rocketConfig.absoluteBaseUrl = <a href="http://test-domain.com/">http://test-domain.com/</a></p>',
+      '<p>You can show Rocket config data like rocketConfig.absoluteBaseUrl = <a href="http://test-domain.com/">http://test-domain.com/</a></p>',
     );
   });
 
