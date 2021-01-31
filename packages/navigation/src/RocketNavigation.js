@@ -11,13 +11,26 @@ export class RocketNavigation extends HTMLElement {
     /** @type NavigationListItem[] */
     this.list = [];
     this.__scrollHandler = this.__scrollHandler.bind(this);
+    this.__isSetup = false;
   }
 
   connectedCallback() {
+    if (this.__isSetup) {
+      return;
+    }
+    this.__isSetup = true;
+
     this.addEventListener('click', ev => {
       const el = /** @type {HTMLElement} */ (ev.target);
       if (el.classList.contains('anchor')) {
+        const anchor = /** @type {HTMLAnchorElement} */ (el);
+        ev.preventDefault();
         this.dispatchEvent(new Event('close-overlay', { bubbles: true }));
+        // wait for closing animation to finish before start scrolling
+        setTimeout(() => {
+          const parsedUrl = new URL(anchor.href);
+          document.location.hash = parsedUrl.hash;
+        }, 250);
       }
       const links = el.parentElement?.querySelectorAll('ul a');
       if (links && links.length > 1) {
