@@ -180,4 +180,14 @@ describe('RocketCli computedConfig', () => {
     });
     expect(indexHtml).to.equal('test-value');
   });
+
+  it('always assigns layout-default exept for index.* files who get layout-index', async () => {
+    cli = await executeStart('computed-config-fixtures/layout/rocket.config.js');
+
+    const indexHtml = await readStartOutput(cli, 'index.html');
+    expect(indexHtml).to.include('<body layout="layout-index">');
+
+    const pageHtml = await readStartOutput(cli, 'page/index.html');
+    expect(pageHtml).to.include('<body layout="layout-default">');
+  });
 });

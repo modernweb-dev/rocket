@@ -25,11 +25,14 @@ describe('RocketCli preset', () => {
     const rawHtml = await readStartOutput(cli, 'raw/index.html');
     expect(rawHtml).to.equal('<p>Just raw</p>');
 
-    const indexHtml = await readStartOutput(cli, 'index.html', {
+    const indexHtml = await readStartOutput(cli, 'index.html');
+    expect(indexHtml).to.include('<body layout="layout-index">');
+
+    const pageHtml = await readStartOutput(cli, 'page/index.html', {
       stripScripts: true,
       formatHtml: true,
     });
-    expect(indexHtml).to.equal(
+    expect(pageHtml).to.equal(
       [
         '<!DOCTYPE html>',
         '',
@@ -37,11 +40,11 @@ describe('RocketCli preset', () => {
         '  <head>',
         '    <meta charset="utf-8" />',
         '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />',
-        '    <title>Main: Rocket</title>',
-        '    <meta property="og:title" content="Main: Rocket" />',
+        '    <title>Page: Rocket</title>',
+        '    <meta property="og:title" content="Page: Rocket" />',
         '',
         '    <meta name="generator" content="rocket 0.1" />',
-        '    <link rel="canonical" href="/" />',
+        '    <link rel="canonical" href="/page/" />',
         '',
         '    <meta',
         '      name="description"',
@@ -56,7 +59,7 @@ describe('RocketCli preset', () => {
         '    <meta property="og:type" content="website" />',
         '',
         '    <meta property="og:image" content="do-not-generate-a-social-media-image" />',
-        '    <meta property="og:url" content="/" />',
+        '    <meta property="og:url" content="/page/" />',
         '',
         '    <meta name="twitter:card" content="summary_large_image" />',
         '  </head>',
@@ -74,9 +77,9 @@ describe('RocketCli preset', () => {
         '    <div id="content-wrapper">',
         '      <div class="content-area">',
         '        <main class="markdown-body">',
-        '          <h1 id="main">',
-        '            <a aria-hidden="true" tabindex="-1" href="#main"><span class="icon icon-link"></span></a',
-        '            >Main',
+        '          <h1 id="page">',
+        '            <a aria-hidden="true" tabindex="-1" href="#page"><span class="icon icon-link"></span></a',
+        '            >Page',
         '          </h1>',
         '        </main>',
         '      </div>',

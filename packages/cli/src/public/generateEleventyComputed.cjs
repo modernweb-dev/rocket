@@ -55,6 +55,21 @@ function sectionPlugin() {
   };
 }
 
+function layoutPlugin({ defaultLayout = 'layout-default' } = {}) {
+  return async data => {
+    if (data.layout) {
+      return data.layout;
+    }
+    if (data.page.filePathStem) {
+      const parts = data.page.filePathStem.split('/');
+      if (parts[parts.length - 1] === 'index') {
+        return 'layout-index';
+      }
+    }
+    return defaultLayout;
+  };
+}
+
 function socialMediaImagePlugin(args = {}) {
   const { createSocialImage = defaultcreateSocialImage } = args;
 
@@ -145,6 +160,7 @@ function generateEleventyComputed() {
     { name: 'section', plugin: sectionPlugin },
     { name: 'socialMediaImage', plugin: socialMediaImagePlugin },
     { name: 'templateBlocks', plugin: templateBlocksPlugin, options: rocketConfig },
+    { name: 'layout', plugin: layoutPlugin },
   ];
 
   const finalMetaPlugins = executeSetupFunctions(
