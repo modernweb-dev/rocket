@@ -1,6 +1,6 @@
 # First Pages >> Getting Started ||10
 
-Rocket is has the following prerequisits:
+Rocket has the following prerequisites:
 
 - [Node 14+](https://nodejs.org/en/)
 
@@ -62,7 +62,7 @@ Rocket uses the .gitignore file to manage its requirements. If you skip this ste
 
 <inline-notification type="warning" title="note">
 
-All further pathes are relative to your project root (my-project in this case)
+All further paths are relative to your project root (my-project in this case).
 
 </inline-notification>
 

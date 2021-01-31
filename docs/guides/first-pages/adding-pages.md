@@ -68,7 +68,7 @@ This is how you get started.
 
 _**Within**_ any page, you can still add links to your navigation!
 
-Note that md text prefixed with one or two # signs also becomes and anchor in the page and a link in the sidebar navigation when the page is open.
+Note that Markdown text prefixed with one or two # signs also becomes an anchor in the page and a link in the sidebar navigation when the page is open.
 
 ```md
 ## Headings as Anchor and Menu Items

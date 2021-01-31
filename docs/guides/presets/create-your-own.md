@@ -1,6 +1,6 @@
 # Presets >> Create your own || 90
 
-A preset is setup function and a folder including `_assets`, `_data` and `_includes` (all optional).
+A preset is a setup function and a folder including `_assets`, `_data` and `_includes` (all optional).
 
 To play around with a preset you can create a folder `fire-theme`.
 
