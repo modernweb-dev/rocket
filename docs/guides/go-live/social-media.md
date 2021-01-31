@@ -3,15 +3,15 @@
 Having a nice preview image for social media can be very helpful.
 For that reason Rocket creates those automatically with the title, parent title, section and your logo.
 
-It will look like this but with your logo
+It will look like this but with your logo:
 
 <img src="{{ socialMediaImage }}" width="1200" height="630" alt="Social Media Image of this page" style="border: 1px solid #000" />
 
 There are multiple ways you can modify it.
 
-Note: If your logo has an `<?xml>` tag it will throw an error as it will be inlined into this svg and nested xml tags are not allowed.
+Note: If your logo has an `<?xml>` tag it will throw an error as it will be inlined into this SVG and nested XML tags are not allowed.
 
-## Setting it via frontMatter
+## Setting it via Front Matter
 
 You can create your own image and link it with something like this
 
@@ -21,7 +21,7 @@ socialMediaImage: path/to/my/image.png
 ---
 ```
 
-## Providing your own text
+## Providing Your Own Text
 
 Sometimes extracting the title + title of parent is not enough but you still want to use the "default image".
 
@@ -47,10 +47,10 @@ module.exports = async function () {
 };
 ```
 
-## Override the default image
+## Override the Default Image
 
 Often you want to have a unique style for your social media images.
-For that you can provide your own function which returns a string of an svg to render the image.
+For that you can provide your own function which returns a string of an SVG to render the image.
 
 👉 `rocket.config.mjs`
 
@@ -100,9 +100,9 @@ const config = {
 export default config;
 ```
 
-## Using an svg file as a src with nunjucks
+## Using an SVG File as a src with Nunjucks
 
-If you have multiple variations it may be easier to save them as svg files and using a template system
+If you have multiple variations it may be easier to save them as SVG files and use a template system.
 
 WARNING: Untested example
 

@@ -2,7 +2,7 @@
 import { LitElement, html, css } from 'lit-element';
 import './demo-component.js';
 
-// partial css trips up the minifier
+// partial CSS trips up the minifier
 const fontSize = css`
   16
 `;

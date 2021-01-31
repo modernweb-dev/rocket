@@ -1,15 +1,15 @@
 # Tools >> Rollup Config ||20
 
 Rollup configuration to help you get started building modern web applications.
-You write modern javascript using the latest browser-features, rollup will optimize your code for production and ensure it runs on all supported browsers.
+You write modern JavaScript using the latest browser features. Rollup will optimize your code for production and ensure it runs on all supported browsers.
 
 ## Features
 
-- Set HTML or JS as input and/or output
+- Set HTML or JavaScript as input and/or output
 - Optimized for browsers which support modules
 - Loads polyfills using feature detection
 - Generates a service worker
-- Minifies JS
+- Minifies JavaScript
 - Minifies lit-html templates
 
 ## Setup
@@ -25,7 +25,7 @@ You write modern javascript using the latest browser-features, rollup will optim
    ```js
    import { createSpaConfig } from '@rocket/building-rollup';
    // use `import { createBasicConfig }` to do regular JS to JS bundling
-   // use `import { createMpaConfig }` to bundle multiple html files
+   // use `import { createMpaConfig }` to bundle multiple HTML files
 
    export default createSpaConfig({
      input: 'index.html',
@@ -54,7 +54,7 @@ Our config sets you up with good defaults for most projects. Additionally you ca
 
 We use the [plugins-manager](./plugins-manager.md) for it.
 
-### Customizing the babel config
+### Customizing the Babel Config
 
 You can define custom babel plugins to be loaded by adding a `.babelrc` or `babel.config.js` to your project. See [babeljs config](https://babeljs.io/docs/en/configuration) for more information.
 
@@ -66,9 +66,9 @@ For example to add support for class properties:
 }
 ```
 
-### Customizing default plugins
+### Customizing Default Plugins
 
-Our config creators install a number of rollup plugins by default:
+Our config creators install a number of Rollup plugins by default:
 
 Basic, SPA and MPA plugins:
 

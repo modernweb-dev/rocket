@@ -1,4 +1,4 @@
-> This project is in it's BETA phase
+> This project is in its BETA phase
 
 <p align="center">
   <img
@@ -33,7 +33,7 @@
 
 **The modern web setup for static sites with a sprinkle of JavaScript!**
 
-- **Meta Framework:** Build on top of giants like <a href="https://www.11ty.dev/">eleventy</a>, <a href="https://rollupjs.org/">Rollup</a>, and <a href="https://www.modern-web.dev/">Modern Web</a>.
+- **Meta Framework:** Build on top of giants like <a href="https://www.11ty.dev/">Eleventy</a>, <a href="https://rollupjs.org/">Rollup</a>, and <a href="https://www.modern-web.dev/">Modern Web</a>.
 - **Powerful Default Template:** Provide content and you are ready to go.
 - **Small:** No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed..
 
@@ -41,12 +41,12 @@
   <a href="https://rocket.modern-web.dev/guides/"><strong>Explore the Rocket Guides&nbsp;&nbsp;▶</strong></a>
 </p>
 
-## The goal for Rocket
+## The Goal for Rocket
 
 > Our goal is to provide developers with a meta framework for static websites with a spricle of JavaScript.
 
 Get a site up and running in no time and focus on the content.
-You can still tweak every details of every underlying tool that get's used.
+You can still tweak every detail of every underlying tool that gets used.
 
 Rocket is part of the [Modern Web Family](https://twitter.com/modern_web_dev).
 

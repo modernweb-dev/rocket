@@ -1,6 +1,6 @@
 # Markdown JavaScript >> Overview || 10
 
-Markdown JavaScript (Mdjs) is a format that allows you to use JavaScript with Markdown, to create interactive demos. It does so by "annotating" JavaScript that should be executed in Markdown.
+Markdown JavaScript (mdjs) is a format that allows you to use JavaScript with Markdown, to create interactive demos. It does so by "annotating" JavaScript that should be executed in Markdown.
 
 To annotate we use a code block with `js script`.
 
@@ -13,9 +13,9 @@ To annotate we use a code block with `js script`.
 ## Web Components
 
 One very good use case for that can be web components.
-HTML already works in markdown so all you need is to load a web components definition file.
+HTML already works in Markdown so all you need is to load a web components definition file.
 
-You could even do so within the same markdown file.
+You could even do so within the same Markdown file.
 
 ````md
 ## This is my-card
@@ -52,7 +52,7 @@ customElements.define('my-el', MyEl);
 
 ## Demo Support (Story)
 
-mdjs comes with some additional helpers you can choose to import via
+mdjs comes with some additional helpers you can choose to import:
 
 ````md
 ```js script
@@ -61,7 +61,7 @@ import '@mdjs/mdjs-preview/mdjs-preview.js';
 ```
 ````
 
-once loaded you can use them like so.
+Once loaded you can use them like so:
 
 ````md
 ```js script
@@ -70,9 +70,7 @@ import '@mdjs/mdjs-preview/mdjs-preview.js';
 ```
 ````
 
-once loaded you can use them like so.
-
-### story
+### Story
 
 The code snippet will actually get executed at that place and you will have a live demo
 
@@ -88,7 +86,7 @@ export const JsStory = () => html` <demo-wc-card>JS Story</demo-wc-card> `;
 ```
 ````
 
-#### full code support
+#### Full Code Support
 
 ````md
 ```js story
@@ -101,7 +99,7 @@ export const JsStory = () => {
 ```
 ````
 
-### preview story
+### Preview Story
 
 Will become a live demo wrapped in a container with a show code button.
 
@@ -146,7 +144,7 @@ Preview your mdjs readme with live demos and auto reload.
   }
   ```
 
-- Create a `es-dev-server.config.js` in the root of your repo.
+- Create a `es-dev-server.config.js` in the root of your repository.
 
   ```js
   const { mdjsTransformer } = require('@mdjs/core');
@@ -165,9 +163,9 @@ Please check out [@open-wc/demoing-storybook](https://open-wc.org/demoing/) for 
 
 It includes [storybook-addon-markdown-docs](https://open-wc.org/demoing/storybook-addon-markdown-docs.html) which uses mdjs under the hood.
 
-### Chrome Extension (currently only for Github)
+### Chrome Extension (currently only for GitHub)
 
-See live demos directly inside github page, markdown files, issues, pull requests...
+See live demos directly inside GitHub pages, Markdown files, issues, pull requests...
 
 Please check out [mdjs-viewer](https://github.com/open-wc/mdjs-viewer).
 
@@ -179,7 +177,7 @@ mdjs offers two more "basic" integrations
 
 #### `mdjsDocPage`
 
-Creates a full blown html page by passing in the markdown.
+Creates a full blown HTML page by passing in the Markdown.
 
 ```js
 const { mdjsDocPage } = require('@mdjs/core');
@@ -197,7 +195,7 @@ const page = await mdjsDocPage(markdownString);
 
 #### `mdjsProcess`
 
-Pass in multiple markdown documents and you get back all the jsCode and rendered html.
+Pass in multiple Markdown documents and you get back all the JavaScript code and rendered HTML.
 
 ```js
 const { mdjsProcess } = require('@mdjs/core');

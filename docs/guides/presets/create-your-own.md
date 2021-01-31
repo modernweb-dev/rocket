@@ -1,6 +1,6 @@
 # Presets >> Create your own || 90
 
-A preset is setup function and a folder including `_assets`, `_data` and `_includes` (all optional).
+A preset is a setup function and a folder including `_assets`, `_data` and `_includes` (all optional).
 
 To play around with a preset you can create a folder `fire-theme`.
 
@@ -35,7 +35,7 @@ body {
 }
 ```
 
-Once you have that you can add it to your Rocket Config.
+Once you have that you can add it to your Rocket config.
 
 NOTE: The order of presets is important, as for example in this case we take everything from `rocketLaunch` but later override via `fireTheme`.
 
@@ -50,7 +50,7 @@ export default {
 };
 ```
 
-## Publish a preset
+## Publish a Preset
 
 If you would like to publish a preset to use it on multiple websites or share it with your friends you can do like so.
 

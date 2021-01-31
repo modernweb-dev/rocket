@@ -1,12 +1,12 @@
 # Configuration >> setupEleventyComputedConfig ||20
 
-If you want to add data that depends on other data then you can do it via [11ty's computed data](https://www.11ty.dev/docs/data-computed/).
+If you want to add data that depends on other data then you can do it via [Eleventy's computed data](https://www.11ty.dev/docs/data-computed/).
 
 Rocket exposes it via `setupEleventyComputedConfig`.
 
-## Set your own data
+## Set Your Own Data
 
-Let's say you want to add a `Welcome to the contact page` everyhwere. (a filter might be a better choise but it's a good example of the concept)
+Let's say you want to add a `Welcome to the contact page` everywhere. (A filter might be a better choice, but it's a good example of the concept.)
 
 👉 `rocket.config.mjs` (or your theme config file)
 
@@ -24,9 +24,9 @@ export default config;
 ```
 
 {% raw %}
-Now you can use everywhere {{ greeting }}.
+Now you can use {{ greeting }} everywhere.
 {% endraw %}
-And it will correctly replaced with a Welcome and the page title.
+And it will be correctly replaced with a Welcome and the page title.
 
 ## Default Available Configs
 

@@ -13,21 +13,21 @@ Users should at least be able to get a high level understanding of what they are
 On the web, we have many many different ways of writing documentation.
 However, one thing almost all of them have in common is that they rely on [Markdown](https://en.wikipedia.org/wiki/Markdown) or some kind of variation of it.
 
-And it's no surprise, because Markdown is supported practically everywhere (vscode, atom, github, gitlab, dev.to, npmjs, ...)
+And it's no surprise, because Markdown is supported practically everywhere (VS Code, Atom, GitHub, GitLab, dev.to, npmjs, ...)
 
-## For tools that do not run in the browser
+## For Tools that Do Not Run in the Browser
 
 In this case, you will mostly share code snippets that people will need to run in their own projects in which case traditional static site generators like [Docusaurus](https://docusaurus.io/), [VuePress](https://vuepress.vuejs.org/), [Gatsby](https://www.gatsbyjs.org/), et al work great. All of them have full support for Markdown and allow you to easily create beautiful documentation pages with code snippets/highlighting, and more.
 
 And frankly, if that is your use case almost everything you need should be possible with those tools as long as you feel comfortable with the ecosystem/framework.
 
-## For (visual) components that do run in the browser
+## For (Visual) Components that Do Run in the Browser
 
 In this context, users probably do expect a live demo to see all the different options of your component in action. So pure Markdown is usually not enough as we now want to actually execute code and "insert" our working component in our documentation somehow. This would require specialized handling for each framework.
 
 ### Vue
 
-For Vue, as an example, you can use VuePress which auto registers all Vue components in a certain folder and then you can use as normal html tags since Markdown supports html
+For Vue, as an example, you can use VuePress which auto registers all Vue components in a certain folder and then you can use as normal HTML tags since Markdown supports HTML
 
 ```
 .
@@ -40,17 +40,17 @@ For Vue, as an example, you can use VuePress which auto registers all Vue compon
 <demo-1 />
 ```
 
-- supports vue components and has "magical" import for them
-- no support for generic javascript or passing properties to components
+- supports Vue components and has "magical" import for them
+- no support for generic JavaScript or passing properties to components
 
 ### React
 
-For React you can use [Mdx](https://mdxjs.com/) which extends Markdown with JSX support. Mdx is available via multiple tools like [Gatsby](https://www.gatsbyjs.org/), [docz](https://www.docz.site/), [storybook](https://storybook.js.org/), etc.
+For React you can use [MDX](https://mdxjs.com/) which extends Markdown with JSX support. MDX is available via multiple tools like [Gatsby](https://www.gatsbyjs.org/), [docz](https://www.docz.site/), [storybook](https://storybook.js.org/), etc.
 
 ```md
 import { Chart } from '../components/chart'
 
-# Here’s a chart
+# Here’s a Chart
 
 The chart is rendered inside our MDX document.
 <Chart />
@@ -58,7 +58,7 @@ The chart is rendered inside our MDX document.
 
 - supports import/export JavaScript
 - passes everything through JSX
-- Doesn't look _great_ on github, requires special tools in editors to get highlighting
+- doesn't look _great_ on GitHub, requires special tools in editors to get highlighting
 
 ## Limitations
 
@@ -71,7 +71,7 @@ The primary goals are
 
 - minimal complexity
 - follows progressive enhancement
-- stick close to valid markdown syntax
+- stick close to valid Markdown syntax
 - code highlighting in editors without additional tools
 - looks good on github/gitlab/any source code management tool
 
@@ -91,8 +91,8 @@ Alright, enough talk, you can see it live here:
 
 **How does it work**
 
-Mdjs hooks into [remark](https://remark.js.org/) and extracts all those tagged js blocks.
-In the end, html and js is separately available.
+mdjs hooks into [remark](https://remark.js.org/) and extracts all those tagged JavaScript blocks.
+In the end, HTML and JS are separately available.
 
 ```js
 {
@@ -105,9 +105,9 @@ It can then be combined/processed by any tool to create an actual documentation 
 
 The process looks like this:
 
-1. Extract `js script` and separate it from md
-2. Render md
-3. Provide html & js
+1. Extract `js script` and separate it from Markdown
+2. Render Markdown
+3. Provide HTML & JS
 
 ![mdjs script transform](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/mdjs-script-transform-resized.gif)
 
@@ -115,11 +115,11 @@ The process looks like this:
 
 This already is powerful enough to directly include JavaScript and render web components with attributes.
 
-## Enhancing mdjs with demo format
+## Enhancing mdjs with Demo Format
 
 Now that we can execute JavaScript within our Markdown this opens the door for more advanced features.
 
-Our first step is to create another enhanced js code block, namely; `js story`.
+Our first step is to create another enhanced JS code block, namely; `js story`.
 From this code block you can export a function to be executed on demand:
 
     ```js script
@@ -150,13 +150,13 @@ Under the hood, this adds an extra step to the processing:
 
 1. Extract `js script` and separate from md
 2. Extract `js story` and `js preview-story` and separate from md
-3. Put a placeholder `<mdjs-story mdjs-story-name="demo"></mdjs-story>` or `mdjs-preview` at it's place
-4. Render markdown
-5. Provide html, javascript, and stories
+3. Put a placeholder `<mdjs-story mdjs-story-name="demo"></mdjs-story>` or `mdjs-preview` at its place
+4. Render Markdown
+5. Provide HTML, JavaScript, and stories
 
-This is all the information we need to create full javascript and demo capable pages purely from markdown.
+This is all the information we need to create full JavaScript and demo capable pages purely from Markdown.
 
-By default Mdjs takes it a small step further by supporting an actual template system - namely [lit-html](https://lit-html.polymer-project.org/).
+By default mdjs takes it a small step further by supporting an actual template system - namely [lit-html](https://lit-html.polymer-project.org/).
 
     ```js script
     import './demo-wc-card.js';
@@ -177,7 +177,7 @@ Here another playground mimicking a full documentation page.
 
 [==> Link to editable demo <==](https://webcomponents.dev/edit/PqrQkg3abvFJ7vxyZuqa?pm=1&sv=1)
 
-## mdjs default docs page
+## mdjs Default Docs Page
 
 Once all this meta-information is available you can render a specific docs page.
 
@@ -194,11 +194,11 @@ for (const story of stories) {
 
 All of this happens under the hood for you 🤗
 
-## Where can you use mdjs?
+## Where Can You Use mdjs?
 
-### You can use it locally via es-dev-server
+### Locally with ES Dev Server
 
-Here i'll show you how you can create a github like markdown view for all your local markdown files including live demos.
+Here I'll show you how you can create a GitHub-like Markdown view for all your local Markdown files including live demos.
 
 ![es-dev-server screenshot](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/es-dev-server-screenshot.png)
 
@@ -212,7 +212,7 @@ Here i'll show you how you can create a github like markdown view for all your l
   }
   ```
 
-- Create a `es-dev-server.config.js` in the root of your repo.
+- Create a `es-dev-server.config.js` in the root of your repository.
 
   ```js
   const { mdjsTransformer } = require('@mdjs/core');
@@ -227,9 +227,9 @@ Here i'll show you how you can create a github like markdown view for all your l
 
 After executing `npm run start` you can happily browse your live documentation via [http://localhost:8000/README.md](http://localhost:8000/README.md).
 
-You can see an example setup in the [demo-wc-card repo](https://github.com/daKmoR/demo-wc-card).
+You can see an example setup in the [demo-wc-card repository](https://github.com/daKmoR/demo-wc-card).
 
-### You can use it via Storybook
+### Storybook
 
 If you want to work on individual components or get a list of all demos you can use Storybook.
 
@@ -245,7 +245,7 @@ If you want to work on individual components or get a list of all demos you can 
   }
   ```
 
-- Adjust your `.storybook/main.js` to load markdown files
+- Adjust your `.storybook/main.js` to load Markdown files
 
   ```js
   module.exports = {
@@ -258,7 +258,7 @@ If you want to work on individual components or get a list of all demos you can 
   };
   ```
 
-- Add to every markdown file that should be in storybook a name via
+- Add to every Markdown file that should be in storybook a name via
 
   ```js
   export default {
@@ -267,13 +267,13 @@ If you want to work on individual components or get a list of all demos you can 
   ```
 
 And just like that, you are good to go.
-No additional changes to any files are needed; a plugin will take care of everything by converting your markdown files to the support Storybook's mdx format.
+No additional changes to any files are needed; a plugin will take care of everything by converting your Markdown files to the support Storybook's MDX format.
 
 For more detailed information please see [https://open-wc.org/demoing-storybook/](https://open-wc.org/demoing-storybook/).
 
-### Show it on github
+### GitHub
 
-Since Github supports markdown out of the box, we can take things even further by using Mdjs.
+Since GitHub supports Markdown out of the box, we can take things even further by using mdjs.
 
 ![github screenshot](https://raw.githubusercontent.com/open-wc/blog-posts/master/2020-04-introducing-mdjs-interactive-demos-everywhere/images/github-screenshot.png)
 
@@ -283,23 +283,23 @@ As it's not supported by github directly you will need a chrome extension called
 - Do you want to show a live example of the issue you are having? mdjs-viewer!
 
 Almost looks like black magic, huh?
-All you did was install a Chrome extension and suddenly Github got superpowers.
+All you did was install a Chrome extension and suddenly GitHub got superpowers.
 
 All that you need is to have some Markdown files with the correct code fence blocks, and have your code up and running on [unpkg.com](https://unpkg.com).
 
 **How does it actually work?**
 
-The extension detects which Github page you are on.
-If it actually finds a markdown file or an issue with mdjs code then it adds a "show demo" button to activate it.
+The extension detects which GitHub page you are on.
+If it actually finds a Markdown file or an issue with mdjs code then it adds a "show demo" button to activate it.
 Only if you click the button it will start gathering all the needed info.
 
 - find the nearest `package.json`
-- read the actual markdown file/issue content
+- read the actual Markdown file/issue content
 - replace all bare import with `unpkg.com` imports
 - replace all relative imports with `unpkg.com` and the name of the package.json + relative path for it
 - create a secured iframe
 - position the iframe absolute as an overlays
-- put the javascript and html code inside the iframe
+- put the JavaScript and HTML code inside the iframe
 - the button becomes a toggle to show/hide the iframe
 
 Some of the tasks are more complicated and require some extra work to make it secure but in essence, that's it.
@@ -312,7 +312,7 @@ Especially as the readme and issue content still remain useful even without the 
 
 For more detailed information please see [https://github.com/open-wc/mdjs-viewer](https://github.com/open-wc/mdjs-viewer).
 
-### Supported on webcomponents.dev
+### webcomponents.dev
 
 Fully supported by this awesome online editor.
 
@@ -330,7 +330,7 @@ All the demo links are actually from [webcomponents.dev](https://webcomponents.d
 
 Be sure to [check it out](https://webcomponents.dev/).
 
-## How you can add support for mdjs
+## How You Can Add Support for mdjs
 
 Please check the official documentation page at [https://open-wc.org/mdjs/](https://open-wc.org/mdjs/).
 
@@ -344,7 +344,7 @@ Now go out there and write good documentation for your components!
 
 ## Future
 
-- Have a separate github repo (potentially group as well).
+- Have a separate GitHub repository (potentially group as well).
 - Have a dedicated homepage
 - The default story preview frame should look a little nicer
 - Support multiple renderers - discussion in [issue](https://github.com/open-wc/open-wc/issues/1498)

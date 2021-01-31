@@ -1,7 +1,7 @@
 ---
-title: Introducing check html links - no more bad links
+title: Introducing Check HTMl Links - no more bad links
 published: true
-description: A fast link checker for static html
+description: A fast link checker for static HTML
 tags: [html, javascript, webdev, node]
 cover_image: https://dev-to-uploads.s3.amazonaws.com/i/an9z6f4hdll2jlne43u3.jpg
 ---
@@ -15,17 +15,17 @@ It's really hard to catch especially if you have a dynamic page like with WordPr
 
 Luckily, with the rise of SSG (Static Site Generators), this problem becomes easier to tackle and can be solved in large part. The reason for that is that with all HTML rendered upfront as static files we can read all of them and check every link.
 
-## Evaluation and the decision for a new tool
+## Evaluation and the Decision for a New Tool
 
 Of course, I am not the first one to come up with that idea and there are multiple tools available on the market already.
-However, when checking existing solutions I found out that most of them didn't satisfy me in at least on way 😅. Things I noticed: slow to execute, deprecated, large dependency tree, confusing output for the user, ...
+However, when checking existing solutions I found out that most of them didn't satisfy me in at least one way 😅. Things I noticed: slow to execute, deprecated, large dependency tree, confusing output for the user, ...
 
 Reviewing these tools I decided to create my own, with the following requirements :
 
 - Blazing fast
 - User-focused output
 - Few dependencies, to keep it lean
-- Preferably in the NodeJS ecosystem
+- Preferably in the Node.js ecosystem
 
 ## Focusing on Useful Output
 
@@ -81,7 +81,7 @@ Let us turn that around and focus on missing references indeed. Here is the outp
 We get one 5 line error for `/speedlify/` and it tells us it's missing 495 times + 3 examples usages.
 Afterward, we find very clearly more missing references and where they occurred.
 
-### A clear winner
+### A Clear Winner
 
 Comparing those two outputs makes it pretty clear to me that `Missing File Focused` will make more sense if there is a chance that some links will be broken everywhere. My implementation focuses on missing links in its output. This is crucial because it allows developers to know where to focus their efforts first to get the biggest wins.
 
@@ -113,14 +113,14 @@ Results are gatherd on January 26, 2021:
 | web.dev     | 830   | ~3.7s    |
 | eslint.org  | 3475  | ~12.4s   |
 
-## Being part of the NodeJS ecosystem
+## Being Part of the Node.js Ecosystem
 
 My daily workflow is hugely dominated by JavaScript, so it was only natural to want to stay in the same environment if I could reach my earlier requirements with it.
-On top of this, the end goal is to integrate it within a bigger WIP system called [Rocket](https://github.com/modernweb-dev/rocket) which is node-based so therefore it will need to at least support NodeJS. Having it standalone (usable via `npx`) also makes it more versatile and easier to maintain/test.
+On top of this, the end goal is to integrate it within a bigger WIP system called [Rocket](https://github.com/modernweb-dev/rocket) which is node-based so therefore it will need to at least support Node.js. Having it standalone (usable via `npx`) also makes it more versatile and easier to maintain/test.
 
-## Focusing on a small Dependency Tree
+## Focusing on a Small Dependency Tree
 
-The JavaScript and NodeJs ecosystem is very active and constantly shifting. Lots of changes/improvements happen all the time. It's often hard to keep up. Therefore having a small dependency tree is something to always thrive for because it will reduce the maintenance burden down the line. And as an added benefit, it makes it smaller and easily embeddable as less stuff has to go down the wire. Lean is king 👑.
+The JavaScript and Node.js ecosystem is very active and constantly shifting. Lots of changes/improvements happen all the time. It's often hard to keep up. Therefore having a small dependency tree is something to always thrive for because it will reduce the maintenance burden down the line. And as an added benefit, it makes it smaller and easily embeddable as less stuff has to go down the wire. Lean is king 👑.
 
 ## Solution
 
@@ -130,23 +130,23 @@ I called it `check-html-links` and its slogan is "no more broken links or assets
 
 The features so far are:
 
-- extracts every attribute value of id, href, src, srset
-- use a wasm parser (sax-wasm)
-- streams the html for performance
+- extracts every attribute value of id, href, src, srcset
+- use a Wasm parser (sax-wasm)
+- streams the HTML for performance
 - check if file or id within file exist
 - focus on missing references/sources
 
 ## Usage
 
-It does check your final html output so you need to execute it after your Static Site Generator.
+It checks your final HTML output so you need to execute it after your Static Site Generator.
 
 ```
 npx check-html-links _site
 ```
 
-## Usage Github Action
+## GitHub Action Usage
 
-[Julien](https://twitter.com/jlengrand) created a Github action available for the tool, so you can easily plug it in your existing CI. You can find it [on the GitHub Marketplace](https://github.com/marketplace/actions/check-html-links-action).
+[Julien](https://twitter.com/jlengrand) created a GitHub action available for the tool, so you can easily plug it in your existing CI. You can find it [on the GitHub Marketplace](https://github.com/marketplace/actions/check-html-links-action).
 
 Here is a complete example workflow that will check the result of the folder `_site` in the root of your repository on each push:
 
@@ -168,7 +168,7 @@ jobs:
 
 ## Comparison
 
-Checking the output of [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
+Checking the output of the [11ty-website](https://github.com/11ty/11ty-website) with 13 missing reference targets (used by 516 links) while checking 501 files. (on January 17, 2021)
 
 | Tool             | Lines printed | Duration | Lang | Dependency Tree |
 | ---------------- | ------------- | -------- | ---- | --------------- |
@@ -193,13 +193,13 @@ Topic to work on:
 
 ## Acknowledgements
 
-Thank you for following along on my journey on creating `check-html-links`. You can find the code on [Github](https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links).
+Thank you for following along on my journey on creating `check-html-links`. You can find the code on [GitHub](https://github.com/modernweb-dev/rocket/tree/main/packages/check-html-links).
 
 Follow us on [Twitter](https://twitter.com/modern_web_dev), or follow me on my personal [Twitter](https://twitter.com/dakmor).
 
 Thanks to [Julien](https://twitter.com/jlengrand) for feedback and helping turn my scribbles to a followable story.
 
-If you think my open source work is valuable then I would like you to check out my personal [Github Sponsor Page](https://github.com/sponsors/daKmoR). Or you can support our whole group via the [Modern Web Open Collective](https://opencollective.com/modern-web).
+If you think my open source work is valuable then I would like you to check out my personal [GitHub Sponsor Page](https://github.com/sponsors/daKmoR). Or you can support our whole group via the [Modern Web Open Collective](https://opencollective.com/modern-web).
 
 ---
 

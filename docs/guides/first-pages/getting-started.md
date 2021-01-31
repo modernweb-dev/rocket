@@ -1,6 +1,6 @@
 # First Pages >> Getting Started ||10
 
-Rocket is has the following prerequisits:
+Rocket has the following prerequisites:
 
 - [Node 14+](https://nodejs.org/en/)
 
@@ -37,7 +37,7 @@ The fastest way to get started is by using an existing preset like the launch pr
 
 You may be tempted to skip the step above, because you're not ready to commit to git yet!
 
-Rocket uses the .gitignore file to manage it's requirements. If you skip this step, rocket will fail to deploy!
+Rocket uses the .gitignore file to manage its requirements. If you skip this step, Rocket will fail to deploy!
 
 </inline-notification>
 
@@ -62,25 +62,25 @@ Rocket uses the .gitignore file to manage it's requirements. If you skip this st
 
 <inline-notification type="warning" title="note">
 
-All further pathes are relative to your project root (my-project in this case)
+All further paths are relative to your project root (my-project in this case).
 
 </inline-notification>
 
-## Add your first page
+## Add your First Page
 
 👉 `docs/index.md`
 
 ```md
-# Welcome to your Rocket site
+# Welcome to Your Rocket Site
 
-Text here, like any markdown file.
+Text here, like any Markdown file.
 ```
 
 This tutorial assumes you are familiar with Markdown, for page authoring.
 
 Please note that the heading - text prefixed with `#` or `##` - is not optional for each page in this tutorial. Everything below that first line is optional Markdown text.
 
-## Start up:
+## Startup:
 
 👉 `package.json`
 

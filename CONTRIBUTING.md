@@ -4,27 +4,27 @@
 
 > Please note that this project is released with a [Contributor Code of Conduct](./CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 
-First, create a fork of the [modernweb-dev/rocket](https://github.com/modernweb-dev/rocket) repo by hitting the `fork` button on the GitHub page.
+First, create a fork of the [modernweb-dev/rocket](https://github.com/modernweb-dev/rocket) repository by hitting the `fork` button on the GitHub page.
 
-Next, clone our repository onto your computer with this command (replacing YOUR_USERNAME with your actual GitHub username)
+Next, clone our repository onto your computer.
 
 ```sh
 git clone git@github.com:modernweb-dev/rocket.git
 ```
 
-Once cloning is complete, change directory to the repo.
+Once cloning is complete, change directory to the repository.
 
 ```sh
 cd rocket
 ```
 
-Now add your fork as a remote
+Now add your fork as a remote (replacing YOUR_USERNAME with your GitHub username).
 
 ```sh
-git remote add fork git@github.com:<YOUR_NAME>/rocket.git
+git remote add fork git@github.com:<YOUR_USERNAME>/rocket.git
 ```
 
-Create a new local branch
+Create a new local branch.
 
 ```sh
 git checkout -b my-awesome-fix
@@ -32,7 +32,7 @@ git checkout -b my-awesome-fix
 
 ## Preparing Your Local Environment for Development
 
-Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed run the following commands to set up the development environment.
+Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed, then run the following commands to set up the development environment.
 
 ```sh
 yarn install
@@ -42,25 +42,25 @@ This will download and install all packages needed.
 
 ## Making Your Changes
 
-Make your changes to the project. Commits are linted using precommit hooks, meaning that any code that raises linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an eslint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
+Make your changes to the project. Commits are linted using precommit hooks, meaning that any code that raises a linting error cannot be committed. In order to help avoid that, we recommend using an IDE or editor with an ESLint plugin in order to streamline the development process. Plugins are available for all the popular editors. For more information see [ESLint Integrations](https://eslint.org/docs/user-guide/integrations)
 
-### Compiling the typescript code
+### Compiling the TypeScript Code
 
-If you're making cross-package changes, you need to compile the typescript code. We recommend executing `tsc:watch` from the root of the package and keeping that running while you make your changes.
+If you're making cross-package changes, you need to compile the TypeScript code. We recommend executing `tsc:watch` from the root of the package and keeping that running while you make your changes.
 
-### Running tests
+### Running Tests
 
 To run the tests of a package, it's recommended to `cd` into the package directory and then using `yarn test` to run them. This way you're only running tests of that specific package.
 
-### Integration testing
+### Integration Testing
 
 To see how your changes integrate with everything together you can use the `test-runner` package. There are different commands in this package which you can execute to trigger different scenarios in the test runner.
 
-## Adding new packages
+## Adding New Packages
 
 For all projects the tsconfig/jsconfig configuration files are auto generated. You need to add an entry to the [./workspace-packages.ts](./workspace-packages.ts) to let it generate a config for you. After adding an entry, run `yarn update-package-configs` to generate the files for you.
 
-## Create a Changeset
+## Creating a Changeset
 
 If you made changes for which you want to trigger a release, you need to create a changeset.
 This documents your intent to release, and allows you to specify a message that will be put into the changelog(s) of the package(s).

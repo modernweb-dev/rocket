@@ -17,7 +17,7 @@ Modify your HTML to wrap the "Hello world" message in an element called `<cool-h
 
 Currently, your browser does not recognize the `<cool-heading>` tag. When the browser encounters an unknown HTML tag like `<cool-heading>`, it will just render it as an inline element and move on. With the custom elements API, we can tell the browser what to do with the HTML tag that we have just created.
 
-We need to do this in javascript, so let's add a script tag to the bottom of our `<body>` element:
+We need to do this in JavaScript, so let's add a script tag to the bottom of our `<body>` element:
 
 ```html
 <script>
@@ -35,7 +35,7 @@ class CoolHeading extends HTMLElement {
 }
 ```
 
-After creating our class we can associate it with a tagname by defining it in the custom elements registry. This way, whenever the browser's parser gets to the `<cool-heading>` tag, it will instantiate and apply our class to that specific element:
+After creating our class we can associate it with a tag name by defining it in the custom elements registry. This way, whenever the browser's parser gets to the `<cool-heading>` tag, it will instantiate and apply our class to that specific element:
 
 ```js
 customElements.define('cool-heading', CoolHeading);

@@ -11,7 +11,7 @@ Foo is great
 - content in the front
 - data in the back
 
-## How to use
+## How to Use
 
 ```bash
 yarn add @foo/demo-wc-card
@@ -21,13 +21,13 @@ yarn add @foo/demo-wc-card
 import '@foo/demo-wc-card/demo-wc-card.js';
 ```
 
-## Js Story
+## JS Story
 
 ```js story
 export const JsStory = () => html` <demo-wc-card>JS Story</demo-wc-card> `;
 ```
 
-## Js Preview Story
+## JS Preview Story
 
 with preview
 
@@ -35,13 +35,13 @@ with preview
 export const JsStory2 = () => html` <demo-wc-card>JS Story with preview</demo-wc-card> `;
 ```
 
-## Html Story
+## HTML Story
 
 ```html story
 <demo-wc-card></demo-wc-card>
 ```
 
-## Html Preview Story
+## HTML Preview Story
 
 with preview
 

@@ -34,7 +34,7 @@ var processor = unified().use(markdown).use(toc, { maxDepth: 2 });
 // ...
 ```
 
-## Problem statement
+## Problem Statement
 
 > Executing or adding a plugin in a special way is a one time process. You can not transparently later change the options of the given plugin.
 
@@ -42,7 +42,7 @@ This means if you wish to define default plugins and allow your user to override
 
 ## Solution
 
-The plugins manager let's you orchestrate a set of "meta plugins" which are defined by
+The plugins manager lets you orchestrate a set of "meta plugins" which are defined by
 
 - name
 - plugin
@@ -193,7 +193,7 @@ adjustPluginOptions('json', false);
 // resulting options = false
 ```
 
-## Converting metaPlugins to an actual plugin
+## Converting metaPlugins to an Actual Plugin
 
 To execute all setup function you can use this little helper
 

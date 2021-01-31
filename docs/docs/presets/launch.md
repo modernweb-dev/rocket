@@ -1,6 +1,6 @@
 # Presets >> Launch ||10
 
-Rocket comes with a preset you will love. Simple, Responsive and behaving like native it sure is going to be a hit among your users.
+Rocket comes with a preset you will love. Simple, responsive and behaving like native, it sure is going to be a hit among your users.
 
 ## Installation
 
@@ -30,7 +30,7 @@ The footer data comes from `footer.json`
 
 Notification are web components that bring in some styles.
 
-To use them in Markdown you need to write the html tag and have it separated by an empty line.
+To use them in Markdown you need to write the HTML tag and have it separated by an empty line.
 
 ```js script
 import '@rocket/launch/inline-notification/inline-notification.js';
@@ -62,7 +62,7 @@ I am a tip
 </inline-notification>
 ```
 
-### Modify the title
+### Modify the Title
 
 To override the title you can provide a property success.
 

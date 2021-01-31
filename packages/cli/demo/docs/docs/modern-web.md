@@ -15,8 +15,8 @@ eleventyNavigation:
 | /learn/codelabs/                           | - Codelabs Overview                      |
 | /learn/codelabs/x/                         | ???                                      |
 | /learn/fundaments/                         | - Fundaments                             |
-| /learn/fundaments/html/                    | -- html                                  |
-| /learn/fundaments/css/                     | -- css Basics                            |
+| /learn/fundaments/html/                    | -- HTML                                  |
+| /learn/fundaments/css/                     | -- CSS Basics                            |
 | /learn/fundaments/browser/                 | -- Browser Basics                        |
 | /learn/fundaments/specs/                   | -- Specs Basics                          |
 | /learn/fundaments/server/                  | -- Web Server Basics                     |
@@ -36,8 +36,8 @@ eleventyNavigation:
 | /docs/build/rollup-plugin-html             | -- Rollup Plugin for html                |
 | /docs/build/rollup-plugin-polyfills-loader | -- Rollup Plugin for html                |
 | /docs/build/polyfills-loader               | -- Polyfills loading system              |
-| /docs/mdjs?docs?/                          | - Mdjs/Docs Overview                     |
-| /docs/mdjs/elements                        | - Mdjs Overview                          |
+| /docs/mdjs?docs?/                          | - mdjs/Docs Overview                     |
+| /docs/mdjs/elements                        | - mdjs Overview                          |
 | -                                          | -                                        |
 | **/blog/**                                 | **Blog Overview**                        |
 | /blog/2020/08/01/announcing-modern-web     | - Announcement Blog Post                 |

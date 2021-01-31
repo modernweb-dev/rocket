@@ -1,6 +1,6 @@
-# Eleventy Plugins >> Markdown JavaScript (Mdjs)
+# Eleventy Plugins >> Markdown JavaScript (mdjs)
 
-Use mdjs in your 11ty site.
+Use mdjs in your Eleventy site.
 
 ## Setup
 
@@ -8,7 +8,7 @@ Use mdjs in your 11ty site.
 npm install @rocket/eleventy-plugin-mdjs
 ```
 
-Create an 11ty config file `.eleventy.js`
+Create an Eleventy config file `.eleventy.js`
 
 ```js
 const pluginMdjs = require('@rocket/eleventy-plugin-mdjs');
@@ -18,7 +18,7 @@ module.exports = function (eleventyConfig) {
 };
 ```
 
-## Configure a unified or remark plugin with mdjs
+## Configure a unified or remark Plugin with mdjs
 
 By providing a `setupUnifiedPlugins` function as an option to `eleventy-plugin-mdjs` you can set options for all unified/remark plugins.
 
@@ -43,12 +43,12 @@ module.exports = function (eleventyConfig) {
 };
 ```
 
-## Add a unified or remark plugin
+## Add a unified or remark Plugin
 
 The order of plugins is important in unified as each plugin processes the content and passes on its result.
-Some plugins do work with the markdown AST and some with the rehype (e.g. html) AST. In order to get access to the correct AST the plugin needs to be in a specific location in the processing order.
+Some plugins do work with the Markdown AST and some with the rehype (e.g. HTML) AST. In order to get access to the correct AST the plugin needs to be in a specific location in the processing order.
 
-Examples on how to insert a plugin right after creating the markdown AST.
+Examples on how to insert a plugin right after creating the Markdown AST.
 
 ```js
 const pluginMdjs = require('@rocket/eleventy-plugin-mdjs');

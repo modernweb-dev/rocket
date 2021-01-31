@@ -2,7 +2,7 @@
 
 The configuration file is `rocket.config.js` or `rocket.config.mjs`.
 
-The config files consists of the following parts:
+The config files consist of the following parts:
 
 ```js
 import { rocketLaunch } from '@rocket/launch';
@@ -14,28 +14,28 @@ export default {
 };
 ```
 
-Rocket is primarily build around plugins for each of it's systems.
+Rocket is primarily build around plugins for each of its systems.
 
 New plugins can be added and all default plugins can be adjusted or even removed by using the following functions.
 
 ```js
 export default {
-  // add remark/unified plugin to the markdown processing (e.g. enable special code blocks)
+  // add remark/unified plugin to the Markdown processing (e.g. enable special code blocks)
   setupUnifiedPlugins: [],
 
   // add a rollup plugins to the web dev server (will be wrapped with @web/dev-server-rollup) AND the rollup build (e.g. enable json importing)
   setupDevAndBuildPlugins: [],
 
-  // add a plugin to the web dev server (will not be wrapped) (e.g. esbuild for typescript)
+  // add a plugin to the web dev server (will not be wrapped) (e.g. esbuild for TypeScript)
   setupDevPlugins: [],
 
   // add a plugin to the rollup build (e.g. optimization steps)
   setupBuildPlugins: [],
 
-  // add a plugin to eleventy (e.g. a filter packs)
+  // add a plugin to Eleventy (e.g. a filter packs)
   setupEleventyPlugins: [],
 
-  // add a computedConfig to eleventy (e.g. site wide default variables like socialMediaImage)
+  // add a computedConfig to Eleventy (e.g. site wide default variables like socialMediaImage)
   setupEleventyComputedConfig: [],
 
   // add a plugin to the cli (e.g. a new command like "rocket my-command")
@@ -51,9 +51,9 @@ For some projects you might want to enable non-standard behaviors like importing
 import data from './data.json';
 ```
 
-You can accomplish this with rollup and dev server plugins. Make sure to add both the dev-server plugin as well as the rollup plugin, so that the behaviors is the same during development as it is in the production build.
+You can accomplish this with Rollup and dev server plugins. Make sure to add both the dev-server plugin as well as the Rollup plugin, so that the behaviors is the same during development as it is in the production build.
 
-For these cases you can use `setupDevAndBuildPlugins`, which will automatically add the plugin for you to both rollup and dev-server:
+For these cases you can use `setupDevAndBuildPlugins`, which will automatically add the plugin for you to both Rollup and dev-server:
 
 ```js
 import json from '@rollup/plugin-json';
@@ -69,8 +69,8 @@ const config = {
 export default config;
 ```
 
-This will add the rollup plugin `json` with the id `json` at the top of the plugin list of rollup and the dev server. It needs to be at the top so further plugins down the line can work with json imports.
-For the Dev Server the plugins are automatically wrapped by `@web/dev-server-rollup`. Note that [not all rollup plugins](https://modern-web.dev/docs/dev-server/plugins/rollup/#compatibility-with-rollup-plugins) will work with the dev-server.
+This will add the Rollup plugin `json` with the id `json` at the top of the plugin list of Rollup and the dev server. It needs to be at the top so further plugins down the line can work with JSON imports.
+For the Dev Server the plugins are automatically wrapped by `@web/dev-server-rollup`. Note that [not all Rollup plugins](https://modern-web.dev/docs/dev-server/plugins/rollup/#compatibility-with-rollup-plugins) will work with the dev-server.
 
 ## Modifying Options of Plugins
 

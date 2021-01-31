@@ -21,7 +21,7 @@ Will be ordered as `First`, `Second`,
 
 ## How it works
 
-Internally `# Foo >> Bar >> Baz ||20` get's converted to.
+Internally `# Foo >> Bar >> Baz ||20` gets converted to.
 
 ```
 ---
