@@ -1,4 +1,4 @@
-# First Pages >> URLs ||100
+# First Pages >> URLs ||50
 
 URLs will be represented by the folder structure.
 
