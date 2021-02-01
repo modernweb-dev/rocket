@@ -8,7 +8,7 @@ As a preset you may want to add this to your layout.
 
 ```
 <footer id="main-footer">
-  {% for blockName, blockPath in templateBlocks._joiningBlocks.footer %}
+  {% for blockName, blockPath in _joiningBlocks.footer %}
     {% include blockPath %}
   {% endfor %}
 </footer>
