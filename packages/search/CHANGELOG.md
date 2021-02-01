@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.3.0
+
+### Minor Changes
+
+- 8bdc326: Adopt to the new layout system
+
 ## 0.2.0
 
 ### Minor Changes
