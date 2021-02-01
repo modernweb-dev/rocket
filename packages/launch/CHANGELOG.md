@@ -1,5 +1,33 @@
 # @rocket/launch
 
+## 0.4.0
+
+### Minor Changes
+
+- 8eec69f: Introduces the following layouts:
+
+  - `layout-404` A space not found page
+  - `layout-home` Frontpage with center logo below text
+  - `layout-home-background` Frontpage with left text and background image on the right
+  - `layout-sidebar` Left sidebar, right content
+  - `layout-index` Extends layout-sidebar
+
+  BREAKING CHANGES:
+
+  - Sets `layout-sidebar` as the default layout
+  - Removed dedicated Layout setting for `layout-home` use `layout-home-background` instead
+  - Renamed `404.njk` to `layout-404`
+  - Renamed `layout.njk` to `layout-sidebar`
+  - Renamed `pure-content.njk` to `layout-raw`
+  - Renamed `with-index.njk` to `layout-index`
+  - Renamed `with-sidebar.njk` to `layout-sidebar`
+  - Renamed `home.njk` to `layout-home`
+
+### Patch Changes
+
+- Updated dependencies [8bdc326]
+  - @rocket/navigation@0.2.0
+
 ## 0.3.0
 
 ### Minor Changes
