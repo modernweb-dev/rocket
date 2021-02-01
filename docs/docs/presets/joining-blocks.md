@@ -1,4 +1,4 @@
-# Presets >> Templates ||10
+# Presets >> Joining Blocks ||10
 
 The template system allows for a very granular control of how individual parts will be merged, overwritten or reorderd.
 
@@ -8,7 +8,7 @@ As a preset you may want to add this to your layout.
 
 ```
 <footer id="main-footer">
-  {% for blockName, blockPath in templateBlocks.partials.footer %}
+  {% for blockName, blockPath in templateBlocks._joiningBlocks.footer %}
     {% include blockPath %}
   {% endfor %}
 </footer>
@@ -16,17 +16,17 @@ As a preset you may want to add this to your layout.
 
 {% endraw %}
 
-This will now render all templates within `_includes/partials/footer/*`.
+This will now render all templates within `_includes/_joiningBlocks/footer/*`.
 
 ## Adding content without overriding
 
 Let's assume we have a preset with the following files
 
 ```html
-<!-- usedPreset/_includes/partials/footer/10-first.njk -->
+<!-- usedPreset/_includes/_joiningBlocks/footer/10-first.njk -->
 <p>first</p>
 
-<!-- usedPreset/_includes/partials/footer/20-second.njk -->
+<!-- usedPreset/_includes/_joiningBlocks/footer/20-second.njk -->
 <p>second</p>
 ```
 
@@ -42,7 +42,7 @@ And it produces this in your website
 Now we can add a file which will insert content without needing to overwrite any of the preset file.
 
 ```html
-<!-- docs/_includes/partials/footer/15-in-between.njk -->
+<!-- docs/_includes/_joiningBlocks/footer/15-in-between.njk -->
 <p>in-between</p>
 ```
 
@@ -61,7 +61,7 @@ the final output will be
 Now if you want to overwrite you can use the same filename.
 
 ```html
-<!-- docs/_includes/partials/footer/10-first.njk -->
+<!-- docs/_includes/_joiningBlocks/footer/10-first.njk -->
 <p>updated first</p>
 ```
 
@@ -79,7 +79,7 @@ the final output will be
 Sometimes you wanna reorder when you overwrite as well
 
 ```html
-<!-- docs/_includes/partials/footer/30-first.njk -->
+<!-- docs/_includes/_joiningBlocks/footer/30-first.njk -->
 <p>first</p>
 ```
 
