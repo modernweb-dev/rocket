@@ -141,12 +141,12 @@ async function dirToTree(sourcePath, extra = '') {
   return sortedTree;
 }
 
-function templateBlocksPlugin(rocketConfig) {
+function joiningBlocksPlugin(rocketConfig) {
   const { _inputDirCwdRelative } = rocketConfig;
   const partialsSource = path.resolve(_inputDirCwdRelative, '_merged_includes');
   return async () => {
-    const templateBlocks = await dirToTree(partialsSource);
-    return templateBlocks;
+    const joiningBlocks = await dirToTree(partialsSource, '_joiningBlocks');
+    return joiningBlocks;
   };
 }
 
@@ -159,7 +159,7 @@ function generateEleventyComputed() {
     { name: 'eleventyNavigation', plugin: eleventyNavigationPlugin },
     { name: 'section', plugin: sectionPlugin },
     { name: 'socialMediaImage', plugin: socialMediaImagePlugin },
-    { name: 'templateBlocks', plugin: templateBlocksPlugin, options: rocketConfig },
+    { name: '_joiningBlocks', plugin: joiningBlocksPlugin, options: rocketConfig },
     { name: 'layout', plugin: layoutPlugin },
   ];
 
