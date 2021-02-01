@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import fs from 'fs';
 import saxWasm from 'sax-wasm';
+import minimatch from 'minimatch';
 import { createRequire } from 'module';
 
 import { listFiles } from './listFiles.js';
@@ -10,6 +11,7 @@ import path from 'path';
 /** @typedef {import('../types/main').LocalFile} LocalFile */
 /** @typedef {import('../types/main').Usage} Usage */
 /** @typedef {import('../types/main').Error} Error */
+/** @typedef {import('../types/main').Options} Options */
 /** @typedef {import('sax-wasm').Attribute} Attribute */
 
 const require = createRequire(import.meta.url);
@@ -185,8 +187,9 @@ function getValueAndAnchor(inValue) {
  * @param {object} options
  * @param {string} options.htmlFilePath
  * @param {string} options.rootDir
+ * @param {function(Usage): boolean} options.ignoreUsage
  */
-async function resolveLinks(links, { htmlFilePath, rootDir }) {
+async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
   for (const hrefObj of links) {
     const { value, anchor } = getValueAndAnchor(hrefObj.value);
 
@@ -201,7 +204,9 @@ async function resolveLinks(links, { htmlFilePath, rootDir }) {
 
     let valueFile = value.endsWith('/') ? path.join(value, 'index.html') : value;
 
-    if (value.includes('mailto:')) {
+    if (ignoreUsage(usageObj)) {
+      // ignore
+    } else if (value.includes('mailto:')) {
       // ignore for now - could add a check to validate if the email address is valid
     } else if (valueFile === '' && anchor !== '') {
       addLocalFile(htmlFilePath, anchor, usageObj);
@@ -261,8 +266,9 @@ async function validateLocalFiles(checkLocalFiles) {
 /**
  * @param {string[]} files
  * @param {string} rootDir
+ * @param {Options} opts?
  */
-export async function validateFiles(files, rootDir) {
+export async function validateFiles(files, rootDir, opts) {
   await parserReferences.prepareWasm(saxWasmBuffer);
   await parserIds.prepareWasm(saxWasmBuffer);
 
@@ -270,10 +276,20 @@ export async function validateFiles(files, rootDir) {
   checkLocalFiles = [];
   idCache = new Map();
   let numberLinks = 0;
+
+  const ignoreLinkPatternRegExps = opts
+    ? opts.ignoreLinkPatterns?.map(pattern => minimatch.makeRe(pattern))
+    : null;
+
+  /** @type {function(Usage): boolean} */
+  const ignoreUsage = ignoreLinkPatternRegExps
+    ? usage => !!ignoreLinkPatternRegExps.find(regExp => usage.value.match(regExp))
+    : () => false;
+
   for (const htmlFilePath of files) {
     const { links } = await extractReferences(htmlFilePath);
     numberLinks += links.length;
-    await resolveLinks(links, { htmlFilePath, rootDir });
+    await resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage });
   }
   await validateLocalFiles(checkLocalFiles);
 
@@ -282,10 +298,11 @@ export async function validateFiles(files, rootDir) {
 
 /**
  * @param {string} inRootDir
+ * @param {Options} opts?
  */
-export async function validateFolder(inRootDir) {
+export async function validateFolder(inRootDir, opts) {
   const rootDir = path.resolve(inRootDir);
   const files = await listFiles('**/*.html', rootDir);
-  const { errors } = await validateFiles(files, rootDir);
+  const { errors } = await validateFiles(files, rootDir, opts);
   return errors;
 }

@@ -183,6 +183,13 @@ describe('validateFolder', () => {
     expect(cleanup(errors)).to.deep.equal([]);
   });
 
+  it('ignores arbitrary usages', async () => {
+    const { errors, cleanup } = await execute('fixtures/mailto', {
+      ignoreLinkPatterns: ['/docs/', '/developer/*'],
+    });
+    expect(cleanup(errors)).to.deep.equal([]);
+  });
+
   it('can handle img src', async () => {
     const { errors, cleanup } = await execute('fixtures/internal-images');
     expect(cleanup(errors)).to.deep.equal([
