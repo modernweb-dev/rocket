@@ -25,3 +25,7 @@ export interface Error {
   onlyAnchorMissing: boolean;
   usage: Usage[];
 }
+
+interface Options {
+  ignoreLinkPatterns: string[] | null;
+}

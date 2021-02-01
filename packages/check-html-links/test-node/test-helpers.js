@@ -5,9 +5,9 @@ import { validateFolder } from 'check-html-links';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export async function execute(inPath) {
+export async function execute(inPath, opts) {
   const testDir = path.join(__dirname, inPath.split('/').join(path.sep));
-  const errors = await validateFolder(testDir);
+  const errors = await validateFolder(testDir, opts);
   return {
     cleanup: items => {
       const newItems = [];
