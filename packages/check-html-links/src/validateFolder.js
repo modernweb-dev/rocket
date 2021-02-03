@@ -187,7 +187,7 @@ function getValueAndAnchor(inValue) {
  * @param {object} options
  * @param {string} options.htmlFilePath
  * @param {string} options.rootDir
- * @param {function(Usage): boolean} options.ignoreUsage
+ * @param {function(string): boolean} options.ignoreUsage
  */
 async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
   for (const hrefObj of links) {
@@ -204,7 +204,7 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
 
     let valueFile = value.endsWith('/') ? path.join(value, 'index.html') : value;
 
-    if (ignoreUsage(usageObj)) {
+    if (ignoreUsage(value)) {
       // ignore
     } else if (value.includes('mailto:')) {
       // ignore for now - could add a check to validate if the email address is valid
@@ -281,9 +281,9 @@ export async function validateFiles(files, rootDir, opts) {
     ? opts.ignoreLinkPatterns?.map(pattern => minimatch.makeRe(pattern))
     : null;
 
-  /** @type {function(Usage): boolean} */
+  /** @type {function(string): boolean} */
   const ignoreUsage = ignoreLinkPatternRegExps
-    ? usage => !!ignoreLinkPatternRegExps.find(regExp => usage.value.match(regExp))
+    ? usage => !!ignoreLinkPatternRegExps.find(regExp => usage.match(regExp))
     : () => false;
 
   for (const htmlFilePath of files) {

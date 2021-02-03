@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
+/** @typedef {import('../types/main').CheckHtmlLinksCliOptions} CheckHtmlLinksCliOptions */
+
 import path from 'path';
 import chalk from 'chalk';
 
@@ -9,26 +11,39 @@ import { formatErrors } from './formatErrors.js';
 import { listFiles } from './listFiles.js';
 
 export class CheckHtmlLinksCli {
-  /** @type {{dir: string?, ignoreLinkPatterns: string[]?}} */
-  argvConfig;
+  /** @type {CheckHtmlLinksCliOptions} */
+  options;
 
   constructor({ argv } = { argv: undefined }) {
     const mainDefinitions = [
       { name: 'ignore-link-pattern', type: String, multiple: true },
-      { name: 'dir', type: String, defaultOption: true },
+      { name: 'root-dir', type: String, defaultOption: true },
+      { name: 'continue-on-error', type: Boolean, defaultOption: false },
     ];
     const options = commandLineArgs(mainDefinitions, {
       stopAtFirstUnknown: true,
       argv,
     });
-    this.argvConfig = {
-      dir: options.dir,
+    this.options = {
+      printOnError: true,
+      continueOnError: options['continue-on-error'],
+      rootDir: options['root-dir'],
       ignoreLinkPatterns: options['ignore-link-pattern'],
     };
   }
 
+  /**
+   * @param {Partial<CheckHtmlLinksCliOptions>} newOptions
+   */
+  setOptions(newOptions) {
+    this.options = {
+      ...this.options,
+      ...newOptions,
+    };
+  }
+
   async run() {
-    const userRootDir = this.argvConfig.dir;
+    const { ignoreLinkPatterns, rootDir: userRootDir } = this.options;
     const rootDir = userRootDir ? path.resolve(userRootDir) : process.cwd();
     const performanceStart = process.hrtime();
 
@@ -41,19 +56,20 @@ export class CheckHtmlLinksCli {
         : `🔥 Found a total of ${chalk.green.bold(files.length)} files to check!`;
     console.log(filesOutput);
 
-    const { ignoreLinkPatterns } = this.argvConfig;
-
     const { errors, numberLinks } = await validateFiles(files, rootDir, { ignoreLinkPatterns });
 
     console.log(`🔗 Found a total of ${chalk.green.bold(numberLinks)} links to validate!\n`);
 
     const performance = process.hrtime(performanceStart);
+    /** @type {string[]} */
+    let output = [];
+    let message = '';
     if (errors.length > 0) {
       let referenceCount = 0;
       for (const error of errors) {
         referenceCount += error.usage.length;
       }
-      const output = [
+      output = [
         `❌ Found ${chalk.red.bold(
           errors.length.toString(),
         )} missing reference targets (used by ${referenceCount} links) while checking ${
@@ -64,14 +80,21 @@ export class CheckHtmlLinksCli {
           .map(line => `  ${line}`),
         `Checking links duration: ${performance[0]}s ${performance[1] / 1000000}ms`,
       ];
-      console.error(output.join('\n'));
-      process.exit(1);
+      message = output.join('\n');
+      if (this.options.printOnError === true) {
+        console.error(message);
+      }
+      if (this.options.continueOnError === false) {
+        process.exit(1);
+      }
     } else {
       console.log(
-        `✅ All internal links are valid. (executed in %ds %dms)`,
-        performance[0],
-        performance[1] / 1000000,
+        `✅ All internal links are valid. (executed in ${performance[0]}s ${
+          performance[1] / 1000000
+        }ms)`,
       );
     }
+
+    return { errors, message };
   }
 }
