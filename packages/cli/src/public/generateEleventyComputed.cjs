@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { processContentWithTitle } = require('@rocket/core/title');
-const { createSocialImage: defaultcreateSocialImage } = require('./createSocialImage.cjs');
+const { createSocialImage: defaultCreateSocialImage } = require('./createSocialImage.cjs');
 const { getComputedConfig } = require('./computedConfig.cjs');
 const { executeSetupFunctions } = require('plugins-manager');
 
@@ -71,7 +71,7 @@ function layoutPlugin({ defaultLayout = 'layout-default' } = {}) {
 }
 
 function socialMediaImagePlugin(args = {}) {
-  const { createSocialImage = defaultcreateSocialImage } = args;
+  const { createSocialImage = defaultCreateSocialImage, rocketConfig = {} } = args;
 
   const cleanedUpArgs = { ...args };
   delete cleanedUpArgs.createSocialImage;
@@ -80,6 +80,11 @@ function socialMediaImagePlugin(args = {}) {
     if (data.socialMediaImage) {
       return data.socialMediaImage;
     }
+
+    if (rocketConfig.createSocialMediaImages === false) {
+      return;
+    }
+
     if (!data.title) {
       return;
     }
@@ -158,7 +163,7 @@ function generateEleventyComputed() {
     { name: 'title', plugin: titlePlugin },
     { name: 'eleventyNavigation', plugin: eleventyNavigationPlugin },
     { name: 'section', plugin: sectionPlugin },
-    { name: 'socialMediaImage', plugin: socialMediaImagePlugin },
+    { name: 'socialMediaImage', plugin: socialMediaImagePlugin, options: { rocketConfig } },
     { name: '_joiningBlocks', plugin: joiningBlocksPlugin, options: rocketConfig },
     { name: 'layout', plugin: layoutPlugin },
   ];

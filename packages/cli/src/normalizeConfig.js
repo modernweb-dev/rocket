@@ -36,6 +36,7 @@ export async function normalizeConfig(inConfig) {
     eleventy: () => {},
     command: 'help',
     watch: true,
+    createSocialMediaImages: true,
     inputDir: 'docs',
     outputDir: '_site',
     outputDevDir: '_site-dev',

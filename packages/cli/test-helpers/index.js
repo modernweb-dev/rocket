@@ -91,6 +91,16 @@ export async function readStartOutput(cli, fileName, options = {}) {
   return readOutput(cli, fileName, options);
 }
 
+/**
+ * @param {*} cli
+ * @param {string} fileName
+ * @param {readOutputOptions} options
+ */
+export async function readBuildOutput(cli, fileName, options = {}) {
+  options.type = 'build';
+  return readOutput(cli, fileName, options);
+}
+
 export async function execute(cli, configFileDir) {
   await cli.setup();
   cli.config.outputDevDir = path.join(configFileDir, '__output-dev');
@@ -105,6 +115,15 @@ export async function executeStart(pathToConfig) {
   const configFile = path.join(fixtureDir, pathToConfig.split('/').join(path.sep));
   const cli = new RocketCli({
     argv: ['start', '--config-file', configFile],
+  });
+  await execute(cli, path.dirname(configFile));
+  return cli;
+}
+
+export async function executeBuild(pathToConfig) {
+  const configFile = path.join(fixtureDir, pathToConfig.split('/').join(path.sep));
+  const cli = new RocketCli({
+    argv: ['build', '--config-file', configFile],
   });
   await execute(cli, path.dirname(configFile));
   return cli;

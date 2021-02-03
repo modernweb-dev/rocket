@@ -2,14 +2,14 @@ const path = require('path');
 const fs = require('fs');
 const Image = require('@11ty/eleventy-img');
 const { getComputedConfig } = require('./computedConfig.cjs');
-const { createSocialImageSvg: defaultcreateSocialImageSvg } = require('./createSocialImageSvg.cjs');
+const { createSocialImageSvg: defaultCreateSocialImageSvg } = require('./createSocialImageSvg.cjs');
 
 async function createSocialImage(args) {
   const {
     title = '',
     subTitle = '',
     footer = '',
-    createSocialImageSvg = defaultcreateSocialImageSvg,
+    createSocialImageSvg = defaultCreateSocialImageSvg,
   } = args;
   const cleanedUpArgs = { ...args };
   delete cleanedUpArgs.createSocialImageSvg;

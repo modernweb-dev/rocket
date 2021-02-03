@@ -1,8 +1,4 @@
 /** @type {Partial<import("../../../types/main").RocketCliOptions>} */
-const config = {
-  start: {
-    createSocialMediaImages: true,
-  },
-};
+const config = {};
 
 export default config;
