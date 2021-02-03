@@ -70,6 +70,7 @@
     "command-line-args": "^5.1.1",
     "command-line-usage": "^6.1.1",
     "fs-extra": "^9.0.1",
+    "micromatch": "^4.0.2",
     "plugins-manager": "^0.2.0",
     "utf8": "^3.0.0"
   },

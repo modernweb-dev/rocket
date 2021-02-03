@@ -1,6 +1,16 @@
 # Tools >> Check HTML Links ||30
 
+```js
+import '@rocket/launch/inline-notification/inline-notification.js';
+```
+
 A fast checker for broken links/references in HTML.
+
+<inline-notification type="tip">
+
+Read the [Introducing Check HTMl Links - no more bad links](../../blog/introducing-check-html-links.md) Blog post to find out how it came to be and how it works.
+
+</inline-notification>
 
 ## Features
 
@@ -16,10 +26,25 @@ A fast checker for broken links/references in HTML.
 npm i -D check-html-links
 ```
 
-## Usage
+## CLI flags
 
-```
+| Name                | Type    | Description                                                                                         |
+| ------------------- | ------- | --------------------------------------------------------------------------------------------------- |
+| root-dir            | string  | the root directory to serve files from. Defaults to the current working directory                   |
+| ignore-link-pattern | string  | do not check links matching the pattern                                                             |
+| continue-on-error   | boolean | if present it will not exit with an error code - useful while writing or for temporary passing a ci |
+
+## Usage Examples
+
+```bash
+# check a folder _site
 npx check-html-links _site
+
+# ignore all links like <a href="/users/123">
+npx check-html-links _site --ignore-link-pattern "/users/*" "/users/**/*"
+
+# ignore all links like <a href="/users/123"> & <a href="/users/123/details">
+npx check-html-links _site --ignore-link-pattern "/users/*" "/users/**/*"
 ```
 
 ## Example Output

@@ -2,8 +2,7 @@
 
 /** @typedef {import('../types/main').RocketCliOptions} RocketCliOptions */
 
-import chalk from 'chalk';
-import { validateFolder, formatErrors } from 'check-html-links';
+import { CheckHtmlLinksCli } from 'check-html-links';
 
 export class RocketLint {
   static pluginName = 'RocketLint';
@@ -49,31 +48,20 @@ export class RocketLint {
       return;
     }
 
-    const performanceStart = process.hrtime();
-    console.log('👀 Checking if all internal links work...');
-    const errors = await validateFolder(this.config.lintInputDir);
-    const performance = process.hrtime(performanceStart);
+    const checkLinks = new CheckHtmlLinksCli();
+    checkLinks.setOptions({
+      rootDir: this.config.lintInputDir,
+      printOnError: false,
+      continueOnError: true,
+    });
+
+    const { errors, message } = await checkLinks.run();
     if (errors.length > 0) {
-      let referenceCount = 0;
-      for (const error of errors) {
-        referenceCount += error.usage.length;
-      }
-      const output = [
-        `❌ Found ${chalk.red.bold(
-          errors.length.toString(),
-        )} missing reference targets (used by ${referenceCount} links):`,
-        ...formatErrors(errors)
-          .split('\n')
-          .map(line => `  ${line}`),
-        `Checking links duration: ${performance[0]}s ${performance[1] / 1000000}ms`,
-      ];
-      if (this.config.watch) {
-        console.log(output.join('\n'));
+      if (this.config.command === 'start') {
+        console.log(message);
       } else {
-        throw new Error(output.join('\n'));
+        throw new Error(message);
       }
-    } else {
-      console.log('✅ All internal links are valid.');
     }
   }
 

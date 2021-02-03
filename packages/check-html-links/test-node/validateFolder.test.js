@@ -183,11 +183,26 @@ describe('validateFolder', () => {
     expect(cleanup(errors)).to.deep.equal([]);
   });
 
-  it('ignores arbitrary usages', async () => {
-    const { errors, cleanup } = await execute('fixtures/mailto', {
-      ignoreLinkPatterns: ['/docs/', '/developer/*'],
+  it('ignoring a folder', async () => {
+    const { errors, cleanup } = await execute('fixtures/internal-link-ignore', {
+      ignoreLinkPatterns: ['./relative/*', './relative/**/*'],
     });
-    expect(cleanup(errors)).to.deep.equal([]);
+    expect(cleanup(errors)).to.deep.equal([
+      {
+        filePath: 'fixtures/internal-link-ignore/absolute/index.html',
+        onlyAnchorMissing: false,
+        usage: [
+          {
+            anchor: '',
+            attribute: 'href',
+            character: 9,
+            file: 'fixtures/internal-link-ignore/index.html',
+            line: 0,
+            value: '/absolute/index.html',
+          },
+        ],
+      },
+    ]);
   });
 
   it('can handle img src', async () => {

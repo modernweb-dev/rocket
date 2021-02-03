@@ -29,3 +29,10 @@ export interface Error {
 interface Options {
   ignoreLinkPatterns: string[] | null;
 }
+
+export interface CheckHtmlLinksCliOptions {
+  printOnError: boolean;
+  rootDir: string;
+  ignoreLinkPatterns: string[] | null;
+  continueOnError: boolean;
+}
