@@ -29,6 +29,7 @@ describe('normalizeConfig', () => {
 
     expect(cleanup(config)).to.deep.equal({
       command: 'help',
+      createSocialMediaImages: true,
       devServer: {},
       build: {},
       watch: true,
@@ -61,6 +62,7 @@ describe('normalizeConfig', () => {
 
     expect(cleanup(config)).to.deep.equal({
       command: 'help',
+      createSocialMediaImages: true,
       devServer: {
         more: 'settings',
       },
@@ -92,6 +94,7 @@ describe('normalizeConfig', () => {
 
     expect(cleanup(config)).to.deep.equal({
       command: 'help',
+      createSocialMediaImages: true,
       devServer: {
         more: 'from-file',
       },
@@ -128,6 +131,7 @@ describe('normalizeConfig', () => {
 
     expect(cleanup(config)).to.deep.equal({
       command: 'help',
+      createSocialMediaImages: true,
       devServer: {},
       build: {},
       watch: true,

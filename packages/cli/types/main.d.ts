@@ -13,14 +13,21 @@ export interface RocketPreset {
   setupEleventyComputedConfig: function[];
 }
 
+interface RocketStartConfig {
+  createSocialMediaImages?: boolean;
+}
+
 export interface RocketCliOptions {
   presets: Array<RocketPreset>;
   pathPrefix?: string;
   inputDir: string;
   outputDir: string;
-  emptyOutputDir?: boolen;
+  emptyOutputDir?: boolean;
   absoluteBaseUrl?: string;
   watch: boolean;
+  createSocialMediaImages?: boolean;
+
+  start?: RocketStartConfig;
 
   // TODO: improve all setup functions
   setupUnifiedPlugins?: function[];

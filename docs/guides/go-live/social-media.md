@@ -129,3 +129,25 @@ const config = {
 
 {% endraw %}
 ```
+
+## Enabling / Disabling
+
+Generating images from SVG is quite fast but it can still add that's why by default during `rocket start` there will be no social media images created.
+
+If you with so create them also during start you can
+
+```js
+const config = {
+  start: {
+    createSocialMediaImages: true,
+  },
+};
+```
+
+Similarly, if you never want to create social media images even during build then you can globally disable it via
+
+```js
+const config = {
+  createSocialMediaImages: true,
+};
+```

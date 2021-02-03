@@ -2,6 +2,9 @@ import { adjustPluginOptions } from 'plugins-manager';
 
 /** @type {Partial<import("../../../types/main").RocketCliOptions>} */
 const config = {
+  start: {
+    createSocialMediaImages: true,
+  },
   setupEleventyComputedConfig: [
     adjustPluginOptions('socialMediaImage', {
       createSocialImageSvg: async () => {

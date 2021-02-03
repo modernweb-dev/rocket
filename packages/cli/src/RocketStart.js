@@ -15,6 +15,7 @@ export class RocketStart {
    */
   setupCommand(config) {
     delete config.pathPrefix;
+    config.createSocialMediaImages = !!config?.start?.createSocialMediaImages;
     return config;
   }
 

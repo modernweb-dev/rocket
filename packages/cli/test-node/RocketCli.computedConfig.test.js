@@ -1,6 +1,13 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import { executeStart, readOutput, readStartOutput, setFixtureDir } from '@rocket/cli/test-helpers';
+import {
+  executeBuild,
+  executeStart,
+  readBuildOutput,
+  readOutput,
+  readStartOutput,
+  setFixtureDir,
+} from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
@@ -56,6 +63,23 @@ describe('RocketCli computedConfig', () => {
     const [withDataTitle, withDataSection] = withDataHtml.split('\n');
     expect(withDataTitle).to.equal('Set via data');
     expect(withDataSection).be.undefined;
+  });
+
+  it('will note create a social media image in "start"', async () => {
+    cli = await executeStart('computed-config-fixtures/social-images-only-build/rocket.config.js');
+
+    const indexHtml = await readStartOutput(cli, 'index.html');
+    expect(indexHtml).to.equal('');
+  });
+
+  it('will create a social media image in "build"', async () => {
+    cli = await executeBuild('computed-config-fixtures/social-images-only-build/rocket.config.js');
+
+    const indexHtml = await readBuildOutput(cli, 'index.html', {
+      stripToBody: true,
+      stripServiceWorker: true,
+    });
+    expect(indexHtml).to.equal('/_merged_assets/11ty-img/5893749-1200.png');
   });
 
   it('will create a social media image for every page', async () => {
