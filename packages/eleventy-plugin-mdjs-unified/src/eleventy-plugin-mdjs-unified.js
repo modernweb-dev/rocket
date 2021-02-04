@@ -72,10 +72,14 @@ async function processImports(source, inputPath) {
           newSource += '.' + importSrc;
         } else if (importSrc.startsWith("'./")) {
           newSource += "'." + importSrc.substring(1);
+        } else if (importSrc.startsWith('`./')) {
+          newSource += '`.' + importSrc.substring(1);
         } else if (importSrc.startsWith('../')) {
           newSource += '../' + importSrc;
         } else if (importSrc.startsWith("'../")) {
           newSource += "'../" + importSrc.substring(1);
+        } else if (importSrc.startsWith('`../')) {
+          newSource += '`../' + importSrc.substring(1);
         } else {
           newSource += importSrc;
         }

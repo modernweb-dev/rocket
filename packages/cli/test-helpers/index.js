@@ -19,6 +19,7 @@ export function setFixtureDir(importMetaUrl) {
  * @property {boolean} stripToBody
  * @property {boolean} stripStartEndWhitespace
  * @property {boolean} stripScripts
+ * @property {boolean} formatHtml
  * @property {start|build} type
  */
 
@@ -79,6 +80,16 @@ export async function readOutput(
     text = text.trim();
   }
   return text;
+}
+
+export function startOutputExist(cli, fileName) {
+  const outputDir = cli.config.outputDevDir;
+  return fs.existsSync(path.join(outputDir, fileName));
+}
+
+export function buildOutputExist(cli, fileName) {
+  const outputDir = cli.config.outputDir;
+  return fs.existsSync(path.join(outputDir, fileName));
 }
 
 /**
