@@ -1,5 +1,11 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.3.1
+
+### Patch Changes
+
+- f44a0f4: Rewrite dynamic imports with "`"
+
 ## 0.3.0
 
 ### Minor Changes
