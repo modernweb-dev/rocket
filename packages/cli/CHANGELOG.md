@@ -1,5 +1,20 @@
 # @rocket/cli
 
+## 0.5.1
+
+### Patch Changes
+
+- f44a0f4: Rewrite dynamic imports with "`"
+- 74f7ddf: Adds performance improvements for social media images by:
+  - creating social media images only in `rocket build` phase
+  - adds a config `createSocialMediaImages` to enable (default) or disable it globally
+  - adds config `start.createSocialMediaImages` to enable or disable (default) it during `rocket start`
+- 750418b: Use class-based node API of check-html-links
+- Updated dependencies [f44a0f4]
+- Updated dependencies [750418b]
+  - @rocket/eleventy-plugin-mdjs-unified@0.3.1
+  - check-html-links@0.2.0
+
 ## 0.5.0
 
 ### Minor Changes
