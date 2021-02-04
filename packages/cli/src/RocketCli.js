@@ -33,6 +33,35 @@ export class RocketEleventy extends Eleventy {
     await super.write();
     await this.__rocketCli.update();
   }
+
+  // forks it so we can watch for changes but don't include them while building
+  getChokidarConfig() {
+    let ignores = this.eleventyFiles.getGlobWatcherIgnores();
+
+    const keepWatching = [
+      path.join(this.__rocketCli.config._inputDirCwdRelative, '_assets', '**'),
+      path.join(this.__rocketCli.config._inputDirCwdRelative, '_data', '**'),
+      path.join(this.__rocketCli.config._inputDirCwdRelative, '_includes', '**'),
+    ];
+
+    ignores = ignores.filter(ignore => !keepWatching.includes(ignore));
+    // debug("Ignoring watcher changes to: %o", ignores);
+
+    let configOptions = this.config.chokidarConfig;
+
+    // can’t override these yet
+    // TODO maybe if array, merge the array?
+    delete configOptions.ignored;
+
+    return Object.assign(
+      {
+        ignored: ignores,
+        ignoreInitial: true,
+        // also interesting: awaitWriteFinish
+      },
+      configOptions,
+    );
+  }
 }
 
 export class RocketCli {
