@@ -6,7 +6,7 @@ import json from '@rollup/plugin-json';
 import { addPlugin, adjustPluginOptions } from 'plugins-manager';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const outputDir = path.join(__dirname, '..', '__output');
+const outputDir = path.join(__dirname, '__output');
 
 /** @type {Partial<import("../../../types/main").RocketCliOptions>} */
 const config = {

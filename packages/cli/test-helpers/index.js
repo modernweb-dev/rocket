@@ -55,6 +55,10 @@ export async function readOutput(
     type = 'build',
   } = {},
 ) {
+  if (!cli || !cli.config) {
+    throw new Error(`No valid cli provided to readOutput - you passed a ${typeof cli}: ${cli}`);
+  }
+
   const outputDir = type === 'build' ? cli.config.outputDir : cli.config.outputDevDir;
   let text = await fs.promises.readFile(path.join(outputDir, fileName));
   text = text.toString();
@@ -116,6 +120,7 @@ export async function execute(cli, configFileDir) {
   await cli.setup();
   cli.config.outputDevDir = path.join(configFileDir, '__output-dev');
   cli.config.devServer.open = false;
+  cli.config.devServer.port = 8080;
   cli.config.watch = false;
   cli.config.outputDir = path.join(configFileDir, '__output');
   await cli.run();

@@ -4,7 +4,6 @@ import {
   executeBuild,
   executeStart,
   readBuildOutput,
-  readOutput,
   readStartOutput,
   setFixtureDir,
 } from '@rocket/cli/test-helpers';
@@ -29,37 +28,27 @@ describe('RocketCli computedConfig', () => {
   it('will extract a title from markdown and set first folder as section', async () => {
     cli = await executeStart('computed-config-fixtures/headlines/rocket.config.js');
 
-    const indexHtml = await readOutput(cli, 'index.html', {
-      type: 'start',
-    });
+    const indexHtml = await readStartOutput(cli, 'index.html');
     const [indexTitle, indexSection] = indexHtml.split('\n');
     expect(indexTitle).to.equal('Root');
     expect(indexSection).to.be.undefined;
 
-    const subHtml = await readOutput(cli, 'sub/index.html', {
-      type: 'start',
-    });
+    const subHtml = await readStartOutput(cli, 'sub/index.html');
     const [subTitle, subSection] = subHtml.split('\n');
     expect(subTitle).to.equal('Root: Sub');
     expect(subSection).to.equal('sub');
 
-    const subSubHtml = await readOutput(cli, 'sub/subsub/index.html', {
-      type: 'start',
-    });
+    const subSubHtml = await readStartOutput(cli, 'sub/subsub/index.html');
     const [subSubTitle, subSubSection] = subSubHtml.split('\n');
     expect(subSubTitle).to.equal('Sub: SubSub');
     expect(subSubSection).to.equal('sub');
 
-    const sub2Html = await readOutput(cli, 'sub2/index.html', {
-      type: 'start',
-    });
+    const sub2Html = await readStartOutput(cli, 'sub2/index.html');
     const [sub2Title, sub2Section] = sub2Html.split('\n');
     expect(sub2Title).to.equal('Root: Sub2');
     expect(sub2Section).to.equal('sub2');
 
-    const withDataHtml = await readOutput(cli, 'with-data/index.html', {
-      type: 'start',
-    });
+    const withDataHtml = await readStartOutput(cli, 'with-data/index.html');
     const [withDataTitle, withDataSection] = withDataHtml.split('\n');
     expect(withDataTitle).to.equal('Set via data');
     expect(withDataSection).be.undefined;
@@ -199,9 +188,7 @@ describe('RocketCli computedConfig', () => {
   it('can be configured via setupEleventyComputedConfig', async () => {
     cli = await executeStart('computed-config-fixtures/setup/addPlugin.rocket.config.js');
 
-    const indexHtml = await readOutput(cli, 'index.html', {
-      type: 'start',
-    });
+    const indexHtml = await readStartOutput(cli, 'index.html');
     expect(indexHtml).to.equal('test-value');
   });
 
