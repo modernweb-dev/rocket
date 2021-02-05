@@ -1,0 +1,47 @@
+{
+  "name": "generate-import-map",
+  "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A fast low dependency generator of import map",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/generate-import-map"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/tools/generate-import-map/",
+  "bin": {
+    "generate-import-map": "src/cli.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+  },
+  "files": [
+    "*.js",
+    "dist",
+    "dist-types",
+    "src"
+  ],
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "es-module-lexer": "^0.3.26",
+    "glob": "^7.0.0",
+    "node-fetch": "^2.6.1",
+    "sax-wasm": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/es-module-lexer": "^0.3.0",
+    "@types/glob": "^7.0.0",
+    "@types/node-fetch": "^2.5.8"
+  },
+  "types": "dist-types/index.d.ts"
+}

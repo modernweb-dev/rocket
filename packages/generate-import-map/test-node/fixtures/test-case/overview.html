@@ -1,0 +1,545 @@
+<!doctype html>
+
+<html lang="en" dir="ltr">
+
+
+
+    <head>
+
+    <link rel="stylesheet" href="/_merged_assets/rocket-blog.css">
+
+
+    <link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<meta name="twitter:creator" content="@modern_web_dev" />
+
+
+
+
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown JavaScript: Overview: Rocket</title>
+<meta property="og:title" content="Markdown JavaScript: Overview: Rocket"/>
+
+<meta name="generator" content="rocket 0.1">
+<link rel="canonical" href="/docs/markdown-javascript/overview/"/>
+
+
+
+<meta name="description" content="Rocket is the way to build fast static websites with a sprinkle of JavaScript"/>
+<meta property="og:description" content="Rocket is the way to build fast static websites with a sprinkle of JavaScript"/>
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/_merged_assets/_static/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/_merged_assets/_static/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/_merged_assets/_static/icons/favicon-16x16.png">
+<link rel="manifest" href="/_merged_assets/webmanifest.json">
+<link rel="mask-icon" href="/_merged_assets/_static/icons/safari-pinned-tab.svg" color="#3f93ce">
+<meta name="msapplication-TileColor" content="#1d3557">
+<meta name="theme-color" content="#1d3557">
+
+
+    <meta property="og:site_name" content="Rocket"/>
+<meta property="og:type" content="website"/>
+
+<meta property="og:image" content="/_merged_assets/11ty-img/f8d62426-1200.png"/>
+<meta property="og:url" content="/docs/markdown-javascript/overview/"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+
+
+    <link rel="stylesheet" href="/_merged_assets/variables.css">
+<link rel="stylesheet" href="/_merged_assets/layout.css">
+<link rel="stylesheet" href="/_merged_assets/markdown.css">
+<link rel="stylesheet" href="/_merged_assets/style.css">
+
+
+    <noscript><link rel="stylesheet" href="/_merged_assets/_static/noscript.css"/></noscript>
+
+
+</head>
+
+
+
+
+  <body layout="layout-sidebar">
+
+
+
+      <header id="main-header">
+  <div class="content-area">
+
+      <button id="mobile-menu-trigger" data-action="trigger-mobile-menu">
+	<span class="sr-only">Show Menu</span>
+	      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewbox="0 0 448 512" class="icon">
+        <path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
+      </svg>
+
+</button>
+
+
+
+	<a class="logo-link" href="/">
+  <img src="/_merged_assets/logo.svg" alt="Rocket Logo" />
+  <span>Rocket</span>
+</a>
+
+
+
+
+      <rocket-search class="search" json-url="/_merged_assets/_static/rocket-search-index.json">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" style="width: 25px;">
+    <path d="M51.6 96.7c11 0 21-3.9 28.8-10.5l35 35c.8.8 1.8 1.2 2.9 1.2s2.1-.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-35-35c6.5-7.8 10.5-17.9 10.5-28.8 0-24.9-20.2-45.1-45.1-45.1-24.8 0-45.1 20.3-45.1 45.1 0 24.9 20.3 45.1 45.1 45.1zm0-82c20.4 0 36.9 16.6 36.9 36.9C88.5 72 72 88.5 51.6 88.5S14.7 71.9 14.7 51.6c0-20.3 16.6-36.9 36.9-36.9z"/>
+  </svg>
+</rocket-search>
+
+<script type="module">
+  import '@rocket/search/rocket-search.js';
+</script>
+
+
+
+  <a href="/guides/" class="
+
+
+        ">Guides</a>
+  <a href="/docs/" class="
+
+           active
+        ">Docs</a>
+  <a href="/blog/" class="
+
+
+        ">Blog</a>
+
+
+      <launch-dark-switch class="light-dark-switch" label="Toggle darkmode">Toggle darkmode</launch-dark-switch>
+
+
+
+
+	<a class="social-link" href="https://github.com/modernweb-dev/rocket" aria-label="Rocket on GitHub" rel="noopener noreferrer" target="_blank">
+		<span class="sr-only">GitHub</span>
+
+			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 17 16" fill="none">
+  <title>GitHub</title>
+  <path fill="currentColor" fill-rule="evenodd" d="M8.18391.249268C3.82241.249268.253906 3.81777.253906 8.17927c0 3.46933 2.279874 6.44313 5.451874 7.53353.3965.0991.49563-.1983.49563-.3965v-1.3878c-2.18075.4956-2.67638-.9912-2.67638-.9912-.3965-.8922-.89212-1.1895-.89212-1.1895-.69388-.4957.09912-.4957.09912-.4957.793.0992 1.1895.793 1.1895.793.69388 1.2887 1.88338.8922 2.27988.6939.09912-.4956.29737-.8921.49562-1.0904-1.78425-.1982-3.5685-.8921-3.5685-3.96496 0-.89212.29738-1.586.793-2.08162-.09912-.19825-.3965-.99125.09913-2.08163 0 0 .69387-.19825 2.18075.793.59475-.19825 1.28862-.29737 1.9825-.29737.69387 0 1.38775.09912 1.98249.29737 1.4869-.99125 2.1808-.793 2.1808-.793.3965 1.09038.1982 1.88338.0991 2.08163.4956.59475.793 1.28862.793 2.08162 0 3.07286-1.8834 3.66766-3.66764 3.86586.29737.3965.59474.8921.59474 1.586v2.1808c0 .1982.0991.4956.5948.3965 3.172-1.0904 5.4518-4.0642 5.4518-7.53353-.0991-4.3615-3.6676-7.930002-8.02909-7.930002z" clip-rule="evenodd"></path>
+</svg>
+
+
+	</a>
+
+
+  </div>
+</header>
+
+
+
+
+  <div id="content-wrapper">
+    <div class="content-area">
+
+        <rocket-drawer id="sidebar">
+  <nav slot="content" id="sidebar-nav">
+
+      <a class="logo-link" href="/">
+  <img src="/_merged_assets/logo.svg" alt="Rocket Logo" />
+  <span>Rocket</span>
+</a>
+
+
+
+      <rocket-navigation>
+  <ul><li class="menu-item"><a href="/docs/configuration/">Configuration</a><ul><li class="menu-item"><a href="/docs/configuration/overview/">Overview</a><ul><li class="menu-item anchor"><a href="/docs/configuration/overview/#adding-rollup-plugins" class="anchor">Adding Rollup Plugins</a></li>
+<li class="menu-item anchor"><a href="/docs/configuration/overview/#modifying-options-of-plugins" class="anchor">Modifying Options of Plugins</a></li></ul></li>
+<li class="menu-item"><a href="/docs/configuration/computed-config/">Computed Config</a><ul><li class="menu-item anchor"><a href="/docs/configuration/computed-config/#set-your-own-data" class="anchor">Set Your Own Data</a></li>
+<li class="menu-item anchor"><a href="/docs/configuration/computed-config/#default-available-configs" class="anchor">Default Available Configs</a></li></ul></li></ul></li>
+<li class="menu-item"><a href="/docs/presets/">Presets</a><ul><li class="menu-item"><a href="/docs/presets/joining-blocks/">Joining Blocks</a><ul><li class="menu-item anchor"><a href="/docs/presets/joining-blocks/#adding-content-without-overriding" class="anchor">Adding content without overriding</a></li>
+<li class="menu-item anchor"><a href="/docs/presets/joining-blocks/#overriding-content" class="anchor">Overriding Content</a></li>
+<li class="menu-item anchor"><a href="/docs/presets/joining-blocks/#reordering-and-overriding" class="anchor">Reordering and Overriding</a></li></ul></li>
+<li class="menu-item"><a href="/docs/presets/launch/">Launch</a><ul><li class="menu-item anchor"><a href="/docs/presets/launch/#installation" class="anchor">Installation</a></li>
+<li class="menu-item anchor"><a href="/docs/presets/launch/#data" class="anchor">Data</a></li>
+<li class="menu-item anchor"><a href="/docs/presets/launch/#inline-notification" class="anchor">Inline Notification</a></li></ul></li>
+<li class="menu-item"><a href="/docs/presets/search/">Search</a><ul><li class="menu-item anchor"><a href="/docs/presets/search/#installation" class="anchor">Installation</a></li></ul></li>
+<li class="menu-item"><a href="/docs/presets/blog/">Blog</a><ul><li class="menu-item anchor"><a href="/docs/presets/blog/#installation" class="anchor">Installation</a></li>
+<li class="menu-item anchor"><a href="/docs/presets/blog/#usage" class="anchor">Usage</a></li></ul></li></ul></li>
+<li class="menu-item active"><a href="/docs/markdown-javascript/" class="active">Markdown JavaScript</a><ul><li class="menu-item current"><a href="/docs/markdown-javascript/overview/">Overview</a><ul><li class="menu-item anchor"><a href="/docs/markdown-javascript/overview/#web-components" class="anchor">Web Components</a></li>
+<li class="menu-item anchor"><a href="/docs/markdown-javascript/overview/#demo-support-story" class="anchor">Demo Support (Story)</a></li>
+<li class="menu-item anchor"><a href="/docs/markdown-javascript/overview/#supported-systems" class="anchor">Supported Systems</a></li>
+<li class="menu-item anchor"><a href="/docs/markdown-javascript/overview/#build-mdjs" class="anchor">Build mdjs</a></li></ul></li>
+<li class="menu-item"><a href="/docs/markdown-javascript/preview/">Preview</a></li>
+<li class="menu-item"><a href="/docs/markdown-javascript/story/">Story</a></li></ul></li>
+<li class="menu-item"><a href="/docs/eleventy-plugins/">Eleventy Plugins</a><ul><li class="menu-item"><a href="/docs/eleventy-plugins/mdjs-unified/">Markdown JavaScript (mdjs)</a><ul><li class="menu-item anchor"><a href="/docs/eleventy-plugins/mdjs-unified/#setup" class="anchor">Setup</a></li>
+<li class="menu-item anchor"><a href="/docs/eleventy-plugins/mdjs-unified/#configure-a-unified-or-remark-plugin-with-mdjs" class="anchor">Configure a unified or remark Plugin with mdjs</a></li>
+<li class="menu-item anchor"><a href="/docs/eleventy-plugins/mdjs-unified/#add-a-unified-or-remark-plugin" class="anchor">Add a unified or remark Plugin</a></li></ul></li></ul></li>
+<li class="menu-item"><a href="/docs/tools/">Tools</a><ul><li class="menu-item"><a href="/docs/tools/plugins-manager/">Plugins Manager</a><ul><li class="menu-item anchor"><a href="/docs/tools/plugins-manager/#problem" class="anchor">Problem</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/plugins-manager/#problem-statement" class="anchor">Problem Statement</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/plugins-manager/#solution" class="anchor">Solution</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/plugins-manager/#adding-a-plugin" class="anchor">Adding a Plugin</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/plugins-manager/#adjusting-plugin-options" class="anchor">Adjusting Plugin Options</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/plugins-manager/#converting-metaplugins-to-an-actual-plugin" class="anchor">Converting metaPlugins to an Actual Plugin</a></li></ul></li>
+<li class="menu-item"><a href="/docs/tools/rollup-config/">Rollup Config</a><ul><li class="menu-item anchor"><a href="/docs/tools/rollup-config/#features" class="anchor">Features</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/rollup-config/#setup" class="anchor">Setup</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/rollup-config/#customizations" class="anchor">Customizations</a></li></ul></li>
+<li class="menu-item"><a href="/docs/tools/check-html-links/">Check HTML Links</a><ul><li class="menu-item anchor"><a href="/docs/tools/check-html-links/#features" class="anchor">Features</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/check-html-links/#installation" class="anchor">Installation</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/check-html-links/#usage" class="anchor">Usage</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/check-html-links/#example-output" class="anchor">Example Output</a></li>
+<li class="menu-item anchor"><a href="/docs/tools/check-html-links/#comparison" class="anchor">Comparison</a></li></ul></li></ul></li></ul>
+  <div class="sidebar-bottom">
+  <hr>
+  <launch-dark-switch class="light-dark-switch" label="Toggle darkmode">Toggle darkmode</launch-dark-switch>
+
+
+  <a href="https://github.com/modernweb-dev/rocket/issues">Help and Feedback</a>
+</div>
+
+</rocket-navigation>
+
+
+  </nav>
+</rocket-drawer>
+
+
+
+        <main class="markdown-body">
+
+    <h1 id="markdown-javascript-overview"><a class="anchor" href="#markdown-javascript-overview"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Markdown JavaScript: Overview</h1>
+<p>Markdown JavaScript (mdjs) is a format that allows you to use JavaScript with Markdown, to create interactive demos. It does so by "annotating" JavaScript that should be executed in Markdown.</p>
+<p>To annotate we use a code block with <code>js script</code>.</p>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">js script</span>
+<span class="token code-block language-js"><span class="token comment">// execute me</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<h2 id="web-components"><a class="anchor" href="#web-components"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Web Components</h2>
+<p>One very good use case for that can be web components.
+HTML already works in Markdown so all you need is to load a web components definition file.</p>
+<p>You could even do so within the same Markdown file.</p>
+<pre class="language-md"><code class="language-md"><span class="token title important"><span class="token punctuation">##</span> This is my-card</span>
+
+Here's an example of the component:
+
+<span class="token code"><span class="token punctuation">```</span><span class="token code-language">html preview-story</span>
+<span class="token code-block language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>my-card</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>h2</span><span class="token punctuation">></span></span>Hello world!<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>h2</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>button</span><span class="token punctuation">></span></span>Click me!<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>my-card</span><span class="token punctuation">></span></span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<p>You can even execute some JavaScript:</p>
+<pre class="language-md"><code class="language-md"><span class="token title important"><span class="token punctuation">##</span> This is my-el</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>my-el</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>my-el</span><span class="token punctuation">></span></span>
+
+<span class="token code"><span class="token punctuation">```</span><span class="token code-language">js script</span>
+<span class="token code-block language-js"><span class="token keyword module">import</span> <span class="token punctuation">{</span> <span class="token maybe-class-name">LitElement</span><span class="token punctuation">,</span> html <span class="token punctuation">}</span> <span class="token keyword module">from</span> <span class="token string">'https://unpkg.com/lit-element?module'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyEl</span> <span class="token keyword">extends</span> <span class="token class-name">LitElement</span> <span class="token punctuation">{</span>
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token property-access">innerHTML</span> <span class="token operator">=</span> <span class="token string">'&#x3C;p style="color: red">I am alive&#x3C;/p>'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+customElements<span class="token punctuation">.</span><span class="token method function property-access">define</span><span class="token punctuation">(</span><span class="token string">'my-el'</span><span class="token punctuation">,</span> <span class="token maybe-class-name">MyEl</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<h2 id="demo-support-story"><a class="anchor" href="#demo-support-story"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Demo Support (Story)</h2>
+<p>mdjs comes with some additional helpers you can choose to import:</p>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">js script</span>
+<span class="token code-block language-js"><span class="token keyword module">import</span> <span class="token string">'@mdjs/mdjs-story/mdjs-story.js'</span><span class="token punctuation">;</span>
+<span class="token keyword module">import</span> <span class="token string">'@mdjs/mdjs-preview/mdjs-preview.js'</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<p>Once loaded you can use them like so:</p>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">js script</span>
+<span class="token code-block language-js"><span class="token keyword module">import</span> <span class="token string">'@mdjs/mdjs-story/mdjs-story.js'</span><span class="token punctuation">;</span>
+<span class="token keyword module">import</span> <span class="token string">'@mdjs/mdjs-preview/mdjs-preview.js'</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<h3 id="story"><a class="anchor" href="#story"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Story</h3>
+<p>The code snippet will actually get executed at that place and you will have a live demo</p>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">js story</span>
+<span class="token code-block language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function"><span class="token maybe-class-name">JsStory</span></span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> html<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token embedded-code html"> &#x3C;demo-wc-card>JS Story&#x3C;/demo-wc-card> </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">html story</span>
+<span class="token code-block language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>demo-wc-card</span><span class="token punctuation">></span></span>HTML Story<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>demo-wc-card</span><span class="token punctuation">></span></span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<h4 id="full-code-support"><a class="anchor" href="#full-code-support"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Full Code Support</h4>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">js story</span>
+<span class="token code-block language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function"><span class="token maybe-class-name">JsStory</span></span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> calculateSomething <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> html<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token embedded-code html">
+    &#x3C;demo-wc-card .header=${`Something: ${calculateSomething}`}>JS Story&#x3C;/demo-wc-card>
+  </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<h3 id="preview-story"><a class="anchor" href="#preview-story"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Preview Story</h3>
+<p>Will become a live demo wrapped in a container with a show code button.</p>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">js preview-story</span>
+<span class="token code-block language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function"><span class="token maybe-class-name">JsPreviewStory</span></span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> html<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token embedded-code html"> &#x3C;demo-wc-card>JS Preview Story&#x3C;/demo-wc-card> </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<pre class="language-md"><code class="language-md"><span class="token code"><span class="token punctuation">```</span><span class="token code-language">html preview-story</span>
+<span class="token code-block language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>demo-wc-card</span><span class="token punctuation">></span></span>HTML Preview Story<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>demo-wc-card</span><span class="token punctuation">></span></span></span>
+<span class="token punctuation">```</span></span>
+</code></pre>
+<p>Here is a live example from <a href="https://www.npmjs.com/package/demo-wc-card">demo-wc-card</a>.</p>
+<mdjs-preview mdjs-story-name="header"></mdjs-preview>
+<h2 id="supported-systems"><a class="anchor" href="#supported-systems"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Supported Systems</h2>
+<h3 id="es-dev-server"><a class="anchor" href="#es-dev-server"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>es-dev-server</h3>
+<p>Preview your mdjs readme with live demos and auto reload.</p>
+<ul>
+<li>
+<p>Add to your <code>package.json</code>:</p>
+<pre class="language-json"><code class="language-json"><span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token property">"start"</span><span class="token operator">:</span> <span class="token string">"es-dev-server"</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li>
+<p>Create a <code>es-dev-server.config.js</code> in the root of your repository.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> mdjsTransformer <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@mdjs/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span><span class="token property-access">exports</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+  nodeResolve<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  open<span class="token punctuation">:</span> <span class="token string">'README.md'</span><span class="token punctuation">,</span>
+  watch<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  responseTransformers<span class="token punctuation">:</span> <span class="token punctuation">[</span>mdjsTransformer<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+</ul>
+<h3 id="storybook"><a class="anchor" href="#storybook"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Storybook</h3>
+<p>Please check out <a href="https://open-wc.org/demoing/">@open-wc/demoing-storybook</a> for a fully integrated setup.</p>
+<p>It includes <a href="https://open-wc.org/demoing/storybook-addon-markdown-docs.html">storybook-addon-markdown-docs</a> which uses mdjs under the hood.</p>
+<h3 id="chrome-extension-currently-only-for-github"><a class="anchor" href="#chrome-extension-currently-only-for-github"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Chrome Extension (currently only for GitHub)</h3>
+<p>See live demos directly inside GitHub pages, Markdown files, issues, pull requests...</p>
+<p>Please check out <a href="https://github.com/open-wc/mdjs-viewer">mdjs-viewer</a>.</p>
+<h2 id="build-mdjs"><a class="anchor" href="#build-mdjs"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Build mdjs</h2>
+<h3 id="basic"><a class="anchor" href="#basic"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Basic</h3>
+<p>mdjs offers two more "basic" integrations</p>
+<h4 id="mdjsdocpage"><a class="anchor" href="#mdjsdocpage"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a><code>mdjsDocPage</code></h4>
+<p>Creates a full blown HTML page by passing in the Markdown.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> mdjsDocPage <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@mdjs/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> page <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">mdjsDocPage</span><span class="token punctuation">(</span>markdownString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/*
+&#x3C;html>
+  ... // load styles/components for mdjs, start stories
+  &#x3C;body>
+    &#x3C;h1>Some Markdown&#x3C;/h1>
+  &#x3C;/body>
+&#x3C;/html>
+*/</span>
+</code></pre>
+<h4 id="mdjsprocess"><a class="anchor" href="#mdjsprocess"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a><code>mdjsProcess</code></h4>
+<p>Pass in multiple Markdown documents and you get back all the JavaScript code and rendered HTML.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> mdjsProcess <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@mdjs/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> data <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">mdjsProcess</span><span class="token punctuation">(</span>markdownString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/*
+{
+  jsCode: "
+    import '@mdjs/mdjs-story/mdjs-story.js';
+    ...
+  ",
+  html: '&#x3C;h1>Markdown One&#x3C;/h1>',
+}
+*/</span>
+</code></pre>
+<h3 id="advanced"><a class="anchor" href="#advanced"><svg class="octicon octicon-link" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Advanced</h3>
+<p>mdjs is build to be integrated within the <a href="https://unifiedjs.com/">unifiedjs</a> system.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> unified <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'unified'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> markdown <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'remark-parse'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> htmlStringify <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'remark-html'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> mdjsParse <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@mdjs/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token function">unified</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token method function property-access">use</span><span class="token punctuation">(</span>markdown<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token method function property-access">use</span><span class="token punctuation">(</span>mdjsParse<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token method function property-access">use</span><span class="token punctuation">(</span>htmlStringify<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">await</span> parser<span class="token punctuation">.</span><span class="token method function property-access">process</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> jsCode <span class="token punctuation">}</span> <span class="token operator">=</span> result<span class="token punctuation">.</span><span class="token property-access">data</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token property-access">contents</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// &#x3C;h1>This is my-el>&#x3C;/h1></span>
+<span class="token comment">// &#x3C;my-el>&#x3C;/my-el></span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>jsCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// customElements.define('my-el', class extends HTMLElement {</span>
+<span class="token comment">// ...</span>
+</code></pre>
+        <script type="module">
+          import '@mdjs/mdjs-story/mdjs-story.js';
+import '@mdjs/mdjs-preview/mdjs-preview.js';
+import { html } from 'lit-html';
+import 'demo-wc-card/demo-wc-card.js';
+export const header = () => {
+  return html`<demo-wc-card .header=${'my new header'}></demo-wc-card>`;
+};
+const rootNode = document;
+const stories = [{ key: 'header', story: header, code: `<pre class="language-js"><code class="language-js"><span class="token keyword module">import</span> <span class="token string">'demo-wc-card/demo-wc-card.js'</span><span class="token punctuation">;</span>
+<span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function">header</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> html<span class="token template-string"><span class="token template-punctuation string">\`</span><span class="token html language-html"> <span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>demo-wc-card</span> <span class="token attr-name">.header</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">\${</span><span class="token string">'my new header'</span><span class="token interpolation-punctuation punctuation">}</span></span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>demo-wc-card</span><span class="token punctuation">></span></span> </span><span class="token template-punctuation string">\`</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>` }];
+for (const story of stories) {
+  const storyEl = rootNode.querySelector(`[mdjs-story-name="${story.key}"]`);
+  storyEl.codeHasHtml = true;
+  storyEl.story = story.story;
+  storyEl.code = story.code;
+};
+if (!customElements.get('mdjs-preview')) { import('@mdjs/mdjs-preview/mdjs-preview.js'); }
+if (!customElements.get('mdjs-story')) { import('@mdjs/mdjs-story/mdjs-story.js'); }
+        </script>
+
+
+
+    <div class="content-footer">
+  <p>
+    Caught a mistake or want to contribute to the documentation?
+    <a href="https://github.com/modernweb-dev/rocket/edit/main/./docs/docs/markdown-javascript/overview.md">Edit this page on GitHub!</a>
+  </p>
+</div>
+
+
+</main>
+
+
+    </div>
+  </div>
+
+
+
+      <footer id="main-footer">
+
+
+
+
+    <div id="footer-menu">
+  <div class="content-area">
+
+      <nav>
+        <h3>Discover</h3>
+        <ul>
+
+            <li>
+              <a href="/blog/">Blog</a>
+            </li>
+
+            <li>
+              <a href="https://github.com/modernweb-dev/rocket/issues">Help and Feedback</a>
+            </li>
+
+        </ul>
+      </nav>
+
+      <nav>
+        <h3>Follow</h3>
+        <ul>
+
+            <li>
+              <a href="https://github.com/modernweb-dev/rocket">GitHub</a>
+            </li>
+
+            <li>
+              <a href="https://twitter.com/modern_web_dev">Twitter</a>
+            </li>
+
+            <li>
+              <a href="/about/slack/">Slack</a>
+            </li>
+
+        </ul>
+      </nav>
+
+      <nav>
+        <h3>Support</h3>
+        <ul>
+
+            <li>
+              <a href="/about/sponsor/">Sponsor</a>
+            </li>
+
+            <li>
+              <a href="https://github.com/modernweb-dev/rocket/blob/main/CONTRIBUTING.md">Contribute</a>
+            </li>
+
+        </ul>
+      </nav>
+
+  </div>
+</div>
+
+
+</footer>
+
+
+
+
+
+<script type="module">
+  import '@rocket/navigation/rocket-navigation.js';
+  import '@rocket/drawer/rocket-drawer.js';
+  const drawer = document.querySelector('#sidebar');
+
+  // Toggle button
+  const triggers = document.querySelectorAll('[data-action="trigger-mobile-menu"]');
+  for (const trigger of [...triggers]) {
+    trigger.addEventListener('click', function () {
+      drawer.opened = true;
+    });
+  }
+</script>
+
+
+  <script>
+  async function serviceWorkerUpdate() {
+  if ('serviceWorker' in navigator) {
+    const oldReg = await navigator.serviceWorker.getRegistration();
+    let oldSwState;
+    if (oldReg && oldReg.active) {
+      oldSwState = oldReg.active.state;
+    }
+
+    let refreshing;
+
+    navigator.serviceWorker.addEventListener('controllerchange', async () => {
+      if (refreshing) {
+        return;
+      }
+
+      const newReg = await navigator.serviceWorker.getRegistration();
+      let newSwState;
+      if (newReg && newReg.active) {
+        newSwState = newReg.active.state;
+      }
+
+      if (oldSwState === 'activated' && newSwState === 'activating') {
+        refreshing = true;
+        window.location.reload();
+      }
+    });
+  }
+}
+
+serviceWorkerUpdate();
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
