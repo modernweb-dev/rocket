@@ -1,6 +1,19 @@
 import { LitElement, html, css } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
+/**
+ * @typedef {object} StoryOptions
+ * @property {ShadowRoot | null} StoryOptions.shadowRoot
+ */
+
+/** @typedef {(options?: StoryOptions) => ReturnType<LitElement['render']>} LitHtmlStoryFn */
+
+/**
+ * Renders a story within a preview frame
+ *
+ * @element mdjs-preview
+ * @prop {StoryFn} [story=(() => TemplateResult)] Function that returns the story
+ */
 export class MdJsPreview extends LitElement {
   static get properties() {
     return {
@@ -28,6 +41,7 @@ export class MdJsPreview extends LitElement {
   constructor() {
     super();
     this.code = '';
+    /** @type {LitHtmlStoryFn} */
     this.story = () => html` <p>Loading...</p> `;
     this.codeHasHtml = false;
   }
@@ -35,7 +49,7 @@ export class MdJsPreview extends LitElement {
   render() {
     return html`
       <div id="wrapper">
-        <div>${this.story()}</div>
+        <div>${this.story({ shadowRoot: this.shadowRoot })}</div>
         <button id="showCodeButton" @click=${this.toggleShowCode}>show code</button>
       </div>
       ${this.codeHasHtml ? unsafeHTML(this.code) : html`<pre><code>${this.code}</code></pre>`}
