@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.5.2
+
+### Patch Changes
+
+- 8e095b7: Watching `_assets`, `_data`, `_includes` for changes to trigger updated automatically
+
 ## 0.5.1
 
 ### Patch Changes
