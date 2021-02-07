@@ -106,7 +106,7 @@ function socialMediaImagePlugin(args = {}) {
   };
 }
 
-function sortyByOrder(a, b) {
+function sortByOrder(a, b) {
   if (a.order > b.order) {
     return 1;
   }
@@ -124,23 +124,15 @@ async function dirToTree(sourcePath, extra = '') {
   for (const entry of entries) {
     const relativePath = path.join(extra, entry.name);
     const matches = entry.name.match(pattern);
-    if (entry.isDirectory()) {
-      const value = await dirToTree(sourcePath, relativePath);
-      unsortedEntries.push({
-        order: matches && matches.length > 0 ? parseInt(matches[1]) : 0,
-        name: entry.name,
-        value,
-      });
-    } else {
-      unsortedEntries.push({
-        order: matches && matches.length > 0 ? parseInt(matches[1]) : 0,
-        name: entry.name,
-        value: relativePath,
-      });
-    }
+    const value = entry.isDirectory() ? dirToTree(sourcePath, relativePath) : relativePath;
+    unsortedEntries.push({
+      order: matches && matches.length > 0 ? parseInt(matches[1]) : 0,
+      name: entry.name,
+      value,
+    });
   }
   const sortedTree = {};
-  for (const unsortedEntry of unsortedEntries.sort(sortyByOrder)) {
+  for (const unsortedEntry of unsortedEntries.sort(sortByOrder)) {
     sortedTree[unsortedEntry.name] = unsortedEntry.value;
   }
   return sortedTree;
@@ -149,10 +141,7 @@ async function dirToTree(sourcePath, extra = '') {
 function joiningBlocksPlugin(rocketConfig) {
   const { _inputDirCwdRelative } = rocketConfig;
   const partialsSource = path.resolve(_inputDirCwdRelative, '_merged_includes');
-  return async () => {
-    const joiningBlocks = await dirToTree(partialsSource, '_joiningBlocks');
-    return joiningBlocks;
-  };
+  return async () => dirToTree(partialsSource, '_joiningBlocks');
 }
 
 function generateEleventyComputed() {
