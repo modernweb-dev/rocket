@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "lit-html": "https://cdn.skypack.dev/lit-html",
+    "@mdjs/mdjs-story": "https://cdn.skypack.dev/@mdjs/mdjs-story",
+    "demo-wc-card": "https://cdn.skypack.dev/demo-wc-card",
+    "@rocket/search": "https://cdn.skypack.dev/@rocket/search",
+    "@rocket/navigation": "https://cdn.skypack.dev/@rocket/navigation",
+    "@rocket/drawer": "https://cdn.skypack.dev/@rocket/drawer",
+    "@mdjs/mdjs-preview": "https://cdn.skypack.dev/@mdjs/mdjs-preview",
+    "@rocket/launch": "https://cdn.skypack.dev/@rocket/launch"
+  }
+}
