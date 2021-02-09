@@ -34,7 +34,8 @@
 **The modern web setup for static sites with a sprinkle of JavaScript!**
 
 - **Meta Framework:** Build on top of giants like <a href="https://www.11ty.dev/">Eleventy</a>, <a href="https://rollupjs.org/">Rollup</a>, and <a href="https://www.modern-web.dev/">Modern Web</a>.
-- **Powerful Default Template:** Provide content and you are ready to go.
+- **Preset System:** Ship themes, configurations and whole functionalities via shared dependencies.
+- **Powerful Default Preset:** Provide content and you are ready to go.
 - **Small:** No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed..
 
 <p align="center">
