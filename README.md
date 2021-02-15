@@ -43,7 +43,7 @@
 
 ## The Goal for Rocket
 
-> Our goal is to provide developers with a meta framework for static websites with a spricle of JavaScript.
+> Our goal is to provide developers with a meta framework for static websites with a sprinkle of JavaScript.
 
 Get a site up and running in no time and focus on the content.
 You can still tweak every detail of every underlying tool that gets used.
