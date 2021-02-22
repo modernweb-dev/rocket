@@ -40,6 +40,7 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
       search: { type: String },
       results: { type: Array },
       maxResults: { type: Number, attribute: 'max-results' },
+      noResultsText: { type: String },
     };
   }
 
@@ -55,6 +56,7 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
     this.jsonUrl = '';
     this.search = '';
     this.maxResults = 10;
+    this.noResultsText = 'No results found';
     /**
      * @type {RocketSearchResult[]}
      */
@@ -132,6 +134,9 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
             ></rocket-search-option>
           `,
         )}
+        ${this.results.length <= 0 && this.search.length > 0
+          ? html` <rocket-search-option .title=${this.noResultsText}></rocket-search-option> `
+          : ''}
       </rocket-search-combobox>
     `;
   }
