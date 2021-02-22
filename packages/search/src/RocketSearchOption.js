@@ -65,7 +65,7 @@ export class RocketSearchOption extends LinkMixin(LionOption) {
 
         :host {
           display: block;
-          cursor: default;
+          cursor: pointer;
           position: relative;
           padding: 12px 10px;
           display: flex;
