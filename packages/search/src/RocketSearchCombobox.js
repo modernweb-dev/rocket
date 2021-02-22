@@ -43,6 +43,8 @@ export class RocketSearchCombobox extends LionCombobox {
           font: inherit;
           cursor: pointer;
           fill: var(--rocket-search-fill-color, #000);
+          display: flex;
+          align-items: center;
         }
 
         ::slotted([slot='prefix'][close-btn]) {
