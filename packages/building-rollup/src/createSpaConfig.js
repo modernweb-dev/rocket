@@ -53,7 +53,7 @@ export function createSpaMetaConfig(userConfig = { output: {} }) {
         // directory to match patterns against to be precached
         globDirectory: path.join(config.output.dir),
         // cache any html js and css by default
-        globPatterns: ['**/*.{html,js,css,webmanifest}'],
+        globPatterns: ['**/*.{html,js,css,webmanifest}', '**/*-search-index.json'],
         skipWaiting: true,
         clientsClaim: true,
         runtimeCaching: [
