@@ -29,7 +29,7 @@ function getTitle({ result, search }) {
 function getText({ result, search }) {
   const { terms, body } = result;
 
-  return highlightSearchTerms({ text: body, search, terms });
+  return highlightSearchTerms({ text: body, search, terms, addEllipsis: true });
 }
 
 // @ts-expect-error https://github.com/microsoft/TypeScript/issues/40110
