@@ -26,6 +26,7 @@ function defaultHighlight(term) {
  * @param {number} [options.before]
  * @param {number} [options.length]
  * @param {function} [options.highlight]
+ * @param {boolean} [options.addEllipsis]
  */
 export function highlightSearchTerms({
   search,
@@ -34,6 +35,7 @@ export function highlightSearchTerms({
   before = 15,
   length = 100,
   highlight = defaultHighlight,
+  addEllipsis = false,
 }) {
   if (!search || !text) {
     return '';
@@ -70,5 +72,9 @@ export function highlightSearchTerms({
     } while (startIndex !== -1);
   }
 
-  return newText.substr(truncateStart, length + extraLength);
+  let textResult = newText.substr(truncateStart, length + extraLength);
+  if (addEllipsis && truncateStart > 0) {
+    textResult = `...${textResult}`;
+  }
+  return textResult;
 }
