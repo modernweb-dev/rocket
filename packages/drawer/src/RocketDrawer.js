@@ -18,6 +18,7 @@ export class RocketDrawer extends OverlayMixin(LitElement) {
     return {
       useOverlay: { type: Boolean, reflect: true },
       useOverlayMediaQuery: { type: String },
+      mediaMatcher: { type: Object },
     };
   }
 
@@ -89,6 +90,20 @@ export class RocketDrawer extends OverlayMixin(LitElement) {
         }
       }
     }
+    if (changedProperties.has('useOverlayMediaQuery')) {
+      this.mediaMatcher.removeEventListener('change', this.onMatchMedia);
+
+      this.mediaMatcher = window.matchMedia(this.useOverlayMediaQuery);
+      this.mediaMatcher.addEventListener('change', this.onMatchMedia);
+      this.useOverlay = !!this.mediaMatcher.matches;
+    }
+  }
+
+  /**
+   * @param { MediaQueryListEvent } query
+   */
+  onMatchMedia(query) {
+    this.useOverlay = !!query.matches;
   }
 
   _setupOpenCloseListeners() {
@@ -118,10 +133,14 @@ export class RocketDrawer extends OverlayMixin(LitElement) {
 
     this.__toggle = this.__toggle.bind(this);
 
+    this.onMatchMedia = this.onMatchMedia.bind(this);
     this.onGestureStart = this.onGestureStart.bind(this);
     this.onGestureMove = this.onGestureMove.bind(this);
     this.onGestureEnd = this.onGestureEnd.bind(this);
     this.updateFromTouch = this.updateFromTouch.bind(this);
+
+    this.mediaMatcher = window.matchMedia(this.useOverlayMediaQuery);
+    this.mediaMatcher.addEventListener('change', this.onMatchMedia);
 
     this._startX = 0;
     this._currentX = 0;
@@ -133,10 +152,7 @@ export class RocketDrawer extends OverlayMixin(LitElement) {
 
   connectedCallback() {
     super.connectedCallback();
-    this.useOverlay = !!window.matchMedia(this.useOverlayMediaQuery).matches;
-    window.matchMedia(this.useOverlayMediaQuery).addListener(query => {
-      this.useOverlay = !!query.matches;
-    });
+    this.useOverlay = !!this.mediaMatcher.matches;
   }
 
   render() {
