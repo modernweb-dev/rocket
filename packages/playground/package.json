@@ -1,0 +1,40 @@
+{
+  "name": "@rocket/playground",
+  "version": "0.1.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rendering storybook story functions inside a story window with show code capabilities",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/mdjs-story"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/markdown-javascript/story/",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./rocket-playground": "./rocket-playground.js"
+  },
+  "scripts": {
+    "debug": "cd ../../ && npm run debug -- --group mdjs-story",
+    "test": "npm run test:web",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.js' -- npm run test:node",
+    "test:node": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:web": "cd ../../ && npm run test:web -- --group mdjs-story"
+  },
+  "files": [
+    "*.js",
+    "assets",
+    "dist-types",
+    "src"
+  ],
+  "dependencies": {
+    "@vanillawc/wc-monaco-editor": "^1.10.12",
+    "lit-element": "^2.4.0",
+    "wasm-flate": "^1.0.2-browser"
+  },
+  "types": "dist-types/index.d.ts"
+}

@@ -1778,6 +1778,11 @@
   resolved "https://registry.yarnpkg.com/@ungap/promise-all-settled/-/promise-all-settled-1.1.2.tgz#aa58042711d6e3275dd37dc597e5d31e8c290a44"
   integrity sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==
 
+"@vanillawc/wc-monaco-editor@^1.10.12":
+  version "1.10.12"
+  resolved "https://registry.yarnpkg.com/@vanillawc/wc-monaco-editor/-/wc-monaco-editor-1.10.12.tgz#73ae976b27fecfbef034df0cd2ea3608f4457180"
+  integrity sha512-UOFs6eCf30qWQE8J4+e6axlcoZAKfa/rOgcqMB70s7UvAzQYnE0zpbWmTyRPCG6ARmuHXDkaxjkG8DXywZfJDA==
+
 "@web/browser-logs@^0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@web/browser-logs/-/browser-logs-0.2.0.tgz#3f39d59154bf668f0bce467026354ff2b9f3e06b"
@@ -8743,6 +8748,11 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
   integrity sha1-wGavtYK7HLQSjWDqkjkulNXp2+w=
+
+wasm-flate@^1.0.2-browser:
+  version "1.0.2-browser"
+  resolved "https://registry.yarnpkg.com/wasm-flate/-/wasm-flate-1.0.2-browser.tgz#e10e758b37c3d38829b54809fa2fef853b48131c"
+  integrity sha512-qpqOzvbKtgG/2Mb0DYXVPQ2nOrkKYoAQtpr4QZzgO8SMfKieeODUy2vomMnimQjH/K2RGWnw+kZmO8yf+Yh9qA==
 
 wcwidth@^1.0.1:
   version "1.0.1"

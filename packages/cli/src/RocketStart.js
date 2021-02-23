@@ -58,6 +58,12 @@ export class RocketStart {
 
         setupRollupPlugins: this.config.setupDevAndBuildPlugins,
         setupPlugins: this.config.setupDevPlugins,
+        middleware: [
+          function rewriteIndex(context, next) {
+            context.set('Access-Control-Allow-Origin', '*');
+            return next();
+          },
+        ],
       },
       [],
       { rollupWrapperFunction: fromRollup },

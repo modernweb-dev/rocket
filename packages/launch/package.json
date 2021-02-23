@@ -19,6 +19,7 @@
     ".": "./index.js",
     "./preset/": "./preset/",
     "./inline-notification": "./inline-notification/index.js",
+    "./inline-notification-element": "./inline-notification/inline-notification.js",
     "./inline-notification/inline-notification.js": "./inline-notification/inline-notification.js"
   },
   "scripts": {
