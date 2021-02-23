@@ -43,7 +43,7 @@
 
 ## The Goal for Rocket
 
-> Our goal is to provide developers with a meta framework for static websites with a spricle of JavaScript.
+> Our goal is to provide developers with a meta framework for static websites with a sprinkle of JavaScript.
 
 Get a site up and running in no time and focus on the content.
 You can still tweak every detail of every underlying tool that gets used.
@@ -54,7 +54,7 @@ Rocket is part of the [Modern Web Family](https://twitter.com/modern_web_dev).
 
 We are always looking for contributors of all skill levels! If you're looking to ease your way into the project, try out a [good first issue](https://github.com/modernweb-dev/rocket/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
-If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/rocket/blob/main/CONTRIBUTING.md). Also, feel free to drop into [slack](https://rocket.modern-web.dev/discover/slack/) and say hi. 👋
+If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/rocket/blob/main/CONTRIBUTING.md). Also, feel free to drop into [slack](https://rocket.modern-web.dev/about/slack/) and say hi. 👋
 
 ### Financial Contributors
 
