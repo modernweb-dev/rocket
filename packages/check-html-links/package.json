@@ -17,6 +17,7 @@
     "check-html-links": "src/cli.js"
   },
   "type": "module",
+  "main": "./index.js",
   "exports": {
     ".": "./index.js"
   },
