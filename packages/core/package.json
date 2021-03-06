@@ -14,6 +14,7 @@
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/",
   "type": "module",
+  "main": "./dist/title.cjs",
   "exports": {
     "./title": {
       "require": "./dist/title.cjs",

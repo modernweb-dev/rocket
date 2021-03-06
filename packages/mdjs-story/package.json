@@ -13,6 +13,7 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/markdown-javascript/story/",
+  "main": "./index.js",
   "type": "module",
   "exports": {
     ".": "./index.js",

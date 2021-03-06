@@ -17,6 +17,7 @@
     "rocket": "src/cli.js"
   },
   "type": "module",
+  "main": "./index.cjs",
   "exports": {
     ".": {
       "require": "./index.cjs",
