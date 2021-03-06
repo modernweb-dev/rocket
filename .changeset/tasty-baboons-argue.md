@@ -1,5 +1,6 @@
 ---
 '@rocket/eleventy-rocket-nav': minor
+'@rocket/cli': minor
 ---
 
 To support dynamically created content to be part of the anchor navigation of the page we now analyze the final html output instead of `entry.templateContent`.
