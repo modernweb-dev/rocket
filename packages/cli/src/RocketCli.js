@@ -10,6 +10,7 @@ import computedConfigPkg from './public/computedConfig.cjs';
 
 import path from 'path';
 import Eleventy from '@11ty/eleventy';
+import TemplateConfig from '@11ty/eleventy/src/TemplateConfig.js';
 import { fileURLToPath } from 'url';
 import fs from 'fs-extra';
 
@@ -99,11 +100,16 @@ export class RocketCli {
       await this.mergePresets();
 
       const elev = new RocketEleventy(_inputDirCwdRelative, outputDevDir, this);
-      elev.isVerbose = false;
       // 11ty always wants a relative path to cwd - why?
       const rel = path.relative(process.cwd(), path.join(__dirname));
       const relCwdPathToConfig = path.join(rel, 'shared', '.eleventy.cjs');
+
+      const config = new TemplateConfig(null, relCwdPathToConfig);
+      elev.config = config.getConfig();
+      elev.resetConfig();
       elev.setConfigPathOverride(relCwdPathToConfig);
+
+      elev.isVerbose = false;
       await elev.init();
 
       this.eleventy = elev;
