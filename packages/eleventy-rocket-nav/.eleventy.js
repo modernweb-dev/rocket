@@ -1,4 +1,5 @@
 const RocketNav = require('./eleventy-rocket-nav');
+const { addPageAnchors } = require('./src/addPageAnchors.js');
 
 // export the configuration function for plugin
 module.exports = function (eleventyConfig) {
@@ -7,6 +8,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addNunjucksFilter('rocketNavBreadcrumb', RocketNav.findBreadcrumbEntries);
   eleventyConfig.addNunjucksFilter('rocketNavToHtml', function (pages, options) {
     return RocketNav.toHtml.call(eleventyConfig, pages, options);
+  });
+  eleventyConfig.addTransform('rocket-nav-add-page-anchors', async function (content) {
+    const newContent = await addPageAnchors(content);
+    return newContent;
   });
 };
 

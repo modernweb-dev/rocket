@@ -94,21 +94,8 @@ function findNavigationEntries(nodes = [], key = '') {
         entry.title = entry.key;
       }
       if (entry.key) {
-        if (!headingsCache.has(entry.templateContent)) {
-          headingsCache.set(entry.templateContent, getHeadingsOfHtml(entry.templateContent));
-        }
-        const headings = /** @type {Heading[]} */ (headingsCache.get(entry.templateContent));
-        const anchors = headings.map(heading => ({
-          key: heading.text + Math.random(),
-          parent: entry.key,
-          url: `${entry.url}#${heading.id}`,
-          pluginType: 'eleventy-navigation',
-          parentKey: entry.key,
-          title: heading.text,
-          anchor: true,
-        }));
         // @ts-ignore
-        entry.children = [...anchors, ...findNavigationEntries(nodes, entry.key)];
+        entry.children = findNavigationEntries(nodes, entry.key);
       }
       return entry;
     });
@@ -227,43 +214,36 @@ function navigationToHtml(pages, _options = {}) {
       }>${pages
         .map(entry => {
           const liClass = [];
-          const aClass = [];
           if (options.listItemClass) {
             liClass.push(options.listItemClass);
           }
-          if (options.anchorClass) {
-            aClass.push(options.anchorClass);
-          }
-          if (options.activeKey === entry.key) {
-            if (options.activeListItemClass) {
-              liClass.push(options.activeListItemClass);
-            }
-            if (options.activeAnchorClass) {
-              aClass.push(options.activeAnchorClass);
-            }
+          if (options.activeKey === entry.key && options.activeListItemClass) {
+            liClass.push(options.activeListItemClass);
           }
           if (options.activeTreeListClass && activePages && activePages.includes(entry.key)) {
             liClass.push(options.activeTreeListClass);
-          }
-          if (options.activeAnchorListClass && activePages && activePages.includes(entry.key)) {
-            aClass.push(options.activeAnchorListClass);
           }
           if (options.listItemHasChildrenClass && entry.children && entry.children.length) {
             liClass.push(options.listItemHasChildrenClass);
           }
 
-          if (entry.anchor) {
-            liClass.push('anchor');
-            aClass.push('anchor');
+          const output = [];
+          output.push(
+            `<${options.listItemElement}${liClass.length ? ` class="${liClass.join(' ')}"` : ''}>`,
+          );
+          output.push(`<a href="${urlFilter(entry.url)}">${entry.title}</a>`);
+          if (options.showExcerpt && entry.excerpt) {
+            output.push(`: ${entry.excerpt}`);
           }
+          if (options.activeKey === entry.key && options.activeListItemClass) {
+            output.push('<!-- ADD PAGE ANCHORS -->');
+          }
+          if (entry.children) {
+            output.push(navigationToHtml(entry.children, options));
+          }
+          output.push(`</${options.listItemElement}>`);
 
-          return `<${options.listItemElement}${
-            liClass.length ? ` class="${liClass.join(' ')}"` : ''
-          }><a href="${urlFilter(entry.url)}"${
-            aClass.length ? ` class="${aClass.join(' ')}"` : ''
-          }>${entry.title}</a>${options.showExcerpt && entry.excerpt ? `: ${entry.excerpt}` : ''}${
-            entry.children ? navigationToHtml(entry.children, options) : ''
-          }</${options.listItemElement}>`;
+          return output.join('\n');
         })
         .join('\n')}</${options.listElement}>`
     : '';
