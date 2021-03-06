@@ -1,5 +1,27 @@
 # @rocket/cli
 
+## 0.6.0
+
+### Minor Changes
+
+- 5edc40f: Make sure each rocket instance has it's own eleventy config'
+- ef8ebb0: To support dynamically created content to be part of the anchor navigation of the page we now analyze the final html output instead of `entry.templateContent`.
+
+  BREAKING CHANGE:
+
+  - only add anchors for the currently active pages (before it added anchor for every page)
+
+### Patch Changes
+
+- be0d0b3: fix: add missing main entry to the packages
+- Updated dependencies [be0d0b3]
+- Updated dependencies [ef8ebb0]
+  - @rocket/building-rollup@0.1.3
+  - check-html-links@0.2.1
+  - @rocket/core@0.1.2
+  - plugins-manager@0.2.1
+  - @rocket/eleventy-rocket-nav@0.3.0
+
 ## 0.5.2
 
 ### Patch Changes

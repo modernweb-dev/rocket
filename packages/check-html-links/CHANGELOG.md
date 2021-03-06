@@ -1,5 +1,11 @@
 # check-html-links
 
+## 0.2.1
+
+### Patch Changes
+
+- be0d0b3: fix: add missing main entry to the packages
+
 ## 0.2.0
 
 ### Minor Changes
