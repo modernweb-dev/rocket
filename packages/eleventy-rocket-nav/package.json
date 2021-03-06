@@ -13,7 +13,7 @@
   },
   "main": ".eleventy.js",
   "scripts": {
-    "test": "mocha test-node/**/*.test.js test-node/*.test.js",
+    "test": "mocha test-node/**/*.test.js test-node/*.test.js --timeout 5000",
     "test:watch": "mocha test-node/**/*.test.js test-node/*.test.js --watch"
   },
   "files": [
