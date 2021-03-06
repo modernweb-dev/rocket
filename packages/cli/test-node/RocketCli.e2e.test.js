@@ -35,8 +35,7 @@ describe('RocketCli e2e', () => {
   });
 
   describe('eleventy in config', () => {
-    // TODO: find out while this has a side effect and breaks other tests
-    it.skip('can modify eleventy via an elventy function in the config', async () => {
+    it('can modify eleventy via an elventy function in the config', async () => {
       cli = await executeStart('e2e-fixtures/content/eleventy.rocket.config.js');
       const indexHtml = await readStartOutput(cli, 'index.html');
       expect(indexHtml).to.equal(
