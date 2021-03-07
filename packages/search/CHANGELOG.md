@@ -1,5 +1,13 @@
 # @rocket/search
 
+## 0.3.1
+
+### Patch Changes
+
+- be0d0b3: fix: add missing main entry to the packages
+- Updated dependencies [be0d0b3]
+  - plugins-manager@0.2.1
+
 ## 0.3.0
 
 ### Minor Changes

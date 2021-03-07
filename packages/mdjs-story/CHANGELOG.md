@@ -1,5 +1,11 @@
 # @mdjs/mdjs-story
 
+## 0.1.2
+
+### Patch Changes
+
+- be0d0b3: fix: add missing main entry to the packages
+
 ## 0.1.1
 
 ### Patch Changes
