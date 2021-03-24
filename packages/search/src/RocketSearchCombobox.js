@@ -138,7 +138,7 @@ export class RocketSearchCombobox extends LionCombobox {
             display: flex;
             border: 1px solid var(--rocket-search-input-border-color, #dfe1e5);
             box-shadow: none;
-            border-radius: 24px;
+            border-radius: var(--rocket-search-input-border-radius, 24px);
             padding: 5px 0;
           }
 
