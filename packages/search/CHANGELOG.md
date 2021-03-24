@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.3.2
+
+### Patch Changes
+
+- 302227e: Add variable for border-radius of SearchCombobox
+
 ## 0.3.1
 
 ### Patch Changes
