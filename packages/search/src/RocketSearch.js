@@ -112,7 +112,7 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
     return html`
       <rocket-search-combobox
         name="combo"
-        label="Rocket Search"
+        label="Search"
         @input=${ev => {
           this.search = ev.target.value;
         }}

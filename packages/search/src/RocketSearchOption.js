@@ -103,7 +103,7 @@ export class RocketSearchOption extends LinkMixin(LionOption) {
 
   render() {
     return html`
-      <img class="icon" src=${getIcon(this.section)} />
+      <img class="icon" src=${getIcon(this.section)} alt=${this.section} />
       <div class="choice-field__label">
         <div class="title">${unsafeHTML(this.title)}</div>
         <div class="text">${unsafeHTML(this.text)}</div>
