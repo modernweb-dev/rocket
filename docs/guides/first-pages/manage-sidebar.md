@@ -47,3 +47,9 @@ export const headlineConverter = () => html`
 ```
 
 How it then works is very similar to https://www.11ty.dev/docs/plugins/navigation/
+
+## Sidebar redirects
+
+By default, the sidebar nav redirects clicks on category headings to the first child page in that category.
+
+To disable those redirects, override `_includes/_joiningBlocks/_layoutSidebar/sidebar/20-navigation.njk` and add the `no-redirects` attribute to the `<rocket-navigation>` element.

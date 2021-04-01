@@ -58,7 +58,8 @@ describe('rocket-navigation', () => {
     expect(anchorSpy).to.not.be.called;
   });
 
-  it('will mark the currently "active" headline in the menu', async () => {
+  it('will mark the currently "active" headline in the menu', async function () {
+    this.timeout(5000);
     function addBlock(headline, length = 5) {
       return html`
         <h2 id="${headline}">${headline}</h2>
@@ -96,20 +97,20 @@ describe('rocket-navigation', () => {
         }
       </style>
     `);
-    await aTimeout(0);
+    await aTimeout(50);
     const anchorLis = wrapper.querySelectorAll('.menu-item.anchor');
     expect(anchorLis[0]).to.have.class('current');
     expect(anchorLis[1]).to.not.have.class('current');
     expect(anchorLis[2]).to.not.have.class('current');
 
     document.querySelector('#middle').scrollIntoView();
-    await aTimeout(20);
+    await aTimeout(100);
     expect(anchorLis[0]).to.not.have.class('current');
     expect(anchorLis[1]).to.have.class('current');
     expect(anchorLis[2]).to.not.have.class('current');
 
     document.querySelector('#bottom').scrollIntoView();
-    await aTimeout(20);
+    await aTimeout(100);
     expect(anchorLis[0]).to.not.have.class('current');
     expect(anchorLis[1]).to.not.have.class('current');
     expect(anchorLis[2]).to.have.class('current');
