@@ -53,13 +53,12 @@ describe('eleventy-plugin-mdjs-unified', () => {
 
   it('renders markdown with javascript', async () => {
     const files = await renderEleventy('./test-node/fixtures/mdjs');
-    expect(files).to.deep.equal([
-      {
-        html:
-          '<h1 id="first"><a aria-hidden="true" tabindex="-1" href="#first"><span class="icon icon-link"></span></a>First</h1>\n<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token string">\'bar\'</span><span class="token punctuation">;</span>\n<span class="token keyword module">import</span> <span class="token punctuation">{</span> html <span class="token punctuation">}</span> <span class="token keyword module">from</span> <span class="token string">\'lit-html\'</span><span class="token punctuation">;</span>\n</code></pre>\n<mdjs-story mdjs-story-name="inline"></mdjs-story>\n<mdjs-preview mdjs-story-name="withBorder"></mdjs-preview>\n        <script type="module">\n          \nexport const inline = () => html` <p>main</p> `;\nexport const withBorder = () => html` <p>main</p> `;\nconst rootNode = document;\nconst stories = [{ key: \'inline\', story: inline, code: `<pre class="language-js"><code class="language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function">inline</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> html<span class="token template-string"><span class="token template-punctuation string">\\`</span><span class="token html language-html"> <span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>p</span><span class="token punctuation">></span></span>main<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>p</span><span class="token punctuation">></span></span> </span><span class="token template-punctuation string">\\`</span></span><span class="token punctuation">;</span>\n</code></pre>` }, { key: \'withBorder\', story: withBorder, code: `<pre class="language-js"><code class="language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function">withBorder</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> html<span class="token template-string"><span class="token template-punctuation string">\\`</span><span class="token html language-html"> <span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;</span>p</span><span class="token punctuation">></span></span>main<span class="token tag"><span class="token tag"><span class="token punctuation">&#x3C;/</span>p</span><span class="token punctuation">></span></span> </span><span class="token template-punctuation string">\\`</span></span><span class="token punctuation">;</span>\n</code></pre>` }];\nfor (const story of stories) {\n  const storyEl = rootNode.querySelector(`[mdjs-story-name="${story.key}"]`);\n  storyEl.codeHasHtml = true;\n  storyEl.story = story.story;\n  storyEl.code = story.code;\n};\nif (!customElements.get(\'mdjs-preview\')) { import(\'@mdjs/mdjs-preview/mdjs-preview.js\'); }\nif (!customElements.get(\'mdjs-story\')) { import(\'@mdjs/mdjs-story/mdjs-story.js\'); }\n        </script>\n      ',
-        name: 'first/index.html',
-      },
-    ]);
+
+    expect(files.length).to.equal(1);
+    expect(files[0].name).to.equal('first/index.html');
+
+    expect(files[0].html).to.include('<script type="module">');
+    expect(files[0].html).to.include('for (const story of stories)');
   });
 
   it('rewrites relative import pathes', async () => {

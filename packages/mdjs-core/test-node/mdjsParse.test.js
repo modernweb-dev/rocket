@@ -28,7 +28,7 @@ describe('mdjsParse', () => {
     expect(/** @type {MDJSVFileData} */ (result.data).jsCode).to.equal('const bar = 22;');
   });
 
-  // TODO: fix this bug
+  // TODO: fix this bug - maybe something in unified itself 🤔
   it.skip('handling only "js script" code blocks', async () => {
     const input = [
       //

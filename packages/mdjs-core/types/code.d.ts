@@ -25,6 +25,7 @@ export interface ParseResult {
   data: {
     stories: Story[];
     jsCode: string;
+    setupJsCode: string;
   };
 }
 

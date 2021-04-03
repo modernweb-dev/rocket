@@ -132,31 +132,6 @@ export const header = () => {
 
 ## Supported Systems
 
-### es-dev-server
-
-Preview your mdjs readme with live demos and auto reload.
-
-- Add to your `package.json`:
-
-  ```json
-  "scripts": {
-    "start": "es-dev-server",
-  }
-  ```
-
-- Create a `es-dev-server.config.js` in the root of your repository.
-
-  ```js
-  const { mdjsTransformer } = require('@mdjs/core');
-
-  module.exports = {
-    nodeResolve: true,
-    open: 'README.md',
-    watch: true,
-    responseTransformers: [mdjsTransformer],
-  };
-  ```
-
 ### Storybook
 
 Please check out [@open-wc/demoing-storybook](https://open-wc.org/demoing/) for a fully integrated setup.
