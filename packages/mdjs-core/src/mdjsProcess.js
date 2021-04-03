@@ -18,6 +18,7 @@ const { executeSetupFunctions } = require('plugins-manager');
 
 const { mdjsParse } = require('./mdjsParse.js');
 const { mdjsStoryParse } = require('./mdjsStoryParse.js');
+const { mdjsSetupCode } = require('./mdjsSetupCode.js');
 
 /** @type {MdjsProcessPlugin[]} */
 const defaultMetaPlugins = [
@@ -25,6 +26,7 @@ const defaultMetaPlugins = [
   { name: 'gfm', plugin: gfm },
   { name: 'mdjsParse', plugin: mdjsParse },
   { name: 'mdjsStoryParse', plugin: mdjsStoryParse },
+  { name: 'mdjsSetupCode', plugin: mdjsSetupCode },
   // @ts-ignore
   { name: 'remark2rehype', plugin: remark2rehype, options: { allowDangerousHtml: true } },
   // @ts-ignore
@@ -50,29 +52,15 @@ const defaultMetaPlugins = [
  * @param {function[]} [options.setupUnifiedPlugins]
  * @param {MdjsProcessPlugin[]} [options.plugins] deprecated option use setupUnifiedPlugins instead
  */
-async function mdjsProcess(
-  mdjs,
-  { rootNodeQueryCode = 'document', setupUnifiedPlugins = [] } = {},
-) {
+async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
   const parser = unified();
 
   const metaPlugins = executeSetupFunctions(setupUnifiedPlugins, defaultMetaPlugins);
 
-  // @ts-ignore
-  for (const pluginObj of metaPlugins) {
-    parser.use(pluginObj.plugin, pluginObj.options);
-  }
-
-  /** @type {unknown} */
-  const parseResult = await parser.process(mdjs);
-  const result = /** @type {ParseResult} */ (parseResult);
-
-  const { stories, jsCode } = result.data;
-  let fullJsCode = jsCode;
-
-  if (stories && stories.length > 0) {
-    const storiesCode = stories.map(story => story.code).join('\n');
-
+  /**
+   * @param {string} code
+   */
+  async function highlightCode(code) {
     // @ts-ignore
     const codePlugins = metaPlugins.filter(pluginObj =>
       ['markdown', 'remark2rehype', 'rehypePrism', 'htmlStringify'].includes(pluginObj.name),
@@ -82,46 +70,30 @@ async function mdjsProcess(
     for (const pluginObj of codePlugins) {
       codeParser.use(pluginObj.plugin, pluginObj.options);
     }
-
-    const invokeStoriesCode = [];
-    for (const story of stories) {
-      let code = '';
-      switch (story.type) {
-        case 'html':
-          code = `\`\`\`html\n${story.code.split('`')[1]}\n\`\`\``;
-          break;
-        case 'js':
-          code = `\`\`\`js\n${story.code}\n\`\`\``;
-          break;
-        default:
-          break;
-      }
-      const codeResult = await codeParser.process(code);
-      const highlightedCode = /** @type {string} */ (codeResult.contents)
-        .replace(/`/g, '\\`')
-        .replace(/\$/g, '\\$');
-      invokeStoriesCode.push(
-        `{ key: '${story.key}', story: ${story.key}, code: \`${highlightedCode}\` }`,
-      );
-    }
-
-    fullJsCode = [
-      jsCode,
-      storiesCode,
-      `const rootNode = ${rootNodeQueryCode};`,
-      `const stories = [${invokeStoriesCode.join(', ')}];`,
-      `for (const story of stories) {`,
-      // eslint-disable-next-line no-template-curly-in-string
-      '  const storyEl = rootNode.querySelector(`[mdjs-story-name="${story.key}"]`);',
-      `  storyEl.codeHasHtml = true;`,
-      `  storyEl.story = story.story;`,
-      `  storyEl.code = story.code;`,
-      `};`,
-      `if (!customElements.get('mdjs-preview')) { import('@mdjs/mdjs-preview/mdjs-preview.js'); }`,
-      `if (!customElements.get('mdjs-story')) { import('@mdjs/mdjs-story/mdjs-story.js'); }`,
-    ].join('\n');
+    const codeResult = await codeParser.process(code);
+    return codeResult.contents;
   }
-  return { stories, jsCode: fullJsCode, html: result.contents };
+
+  // @ts-ignore
+  for (const pluginObj of metaPlugins) {
+    if (pluginObj.name === 'mdjsSetupCode') {
+      if (pluginObj.options && !pluginObj.options.highlightCode) {
+        pluginObj.options.highlightCode = highlightCode;
+      }
+      if (!pluginObj.options) {
+        pluginObj.options = { highlightCode };
+      }
+    }
+    parser.use(pluginObj.plugin, pluginObj.options);
+  }
+
+  /** @type {unknown} */
+  const parseResult = await parser.process(mdjs);
+  const result = /** @type {ParseResult} */ (parseResult);
+
+  const { stories, setupJsCode } = result.data;
+
+  return { stories, jsCode: setupJsCode, html: result.contents };
 }
 
 module.exports = {

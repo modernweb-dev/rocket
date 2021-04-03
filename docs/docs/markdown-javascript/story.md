@@ -2,10 +2,16 @@
 
 You can showcase live running code by annotating a code block with `js story`.
 
-````md
-```js story
+```js script
 import { html } from 'lit-html';
+```
 
+````md
+```js script
+import { html } from 'lit-html';
+```
+
+```js story
 export const foo = () => html` <p>my html</p> `;
 ```
 ````
@@ -13,7 +19,5 @@ export const foo = () => html` <p>my html</p> `;
 will result in
 
 ```js story
-import { html } from 'lit-html';
-
 export const foo = () => html` <p>my html</p> `;
 ```
