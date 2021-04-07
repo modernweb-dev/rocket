@@ -34,7 +34,7 @@
   ],
   "dependencies": {
     "@lion/overlays": "^0.23.2",
-    "lit-element": "^2.4.0"
+    "lit-element": "^3.0.0-pre.4"
   },
   "types": "dist-types/index.d.ts"
 }

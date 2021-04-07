@@ -1,4 +1,5 @@
-import { LitElement, html, customElement } from 'lit-element';
+import { LitElement, html } from 'lit-element';
+import { customElement } from 'lit-element/decorators.js';
 
 const msg: string = 'TypeScript demo works';
 
