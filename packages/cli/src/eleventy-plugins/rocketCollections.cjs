@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const slash = require('slash');
 const { readdirSync } = require('fs');
 
 function getDirectories(source) {
@@ -23,7 +24,7 @@ const rocketCollections = {
           let docs = [
             ...collection.getFilteredByGlob(`${_inputDirCwdRelative}/${section}/**/*.md`),
           ];
-          docs = docs.filter(page => page.inputPath !== `./${indexSection}`);
+          docs = docs.filter(page => page.inputPath !== `./${slash(indexSection)}`);
 
           return docs;
         });
