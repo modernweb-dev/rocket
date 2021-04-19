@@ -1,0 +1,70 @@
+<html theme="light" platform="web" lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type="text/css">
+      body {
+        margin: 0;
+        height: fit-content;
+      }
+      html[edge-distance] body {
+        padding: 8px;
+      }
+    </style>
+    <script type="module">
+      import { render } from 'lit-html';
+
+      async function onHashChange() {
+        const urlParts = new URLSearchParams(document.location.hash.substr(1));
+
+        if (urlParts.get('stylesheets')) {
+          for (const stylesheet of urlParts.getAll('stylesheets')) {
+            if (!document.querySelector(`link[rel="stylesheet"][href="${stylesheet}"]`)) {
+              const link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = stylesheet;
+              document.head.appendChild(link);
+            }
+          }
+        }
+        if (urlParts.get('theme')) {
+          document.documentElement.setAttribute('theme', urlParts.get('theme'));
+        }
+        if (urlParts.get('platform')) {
+          document.documentElement.setAttribute('platform', urlParts.get('platform'));
+        }
+        if (urlParts.get('language')) {
+          document.documentElement.setAttribute('lang', urlParts.get('language'));
+          document.documentElement.setAttribute('data-lang', urlParts.get('language'));
+          document.documentElement.setAttribute('data-localize-lang', urlParts.get('language'));
+        }
+        if (urlParts.get('story-key')) {
+          document.documentElement.setAttribute('story-key', urlParts.get('story-key'));
+        }
+        if (urlParts.get('edge-distance') === 'true') {
+          document.documentElement.setAttribute('edge-distance', '');
+        } else {
+          document.documentElement.removeAttribute('edge-distance');
+        }
+
+        const mod = await import(urlParts.get('story-file'));
+        render(mod[urlParts.get('story-key')](), document.body);
+      }
+
+      window.addEventListener('hashchange', onHashChange, false);
+      onHashChange();
+
+      const observer = new ResizeObserver(() => {
+        const dimensions = document.body.getBoundingClientRect();
+        const data = {
+          action: 'mdjs-viewer-resize',
+          storyKey: document.documentElement.getAttribute('story-key'),
+          width: dimensions.width,
+          height: dimensions.height,
+        };
+        parent.postMessage(JSON.stringify(data), '*');
+      });
+      observer.observe(document.body);
+    </script>
+  </head>
+  <body></body>
+</html>

@@ -56,8 +56,8 @@ mdjs comes with some additional helpers you can choose to import:
 
 ````md
 ```js script
-import '@mdjs/mdjs-story/mdjs-story.js';
-import '@mdjs/mdjs-preview/mdjs-preview.js';
+import '@mdjs/mdjs-story/define';
+import '@mdjs/mdjs-preview/define';
 ```
 ````
 
@@ -65,8 +65,8 @@ Once loaded you can use them like so:
 
 ````md
 ```js script
-import '@mdjs/mdjs-story/mdjs-story.js';
-import '@mdjs/mdjs-preview/mdjs-preview.js';
+import '@mdjs/mdjs-story/define';
+import '@mdjs/mdjs-preview/define';
 ```
 ````
 
@@ -118,8 +118,8 @@ export const JsPreviewStory = () => html` <demo-wc-card>JS Preview Story</demo-w
 Here is a live example from [demo-wc-card](https://www.npmjs.com/package/demo-wc-card).
 
 ```js script
-import '@mdjs/mdjs-story/mdjs-story.js';
-import '@mdjs/mdjs-preview/mdjs-preview.js';
+import '@mdjs/mdjs-story/define';
+import '@mdjs/mdjs-preview/define';
 import { html } from 'lit-html';
 ```
 
