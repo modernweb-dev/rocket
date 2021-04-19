@@ -17,7 +17,7 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./mdjs-story.js": "./mdjs-story.js"
+    "./define": "./src/define.js"
   },
   "scripts": {
     "debug": "cd ../../ && npm run debug -- --group mdjs-story",
