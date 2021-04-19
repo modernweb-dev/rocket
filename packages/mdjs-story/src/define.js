@@ -1,3 +1,3 @@
-import { MdJsStory } from './src/MdJsStory.js';
+import { MdJsStory } from './MdJsStory.js';
 
 customElements.define('mdjs-story', MdJsStory);
