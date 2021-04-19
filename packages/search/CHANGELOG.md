@@ -1,5 +1,12 @@
 # @rocket/search
 
+## 0.3.3
+
+### Patch Changes
+
+- 818caad: chore: generalize label & add alt when no img
+- 0b64116: Update @lion dependencies
+
 ## 0.3.2
 
 ### Patch Changes

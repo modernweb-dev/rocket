@@ -1,5 +1,11 @@
 # @rocket/drawer
 
+## 0.1.3
+
+### Patch Changes
+
+- 0b64116: Update @lion dependencies
+
 ## 0.1.2
 
 ### Patch Changes

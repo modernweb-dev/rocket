@@ -1,5 +1,18 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.4.0
+
+### Minor Changes
+
+- 2267e72: Write the mdjs JavaScript code to a file and load it from there instead of an inline script
+
+### Patch Changes
+
+- Updated dependencies [a8e66d8]
+- Updated dependencies [fe6a929]
+- Updated dependencies [a8e66d8]
+  - @mdjs/core@0.7.0
+
 ## 0.3.1
 
 ### Patch Changes
