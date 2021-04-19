@@ -3,6 +3,7 @@
 /** @typedef {import('@mdjs/core/types/code').StoryTypes} StoryTypes */
 /** @typedef {(name: string) => string} TagFunction */
 /** @typedef {import('unist').Node} UnistNode */
+/** @typedef {import('unist').Parent} UnistParent */
 /** @typedef {import('vfile').VFileOptions} VFileOptions */
 
 const visit = require('unist-util-visit');
@@ -40,7 +41,7 @@ function defaultStoryTag(name) {
  * @param {string} name
  */
 function defaultPreviewStoryTag(name) {
-  return `<mdjs-preview mdjs-story-name="${name}"></mdjs-preview>`;
+  return `<mdjs-preview mdjs-story-name="${name}">[[CODE SLOT]]</mdjs-preview>`;
 }
 
 /**
@@ -55,14 +56,16 @@ function mdjsStoryParse({
 } = {}) {
   /** @type {Story[]} */
   const stories = [];
-  let index = 0;
+  let htmlIndex = 0;
 
   /* eslint-disable no-param-reassign */
 
   /**
    * @param {UnistNode} node
+   * @param {number} index
+   * @param {UnistParent} parent
    */
-  const nodeCodeVisitor = node => {
+  const nodeCodeVisitor = (node, index, parent) => {
     if (node.lang === 'js' && node.meta === 'story' && typeof node.value === 'string') {
       const storyData = extractStoryData(node.value);
       node.type = 'html';
@@ -71,30 +74,65 @@ function mdjsStoryParse({
     }
     if (node.lang === 'js' && node.meta === 'preview-story' && typeof node.value === 'string') {
       const storyData = extractStoryData(node.value);
-      node.type = 'html';
-      node.value = previewStoryTag(storyData.name);
+      const newValue = previewStoryTag(storyData.name);
+      if (newValue.includes('[[CODE SLOT]]')) {
+        const tagParts = newValue.split('[[CODE SLOT]]');
+        node = {
+          type: 'root',
+          children: [
+            { type: 'html', value: tagParts[0] },
+            { type: 'text', value: '\n\n' },
+            node,
+            { type: 'text', value: '\n\n' },
+            { type: 'html', value: tagParts[1] },
+          ],
+        };
+        parent.children.splice(index, 1, node);
+      } else {
+        node.type = 'html';
+        node.value = previewStoryTag(storyData.name);
+      }
+
       stories.push(storyData);
     }
 
     if (node.lang === 'html' && node.meta === 'story') {
       const storyData = extractStoryData(
-        `export const HtmlStory${index} = () => html\`${node.value}\`;`,
+        `export const HtmlStory${htmlIndex} = () => html\`${node.value}\`;`,
         { type: 'html' },
       );
       node.type = 'html';
       node.value = storyTag(storyData.name);
       stories.push(storyData);
-      index += 1;
+      htmlIndex += 1;
     }
     if (node.lang === 'html' && node.meta === 'preview-story') {
       const storyData = extractStoryData(
-        `export const HtmlStory${index} = () => html\`${node.value}\`;`,
+        `export const HtmlStory${htmlIndex} = () => html\`${node.value}\`;`,
         { type: 'html' },
       );
-      node.type = 'html';
-      node.value = previewStoryTag(storyData.name);
+
+      const newValue = previewStoryTag(storyData.name);
+      if (newValue.includes('[[CODE SLOT]]')) {
+        const tagParts = newValue.split('[[CODE SLOT]]');
+        node = {
+          type: 'root',
+          children: [
+            { type: 'html', value: tagParts[0] },
+            { type: 'text', value: '\n\n' },
+            node,
+            { type: 'text', value: '\n\n' },
+            { type: 'html', value: tagParts[1] },
+          ],
+        };
+        parent.children.splice(index, 1, node);
+      } else {
+        node.type = 'html';
+        node.value = previewStoryTag(storyData.name);
+      }
+
       stories.push(storyData);
-      index += 1;
+      htmlIndex += 1;
     }
   };
 

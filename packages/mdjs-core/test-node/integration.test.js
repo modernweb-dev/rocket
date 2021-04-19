@@ -45,7 +45,16 @@ describe('Integration', () => {
       '<pre><code class="language-js">const foo = 1;',
       '</code></pre>',
       '<mdjs-story mdjs-story-name="fooStory"></mdjs-story>',
-      '<mdjs-preview mdjs-story-name="fooPreviewStory"></mdjs-preview>',
+      '<mdjs-preview mdjs-story-name="fooPreviewStory">',
+      '',
+      '',
+      '',
+      '<pre><code class="language-js">export const fooPreviewStory = () => {}',
+      '</code></pre>',
+      '',
+      '',
+      '',
+      '</mdjs-preview>',
     ];
 
     const parser = unified()
