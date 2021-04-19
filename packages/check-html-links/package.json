@@ -13,11 +13,11 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/tools/check-html-links/",
+  "main": "./index.js",
   "bin": {
     "check-html-links": "src/cli.js"
   },
   "type": "module",
-  "main": "./index.js",
   "exports": {
     ".": "./index.js"
   },

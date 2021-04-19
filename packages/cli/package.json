@@ -13,11 +13,11 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/",
+  "main": "./index.cjs",
   "bin": {
     "rocket": "src/cli.js"
   },
   "type": "module",
-  "main": "./index.cjs",
   "exports": {
     ".": {
       "require": "./index.cjs",
