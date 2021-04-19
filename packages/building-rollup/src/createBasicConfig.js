@@ -22,7 +22,7 @@ export function createBasicMetaConfig(userConfig = { output: {} }) {
   const assetName = `[${developmentMode ? 'name' : 'hash'}][extname]`;
 
   const config = {
-    preserveEntrySignatures: false,
+    preserveEntrySignatures: 'strict',
     treeshake: !developmentMode,
     setupPlugins: [],
     ...userConfig,
