@@ -3,7 +3,7 @@ import { Node } from 'unist';
 
 export const setupUnifiedPluginsFn: (plugins: MdjsProcessPlugin[]) => MdjsProcessPlugin[];
 
-export interface EleventPluginMdjsUnified {
+export interface EleventyPluginMdjsUnified {
   setupUnifiedPlugins?: setupUnifiedPluginsFn[];
 }
 

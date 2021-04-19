@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+const path = require('path');
+const fs = require('fs');
 const { mdjsProcess } = require('@mdjs/core');
 const visit = require('unist-util-visit');
 const { init, parse } = require('es-module-lexer');
@@ -7,7 +9,7 @@ const { init, parse } = require('es-module-lexer');
 const { parseTitle } = require('@rocket/core/title');
 
 /** @typedef {import('@mdjs/core').MdjsProcessPlugin} MdjsProcessPlugin */
-/** @typedef {import('../types/code').EleventPluginMdjsUnified} EleventPluginMdjsUnified */
+/** @typedef {import('../types/code').EleventyPluginMdjsUnified} EleventyPluginMdjsUnified */
 /** @typedef {import('../types/code').NodeChildren} NodeChildren */
 /** @typedef {import('../types/code').NodeElement} NodeElement */
 /** @typedef {import('unist').Node} Node */
@@ -93,7 +95,7 @@ async function processImports(source, inputPath) {
 }
 
 /**
- * @param {EleventPluginMdjsUnified} pluginOptions
+ * @param {EleventyPluginMdjsUnified} pluginOptions
  */
 function eleventyUnified(pluginOptions) {
   /**
@@ -139,10 +141,12 @@ function eleventyUnified(pluginOptions) {
 
     let code = result.html;
     if (result.jsCode) {
+      const newFolder = path.dirname(eleventySettings.page.outputPath);
+      const newName = path.join(newFolder, '__mdjs-stories.js');
+      await fs.promises.mkdir(newFolder, { recursive: true });
+      await fs.promises.writeFile(newName, result.jsCode, 'utf8');
       code += `
-        <script type="module">
-          ${result.jsCode}
-        </script>
+        <script type="module" src="${eleventySettings.page.url}__mdjs-stories.js" mdjs-setup></script>
       `;
     }
     return code;
@@ -157,15 +161,15 @@ function eleventyUnified(pluginOptions) {
 
 /**
  * @param {*} eleventyConfig
- * @param {EleventPluginMdjsUnified} [pluginOptions]
+ * @param {EleventyPluginMdjsUnified} [pluginOptions]
  */
 function configFunction(eleventyConfig, pluginOptions = {}) {
   eleventyConfig.setLibrary('md', eleventyUnified(pluginOptions));
 }
 
-const eleventPluginMdjsUnified = {
+const EleventyPluginMdjsUnified = {
   initArguments: {},
   configFunction,
 };
 
-module.exports = eleventPluginMdjsUnified;
+module.exports = EleventyPluginMdjsUnified;
