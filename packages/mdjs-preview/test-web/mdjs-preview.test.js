@@ -19,6 +19,9 @@ describe('mdjs-preview', () => {
       </div>
     `);
     const [preview1, preview2] = /** @type {MdJsPreview[]} */ (el.children);
+    preview1.platform = 'web';
+    preview1.edgeDistance = true;
+    await preview1.updateComplete;
     expect(preview1.platform).to.equal('web');
     expect(preview2.platform).to.equal('web');
     expect(preview1.edgeDistance).to.be.true;

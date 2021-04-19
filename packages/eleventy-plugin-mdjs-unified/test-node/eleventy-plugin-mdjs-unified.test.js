@@ -57,8 +57,8 @@ describe('eleventy-plugin-mdjs-unified', () => {
     expect(files.length).to.equal(1);
     expect(files[0].name).to.equal('first/index.html');
 
-    expect(files[0].html).to.include('<script type="module">');
-    expect(files[0].html).to.include('for (const story of stories)');
+    expect(files[0].html).to.include('<script type="module"');
+    expect(files[0].html).to.include('mdjs-setup>');
   });
 
   it('rewrites relative import pathes', async () => {
@@ -66,7 +66,7 @@ describe('eleventy-plugin-mdjs-unified', () => {
     expect(files).to.deep.equal([
       {
         html:
-          "<p>first</p>\n        <script type=\"module\">\n          import '../import-me.js';\nimport('../import-me-too.js');\n        </script>\n      ",
+          '<p>first</p>\n        <script type="module" src="/first/__mdjs-stories.js" mdjs-setup></script>\n      ',
         name: 'first/index.html',
       },
     ]);
@@ -77,7 +77,7 @@ describe('eleventy-plugin-mdjs-unified', () => {
     expect(files).to.deep.equal([
       {
         html:
-          "<p>first</p>\n        <script type=\"module\">\n          import '../../import-me.js';\nimport('../../import-me-too.js');\n        </script>\n      ",
+          '<p>first</p>\n        <script type="module" src="/subpage/first/__mdjs-stories.js" mdjs-setup></script>\n      ',
         name: 'subpage/first/index.html',
       },
     ]);
@@ -88,7 +88,7 @@ describe('eleventy-plugin-mdjs-unified', () => {
     expect(files).to.deep.equal([
       {
         html:
-          "<p>index</p>\n        <script type=\"module\">\n          import './import-me.js';\nimport('./import-me-too.js');\n        </script>\n      ",
+          '<p>index</p>\n        <script type="module" src="/__mdjs-stories.js" mdjs-setup></script>\n      ',
         name: 'index.html',
       },
     ]);

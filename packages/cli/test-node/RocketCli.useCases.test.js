@@ -34,12 +34,7 @@ describe('RocketCli use cases', () => {
     expect(aboutHtml).to.equal(
       [
         '<p><code>about.md</code></p>',
-        '<script type="module">',
-        '  import { myData } from "../sub/assets/myData.js";',
-        '  import("../sub/assets/myData.js");',
-        '  const name = "myData";',
-        '  import(`../sub/assets/${name}.js`);',
-        '</script>',
+        '<script type="module" src="/about/__mdjs-stories.js" mdjs-setup></script>',
       ].join('\n'),
     );
 
@@ -47,12 +42,7 @@ describe('RocketCli use cases', () => {
     expect(subHtml).to.equal(
       [
         '<p><code>sub/index.md</code></p>',
-        '<script type="module">',
-        '  import { myData } from "./assets/myData.js";',
-        '  import("./assets/myData.js");',
-        '  const name = "myData";',
-        '  import(`./assets/${name}.js`);',
-        '</script>',
+        '<script type="module" src="/sub/__mdjs-stories.js" mdjs-setup></script>',
       ].join('\n'),
     );
 
@@ -62,12 +52,7 @@ describe('RocketCli use cases', () => {
     expect(subDetailsHtml).to.equal(
       [
         '<p><code>sub/details.md</code></p>',
-        '<script type="module">',
-        '  import { myData } from "../assets/myData.js";',
-        '  import("../assets/myData.js");',
-        '  const name = "myData";',
-        '  import(`../assets/${name}.js`);',
-        '</script>',
+        '<script type="module" src="/sub/details/__mdjs-stories.js" mdjs-setup></script>',
       ].join('\n'),
     );
 
@@ -75,12 +60,7 @@ describe('RocketCli use cases', () => {
     expect(indexHtml).to.equal(
       [
         '<p><code>index.md</code></p>',
-        '<script type="module">',
-        '  import { myData } from "./sub/assets/myData.js";',
-        '  import("./sub/assets/myData.js");',
-        '  const name = "myData";',
-        '  import(`./sub/assets/${name}.js`);',
-        '</script>',
+        '<script type="module" src="/__mdjs-stories.js" mdjs-setup></script>',
       ].join('\n'),
     );
   });
