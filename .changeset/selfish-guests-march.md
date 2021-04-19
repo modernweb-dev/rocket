@@ -2,4 +2,4 @@
 '@mdjs/mdjs-story': minor
 ---
 
-Force /define entrypoint via export map
+Force `/define`Ï entrypoint via export map

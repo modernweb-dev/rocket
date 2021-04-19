@@ -1,3 +1,3 @@
-import { MdJsPreview } from './src/MdJsPreview.js';
+import { MdJsPreview } from '../MdJsPreview.js';
 
 customElements.define('mdjs-preview', MdJsPreview);
