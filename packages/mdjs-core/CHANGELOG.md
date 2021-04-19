@@ -1,5 +1,20 @@
 # Change Log
 
+## 0.7.0
+
+### Minor Changes
+
+- a8e66d8: Extract building of the JavaScript setup code into a unified plugin called mdjsSetupCode
+- fe6a929: For the story preview keep the original code block around to get code highlighting from the main document. This enables styling and reduces the code complexity.
+
+### Patch Changes
+
+- a8e66d8: You can provide a highlightCode function to the mdjsSetupCode unified plugin
+- Updated dependencies [edb1abf]
+- Updated dependencies [604a80e]
+  - @mdjs/mdjs-preview@0.4.0
+  - @mdjs/mdjs-story@0.2.0
+
 ## 0.6.2
 
 ### Patch Changes

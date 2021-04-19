@@ -1,5 +1,11 @@
 # @mdjs/mdjs-story
 
+## 0.2.0
+
+### Minor Changes
+
+- 604a80e: Force `/define`Ï entrypoint via export map
+
 ## 0.1.2
 
 ### Patch Changes

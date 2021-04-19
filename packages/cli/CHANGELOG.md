@@ -1,5 +1,15 @@
 # @rocket/cli
 
+## 0.6.1
+
+### Patch Changes
+
+- abc8a02: You can now use an absolute path for the rootDir
+- Updated dependencies [bad4686]
+- Updated dependencies [2267e72]
+  - @rocket/building-rollup@0.2.0
+  - @rocket/eleventy-plugin-mdjs-unified@0.4.0
+
 ## 0.6.0
 
 ### Minor Changes

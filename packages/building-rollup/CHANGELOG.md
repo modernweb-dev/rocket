@@ -1,5 +1,11 @@
 # @rocket/building-rollup
 
+## 0.2.0
+
+### Minor Changes
+
+- bad4686: Preserve attributes on script tags. Preserve export names.
+
 ## 0.1.3
 
 ### Patch Changes
