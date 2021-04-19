@@ -44,17 +44,17 @@ function restoreSettings() {
   for (const _sharedStateKey of Object.keys(_sharedStates)) {
     const sharedStateKey = /** @type {keyof _sharedStates} */ (_sharedStateKey);
     const restoredValue = localStorage.getItem(`mdjsViewerSharedStates-${sharedStateKey}`);
-
-    switch (sharedStateKey) {
-      case 'autoHeight':
-      case 'deviceMode':
-      case 'rememberSettings':
-      case 'edgeDistance':
-        _sharedStates[sharedStateKey] = restoredValue === 'true' ? true : false;
-        break;
-      default:
-        _sharedStates[sharedStateKey] =
-          restoredValue !== null ? restoredValue : _sharedStates[sharedStateKey];
+    if (restoredValue !== null) {
+      switch (sharedStateKey) {
+        case 'autoHeight':
+        case 'deviceMode':
+        case 'rememberSettings':
+        case 'edgeDistance':
+          _sharedStates[sharedStateKey] = restoredValue === 'true' ? true : false;
+          break;
+        default:
+          _sharedStates[sharedStateKey] = restoredValue;
+      }
     }
   }
 }
