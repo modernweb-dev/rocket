@@ -2,10 +2,7 @@
 /** @typedef {import('unist').Node} Node */
 /** @typedef {import('@mdjs/core/types/code').Story} Story */
 
-function mdjsSetupCode({
-  rootNodeQueryCode = 'document',
-  highlightCode = /** @param {string} code */ code => code,
-} = {}) {
+function mdjsSetupCode({ rootNodeQueryCode = 'document', simulationSettings = {} } = {}) {
   /**
    * @param {Node} tree
    * @param {VFileOptions} file
@@ -20,40 +17,32 @@ function mdjsSetupCode({
 
       const invokeStoriesCode = [];
       for (const story of stories) {
-        let code = '';
-        switch (story.type) {
-          case 'html':
-            code = `\`\`\`html\n${story.code.split('`')[1]}\n\`\`\``;
-            break;
-          case 'js':
-            code = `\`\`\`js\n${story.code}\n\`\`\``;
-            break;
-          default:
-            break;
-        }
-
-        let highlightedCode = await highlightCode(code);
-        highlightedCode = highlightedCode.replace(/`/g, '\\`').replace(/\$/g, '\\$');
-        invokeStoriesCode.push(
-          `{ key: '${story.key}', story: ${story.key}, code: \`${highlightedCode}\` }`,
-        );
+        invokeStoriesCode.push(`{ key: '${story.key}', story: ${story.key} }`);
       }
 
       file.data.setupJsCode = [
+        '/** script code **/',
         jsCode,
+        '/** stories code **/',
         storiesCode,
+        '/** stories setup code **/',
         `const rootNode = ${rootNodeQueryCode};`,
         `const stories = [${invokeStoriesCode.join(', ')}];`,
+        'let needsMdjsElements = false;',
         `for (const story of stories) {`,
         // eslint-disable-next-line no-template-curly-in-string
         '  const storyEl = rootNode.querySelector(`[mdjs-story-name="${story.key}"]`);',
-        `  storyEl.codeHasHtml = true;`,
-        `  storyEl.story = story.story;`,
-        `  storyEl.code = story.code;`,
-        `  storyEl.jsCode = \`${jsCode.replace(/`/g, '\\`')}\`;`,
+        '  if (storyEl) {',
+        `    storyEl.story = story.story;`,
+        `    storyEl.key = story.key;`,
+        `    needsMdjsElements = true;`,
+        `    Object.assign(storyEl, ${JSON.stringify(simulationSettings)});`,
+        '  }',
         `};`,
-        `if (!customElements.get('mdjs-preview')) { import('@mdjs/mdjs-preview/mdjs-preview.js'); }`,
-        `if (!customElements.get('mdjs-story')) { import('@mdjs/mdjs-story/mdjs-story.js'); }`,
+        'if (needsMdjsElements) {',
+        `  if (!customElements.get('mdjs-preview')) { import('@mdjs/mdjs-preview/define'); }`,
+        `  if (!customElements.get('mdjs-story')) { import('@mdjs/mdjs-story/define'); }`,
+        '}',
       ].join('\n');
     }
 

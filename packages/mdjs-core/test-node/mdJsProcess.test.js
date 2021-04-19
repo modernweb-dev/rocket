@@ -1,6 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 
 const chai = require('chai');
+const { adjustPluginOptions } = require('plugins-manager');
 const { mdjsProcess } = require('../src/mdjsProcess.js');
 
 const { expect } = chai;
@@ -28,25 +29,40 @@ describe('mdjsProcess', () => {
       '<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>',
       '</code></pre>',
       '<mdjs-story mdjs-story-name="fooStory"></mdjs-story>',
-      '<mdjs-preview mdjs-story-name="fooPreviewStory"></mdjs-preview>',
+      '<mdjs-preview mdjs-story-name="fooPreviewStory">',
+      '',
+      '',
+      '',
+      '<pre class="language-js"><code class="language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function">fooPreviewStory</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span>',
+      '</code></pre>',
+      '',
+      '',
+      '',
+      '</mdjs-preview>',
     ].join('\n');
     const expectedJsCode = [
+      '/** script code **/',
       'const bar = 2;',
+      '/** stories code **/',
       'export const fooStory = () => {}',
       'export const fooPreviewStory = () => {}',
+      '/** stories setup code **/',
       'const rootNode = document;',
-      `const stories = [{ key: 'fooStory', story: fooStory, code: \`<pre class="language-js"><code class="language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function">fooStory</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span>`,
-      `</code></pre>\` }, { key: 'fooPreviewStory', story: fooPreviewStory, code: \`<pre class="language-js"><code class="language-js"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function">fooPreviewStory</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span>`,
-      `</code></pre>\` }];`,
+      `const stories = [{ key: 'fooStory', story: fooStory }, { key: 'fooPreviewStory', story: fooPreviewStory }];`,
+      'let needsMdjsElements = false;',
       'for (const story of stories) {',
       '  const storyEl = rootNode.querySelector(`[mdjs-story-name="${story.key}"]`);',
-      '  storyEl.codeHasHtml = true;',
-      '  storyEl.story = story.story;',
-      '  storyEl.code = story.code;',
-      '  storyEl.jsCode = `const bar = 2;`;',
+      '  if (storyEl) {',
+      '    storyEl.story = story.story;',
+      '    storyEl.key = story.key;',
+      '    needsMdjsElements = true;',
+      '    Object.assign(storyEl, {});',
+      '  }',
       '};',
-      `if (!customElements.get('mdjs-preview')) { import('@mdjs/mdjs-preview/mdjs-preview.js'); }`,
-      `if (!customElements.get('mdjs-story')) { import('@mdjs/mdjs-story/mdjs-story.js'); }`,
+      'if (needsMdjsElements) {',
+      `  if (!customElements.get('mdjs-preview')) { import('@mdjs/mdjs-preview/define'); }`,
+      `  if (!customElements.get('mdjs-story')) { import('@mdjs/mdjs-story/define'); }`,
+      '}',
     ].join('\n');
 
     const result = await mdjsProcess(input);
@@ -151,5 +167,46 @@ describe('mdjsProcess', () => {
       '<table><thead><tr><th>Page</th><th>Type</th></tr></thead><tbody><tr><td>About</td><td>Info</td></tr></tbody></table>';
     const result = await mdjsProcess(input);
     expect(result.html.trim()).to.equal(expected);
+  });
+
+  it('can adjust languages for story preview', async () => {
+    const input = [
+      'Intro',
+      '```js preview-story',
+      'export const fooPreviewStory = () => {}',
+      '```',
+    ].join('\n');
+
+    const expected = [
+      `/** script code **/`,
+      ``,
+      `/** stories code **/`,
+      `export const fooPreviewStory = () => {}`,
+      `/** stories setup code **/`,
+      `const rootNode = document;`,
+      `const stories = [{ key: 'fooPreviewStory', story: fooPreviewStory }];`,
+      `let needsMdjsElements = false;`,
+      `for (const story of stories) {`,
+      '  const storyEl = rootNode.querySelector(`[mdjs-story-name="${story.key}"]`);',
+      `  if (storyEl) {`,
+      `    storyEl.story = story.story;`,
+      `    storyEl.key = story.key;`,
+      `    needsMdjsElements = true;`,
+      '    Object.assign(storyEl, {"languages":[{"key":"en","name":"English"}]});',
+      `  }`,
+      `};`,
+      `if (needsMdjsElements) {`,
+      `  if (!customElements.get('mdjs-preview')) { import('@mdjs/mdjs-preview/define'); }`,
+      `  if (!customElements.get('mdjs-story')) { import('@mdjs/mdjs-story/define'); }`,
+      `}`,
+    ].join('\n');
+    const result = await mdjsProcess(input, {
+      setupUnifiedPlugins: [
+        adjustPluginOptions('mdjsSetupCode', {
+          simulationSettings: { languages: [{ key: 'en', name: 'English' }] },
+        }),
+      ],
+    });
+    expect(result.jsCode.trim()).to.equal(expected);
   });
 });
