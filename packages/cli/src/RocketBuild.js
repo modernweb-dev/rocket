@@ -3,6 +3,7 @@
 
 import { rollup } from 'rollup';
 import fs from 'fs-extra';
+import path from 'path';
 import { copy } from '@web/rollup-plugin-copy';
 
 import { createMpaConfig } from '@rocket/building-rollup';
@@ -45,7 +46,7 @@ async function productionBuild(config) {
       dir: config.outputDir,
     },
     // custom
-    rootDir: config.outputDevDir,
+    rootDir: path.resolve(config.outputDevDir),
     absoluteBaseUrl: config.absoluteBaseUrl,
     setupPlugins: [
       ...defaultSetupPlugins,
