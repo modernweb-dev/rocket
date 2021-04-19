@@ -75,6 +75,14 @@ describe('createMapConfig', () => {
       '<h1>Has js in sub-js/index.html</h1>\n\n\n<script type="module" src="../sub-js.js"></script>',
     );
 
+    const subJsAbsoluteIndexHtml = await readOutput('sub-js-absolute/index.html', {
+      stripToBody: true,
+      stripServiceWorker: true,
+    });
+    expect(subJsAbsoluteIndexHtml).to.equal(
+      '<h1>Has js in sub-js-absolute/index.html</h1>\n\n\n<script type="module" src="../sub-js-absolute.js"></script>',
+    );
+
     const serviceWorkerJs = await readOutput('service-worker.js');
     expect(serviceWorkerJs).to.include('Promise'); // not empty string might be enough...
   });
