@@ -1,5 +1,11 @@
 # @mdjs/mdjs-preview
 
+## 0.4.1
+
+### Patch Changes
+
+- 0f6709a: Make sure initial settings are taken from the element if nothing is yet stored
+
 ## 0.4.0
 
 ### Minor Changes
