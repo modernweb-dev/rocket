@@ -35,7 +35,7 @@
     "preset"
   ],
   "dependencies": {
-    "@rocket/drawer": "^0.1.2",
+    "@rocket/drawer": "^0.1.3",
     "@rocket/navigation": "^0.2.1"
   }
 }
