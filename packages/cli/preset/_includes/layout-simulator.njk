@@ -47,7 +47,7 @@
         }
 
         const mod = await import(urlParts.get('story-file'));
-        render(mod[urlParts.get('story-key')](), document.body);
+        render(mod[urlParts.get('story-key')]({shadowRoot: document}), document.body);
       }
 
       window.addEventListener('hashchange', onHashChange, false);
