@@ -40,6 +40,8 @@ function storeSettings() {
   }
 }
 
+let hasGlobalStateBeenSetBefore = false;
+
 function restoreSettings() {
   for (const _sharedStateKey of Object.keys(_sharedStates)) {
     const sharedStateKey = /** @type {keyof _sharedStates} */ (_sharedStateKey);
@@ -55,6 +57,7 @@ function restoreSettings() {
         default:
           _sharedStates[sharedStateKey] = restoredValue;
       }
+      hasGlobalStateBeenSetBefore = true;
     }
   }
 }
@@ -66,27 +69,30 @@ restoreSettings();
  * @param {import('./MdJsPreview.js').MdJsPreview} target
  */
 export function applySharedStates(target) {
-  for (const _sharedStateKey of Object.keys(_sharedStates)) {
-    const sharedStateKey = /** @type {keyof _sharedStates} */ (_sharedStateKey);
-    switch (sharedStateKey) {
-      case 'autoHeight':
-      case 'deviceMode':
-      case 'rememberSettings':
-      case 'edgeDistance':
-        target[sharedStateKey] = _sharedStates[sharedStateKey];
-        break;
-      default:
-        target[sharedStateKey] = _sharedStates[sharedStateKey];
+  if (hasGlobalStateBeenSetBefore) {
+    for (const _sharedStateKey of Object.keys(_sharedStates)) {
+      const sharedStateKey = /** @type {keyof _sharedStates} */ (_sharedStateKey);
+      switch (sharedStateKey) {
+        case 'autoHeight':
+        case 'deviceMode':
+        case 'rememberSettings':
+        case 'edgeDistance':
+          target[sharedStateKey] = _sharedStates[sharedStateKey];
+          break;
+        default:
+          target[sharedStateKey] = _sharedStates[sharedStateKey];
+      }
     }
+  } else {
+    _saveToSharedStates(target);
   }
 }
 
 /**
  *
  * @param {import('./MdJsPreview.js').MdJsPreview} target
- * @param {Function} subscribedFn
  */
-export function saveToSharedStates(target, subscribedFn) {
+function _saveToSharedStates(target) {
   let updated = false;
   for (const _sharedStateKey of Object.keys(_sharedStates)) {
     const sharedStateKey = /** @type {keyof _sharedStates} */ (_sharedStateKey);
@@ -102,8 +108,19 @@ export function saveToSharedStates(target, subscribedFn) {
           _sharedStates[sharedStateKey] = target[sharedStateKey];
       }
       updated = true;
+      hasGlobalStateBeenSetBefore = true;
     }
   }
+  return updated;
+}
+
+/**
+ *
+ * @param {import('./MdJsPreview.js').MdJsPreview} target
+ * @param {Function} subscribedFn
+ */
+export function saveToSharedStates(target, subscribedFn) {
+  const updated = _saveToSharedStates(target);
   if (updated) {
     storeSettings();
     for (const subscribeFn of subscribeFns) {
