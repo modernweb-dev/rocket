@@ -1,5 +1,13 @@
 # @rocket/cli
 
+## 0.6.2
+
+### Patch Changes
+
+- ed86ff2: Do not set `data-localize-lang` in the simulator iframe html tag
+- f4a0ab5: Pass document shadowRoot to iframe
+- c675820: fix: windows path issue avoid filtering of index section of collections
+
 ## 0.6.1
 
 ### Patch Changes
