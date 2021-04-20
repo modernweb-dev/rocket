@@ -72,7 +72,7 @@ export class MdJsPreview extends LitElement {
     this.languages = [
       { key: 'en', name: 'English' },
       { key: 'en-US', name: 'English (United States)' },
-      { key: 'en-US', name: 'English (United Kingdom)' },
+      { key: 'en-GB', name: 'English (United Kingdom)' },
       { key: 'de', name: 'German' },
       { key: 'es', name: 'Spanish' },
       { key: 'fi', name: 'Finnish' },
