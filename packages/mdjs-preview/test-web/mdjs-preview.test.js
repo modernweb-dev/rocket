@@ -35,4 +35,10 @@ describe('mdjs-preview', () => {
     expect(preview1.edgeDistance).to.be.false;
     expect(preview2.edgeDistance).to.be.false;
   });
+  it('has a code copy button', async () => {
+    const el = await fixture(html`
+      <mdjs-preview .story=${() => html`<p id="testing"></p>`}></mdjs-preview>
+    `);
+    expect(el.shadowRoot.querySelector('code-copy-button')).to.exist;
+  });
 });

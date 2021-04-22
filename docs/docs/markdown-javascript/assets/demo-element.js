@@ -54,11 +54,11 @@ class DemoElement extends HTMLElement {
       <p>Hello I am DemoElement 👋</p>
       <div class="about">
         <ul>
-          <li>My purpose is to demonstrate how an element can adopt to different environments</li>
+          <li>My purpose is to demonstrate how an element can adapt to different environments</li>
           <li>I like <strong>${this.platform}</strong></li>
         </ul>
         <ul>
-          <li>My mother languages is <strong>${this.language}</strong></li>
+          <li>My mother language is <strong>${this.language}</strong></li>
           <li>I feel very comfortable in the <strong>${this.theme}</strong></li>
         </ul>
       </div>

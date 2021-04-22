@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit-element';
 import '@lion/accordion/define';
+import './CodeCopyButton';
 
 import {
   subscribe,
@@ -534,6 +535,7 @@ export class MdJsPreview extends LitElement {
         </h3>
         <div slot="content">
           <slot></slot>
+          <code-copy-button .textToCopy=${this.textContent}></code-copy-button>
         </div>
       </lion-accordion>
       ${this.simulatorUrl
