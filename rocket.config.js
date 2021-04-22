@@ -9,7 +9,18 @@ export default {
   absoluteBaseUrl: absoluteBaseUrlNetlify('http://localhost:8080'),
   setupUnifiedPlugins: [
     adjustPluginOptions('mdjsSetupCode', {
-      simulationSettings: { simulatorUrl: '/simulator/' },
+      simulationSettings: {
+        simulatorUrl: '/simulator/',
+        themes: [
+          { key: 'light', name: 'Light' },
+          { key: 'dark', name: 'Dark' },
+        ],
+        platforms: [
+          { key: 'web', name: 'Web' },
+          { key: 'android', name: 'Android' },
+          { key: 'ios', name: 'iOS' },
+        ],
+      },
     }),
   ],
 
