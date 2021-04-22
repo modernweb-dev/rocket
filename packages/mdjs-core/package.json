@@ -43,7 +43,7 @@
     "remark"
   ],
   "dependencies": {
-    "@mdjs/mdjs-preview": "^0.4.0",
+    "@mdjs/mdjs-preview": "^0.4.1",
     "@mdjs/mdjs-story": "^0.2.0",
     "@types/unist": "^2.0.3",
     "es-module-lexer": "^0.3.26",
