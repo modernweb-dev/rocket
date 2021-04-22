@@ -501,7 +501,7 @@ export class MdJsPreview extends LitElement {
 
   render() {
     return html`
-      <div id="wrapper">
+      <div part="iframe" id="wrapper">
         ${this.deviceMode === false
           ? html`<div>${this.story({ shadowRoot: this.shadowRoot })}</div>`
           : html`
@@ -555,13 +555,27 @@ export class MdJsPreview extends LitElement {
   static get styles() {
     return css`
       :host {
+        --indigo: #525199;
+        --sim-primary-color: var(--indigo);
+        --seg-primary-color: var(--indigo);
+        --sim-controls-color: var(--sim-primary-color);
+        --sim-toggle-border-color: var(--sim-primary-color);
+        --sim-toggle-color: var(--sim-primary-color);
+        --sim-toggle-bg-color: var(--sim-primary-color);
+        --seg-border-color: var(--seg-primary-color);
+        --seg-bg-color: var(--seg-primary-color);
+        --iframe-border-color: #4caf50;
+        --iframe-bg-color: #fff;
+        --switch--selected-bg-color: #008000;
+        --switch-button-bg-color: #808080;
+        --frame-description-color: #333;
         display: block;
         padding-bottom: 10px;
       }
 
       iframe {
-        border: 2px solid #4caf50;
-        background: #fff;
+        border: 2px solid var(--iframe-border-color);
+        background: var(--iframe-bg-color);
       }
 
       .switch {
@@ -577,7 +591,7 @@ export class MdJsPreview extends LitElement {
       .switch-button {
         display: inline-block;
         width: 44px;
-        background: grey;
+        background: var(--switch-button-bg-color);
         height: 25px;
         border-radius: 15px;
         position: relative;
@@ -596,7 +610,7 @@ export class MdJsPreview extends LitElement {
       }
 
       .switch.selected .switch-button {
-        background: green;
+        background: var(--switch--selected-bg-color);
       }
 
       .switch.selected .switch-button::after {
@@ -608,7 +622,7 @@ export class MdJsPreview extends LitElement {
         margin: -5px 0 10px 0;
         text-align: right;
         font-size: 12px;
-        color: #333;
+        color: var(--frame-description-color);
       }
 
       .settings-wrapper {
@@ -640,23 +654,23 @@ export class MdJsPreview extends LitElement {
       }
 
       .controls a {
-        color: #3f51b5;
+        color: var(--sim-controls-color);
         font-size: 14px;
         line-height: 37px;
       }
 
       .simulation-toggle {
-        border: 1px solid #3f51b5;
+        border: 1px solid var(--sim-toggle-border-color);
         border-radius: 9px;
         padding: 10px;
         background: none;
         font-weight: bold;
-        color: #3f51b5;
+        color: var(--sim-toggle-color);
         text-align: center;
       }
 
       .simulation-toggle:hover {
-        background-color: #3f51b5;
+        background-color: var(--sim-toggle-bg-color);
         color: #fff;
       }
 
@@ -705,7 +719,7 @@ export class MdJsPreview extends LitElement {
       }
 
       .segmented-control {
-        border: 1px solid #3f51b5;
+        border: 1px solid var(--seg-border-color);
         border-radius: 18px;
         display: inline-block;
         font-size: 14px;
@@ -728,7 +742,7 @@ export class MdJsPreview extends LitElement {
       }
 
       .segmented-control label.selected span {
-        background: #3f51b5;
+        background: var(--seg-bg-color);
         color: #fff;
       }
 
