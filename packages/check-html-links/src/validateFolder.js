@@ -6,6 +6,7 @@ import { createRequire } from 'module';
 
 import { listFiles } from './listFiles.js';
 import path from 'path';
+import slash from 'slash';
 
 /** @typedef {import('../types/main').Link} Link */
 /** @typedef {import('../types/main').LocalFile} LocalFile */
@@ -45,7 +46,7 @@ function extractReferences(htmlFilePath) {
     if (ev === SaxEventType.Attribute) {
       const data = /** @type {Attribute} */ (/** @type {any} */ (_data));
       const attributeName = data.name.toString();
-      const value = data.value.toString();
+      const value = slash(data.value.toString());
       const entry = {
         attribute: attributeName,
         value,
