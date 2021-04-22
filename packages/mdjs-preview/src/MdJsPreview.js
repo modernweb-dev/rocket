@@ -63,9 +63,10 @@ export class MdJsPreview extends LitElement {
     this.simulatorUrl = '';
 
     this.theme = 'light';
+    /** @type {any[]} */
     this.themes = [
-      { key: 'light', name: 'Light' },
-      { key: 'dark', name: 'Dark' },
+      // { key: 'light', name: 'Light' },
+      // { key: 'dark', name: 'Dark' },
     ];
 
     this.language = 'en-US';
@@ -87,12 +88,14 @@ export class MdJsPreview extends LitElement {
     ];
 
     this.platform = 'web';
+
+    /** @type {any[]} */
     this.platforms = [
-      { key: 'web', name: 'Web' },
+      // { key: 'web', name: 'Web' },
       // { key: 'web-windows', name: 'Windows' },
       // { key: 'web-mac', name: 'Mac' },
-      { key: 'android', name: 'Android' },
-      { key: 'ios', name: 'iOS' },
+      // { key: 'android', name: 'Android' },
+      // { key: 'ios', name: 'iOS' },
     ];
 
     this.size = 'webSmall';
@@ -270,36 +273,38 @@ export class MdJsPreview extends LitElement {
   }
 
   renderPlatforms() {
-    return html`
-      <div>
-        <h3>Platform</h3>
-        <h4>Platform</h4>
-        <div
-          class="segmented-control"
-          @change=${
-            /** @param {Event} ev */ ev => {
-              if (ev.target) {
-                this.changePlatform(/** @type {HTMLInputElement} */ (ev.target).value);
+    if (this.platforms.length) {
+      return html`
+        <div>
+          <h3>Platform</h3>
+          <h4>Platform</h4>
+          <div
+            class="segmented-control"
+            @change=${
+              /** @param {Event} ev */ ev => {
+                if (ev.target) {
+                  this.changePlatform(/** @type {HTMLInputElement} */ (ev.target).value);
+                }
               }
             }
-          }
-        >
-          ${this.platforms.map(
-            platform => html`
-              <label class="${this.platform === platform.key ? 'selected' : ''}">
-                <span>${platform.name}</span>
-                <input
-                  type="radio"
-                  name="platform"
-                  value="${platform.key}"
-                  ?checked=${this.platform === platform.key}
-                />
-              </label>
-            `,
-          )}
+          >
+            ${this.platforms.map(
+              platform => html`
+                <label class="${this.platform === platform.key ? 'selected' : ''}">
+                  <span>${platform.name}</span>
+                  <input
+                    type="radio"
+                    name="platform"
+                    value="${platform.key}"
+                    ?checked=${this.platform === platform.key}
+                  />
+                </label>
+              `,
+            )}
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
 
   renderSizes() {
@@ -337,37 +342,39 @@ export class MdJsPreview extends LitElement {
   }
 
   renderThemes() {
-    return html`
-      <div>
-        <h3>Visual</h3>
-        <h4>Theme</h4>
-        <div
-          class="segmented-control"
-          @change=${
-            /** @param {Event} ev */ ev => {
-              if (ev.target) {
-                this.theme = /** @type {HTMLInputElement} */ (ev.target).value;
+    if (this.themes.length) {
+      return html`
+        <div>
+          <h3>Visual</h3>
+          <h4>Theme</h4>
+          <div
+            class="segmented-control"
+            @change=${
+              /** @param {Event} ev */ ev => {
+                if (ev.target) {
+                  this.theme = /** @type {HTMLInputElement} */ (ev.target).value;
+                }
               }
             }
-          }
-        >
-          ${this.themes.map(
-            theme => html`
-              <label class="${this.theme === theme.key ? 'selected' : ''}">
-                <span>${theme.name}</span>
-                <input
-                  type="radio"
-                  name="theme"
-                  value="${theme.key}"
-                  ?checked=${this.theme === theme.key}
-                />
-              </label>
-            `,
-          )}
+          >
+            ${this.themes.map(
+              theme => html`
+                <label class="${this.theme === theme.key ? 'selected' : ''}">
+                  <span>${theme.name}</span>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value="${theme.key}"
+                    ?checked=${this.theme === theme.key}
+                  />
+                </label>
+              `,
+            )}
+          </div>
+          ${this.renderEdgeDistance()}
         </div>
-        ${this.renderEdgeDistance()}
-      </div>
-    `;
+      `;
+    }
   }
 
   renderLanguages() {
