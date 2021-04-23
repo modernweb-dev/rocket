@@ -51,6 +51,7 @@ export class MdJsPreview extends LitElement {
       edgeDistance: { type: Boolean },
       autoHeight: { type: Boolean },
       rememberSettings: { type: Boolean },
+      __copyButtonText: { type: String },
     };
   }
 
@@ -61,6 +62,8 @@ export class MdJsPreview extends LitElement {
     this.key = '';
     this.contentHeight = 0;
     this.simulatorUrl = '';
+    this.__supportsClipboard = 'clipboard' in navigator;
+    this.__copyButtonText = 'Copy Code';
 
     this.theme = 'light';
     /** @type {{ key: string, name: string }[]} */
@@ -83,7 +86,6 @@ export class MdJsPreview extends LitElement {
       { key: 'pl', name: 'Polish' },
       { key: 'pt', name: 'Portuguese' },
       { key: 'ro', name: 'Romanian' },
-      { key: 'sv', name: 'Swedish' },
       { key: 'sv', name: 'Swedish' },
     ];
 
@@ -270,6 +272,16 @@ export class MdJsPreview extends LitElement {
     this.platform = platform;
     const sizes = this.getSizesFor(this.platform);
     this.size = sizes[0].key;
+  }
+
+  async onCopy() {
+    if (this.textContent) {
+      await navigator.clipboard.writeText(this.textContent.trim());
+      this.__copyButtonText = 'Copied ✅';
+      setTimeout(() => {
+        this.__copyButtonText = 'Copy code';
+      }, 2000);
+    }
   }
 
   renderPlatforms() {
@@ -568,7 +580,10 @@ export class MdJsPreview extends LitElement {
           <button>Code</button>
         </h3>
         <div slot="content">
-          <slot></slot>
+          <slot id="code-slot"></slot>
+          <button part="copy-button" @click="${this.onCopy}" ?hidden="${!this.__supportsClipboard}">
+            ${this.__copyButtonText}
+          </button>
         </div>
       </lion-accordion>
       ${this.simulatorUrl
@@ -597,6 +612,25 @@ export class MdJsPreview extends LitElement {
       iframe {
         border: 2px solid #4caf50;
         background: #fff;
+      }
+
+      [part='copy-button'] {
+        border: 1px solid var(--primary-color, #3f51b5);
+        border-radius: 9px;
+        padding: 7px;
+        background: none;
+        font-weight: bold;
+        color: var(--primary-color, #3f51b5);
+        text-align: center;
+        font-size: 12px;
+        line-height: 12px;
+        float: right;
+        margin-top: -10px;
+      }
+
+      [part='copy-button']:hover {
+        background-color: var(--primary-color, #3f51b5);
+        color: #fff;
       }
 
       .switch {
