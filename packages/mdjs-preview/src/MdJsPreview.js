@@ -63,7 +63,7 @@ export class MdJsPreview extends LitElement {
     this.simulatorUrl = '';
 
     this.theme = 'light';
-    /** @type {any[]} */
+    /** @type {{ key: string, name: string }[]} */
     this.themes = [
       // { key: 'light', name: 'Light' },
       // { key: 'dark', name: 'Dark' },
@@ -89,7 +89,7 @@ export class MdJsPreview extends LitElement {
 
     this.platform = 'web';
 
-    /** @type {any[]} */
+    /** @type {{ key: string, name: string }[]} */
     this.platforms = [
       // { key: 'web', name: 'Web' },
       // { key: 'web-windows', name: 'Windows' },
@@ -275,42 +275,49 @@ export class MdJsPreview extends LitElement {
   renderPlatforms() {
     if (this.platforms.length) {
       return html`
-        <div>
-          <h3>Platform</h3>
-          <h4>Platform</h4>
-          <div
-            class="segmented-control"
-            @change=${
-              /** @param {Event} ev */ ev => {
-                if (ev.target) {
-                  this.changePlatform(/** @type {HTMLInputElement} */ (ev.target).value);
-                }
+        <h4>Platform</h4>
+        <div
+          class="segmented-control"
+          @change=${
+            /** @param {Event} ev */ ev => {
+              if (ev.target) {
+                this.changePlatform(/** @type {HTMLInputElement} */ (ev.target).value);
               }
             }
-          >
-            ${this.platforms.map(
-              platform => html`
-                <label class="${this.platform === platform.key ? 'selected' : ''}">
-                  <span>${platform.name}</span>
-                  <input
-                    type="radio"
-                    name="platform"
-                    value="${platform.key}"
-                    ?checked=${this.platform === platform.key}
-                  />
-                </label>
-              `,
-            )}
-          </div>
+          }
+        >
+          ${this.platforms.map(
+            platform => html`
+              <label class="${this.platform === platform.key ? 'selected' : ''}">
+                <span>${platform.name}</span>
+                <input
+                  type="radio"
+                  name="platform"
+                  value="${platform.key}"
+                  ?checked=${this.platform === platform.key}
+                />
+              </label>
+            `,
+          )}
+        </div>
+      `;
+    }
+  }
+
+  renderPlatform() {
+    if (this.platforms.length) {
+      return html`
+        <div>
+          <h3>Platform</h3>
+          ${this.renderPlatforms()}
         </div>
       `;
     }
   }
 
   renderSizes() {
-    return html`
-      <div>
-        <h3>Viewport</h3>
+    if (this.sizes.length) {
+      return html`
         <h4>Size</h4>
         <div
           class="segmented-control"
@@ -336,7 +343,15 @@ export class MdJsPreview extends LitElement {
             `,
           )}
         </div>
-        ${this.renderAutoHeight()}
+      `;
+    }
+  }
+
+  renderViewport() {
+    return html`
+      <div>
+        <h3>Viewport</h3>
+        ${this.renderSizes()} ${this.renderAutoHeight()}
       </div>
     `;
   }
@@ -344,43 +359,46 @@ export class MdJsPreview extends LitElement {
   renderThemes() {
     if (this.themes.length) {
       return html`
-        <div>
-          <h3>Visual</h3>
-          <h4>Theme</h4>
-          <div
-            class="segmented-control"
-            @change=${
-              /** @param {Event} ev */ ev => {
-                if (ev.target) {
-                  this.theme = /** @type {HTMLInputElement} */ (ev.target).value;
-                }
+        <div
+          class="segmented-control"
+          @change=${
+            /** @param {Event} ev */ ev => {
+              if (ev.target) {
+                this.theme = /** @type {HTMLInputElement} */ (ev.target).value;
               }
             }
-          >
-            ${this.themes.map(
-              theme => html`
-                <label class="${this.theme === theme.key ? 'selected' : ''}">
-                  <span>${theme.name}</span>
-                  <input
-                    type="radio"
-                    name="theme"
-                    value="${theme.key}"
-                    ?checked=${this.theme === theme.key}
-                  />
-                </label>
-              `,
-            )}
-          </div>
-          ${this.renderEdgeDistance()}
+          }
+        >
+          ${this.themes.map(
+            theme => html`
+              <label class="${this.theme === theme.key ? 'selected' : ''}">
+                <span>${theme.name}</span>
+                <input
+                  type="radio"
+                  name="theme"
+                  value="${theme.key}"
+                  ?checked=${this.theme === theme.key}
+                />
+              </label>
+            `,
+          )}
         </div>
       `;
     }
   }
 
-  renderLanguages() {
+  renderVisual() {
     return html`
       <div>
-        <h3>Localization</h3>
+        <h3>Visual</h3>
+        ${this.renderThemes()} ${this.renderEdgeDistance()}
+      </div>
+    `;
+  }
+
+  renderLanguages() {
+    if (this.languages.length) {
+      return html`
         <label>
           Language
           <select
@@ -401,6 +419,15 @@ export class MdJsPreview extends LitElement {
             )}
           </select>
         </label>
+      `;
+    }
+  }
+
+  renderLocalization() {
+    return html`
+      <div>
+        <h3>Localization</h3>
+        ${this.renderLanguages()}
       </div>
     `;
   }
@@ -410,7 +437,7 @@ export class MdJsPreview extends LitElement {
       <div>
         <label class="${this.edgeDistance ? 'switch selected' : 'switch'}">
           Apply distance to edge
-          <span class="switch-button"></span>
+          <span part="switch-button"></span>
 
           <input
             type="checkbox"
@@ -433,7 +460,7 @@ export class MdJsPreview extends LitElement {
       <div>
         <label class="${this.autoHeight ? 'switch selected' : 'switch'}">
           Fit height to content
-          <span class="switch-button"></span>
+          <span part="switch-button"></span>
           <input
             type="checkbox"
             ?checked=${this.autoHeight}
@@ -455,7 +482,7 @@ export class MdJsPreview extends LitElement {
       <div>
         <label class="${this.sameSettings ? 'switch selected' : 'switch'}">
           Same settings for all simulations
-          <span class="switch-button"></span>
+          <span part="switch-button"></span>
           <input
             type="checkbox"
             ?checked=${this.sameSettings}
@@ -480,7 +507,7 @@ export class MdJsPreview extends LitElement {
       <div>
         <label class="${this.rememberSettings ? 'switch selected' : 'switch'}">
           Remember settings
-          <span class="switch-button"></span>
+          <span part="switch-button"></span>
           <input
             type="checkbox"
             ?checked=${this.rememberSettings}
@@ -518,7 +545,7 @@ export class MdJsPreview extends LitElement {
                 .src=${this.iframeUrl}
                 style=${`width: ${this.sizeData.width}px; height: ${this.deviceHeight}px;`}
               ></iframe>
-              <p class="frame-description" style=${`width: ${this.sizeData.width + 4}px;`}>
+              <p part="frame-description" style=${`width: ${this.sizeData.width + 4}px;`}>
                 ${this.sizeData.name} - ${this.deviceHeight}x${this.sizeData.width}
               </p>
             `}
@@ -531,8 +558,8 @@ export class MdJsPreview extends LitElement {
               </h3>
               <div slot="content">
                 <div class="settings-wrapper">
-                  ${this.renderPlatforms()} ${this.renderSizes()} ${this.renderThemes()}
-                  ${this.renderLanguages()} ${this.renderSyncSettings()}
+                  ${this.renderPlatform()} ${this.renderViewport()} ${this.renderVisual()}
+                  ${this.renderLocalization()} ${this.renderSyncSettings()}
                 </div>
               </div>
             `
@@ -563,19 +590,13 @@ export class MdJsPreview extends LitElement {
   static get styles() {
     return css`
       :host {
-        --primary-color: #3f51b5;
-        --secondary-color: #808080;
-        --tertiary-color: #333;
-        --quaternary-color: #fff;
-        --quinary-color: #4caf50;
-        --senary-color: #008000;
         display: block;
         padding-bottom: 10px;
       }
 
       iframe {
-        border: 2px solid var(--quinary-color);
-        background: var(--quaternary-color);
+        border: 2px solid #4caf50;
+        background: #fff;
       }
 
       .switch {
@@ -584,20 +605,20 @@ export class MdJsPreview extends LitElement {
         margin-bottom: 10px;
       }
 
-      .switch:focus-within .switch-button {
+      .switch:focus-within [part='switch-button'] {
         box-shadow: 0 0 0 1px hsl(0deg 0% 100% / 40%), 0 0 0 4px rgb(31 117 203 / 48%);
       }
 
-      .switch-button {
+      [part='switch-button'] {
         display: inline-block;
         width: 44px;
-        background: var(--secondary-color);
+        background: #808080;
         height: 25px;
         border-radius: 15px;
         position: relative;
       }
 
-      .switch-button::after {
+      [part='switch-button']::after {
         content: ' ';
         width: 18px;
         height: 18px;
@@ -609,20 +630,20 @@ export class MdJsPreview extends LitElement {
         left: 4px;
       }
 
-      .switch.selected .switch-button {
-        background: var(--senary-color);
+      .switch.selected [part='switch-button'] {
+        background: var(--primary-color, #008000);
       }
 
-      .switch.selected .switch-button::after {
+      .switch.selected [part='switch-button']::after {
         left: auto;
         right: 4px;
       }
 
-      .frame-description {
+      [part='frame-description'] {
         margin: -5px 0 10px 0;
         text-align: right;
         font-size: 12px;
-        color: var(--tertiary-color);
+        color: #333;
       }
 
       .settings-wrapper {
@@ -654,23 +675,23 @@ export class MdJsPreview extends LitElement {
       }
 
       .controls a {
-        color: var(--primary-color);
+        color: var(--primary-color, #3f51b5);
         font-size: 14px;
         line-height: 37px;
       }
 
       .simulation-toggle {
-        border: 1px solid var(--primary-color);
+        border: 1px solid var(--primary-color, #3f51b5);
         border-radius: 9px;
         padding: 10px;
         background: none;
         font-weight: bold;
-        color: var(--primary-color);
+        color: var(--primary-color, #3f51b5);
         text-align: center;
       }
 
       .simulation-toggle:hover {
-        background-color: var(--primary-color);
+        background-color: var(--primary-color, #3f51b5);
         color: #fff;
       }
 
@@ -719,7 +740,7 @@ export class MdJsPreview extends LitElement {
       }
 
       .segmented-control {
-        border: 1px solid var(--primary-color);
+        border: 1px solid var(--primary-color, #3f51b5);
         border-radius: 18px;
         display: inline-block;
         font-size: 14px;
@@ -742,7 +763,7 @@ export class MdJsPreview extends LitElement {
       }
 
       .segmented-control label.selected span {
-        background: var(--primary-color);
+        background: var(--primary-color, #3f51b5);
         color: #fff;
       }
 
