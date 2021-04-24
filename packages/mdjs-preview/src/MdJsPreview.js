@@ -183,10 +183,11 @@ export class MdJsPreview extends LitElement {
   }
 
   get deviceHeight() {
+    const maxHeight = this.sizeData?.height || 50;
     if (this.autoHeight) {
-      return this.contentHeight + 10;
+      return Math.min(this.contentHeight, maxHeight);
     }
-    return this.sizeData?.height || 50;
+    return maxHeight;
   }
 
   /**
