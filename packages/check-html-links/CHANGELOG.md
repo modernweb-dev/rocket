@@ -1,5 +1,11 @@
 # check-html-links
 
+## 0.2.2
+
+### Patch Changes
+
+- 66c2d78: fix: windows path issue
+
 ## 0.2.1
 
 ### Patch Changes

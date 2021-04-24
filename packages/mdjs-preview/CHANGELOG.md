@@ -1,5 +1,13 @@
 # @mdjs/mdjs-preview
 
+## 0.4.2
+
+### Patch Changes
+
+- 72f631a: Improve customizations by hiding empty themes, platforms and adding parts to be styled.
+- 74dd8d1: Autoheight will not grow bigger than the current size height
+- 72f631a: Add a copy code button
+
 ## 0.4.1
 
 ### Patch Changes
