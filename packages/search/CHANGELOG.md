@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.3.4
+
+### Patch Changes
+
+- 81edf45: Reduce the amount of js files in the build by avoiding inline script tags
+
 ## 0.3.3
 
 ### Patch Changes
