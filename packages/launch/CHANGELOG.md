@@ -1,5 +1,11 @@
 # @rocket/launch
 
+## 0.4.1
+
+### Patch Changes
+
+- 81edf45: Reduce the amount of js files in the build by avoiding inline script tags
+
 ## 0.4.0
 
 ### Minor Changes
