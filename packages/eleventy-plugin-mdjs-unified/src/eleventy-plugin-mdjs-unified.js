@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 const path = require('path');
+const slash = require('slash');
 const fs = require('fs');
 const { mdjsProcess } = require('@mdjs/core');
 const visit = require('unist-util-visit');
@@ -121,8 +122,12 @@ function eleventyUnified(pluginOptions) {
       return plugins.map(plugin => {
         if (plugin.options) {
           plugin.options.page = eleventySettings.page;
+          plugin.options.rocketConfig = eleventySettings.rocketConfig;
         } else {
-          plugin.options = { page: eleventySettings.page };
+          plugin.options = {
+            page: eleventySettings.page,
+            rocketConfig: eleventySettings.rocketConfig,
+          };
         }
         return plugin;
       });
@@ -145,8 +150,19 @@ function eleventyUnified(pluginOptions) {
       const newName = path.join(newFolder, '__mdjs-stories.js');
       await fs.promises.mkdir(newFolder, { recursive: true });
       await fs.promises.writeFile(newName, result.jsCode, 'utf8');
+
+      let scriptUrl = eleventySettings.page.url;
+      if (
+        eleventySettings.rocketConfig &&
+        eleventySettings.rocketConfig.command === 'build' &&
+        eleventySettings.rocketConfig.pathPrefix
+      ) {
+        scriptUrl = slash(
+          path.join(eleventySettings.rocketConfig.pathPrefix, eleventySettings.page.url),
+        );
+      }
       code += `
-        <script type="module" src="${eleventySettings.page.url}__mdjs-stories.js" mdjs-setup></script>
+        <script type="module" src="${scriptUrl}__mdjs-stories.js" mdjs-setup></script>
       `;
     }
     return code;
