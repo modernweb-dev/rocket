@@ -1,5 +1,13 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.4.1
+
+### Patch Changes
+
+- 2b7f1ee: Add support for pathprefix
+- Updated dependencies [2b7f1ee]
+  - @mdjs/core@0.7.1
+
 ## 0.4.0
 
 ### Minor Changes
