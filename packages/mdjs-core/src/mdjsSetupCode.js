@@ -1,8 +1,43 @@
+const path = require('path');
+const slash = require('slash');
+
 /** @typedef {import('vfile').VFileOptions} VFileOptions */
 /** @typedef {import('unist').Node} Node */
 /** @typedef {import('@mdjs/core/types/code').Story} Story */
 
-function mdjsSetupCode({ rootNodeQueryCode = 'document', simulationSettings = {} } = {}) {
+/**
+ * @typedef {Object} simulationSettings
+ * @property {string} [simulatorUrl]
+ */
+
+/**
+ * @typedef {Object} rocketConfig
+ * @property {string} [pathPrefix]
+ */
+
+/**
+ * @param {object} options
+ * @param {string} [options.rootNodeQueryCode]
+ * @param {simulationSettings} [options.simulationSettings]
+ * @param {rocketConfig} [options.rocketConfig]
+ * @returns
+ */
+function mdjsSetupCode({
+  rootNodeQueryCode = 'document',
+  simulationSettings = {},
+  rocketConfig = {},
+} = {}) {
+  if (rocketConfig && rocketConfig.pathPrefix) {
+    if (simulationSettings && simulationSettings.simulatorUrl) {
+      const { simulatorUrl } = simulationSettings;
+      if (simulatorUrl[0] === '/' && !simulatorUrl.startsWith(rocketConfig.pathPrefix)) {
+        simulationSettings.simulatorUrl = slash(
+          path.join(rocketConfig.pathPrefix, simulationSettings.simulatorUrl),
+        );
+      }
+    }
+  }
+
   /**
    * @param {Node} tree
    * @param {VFileOptions} file

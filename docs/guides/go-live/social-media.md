@@ -5,7 +5,7 @@ For that reason Rocket creates those automatically with the title, parent title,
 
 It will look like this but with your logo:
 
-<img src="{{ socialMediaImage }}" width="1200" height="630" alt="Social Media Image of this page" style="border: 1px solid #000" />
+<img src="{{ socialMediaImage | url }}" width="1200" height="630" alt="Social Media Image of this page" style="border: 1px solid #000" />
 
 There are multiple ways you can modify it.
 
