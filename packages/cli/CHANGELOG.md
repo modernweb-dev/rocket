@@ -1,5 +1,13 @@
 # @rocket/cli
 
+## 0.6.3
+
+### Patch Changes
+
+- 2b7f1ee: Add support for pathprefix
+- Updated dependencies [2b7f1ee]
+  - @rocket/eleventy-plugin-mdjs-unified@0.4.1
+
 ## 0.6.2
 
 ### Patch Changes

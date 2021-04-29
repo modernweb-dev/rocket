@@ -1,5 +1,11 @@
 # @rocket/launch
 
+## 0.4.2
+
+### Patch Changes
+
+- 2b7f1ee: Add support for pathprefix
+
 ## 0.4.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.3.5
+
+### Patch Changes
+
+- 2b7f1ee: Add support for pathprefix
+
 ## 0.3.4
 
 ### Patch Changes

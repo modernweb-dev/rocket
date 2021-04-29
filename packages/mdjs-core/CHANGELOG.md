@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.7.1
+
+### Patch Changes
+
+- 2b7f1ee: Add support for pathprefix
+
 ## 0.7.0
 
 ### Minor Changes
