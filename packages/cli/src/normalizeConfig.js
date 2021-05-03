@@ -40,6 +40,7 @@ export async function normalizeConfig(inConfig) {
     inputDir: 'docs',
     outputDir: '_site',
     outputDevDir: '_site-dev',
+    serviceWorkerName: 'service-worker.js',
     build: {},
     devServer: {},
 

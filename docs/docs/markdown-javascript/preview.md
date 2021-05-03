@@ -111,7 +111,7 @@ We can simulate the following settings
    <html theme="dark"></html>
    ```
 3. `language`
-   Best to relay on `data-lang` and `lang` often gets changes by translations services which may interfere with you translation loading system.
+   Best to relay on `data-lang` as `lang` often gets changes by translations services which may interfere with your translation loading system.
    ```html
    <html lang="en-US" data-lang="en-US"></html>
    <html lang="de-DE" data-lang="de-DE"></html>

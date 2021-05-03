@@ -66,7 +66,6 @@ describe('RocketCli computedConfig', () => {
 
     const indexHtml = await readBuildOutput(cli, 'index.html', {
       stripToBody: true,
-      stripServiceWorker: true,
     });
     expect(indexHtml).to.equal('/_merged_assets/11ty-img/5893749-1200.png');
   });

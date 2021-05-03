@@ -74,7 +74,8 @@
     "micromatch": "^4.0.2",
     "plugins-manager": "^0.2.1",
     "slash": "^3.0.0",
-    "utf8": "^3.0.0"
+    "utf8": "^3.0.0",
+    "workbox-window": "^6.1.5"
   },
   "types": "dist-types/index.d.ts"
 }
