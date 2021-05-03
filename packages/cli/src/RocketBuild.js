@@ -6,7 +6,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { copy } from '@web/rollup-plugin-copy';
 
-import { createMpaConfig } from '@rocket/building-rollup';
+import { createMpaConfig, createServiceWorkerConfig } from '@rocket/building-rollup';
 import { addPlugin, adjustPluginOptions } from 'plugins-manager';
 
 /**
@@ -56,6 +56,18 @@ async function productionBuild(config) {
   });
 
   await buildAndWrite(mpaConfig);
+
+  const serviceWorkerSourcePath = path.resolve('docs/_merged_assets/service-worker.js');
+  if (fs.existsSync(serviceWorkerSourcePath)) {
+    const serviceWorkerConfig = createServiceWorkerConfig({
+      input: serviceWorkerSourcePath,
+      output: {
+        file: path.join(path.resolve(config.outputDir), config.serviceWorkerName),
+      },
+    });
+
+    await buildAndWrite(serviceWorkerConfig);
+  }
 }
 
 export class RocketBuild {

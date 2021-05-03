@@ -41,6 +41,7 @@ describe('normalizeConfig', () => {
       setupEleventyComputedConfig: [],
       setupCliPlugins: [],
       presets: [],
+      serviceWorkerName: 'service-worker.js',
       plugins: [
         { commands: ['start'] },
         { commands: ['build'] },
@@ -76,6 +77,7 @@ describe('normalizeConfig', () => {
       setupCliPlugins: [],
       setupEleventyComputedConfig: [],
       presets: [],
+      serviceWorkerName: 'service-worker.js',
       plugins: [
         { commands: ['start'] },
         { commands: ['build'] },
@@ -108,6 +110,7 @@ describe('normalizeConfig', () => {
       setupCliPlugins: [],
       setupEleventyComputedConfig: [],
       presets: [],
+      serviceWorkerName: 'service-worker.js',
       plugins: [
         { commands: ['start'] },
         { commands: ['build'] },
@@ -143,6 +146,7 @@ describe('normalizeConfig', () => {
       setupCliPlugins: [],
       setupEleventyComputedConfig: [],
       presets: [],
+      serviceWorkerName: 'service-worker.js',
       plugins: [
         { commands: ['start'] },
         { commands: ['build'] },

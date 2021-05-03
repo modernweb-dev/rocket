@@ -6,3 +6,7 @@
 export { createBasicConfig, createBasicMetaConfig } from './src/createBasicConfig.js';
 export { createSpaConfig, createSpaMetaConfig } from './src/createSpaConfig.js';
 export { createMpaConfig, createMpaMetaConfig } from './src/createMpaConfig.js';
+export {
+  createServiceWorkerConfig,
+  createServiceWorkerMetaConfig,
+} from './src/createServiceWorkerConfig.js';

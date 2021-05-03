@@ -1,6 +1,4 @@
-import path from 'path';
 import { rollupPluginHTML } from '@web/rollup-plugin-html';
-import { generateSW } from 'rollup-plugin-workbox';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import { polyfillsLoader } from '@web/rollup-plugin-polyfills-loader';
 import { metaConfigToRollupConfig } from 'plugins-manager';
@@ -37,31 +35,6 @@ export function createSpaMetaConfig(userConfig = { output: {} }) {
       options: {
         rootDir,
         absoluteBaseUrl,
-        injectServiceWorker: true,
-        serviceWorkerPath: path.join(config.output.dir, 'service-worker.js'),
-      },
-    },
-    {
-      name: 'workbox',
-      plugin: generateSW,
-      options: {
-        // Keep 'legacy-*.js' just for retro compatibility
-        globIgnores: ['polyfills/*.js', 'legacy-*.js', 'nomodule-*.js'],
-        navigateFallback: '/index.html',
-        // where to output the generated sw
-        swDest: path.join(config.output.dir, 'service-worker.js'),
-        // directory to match patterns against to be precached
-        globDirectory: path.join(config.output.dir),
-        // cache any html js and css by default
-        globPatterns: ['**/*.{html,js,css,webmanifest}', '**/*-search-index.json'],
-        skipWaiting: true,
-        clientsClaim: true,
-        runtimeCaching: [
-          {
-            urlPattern: 'polyfills/*.js',
-            handler: 'CacheFirst',
-          },
-        ],
       },
     },
     {

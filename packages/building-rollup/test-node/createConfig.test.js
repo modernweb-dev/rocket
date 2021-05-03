@@ -9,13 +9,13 @@ describe('plugin count', () => {
     expect(config.plugins.length).to.equal(3);
   });
 
-  it('createSpaConfig has 7 plugins', () => {
+  it('createSpaConfig has 6 plugins', () => {
     const config = createSpaConfig();
-    expect(config.plugins.length).to.equal(7);
+    expect(config.plugins.length).to.equal(6);
   });
 
-  it('createMpaConfig has 7 plugins', () => {
+  it('createMpaConfig has 6 plugins', () => {
     const config = createMpaConfig();
-    expect(config.plugins.length).to.equal(7);
+    expect(config.plugins.length).to.equal(6);
   });
 });

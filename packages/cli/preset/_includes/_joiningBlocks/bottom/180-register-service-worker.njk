@@ -1,0 +1,5 @@
+<script>
+  window.__rocketServiceWorkerUrl = '/{{ rocketConfig.serviceWorkerName }}';
+</script>
+
+<script type="module" inject-service-worker="" src="{{ '/_assets/scripts/registerServiceWorker.js' | asset | url }}"></script>

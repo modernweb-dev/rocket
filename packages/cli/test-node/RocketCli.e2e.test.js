@@ -75,9 +75,6 @@ describe('RocketCli e2e', () => {
     cli = await executeBuild('e2e-fixtures/rollup-plugin/devbuild-build.rocket.config.js');
     const inlineModule = await readBuildOutput(cli, 'e97af63d.js');
     expect(inlineModule).to.equal('var a={test:"data"};console.log(a);');
-
-    const swCode = await readBuildOutput(cli, 'my-service-worker.js');
-    expect(swCode).to.not.be.undefined;
   });
 
   it('can adjust the inputDir', async () => {
@@ -111,7 +108,6 @@ describe('RocketCli e2e', () => {
     cli = await executeBuild('e2e-fixtures/content/pathPrefix.rocket.config.js');
 
     const linkHtml = await readBuildOutput(cli, 'link/index.html', {
-      stripServiceWorker: true,
       stripToBody: true,
     });
     expect(linkHtml).to.equal(
@@ -119,9 +115,7 @@ describe('RocketCli e2e', () => {
         '\n',
       ),
     );
-    const assetHtml = await readBuildOutput(cli, 'use-assets/index.html', {
-      stripServiceWorker: true,
-    });
+    const assetHtml = await readBuildOutput(cli, 'use-assets/index.html');
     expect(assetHtml).to.equal(
       '<html><head><link rel="stylesheet" href="../41297ffa.css">\n\n</head><body>\n\n</body></html>',
     );

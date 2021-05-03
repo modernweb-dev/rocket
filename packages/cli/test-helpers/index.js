@@ -15,7 +15,6 @@ export function setFixtureDir(importMetaUrl) {
 
 /**
  * @typedef {object} readOutputOptions
- * @property {boolean} stripServiceWorker
  * @property {boolean} stripToBody
  * @property {boolean} stripStartEndWhitespace
  * @property {boolean} stripScripts
@@ -47,7 +46,6 @@ export async function readOutput(
   cli,
   fileName,
   {
-    stripServiceWorker = false,
     stripToBody = false,
     stripStartEndWhitespace = true,
     stripScripts = false,
@@ -66,11 +64,6 @@ export async function readOutput(
     const bodyOpenTagEnd = text.indexOf('>', text.indexOf('<body') + 1) + 1;
     const bodyCloseTagStart = text.indexOf('</body>');
     text = text.substring(bodyOpenTagEnd, bodyCloseTagStart);
-  }
-  if (stripServiceWorker) {
-    const scriptOpenTagEnd = text.indexOf('<script inject-service-worker');
-    const scriptCloseTagStart = text.indexOf('</script>', scriptOpenTagEnd) + 9;
-    text = text.substring(0, scriptOpenTagEnd) + text.substring(scriptCloseTagStart);
   }
   if (stripScripts) {
     const scriptOpenTagEnd = text.indexOf('<script>');

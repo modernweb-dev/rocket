@@ -20,6 +20,7 @@ interface RocketStartConfig {
 export interface RocketCliOptions {
   presets: Array<RocketPreset>;
   pathPrefix?: string;
+  serviceWorkerName?: string;
   inputDir: string;
   outputDir: string;
   emptyOutputDir?: boolean;

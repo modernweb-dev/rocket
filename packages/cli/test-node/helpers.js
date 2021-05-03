@@ -31,12 +31,7 @@ export async function expectThrowsAsync(method, { errorMatch, errorMessage } = {
 export async function readOutput(
   cli,
   fileName,
-  {
-    stripServiceWorker = false,
-    stripToBody = false,
-    stripStartEndWhitespace = true,
-    type = 'build',
-  } = {},
+  { stripToBody = false, stripStartEndWhitespace = true, type = 'build' } = {},
 ) {
   const outputDir = type === 'build' ? cli.config.outputDir : cli.config.outputDevDir;
   let text = await fs.promises.readFile(path.join(outputDir, fileName));
@@ -45,11 +40,6 @@ export async function readOutput(
     const bodyOpenTagEnd = text.indexOf('>', text.indexOf('<body') + 1) + 1;
     const bodyCloseTagStart = text.indexOf('</body>');
     text = text.substring(bodyOpenTagEnd, bodyCloseTagStart);
-  }
-  if (stripServiceWorker) {
-    const scriptOpenTagEnd = text.indexOf('<script inject-service-worker');
-    const scriptCloseTagStart = text.indexOf('</script>', scriptOpenTagEnd) + 9;
-    text = text.substring(0, scriptOpenTagEnd) + text.substring(scriptCloseTagStart);
   }
   if (stripStartEndWhitespace) {
     text = text.trim();

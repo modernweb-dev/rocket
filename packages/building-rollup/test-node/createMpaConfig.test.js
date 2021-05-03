@@ -26,10 +26,7 @@ async function execute(configString) {
   const config = (await import(configPath)).default;
   await buildAndWrite(config);
 
-  return async (
-    fileName,
-    { stripServiceWorker = false, stripToBody = false, stripStartEndWhitespace = true } = {},
-  ) => {
+  return async (fileName, { stripToBody = false, stripStartEndWhitespace = true } = {}) => {
     let text = await fs.promises.readFile(
       path.join(config.output.dir, fileName.split('/').join(path.sep)),
     );
@@ -38,11 +35,6 @@ async function execute(configString) {
       const bodyOpenTagEnd = text.indexOf('>', text.indexOf('<body') + 1) + 1;
       const bodyCloseTagStart = text.indexOf('</body>');
       text = text.substring(bodyOpenTagEnd, bodyCloseTagStart);
-    }
-    if (stripServiceWorker) {
-      const scriptOpenTagEnd = text.indexOf('<script inject-service-worker');
-      const scriptCloseTagStart = text.indexOf('</script>', scriptOpenTagEnd) + 9;
-      text = text.substring(0, scriptOpenTagEnd) + text.substring(scriptCloseTagStart);
     }
     if (stripStartEndWhitespace) {
       text = text.trim();
@@ -57,19 +49,16 @@ describe('createMapConfig', () => {
 
     const indexHtml = await readOutput('index.html', {
       stripToBody: true,
-      stripServiceWorker: true,
     });
     expect(indexHtml).to.equal('<h1>Only static HTML content in index.html</h1>');
 
     const subHtmlIndexHtml = await readOutput('sub-html/index.html', {
       stripToBody: true,
-      stripServiceWorker: true,
     });
     expect(subHtmlIndexHtml).to.equal('<h1>Only static HTML content in sub-html/index.html</h1>');
 
     const subJsIndexHtml = await readOutput('sub-js/index.html', {
       stripToBody: true,
-      stripServiceWorker: true,
     });
     expect(subJsIndexHtml).to.equal(
       '<h1>Has js in sub-js/index.html</h1>\n\n\n<script type="module" src="../sub-js.js"></script>',
@@ -77,13 +66,9 @@ describe('createMapConfig', () => {
 
     const subJsAbsoluteIndexHtml = await readOutput('sub-js-absolute/index.html', {
       stripToBody: true,
-      stripServiceWorker: true,
     });
     expect(subJsAbsoluteIndexHtml).to.equal(
       '<h1>Has js in sub-js-absolute/index.html</h1>\n\n\n<script type="module" src="../sub-js-absolute.js"></script>',
     );
-
-    const serviceWorkerJs = await readOutput('service-worker.js');
-    expect(serviceWorkerJs).to.include('Promise'); // not empty string might be enough...
   });
 });

@@ -8,7 +8,6 @@ You write modern JavaScript using the latest browser features. Rollup will optim
 - Set HTML or JavaScript as input and/or output
 - Optimized for browsers which support modules
 - Loads polyfills using feature detection
-- Generates a service worker
 - Minifies JavaScript
 - Minifies lit-html templates
 
