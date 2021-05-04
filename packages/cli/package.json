@@ -1,6 +1,6 @@
 {
   "name": "@rocket/cli",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "publishConfig": {
     "access": "public"
   },
@@ -57,7 +57,7 @@
   "dependencies": {
     "@11ty/eleventy": "^0.11.1",
     "@11ty/eleventy-img": "^0.7.4",
-    "@rocket/building-rollup": "^0.2.0",
+    "@rocket/building-rollup": "^0.3.0",
     "@rocket/core": "^0.1.2",
     "@rocket/eleventy-plugin-mdjs-unified": "^0.4.1",
     "@rocket/eleventy-rocket-nav": "^0.3.0",

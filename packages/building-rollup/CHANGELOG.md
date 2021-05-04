@@ -1,5 +1,11 @@
 # @rocket/building-rollup
 
+## 0.3.0
+
+### Minor Changes
+
+- 2724f07: Stop auto generating a service worker from a template. Setup your own and then bundle via `createServiceWorkerConfig`.
+
 ## 0.2.0
 
 ### Minor Changes
