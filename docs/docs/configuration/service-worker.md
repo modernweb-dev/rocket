@@ -20,10 +20,11 @@ export default {
 
 ## Meet the Service Worker
 
-The default service worker will work for many scenarios however you needs my differ.
+The default service worker will work for many scenarios however your needs my vary.
 To enable different service worker strategies you can replace the default service worker code by providing a file at `_assets/service-worker.js`.
+This file will be auto transformed and generated in the root of the website using the defined `serviceWorkerName`.
 
-For inspiration you can take a look at the default config.
+For inspiration, you can take a look at the default config.
 
 [https://github.com/modernweb-dev/rocket/blob/main/packages/cli/preset/\_assets/service-worker.js](https://github.com/modernweb-dev/rocket/blob/main/packages/cli/preset/_assets/service-worker.js)
 
