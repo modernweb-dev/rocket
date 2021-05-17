@@ -104,4 +104,27 @@ describe('RocketCli preset', () => {
     const indexHtml = await readStartOutput(cli, 'index.html');
     expect(indexHtml).to.include('<meta name="added" content="at the top" />');
   });
+
+  it('a preset can provide an adjustImagePresets() function', async () => {
+    cli = await executeStart('preset-fixtures/use-preset/rocket.config.js');
+
+    const indexHtml = await readStartOutput(cli, 'index.html', { formatHtml: true });
+    expect(indexHtml).to.equal(
+      [
+        '<p>',
+        '  <img',
+        '    alt="My Image Alternative Text"',
+        '    rocket-image="responsive"',
+        '    src="/images/1f847765-30.jpeg"',
+        '    srcset="/images/1f847765-30.jpeg 30w, /images/1f847765-60.jpeg 60w"',
+        '    sizes="30px"',
+        '    width="30"',
+        '    height="15"',
+        '    loading="lazy"',
+        '    decoding="async"',
+        '  />',
+        '</p>',
+      ].join('\n'),
+    );
+  });
 });

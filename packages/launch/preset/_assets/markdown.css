@@ -463,9 +463,9 @@
 }
 
 .markdown-body img {
-  /* background-color: #fff; */
   box-sizing: content-box;
   max-width: 100%;
+  width: 100%;
   height: auto;
 }
 
