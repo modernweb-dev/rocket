@@ -52,5 +52,13 @@ export function rocketLaunch() {
     setupEleventyComputedConfig: [
       adjustPluginOptions('layout', { defaultLayout: 'layout-sidebar' }),
     ],
+    adjustImagePresets: imagePresets => ({
+      ...imagePresets,
+      responsive: {
+        ...imagePresets.responsive,
+        widths: [600, 900, 1640],
+        sizes: '(min-width: 1024px) 820px, calc(100vw - 40px)',
+      },
+    }),
   };
 }

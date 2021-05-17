@@ -45,10 +45,23 @@ export async function normalizeConfig(inConfig) {
     devServer: {},
 
     ...inConfig,
+    imagePresets: {
+      responsive: {
+        widths: [600, 900, 1640],
+        formats: ['avif', 'jpeg'],
+        sizes: '100vw',
+      },
+    },
   };
 
   if (inConfig && inConfig.devServer) {
     config.devServer = { ...config.devServer, ...inConfig.devServer };
+  }
+  if (inConfig.imagePresets && inConfig.imagePresets.responsive) {
+    config.imagePresets.responsive = {
+      ...config.imagePresets.responsive,
+      ...inConfig.imagePresets.responsive,
+    };
   }
 
   let userConfigFile;
@@ -73,7 +86,14 @@ export async function normalizeConfig(inConfig) {
           ...config.devServer,
           ...fileConfig.devServer,
         },
+        imagePresets: config.imagePresets,
       };
+      if (fileConfig.imagePresets && fileConfig.imagePresets.responsive) {
+        config.imagePresets.responsive = {
+          ...config.imagePresets.responsive,
+          ...fileConfig.imagePresets.responsive,
+        };
+      }
     }
   } catch (error) {
     console.error('Could not read rocket config file', error);
@@ -87,6 +107,10 @@ export async function normalizeConfig(inConfig) {
   config._presetPathes = [path.join(__dirname, '..', 'preset')];
   for (const preset of config.presets) {
     config._presetPathes.push(preset.path);
+
+    if (preset.adjustImagePresets) {
+      config.imagePresets = preset.adjustImagePresets(config.imagePresets);
+    }
 
     if (preset.setupUnifiedPlugins) {
       config.setupUnifiedPlugins = [...config.setupUnifiedPlugins, ...preset.setupUnifiedPlugins];

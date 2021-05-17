@@ -7,4 +7,9 @@ export default {
       data: '--config-override--',
     },
   },
+  imagePresets: {
+    responsive: {
+      sizes: '--override-sizes--',
+    },
+  },
 };

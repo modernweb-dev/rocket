@@ -17,6 +17,14 @@ interface RocketStartConfig {
   createSocialMediaImages?: boolean;
 }
 
+type ImageFormat = 'avif' | 'webp' | 'jpg' | 'png' | 'svg';
+
+interface ImagePreset {
+  widths: number[];
+  formats: ImageFormat[];
+  sizes: string;
+}
+
 export interface RocketCliOptions {
   presets: Array<RocketPreset>;
   pathPrefix?: string;
@@ -27,6 +35,9 @@ export interface RocketCliOptions {
   absoluteBaseUrl?: string;
   watch: boolean;
   createSocialMediaImages?: boolean;
+  imagePresets: {
+    [key: string]: ImagePreset;
+  };
 
   start?: RocketStartConfig;
 

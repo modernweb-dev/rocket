@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const { processLocalReferences } = require('./processLocalReferences.cjs');
+const { insertResponsiveImages } = require('./insertResponsiveImages.cjs');
 
 function inlineFilePath(filePath) {
   let data = fs.readFileSync(filePath, function (err, contents) {
@@ -24,6 +25,7 @@ const rocketFilters = {
 
     eleventyConfig.addFilter('inlineFilePath', inlineFilePath);
 
+    eleventyConfig.addTransform('insertResponsiveImages', insertResponsiveImages);
     eleventyConfig.addTransform('processLocalReferences', processLocalReferences);
   },
 };

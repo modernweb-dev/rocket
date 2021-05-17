@@ -47,6 +47,13 @@ describe('normalizeConfig', () => {
         { commands: ['build'] },
         { commands: ['start', 'build', 'lint'] },
       ],
+      imagePresets: {
+        responsive: {
+          formats: ['avif', 'jpeg'],
+          sizes: '100vw',
+          widths: [600, 900, 1640],
+        },
+      },
       inputDir: 'docs',
       outputDir: '_site',
     });
@@ -77,6 +84,13 @@ describe('normalizeConfig', () => {
       setupCliPlugins: [],
       setupEleventyComputedConfig: [],
       presets: [],
+      imagePresets: {
+        responsive: {
+          formats: ['avif', 'jpeg'],
+          sizes: '100vw',
+          widths: [600, 900, 1640],
+        },
+      },
       serviceWorkerName: 'service-worker.js',
       plugins: [
         { commands: ['start'] },
@@ -110,6 +124,13 @@ describe('normalizeConfig', () => {
       setupCliPlugins: [],
       setupEleventyComputedConfig: [],
       presets: [],
+      imagePresets: {
+        responsive: {
+          formats: ['avif', 'jpeg'],
+          sizes: '--override-sizes--',
+          widths: [600, 900, 1640],
+        },
+      },
       serviceWorkerName: 'service-worker.js',
       plugins: [
         { commands: ['start'] },
@@ -146,6 +167,13 @@ describe('normalizeConfig', () => {
       setupCliPlugins: [],
       setupEleventyComputedConfig: [],
       presets: [],
+      imagePresets: {
+        responsive: {
+          formats: ['avif', 'jpeg'],
+          sizes: '100vw',
+          widths: [600, 900, 1640],
+        },
+      },
       serviceWorkerName: 'service-worker.js',
       plugins: [
         { commands: ['start'] },

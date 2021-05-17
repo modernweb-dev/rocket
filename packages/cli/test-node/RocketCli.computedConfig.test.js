@@ -106,31 +106,33 @@ describe('RocketCli computedConfig', () => {
     cli = await executeStart('computed-config-fixtures/image-link/rocket.config.js');
 
     const namedMdContent = [
-      '<p><a href="../">Root</a>',
-      '<a href="../one-level/raw/">Raw</a>',
-      '<img src="../images/my-img.svg" alt="my-img">',
-      '<img src="/images/my-img.svg" alt="absolute-img"></p>',
+      '<p>',
+      '  <a href="../">Root</a>',
+      '  <a href="../one-level/raw/">Raw</a>',
+      '  <img src="../images/my-img.svg" alt="my-img" />',
+      '  <img src="/images/my-img.svg" alt="absolute-img" />',
+      '</p>',
     ];
 
     const namedHtmlContent = [
       '<div id="with-anchor">',
       '  <a href="../">Root</a>',
       '  <a href="../one-level/raw/">Raw</a>',
-      '  <img src="../images/my-img.svg" alt="my-img">',
-      '  <img src="/images/my-img.svg" alt="absolute-img">',
+      '  <img src="../images/my-img.svg" alt="my-img" />',
+      '  <img src="/images/my-img.svg" alt="absolute-img" />',
       '  <picture>',
-      '    <source media="(min-width:465px)" srcset="../images/picture-min-465.jpg">',
-      '    <img src="../images/picture-fallback.jpg" alt="Fallback" style="width:auto;">',
+      '    <source media="(min-width:465px)" srcset="../images/picture-min-465.jpg" />',
+      '    <img src="../images/picture-fallback.jpg" alt="Fallback" style="width: auto" />',
       '  </picture>',
       '</div>',
     ];
 
-    const templateHtml = await readStartOutput(cli, 'template/index.html');
+    const templateHtml = await readStartOutput(cli, 'template/index.html', { formatHtml: true });
     expect(templateHtml, 'template/index.html does not match').to.equal(
       namedHtmlContent.join('\n'),
     );
 
-    const guidesHtml = await readStartOutput(cli, 'guides/index.html');
+    const guidesHtml = await readStartOutput(cli, 'guides/index.html', { formatHtml: true });
     expect(guidesHtml, 'guides/index.html does not match').to.equal(
       [...namedMdContent, ...namedHtmlContent].join('\n'),
     );
@@ -157,27 +159,28 @@ describe('RocketCli computedConfig', () => {
     );
 
     // for index files no '../' will be added
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readStartOutput(cli, 'index.html', { formatHtml: true });
     expect(indexHtml, 'index.html does not match').to.equal(
       [
-        '<p><a href="./">Root</a>',
-        '<a href="guides/#with-anchor">Guides</a>',
-        '<a href="./one-level/raw/">Raw</a>',
-        '<a href="template/">Template</a>',
-        '<a href="./rules/tabindex/">EndingIndex</a>',
-        '<img src="./images/my-img.svg" alt="my-img">',
-        '<img src="/images/my-img.svg" alt="absolute-img"></p>',
-        '<div>',
+        '<p>',
         '  <a href="./">Root</a>',
-        '  👇<a href="guides/#with-anchor">Guides</a>',
-        '  👉 <a href="./one-level/raw/">Raw</a>',
+        '  <a href="guides/#with-anchor">Guides</a>',
+        '  <a href="./one-level/raw/">Raw</a>',
         '  <a href="template/">Template</a>',
         '  <a href="./rules/tabindex/">EndingIndex</a>',
-        '  <img src="./images/my-img.svg" alt="my-img">',
-        '  <img src="/images/my-img.svg" alt="absolute-img">',
+        '  <img src="./images/my-img.svg" alt="my-img" />',
+        '  <img src="/images/my-img.svg" alt="absolute-img" />',
+        '</p>',
+        '<div>',
+        '  <a href="./">Root</a>',
+        '  👇<a href="guides/#with-anchor">Guides</a> 👉 <a href="./one-level/raw/">Raw</a>',
+        '  <a href="template/">Template</a>',
+        '  <a href="./rules/tabindex/">EndingIndex</a>',
+        '  <img src="./images/my-img.svg" alt="my-img" />',
+        '  <img src="/images/my-img.svg" alt="absolute-img" />',
         '  <picture>',
-        '    <source media="(min-width:465px)" srcset="./images/picture-min-465.jpg">',
-        '    <img src="./images/picture-fallback.jpg" alt="Fallback" style="width:auto;">',
+        '    <source media="(min-width:465px)" srcset="./images/picture-min-465.jpg" />',
+        '    <img src="./images/picture-fallback.jpg" alt="Fallback" style="width: auto" />',
         '  </picture>',
         '</div>',
       ].join('\n'),
