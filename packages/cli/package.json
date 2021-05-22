@@ -56,7 +56,7 @@
   ],
   "dependencies": {
     "@11ty/eleventy": "^0.11.1",
-    "@11ty/eleventy-img": "^0.7.4",
+    "@11ty/eleventy-img": "^0.9.0",
     "@rocket/building-rollup": "^0.3.0",
     "@rocket/core": "^0.1.2",
     "@rocket/eleventy-plugin-mdjs-unified": "^0.4.1",
