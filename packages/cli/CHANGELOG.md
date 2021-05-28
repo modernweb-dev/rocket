@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.8.1
+
+### Patch Changes
+
+- c338696: Updated dependency of eleventy-img for M1 compatibility
+
 ## 0.8.0
 
 ### Minor Changes

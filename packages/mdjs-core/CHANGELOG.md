@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.7.2
+
+### Patch Changes
+
+- ce9b12e: Support importing via es module
+
+  ```js
+  import { mdjsProcess } = from '@mdjs/core';
+  ```
+
 ## 0.7.1
 
 ### Patch Changes
