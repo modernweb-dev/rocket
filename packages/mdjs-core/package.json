@@ -32,6 +32,7 @@
   "files": [
     "*.d.ts",
     "*.js",
+    "*.mjs",
     "dist-types",
     "src",
     "types"
