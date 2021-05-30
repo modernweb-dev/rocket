@@ -31,7 +31,7 @@
     "mdjs"
   ],
   "dependencies": {
-    "@mdjs/core": "^0.7.1",
+    "@mdjs/core": "^0.7.2",
     "es-module-lexer": "^0.3.26",
     "unist-util-visit": "^2.0.3"
   },
