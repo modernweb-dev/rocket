@@ -1,5 +1,11 @@
 # plugins-manager
 
+## 0.2.2
+
+### Patch Changes
+
+- 56fdb0c: Optional parameters are now also define as optional in types
+
 ## 0.2.1
 
 ### Patch Changes
