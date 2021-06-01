@@ -17,7 +17,7 @@ You can showcase live running code by annotating a code block with `js preview-s
 - Settings can be remembered for other pages / return visits
 
 ```js script
-import { html } from 'lit-html';
+import { html } from '@mdjs/mdjs-preview';
 import './assets/demo-element.js';
 ```
 
@@ -25,7 +25,7 @@ import './assets/demo-element.js';
 
 ````md
 ```js script
-import { html } from 'lit-html';
+import { html } from '@mdjs/mdjs-preview';
 import './assets/demo-element.js';
 ```
 
