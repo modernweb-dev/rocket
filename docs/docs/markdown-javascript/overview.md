@@ -1,5 +1,11 @@
 # Markdown JavaScript >> Overview || 10
 
+```js script
+import '@mdjs/mdjs-story/define';
+import '@mdjs/mdjs-preview/define';
+import { html } from '@mdjs/mdjs-story';
+```
+
 Markdown JavaScript (mdjs) is a format that allows you to use JavaScript with Markdown, to create interactive demos. It does so by "annotating" JavaScript that should be executed in Markdown.
 
 To annotate we use a code block with `js script`.
@@ -63,13 +69,6 @@ import '@mdjs/mdjs-preview/define';
 
 Once loaded you can use them like so:
 
-````md
-```js script
-import '@mdjs/mdjs-story/define';
-import '@mdjs/mdjs-preview/define';
-```
-````
-
 ### Story
 
 The code snippet will actually get executed at that place and you will have a live demo
@@ -116,12 +115,6 @@ export const JsPreviewStory = () => html` <demo-wc-card>JS Preview Story</demo-w
 ````
 
 Here is a live example from [demo-wc-card](https://www.npmjs.com/package/demo-wc-card).
-
-```js script
-import '@mdjs/mdjs-story/define';
-import '@mdjs/mdjs-preview/define';
-import { html } from 'lit-html';
-```
 
 ```js preview-story
 import 'demo-wc-card/demo-wc-card.js';

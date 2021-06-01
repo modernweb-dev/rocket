@@ -3,12 +3,12 @@
 You can showcase live running code by annotating a code block with `js story`.
 
 ```js script
-import { html } from 'lit-html';
+import { html } from '@mdjs/mdjs-story';
 ```
 
 ````md
 ```js script
-import { html } from 'lit-html';
+import { html } from '@mdjs/mdjs-story';
 ```
 
 ```js story
