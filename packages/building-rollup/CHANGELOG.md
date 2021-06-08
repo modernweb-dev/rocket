@@ -1,5 +1,11 @@
 # @rocket/building-rollup
 
+## 0.3.1
+
+### Patch Changes
+
+- 60e85a1: Support `picture` tags by handling `source` tags with `srcset` attributes in the rollup asset gathering build phase.
+
 ## 0.3.0
 
 ### Minor Changes

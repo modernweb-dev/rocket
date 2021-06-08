@@ -1,5 +1,13 @@
 # @rocket/cli
 
+## 0.8.2
+
+### Patch Changes
+
+- 60e85a1: Support `picture` tags by handling `source` tags with `srcset` attributes in the rollup asset gathering build phase.
+- Updated dependencies [60e85a1]
+  - @rocket/building-rollup@0.3.1
+
 ## 0.8.1
 
 ### Patch Changes
