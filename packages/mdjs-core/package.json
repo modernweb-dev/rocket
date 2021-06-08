@@ -49,7 +49,7 @@
     "@types/unist": "^2.0.3",
     "es-module-lexer": "^0.3.26",
     "github-markdown-css": "^4.0.0",
-    "plugins-manager": "^0.2.1",
+    "plugins-manager": "^0.2.2",
     "rehype-autolink-headings": "^5.0.1",
     "rehype-prism-template": "^0.4.1",
     "rehype-raw": "^5.0.0",
