@@ -203,7 +203,7 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
       anchor,
     };
 
-    let valueFile = value.endsWith('/') ? path.join(value, 'index.html') : value;
+    let valueFile = !path.extname(value) ? path.join(value, 'index.html') : value;
 
     if (ignoreUsage(value)) {
       // ignore
