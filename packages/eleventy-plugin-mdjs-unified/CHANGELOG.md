@@ -1,5 +1,13 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.4.2
+
+### Patch Changes
+
+- Updated dependencies [814b5d2]
+- Updated dependencies [e1e96ac]
+  - @mdjs/core@0.8.0
+
 ## 0.4.1
 
 ### Patch Changes

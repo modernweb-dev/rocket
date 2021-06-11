@@ -1,5 +1,47 @@
 # @mdjs/mdjs-story
 
+## 0.3.0
+
+### Minor Changes
+
+- 814b5d2: **BREAKING CHANGE** Render stories to light dom
+
+  ```js
+  export const story = html`
+    <p>my story</p>
+  `;
+  ```
+
+  ```html
+  <!-- before -->
+  <mdjs-story>
+    #shadow-root (open)
+    <p>my story</p>
+  </mdjs-story>
+
+  <!-- after -->
+  <mdjs-story>
+    <p>my story</p>
+  </mdjs-story>
+  ```
+
+- e1e96ac: **BREAKING CHANGE** Update to [lit](https://lit.dev/) 2
+
+  If your main lit-html version is 1.x be sure to import html for your story rendering from `@mdjs/mdjs-story`.
+
+  ````md
+  ```js script
+  import { html } from '@mdjs/mdjs-story';
+  ```
+
+  ```js story
+  export const foo = () =>
+    html`
+      <demo-element></demo-element>
+    `;
+  ```
+  ````
+
 ## 0.2.0
 
 ### Minor Changes

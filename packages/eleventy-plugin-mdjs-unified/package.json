@@ -1,6 +1,6 @@
 {
   "name": "@rocket/eleventy-plugin-mdjs-unified",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "publishConfig": {
     "access": "public"
   },
@@ -31,7 +31,7 @@
     "mdjs"
   ],
   "dependencies": {
-    "@mdjs/core": "^0.7.2",
+    "@mdjs/core": "^0.8.0",
     "es-module-lexer": "^0.3.26",
     "unist-util-visit": "^2.0.3"
   },
