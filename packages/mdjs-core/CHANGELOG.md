@@ -1,5 +1,56 @@
 # Change Log
 
+## 0.8.0
+
+### Minor Changes
+
+- 814b5d2: **BREAKING CHANGE** Stories of `story` and `preview-story` are now rendered to light dom instead of shadow dom to allow usage of a scoped registry for the internal dom
+
+  ```js
+  export const story = html`
+    <p>my story</p>
+  `;
+  ```
+
+  ```html
+  <!-- before -->
+  <mdjs-story>
+    #shadow-root (open)
+    <p>my story</p>
+  </mdjs-story>
+
+  <!-- after -->
+  <mdjs-story>
+    <p>my story</p>
+  </mdjs-story>
+  ```
+
+- e1e96ac: **BREAKING CHANGE** The default renderer for `story` and `preview-story` updated to [lit](https://lit.dev/) 2
+
+  If your main lit-html version is 1.x be sure to import html for your story rendering from `@mdjs/mdjs-preview`.
+
+  ````md
+  ```js script
+  import { html } from '@mdjs/mdjs-preview';
+  ```
+
+  ```js preview-story
+  export const foo = () =>
+    html`
+      <demo-element></demo-element>
+    `;
+  ```
+  ````
+
+### Patch Changes
+
+- Updated dependencies [e1e96ac]
+- Updated dependencies [814b5d2]
+- Updated dependencies [814b5d2]
+- Updated dependencies [e1e96ac]
+  - @mdjs/mdjs-preview@0.5.0
+  - @mdjs/mdjs-story@0.3.0
+
 ## 0.7.2
 
 ### Patch Changes

@@ -1,5 +1,61 @@
 # @mdjs/mdjs-preview
 
+## 0.5.0
+
+### Minor Changes
+
+- e1e96ac: **BREAKING CHANGE** Update to [lit](https://lit.dev/) 2
+
+  If your main lit-html version is 1.x be sure to import html for your story rendering from `@mdjs/mdjs-preview`.
+
+  ````md
+  ```js script
+  import { html } from '@mdjs/mdjs-preview';
+  ```
+
+  ```js preview-story
+  export const foo = () =>
+    html`
+      <demo-element></demo-element>
+    `;
+  ```
+  ````
+
+- 814b5d2: **BREAKING CHANGE** Render stories to light dom
+
+  ```js
+  export const story = html`
+    <p>my story</p>
+  `;
+  ```
+
+  ```html
+  <!-- before -->
+  <mdjs-preview>
+    #shadow-root (open)
+      <div id="wrapper">
+        <div>
+          <p>my story</p>
+        </div>
+      </div>
+      <!-- more internal dom -->
+
+    <code><!-- ... --></code>
+  </mdjs-preview>
+
+  <!-- after -->
+  <mdjs-preview>
+    #shadow-root (open)
+      <div id="wrapper">
+      <!-- more internal dom -->
+
+    <code><!-- ... --></code>
+    <div slot="story">
+      <p>my story</p>
+    </div>
+  </mdjs-preview>
+  ```
+
 ## 0.4.2
 
 ### Patch Changes
