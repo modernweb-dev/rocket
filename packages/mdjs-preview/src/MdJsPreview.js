@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, nothing, render } from 'lit';
 import '@lion/accordion/define';
 
 import {
@@ -11,7 +11,7 @@ import { addResizeHandler } from './resizeHandler.js';
 
 /**
  * @typedef {object} StoryOptions
- * @property {ShadowRoot | null} StoryOptions.shadowRoot
+ * @property {HTMLElement | null} StoryOptions.shadowRoot
  */
 
 /** @typedef {(options?: StoryOptions) => ReturnType<LitElement['render']>} LitHtmlStoryFn */
@@ -172,6 +172,11 @@ export class MdJsPreview extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
+    if (!this.lightDomRenderTarget) {
+      this.lightDomRenderTarget = document.createElement('div');
+      this.lightDomRenderTarget.setAttribute('slot', 'story');
+      this.appendChild(this.lightDomRenderTarget);
+    }
     if (this.sameSettings) {
       applySharedStates(this);
     }
@@ -224,6 +229,10 @@ export class MdJsPreview extends LitElement {
       } else {
         unSubscribe(this.onSubscribe);
       }
+    }
+
+    if (this.lightDomRenderTarget && changeProps.has('story')) {
+      render(this.story({ shadowRoot: this }), this.lightDomRenderTarget);
     }
   }
 
@@ -549,9 +558,9 @@ export class MdJsPreview extends LitElement {
   render() {
     return html`
       <div id="wrapper">
-        ${this.deviceMode === false
-          ? html`<div>${this.story({ shadowRoot: this.shadowRoot })}</div>`
-          : html`
+        <slot name="story"></slot>
+        ${this.deviceMode === true
+          ? html`
               <iframe
                 part="iframe"
                 csp=${`script-src ${document.location.origin} 'unsafe-inline'; connect-src ws://${document.location.host}/`}
@@ -561,7 +570,8 @@ export class MdJsPreview extends LitElement {
               <p part="frame-description" style=${`width: ${this.sizeData.width + 4}px;`}>
                 ${this.sizeData.name} - ${this.deviceHeight}x${this.sizeData.width}
               </p>
-            `}
+            `
+          : nothing}
       </div>
       <lion-accordion class="options">
         ${this.deviceMode
@@ -608,6 +618,10 @@ export class MdJsPreview extends LitElement {
       :host {
         display: block;
         padding-bottom: 10px;
+      }
+
+      :host([device-mode]) slot[name='story'] {
+        display: none;
       }
 
       iframe {

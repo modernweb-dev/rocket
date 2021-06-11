@@ -22,7 +22,6 @@
   "scripts": {
     "debug": "cd ../../ && npm run debug -- --group mdjs-story",
     "test": "npm run test:web",
-    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.js' -- npm run test:node",
     "test:web": "cd ../../ && npm run test:web -- --group mdjs-story"
   },
   "files": [

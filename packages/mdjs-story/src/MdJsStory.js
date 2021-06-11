@@ -2,7 +2,7 @@ import { LitElement, html } from 'lit';
 
 /**
  * @typedef {object} StoryOptions
- * @property {ShadowRoot | null} StoryOptions.shadowRoot
+ * @property {HTMLElement | null} StoryOptions.shadowRoot
  */
 
 /** @typedef {(options?: StoryOptions) => ReturnType<LitElement['render']>} LitHtmlStoryFn */
@@ -28,7 +28,11 @@ export class MdJsStory extends LitElement {
     this.story = () => html`<p>Loading...</p>`;
   }
 
+  createRenderRoot() {
+    return this;
+  }
+
   render() {
-    return this.story({ shadowRoot: this.shadowRoot });
+    return this.story({ shadowRoot: this });
   }
 }
