@@ -1,5 +1,11 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.5.0
+
+### Minor Changes
+
+- eae2007: Update to mdjs version that uses lit 2 and renders stories to light dom
+
 ## 0.4.1
 
 ### Patch Changes
