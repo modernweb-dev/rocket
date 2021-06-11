@@ -1,5 +1,16 @@
 # @rocket/cli
 
+## 0.9.0
+
+### Minor Changes
+
+- eae2007: Update to mdjs version that uses lit 2 and renders stories to light dom
+
+### Patch Changes
+
+- Updated dependencies [eae2007]
+  - @rocket/eleventy-plugin-mdjs-unified@0.5.0
+
 ## 0.8.2
 
 ### Patch Changes
