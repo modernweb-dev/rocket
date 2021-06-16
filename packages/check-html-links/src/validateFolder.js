@@ -212,6 +212,8 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
       value.startsWith('&#109;&#97;&#105;&#108;&#116;&#111;&#58;') // = "mailto:" but html encoded
     ) {
       // ignore for now - could add a check to validate if the email address is valid
+    } else if (value.startsWith('tel:')) {
+      // ignore for now - could add a check to validate if the phone number is valid
     } else if (valueFile === '' && anchor !== '') {
       addLocalFile(htmlFilePath, anchor, usageObj);
     } else if (value.startsWith('//') || value.startsWith('http')) {

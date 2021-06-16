@@ -183,6 +183,11 @@ describe('validateFolder', () => {
     expect(cleanup(errors)).to.deep.equal([]);
   });
 
+  it('ignores tel links', async () => {
+    const { errors, cleanup } = await execute('fixtures/tel');
+    expect(cleanup(errors)).to.deep.equal([]);
+  });
+
   it('ignoring a folder', async () => {
     const { errors, cleanup } = await execute('fixtures/internal-link-ignore', {
       ignoreLinkPatterns: ['./relative/*', './relative/**/*'],
