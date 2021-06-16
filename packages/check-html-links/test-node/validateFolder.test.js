@@ -188,6 +188,11 @@ describe('validateFolder', () => {
     expect(cleanup(errors)).to.deep.equal([]);
   });
 
+  it('ignore not http schema urls', async () => {
+    const { errors, cleanup } = await execute('fixtures/not-http-schema');
+    expect(cleanup(errors)).to.deep.equal([]);
+  });
+
   it('ignoring a folder', async () => {
     const { errors, cleanup } = await execute('fixtures/internal-link-ignore', {
       ignoreLinkPatterns: ['./relative/*', './relative/**/*'],

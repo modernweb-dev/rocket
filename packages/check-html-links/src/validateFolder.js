@@ -183,6 +183,18 @@ function getValueAndAnchor(inValue) {
 }
 
 /**
+ * @param {string} url
+ * @returns {boolean}
+ */
+function isNonHttpSchema(url) {
+  const found = url.match(/([a-z]+):/);
+  if (found) {
+    return found.length > 0;
+  }
+  return false;
+}
+
+/**
  *
  * @param {Link[]} links
  * @param {object} options
@@ -224,6 +236,8 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
       addLocalFile(filePath, anchor, usageObj);
     } else if (value === '' && anchor === '') {
       // no need to check it
+    } else if (isNonHttpSchema(value)) {
+      // not a schema we handle
     } else {
       const filePath = path.join(path.dirname(htmlFilePath), valueFile);
       addLocalFile(filePath, anchor, usageObj);
