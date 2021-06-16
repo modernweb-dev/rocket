@@ -207,7 +207,10 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
 
     if (ignoreUsage(value)) {
       // ignore
-    } else if (value.includes('mailto:')) {
+    } else if (
+      value.startsWith('mailto:') ||
+      value.startsWith('&#109;&#97;&#105;&#108;&#116;&#111;&#58;') // = "mailto:" but html encoded
+    ) {
       // ignore for now - could add a check to validate if the email address is valid
     } else if (valueFile === '' && anchor !== '') {
       addLocalFile(htmlFilePath, anchor, usageObj);
