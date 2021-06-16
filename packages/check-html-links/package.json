@@ -37,7 +37,8 @@
     "command-line-args": "^5.1.1",
     "glob": "^7.0.0",
     "minimatch": "^3.0.4",
-    "sax-wasm": "^2.0.0"
+    "sax-wasm": "^2.0.0",
+    "slash": "^3.0.0"
   },
   "devDependencies": {
     "@types/glob": "^7.0.0"
