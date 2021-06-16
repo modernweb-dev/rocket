@@ -1,0 +1,10 @@
+---
+'check-html-links': patch
+---
+
+Ignore links containing not http schema urls like `sketch://`, `vscode://`, ...
+
+```html
+<a href="sketch://add-library?url=https%3A%2F%2Fmyexample.com%2Fdesign%2Fui-kit.xml"></a>
+<a href="vscode://file/c:/myProject/package.json:5:10"></a>
+```
