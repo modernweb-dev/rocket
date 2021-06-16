@@ -1,5 +1,31 @@
 # check-html-links
 
+## 0.2.3
+
+### Patch Changes
+
+- 5043429: Ignore `<a href="tel:9999">` links
+- f08f926: Add missing `slash` dependency
+- a0e8edf: Ignore links containing not http schema urls like `sketch://`, `vscode://`, ...
+
+  ```html
+  <a href="sketch://add-library?url=https%3A%2F%2Fmyexample.com%2Fdesign%2Fui-kit.xml"></a>
+  <a href="vscode://file/c:/myProject/package.json:5:10"></a>
+  ```
+
+- 1949b1e: Ignore plain and html encoded mailto links
+
+  ```html
+  <!-- source -->
+  <a href="mailto:address@example.com">contact</a>
+
+  <!-- html encoded -->
+  <a
+    href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#97;&#100;&#100;&#114;&#101;&#115;&#115;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;"
+    >contact</a
+  >
+  ```
+
 ## 0.2.2
 
 ### Patch Changes
