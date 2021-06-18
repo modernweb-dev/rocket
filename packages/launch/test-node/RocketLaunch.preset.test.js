@@ -19,7 +19,7 @@ describe('RocketLaunch preset', () => {
     }
   });
 
-  it.only('sets layout-sidebar as default', async () => {
+  it('sets layout-sidebar as default', async () => {
     cli = await executeStart('fixtures/layout-sidebar/rocket.config.js');
 
     const indexHtml = await readStartOutput(cli, 'page/index.html', {
@@ -149,6 +149,30 @@ describe('RocketLaunch preset', () => {
         '            ></path>',
         '          </svg>',
         '        </a>',
+        '        <a',
+        '          class="social-link"',
+        '          href="https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw"',
+        '          aria-label="Rocket on Slack"',
+        '          rel="noopener noreferrer"',
+        '          target="_blank"',
+        '        >',
+        '          <span class="sr-only">Slack</span>',
+        '',
+        '          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 123 123" fill="currentColor">',
+        '            <title>Slack</title>',
+        '            <path',
+        '              stroke="none"',
+        '              stroke-width="1"',
+        '              stroke-dasharray="none"',
+        '              stroke-linecap="butt"',
+        '              stroke-dashoffset="0"',
+        '              stroke-linejoin="miter"',
+        '              stroke-miterlimit="4"',
+        '              fill-rule="nonzero"',
+        '              d="M26.4 78.2c0 7.1-5.8 12.9-12.9 12.9S.6 85.3.6 78.2c0-7.1 5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V78.2zm12.9-51.8c-7.1 0-12.9-5.8-12.9-12.9S38.7.6 45.8.6s12.9 5.8 12.9 12.9v12.9H45.8zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H13.5C6.4 58.7.6 52.9.6 45.8s5.8-12.9 12.9-12.9h32.3zM97.6 45.8c0-7.1 5.8-12.9 12.9-12.9 7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H97.6V45.8zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9V13.5C65.3 6.4 71.1.6 78.2.6c7.1 0 12.9 5.8 12.9 12.9v32.3zM78.2 97.6c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9V97.6h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9H78.2z"',
+        '            />',
+        '          </svg>',
+        '        </a>',
         '      </div>',
         '    </header>',
         '',
@@ -232,7 +256,7 @@ describe('RocketLaunch preset', () => {
     );
   });
 
-  it.only('offers a layout-home', async () => {
+  it('offers a layout-home', async () => {
     cli = await executeStart('fixtures/layout-home/rocket.config.js');
 
     const indexHtml = await readStartOutput(cli, 'index.html', {
@@ -360,6 +384,30 @@ describe('RocketLaunch preset', () => {
         '              d="M8.18391.249268C3.82241.249268.253906 3.81777.253906 8.17927c0 3.46933 2.279874 6.44313 5.451874 7.53353.3965.0991.49563-.1983.49563-.3965v-1.3878c-2.18075.4956-2.67638-.9912-2.67638-.9912-.3965-.8922-.89212-1.1895-.89212-1.1895-.69388-.4957.09912-.4957.09912-.4957.793.0992 1.1895.793 1.1895.793.69388 1.2887 1.88338.8922 2.27988.6939.09912-.4956.29737-.8921.49562-1.0904-1.78425-.1982-3.5685-.8921-3.5685-3.96496 0-.89212.29738-1.586.793-2.08162-.09912-.19825-.3965-.99125.09913-2.08163 0 0 .69387-.19825 2.18075.793.59475-.19825 1.28862-.29737 1.9825-.29737.69387 0 1.38775.09912 1.98249.29737 1.4869-.99125 2.1808-.793 2.1808-.793.3965 1.09038.1982 1.88338.0991 2.08163.4956.59475.793 1.28862.793 2.08162 0 3.07286-1.8834 3.66766-3.66764 3.86586.29737.3965.59474.8921.59474 1.586v2.1808c0 .1982.0991.4956.5948.3965 3.172-1.0904 5.4518-4.0642 5.4518-7.53353-.0991-4.3615-3.6676-7.930002-8.02909-7.930002z"',
         '              clip-rule="evenodd"',
         '            ></path>',
+        '          </svg>',
+        '        </a>',
+        '        <a',
+        '          class="social-link"',
+        '          href="https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw"',
+        '          aria-label="Rocket on Slack"',
+        '          rel="noopener noreferrer"',
+        '          target="_blank"',
+        '        >',
+        '          <span class="sr-only">Slack</span>',
+        '',
+        '          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 123 123" fill="currentColor">',
+        '            <title>Slack</title>',
+        '            <path',
+        '              stroke="none"',
+        '              stroke-width="1"',
+        '              stroke-dasharray="none"',
+        '              stroke-linecap="butt"',
+        '              stroke-dashoffset="0"',
+        '              stroke-linejoin="miter"',
+        '              stroke-miterlimit="4"',
+        '              fill-rule="nonzero"',
+        '              d="M26.4 78.2c0 7.1-5.8 12.9-12.9 12.9S.6 85.3.6 78.2c0-7.1 5.8-12.9 12.9-12.9h12.9v12.9zm6.5 0c0-7.1 5.8-12.9 12.9-12.9s12.9 5.8 12.9 12.9v32.3c0 7.1-5.8 12.9-12.9 12.9s-12.9-5.8-12.9-12.9V78.2zm12.9-51.8c-7.1 0-12.9-5.8-12.9-12.9S38.7.6 45.8.6s12.9 5.8 12.9 12.9v12.9H45.8zm0 6.5c7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H13.5C6.4 58.7.6 52.9.6 45.8s5.8-12.9 12.9-12.9h32.3zM97.6 45.8c0-7.1 5.8-12.9 12.9-12.9 7.1 0 12.9 5.8 12.9 12.9s-5.8 12.9-12.9 12.9H97.6V45.8zm-6.5 0c0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9V13.5C65.3 6.4 71.1.6 78.2.6c7.1 0 12.9 5.8 12.9 12.9v32.3zM78.2 97.6c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9-7.1 0-12.9-5.8-12.9-12.9V97.6h12.9zm0-6.5c-7.1 0-12.9-5.8-12.9-12.9 0-7.1 5.8-12.9 12.9-12.9h32.3c7.1 0 12.9 5.8 12.9 12.9 0 7.1-5.8 12.9-12.9 12.9H78.2z"',
+        '            />',
         '          </svg>',
         '        </a>',
         '      </div>',

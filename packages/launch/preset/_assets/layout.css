@@ -213,6 +213,14 @@ body[layout^='layout-home'] #main-header a:hover {
     margin-right: 50px;
   }
 
+  #main-header .content-area > .social-link {
+    margin-right: 15px;
+  }
+
+  #main-header .content-area > *:last-child {
+    margin-right: 0;
+  }
+
   #main-header .search {
     order: 1;
   }
