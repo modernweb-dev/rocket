@@ -19,6 +19,7 @@ export function setFixtureDir(importMetaUrl) {
  * @property {boolean} stripStartEndWhitespace
  * @property {boolean} stripScripts
  * @property {boolean} formatHtml
+ * @property {boolean} replaceImageHashes
  * @property {start|build} type
  */
 
@@ -51,6 +52,7 @@ export async function readOutput(
     stripScripts = false,
     formatHtml = false,
     type = 'build',
+    replaceImageHashes = false,
   } = {},
 ) {
   if (!cli || !cli.config) {
@@ -69,6 +71,9 @@ export async function readOutput(
     const scriptOpenTagEnd = text.indexOf('<script>');
     const scriptCloseTagStart = text.indexOf('</script>', scriptOpenTagEnd) + 9;
     text = text.substring(0, scriptOpenTagEnd) + text.substring(scriptCloseTagStart);
+  }
+  if (replaceImageHashes) {
+    text = text.replace(/\/images\/([a-z0-9]+)-/g, '/images/__HASH__-');
   }
   if (formatHtml) {
     text = prettier.format(text, { parser: 'html', printWidth: 100 });

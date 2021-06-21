@@ -102,17 +102,17 @@ describe('RocketCli e2e', () => {
     );
     const assetHtml = await readStartOutput(cli, 'use-assets/index.html');
     expect(assetHtml).to.equal('<link rel="stylesheet" href="/_merged_assets/some.css">');
-    const imageHtml = await readStartOutput(cli, 'image/index.html');
+    const imageHtml = await readStartOutput(cli, 'image/index.html', { replaceImageHashes: true });
     expect(imageHtml).to.equal(
       [
         '<p>',
         '      <figure>',
         '        <picture>',
-        '<source type="image/avif" srcset="/images/dd502010-600.avif 600w, /images/dd502010-900.avif 900w" sizes="100vw">',
-        '<source type="image/jpeg" srcset="/images/dd502010-600.jpeg 600w, /images/dd502010-900.jpeg 900w" sizes="100vw">',
+        '<source type="image/avif" srcset="/images/__HASH__-600.avif 600w, /images/__HASH__-900.avif 900w" sizes="100vw">',
+        '<source type="image/jpeg" srcset="/images/__HASH__-600.jpeg 600w, /images/__HASH__-900.jpeg 900w" sizes="100vw">',
         '          <img',
         '            alt="My Image Alternative Text" rocket-image="responsive"',
-        '            src="/images/dd502010-600.jpeg"',
+        '            src="/images/__HASH__-600.jpeg"',
         '            ',
         '            ',
         '            width="600"',
@@ -143,16 +143,17 @@ describe('RocketCli e2e', () => {
     expect(assetHtml).to.equal(
       '<html><head><link rel="stylesheet" href="../41297ffa.css">\n\n</head><body>\n\n</body></html>',
     );
-    const imageHtml = await readBuildOutput(cli, 'image/index.html');
+    let imageHtml = await readBuildOutput(cli, 'image/index.html');
+    imageHtml = imageHtml.replace(/\.\.\/([a-z0-9]+)\./g, '../__HASH__.');
     expect(imageHtml).to.equal(
       [
         '<html><head>',
         '</head><body><p>',
         '      </p><figure>',
         '        <picture>',
-        '<source type="image/avif" srcset="../e64e2277.avif 600w, ../37453c88.avif 900w" sizes="100vw">',
-        '<source type="image/jpeg" srcset="../d0f18b5a.jpeg 600w, ../81998598.jpeg 900w" sizes="100vw">',
-        '          <img alt="My Image Alternative Text" rocket-image="responsive" src="../d0f18b5a.jpeg" width="600" height="316" loading="lazy" decoding="async">',
+        '<source type="image/avif" srcset="../__HASH__.avif 600w, ../__HASH__.avif 900w" sizes="100vw">',
+        '<source type="image/jpeg" srcset="../__HASH__.jpeg 600w, ../__HASH__.jpeg 900w" sizes="100vw">',
+        '          <img alt="My Image Alternative Text" rocket-image="responsive" src="../__HASH__.jpeg" width="600" height="316" loading="lazy" decoding="async">',
         '        </picture>',
         '      <figcaption>My Image Description</figcaption>',
         '</figure>',
