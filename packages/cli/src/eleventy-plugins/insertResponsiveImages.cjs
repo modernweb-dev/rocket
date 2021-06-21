@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const EleventyImage = require('@11ty/eleventy-img');
+const urlFilter = require('@11ty/eleventy/src/Filters/Url.js');
 const { SaxEventType, SAXParser } = require('sax-wasm');
 const { getComputedConfig } = require('../public/computedConfig.cjs');
 
@@ -140,7 +141,7 @@ async function responsiveImages(images, { inputPath, outputDir, imagePresets = {
 
     const metadata = await EleventyImage(filePath, {
       outputDir: path.join(outputDir, 'images'),
-      urlPath: '/images/',
+      urlPath: urlFilter('/images/'),
       ...presetSettings,
     });
     const lowsrc = metadata.jpeg[0];
