@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.9.2
+
+### Patch Changes
+
+- 5330740: When replacing images with responsive picture tags do this from the bottom up so the initial dom parsing locations still hold true.
+
 ## 0.9.1
 
 ### Patch Changes
