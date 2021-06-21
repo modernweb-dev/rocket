@@ -102,6 +102,30 @@ describe('RocketCli e2e', () => {
     );
     const assetHtml = await readStartOutput(cli, 'use-assets/index.html');
     expect(assetHtml).to.equal('<link rel="stylesheet" href="/_merged_assets/some.css">');
+    const imageHtml = await readStartOutput(cli, 'image/index.html');
+    expect(imageHtml).to.equal(
+      [
+        '<p>',
+        '      <figure>',
+        '        <picture>',
+        '<source type="image/avif" srcset="/images/dd502010-600.avif 600w, /images/dd502010-900.avif 900w" sizes="100vw">',
+        '<source type="image/jpeg" srcset="/images/dd502010-600.jpeg 600w, /images/dd502010-900.jpeg 900w" sizes="100vw">',
+        '          <img',
+        '            alt="My Image Alternative Text" rocket-image="responsive"',
+        '            src="/images/dd502010-600.jpeg"',
+        '            ',
+        '            ',
+        '            width="600"',
+        '            height="316"',
+        '            loading="lazy"',
+        '            decoding="async"',
+        '          />',
+        '        </picture>',
+        '      <figcaption>My Image Description</figcaption>',
+        '</figure>',
+        '    </p>',
+      ].join('\n'),
+    );
   });
 
   it('can add a pathPrefix that will be used in the build command', async () => {
@@ -118,6 +142,25 @@ describe('RocketCli e2e', () => {
     const assetHtml = await readBuildOutput(cli, 'use-assets/index.html');
     expect(assetHtml).to.equal(
       '<html><head><link rel="stylesheet" href="../41297ffa.css">\n\n</head><body>\n\n</body></html>',
+    );
+    const imageHtml = await readBuildOutput(cli, 'image/index.html');
+    expect(imageHtml).to.equal(
+      [
+        '<html><head>',
+        '</head><body><p>',
+        '      </p><figure>',
+        '        <picture>',
+        '<source type="image/avif" srcset="../e64e2277.avif 600w, ../37453c88.avif 900w" sizes="100vw">',
+        '<source type="image/jpeg" srcset="../d0f18b5a.jpeg 600w, ../81998598.jpeg 900w" sizes="100vw">',
+        '          <img alt="My Image Alternative Text" rocket-image="responsive" src="../d0f18b5a.jpeg" width="600" height="316" loading="lazy" decoding="async">',
+        '        </picture>',
+        '      <figcaption>My Image Description</figcaption>',
+        '</figure>',
+        '    <p></p>',
+        '',
+        '',
+        '</body></html>',
+      ].join('\n'),
     );
   });
 

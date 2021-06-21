@@ -25,6 +25,7 @@ const config = {
     }),
   ],
   // serviceWorkerName: 'sw.js',
+  // pathPrefix: '/_site/',
 
   // emptyOutputDir: false,
 };
