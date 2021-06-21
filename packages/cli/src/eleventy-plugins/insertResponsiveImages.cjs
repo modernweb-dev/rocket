@@ -195,7 +195,7 @@ async function responsiveImages(images, { inputPath, outputDir, imagePresets = {
 
 function updateHtml(html, changes) {
   let newHtml = html;
-  for (const change of changes) {
+  for (const change of changes.reverse()) {
     newHtml = replaceBetween({
       html: newHtml,
       start: change.openStart,
