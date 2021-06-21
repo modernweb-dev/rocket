@@ -108,15 +108,18 @@ describe('RocketCli preset', () => {
   it('a preset can provide an adjustImagePresets() function', async () => {
     cli = await executeStart('preset-fixtures/use-preset/rocket.config.js');
 
-    const indexHtml = await readStartOutput(cli, 'index.html', { formatHtml: true });
+    const indexHtml = await readStartOutput(cli, 'index.html', {
+      formatHtml: true,
+      replaceImageHashes: true,
+    });
     expect(indexHtml).to.equal(
       [
         '<p>',
         '  <img',
         '    alt="My Image Alternative Text"',
         '    rocket-image="responsive"',
-        '    src="/images/1f847765-30.jpeg"',
-        '    srcset="/images/1f847765-30.jpeg 30w, /images/1f847765-60.jpeg 60w"',
+        '    src="/images/__HASH__-30.jpeg"',
+        '    srcset="/images/__HASH__-30.jpeg 30w, /images/__HASH__-60.jpeg 60w"',
         '    sizes="30px"',
         '    width="30"',
         '    height="15"',
