@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.9.1
+
+### Patch Changes
+
+- 43a7ca1: Responsive images need to respect a set pathPrefix
+
 ## 0.9.0
 
 ### Minor Changes
