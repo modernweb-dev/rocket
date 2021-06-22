@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { html, LitElement, css } from 'lit-element';
+import { html, LitElement, css, repeat } from '@lion/core';
 import MiniSearch from 'minisearch';
-import { repeat } from 'lit-html/directives/repeat.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { RocketSearchCombobox } from './RocketSearchCombobox.js';
 import { RocketSearchOption } from './RocketSearchOption.js';
@@ -94,7 +93,7 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
   }
 
   get combobox() {
-    return this.shadowRoot?.children[0];
+    return this.shadowRoot.querySelector('rocket-search-combobox');
   }
 
   /** @param {import('lit-element').PropertyValues } changedProperties */
