@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.9.3
+
+### Patch Changes
+
+- 795a361: The server worker url should respect a set pathPrefix.
+
 ## 0.9.2
 
 ### Patch Changes
