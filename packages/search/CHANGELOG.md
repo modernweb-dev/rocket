@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.4.0
+
+### Minor Changes
+
+- 6cabdba: BREAKING: upgraded search to lit version 2
+
 ## 0.3.5
 
 ### Patch Changes
