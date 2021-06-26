@@ -18,7 +18,8 @@ export class CheckHtmlLinksCli {
     const mainDefinitions = [
       { name: 'ignore-link-pattern', type: String, multiple: true },
       { name: 'root-dir', type: String, defaultOption: true },
-      { name: 'continue-on-error', type: Boolean, defaultOption: false },
+      { name: 'continue-on-error', type: Boolean },
+      { name: 'validate-externals', type: Boolean },
     ];
     const options = commandLineArgs(mainDefinitions, {
       stopAtFirstUnknown: true,
@@ -29,6 +30,7 @@ export class CheckHtmlLinksCli {
       continueOnError: options['continue-on-error'],
       rootDir: options['root-dir'],
       ignoreLinkPatterns: options['ignore-link-pattern'],
+      validateExternals: options['validate-externals'],
     };
   }
 
@@ -43,7 +45,7 @@ export class CheckHtmlLinksCli {
   }
 
   async run() {
-    const { ignoreLinkPatterns, rootDir: userRootDir } = this.options;
+    const { ignoreLinkPatterns, rootDir: userRootDir, validateExternals } = this.options;
     const rootDir = userRootDir ? path.resolve(userRootDir) : process.cwd();
     const performanceStart = process.hrtime();
 
@@ -56,7 +58,10 @@ export class CheckHtmlLinksCli {
         : `🔥 Found a total of ${chalk.green.bold(files.length)} files to check!`;
     console.log(filesOutput);
 
-    const { errors, numberLinks } = await validateFiles(files, rootDir, { ignoreLinkPatterns });
+    const { errors, numberLinks } = await validateFiles(files, rootDir, {
+      ignoreLinkPatterns,
+      validateExternals,
+    });
 
     console.log(`🔗 Found a total of ${chalk.green.bold(numberLinks)} links to validate!\n`);
 

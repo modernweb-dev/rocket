@@ -14,7 +14,7 @@ npm i -D check-html-links
 npx check-html-links _site
 ```
 
-For docs please see our homepage [https://rocket.modern-web.dev/docs/tools/check-html-links/](https://rocket.modern-web.dev/docs/tools/check-html-links/).
+For docs please see our homepage [https://rocket.modern-web.dev/tools/check-html-links/overview/](https://rocket.modern-web.dev/tools/check-html-links/overview/).
 
 ## Comparison
 

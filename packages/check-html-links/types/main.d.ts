@@ -26,13 +26,13 @@ export interface Error {
   usage: Usage[];
 }
 
-interface Options {
+export interface Options {
   ignoreLinkPatterns: string[] | null;
+  validateExternals: boolean;
 }
 
-export interface CheckHtmlLinksCliOptions {
+export interface CheckHtmlLinksCliOptions extends Options {
   printOnError: boolean;
   rootDir: string;
-  ignoreLinkPatterns: string[] | null;
   continueOnError: boolean;
 }

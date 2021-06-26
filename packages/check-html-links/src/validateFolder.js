@@ -3,10 +3,10 @@ import fs from 'fs';
 import saxWasm from 'sax-wasm';
 import minimatch from 'minimatch';
 import { createRequire } from 'module';
-
-import { listFiles } from './listFiles.js';
 import path from 'path';
 import slash from 'slash';
+import { listFiles } from './listFiles.js';
+import { checkLinks } from './checkLinks.js';
 
 /** @typedef {import('../types/main').Link} Link */
 /** @typedef {import('../types/main').LocalFile} LocalFile */
@@ -27,6 +27,9 @@ const parserIds = new SAXParser(SaxEventType.Attribute, streamOptions);
 
 /** @type {Error[]} */
 let checkLocalFiles = [];
+
+/** @type {Error[]} */
+let checkExternalLinks = [];
 
 /** @type {Error[]} */
 let errors = [];
@@ -152,6 +155,26 @@ function addLocalFile(filePath, anchor, usageObj) {
 }
 
 /**
+ * @param {string} filePath
+ * @param {Usage} usageObj
+ */
+function addExternalLink(filePath, usageObj) {
+  const foundIndex = checkExternalLinks.findIndex(item => {
+    return item.filePath === filePath;
+  });
+
+  if (foundIndex === -1) {
+    checkExternalLinks.push({
+      filePath,
+      onlyAnchorMissing: false,
+      usage: [usageObj],
+    });
+  } else {
+    checkExternalLinks[foundIndex].usage.push(usageObj);
+  }
+}
+
+/**
  * @param {string} inValue
  */
 function getValueAndAnchor(inValue) {
@@ -231,6 +254,7 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
     } else if (value.startsWith('//') || value.startsWith('http')) {
       // TODO: handle external urls
       // external url - we do not handle that (yet)
+      addExternalLink(htmlFilePath, usageObj);
     } else if (value.startsWith('/')) {
       const filePath = path.join(rootDir, valueFile);
       addLocalFile(filePath, anchor, usageObj);
@@ -244,7 +268,7 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
     }
   }
 
-  return { checkLocalFiles: [...checkLocalFiles] };
+  return { checkLocalFiles: [...checkLocalFiles], checkExternalLinks: [...checkExternalLinks] };
 }
 
 /**
@@ -284,6 +308,22 @@ async function validateLocalFiles(checkLocalFiles) {
 }
 
 /**
+ *
+ * @param {Error[]} checkExternalLinks
+ */
+async function validateExternalLinks(checkExternalLinks) {
+  for await (const localFileObj of checkExternalLinks) {
+    const links = localFileObj.usage.map(usage => usage.value);
+    const results = await checkLinks(links);
+    localFileObj.usage = localFileObj.usage.filter((link, index) => !results[index]);
+    if (localFileObj.usage.length > 0) {
+      errors.push(localFileObj);
+    }
+  }
+  return errors;
+}
+
+/**
  * @param {string[]} files
  * @param {string} rootDir
  * @param {Options} opts?
@@ -294,6 +334,7 @@ export async function validateFiles(files, rootDir, opts) {
 
   errors = [];
   checkLocalFiles = [];
+  checkExternalLinks = [];
   idCache = new Map();
   let numberLinks = 0;
 
@@ -312,6 +353,9 @@ export async function validateFiles(files, rootDir, opts) {
     await resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage });
   }
   await validateLocalFiles(checkLocalFiles);
+  if (opts?.validateExternals) {
+    await validateExternalLinks(checkExternalLinks);
+  }
 
   return { errors: errors, numberLinks: numberLinks };
 }

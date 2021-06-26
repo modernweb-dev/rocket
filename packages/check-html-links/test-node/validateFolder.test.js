@@ -66,6 +66,44 @@ describe('validateFolder', () => {
     ]);
   });
 
+  it('validates external links', async () => {
+    const { errors, cleanup } = await execute('fixtures/external-link', {
+      validateExternals: true,
+    });
+    expect(cleanup(errors)).to.deep.equal([
+      {
+        filePath: 'fixtures/external-link/index.html',
+        onlyAnchorMissing: false,
+        usage: [
+          {
+            attribute: 'href',
+            value: '//rocket.modern-web.dev/unexists-page/',
+            file: 'fixtures/external-link/index.html',
+            line: 6,
+            character: 9,
+            anchor: '',
+          },
+          {
+            attribute: 'href',
+            value: 'http://rocket.modern-web.dev/unexists-page/',
+            file: 'fixtures/external-link/index.html',
+            line: 7,
+            character: 9,
+            anchor: '',
+          },
+          {
+            attribute: 'href',
+            value: 'https://rocket.modern-web.dev/unexists-page/',
+            file: 'fixtures/external-link/index.html',
+            line: 8,
+            character: 9,
+            anchor: '',
+          },
+        ],
+      },
+    ]);
+  });
+
   it('groups multiple usage of the same missing file', async () => {
     const { errors, cleanup } = await execute('fixtures/internal-links-to-same-file');
     expect(cleanup(errors)).to.deep.equal([
