@@ -84,6 +84,16 @@ function getAttributes(data) {
 // }
 
 /**
+ *
+ * @param src {string} image src attribute value.
+ * @returns {boolean} true if src starts with https://, http:// or //
+ */
+
+function isExternalSrc(src) {
+  return /^(?:https?:)?\/\//.test(src);
+}
+
+/**
  * @param {string} html
  */
 function getImages(html) {
@@ -100,7 +110,7 @@ function getImages(html) {
         const src = getAttribute(data, 'src');
         const title = getAttribute(data, 'title');
         const alt = getAttribute(data, 'alt');
-        if (presetName) {
+        if (presetName && !isExternalSrc(src)) {
           images.push({
             presetName,
             attributes,
