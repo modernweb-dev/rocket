@@ -37,11 +37,13 @@
     "command-line-args": "^5.1.1",
     "glob": "^7.0.0",
     "minimatch": "^3.0.4",
+    "node-fetch": "^2.6.1",
     "sax-wasm": "^2.0.0",
     "slash": "^3.0.0"
   },
   "devDependencies": {
-    "@types/glob": "^7.0.0"
+    "@types/glob": "^7.0.0",
+    "@types/node-fetch": "^2.5.10"
   },
   "types": "dist-types/index.d.ts"
 }
