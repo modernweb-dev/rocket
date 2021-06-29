@@ -1,4 +1,5 @@
 import { DevServerConfig } from '@web/dev-server';
+import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
 
 export interface RocketPreset {
   path: string;
@@ -38,6 +39,8 @@ export interface RocketCliOptions {
   imagePresets: {
     [key: string]: ImagePreset;
   };
+
+  checkLinks: Partial<CheckHtmlLinksCliOptions>;
 
   start?: RocketStartConfig;
 
