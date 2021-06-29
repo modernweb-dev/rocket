@@ -50,6 +50,7 @@ export class RocketLint {
 
     const checkLinks = new CheckHtmlLinksCli();
     checkLinks.setOptions({
+      ...this.config.checkLinks,
       rootDir: this.config.lintInputDir,
       printOnError: false,
       continueOnError: true,
