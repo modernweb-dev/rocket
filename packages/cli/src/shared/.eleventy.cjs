@@ -30,10 +30,7 @@ module.exports = function (eleventyConfig) {
     {
       name: 'rocket-copy',
       plugin: rocketCopy,
-      options: {
-        _inputDirCwdRelative,
-        filesExtensionsToCopy: 'png,gif,jpg,jpeg,svg,css,xml,json,js',
-      },
+      options: { _inputDirCwdRelative },
     },
     {
       name: 'eleventy-plugin-mdjs-unified',

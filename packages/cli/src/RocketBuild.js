@@ -29,7 +29,7 @@ async function productionBuild(config) {
       name: 'copy',
       plugin: copy,
       options: {
-        patterns: ['!(*.md|*.html)*', '_merged_assets/_static/**/*.{png,gif,jpg,json,css,svg,ico}'],
+        patterns: ['!(*.md|*.html)*', '_merged_assets/_static/**/*'],
         rootDir: config.outputDevDir,
       },
     }),
