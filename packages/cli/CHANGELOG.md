@@ -1,5 +1,35 @@
 # @rocket/cli
 
+## 0.9.4
+
+### Patch Changes
+
+- 2b5c61d: Allow configuring the imagePreset ignore rules via the option `ignore`
+
+  ```js
+  export default {
+    imagePresets: {
+      responsive: {
+        // ...
+        ignore: ({ src }) =>
+          src.endsWith('.jpeg') || src.endsWith('svg') || src.includes('rocket-unresponsive.'),
+      },
+    },
+  };
+  ```
+
+- 2b5c61d: Do not generate responsive images for files ending in `.svg` or that include `rocket-ignore.`
+- ce0b00e: don't transform external images
+- 3b1a0cf: Allow to configure check-html-links
+
+  ```js
+  export default {
+    checkLinks: {
+      /* ... */
+    },
+  };
+  ```
+
 ## 0.9.3
 
 ### Patch Changes
