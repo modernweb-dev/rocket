@@ -29,6 +29,7 @@ describe('normalizeConfig', () => {
     expect(config.outputDevDir).to.match(/_site-dev$/);
 
     expect(cleanup(config)).to.deep.equal({
+      __before11tyFunctions: [],
       command: 'help',
       createSocialMediaImages: true,
       devServer: {},
@@ -70,6 +71,7 @@ describe('normalizeConfig', () => {
     });
 
     expect(cleanup(config)).to.deep.equal({
+      __before11tyFunctions: [],
       command: 'help',
       createSocialMediaImages: true,
       devServer: {
@@ -110,6 +112,7 @@ describe('normalizeConfig', () => {
     });
 
     expect(cleanup(config)).to.deep.equal({
+      __before11tyFunctions: [],
       command: 'help',
       createSocialMediaImages: true,
       devServer: {
@@ -155,6 +158,7 @@ describe('normalizeConfig', () => {
     });
 
     expect(cleanup(config)).to.deep.equal({
+      __before11tyFunctions: [],
       command: 'help',
       createSocialMediaImages: true,
       devServer: {},
