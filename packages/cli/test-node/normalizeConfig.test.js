@@ -13,6 +13,7 @@ function cleanup(config) {
   delete configNoPaths._presetPathes;
   delete configNoPaths.eleventy;
   delete configNoPaths.outputDevDir;
+  delete configNoPaths.imagePresets.responsive.ignore;
   return configNoPaths;
 }
 

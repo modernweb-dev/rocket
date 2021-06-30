@@ -96,7 +96,7 @@ function isExternalSrc(src) {
 /**
  * @param {string} html
  */
-function getImages(html) {
+function getImages(html, { imagePresets }) {
   /** @type {Heading[]} */
   const images = [];
   parser.eventHandler = (ev, _data) => {
@@ -110,16 +110,26 @@ function getImages(html) {
         const src = getAttribute(data, 'src');
         const title = getAttribute(data, 'title');
         const alt = getAttribute(data, 'alt');
-        if (presetName && !isExternalSrc(src)) {
-          images.push({
-            presetName,
-            attributes,
-            src,
-            title,
-            alt,
-            openStart,
-            closeEnd,
-          });
+
+        if (presetName) {
+          const presetSettings = imagePresets[presetName];
+          if (!presetSettings) {
+            throw new Error(`Could not find imagePresets: { ${presetName}: {} }`);
+          }
+          const { ignore } = presetSettings;
+          const ignoreFn = typeof ignore === 'function' ? ignore : () => false;
+
+          if (!isExternalSrc(src) && !ignoreFn({ src, title, alt, attributes })) {
+            images.push({
+              presetName,
+              attributes,
+              src,
+              title,
+              alt,
+              openStart,
+              closeEnd,
+            });
+          }
         }
       }
     }
@@ -242,7 +252,7 @@ async function insertResponsiveImages(html) {
     imagePresets: config.imagePresets,
   };
 
-  let images = getImages(html);
+  let images = getImages(html, options);
   images = resolveFilePath(images, options);
   images = await responsiveImages(images, options);
   const newHtml = updateHtml(html, images);

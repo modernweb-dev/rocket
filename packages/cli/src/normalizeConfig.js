@@ -20,6 +20,22 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
+ * The default responsive ignore function will ignore files
+ * - ending in `.svg`
+ * - containing `rocket-unresponsive.`
+ *
+ * @param {object} opts
+ * @param {string} opts.src
+ * @param {string} opts.title
+ * @param {string} opts.alt
+ * @param {{name: string, value: string}[]} opts.attributes
+ * @returns {boolean}
+ */
+function ignore({ src }) {
+  return src.endsWith('svg') || src.includes('rocket-unresponsive.');
+}
+
+/**
  * @param {Partial<RocketCliOptions>} inConfig
  * @returns {Promise<RocketCliOptions>}
  */
@@ -50,6 +66,7 @@ export async function normalizeConfig(inConfig) {
         widths: [600, 900, 1640],
         formats: ['avif', 'jpeg'],
         sizes: '100vw',
+        ignore,
       },
     },
   };

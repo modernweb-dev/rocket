@@ -100,6 +100,82 @@ export default {
 };
 ```
 
+## Ignoring Images
+
+Files ending in `.svg` or that include `rocket-ignore.` will remain untouched.
+
+For example
+
+```md
+![Logo stays svg](logo.svg)
+![Ignore by file name](my-image.rocket-unresponsive.jpg)
+![My Image Alternative Text](my-image.jpeg)
+```
+
+becomes
+
+```html
+<img src="logo.svg" alt="Logo stays svg" rocket-image="responsive" />
+<img src="my-image.rocket-unresponsive.jpg" alt="Ignore by file name" rocket-image="responsive" />
+<picture>[...] </picture>
+```
+
+### Adjusting ignore function
+
+The default ignore function looks like this
+
+```js
+/**
+ * The default responsive ignore function will ignore files
+ * - ending in `.svg`
+ * - containing `rocket-unresponsive.`
+ *
+ * @param {object} opts
+ * @param {string} opts.src
+ * @param {string} opts.title
+ * @param {string} opts.alt
+ * @param {{name: string, value: string}[]} opts.attributes
+ * @returns {boolean}
+ */
+function ignore({ src }) {
+  return src.endsWith('svg') || src.includes('rocket-unresponsive.');
+}
+```
+
+and you can adjust it by setting it via the `imagePreset`.
+
+For this example we want to also ignore `.jpeg` files.
+
+👉 `rocket.config.js`
+
+```js
+export default {
+  imagePresets: {
+    responsive: {
+      // ...
+      ignore: ({ src }) =>
+        src.endsWith('.jpeg') || src.endsWith('svg') || src.includes('rocket-unresponsive.'),
+    },
+  },
+};
+```
+
+With that setting we get the following behavior
+
+```md
+![Logo stays svg](logo.svg)
+![Ignore by file name](my-image.rocket-unresponsive.jpg)
+![My Image Alternative Text](my-image.jpeg)
+```
+
+becomes
+
+```html
+<img src="logo.svg" alt="Logo stays svg" rocket-image="responsive" />
+<img src="my-image.rocket-unresponsive.jpg" alt="Ignore by file name" rocket-image="responsive" />
+<img src="my-image.jpeg" alt="My Image Alternative Text" rocket-image="responsive" />
+```
+
 ## Defining your own presets
 
 You can add your own image preset like so
