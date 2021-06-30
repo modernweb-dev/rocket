@@ -1,4 +1,4 @@
-# Configuration >> Overview ||10
+# Configuration >> Overview || 10
 
 The configuration file is `rocket.config.js` or `rocket.config.mjs`.
 
@@ -85,4 +85,16 @@ const config = {
 };
 
 export default config;
+```
+
+## Lifecycle
+
+You can hook into the rocket lifecycle by specifying a function for `before11ty`. This function runs before 11ty calls it's write method. If it is an async function, Rocket will await it's promise.
+
+```js
+export default {
+  async before11ty() {
+    await copyDataFiles();
+  },
+};
 ```
