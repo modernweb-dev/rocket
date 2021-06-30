@@ -1,5 +1,12 @@
 # @rocket/launch
 
+## 0.5.1
+
+### Patch Changes
+
+- cf44221: Adds a Slack invite to social links
+- f5d349e: add used fonts from google fonts
+
 ## 0.5.0
 
 ### Minor Changes
