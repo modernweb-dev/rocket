@@ -10,7 +10,7 @@ function cleanup(config) {
   const configNoPaths = { ...config };
   delete configNoPaths._inputDirCwdRelative;
   delete configNoPaths.configFile;
-  delete configNoPaths._presetPathes;
+  delete configNoPaths._presetPaths;
   delete configNoPaths.eleventy;
   delete configNoPaths.outputDevDir;
   delete configNoPaths.imagePresets.responsive.ignore;
@@ -24,8 +24,8 @@ describe('normalizeConfig', () => {
 
     // testing pathes is always a little more complicted 😅
     expect(config._inputDirCwdRelative).to.match(/empty\/docs$/);
-    expect(config._presetPathes[0]).to.match(/cli\/preset$/);
-    expect(config._presetPathes[1]).to.match(/empty\/docs$/);
+    expect(config._presetPaths[0]).to.match(/cli\/preset$/);
+    expect(config._presetPaths[1]).to.match(/empty\/docs$/);
     expect(config.outputDevDir).to.match(/_site-dev$/);
 
     expect(cleanup(config)).to.deep.equal({

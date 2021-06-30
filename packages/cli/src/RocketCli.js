@@ -31,6 +31,7 @@ export class RocketEleventy extends Eleventy {
 
   async write() {
     await this.__rocketCli.mergePresets();
+    for (const fn of this.__rocketCli.config.__before11tyFunctions) await fn();
     await super.write();
     await this.__rocketCli.update();
   }
@@ -120,7 +121,7 @@ export class RocketCli {
     for (const folder of ['_assets', '_data', '_includes']) {
       const to = path.join(this.config._inputDirCwdRelative, `_merged${folder}`);
       await fs.emptyDir(to);
-      for (const sourceDir of this.config._presetPathes) {
+      for (const sourceDir of this.config._presetPaths) {
         const from = path.join(sourceDir, folder);
         if (fs.existsSync(from)) {
           if (folder === '_includes') {
