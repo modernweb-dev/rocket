@@ -19,7 +19,7 @@ describe('RocketLaunch preset', () => {
     }
   });
 
-  it('sets layout-sidebar as default', async () => {
+  it.only('sets layout-sidebar as default', async () => {
     cli = await executeStart('fixtures/layout-sidebar/rocket.config.js');
 
     const indexHtml = await readStartOutput(cli, 'page/index.html', {
@@ -82,6 +82,17 @@ describe('RocketLaunch preset', () => {
         '    <meta property="og:url" content="/page/" />',
         '',
         '    <meta name="twitter:card" content="summary_large_image" />',
+        '',
+        '    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />',
+        '',
+        '    <link',
+        '      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;display=optional"',
+        '      rel="stylesheet"',
+        '    />',
+        '    <link',
+        '      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=optional"',
+        '      rel="stylesheet"',
+        '    />',
         '',
         '    <link rel="stylesheet" href="/_merged_assets/variables.css" />',
         '    <link rel="stylesheet" href="/_merged_assets/layout.css" />',
@@ -221,7 +232,7 @@ describe('RocketLaunch preset', () => {
     );
   });
 
-  it('offers a layout-home', async () => {
+  it.only('offers a layout-home', async () => {
     cli = await executeStart('fixtures/layout-home/rocket.config.js');
 
     const indexHtml = await readStartOutput(cli, 'index.html', {
@@ -284,6 +295,17 @@ describe('RocketLaunch preset', () => {
         '    <meta property="og:url" content="/" />',
         '',
         '    <meta name="twitter:card" content="summary_large_image" />',
+        '',
+        '    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />',
+        '',
+        '    <link',
+        '      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;display=optional"',
+        '      rel="stylesheet"',
+        '    />',
+        '    <link',
+        '      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=optional"',
+        '      rel="stylesheet"',
+        '    />',
         '',
         '    <link rel="stylesheet" href="/_merged_assets/variables.css" />',
         '    <link rel="stylesheet" href="/_merged_assets/layout.css" />',
