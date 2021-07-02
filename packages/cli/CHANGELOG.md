@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.9.5
+
+### Patch Changes
+
+- 1b9559f: Adds `before11ty` hook to config and presets
+
 ## 0.9.4
 
 ### Patch Changes
