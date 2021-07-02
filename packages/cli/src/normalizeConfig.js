@@ -5,6 +5,7 @@
 /** @typedef {import('@web/dev-server').DevServerConfig} DevServerConfig */
 
 /** @typedef {import('../types/main').RocketCliOptions} RocketCliOptions */
+/** @typedef {import('../types/main').ImagePreset} ImagePreset */
 /** @typedef {import('../types/main').RocketPlugin} RocketPlugin */
 
 import path from 'path';
@@ -37,7 +38,7 @@ function ignore({ src }) {
 
 /**
  * @param {Partial<RocketCliOptions>} inConfig
- * @returns {Promise<RocketCliOptions>}
+ * @returns {Promise<RocketCliOptions & { __before11tyFunctions: RocketCliOptions['before11ty'][] }>}
  */
 export async function normalizeConfig(inConfig) {
   let config = {
@@ -61,6 +62,11 @@ export async function normalizeConfig(inConfig) {
     devServer: {},
 
     ...inConfig,
+
+    /** @type{RocketCliOptions['before11ty'][]} */
+    __before11tyFunctions: [],
+
+    /** @type{{[key: string]: ImagePreset}} */
     imagePresets: {
       responsive: {
         widths: [600, 900, 1640],
@@ -121,9 +127,9 @@ export async function normalizeConfig(inConfig) {
   const _inputDirCwdRelative = path.join(_configDirCwdRelative, config.inputDir);
 
   // cli core preset is always first
-  config._presetPathes = [path.join(__dirname, '..', 'preset')];
+  config._presetPaths = [path.join(__dirname, '..', 'preset')];
   for (const preset of config.presets) {
-    config._presetPathes.push(preset.path);
+    config._presetPaths.push(preset.path);
 
     if (preset.adjustImagePresets) {
       config.imagePresets = preset.adjustImagePresets(config.imagePresets);
@@ -159,9 +165,13 @@ export async function normalizeConfig(inConfig) {
     if (preset.setupCliPlugins) {
       config.setupCliPlugins = [...config.setupCliPlugins, ...preset.setupCliPlugins];
     }
+
+    if (typeof preset.before11ty === 'function') {
+      config.__before11tyFunctions.push(preset.before11ty);
+    }
   }
   // add "local" preset
-  config._presetPathes.push(path.resolve(_inputDirCwdRelative));
+  config._presetPaths.push(path.resolve(_inputDirCwdRelative));
 
   /** @type {MetaPlugin[]} */
   let pluginsMeta = [
@@ -184,6 +194,10 @@ export async function normalizeConfig(inConfig) {
       ? new pluginObj.plugin(pluginObj.options)
       : new pluginObj.plugin();
     plugins.push(pluginInst);
+  }
+
+  if (typeof config.before11ty === 'function') {
+    config.__before11tyFunctions.push(config.before11ty);
   }
 
   // TODO: check pathPrefix to NOT have a '/' at the end as it will mean it may get ignored by 11ty 🤷‍♂️
