@@ -189,7 +189,7 @@
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  font-family: var(--heading-font-family, --primary-font-family);
+  font-family: var(--heading-font-family, var(--primary-font-family));
   margin-bottom: 0;
   margin-top: 0;
 }
@@ -267,7 +267,7 @@
 
 .markdown-body code,
 .markdown-body pre {
-  font-family: var(--code-font-family);
+  font-family: var(--monospace-font-family);
   font-size: 12px;
 }
 
