@@ -37,6 +37,14 @@ If you look into `docs/_merged_includes/_joiningBlocks/bottom/` you will see a f
 - `190-google-analytics.njk`
 - `my-script.njk`
 
+<inline-notification type="tip">
+
+File names without an order/number in front are considered with the order number `10 000` so the generally end up at the bottom. If you need something even below unordered items you can use numbers that are greater then `10 000`.
+
+_Note: For unordered files there is no guarantee of any order._
+
+</inline-notification>
+
 ## Controlling the order
 
 In the html `<head>` order is usually not that important but when adding script it does.
@@ -57,3 +65,7 @@ which brings the order to
 ## More information
 
 For more details please see the [Joining Blocks Docs](../../docs/presets/joining-blocks.md)
+
+```js script
+import '@rocket/launch/inline-notification/inline-notification.js';
+```
