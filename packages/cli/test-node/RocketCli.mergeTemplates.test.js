@@ -24,12 +24,18 @@ describe('RocketCli mergeTemplates', () => {
     }
   });
 
-  it('merges it in the defined order', async () => {
+  it.only('merges it in the defined order', async () => {
     cli = await executeStart('merge-templates-fixtures/order/rocket.config.js');
 
     const indexHtml = await readStartOutput(cli, 'index.html');
     expect(trimWhiteSpace(indexHtml)).to.equal(
-      ['<p>first</p>', '<p>second</p>', '<p>30-third</p>', '<p>100-last</p>'].join('\n'),
+      [
+        '<p>30-first</p>',
+        '<p>100-second</p>',
+        '<p>bar-third</p>',
+        '<p>foo-fourth</p>',
+        '<p>10100-last</p>',
+      ].join('\n'),
     );
   });
 

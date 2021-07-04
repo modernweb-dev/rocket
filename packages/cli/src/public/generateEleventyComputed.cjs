@@ -106,7 +106,7 @@ function socialMediaImagePlugin(args = {}) {
   };
 }
 
-function sortyByOrder(a, b) {
+function sortByOrder(a, b) {
   if (a.order > b.order) {
     return 1;
   }
@@ -127,20 +127,20 @@ async function dirToTree(sourcePath, extra = '') {
     if (entry.isDirectory()) {
       const value = await dirToTree(sourcePath, relativePath);
       unsortedEntries.push({
-        order: matches && matches.length > 0 ? parseInt(matches[1]) : 0,
+        order: matches && matches.length > 0 ? parseInt(matches[1]) : 10000,
         name: entry.name,
         value,
       });
     } else {
       unsortedEntries.push({
-        order: matches && matches.length > 0 ? parseInt(matches[1]) : 0,
+        order: matches && matches.length > 0 ? parseInt(matches[1]) : 10000,
         name: entry.name,
         value: relativePath,
       });
     }
   }
   const sortedTree = {};
-  for (const unsortedEntry of unsortedEntries.sort(sortyByOrder)) {
+  for (const unsortedEntry of unsortedEntries.sort(sortByOrder)) {
     sortedTree[unsortedEntry.name] = unsortedEntry.value;
   }
   return sortedTree;
