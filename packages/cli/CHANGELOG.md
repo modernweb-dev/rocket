@@ -1,5 +1,17 @@
 # @rocket/cli
 
+## 0.9.6
+
+### Patch Changes
+
+- bf99541: Adjust copy logic to
+
+  1. for `_assets/_static` copy over everything
+  2. for all other paths copy over everything except `*.html` and `*.md`
+
+- 579e8e7: Unordered joiningBlocks are now considered with the order number `10 000` and will generally be at the bottom.
+  You can use numbers `> 10 000` to place files even after unordered joiningBlocks.
+
 ## 0.9.5
 
 ### Patch Changes
