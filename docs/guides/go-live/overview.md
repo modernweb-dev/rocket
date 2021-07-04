@@ -9,7 +9,7 @@ Many servers are configured to handle this automatically and to serve a 404.html
 
 The [Rocket Launch preset](../../docs/presets/launch.md) ships a default 404 template you can use.
 
-To enable it, you need to create a 404.md and use the 404 layout.
+To enable it, you need to create a `404.md` and use the 404 layout.
 
 👉 `docs/404.md`
 
@@ -19,6 +19,10 @@ layout: layout-404
 permalink: 404.html
 ---
 ```
+
+This results in a `404.html` page, which will do nothing by itself. But many hosting services like netlify or firebase, for example will redirect 404s to this `404.html` by default.
+
+If the hosting provider doesn't already do this, then you may be able to accomplish it via some settings for example by using a `.htaccess` file in case of an apache server.
 
 ## Add a Sitemap
 
