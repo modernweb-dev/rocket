@@ -7,7 +7,7 @@
 
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--primary-font-family);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
@@ -434,11 +434,13 @@ li.current > ul > li.anchor {
 
 /* for blog detail page */
 rocket-navigation h3 {
+  font-family: var(--heading-font-family, --primary-font-family);
   font-size: 16px;
   margin: 0 0 7px 0;
 }
 
 .sidebar-tags h3 {
+  font-family: var(--heading-font-family, --primary-font-family);
   margin-top: 30px;
 }
 
@@ -541,7 +543,7 @@ main > * {
   display: inline-block;
   text-align: center;
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--secondary-font-family);
   font-size: 16px;
   font-weight: bold;
   vertical-align: middle;

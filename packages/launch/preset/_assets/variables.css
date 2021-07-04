@@ -14,7 +14,11 @@ html {
   --page-background: white;
   --footer-background: rgba(0, 0, 0, 0.1);
 
+  /* typography */
   --text-color: black;
+  --primary-font-family: 'Open Sans', sans-serif;
+  --secondary-font-family: 'Montserrat', sans-serif;
+  --monospace-font-family: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Courier', monospace;
 }
 
 html.dark {
@@ -32,8 +36,10 @@ html.dark {
   --page-background: #333;
   --footer-background: #4f4f4f;
 
+  /* typography */
   --text-color: white;
 
+  /* markdown */
   --markdown-octicon-link: white;
   --markdown-syntax-background-color: #a0a0a0;
   --markdown-link-color: #fb7881;
