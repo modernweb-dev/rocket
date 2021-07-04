@@ -1,5 +1,18 @@
 # @rocket/launch
 
+## 0.5.2
+
+### Patch Changes
+
+- 9e3c2f5: Only show the help & feedback link if a site.helpUrl is defined
+- 9625b94: Remove footer urls to pages that users would need to create
+- 1f79d7a: Add font-family CSS variables
+
+  - `--primary-font-family` for body text
+  - `--secondary-font-family` for emphasis (e.g. call-to-action)
+  - `--heading-font-family` for headings (defaults to `--primary-font-family`)
+  - `--monospace-font-family` for code blocks
+
 ## 0.5.1
 
 ### Patch Changes
