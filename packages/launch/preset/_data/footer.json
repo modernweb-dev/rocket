@@ -3,10 +3,6 @@
     "name": "Discover",
     "children": [
       {
-        "text": "Blog",
-        "href": "/blog/"
-      },
-      {
         "text": "Help and Feedback",
         "href": "https://github.com/modernweb-dev/rocket/issues"
       }
@@ -23,19 +19,11 @@
         "text": "Twitter",
         "href": "https://twitter.com/modern_web_dev"
       },
-      {
-        "text": "Slack",
-        "href": "/about/slack/"
-      }
     ]
   },
   {
     "name": "Support",
     "children": [
-      {
-        "text": "Sponsor",
-        "href": "/about/sponsor/"
-      },
       {
         "text": "Contribute",
         "href": "https://github.com/modernweb-dev/rocket/blob/master/CONTRIBUTING.md"
