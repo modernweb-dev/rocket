@@ -25,7 +25,7 @@ export function fireTheme() {
 
 Once you have that you can start filling in content you need.
 
-For example a we could override the full `layout.css` by adding a it like so
+For example we could override the full `layout.css` by adding it like so
 
 👉 `fire-theme/layout.css`
 
