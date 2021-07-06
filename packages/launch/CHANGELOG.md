@@ -1,5 +1,11 @@
 # @rocket/launch
 
+## 0.5.3
+
+### Patch Changes
+
+- b7d5cba: remove footer extra comma
+
 ## 0.5.2
 
 ### Patch Changes
