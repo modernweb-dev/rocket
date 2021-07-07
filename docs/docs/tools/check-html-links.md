@@ -1,6 +1,6 @@
 # Tools >> Check HTML Links ||30
 
-```js
+```js script
 import '@rocket/launch/inline-notification/inline-notification.js';
 ```
 
