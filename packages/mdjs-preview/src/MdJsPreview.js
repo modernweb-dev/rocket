@@ -1,5 +1,6 @@
 import { LitElement, html, css, nothing, render } from 'lit';
-import '@lion/accordion/define';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { LionAccordion } from '@lion/accordion';
 
 import {
   subscribe,
@@ -22,7 +23,13 @@ import { addResizeHandler } from './resizeHandler.js';
  * @element mdjs-preview
  * @prop {StoryFn} [story=(() => TemplateResult)] Function that returns the story
  */
-export class MdJsPreview extends LitElement {
+export class MdJsPreview extends ScopedElementsMixin(LitElement) {
+  static get scopedElements() {
+    return {
+      'lion-accordion': LionAccordion,
+    };
+  }
+
   static get properties() {
     return {
       story: {
