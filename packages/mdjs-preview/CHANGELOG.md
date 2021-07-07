@@ -1,5 +1,11 @@
 # @mdjs/mdjs-preview
 
+## 0.5.1
+
+### Patch Changes
+
+- fbcedde: Get a scoped registry for the internal accordion element to no longer pollute the global registry with a `lion-accordion` element.
+
 ## 0.5.0
 
 ### Minor Changes
