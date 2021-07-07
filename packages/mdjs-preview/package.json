@@ -31,7 +31,8 @@
     "src"
   ],
   "dependencies": {
-    "@lion/accordion": "^0.4.2",
+    "@lion/accordion": "^0.6.1",
+    "@open-wc/scoped-elements": "^2.0.0-next.3",
     "lit": "^2.0.0-rc.2"
   },
   "types": "dist-types/index.d.ts"

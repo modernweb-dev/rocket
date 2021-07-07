@@ -1103,12 +1103,12 @@
   dependencies:
     "@types/chai" "^4.2.12"
 
-"@lion/accordion@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.4.2.tgz#efeb56360113a2b68e182ff29ef0932edd17df8c"
-  integrity sha512-xETjNmpBWYO1tYx2nBMq0I45UgydUJafZ4ft3szH3fQFjYWSBwjJjKsWxIhZSqX/IoTJzA0nNCdtbXoVEbSCLg==
+"@lion/accordion@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@lion/accordion/-/accordion-0.6.1.tgz#fe10e9e7cc540a10ad4d87f8421e436f6110f026"
+  integrity sha512-0s+puCY2yfCingyjzBZN+g2mpRZ8h8w470ZKmF4oTHitCFdT41kb5tfOHo57SStSLjqET3Qq8FAvFs1KBPMGqg==
   dependencies:
-    "@lion/core" "0.16.0"
+    "@lion/core" "0.18.1"
 
 "@lion/combobox@^0.8.0":
   version "0.8.0"
@@ -1134,6 +1134,15 @@
   version "0.18.0"
   resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.18.0.tgz#475b872407829ab7860f50ff771c2e5ee957b204"
   integrity sha512-tfSKvd/YvGY8JPqb3Nv4TV85nzgeXOxXfnnNVpAGGC0yoRK9jKR4FvRdqDROenbPsfPOVz9+uL/2fd+GJl6qKg==
+  dependencies:
+    "@open-wc/dedupe-mixin" "^1.2.18"
+    "@open-wc/scoped-elements" "^2.0.0-next.3"
+    lit "^2.0.0-rc.2"
+
+"@lion/core@0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@lion/core/-/core-0.18.1.tgz#cacad48bdc7c1382148f208c7feff8ec2dbb4263"
+  integrity sha512-eazXRm6oqxOJXEf95bVbBVsOFxUA63yEtf8MHHd6cmJEIIWn7VQS8gq4fVe4jydyP6aOHccZSIom5zuQBOpkyg==
   dependencies:
     "@open-wc/dedupe-mixin" "^1.2.18"
     "@open-wc/scoped-elements" "^2.0.0-next.3"
