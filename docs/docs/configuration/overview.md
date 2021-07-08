@@ -59,7 +59,7 @@ For these cases you can use `setupDevAndBuildPlugins`, which will automatically 
 import json from '@rollup/plugin-json';
 import { addPlugin } from 'plugins-manager';
 
-/** @type {Partial<import("@rocket/cli").RocketCliOptions>} */
+/** @type {import('@rocket/cli').RocketCliOptions} */
 const config = {
   setupDevAndBuildPlugins: [
     addPlugin({ name: 'json', plugin: json, location: 'top', options: { my: 'settings' } }),
@@ -79,7 +79,7 @@ All plugins which are either default or are added via a preset can still be adju
 ```js
 import { adjustPluginOptions } from 'plugins-manager';
 
-/** @type {Partial<import("@rocket/cli").RocketCliOptions>} */
+/** @type {import('@rocket/cli').RocketCliOptions} */
 const config = {
   setupDevAndBuildPlugins: [adjustPluginOptions('json', { my: 'overwrite settings' })],
 };

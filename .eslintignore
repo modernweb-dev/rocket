@@ -10,3 +10,5 @@ _site
 _site-dev
 __output
 __output-dev
+
+docs/_merged*

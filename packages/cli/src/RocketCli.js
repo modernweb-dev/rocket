@@ -19,6 +19,10 @@ const { setComputedConfig } = computedConfigPkg;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export class RocketEleventy extends Eleventy {
+  /** @type{Required<import('../types/main').RocketCliOptions>} */
+  // @ts-expect-error: awkward to type this in jsdoc
+  config;
+
   /**
    * @param {string} input
    * @param {string} output
@@ -26,6 +30,8 @@ export class RocketEleventy extends Eleventy {
    */
   constructor(input, output, cli) {
     super(input, output);
+    /** @type {*} */
+    this.eleventyFiles;
     this.__rocketCli = cli;
   }
 
@@ -46,7 +52,10 @@ export class RocketEleventy extends Eleventy {
       path.join(this.__rocketCli.config._inputDirCwdRelative, '_includes', '**'),
     ];
 
-    ignores = ignores.filter(ignore => !keepWatching.includes(ignore));
+    ignores = ignores.filter(
+      /** @param {string} ignore */
+      ignore => !keepWatching.includes(ignore),
+    );
     // debug("Ignoring watcher changes to: %o", ignores);
 
     let configOptions = this.config.chokidarConfig;
@@ -69,6 +78,10 @@ export class RocketEleventy extends Eleventy {
 export class RocketCli {
   /** @type {string[]} */
   errors = [];
+
+  /** @type{Required<import('../types/main').RocketCliOptions>} */
+  // @ts-expect-error: awkward to type this in jsdoc
+  config;
 
   constructor({ argv } = { argv: undefined }) {
     const mainDefinitions = [
@@ -107,7 +120,8 @@ export class RocketCli {
 
       const config = new TemplateConfig(null, relCwdPathToConfig);
       elev.config = config.getConfig();
-      elev.resetConfig();
+      /** @type {*} */
+      (elev).resetConfig();
       elev.setConfigPathOverride(relCwdPathToConfig);
 
       elev.isVerbose = false;
@@ -139,7 +153,9 @@ export class RocketCli {
    */
   async setup() {
     if (this.__isSetup === false) {
-      this.config = await normalizeConfig(this.argvConfig);
+      this.config =
+        /** @type{Required<import('../types/main').RocketCliOptions>} */
+        (await normalizeConfig(this.argvConfig));
       setComputedConfig(this.config);
       this.__isSetup = true;
     }
@@ -147,6 +163,10 @@ export class RocketCli {
 
   async run() {
     await this.setup();
+
+    if (this.config.command === 'bootstrap') {
+      return this.bootstrap();
+    }
 
     for (const plugin of this.config.plugins) {
       if (this.considerPlugin(plugin) && typeof plugin.setupCommand === 'function') {
@@ -186,6 +206,45 @@ export class RocketCli {
     if (this.config.command === 'help') {
       console.log('Help is here: use build or start');
     }
+  }
+
+  async bootstrap() {
+    const outputDir = path.join(this.config.outputDir, '..');
+    const moduleDir = path.dirname(fileURLToPath(import.meta.url));
+    const bootstrapFilesDir = path.join(moduleDir, 'public', 'bootstrap');
+    const packageJsonPath = path.join(outputDir, 'package.json');
+    const gitignorePath = path.join(outputDir, '.gitignore');
+
+    if (!(await fs.pathExists(packageJsonPath))) {
+      await fs.writeJson(packageJsonPath, {});
+    }
+
+    await fs.copy(bootstrapFilesDir, outputDir, {
+      errorOnExist: true,
+      filter: file => !file.endsWith('_gitignore'),
+    });
+
+    const packageJson = await fs.readJson(packageJsonPath);
+
+    await fs.writeJson(
+      packageJsonPath,
+      {
+        ...packageJson,
+        type: 'module',
+        scripts: {
+          ...packageJson.scripts,
+          start: 'rocket start',
+          docs: 'rocket build',
+        },
+      },
+      { spaces: 2 },
+    );
+
+    await fs.ensureFile(gitignorePath);
+    await fs.appendFile(
+      gitignorePath,
+      await fs.readFile(path.join(bootstrapFilesDir, '_gitignore'), 'utf8'),
+    );
   }
 
   /**

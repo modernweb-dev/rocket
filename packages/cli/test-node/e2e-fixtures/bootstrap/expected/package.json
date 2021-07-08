@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "rocket start",
+    "docs": "rocket build"
+  }
+}

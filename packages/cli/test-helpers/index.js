@@ -1,6 +1,7 @@
 import chai from 'chai';
 import { RocketCli } from '../src/RocketCli.js';
 import path from 'path';
+import globby from 'globby';
 import fs from 'fs-extra';
 import prettier from 'prettier';
 import { fileURLToPath } from 'url';
@@ -59,7 +60,13 @@ export async function readOutput(
     throw new Error(`No valid cli provided to readOutput - you passed a ${typeof cli}: ${cli}`);
   }
 
-  const outputDir = type === 'build' ? cli.config.outputDir : cli.config.outputDevDir;
+  const outputDir =
+    type === 'bootstrap'
+      ? path.join(cli.config.outputDir, '..')
+      : type === 'build'
+      ? cli.config.outputDir
+      : cli.config.outputDevDir;
+
   let text = await fs.promises.readFile(path.join(outputDir, fileName));
   text = text.toString();
   if (stripToBody) {
@@ -114,6 +121,12 @@ export async function readBuildOutput(cli, fileName, options = {}) {
   return readOutput(cli, fileName, options);
 }
 
+export async function getfixtureExpectedFiles(pathToDir) {
+  const cwd = path.join(fixtureDir, pathToDir);
+  const paths = await globby('**/*', { cwd, absolute: true, dot: true });
+  return paths;
+}
+
 export async function execute(cli, configFileDir) {
   await cli.setup();
   cli.config.outputDevDir = path.join(configFileDir, '__output-dev');
@@ -122,6 +135,14 @@ export async function execute(cli, configFileDir) {
   cli.config.watch = false;
   cli.config.outputDir = path.join(configFileDir, '__output');
   await cli.run();
+  return cli;
+}
+
+export async function executeBootstrap(pathToDir) {
+  const configFileDir = path.join(fixtureDir, pathToDir.split('/').join(path.sep));
+  const cli = new RocketCli({ argv: ['bootstrap'] });
+  await fs.emptyDir(configFileDir);
+  await execute(cli, configFileDir);
   return cli;
 }
 

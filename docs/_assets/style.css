@@ -19,3 +19,12 @@ rocket-navigation {
 header {
   font-family: 'Montserrat', sans-serif;
 }
+
+code-tabs[collection="package-managers"] {
+  --code-tabs-icon-height: 18px;
+  --code-tabs-justify-tabs: end;
+}
+
+:not(rocket-navigation):not(:defined) {
+  opacity: 0;
+}
