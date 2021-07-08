@@ -41,6 +41,15 @@ export default {
     }),
   ],
 
+  eleventy(eleventyConfig) {
+    eleventyConfig.addTransform('fix-noscript', content =>
+      content
+        .replace(/&#x26;#x3C;(link|style)/g, '<$1')
+        .replace(/&#x26;(link|style)/g, '<$1')
+        .replace(/&#x3C;(link|style)/g, '<$1'),
+    );
+  },
+
   // serviceWorkerName: 'sw.js',
   // pathPrefix: '/_site/',
 
