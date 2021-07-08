@@ -107,7 +107,7 @@ It can be helpful to take an inventory, before we start, to separate basic setup
 - We built the project with basic npm commands
 - Added a couple required files manually
 - Adjusted package.json
-- **doc/index.md** to seed the content
+- **docs/index.md** to seed the content
 - Launches with `npm start`
 
 That's all it takes to get a new super-fast and powerful site, complete with a service worker, default styling, navigation, and ready to deploy as a plain old static files.
