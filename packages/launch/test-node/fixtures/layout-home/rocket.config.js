@@ -1,6 +1,6 @@
 import { rocketLaunch } from '@rocket/launch';
 
-/** @type {Partial<import("@rocket/cli").RocketCliOptions>} */
+/** @type {import('@rocket/cli').RocketCliOptions} */
 const config = {
   presets: [rocketLaunch()],
 };

@@ -10,93 +10,156 @@ Make sure they are installed before proceeding.
 
 The fastest way to get started is by using an existing preset like the launch preset.
 
-1. Start with an empty new folder
+### Step 1. Initialize the Project Package
 
-   ```
-   mkdir my-project
-   cd my-project
-   npm init -y
-   ```
+Start by creating an empty folder for your project
 
-2. Install dependencies
+```bash copy
+mkdir my-project
+cd my-project
+```
 
-   ```
-   npm install --save-dev @rocket/cli @rocket/launch
-   ```
+Then initialize a package.json file
 
-3. Add to your .gitignore
+<code-tabs collection="package-managers" default-tab="npm">
 
-   ```
-   ## Rocket ignore files (need to be the full relative path to the folders)
-   docs/_merged_data/
-   docs/_merged_assets/
-   docs/_merged_includes/
-   ```
+```bash tab npm
+npm init -y
+```
 
-<inline-notification type="danger">
+```bash tab yarn
+yarn init -y
+```
 
-You may be tempted to skip the step above, because you're not ready to commit to git yet!
+```bash tab pnpm
+pnpm init -y
+```
 
-Rocket uses the .gitignore file to manage its requirements. If you skip this step, Rocket will fail to deploy!
+</code-tabs>
+
+### Step 2. Install dependencies
+
+<code-tabs collection="package-managers" default-tab="npm">
+
+```bash tab npm
+npm install --save-dev @rocket/cli @rocket/launch
+```
+
+```bash tab yarn
+yarn add -D @rocket/cli @rocket/launch
+```
+
+```bash tab pnpm
+pnpm add -D @rocket/cli @rocket/launch
+```
+
+</code-tabs>
+
+### Step 3. Bootstrap the project
+
+<code-tabs collection="package-managers" default-tab="npm">
+
+```bash tab npm
+npx rocket bootstrap
+```
+
+```bash tab yarn
+yarn rocket bootstrap
+```
+
+```bash tab pnpm
+pnpx rocket bootstrap
+```
+
+</code-tabs>
+
+The `bootstrap` command creates four files in your repo:
+
+- `.gitignore` containing rocket's build artifacts
+- `rocket.config.js` containing a minimal rocket config
+- `docs/.eleventyignore` required to allow you to [override templates](/guides/presets/overriding/)
+- `docs/index.md` your first page
+
+It also set the package `type` to `"module"` and adds a `start` and `docs` package scripts.
+
+<inline-notification type="warning">
+
+If you don't want to use the `module` package type, make sure to rename the generated config file to `rocket.config.mjs`.
 
 </inline-notification>
 
-4. Create a `rocket.config.mjs` (or `.js` if you have type: "module" in you package.json)
+<details><summary>Default Files Contents</summary>
 
-   ```js
-   import { rocketLaunch } from '@rocket/launch';
+<code-tabs default-tab="rocket.config.js">
 
-   export default {
-     presets: [rocketLaunch()],
-   };
-   ```
+```js tab rocket.config.js
+import { rocketLaunch } from '@rocket/launch';
 
-5. (optionally) Create a file `.eleventyignore` (this file will be needed once you start customizing presets)
+export default {
+  presets: [rocketLaunch()],
+};
+```
 
-   ```
-   node_modules/**
-   /docs/_assets
-   /docs/_includes
-   /docs/_data
-   ```
+```md tab docs/index.md
+# Welcome to Your Rocket Site
 
-<inline-notification type="warning" title="note">
+Add your markdown content here.
+```
 
-All further paths are relative to your project root (my-project in this case).
+<!-- prettier-ignore-start -->
 
-</inline-notification>
+```html tab docs/.eleventyignore
+_assets
+_includes
+_data
+```
+
+```html tab .gitignore
+## Rocket ignore files (need to be the full relative path to the folders)
+docs/_merged_data/
+docs/_merged_assets/
+docs/_merged_includes/
+```
+
+<!-- prettier-ignore-end -->
+
+</code-tabs>
+
+</details>
 
 ## Add your First Page
 
-👉 `docs/index.md`
+Bootstrap created the file `docs/index.md`. Open it in your editor and change it to suit your needs.
+
+<small>NOTE: This tutorial assumes you are familiar with Markdown, for page authoring.</small>
 
 ```md
 # Welcome to Your Rocket Site
 
-Text here, like any Markdown file.
+Add your markdown content here.
 ```
-
-This tutorial assumes you are familiar with Markdown, for page authoring.
 
 Please note that the heading - text prefixed with `#` or `##` - is not optional for each page in this tutorial. Everything below that first line is optional Markdown text.
 
-## Startup:
-
-👉 `package.json`
-
-Add `"start": "rocket start"` to your package.json
-
-```json
-"scripts": {
-  "start": "rocket start"
-}
-```
+## Startup
 
 Now you can launch your site locally with
 
-```bash
-npm run start
+<code-tabs collection="package-managers" default-tab="npm">
+
+```bash tab npm
+npm start
 ```
+
+```bash tab yarn
+yarn start
+```
+
+```bash tab pnpm
+pnpx start
+```
+
+</code-tabs>
 
 ## Taking Inventory Before Adding Pages:
 
@@ -111,6 +174,11 @@ It can be helpful to take an inventory, before we start, to separate basic setup
 - Launches with `npm start`
 
 That's all it takes to get a new super-fast and powerful site, complete with a service worker, default styling, navigation, and ready to deploy as a plain old static files.
+
+## Next Steps
+
+- [Adding Pages](../adding-pages/)
+- [Using Presets](../../presets/getting-started/)
 
 ```js script
 import '@rocket/launch/inline-notification/inline-notification.js';

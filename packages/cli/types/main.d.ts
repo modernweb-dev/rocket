@@ -1,5 +1,6 @@
 import { DevServerConfig } from '@web/dev-server';
 import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
+import { WatchOptions } from 'chokidar';
 
 export interface RocketPreset {
   path: string;
@@ -44,6 +45,8 @@ export interface RocketCliOptions {
     [key: string]: ImagePreset;
   };
 
+  chokidarConfig?: WatchOptions;
+
   before11ty?: () => void | Promise<void>;
 
   checkLinks?: Partial<CheckHtmlLinksCliOptions>;
@@ -75,5 +78,23 @@ export interface RocketCliOptions {
 }
 
 export interface RocketPlugin {
+  // what can we do, typescript itself types the constructor as `Function`
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  constructor: Function & { pluginName: string };
   commands: string[];
+  setupCommand?(config?: RocketCliOptions): Required<RocketCliOptions>;
+  setup?(opts: { config: RocketCliOptions; argv: string[]; eleventy: Eleventy }): Promise<void>;
+  inspectRenderedHtml?(opts: {
+    html: string;
+    inputPath: string;
+    outputPath: string;
+    layout: string;
+    title: string;
+    url: string;
+    data: any;
+    eleventy: Eleventy;
+  }): Promise<void>;
+  // later ts versions can do this
+  // [index: `${string}Command`]: () => void|Promise<void>;
+  [index: string]: () => void | Promise<void>;
 }

@@ -1,1 +1,6 @@
 /* override to add noscript styles */
+
+/* Make sure unregistered custom elements don't hide their contents */
+:not(:defined) {
+  opacity: 1 !important;
+}

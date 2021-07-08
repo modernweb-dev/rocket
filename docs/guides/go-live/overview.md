@@ -1,4 +1,4 @@
-# Go Live >> Overview ||10
+# Go Live >> Overview || 10
 
 A few things are usually needed before going live "for real".
 
@@ -13,7 +13,7 @@ To enable it, you need to create a `404.md` and use the 404 layout.
 
 👉 `docs/404.md`
 
-```
+```markdown copy
 ---
 layout: layout-404
 permalink: 404.html
@@ -32,24 +32,21 @@ You can create one by adding this file:
 
 👉 `docs/sitemap.njk`
 
-{% raw %}
-
-```
+```markdown copy
 ---
 layout: layout-raw
 permalink: /sitemap.xml
 eleventyExcludeFromCollections: true
 ---
+
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  {% for page in collections.all %}
+  {% raw %}{% for page in collections.all %}
     <url>
       <loc>{{ rocketConfig.absoluteBaseUrl }}{{ page.url | url }}</loc>
       <lastmod>{{ page.date.toISOString() }}</lastmod>
       <changefreq>{{ page.data.changeFreq if page.data.changeFreq else "monthly" }}</changefreq>
     </url>
-  {% endfor %}
+  {% endfor %}{% endraw %}
 </urlset>
 ```
-
-{% endraw %}

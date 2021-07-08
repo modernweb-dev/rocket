@@ -2,14 +2,17 @@ import chai from 'chai';
 import fetch from 'node-fetch';
 import chalk from 'chalk';
 import {
+  executeBootstrap,
   executeBuild,
   executeLint,
   executeStart,
   expectThrowsAsync,
   readBuildOutput,
   readStartOutput,
+  getfixtureExpectedFiles,
   setFixtureDir,
 } from '@rocket/cli/test-helpers';
+import fs from 'fs-extra';
 
 const { expect } = chai;
 
@@ -31,7 +34,22 @@ describe('RocketCli e2e', () => {
   it('can add a unified plugin via the config', async () => {
     cli = await executeStart('e2e-fixtures/unified-plugin/rocket.config.js');
     const indexHtml = await readStartOutput(cli, 'index.html');
-    expect(indexHtml).to.equal('<p>See a 🐶</p>');
+    expect(indexHtml).to.equal(`<p>See a 🐶</p>`);
+  });
+
+  describe('bootstrap command', () => {
+    it('can bootstrap a project', async () => {
+      cli = await executeBootstrap('e2e-fixtures/bootstrap/__output');
+
+      for (const p of await getfixtureExpectedFiles('e2e-fixtures/bootstrap/expected')) {
+        const actual = await fs.readFile(
+          p.replace('expected', '__output').replace('_gitignore', '.gitignore'),
+          'utf8',
+        );
+        const expected = await fs.readFile(p, 'utf8');
+        expect(actual, p).to.equal(expected);
+      }
+    });
   });
 
   describe('eleventy in config', () => {
