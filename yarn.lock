@@ -7643,10 +7643,10 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-rocket-preset-code-tabs@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/rocket-preset-code-tabs/-/rocket-preset-code-tabs-0.1.3.tgz#2d8e1b89410d1c6d402a5c0e3bc147330105ae54"
-  integrity sha512-CbFZcmEY213oXjW7mHxv3D5g4S2uP5TC3zvq2Ae7sGB6QqmDbfVxhTPmM3bI5vPMbQydXo6HFt4nhHpEqS67lQ==
+rocket-preset-code-tabs@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/rocket-preset-code-tabs/-/rocket-preset-code-tabs-0.2.1.tgz#19fbdbf05736c5783187d73fc4a95b1df4e88ca5"
+  integrity sha512-m1E8u70iyCrcUDE7tghGZlTjzal0mhvQ1ESIbz/i1iRr3Y/t103FtDfnndZWSUaNcaXECsf8e1zn6DKk53YrMg==
   dependencies:
     "@pwrs/mixins" "^0.2.0"
     eleventy-plugin-add-web-component-definitions "^2.0.3"

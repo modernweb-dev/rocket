@@ -1,14 +1,40 @@
-# Presets >> Launch ||20
+---
+alerts:
+  - type: tip
+    content: Take a tip from me
+  - type: warning
+    content: Be *sure* about this...
+  - type: danger
+    content: You **really** shouldn't!
+---
+
+# Presets >> Launch || 20
 
 Rocket comes with a preset you will love. Simple, responsive and behaving like native, it sure is going to be a hit among your users.
 
 ## Installation
 
-```bash
+Install `@rocket/launch` from the NPM repository using your favourite package manager.
+
+<code-tabs collection="package-managers" default-tab="npm">
+
+```bash tab npm
 npm i @rocket/launch
 ```
 
-👉 `rocket.config.mjs`
+```bash tab yarn
+yarn add @rocket/launch
+```
+
+```bash tab pnpm
+pnpm add @rocket/launch
+```
+
+</code-tabs>
+
+## Usage
+
+👉 `rocket.config.js`
 
 ```js
 import { rocketLaunch } from '@rocket/launch';
@@ -20,51 +46,80 @@ export default {
 
 ## Data
 
-Most data comes from `site.cjs`.
+The launch preset configures [11ty data](https://www.11ty.dev/docs/data/) using a few overridable files:
 
-There is also a specific `rocketLaunch.json`.
-
-The footer data comes from `footer.json`
+- `site.cjs`: Responsible for most of the site-wide config
+- `rocketLaunch.json`: configures the homepage layout
+- `footer.json`: Configures the content of the footer
 
 ## Inline Notification
 
-Notification are web components that bring in some styles.
-
-To use them in Markdown you need to write the HTML tag and have it separated by an empty line.
-
 ```js script
 import '@rocket/launch/inline-notification/inline-notification.js';
 ```
 
-First you need to import the script
+Launch ships with `<inline-notification>`, a custom element that applies some styles similar to "info boxes".
 
-````
+To add an inline notification you need to remember to import the element definition:
+
+<!-- prettier-ignore-start -->
+~~~markdown
 ```js script
 import '@rocket/launch/inline-notification/inline-notification.js';
 ```
-````
+~~~
+<!-- prettier-ignore-end -->
 
-### Tip
+Then you can add your notification to the page. If you want to write the notification's content using markdown, just pad the opening and closing tags with empty lines.
 
-<inline-notification type="tip">
+There are three varieties of `<inline-notification>`, "tip", "warning", and "danger"
 
-I am a tip
+<style>
+#inline-notifications::part(tab) {
+  text-transform: capitalize;
+}
+#inline-notifications code-tab::part(content) {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+#inline-notifications code-copy::part(copy-button) {
+  position: absolute;
+  top: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--primary-lines-color);
+}
+</style>
 
-</inline-notification>
+<code-tabs id="inline-notifications" default-tab="tip">
 
-**Usage**
+{%for alert in alerts%}
 
-```md
-<inline-notification type="tip">
+<code-tab data-label="{{ alert.type }}" data-id="{{ alert.type }}" no-copy>
 
-I am a tip
+```md copy
+<inline-notification type="{{ alert.type }}">
+
+{{ alert.content | safe }}
 
 </inline-notification>
 ```
+
+<inline-notification type="{{ alert.type }}">
+
+{{ alert.content | safe }}
+
+</inline-notification>
+
+</code-tab>
+
+{%endfor%}
+
+</code-tabs>
 
 ### Modify the Title
 
-To override the title you can provide a property success.
+The notification title defautls to it's type. You can write a custom title with the `title` attribute.
 
 <inline-notification type="tip" title="success">
 
@@ -72,48 +127,10 @@ I am a success message
 
 </inline-notification>
 
-**Usage**
-
 ```md
 <inline-notification type="tip" title="success">
 
 I am a success message
-
-</inline-notification>
-```
-
-### Warning
-
-<inline-notification type="warning">
-
-I am a warning
-
-</inline-notification>
-
-**Usage**
-
-```md
-<inline-notification type="warning">
-
-I am a warning
-
-</inline-notification>
-```
-
-### Danger
-
-<inline-notification type="danger">
-
-I am a dangerous message
-
-</inline-notification>
-
-**Usage**
-
-```md
-<inline-notification type="danger">
-
-I am a dangerous message
 
 </inline-notification>
 ```
