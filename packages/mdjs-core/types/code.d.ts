@@ -1,5 +1,7 @@
 import unified from 'unified';
 
+import { MetaPlugin } from 'plugins-manager';
+
 export type StoryTypes = 'js' | 'html';
 
 export interface MarkdownResult {
@@ -29,8 +31,4 @@ export interface ParseResult {
   };
 }
 
-export interface MdjsProcessPlugin {
-  name: string;
-  plugin: unified.Plugin;
-  options?: unified.Settings;
-}
+export type MdjsProcessPlugin = MetaPlugin<unified.Plugin, unified.Settings>;

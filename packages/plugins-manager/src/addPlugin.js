@@ -1,20 +1,14 @@
 /** @typedef {import('../types/main').MetaPlugin} MetaPlugin */
 
-/**
- * @param {object} options
- * @param {string} options.name
- * @param {any} options.plugin
- * @param {any} [options.options]
- * @param {string} [options.how]
- * @param {string} [options.location]
- */
-export function addPlugin({
-  name,
-  plugin,
-  options = undefined,
-  how = 'after',
-  location = 'bottom',
-}) {
+/** @type {import('../types/main').AddPluginType} */
+export function addPlugin(metaPluginAndOptions) {
+  const {
+    name,
+    plugin,
+    options = undefined,
+    how = 'after',
+    location = 'bottom',
+  } = metaPluginAndOptions;
   /**
    * @param {MetaPlugin[]} plugins
    */

@@ -1,10 +1,10 @@
 import { MdjsProcessPlugin } from '@mdjs/core';
 import { Node } from 'unist';
 
-export const setupUnifiedPluginsFn: (plugins: MdjsProcessPlugin[]) => MdjsProcessPlugin[];
+export type SetupUnifiedPluginsFn = (plugins: MdjsProcessPlugin[]) => MdjsProcessPlugin[];
 
 export interface EleventyPluginMdjsUnified {
-  setupUnifiedPlugins?: setupUnifiedPluginsFn[];
+  setupUnifiedPlugins?: SetupUnifiedPluginsFn[];
 }
 
 export interface NodeChildren extends Node {

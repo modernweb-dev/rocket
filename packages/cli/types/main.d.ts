@@ -1,37 +1,23 @@
 import { DevServerConfig } from '@web/dev-server';
 import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
 import { WatchOptions } from 'chokidar';
-
-export interface RocketPreset {
-  path: string;
-
-  adjustImagePresets?: (preset: { [key: string]: ImagePreset }) => { [key: string]: ImagePreset };
-
-  before11ty?: () => void | Promise<void>;
-
-  // TODO: improve all setup functions
-  setupUnifiedPlugins?: function[];
-  setupDevAndBuildPlugins?: function[];
-  setupBuildPlugins?: function[];
-  setupDevPlugins?: function[];
-  setupCliPlugins?: function[];
-  setupEleventyPlugins?: function[];
-  setupEleventyComputedConfig?: function[];
-}
+export { ImagePreset, RocketPreset } from './preset';
 
 interface RocketStartConfig {
   createSocialMediaImages?: boolean;
 }
 
-type ImageFormat = 'avif' | 'webp' | 'jpg' | 'jpeg' | 'png' | 'svg';
+type PresetKeys =
+  | 'before11ty'
+  | 'setupUnifiedPlugins'
+  | 'setupDevAndBuildPlugins'
+  | 'setupBuildPlugins'
+  | 'setupDevPlugins'
+  | 'setupCliPlugins'
+  | 'setupEleventyPlugins'
+  | 'setupEleventyComputedConfig';
 
-interface ImagePreset {
-  widths: number[];
-  formats: ImageFormat[];
-  sizes: string;
-}
-
-export interface RocketCliOptions {
+export interface RocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   presets?: Array<RocketPreset>;
   pathPrefix?: string;
   serviceWorkerName?: string;
@@ -47,20 +33,9 @@ export interface RocketCliOptions {
 
   chokidarConfig?: WatchOptions;
 
-  before11ty?: () => void | Promise<void>;
-
   checkLinks?: Partial<CheckHtmlLinksCliOptions>;
 
   start?: RocketStartConfig;
-
-  // TODO: improve all setup functions
-  setupUnifiedPlugins?: function[];
-  setupDevAndBuildPlugins?: function[];
-  setupBuildPlugins?: function[];
-  setupDevPlugins?: function[];
-  setupCliPlugins?: function[];
-  setupEleventyPlugins?: function[];
-  setupEleventyComputedConfig?: function[];
 
   // advanced
   devServer?: DevServerConfig;
