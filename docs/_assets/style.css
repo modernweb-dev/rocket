@@ -1,3 +1,7 @@
+:root {
+  --markdown-table-row-odd-background-color: #efefef;
+}
+
 body[layout^='layout-home'] .markdown-body .call-to-action:nth-of-type(2) {
   --primary-color: #222;
   --primary-color-lighter: #333;
