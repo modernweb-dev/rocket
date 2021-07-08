@@ -6,6 +6,19 @@ On top of the [Overriding](./overriding.md) you can do with the presets alone te
 
 It is generally preferred to use `Joining Blocks` before overriding.
 
+<inline-notification type="danger">
+
+  You may receive error messages when running `rocket build` if you add your own joining blocks. To avoid them, add a `docs/.eleventyignore` with
+  
+  ```
+  _includes
+  _merged_includes
+  _assets
+  _merged_assets
+  ```
+  
+</inline-notification>
+
 ## Adding html to the html head
 
 Often you will want to load some more fonts or an additional CSS file. You can do so by adding a file to the head Joining Block.
