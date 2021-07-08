@@ -58,7 +58,7 @@ The launch preset configures [11ty data](https://www.11ty.dev/docs/data/) using 
 import '@rocket/launch/inline-notification/inline-notification.js';
 ```
 
-Launch ships with `<inline-notification>`, a custom element that applies some styles similar to "info boxes".
+Launch ships with `<inline-notification>`, a custom element that applies some styles similar to "info boxes". The element works for `<noscript>` users as well, as long as you don't [override](/guides/presets/override/) the default `noscript.css` file.
 
 To add an inline notification you need to remember to import the element definition:
 
@@ -134,3 +134,9 @@ I am a success message
 
 </inline-notification>
 ```
+
+<inline-notification type="warning">
+
+The `title` attribute does not change the title for `<noscript>` users, so don't include any critical information in it.
+
+</inline-notification>
