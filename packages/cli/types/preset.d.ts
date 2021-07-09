@@ -1,4 +1,4 @@
-import { MetaPlugin } from 'plugins-manager';
+import { AddPluginFn } from 'plugins-manager';
 
 type ImageFormat = 'avif' | 'webp' | 'jpg' | 'jpeg' | 'png' | 'svg';
 
@@ -19,11 +19,11 @@ export interface RocketPreset {
   before11ty?: () => void | Promise<void>;
 
   // TODO: improve all setup functions
-  setupUnifiedPlugins?: MetaPlugin[];
-  setupDevAndBuildPlugins?: MetaPlugin[];
-  setupBuildPlugins?: MetaPlugin[];
-  setupDevPlugins?: MetaPlugin[];
-  setupCliPlugins?: MetaPlugin[];
-  setupEleventyPlugins?: MetaPlugin[];
-  setupEleventyComputedConfig?: MetaPlugin[];
+  setupUnifiedPlugins?: AddPluginFn[];
+  setupDevAndBuildPlugins?: AddPluginFn[];
+  setupBuildPlugins?: AddPluginFn[];
+  setupDevPlugins?: AddPluginFn[];
+  setupCliPlugins?: AddPluginFn[];
+  setupEleventyPlugins?: AddPluginFn[];
+  setupEleventyComputedConfig?: AddPluginFn[];
 }
