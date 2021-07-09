@@ -19,6 +19,6 @@ export type AddPluginOptions<T> = MetaPlugin<T> & {
   location?: 'top' | 'bottom' | string;
 };
 
-type AddPluginFn = (plugins: MetaPlugin[]) => MetaPlugin[];
+export type AddPluginFn = (plugins: MetaPlugin[]) => MetaPlugin[];
 
 export type AddPluginType = <F>(metaPluginAndOptions: AddPluginOptions<F>) => AddPluginFn;
