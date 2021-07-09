@@ -1,4 +1,4 @@
-# First Pages >> Managing sidebar ||30
+# First Pages >> Managing sidebar || 30
 
 The sidebar will show all the content of the current section.
 
@@ -33,10 +33,11 @@ eleventyNavigation:
 ---
 ```
 
+<!--
 You can also look at this live playground:
 
 ```js story
-import { html } from 'lit-html';
+import { html } from '@mdjs/mdjs-preview';
 
 export const headlineConverter = () => html`
   <p>
@@ -45,6 +46,7 @@ export const headlineConverter = () => html`
   </p>
 `;
 ```
+-->
 
 How it then works is very similar to https://www.11ty.dev/docs/plugins/navigation/
 
