@@ -1,6 +1,9 @@
 /** @typedef {import('../types/main').MetaPlugin} MetaPlugin */
 
-/** @type {import('../types/main').AddPluginType} */
+/**
+ * @template {Function} T
+ * @param {import('../types/main').AddPluginOptions<T>} metaPluginAndOptions
+ */
 export function addPlugin(metaPluginAndOptions) {
   const {
     name,
