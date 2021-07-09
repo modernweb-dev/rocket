@@ -1,7 +1,9 @@
 import { DevServerConfig } from '@web/dev-server';
 import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
 import { WatchOptions } from 'chokidar';
-export { ImagePreset, RocketPreset } from './preset';
+import { ImagePreset, RocketPreset } from './preset';
+export { ImagePreset, RocketPreset };
+import { Eleventy } from '@11ty/eleventy';
 
 interface RocketStartConfig {
   createSocialMediaImages?: boolean;
@@ -47,12 +49,12 @@ export interface RocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   configFile?: string;
   outputDevDir?: string;
 
-  private _inputDirCwdRelative?: string;
-  private _presetPaths?: string[];
-  private __before11tyFunctions?: (() => void | Promise<void>)[];
+  _inputDirCwdRelative?: string;
+  _presetPaths?: string[];
+  __before11tyFunctions?: (() => void | Promise<void>)[];
 }
 
-export interface RocketPlugin {
+export type RocketPlugin = {
   // what can we do, typescript itself types the constructor as `Function`
   // eslint-disable-next-line @typescript-eslint/ban-types
   constructor: Function & { pluginName: string };
@@ -69,7 +71,8 @@ export interface RocketPlugin {
     data: any;
     eleventy: Eleventy;
   }): Promise<void>;
+} & {
   // later ts versions can do this
   // [index: `${string}Command`]: () => void|Promise<void>;
   [index: string]: () => void | Promise<void>;
-}
+};
