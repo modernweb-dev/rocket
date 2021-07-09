@@ -23,7 +23,10 @@ import 'magic-reveal/magic-reveal.js';
 
 <magic-reveal>
 
-This text will get magically revealed. I can **still** use Markdown as long as there is an empty line between the opening/closing tags and my text.
+This text will get magically revealed.
+
+I can **still** use Markdown as long as there is an empty line
+between the opening/closing tags and my text.
 
 </magic-reveal>
 ~~~
