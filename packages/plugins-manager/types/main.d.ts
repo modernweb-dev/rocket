@@ -2,10 +2,10 @@ type AnyFn = (...args: any[]) => any;
 
 export interface MetaPlugin<F = AnyFn> {
   name: string;
-  plugin: F extends (options?: infer O) => P ? F : any;
+  plugin: F extends (options?: infer O) => unknown ? F : any;
   options?: /* prettier-ignore */ (
       F extends (eleventyConfig: any, options?: infer O) => void ? O
-    : F extends (options: infer O) => P ? O
+    : F extends (options: infer O) => unknown ? O
     : any
   );
 }
