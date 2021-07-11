@@ -1,5 +1,17 @@
 import { LitElement, css, html } from 'lit-element';
 
+/**
+ * @element inline-notification
+ * @cssprop  [--inline-notification-tip-background-color=rgba(221, 221, 221, 0.3)]
+ * @cssprop  [--inline-notification-tip-border-color=#42b983]
+ * @cssprop  [--inline-notification-warning-background-color=rgba(255, 229, 100, 0.2)]
+ * @cssprop  [--inline-notification-warning-border-color=#e7c000]
+ * @cssprop  [--inline-notification-danger-background-color=rgba(192, 0, 0, 0.1)]
+ * @cssprop  [--inline-notification-danger-border-color=#c00]
+ * @cssprop  [--inline-notification-warning-heading-color=#b29400]
+ * @cssprop  [--inline-notification-danger-heading-color=#900]
+ * @csspart title - the title heading
+ */
 export class InlineNotification extends LitElement {
   static get properties() {
     return {
@@ -11,6 +23,7 @@ export class InlineNotification extends LitElement {
   constructor() {
     super();
     this.title = '';
+    /** @type {'tip'|'warning'|'danger'} */
     this.type = 'tip';
   }
 
@@ -64,7 +77,7 @@ export class InlineNotification extends LitElement {
 
   render() {
     return html`
-      <h3>${this.title ? this.title : this.type}</h3>
+      <h3 part="title">${this.title || this.type}</h3>
       <slot></slot>
     `;
   }

@@ -22,6 +22,7 @@
     "./rocket-search.js": "./rocket-search.js"
   },
   "scripts": {
+    "analyze": "cem analyze --litelement",
     "debug": "cd ../../ && npm run debug -- --group search",
     "test": "npm run test:node && npm run test:web",
     "test:node": "mocha test-node/**/*.test.js test-node/*.test.js",
@@ -49,5 +50,6 @@
     "minisearch": "^3.0.2",
     "plugins-manager": "^0.2.2",
     "sax-wasm": "^2.0.0"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

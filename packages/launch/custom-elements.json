@@ -1,0 +1,121 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "inline-notification/index.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "InlineNotification",
+          "cssProperties": [
+            {
+              "name": "--inline-notification-tip-background-color",
+              "default": "rgba(221, 221, 221, 0.3)"
+            },
+            {
+              "name": "--inline-notification-tip-border-color",
+              "default": "#42b983"
+            },
+            {
+              "name": "--inline-notification-warning-background-color",
+              "default": "rgba(255, 229, 100, 0.2)"
+            },
+            {
+              "name": "--inline-notification-warning-border-color",
+              "default": "#e7c000"
+            },
+            {
+              "name": "--inline-notification-danger-background-color",
+              "default": "rgba(192, 0, 0, 0.1)"
+            },
+            {
+              "name": "--inline-notification-danger-border-color",
+              "default": "#c00"
+            },
+            {
+              "name": "--inline-notification-warning-heading-color",
+              "default": "#b29400"
+            },
+            {
+              "name": "--inline-notification-danger-heading-color",
+              "default": "#900"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "the title heading",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "privacy": "public",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'tip'|'warning'|'danger'"
+              },
+              "default": "'tip'",
+              "privacy": "public",
+              "attribute": "type",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "type",
+              "fieldName": "type"
+            },
+            {
+              "name": "title",
+              "fieldName": "title"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit-element"
+          },
+          "tagName": "inline-notification",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "InlineNotification",
+          "declaration": {
+            "name": "InlineNotification",
+            "module": "inline-notification/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "inline-notification/inline-notification.js",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "inline-notification",
+          "declaration": {
+            "name": "InlineNotification",
+            "module": "/inline-notification/index.js"
+          }
+        }
+      ]
+    }
+  ]
+}
