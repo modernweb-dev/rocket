@@ -31,7 +31,20 @@ function getText({ result, search }) {
   return highlightSearchTerms({ text: body, search, terms, addEllipsis: true });
 }
 
-// @ts-expect-error https://github.com/microsoft/TypeScript/issues/40110
+// | Property                              | Default   | Description                          |
+// | ------------------------------------- | --------- | ------------------------------------ |
+
+/**
+ * @element rocket-search
+ * @cssprop [--rocket-search-background-color=#fff] - Search results background colour
+ * @cssprop [--rocket-search-caret-color=initial] - Search input caret colour
+ * @cssprop [--rocket-search-input-border-color=#dfe1e5] - Search input border colour
+ * @cssprop [--rocket-search-input-border-radius=24px] - Search input border radius
+ * @cssprop [--rocket-search-fill-color=#000] - Search Icon Color
+ * @cssprop [--rocket-search-highlight-color=#6c63ff] - Highlighted search result text colour
+ * @csspart search-option - search result
+ * @csspart empty - empty search results
+ */
 export class RocketSearch extends ScopedElementsMixin(LitElement) {
   static get properties() {
     return {
@@ -60,9 +73,14 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
      * @type {RocketSearchResult[]}
      */
     this.results = [];
+    /** @type {MiniSearch|null} */
     this.miniSearch = null;
   }
 
+  /**
+   * Fetches the search index at `this.jsonUrl` and sets up the search engine.
+   * @return {Promise<void>}
+   */
   async setupSearch() {
     if (!this.jsonUrl) {
       throw new Error(
@@ -92,8 +110,9 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
     });
   }
 
+  /** @type {RocketSearchCombobox|null} */
   get combobox() {
-    return this.shadowRoot.querySelector('rocket-search-combobox');
+    return this.shadowRoot?.querySelector?.('rocket-search-combobox') ?? null;
   }
 
   /** @param {import('lit-element').PropertyValues } changedProperties */
@@ -112,9 +131,11 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
       <rocket-search-combobox
         name="combo"
         label="Search"
-        @input=${ev => {
-          this.search = ev.target.value;
-        }}
+        @input=${
+          /** @param {Event & { target: HTMLInputElement }} ev */ ev => {
+            this.search = ev.target.value;
+          }
+        }
         @focus=${() => {
           this.setupSearch();
         }}
@@ -125,6 +146,7 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
           result => html`
             <rocket-search-option
               href=${result.id}
+              part="search-option"
               rel="noopener noreferrer"
               .title=${getTitle({ result, search: this.search })}
               .choiceValue=${this.search}
@@ -134,7 +156,12 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
           `,
         )}
         ${this.results.length <= 0 && this.search.length > 0
-          ? html` <rocket-search-option .title=${this.noResultsText}></rocket-search-option> `
+          ? html`
+              <rocket-search-option
+                part="search-option empty"
+                .title=${this.noResultsText}
+              ></rocket-search-option>
+            `
           : ''}
       </rocket-search-combobox>
     `;

@@ -22,17 +22,17 @@ The Plugins Manager helps you register and execute your plugins across the vario
 
 If you want to add a plugin to the Markdown processing you can use `setupUnifiedPlugins`.
 
+<!-- prettier-ignore-start -->
 ```js
 import emoji from 'remark-emoji';
 import { addPlugin } from 'plugins-manager';
 
 /** @type {Partial<import('@rocket/cli').RocketCliOptions>} */
-const config = {
+export default ({
   setupUnifiedPlugins: [addPlugin({ location: 'markdown', name: 'emoji', plugin: emoji })],
-};
-
-export default config;
+});
 ```
+<!-- prettier-ignore-end -->
 
 For plugins that should handle the Markdown <abbr title="Abstract Syntax Tree">AST</abbr> you should use `addPlugin({ location: 'markdown', name: 'my-plugin', plugin: MyPlugin})`. <br>
 While for the rehype AST you should use `addPlugin({ location: 'remark2rehype', name: 'my-plugin', plugin: MyPlugin})`.

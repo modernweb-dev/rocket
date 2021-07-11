@@ -6,7 +6,7 @@ For docs please see our homepage [https://rocket.modern-web.dev/docs/presets/sea
 
 ## `src/RocketSearch.js`:
 
-### class: `RocketSearch`
+### class: `RocketSearch`, `rocket-search`
 
 #### Superclass
 
@@ -22,22 +22,22 @@ For docs please see our homepage [https://rocket.modern-web.dev/docs/presets/sea
 
 #### Fields
 
-| Name           | Privacy | Type                   | Default              | Description | Inherited From |
-| -------------- | ------- | ---------------------- | -------------------- | ----------- | -------------- |
-| scopedElements |         |                        |                      |             |                |
-| combobox       |         |                        |                      |             |                |
-| jsonUrl        | public  | `string`               | `''`                 |             |                |
-| search         | public  | `string`               | `''`                 |             |                |
-| maxResults     | public  | `number`               | `10`                 |             |                |
-| noResultsText  | public  | `string`               | `'No results found'` |             |                |
-| results        | public  | `RocketSearchResult[]` | `[]`                 |             |                |
-| miniSearch     |         | `null`                 | `null`               |             |                |
+| Name           | Privacy | Type                         | Default              | Description | Inherited From |
+| -------------- | ------- | ---------------------------- | -------------------- | ----------- | -------------- |
+| scopedElements |         |                              |                      |             |                |
+| combobox       |         | `RocketSearchCombobox\|null` |                      |             |                |
+| jsonUrl        | public  | `string`                     | `''`                 |             |                |
+| search         | public  | `string`                     | `''`                 |             |                |
+| maxResults     | public  | `number`                     | `10`                 |             |                |
+| noResultsText  | public  | `string`                     | `'No results found'` |             |                |
+| results        | public  | `RocketSearchResult[]`       | `[]`                 |             |                |
+| miniSearch     |         | `MiniSearch\|null`           | `null`               |             |                |
 
 #### Methods
 
-| Name        | Privacy | Description | Parameters | Return | Inherited From |
-| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
-| setupSearch |         |             |            |        |                |
+| Name        | Privacy | Description                                                               | Parameters | Return          | Inherited From |
+| ----------- | ------- | ------------------------------------------------------------------------- | ---------- | --------------- | -------------- |
+| setupSearch |         | Fetches the search index at `this.jsonUrl` and sets up the search engine. |            | `Promise<void>` |                |
 
 #### Attributes
 
@@ -48,6 +48,24 @@ For docs please see our homepage [https://rocket.modern-web.dev/docs/presets/sea
 | results       | results       |                |
 | max-results   | maxResults    |                |
 | noResultsText | noResultsText |                |
+
+#### CSS Properties
+
+| Name                                | Default   | Description                           |
+| ----------------------------------- | --------- | ------------------------------------- |
+| --rocket-search-background-color    | `#fff`    | Search results background colour      |
+| --rocket-search-caret-color         | `initial` | Search input caret colour             |
+| --rocket-search-input-border-color  | `#dfe1e5` | Search input border colour            |
+| --rocket-search-input-border-radius | `24px`    | Search input border radius            |
+| --rocket-search-fill-color          | `#000`    | Search Icon Color                     |
+| --rocket-search-highlight-color     | `#6c63ff` | Highlighted search result text colour |
+
+#### CSS Parts
+
+| Name          | Description          |
+| ------------- | -------------------- |
+| search-option | search result        |
+| empty         | empty search results |
 
 <hr/>
 
@@ -79,11 +97,39 @@ For docs please see our homepage [https://rocket.modern-web.dev/docs/presets/sea
 
 #### Methods
 
+| Name  | Privacy | Description | Parameters | Return | Inherited From |
+| ----- | ------- | ----------- | ---------- | ------ | -------------- |
+| focus |         |             |            |        |                |
+
+#### CSS Properties
+
+| Name                                       | Default   | Description |
+| ------------------------------------------ | --------- | ----------- |
+| --rocket-search-fill-color                 | `#000`    |             |
+| --rocket-search-background-color           | `#fff`    |             |
+| --rocket-search-input-overlay-border-color | `#ccc`    |             |
+| --rocket-search-input-border-color         | `#dfe1e5` |             |
+| --rocket-search-input-border-radius        | `24px`    |             |
+
+#### Slots
+
+| Name    | Description |
+| ------- | ----------- |
+| prefix  |             |
+| label   |             |
+| listbox |             |
+| input   |             |
+
+<details><summary>Private API</summary>
+
+#### Methods
+
 | Name                  | Privacy | Description | Parameters | Return | Inherited From |
 | --------------------- | ------- | ----------- | ---------- | ------ | -------------- |
-| \_connectSlotMixin    |         |             |            |        |                |
-| \_defineOverlayConfig |         |             |            |        |                |
-| focus                 |         |             |            |        |                |
+| \_connectSlotMixin    | private |             |            |        |                |
+| \_defineOverlayConfig | private |             |            |        |                |
+
+</details>
 
 <hr/>
 

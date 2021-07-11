@@ -12,11 +12,14 @@ Changing the service worker file name can be quite a hassle so you can adjust ge
 
 👉 `rocket.config.js`
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   serviceWorkerName: 'my-service-worker-name.js',
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 ## Meet the Service Worker
 

@@ -10,6 +10,48 @@
           "kind": "class",
           "description": "",
           "name": "RocketSearch",
+          "cssProperties": [
+            {
+              "description": "Search results background colour",
+              "name": "--rocket-search-background-color",
+              "default": "#fff"
+            },
+            {
+              "description": "Search input caret colour",
+              "name": "--rocket-search-caret-color",
+              "default": "initial"
+            },
+            {
+              "description": "Search input border colour",
+              "name": "--rocket-search-input-border-color",
+              "default": "#dfe1e5"
+            },
+            {
+              "description": "Search input border radius",
+              "name": "--rocket-search-input-border-radius",
+              "default": "24px"
+            },
+            {
+              "description": "Search Icon Color",
+              "name": "--rocket-search-fill-color",
+              "default": "#000"
+            },
+            {
+              "description": "Highlighted search result text colour",
+              "name": "--rocket-search-highlight-color",
+              "default": "#6c63ff"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "search result",
+              "name": "search-option"
+            },
+            {
+              "description": "empty search results",
+              "name": "empty"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -18,11 +60,20 @@
             },
             {
               "kind": "method",
-              "name": "setupSearch"
+              "name": "setupSearch",
+              "description": "Fetches the search index at `this.jsonUrl` and sets up the search engine.",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
             },
             {
               "kind": "field",
-              "name": "combobox"
+              "name": "combobox",
+              "type": {
+                "text": "RocketSearchCombobox|null"
+              }
             },
             {
               "kind": "field",
@@ -78,7 +129,7 @@
               "kind": "field",
               "name": "miniSearch",
               "type": {
-                "text": "null"
+                "text": "MiniSearch|null"
               },
               "default": "null"
             }
@@ -115,6 +166,7 @@
             "name": "LitElement",
             "package": "@lion/core"
           },
+          "tagName": "rocket-search",
           "customElement": true
         }
       ],
@@ -137,14 +189,52 @@
           "kind": "class",
           "description": "",
           "name": "RocketSearchCombobox",
+          "cssProperties": [
+            {
+              "name": "--rocket-search-fill-color",
+              "default": "#000"
+            },
+            {
+              "name": "--rocket-search-background-color",
+              "default": "#fff"
+            },
+            {
+              "name": "--rocket-search-input-overlay-border-color",
+              "default": "#ccc"
+            },
+            {
+              "name": "--rocket-search-input-border-color",
+              "default": "#dfe1e5"
+            },
+            {
+              "name": "--rocket-search-input-border-radius",
+              "default": "24px"
+            }
+          ],
+          "slots": [
+            {
+              "name": "prefix"
+            },
+            {
+              "name": "label"
+            },
+            {
+              "name": "listbox"
+            },
+            {
+              "name": "input"
+            }
+          ],
           "members": [
             {
               "kind": "method",
-              "name": "_connectSlotMixin"
+              "name": "_connectSlotMixin",
+              "privacy": "private"
             },
             {
               "kind": "method",
-              "name": "_defineOverlayConfig"
+              "name": "_defineOverlayConfig",
+              "privacy": "private"
             },
             {
               "kind": "field",

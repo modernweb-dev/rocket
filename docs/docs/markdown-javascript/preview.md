@@ -72,15 +72,18 @@ excludeFromSearch: true
 
 Once you have that you need to configure it for the story renderer by setting it in your `rocket.config.js`.
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   setupUnifiedPlugins: [
     adjustPluginOptions('mdjsSetupCode', {
       simulationSettings: { simulatorUrl: '/simulator/' },
     }),
   ],
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 <inline-notification type="tip">
 

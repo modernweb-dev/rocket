@@ -1,21 +1,21 @@
-# Presets >> Blog || 40
+# Presets >> Search >> Preset || 10
 
-Enable writing blog posts within your Rocket site.
+Add a search for all your static content.
 
 ## Installation
 
 <code-tabs collection="package-managers" default-tab="npm">
 
 ```bash tab npm
-npm i @rocket/blog
+npm i @rocket/search
 ```
 
 ```bash tab yarn
-yarn add @rocket/blog
+yarn add @rocket/search
 ```
 
 ```bash tab pnpm
-pnpm add @rocket/blog
+pnpm add @rocket/search
 ```
 
 </code-tabs>
@@ -26,11 +26,11 @@ pnpm add @rocket/blog
 
 <!-- prettier-ignore-start -->
 ```js
-import { rocketBlog } from '@rocket/blog';
+import { rocketSearch } from '@rocket/search';
 
 /** @type {import('rocket/cli').RocketCliConfig} */
 export default ({
-  presets: [rocketBlog()],
+  presets: [rocketSearch()],
 });
 ```
 <!-- prettier-ignore-end -->

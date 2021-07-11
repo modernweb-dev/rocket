@@ -4,6 +4,7 @@ import { rocketSearch } from '@rocket/search';
 import { absoluteBaseUrlNetlify } from '@rocket/core/helpers';
 import { adjustPluginOptions } from 'plugins-manager';
 import { codeTabs } from 'rocket-preset-code-tabs';
+import { customElementsManifest } from 'rocket-preset-custom-elements-manifest';
 
 /** @type {import('./packages/cli/types/main').RocketCliOptions} */
 export default {
@@ -22,6 +23,7 @@ export default {
         },
       },
     }),
+    customElementsManifest(),
   ],
 
   setupUnifiedPlugins: [

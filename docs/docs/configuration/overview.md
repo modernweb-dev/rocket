@@ -4,22 +4,27 @@ The configuration file is `rocket.config.js` or `rocket.config.mjs`.
 
 The config files consist of the following parts:
 
+<!-- prettier-ignore-start -->
 ```js
 import { rocketLaunch } from '@rocket/launch';
 
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   presets: [rocketLaunch()],
   emptyOutputDir: true,
   pathPrefix: 'subfolder-only-for-build',
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 Rocket is primarily build around plugins for each of its systems.
 
 New plugins can be added and all default plugins can be adjusted or even removed by using the following functions.
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   // add remark/unified plugin to the Markdown processing (e.g. enable special code blocks)
   setupUnifiedPlugins: [],
 
@@ -40,8 +45,9 @@ export default {
 
   // add a plugin to the cli (e.g. a new command like "rocket my-command")
   setupCliPlugins: [],
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 ## Adding Rollup Plugins
 
@@ -55,19 +61,19 @@ You can accomplish this with Rollup and dev server plugins. Make sure to add bot
 
 For these cases you can use `setupDevAndBuildPlugins`, which will automatically add the plugin for you to both Rollup and dev-server:
 
+<!-- prettier-ignore-start -->
 ```js
 import json from '@rollup/plugin-json';
 import { addPlugin } from 'plugins-manager';
 
 /** @type {import('@rocket/cli').RocketCliOptions} */
-const config = {
+export default ({
   setupDevAndBuildPlugins: [
     addPlugin({ name: 'json', plugin: json, location: 'top', options: { my: 'settings' } }),
   ],
-};
-
-export default config;
+});
 ```
+<!-- prettier-ignore-end -->
 
 This will add the Rollup plugin `json` with the id `json` at the top of the plugin list of Rollup and the dev server. It needs to be at the top so further plugins down the line can work with JSON imports.
 For the Dev Server the plugins are automatically wrapped by `@web/dev-server-rollup`. Note that [not all Rollup plugins](https://modern-web.dev/docs/dev-server/plugins/rollup/#compatibility-with-rollup-plugins) will work with the dev-server.
@@ -76,25 +82,28 @@ For the Dev Server the plugins are automatically wrapped by `@web/dev-server-rol
 
 All plugins which are either default or are added via a preset can still be adjusted by using `adjustPluginOptions`.
 
+<!-- prettier-ignore-start -->
 ```js
 import { adjustPluginOptions } from 'plugins-manager';
 
 /** @type {import('@rocket/cli').RocketCliOptions} */
-const config = {
+export default ({
   setupDevAndBuildPlugins: [adjustPluginOptions('json', { my: 'overwrite settings' })],
-};
-
-export default config;
+});
 ```
+<!-- prettier-ignore-end -->
 
 ## Lifecycle
 
 You can hook into the rocket lifecycle by specifying a function for `before11ty`. This function runs before 11ty calls it's write method. If it is an async function, Rocket will await it's promise.
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   async before11ty() {
     await copyDataFiles();
   },
-};
+});
 ```
+<!-- prettier-ignore-end -->
