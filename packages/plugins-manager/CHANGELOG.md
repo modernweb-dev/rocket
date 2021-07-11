@@ -1,5 +1,11 @@
 # plugins-manager
 
+## 0.2.3
+
+### Patch Changes
+
+- 9978ea7: Improves typings for `addPlugin`
+
 ## 0.2.2
 
 ### Patch Changes
