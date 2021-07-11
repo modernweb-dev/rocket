@@ -92,13 +92,16 @@ If you don't want to use the `module` package type, make sure to rename the gene
 
 <code-tabs default-tab="rocket.config.js">
 
+<!-- prettier-ignore-start -->
 ```js tab rocket.config.js
 import { rocketLaunch } from '@rocket/launch';
 
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   presets: [rocketLaunch()],
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 ```md tab docs/index.md
 # Welcome to Your Rocket Site

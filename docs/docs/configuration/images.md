@@ -88,8 +88,10 @@ The default preset for regular markdown content is available as `responsive`.
 
 👉 `rocket.config.js`
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   imagePresets: {
     responsive: {
       widths: [300, 820],
@@ -97,8 +99,9 @@ export default {
       sizes: '(min-width: 1024px) 820px, calc(100vw - 20px)',
     },
   },
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 ## Ignoring Images
 
@@ -148,8 +151,10 @@ For this example we want to also ignore `.jpeg` files.
 
 👉 `rocket.config.js`
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   imagePresets: {
     responsive: {
       // ...
@@ -157,8 +162,9 @@ export default {
         src.endsWith('.jpeg') || src.endsWith('svg') || src.includes('rocket-unresponsive.'),
     },
   },
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 With that setting we get the following behavior
 
@@ -180,8 +186,10 @@ becomes
 
 You can add your own image preset like so
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   imagePresets: {
     'my-image-preset': {
       widths: [30, 60],
@@ -189,8 +197,9 @@ export default {
       sizes: '(min-width: 1024px) 30px, 60px',
     },
   },
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 Once that `imagePreset` is defined you can use it by adding it to any `img` tag.
 
@@ -232,15 +241,18 @@ If you want to add `webp` (or replace `avif` with it) you can do so by setting t
 
 👉 `rocket.config.js`
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   imagePresets: {
     responsive: {
       formats: ['avif', 'webp', 'jpeg'],
     },
   },
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 ## Default widths
 
@@ -262,16 +274,19 @@ If you want to add more widths you can add them to `widths`.
 
 👉 `rocket.config.js`
 
+<!-- prettier-ignore-start -->
 ```js
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   imagePresets: {
     responsive: {
       widths: [300, 600, 900, 1200, 1640],
       sizes: '(min-width: 1024px) 820px, calc(100vw - 20px)',
     },
   },
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 <inline-notification type="tip">
 

@@ -1,5 +1,6 @@
 :root {
   --markdown-table-row-odd-background-color: #efefef;
+  --markdown-syntax-background-color: #f9f9f9;
 }
 
 body[layout^='layout-home'] .markdown-body .call-to-action:nth-of-type(2) {

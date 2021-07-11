@@ -7,12 +7,16 @@ This allows your users to adjust the options before actually applying the plugin
 
 Many plugin systems require you to either execute a plugin function like in `rollup`.
 
+<!-- prettier-ignore-start -->
 ```js
 import json from '@rollup/plugin-json';
-export default {
+
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   plugins: [json({ preferConst: true })],
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 or add it in a special way like in `eleventy`
 

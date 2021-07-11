@@ -8,7 +8,7 @@ alerts:
     content: You **really** shouldn't!
 ---
 
-# Presets >> Launch || 20
+# Presets >> Launch >> Preset || 10
 
 Rocket comes with a preset you will love. Simple, responsive and behaving like native, it sure is going to be a hit among your users.
 
@@ -36,13 +36,16 @@ pnpm add @rocket/launch
 
 👉 `rocket.config.js`
 
+<!-- prettier-ignore-start -->
 ```js
 import { rocketLaunch } from '@rocket/launch';
 
-export default {
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
   presets: [rocketLaunch()],
-};
+});
 ```
+<!-- prettier-ignore-end -->
 
 ## Data
 

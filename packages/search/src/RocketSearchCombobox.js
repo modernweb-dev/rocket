@@ -21,6 +21,18 @@ searchBtnTmpl.innerHTML = `
   </button>
 `;
 
+/**
+ * @cssprop [--rocket-search-fill-color=#000]
+ * @cssprop [--rocket-search-background-color=#fff]
+ * @cssprop [--rocket-search-input-overlay-border-color=#ccc]
+ * @cssprop [--rocket-search-input-border-color=#dfe1e5]
+ * @cssprop [--rocket-search-input-border-radius=24px]
+ * @slot prefix
+ * @slot label
+ * @slot listbox
+ * @slot input
+ * @type {String}
+ */
 export class RocketSearchCombobox extends LionCombobox {
   static get styles() {
     return [
@@ -182,6 +194,7 @@ export class RocketSearchCombobox extends LionCombobox {
     });
   }
 
+  /** @private */
   _connectSlotMixin() {
     if (!this.__isConnectedSlotMixin) {
       Object.keys(this.slots).forEach(slotName => {
@@ -208,6 +221,7 @@ export class RocketSearchCombobox extends LionCombobox {
     }
   }
 
+  /** @private */
   _defineOverlayConfig() {
     /** @type {'bottom'} */
     const placement = 'bottom';

@@ -28,16 +28,22 @@ For docs please see our homepage [https://rocket.modern-web.dev/docs/presets/lau
 
 #### CSS Properties
 
-| Name                                           | Description |
-| ---------------------------------------------- | ----------- |
-| --inline-notification-tip-background-color     |             |
-| --inline-notification-tip-border-color         |             |
-| --inline-notification-warning-background-color |             |
-| --inline-notification-warning-border-color     |             |
-| --inline-notification-danger-background-color  |             |
-| --inline-notification-danger-border-color      |             |
-| --inline-notification-warning-heading-color    |             |
-| --inline-notification-danger-heading-color     |             |
+| Name                                           | Default                    | Description |
+| ---------------------------------------------- | -------------------------- | ----------- |
+| --inline-notification-tip-background-color     | `rgba(221, 221, 221, 0.3)` |             |
+| --inline-notification-tip-border-color         | `#42b983`                  |             |
+| --inline-notification-warning-background-color | `rgba(255, 229, 100, 0.2)` |             |
+| --inline-notification-warning-border-color     | `#e7c000`                  |             |
+| --inline-notification-danger-background-color  | `rgba(192, 0, 0, 0.1)`     |             |
+| --inline-notification-danger-border-color      | `#c00`                     |             |
+| --inline-notification-warning-heading-color    | `#b29400`                  |             |
+| --inline-notification-danger-heading-color     | `#900`                     |             |
+
+#### CSS Parts
+
+| Name  | Description       |
+| ----- | ----------------- |
+| title | the title heading |
 
 <hr/>
 
