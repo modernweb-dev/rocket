@@ -1,0 +1,298 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/RocketSearch.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RocketSearch",
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "static": true
+            },
+            {
+              "kind": "method",
+              "name": "setupSearch"
+            },
+            {
+              "kind": "field",
+              "name": "combobox"
+            },
+            {
+              "kind": "field",
+              "name": "jsonUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "privacy": "public",
+              "attribute": "json-url"
+            },
+            {
+              "kind": "field",
+              "name": "search",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "privacy": "public",
+              "attribute": "search"
+            },
+            {
+              "kind": "field",
+              "name": "maxResults",
+              "type": {
+                "text": "number"
+              },
+              "default": "10",
+              "privacy": "public",
+              "attribute": "max-results"
+            },
+            {
+              "kind": "field",
+              "name": "noResultsText",
+              "type": {
+                "text": "string"
+              },
+              "default": "'No results found'",
+              "privacy": "public",
+              "attribute": "noResultsText"
+            },
+            {
+              "kind": "field",
+              "name": "results",
+              "type": {
+                "text": "RocketSearchResult[]"
+              },
+              "default": "[]",
+              "privacy": "public",
+              "attribute": "results"
+            },
+            {
+              "kind": "field",
+              "name": "miniSearch",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "json-url",
+              "fieldName": "jsonUrl"
+            },
+            {
+              "name": "search",
+              "fieldName": "search"
+            },
+            {
+              "name": "results",
+              "fieldName": "results"
+            },
+            {
+              "name": "max-results",
+              "fieldName": "maxResults"
+            },
+            {
+              "name": "noResultsText",
+              "fieldName": "noResultsText"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "@lion/core"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RocketSearch",
+          "declaration": {
+            "name": "RocketSearch",
+            "module": "src/RocketSearch.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/RocketSearchCombobox.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RocketSearchCombobox",
+          "members": [
+            {
+              "kind": "method",
+              "name": "_connectSlotMixin"
+            },
+            {
+              "kind": "method",
+              "name": "_defineOverlayConfig"
+            },
+            {
+              "kind": "field",
+              "name": "slots",
+              "type": {
+                "text": "LionCombobox['slots']"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "focus"
+            },
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "'none'"
+              },
+              "default": "'none'"
+            },
+            {
+              "kind": "field",
+              "name": "selectionFollowsFocus",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "rotateKeyboardNavigation",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "showInput",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "superclass": {
+            "name": "LionCombobox",
+            "package": "@lion/combobox"
+          },
+          "tagName": "rocket-search-combobox",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RocketSearchCombobox",
+          "declaration": {
+            "name": "RocketSearchCombobox",
+            "module": "src/RocketSearchCombobox.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "rocket-search-combobox",
+          "declaration": {
+            "name": "RocketSearchCombobox",
+            "module": "src/RocketSearchCombobox.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/RocketSearchOption.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RocketSearchOption",
+          "members": [
+            {
+              "kind": "field",
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "privacy": "public",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "privacy": "public",
+              "attribute": "text"
+            },
+            {
+              "kind": "field",
+              "name": "section",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "privacy": "public",
+              "attribute": "section"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "title",
+              "fieldName": "title"
+            },
+            {
+              "name": "text",
+              "fieldName": "text"
+            },
+            {
+              "name": "section",
+              "fieldName": "section"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "LinkMixin",
+              "module": "/src/LinkMixin.js"
+            }
+          ],
+          "superclass": {
+            "name": "LionOption",
+            "package": "@lion/listbox"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RocketSearchOption",
+          "declaration": {
+            "name": "RocketSearchOption",
+            "module": "src/RocketSearchOption.js"
+          }
+        }
+      ]
+    }
+  ]
+}
