@@ -38,6 +38,6 @@
     "testing"
   ],
   "dependencies": {
-    "plugins-manager": "^0.2.2"
+    "plugins-manager": "^0.2.3"
   }
 }
