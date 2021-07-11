@@ -1,5 +1,11 @@
 # @rocket/blog
 
+## 0.3.1
+
+### Patch Changes
+
+- a5661b8: Updates dependencies
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.8.2
+
+### Patch Changes
+
+- a5661b8: Updates dependencies
+
 ## 0.8.1
 
 ### Patch Changes

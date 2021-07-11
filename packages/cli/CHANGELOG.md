@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.9.8
+
+### Patch Changes
+
+- a5661b8: Updates dependencies
+
 ## 0.9.7
 
 ### Patch Changes
