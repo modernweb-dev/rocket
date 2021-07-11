@@ -4,7 +4,6 @@ Add a search for all your static content.
 
 For docs please see our homepage [https://rocket.modern-web.dev/docs/presets/search/](https://rocket.modern-web.dev/docs/presets/search/).
 
-
 ## `src/RocketSearch.js`:
 
 ### class: `RocketSearch`
@@ -80,11 +79,11 @@ For docs please see our homepage [https://rocket.modern-web.dev/docs/presets/sea
 
 #### Methods
 
-| Name                 | Privacy | Description | Parameters | Return | Inherited From |
-| -------------------- | ------- | ----------- | ---------- | ------ | -------------- |
-| _connectSlotMixin    |         |             |            |        |                |
-| _defineOverlayConfig |         |             |            |        |                |
-| focus                |         |             |            |        |                |
+| Name                  | Privacy | Description | Parameters | Return | Inherited From |
+| --------------------- | ------- | ----------- | ---------- | ------ | -------------- |
+| \_connectSlotMixin    |         |             |            |        |                |
+| \_defineOverlayConfig |         |             |            |        |                |
+| focus                 |         |             |            |        |                |
 
 <hr/>
 
