@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.8.1
+
+### Patch Changes
+
+- d91e46b: update dependencies
+- 9978ea7: Improves typings for `addPlugin`
+- Updated dependencies [9978ea7]
+  - plugins-manager@0.2.3
+
 ## 0.8.0
 
 ### Minor Changes

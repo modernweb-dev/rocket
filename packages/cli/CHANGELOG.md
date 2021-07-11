@@ -1,5 +1,15 @@
 # @rocket/cli
 
+## 0.9.7
+
+### Patch Changes
+
+- d91e46b: Add `bootstrap` command
+- 9978ea7: Improves typings for `addPlugin`
+- Updated dependencies [9978ea7]
+  - @rocket/eleventy-plugin-mdjs-unified@0.5.1
+  - plugins-manager@0.2.3
+
 ## 0.9.6
 
 ### Patch Changes

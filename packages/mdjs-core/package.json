@@ -1,6 +1,6 @@
 {
   "name": "@mdjs/core",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "publishConfig": {
     "access": "public"
   },
@@ -49,7 +49,7 @@
     "@types/unist": "^2.0.3",
     "es-module-lexer": "^0.3.26",
     "github-markdown-css": "^4.0.0",
-    "plugins-manager": "^0.2.2",
+    "plugins-manager": "^0.2.3",
     "rehype-autolink-headings": "^5.0.1",
     "rehype-prism-template": "^0.4.1",
     "rehype-raw": "^5.0.0",

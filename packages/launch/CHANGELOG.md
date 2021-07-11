@@ -1,5 +1,11 @@
 # @rocket/launch
 
+## 0.5.4
+
+### Patch Changes
+
+- d91e46b: Add noscript styles which explicity show unregistered custom elements
+
 ## 0.5.3
 
 ### Patch Changes

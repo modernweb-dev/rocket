@@ -1,5 +1,14 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.5.1
+
+### Patch Changes
+
+- 9978ea7: Improves typings for `addPlugin`
+- Updated dependencies [d91e46b]
+- Updated dependencies [9978ea7]
+  - @mdjs/core@0.8.1
+
 ## 0.5.0
 
 ### Minor Changes
