@@ -1,5 +1,11 @@
 # plugins-manager
 
+## 0.2.4
+
+### Patch Changes
+
+- 61bb700: Fix types
+
 ## 0.2.3
 
 ### Patch Changes
