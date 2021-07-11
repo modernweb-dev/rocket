@@ -48,7 +48,7 @@
     "@open-wc/scoped-elements": "^2.0.0-next.3",
     "chalk": "^4.0.0",
     "minisearch": "^3.0.2",
-    "plugins-manager": "^0.2.3",
+    "plugins-manager": "^0.2.4",
     "sax-wasm": "^2.0.0"
   },
   "customElements": "custom-elements.json"
