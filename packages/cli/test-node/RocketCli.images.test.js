@@ -101,6 +101,52 @@ describe('RocketCli images', () => {
           '</p>',
         ].join('\n'),
       );
+
+      const tableHtml = await readStartOutput(cli, 'table/index.html', {
+        formatHtml: true,
+        replaceImageHashes: true,
+      });
+      expect(tableHtml).to.equal(
+        [
+          '<table>',
+          '  <thead>',
+          '    <tr>',
+          '      <th>Image</th>',
+          '    </tr>',
+          '  </thead>',
+          '  <tbody>',
+          '    <tr>',
+          '      <td>',
+          '        <figure>',
+          '          <picture>',
+          '            <source',
+          '              type="image/avif"',
+          '              srcset="/images/__HASH__-600.avif 600w, /images/__HASH__-900.avif 900w"',
+          '              sizes="100vw"',
+          '            />',
+          '            <source',
+          '              type="image/jpeg"',
+          '              srcset="/images/__HASH__-600.jpeg 600w, /images/__HASH__-900.jpeg 900w"',
+          '              sizes="100vw"',
+          '            />',
+          '            <img',
+          '              alt="My Image Alternative Text"',
+          '              rocket-image="responsive"',
+          '              src="/images/__HASH__-600.jpeg"',
+          '              width="600"',
+          '              height="316"',
+          '              loading="lazy"',
+          '              decoding="async"',
+          '            />',
+          '          </picture>',
+          '          <figcaption>My Image Description</figcaption>',
+          '        </figure>',
+          '      </td>',
+          '    </tr>',
+          '  </tbody>',
+          '</table>',
+        ].join('\n'),
+      );
     });
 
     it('can configure more patterns to ignore', async () => {
