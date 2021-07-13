@@ -33,7 +33,7 @@ function replaceBetween({ html, start, end, insert = '' }) {
   const i = start.line;
   const line = lines[i];
   const upToChange = line.slice(0, start.character);
-  const afterChange = line.slice(end.character - 4);
+  const afterChange = line.slice(end.character);
 
   lines[i] = `${upToChange}${insert}${afterChange}`;
   return lines.join('\n');
@@ -103,7 +103,8 @@ function getImages(html, { imagePresets }) {
     if (ev === SaxEventType.CloseTag) {
       const data = /** @type {Tag} */ (/** @type {any} */ (_data));
       if (data.name === 'img') {
-        const { openStart, closeEnd } = data;
+        // Img tag only has open tag.
+        const { openStart, openEnd } = data;
 
         const attributes = getAttributes(data);
         const presetName = getAttribute(data, 'rocket-image');
@@ -127,7 +128,7 @@ function getImages(html, { imagePresets }) {
               title,
               alt,
               openStart,
-              closeEnd,
+              openEnd,
             });
           }
         }
@@ -219,7 +220,7 @@ function updateHtml(html, changes) {
     newHtml = replaceBetween({
       html: newHtml,
       start: change.openStart,
-      end: change.closeEnd,
+      end: change.openEnd,
       insert: change.newHtml,
     });
   }
