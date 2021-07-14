@@ -44,12 +44,12 @@
     "remark"
   ],
   "dependencies": {
-    "@mdjs/mdjs-preview": "^0.5.1",
-    "@mdjs/mdjs-story": "^0.3.0",
+    "@mdjs/mdjs-preview": "0.5.1",
+    "@mdjs/mdjs-story": "0.3.0",
     "@types/unist": "^2.0.3",
     "es-module-lexer": "^0.3.26",
     "github-markdown-css": "^4.0.0",
-    "plugins-manager": "^0.2.4",
+    "plugins-manager": "0.2.4",
     "rehype-autolink-headings": "^5.0.1",
     "rehype-prism-template": "^0.4.1",
     "rehype-raw": "^5.0.0",
