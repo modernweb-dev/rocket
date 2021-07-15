@@ -19,6 +19,11 @@
       src="https://img.shields.io/badge/twitter-@modern_web_dev-1DA1F3?style=flat-square"
       alt="Follow @modern_web_dev on Twitter"
   /></a>
+  <a href="https://open.vscode.dev/modernweb-dev/rocket"
+    ><img
+      src="https://open.vscode.dev/badges/open-in-vscode.svg"
+      alt="Open in VS Code"
+  /></a>
 </p>
 
 <p align="center">
