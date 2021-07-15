@@ -59,7 +59,7 @@
     "@11ty/eleventy-img": "^0.9.0",
     "@rocket/building-rollup": "^0.3.1",
     "@rocket/core": "^0.1.2",
-    "@rocket/eleventy-plugin-mdjs-unified": "^0.5.1",
+    "@rocket/eleventy-plugin-mdjs-unified": "^0.5.2",
     "@rocket/eleventy-rocket-nav": "^0.3.0",
     "@rollup/plugin-babel": "^5.2.2",
     "@rollup/plugin-node-resolve": "^11.0.1",
