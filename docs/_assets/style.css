@@ -9,7 +9,6 @@ header {
 
 code-tabs[collection="package-managers"] {
   --code-tabs-icon-height: 18px;
-  --code-tabs-justify-tabs: end;
 }
 
 .call-to-action {

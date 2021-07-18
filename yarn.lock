@@ -1358,13 +1358,13 @@
     string-to-template-literal "^2.0.0"
     uglifycss "^0.0.29"
 
-"@pwrs/mixins@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@pwrs/mixins/-/mixins-0.2.0.tgz#3834c1f8f1f51454546bcd32855b0a771e7cb703"
-  integrity sha512-ef6mXLUL8FMJXwVDfxw53MHgLu3ZXSVy1/31ECpYjUF7VKsjFbFPW/xz/kEojO/5pFRpXyy7U17sIDbQJZe26w==
+"@pwrs/mixins@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@pwrs/mixins/-/mixins-0.2.1.tgz#44f65ed393ce2d3a1895222cb7203ac3752515ce"
+  integrity sha512-hgBU6iDQcczFDOvtZAmzX3/XRy3So3+1HnY3FBwH8be3OEiD816FX1yEj41wLPBcsX2YgjtfcloJ9USxGOrYjA==
   dependencies:
     "@open-wc/dedupe-mixin" "^1.3.0"
-    "@types/ramda" "^0.27.40"
+    "@types/ramda" "^0.27.44"
     bind-decorator "^1.0.11"
     lit "^2.0.0-rc.2"
     lit-element "^2.5.1"
@@ -1710,10 +1710,10 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
   integrity sha512-/JHkVHtx/REVG0VVToGRGH2+23hsYLHdyG+GrvoUGlGAd0ErauXDyvHtRI/7H7mzLm+tBCKA7pfcpkQ1lf58iQ==
 
-"@types/ramda@^0.27.40":
-  version "0.27.43"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.43.tgz#3c0632a82479bccac7455ec77a2b1e43b326fe2f"
-  integrity sha512-AZ1q/rG/aBYszHxeZ9/0rzKyH7ghpkMwZSSZGZbCEX+fleRFPhKpXht/tYpyU65tDeXjkaafKd2Sp+PNB5wmGw==
+"@types/ramda@^0.27.44":
+  version "0.27.44"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.44.tgz#ba2283d67fcff366f7e68bd5124a0466e467967f"
+  integrity sha512-SlEHKcLG36PlU+rLJwp8p4dpC9Hp/LiH6n0REX2m4iEB15PWe1qKQzgNSZrYKhTHDFvkeEM/F2gcYwfighsEuQ==
   dependencies:
     ts-toolbelt "^6.15.1"
 
@@ -8131,12 +8131,12 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-rocket-preset-code-tabs@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/rocket-preset-code-tabs/-/rocket-preset-code-tabs-0.2.2.tgz#de2892d31fbe9fa0368e6015de181e94558cffac"
-  integrity sha512-GLgdblYomQIwlMS0uYOCFugHoYaVFKwGzwcWA+d34TKMPciRz10Hcj9Y4nyViIp6XodW6blWNvH+aE6oN2EA9Q==
+rocket-preset-code-tabs@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/rocket-preset-code-tabs/-/rocket-preset-code-tabs-0.2.6.tgz#695dc31f2b75184e12b02e8b17d18d37441c9009"
+  integrity sha512-TSvlibssXgTOKVnOa/xTPDUrHfcUcW15FeBFyMvfQRre9bEzA7l1Yv40j8chSlXZ2ysNbkox+Xq9HmyRIYjorQ==
   dependencies:
-    "@pwrs/mixins" "^0.2.0"
+    "@pwrs/mixins" "^0.2.1"
     eleventy-plugin-add-web-component-definitions "^2.0.3"
     esbuild "^0.12.15"
     esbuild-plugin-lit-css "^1.0.2"
@@ -8144,10 +8144,10 @@ rocket-preset-code-tabs@^0.2.2:
     lit "^2.0.0-rc.2"
     rocket-preset-markdown-directives "^0.1.3"
 
-rocket-preset-custom-elements-manifest@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/rocket-preset-custom-elements-manifest/-/rocket-preset-custom-elements-manifest-0.1.3.tgz#546158a07eab84dc6acedd39f2c9affe5fcdc470"
-  integrity sha512-rh5ov2R7LwU/J7uo6ECEGY4P82EceafXcq4LqhfldUreqOPEL04b7fmh8cC77lVBcZj46kQptdwfL4+Ih38U/w==
+rocket-preset-custom-elements-manifest@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/rocket-preset-custom-elements-manifest/-/rocket-preset-custom-elements-manifest-0.1.7.tgz#d5474182bd11cf05207445808ab83cd3a318d596"
+  integrity sha512-p8DFVgxxivEBZgLE3i5bMMeCvMrdTmNH2WzHHmgnhXVDBny0l2Ma1yO+/hE6/p0iQc5+vAUxpTVazVdoD1csDg==
   dependencies:
     "@power-elements/json-viewer" "2.1.1"
     eleventy-plugin-footnotes "0.9.0"

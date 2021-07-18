@@ -4,7 +4,7 @@ Enable writing blog posts within your Rocket site.
 
 ## Installation
 
-<code-tabs collection="package-managers" default-tab="npm">
+<code-tabs collection="package-managers" default-tab="npm" align="end">
 
 ```bash tab npm
 npm i @rocket/blog
