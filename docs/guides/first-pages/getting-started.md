@@ -21,7 +21,7 @@ cd my-project
 
 Then initialize a package.json file
 
-<code-tabs collection="package-managers" default-tab="npm">
+<code-tabs collection="package-managers" default-tab="npm" align="end">
 
 ```bash tab npm
 npm init -y
@@ -39,7 +39,7 @@ pnpm init -y
 
 ### Step 2. Install dependencies
 
-<code-tabs collection="package-managers" default-tab="npm">
+<code-tabs collection="package-managers" default-tab="npm" align="end">
 
 ```bash tab npm
 npm install --save-dev @rocket/cli @rocket/launch
@@ -57,7 +57,7 @@ pnpm add -D @rocket/cli @rocket/launch
 
 ### Step 3. Bootstrap the project
 
-<code-tabs collection="package-managers" default-tab="npm">
+<code-tabs collection="package-managers" default-tab="npm" align="end">
 
 ```bash tab npm
 npx rocket bootstrap
@@ -148,7 +148,7 @@ Please note that the heading - text prefixed with `#` or `##` - is not optional 
 
 Now you can launch your site locally with
 
-<code-tabs collection="package-managers" default-tab="npm">
+<code-tabs collection="package-managers" default-tab="npm" align="end">
 
 ```bash tab npm
 npm start

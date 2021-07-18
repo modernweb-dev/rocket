@@ -16,7 +16,7 @@ Rocket comes with a preset you will love. Simple, responsive and behaving like n
 
 Install `@rocket/launch` from the NPM repository using your favourite package manager.
 
-<code-tabs collection="package-managers" default-tab="npm">
+<code-tabs collection="package-managers" default-tab="npm" align="end">
 
 ```bash tab npm
 npm i @rocket/launch

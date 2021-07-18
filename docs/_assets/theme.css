@@ -3,9 +3,6 @@ html {
   --button-one: #2758ff;
   --button-two-hover: #444;
   --button-two: black;
-  --code-button-focus-background: var(--markdown-syntax-background-color);
-  --code-button-background: var(--markdown-table-row-odd-background-color);
-  --code-tabs-tabs-background: var(--page-background);
   --contrast-color-dark: #1d3557;
   --contrast-color-light: #fff;
   --footer-background: rgba(0, 0, 0, 0.02);
