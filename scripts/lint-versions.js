@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { readdirSync, existsSync, readFileSync } from 'fs';
+import semver from 'semver';
 
 const getDirectories = source =>
   readdirSync(source, { withFileTypes: true })
@@ -35,7 +36,12 @@ function compareVersions(versionsA, versionsB) {
   let output = '';
   const newVersions = { ...versionsA };
   Object.keys(versionsB).forEach(dep => {
-    if (versionsA[dep] && versionsB[dep] && versionsA[dep] !== versionsB[dep]) {
+    if (
+      versionsA[dep] &&
+      versionsB[dep] &&
+      versionsA[dep] !== versionsB[dep] &&
+      !semver.satisfies(versionsA[dep], versionsB[dep])
+    ) {
       output += `  - "${dep}" should be "${versionsA[dep]}" but is "${versionsB[dep]}"\n`;
     }
     if (!newVersions[dep]) {
