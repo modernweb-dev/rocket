@@ -1,5 +1,11 @@
 # @rocket/cli
 
+## 0.9.9
+
+### Patch Changes
+
+- adf0f1d: use img openEnd to insert responsive image
+
 ## 0.9.8
 
 ### Patch Changes

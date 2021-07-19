@@ -1,5 +1,11 @@
 # @rocket/launch
 
+## 0.5.5
+
+### Patch Changes
+
+- 3d22fbb: Prevent styles from applying to lion components that are rendered in light dom
+
 ## 0.5.4
 
 ### Patch Changes
