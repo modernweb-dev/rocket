@@ -1,5 +1,23 @@
 # @rocket/cli
 
+## 0.9.10
+
+### Patch Changes
+
+- 738941a: In `rocket.config.js` you can now supply a rollup config function.
+
+  ```js
+  export default {
+    rollup: config => {
+      // config will be the fully generated config object after all presets have been applied
+      if (config.plugins.includes('...')) {
+        // change some config options
+      }
+      return config;
+    },
+  };
+  ```
+
 ## 0.9.9
 
 ### Patch Changes
