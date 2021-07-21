@@ -54,8 +54,8 @@ async function productionBuild(config) {
       ...config.setupBuildPlugins,
     ],
   });
-
-  await buildAndWrite(mpaConfig);
+  const finalConfig = typeof config.rollup === 'function' ? config.rollup(mpaConfig) : mpaConfig;
+  await buildAndWrite(finalConfig);
 
   const serviceWorkerSourcePath = path.resolve('docs/_merged_assets/service-worker.js');
   if (fs.existsSync(serviceWorkerSourcePath)) {

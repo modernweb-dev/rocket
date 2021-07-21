@@ -40,6 +40,7 @@ export interface RocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   start?: RocketStartConfig;
 
   // advanced
+  rollup?: (config: any) => void; // TODO: improve
   devServer?: DevServerConfig;
   eleventy?: (eleventyConfig: any) => void; // TODO: improve
   plugins?: RocketPlugin[];
