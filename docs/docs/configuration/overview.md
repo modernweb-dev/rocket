@@ -107,3 +107,23 @@ export default ({
 });
 ```
 <!-- prettier-ignore-end -->
+
+## Advanced
+
+Sometimes you need even more control over the build process. In these cases you can take full control over the rollup config.
+
+For example if you wanna add an `acron` plugin to rollup
+
+<!-- prettier-ignore-start -->
+```js
+import { importAssertions } from 'acorn-import-assertions';
+
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
+  rollup: config => ({
+    ...config,
+    acornInjectPlugins: [importAssertions],
+  }),
+});
+```
+<!-- prettier-ignore-end -->

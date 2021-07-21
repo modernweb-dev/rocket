@@ -188,4 +188,23 @@ describe('RocketCli e2e', () => {
       errorMatch: /Found 1 missing reference targets/,
     });
   });
+
+  it('can completely take over the rollup config', async () => {
+    cli = await executeBuild('e2e-fixtures/rollup-override/rocket.config.js');
+
+    const indexHtml = await readBuildOutput(cli, 'index.html', {
+      stripToBody: true,
+      formatHtml: true,
+    });
+    expect(indexHtml).to.equal(
+      [
+        '<h1 id="importing-foo">',
+        '  <a aria-hidden="true" tabindex="-1" href="#importing-foo"><span class="icon icon-link"></span></a',
+        '  >Importing foo',
+        '</h1>',
+        '',
+        '<script type="module" src="./7338509a.js" mdjs-setup=""></script>',
+      ].join('\n'),
+    );
+  });
 });
