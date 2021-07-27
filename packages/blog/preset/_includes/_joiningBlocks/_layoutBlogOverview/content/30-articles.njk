@@ -3,8 +3,7 @@
     {% if post.data.published %}
       <article>
         {% if post.data.cover_image %}
-          <a href="{{ post.url | url }}">
-            <img src="{{ post.data.cover_image | url }}" alt="">
+          <a href="{{ post.url | url }}" class="thumbnail" style="background: url({{ post.data.cover_image | url }});">
           </a>
         {% endif %}
         <div class="content">
