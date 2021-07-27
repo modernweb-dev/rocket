@@ -1,5 +1,11 @@
 # @rocket/blog
 
+## 0.3.2
+
+### Patch Changes
+
+- 00f4a91: alignment + spacings for article grids
+
 ## 0.3.1
 
 ### Patch Changes
