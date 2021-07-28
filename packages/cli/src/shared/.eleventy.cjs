@@ -69,7 +69,7 @@ module.exports = function (eleventyConfig) {
   }
 
   if (config.eleventy) {
-    const returnValue = config.eleventy(eleventyConfig);
+    const returnValue = config.eleventy(eleventyConfig, config);
     if (returnValue) {
       const returnString = JSON.stringify(returnValue, null, 2);
       const msg = [

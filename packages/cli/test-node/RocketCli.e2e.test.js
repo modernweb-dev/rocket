@@ -207,4 +207,20 @@ describe('RocketCli e2e', () => {
       ].join('\n'),
     );
   });
+
+  describe('can adjust the eleventy config while having access to the rocketConfig', () => {
+    it('testing start', async () => {
+      cli = await executeStart('e2e-fixtures/adjust-eleventy-config/rocket.config.js');
+      const indexHtml = await readStartOutput(cli, 'index.html');
+      expect(indexHtml).to.equal('<p><a href="start:/path/to/page/">link</a></p>');
+    });
+
+    it('testing build', async () => {
+      cli = await executeBuild('e2e-fixtures/adjust-eleventy-config/rocket.config.js');
+      const indexBuildHtml = await readBuildOutput(cli, 'index.html', {
+        stripToBody: true,
+      });
+      expect(indexBuildHtml).to.equal('<p><a href="build:/path/to/page/">link</a></p>');
+    });
+  });
 });
