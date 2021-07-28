@@ -110,7 +110,9 @@ export default ({
 
 ## Advanced
 
-Sometimes you need even more control over the build process. In these cases you can take full control over the rollup config.
+Sometimes you need even more control over specific settings.
+
+### Rollup
 
 For example if you wanna add an `acron` plugin to rollup
 
@@ -124,6 +126,41 @@ export default ({
     ...config,
     acornInjectPlugins: [importAssertions],
   }),
+});
+```
+<!-- prettier-ignore-end -->
+
+### Eleventy
+
+For example to add custom filter you can access the eleventy config directly
+
+<!-- prettier-ignore-start -->
+```js
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
+  eleventy: eleventyConfig => {
+    eleventyConfig.addFilter('value', value => `prefix${value}`);
+  },
+});
+```
+<!-- prettier-ignore-end -->
+
+You even have access to the full rocketConfig if you for example want to create filters that behave differently during start/build.
+
+<!-- prettier-ignore-start -->
+```js
+/** @type {import('rocket/cli').RocketCliConfig} */
+export default ({
+  eleventy: (config, rocketConfig) => {
+    config.addFilter('conditional-resolve', value => {
+      if (rocketConfig.command === 'build') {
+        return `build:${value}`;
+      }
+      if (rocketConfig.command === 'start') {
+        return `start:${value}`;
+      }
+    });
+  },
 });
 ```
 <!-- prettier-ignore-end -->
