@@ -1,1 +1,9 @@
 <link rel="stylesheet" href="{{ '/_assets/rocket-blog.css' | asset | url }}">
+{%- if layout == 'layout-blog-overview' -%}
+  <style>
+    .articles article .thumbnail {
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+{%- endif -%}
