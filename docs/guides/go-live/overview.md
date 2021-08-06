@@ -42,11 +42,13 @@ eleventyExcludeFromCollections: true
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {% raw %}{% for page in collections.all %}
+    {%- if page.url !== '/404.html' -%}
     <url>
       <loc>{{ rocketConfig.absoluteBaseUrl }}{{ page.url | url }}</loc>
       <lastmod>{{ page.date.toISOString() }}</lastmod>
       <changefreq>{{ page.data.changeFreq if page.data.changeFreq else "monthly" }}</changefreq>
     </url>
+    {%- endif -%}
   {% endfor %}{% endraw %}
 </urlset>
 ```
