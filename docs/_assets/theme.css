@@ -19,6 +19,9 @@ html {
   --primary-color: rgb(44, 62, 80);
   --primary-lines-color: #ccc;
   --primary-text-color: #2c3e50;
+  --primary-text-inverse-color: #eee;
+  --switch-unselected-color: #808080;
+  --switch-selected-color: #42b983;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,6 +48,9 @@ html {
     --rocket-search-highlight-color: #41ffb0;
     --rocket-search-hover-background-color: #6b717a;
     --rocket-search-fill-color: #fff;
+    --primary-text-inverse-color: #2c3e50;
+    --switch-unselected-color: #808080;
+    --switch-selected-color: #42b983;
 
     /* Markdown */
     --markdown-octicon-link: var(--primary-text-color);
