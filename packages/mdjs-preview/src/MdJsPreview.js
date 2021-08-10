@@ -652,7 +652,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
 
       [part='copy-button']:hover {
         background-color: var(--primary-color, #3f51b5);
-        color: #fff;
+        color: var(--primary-text-inverse-color, #eee);
       }
 
       .switch {
@@ -668,7 +668,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       [part='switch-button'] {
         display: inline-block;
         width: 44px;
-        background: #808080;
+        background: var(--switch-unselected-color, #808080);
         height: 25px;
         border-radius: 15px;
         position: relative;
@@ -687,7 +687,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       }
 
       .switch.selected [part='switch-button'] {
-        background: var(--primary-color, #008000);
+        background: var(--switch-selected-color, #42b983);
       }
 
       .switch.selected [part='switch-button']::after {
@@ -699,7 +699,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
         margin: -5px 0 10px 0;
         text-align: right;
         font-size: 12px;
-        color: #333;
+        color: var(--primary-text-color, #2c3e50);
       }
 
       .settings-wrapper {
@@ -748,7 +748,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
 
       .simulation-toggle:hover {
         background-color: var(--primary-color, #3f51b5);
-        color: #fff;
+        color: var(--primary-text-inverse-color, #eee);
       }
 
       h3[slot='invoker'] button {
@@ -759,6 +759,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
         border: none;
         border-bottom: 1px solid #bbb;
         width: 100%;
+        color: var(--primary-text-color, #2c3e50);
         background: none;
         text-align: left;
         font-weight: bold;
@@ -780,7 +781,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
         border-bottom: none;
       }
 
-      [slot='content'] {
+      .options > [slot='content'] {
         border-bottom: 1px solid #bbb;
         padding: 10px;
       }
@@ -820,7 +821,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
 
       .segmented-control label.selected span {
         background: var(--primary-color, #3f51b5);
-        color: #fff;
+        color: var(--primary-text-inverse-color, #eee);
       }
 
       .segmented-control label:focus-within span {
