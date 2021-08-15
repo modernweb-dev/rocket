@@ -1,0 +1,44 @@
+{
+  "name": "@web/menu",
+  "version": "0.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A fast low dependency menu renderer for html sites",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/web-menu"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/tools/web-menu/",
+  "main": "./index.js",
+  "bin": {
+    "web-menu": "src/cli.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "scripts": {
+    "test": "mocha test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+  },
+  "files": [
+    "*.js",
+    "dist",
+    "dist-types",
+    "preset",
+    "src"
+  ],
+  "dependencies": {
+    "colorette": "^2.0.16",
+    "commander": "^8.2.0",
+    "plugins-manager": "^0.3.0",
+    "sax-wasm": "^2.0.0",
+    "tree-model": "^1.0.7"
+  },
+  "types": "dist-types/index.d.ts"
+}

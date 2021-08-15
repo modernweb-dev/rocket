@@ -4,9 +4,6 @@ export { setComputedConfig, getComputedConfig } from './src/public/computedConfi
 export {
   generateEleventyComputed,
   LayoutPlugin,
-  TitleMetaPlugin,
-  TitlePlugin,
-  EleventyNavigationPlugin,
   SectionPlugin,
   SocialMediaImagePlugin,
   JoiningBlocksPlugin,

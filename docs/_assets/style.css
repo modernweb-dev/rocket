@@ -1,8 +1,8 @@
-:not(rocket-navigation):not(:defined) {
+:not(web-menu):not(:defined) {
   opacity: 0;
 }
 
-rocket-navigation,
+web-menu,
 header {
   font-family: 'Montserrat', sans-serif;
 }

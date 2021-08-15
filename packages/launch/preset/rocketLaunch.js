@@ -4,6 +4,7 @@ import { adjustPluginOptions } from 'plugins-manager';
 import { fileURLToPath } from 'url';
 import { LayoutPlugin } from '@rocket/cli';
 import htmlHeading from 'rehype-autolink-headings';
+import { IndexMenu } from '@web/menu';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -53,6 +54,9 @@ export function rocketLaunch() {
     setupUnifiedPlugins: [addOcticonToHeadlines],
     setupEleventyComputedConfig: [
       adjustPluginOptions(LayoutPlugin, { defaultLayout: 'layout-sidebar' }),
+    ],
+    setupMenus: [
+      adjustPluginOptions(IndexMenu, { navWrapper: nav => nav }),
     ],
     adjustImagePresets: imagePresets => ({
       ...imagePresets,

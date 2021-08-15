@@ -14,7 +14,10 @@ import { readConfig } from '@web/config-loader';
 
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
+import { RocketUpgrade } from './RocketUpgrade.js';
 import { RocketLint } from './RocketLint.js';
+
+import { webMenu } from '@web/menu';
 
 import { fileURLToPath } from 'url';
 
@@ -42,7 +45,7 @@ function ignore({ src }) {
  */
 export async function normalizeConfig(inConfig) {
   let config = {
-    presets: [],
+    presets: [webMenu()],
     setupUnifiedPlugins: [],
     setupDevAndBuildPlugins: [],
     setupDevPlugins: [],
@@ -50,6 +53,7 @@ export async function normalizeConfig(inConfig) {
     setupEleventyPlugins: [],
     setupEleventyComputedConfig: [],
     setupCliPlugins: [],
+    setupMenus: [],
     eleventy: () => {},
     command: 'help',
     watch: true,
@@ -98,7 +102,7 @@ export async function normalizeConfig(inConfig) {
   try {
     const fileConfig = await readConfig('rocket.config', userConfigFile, path.resolve(__configDir));
     if (fileConfig) {
-      config = {
+      const updatedConfig = {
         ...config,
         ...fileConfig,
         build: {
@@ -111,12 +115,16 @@ export async function normalizeConfig(inConfig) {
         },
         imagePresets: config.imagePresets,
       };
+      if (fileConfig.presets) {
+        updatedConfig.presets = [...config.presets, ...fileConfig.presets];
+      }
       if (fileConfig.imagePresets && fileConfig.imagePresets.responsive) {
-        config.imagePresets.responsive = {
+        updatedConfig.imagePresets.responsive = {
           ...config.imagePresets.responsive,
           ...fileConfig.imagePresets.responsive,
         };
       }
+      config = updatedConfig;
     }
   } catch (error) {
     console.error('Could not read rocket config file', error);
@@ -165,6 +173,9 @@ export async function normalizeConfig(inConfig) {
     if (preset.setupCliPlugins) {
       config.setupCliPlugins = [...config.setupCliPlugins, ...preset.setupCliPlugins];
     }
+    if (preset.setupMenus) {
+      config.setupMenus = [...config.setupMenus, ...preset.setupMenus];
+    }
 
     if (typeof preset.before11ty === 'function') {
       config.__before11tyFunctions.push(preset.before11ty);
@@ -174,7 +185,7 @@ export async function normalizeConfig(inConfig) {
   config._presetPaths.push(path.resolve(_inputDirCwdRelative));
 
   /** @type {MetaPlugin[]} */
-  let pluginsMeta = [{ plugin: RocketStart }, { plugin: RocketBuild }, { plugin: RocketLint }];
+  let pluginsMeta = [{ plugin: RocketStart }, { plugin: RocketBuild }, { plugin: RocketLint }, { plugin: RocketUpgrade}];
 
   if (Array.isArray(config.setupCliPlugins)) {
     for (const setupFn of config.setupCliPlugins) {

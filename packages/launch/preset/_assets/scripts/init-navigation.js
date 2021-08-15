@@ -1,4 +1,3 @@
-import '@rocket/navigation/rocket-navigation.js';
 import '@rocket/drawer/rocket-drawer.js';
 const drawer = document.querySelector('#sidebar');
 

@@ -21,7 +21,7 @@ parser.prepareWasm(saxWasmBuffer);
  * @param {string} link
  */
 function isRelativeLink(link) {
-  if (link.startsWith('http') || link.startsWith('/')) {
+  if (link.startsWith('http') || link.startsWith('/') || link.includes(':')) {
     return false;
   }
   return true;

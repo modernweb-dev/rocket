@@ -14,19 +14,32 @@ function cleanup(config) {
   delete configNoPaths.eleventy;
   delete configNoPaths.outputDevDir;
   delete configNoPaths.imagePresets.responsive.ignore;
+  delete configNoPaths.presets;
+  delete configNoPaths.setupCliPlugins;
   return configNoPaths;
 }
+
+const plugins = [
+  { commands: ['start'] },
+  { commands: ['build'] },
+  { commands: ['start', 'build', 'lint'] }, // lint
+  { commands: ['upgrade'] },
+  { commands: ['start', 'build', 'lint'] }, // web-menu
+];
 
 describe('normalizeConfig', () => {
   it('makes sure essential settings are there', async () => {
     const configFile = path.join(__dirname, 'fixtures', 'empty', 'rocket.config.js');
     const config = await normalizeConfig({ configFile });
 
-    // testing pathes is always a little more complicted 😅
+    // testing pathes is always a little more complicated 😅
     expect(config._inputDirCwdRelative).to.match(/empty\/docs$/);
     expect(config._presetPaths[0]).to.match(/cli\/preset$/);
-    expect(config._presetPaths[1]).to.match(/empty\/docs$/);
+    expect(config._presetPaths[1]).to.match(/web-menu\/preset$/);
+    expect(config._presetPaths[2]).to.match(/empty\/docs$/);
     expect(config.outputDevDir).to.match(/_site-dev$/);
+    expect(config.presets.length).to.equal(1);
+    expect(config.setupCliPlugins.length).to.equal(1);
 
     expect(cleanup(config)).to.deep.equal({
       __before11tyFunctions: [],
@@ -41,14 +54,9 @@ describe('normalizeConfig', () => {
       setupDevPlugins: [],
       setupEleventyPlugins: [],
       setupEleventyComputedConfig: [],
-      setupCliPlugins: [],
-      presets: [],
+      setupMenus: [],
       serviceWorkerName: 'service-worker.js',
-      plugins: [
-        { commands: ['start'] },
-        { commands: ['build'] },
-        { commands: ['start', 'build', 'lint'] },
-      ],
+      plugins,
       imagePresets: {
         responsive: {
           formats: ['avif', 'jpeg'],
@@ -84,9 +92,8 @@ describe('normalizeConfig', () => {
       setupDevAndBuildPlugins: [],
       setupDevPlugins: [],
       setupEleventyPlugins: [],
-      setupCliPlugins: [],
       setupEleventyComputedConfig: [],
-      presets: [],
+      setupMenus: [],
       imagePresets: {
         responsive: {
           formats: ['avif', 'jpeg'],
@@ -95,11 +102,7 @@ describe('normalizeConfig', () => {
         },
       },
       serviceWorkerName: 'service-worker.js',
-      plugins: [
-        { commands: ['start'] },
-        { commands: ['build'] },
-        { commands: ['start', 'build', 'lint'] },
-      ],
+      plugins,
       inputDir: 'docs',
       outputDir: '_site',
     });
@@ -125,9 +128,8 @@ describe('normalizeConfig', () => {
       setupDevAndBuildPlugins: [],
       setupDevPlugins: [],
       setupEleventyPlugins: [],
-      setupCliPlugins: [],
       setupEleventyComputedConfig: [],
-      presets: [],
+      setupMenus: [],
       imagePresets: {
         responsive: {
           formats: ['avif', 'jpeg'],
@@ -136,11 +138,7 @@ describe('normalizeConfig', () => {
         },
       },
       serviceWorkerName: 'service-worker.js',
-      plugins: [
-        { commands: ['start'] },
-        { commands: ['build'] },
-        { commands: ['start', 'build', 'lint'] },
-      ],
+      plugins,
       inputDir: 'docs',
       outputDir: '_site',
     });
@@ -169,9 +167,8 @@ describe('normalizeConfig', () => {
       setupDevAndBuildPlugins: [],
       setupDevPlugins: [],
       setupEleventyPlugins: [],
-      setupCliPlugins: [],
       setupEleventyComputedConfig: [],
-      presets: [],
+      setupMenus: [],
       imagePresets: {
         responsive: {
           formats: ['avif', 'jpeg'],
@@ -180,11 +177,7 @@ describe('normalizeConfig', () => {
         },
       },
       serviceWorkerName: 'service-worker.js',
-      plugins: [
-        { commands: ['start'] },
-        { commands: ['build'] },
-        { commands: ['start', 'build', 'lint'] },
-      ],
+      plugins,
       inputDir: 'docs',
       outputDir: '_site',
     });

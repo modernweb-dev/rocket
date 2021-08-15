@@ -140,6 +140,7 @@ body[layout^='layout-home'] #main-header {
   position: relative;
 }
 
+#main-header web-menu > nav,
 #main-header .content-area {
   display: flex;
   justify-content: space-between;
@@ -152,6 +153,10 @@ body[layout^='layout-home'] #main-header {
   color: var(--primary-text-color);
   transition: color 0.3s ease-in-out;
   font-weight: bold;
+  order: 2;
+}
+
+#main-header web-menu {
   order: 2;
 }
 
@@ -209,8 +214,13 @@ body[layout^='layout-home'] #main-header a:hover {
     width: 100%;
   }
 
+  #main-header web-menu > nav > a,
   #main-header .content-area > * {
     margin-right: 50px;
+  }
+
+  #main-header .content-area web-menu {
+    margin-right: 0;
   }
 
   #main-header .content-area > .social-link {
@@ -263,26 +273,26 @@ body[layout^='layout-home'] #main-header a:hover {
   overflow: auto;
 }
 
-rocket-navigation .light-dark-switch {
+web-menu[name="index"] .light-dark-switch {
   margin-bottom: 10px;
 }
 
-rocket-navigation .light-dark-switch::part(label) {
+web-menu[name="index"] .light-dark-switch::part(label) {
   order: 10;
   margin-left: 10px;
 }
 
-rocket-navigation a {
+web-menu[name="index"] a {
   text-decoration: none;
   color: var(--primary-text-color);
 }
 
-rocket-navigation a:hover {
+web-menu[name="index"] a:hover {
   color: var(--primary-color);
 }
 
 /* line on the left to indicate current page */
-rocket-navigation > ul > li > ul li.current ul li.anchor.current::before {
+web-menu[name="index"] > nav > ul > li > ul li.current ul li.anchor.current::before {
   content: '';
   height: 1.6em;
   width: 3px;
@@ -292,58 +302,47 @@ rocket-navigation > ul > li > ul li.current ul li.anchor.current::before {
   margin-top: -2px;
 }
 
-rocket-navigation li {
+web-menu[name="index"] li {
   padding: 7px 0;
 }
 
-rocket-navigation > ul > li > ul li.current a:not(.anchor) {
+web-menu[name="index"] > nav > ul > li > ul li.current a:not(.anchor) {
   font-weight: bold;
 }
 
-rocket-navigation > ul > li > ul > li.current > ul > li > a {
+web-menu[name="index"] > nav > ul > li > ul > li.current > ul > li > a {
   font-weight: normal;
 }
 
-rocket-navigation hr {
+web-menu[name="index"] hr {
   margin: 30px -10px 10px -10px;
 }
 
-/* Hide below 3rd level by default */
-rocket-navigation > ul > li > ul > li ul {
-  display: none;
-}
-
-/* Only show below 3rd level if level above is active/current */
-li.current > ul,
-li.active > ul {
-  display: block;
-}
-
-rocket-navigation > ul > li > a {
+web-menu[name="index"] > nav > ul > li > span {
   color: var(--primary-color);
   font-weight: bold;
   font-size: 18px;
   text-transform: uppercase;
 }
 
-rocket-navigation > ul > li > ul a {
+web-menu[name="index"] > nav > ul > li > ul a {
   font-weight: normal;
 }
 
-rocket-navigation {
+web-menu[name="index"] {
   overflow: auto;
   display: block;
   margin-top: 40px;
   padding: 0 20px;
 }
 
-rocket-navigation ul {
+web-menu[name="index"] ul {
   padding: 7px 0 10px 15px;
   margin: 0;
   list-style-type: none;
 }
 
-rocket-navigation > ul {
+web-menu[name="index"] > nav > ul {
   padding: 0;
   position: relative;
 }
@@ -422,7 +421,7 @@ li.current > ul > li.anchor {
     display: none;
   }
 
-  rocket-navigation {
+  web-menu[name="index"] {
     padding: 0 25px 0 0;
   }
 
@@ -433,7 +432,7 @@ li.current > ul > li.anchor {
 }
 
 /* for blog detail page */
-rocket-navigation h3 {
+web-menu[name="index"] h3 {
   font-family: var(--heading-font-family, var(--primary-font-family));
   font-size: 16px;
   margin: 0 0 7px 0;

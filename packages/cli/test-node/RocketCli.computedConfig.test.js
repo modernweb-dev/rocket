@@ -19,40 +19,7 @@ describe('RocketCli computedConfig', () => {
     }
   });
 
-  it('will extract a title from markdown and set first folder as section', async () => {
-    const { cli, readOutput } = await execute(
-      'computed-config-fixtures/headlines/rocket.config.js',
-      { captureLog: true },
-    );
-    cleanupCli = cli;
-
-    const indexHtml = await readOutput('index.html');
-    const [indexTitle, indexSection] = indexHtml.split('\n');
-    expect(indexTitle).to.equal('Root');
-    expect(indexSection).to.be.undefined;
-
-    const subHtml = await readOutput('sub/index.html');
-    const [subTitle, subSection] = subHtml.split('\n');
-    expect(subTitle).to.equal('Root: Sub');
-    expect(subSection).to.equal('sub');
-
-    const subSubHtml = await readOutput('sub/subsub/index.html');
-    const [subSubTitle, subSubSection] = subSubHtml.split('\n');
-    expect(subSubTitle).to.equal('Sub: SubSub');
-    expect(subSubSection).to.equal('sub');
-
-    const sub2Html = await readOutput('sub2/index.html');
-    const [sub2Title, sub2Section] = sub2Html.split('\n');
-    expect(sub2Title).to.equal('Root: Sub2');
-    expect(sub2Section).to.equal('sub2');
-
-    const withDataHtml = await readOutput('with-data/index.html');
-    const [withDataTitle, withDataSection] = withDataHtml.split('\n');
-    expect(withDataTitle).to.equal('Set via data');
-    expect(withDataSection).be.undefined;
-  });
-
-  it('will note create a social media image in "start"', async () => {
+  it('will not create a social media image in "start"', async () => {
     const { cli, readOutput } = await execute(
       'computed-config-fixtures/social-images-only-build/rocket.config.js',
       {

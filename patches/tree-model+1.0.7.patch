@@ -1,0 +1,21 @@
+diff --git a/node_modules/tree-model/types/index.d.ts b/node_modules/tree-model/types/index.d.ts
+index 6f102c9..6ef264f 100644
+--- a/node_modules/tree-model/types/index.d.ts
++++ b/node_modules/tree-model/types/index.d.ts
+@@ -27,7 +27,7 @@ declare namespace TreeModel {
+         walk(options: Options, fn: NodeVisitorFunction<T>, ctx?: object): void;
+         walk(fn: NodeVisitorFunction<T>, ctx?: object): void;
+ 
+-        all(options: Options, fn: NodeVisitorFunction<T>, ctx?: object): Array<Node<T>>;
++        all(options?: Options, fn?: NodeVisitorFunction<T>, ctx?: object): Array<Node<T>>;
+         all(fn: NodeVisitorFunction<T>, ctx?: object): Array<Node<T>>;
+ 
+         first(options: Options, fn: NodeVisitorFunction<T>, ctx?: object): Node<T> | undefined;
+@@ -36,6 +36,7 @@ declare namespace TreeModel {
+         drop(): Node<T>;
+ 
+         [propName: string]: any;
++        children?: Array<Node<T>>
+     }
+ 
+     interface Config {

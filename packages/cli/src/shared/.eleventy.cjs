@@ -37,14 +37,6 @@ module.exports = function (eleventyConfig) {
         setupUnifiedPlugins: [...defaultSetupUnifiedPlugins, ...config.setupUnifiedPlugins],
       },
     },
-    {
-      plugin: eleventyRocketNav,
-      options: {},
-    },
-    {
-      plugin: rocketCollections,
-      options: { _inputDirCwdRelative },
-    },
   ];
 
   if (Array.isArray(config.setupEleventyPlugins)) {

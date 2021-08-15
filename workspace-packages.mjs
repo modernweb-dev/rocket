@@ -3,6 +3,7 @@ const packages = [
   { name: 'plugins-manager', type: 'js', environment: 'node-esm' },
   { name: 'core', type: 'js', environment: 'node' },
   { name: 'check-html-links', type: 'js', environment: 'node-esm' },
+  { name: 'web-menu', type: 'js', environment: 'node-esm' },
   { name: 'eleventy-plugin-mdjs-unified', type: 'js', environment: 'node' },
   { name: 'eleventy-rocket-nav', type: 'js', environment: 'node' },
   { name: 'drawer', type: 'js', environment: 'browser' },

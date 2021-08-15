@@ -72,7 +72,7 @@ describe('RocketCli preset', () => {
         '      <div class="content-area">',
         '        <a class="logo-link" href="/">',
         '          <img src="/_merged_assets/logo.svg" alt="" />',
-        '          <span class="sr-only">Rocket</span>',
+        '          <span>Rocket</span>',
         '        </a>',
         '      </div>',
         '    </header>',

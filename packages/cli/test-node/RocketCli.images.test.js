@@ -195,9 +195,7 @@ describe('RocketCli images', () => {
       });
       expect(indexHtml).to.equal(
         [
-          '<h2 id="one">',
-          '  <a aria-hidden="true" tabindex="-1" href="#one"><span class="icon icon-link"></span></a>one',
-          '</h2>',
+          '<p>one</p>',
           '<p>',
           '  <picture>',
           '    <source',
@@ -221,9 +219,7 @@ describe('RocketCli images', () => {
           '    />',
           '  </picture>',
           '</p>',
-          '<h2 id="two">',
-          '  <a aria-hidden="true" tabindex="-1" href="#two"><span class="icon icon-link"></span></a>two',
-          '</h2>',
+          '<p>two</p>',
           '<p>',
           '  <picture>',
           '    <source',

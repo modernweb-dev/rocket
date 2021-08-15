@@ -33,17 +33,6 @@ class TitlePlugin {
   }
 }
 
-class EleventyNavigationPlugin {
-  static dataName = 'eleventyNavigation';
-
-  async execute(data) {
-    if (data.eleventyNavigation) {
-      return data.eleventyNavigation;
-    }
-    return data.titleMeta?.eleventyNavigation;
-  }
-}
-
 class SectionPlugin {
   static dataName = 'section';
 
@@ -181,17 +170,50 @@ class JoiningBlocksPlugin {
   }
 }
 
+/**
+ * Removes the `xx--` prefix that is used for ordering
+ *
+ * @returns {string}
+ */
+class PermalinkPlugin {
+  static dataName = 'permalink';
+
+  execute(data) {
+    if (data.permalink) {
+      return data.permalink;
+    }
+    let filePath = data.page.filePathStem.replace(/[0-9]+--/g, '');
+    return filePath.endsWith('index') ? `${filePath}.html` : `${filePath}/index.html`;
+  }
+}
+
+/**
+ * @returns {Number}
+ */
+class MenuOrderPlugin {
+  static dataName = 'menu.order';
+
+  execute(data) {
+    const matches = data.page.fileSlug.match(/([0-9]+)--/);
+    if (matches) {
+      return parseInt(matches[1]);
+    }
+    return 0;
+  }
+}
+
 function generateEleventyComputed() {
   const rocketConfig = getComputedConfig();
 
   let metaPlugins = [
-    { plugin: TitleMetaPlugin, options: {} },
-    { plugin: TitlePlugin, options: {} },
-    { plugin: EleventyNavigationPlugin, options: {} },
-    { plugin: SectionPlugin, options: {} },
-    { plugin: SocialMediaImagePlugin, options: { rocketConfig } },
+    { plugin: TitleMetaPlugin, options: {} }, // TODO: remove after search & social media are standalone
+    { plugin: TitlePlugin, options: {} }, // TODO: remove after search & social media are standalone
+    { plugin: SectionPlugin, options: {} }, // TODO: remove this
+    { plugin: SocialMediaImagePlugin, options: { rocketConfig } }, // TODO: convert to standalone tool that can work with html
     { plugin: JoiningBlocksPlugin, options: rocketConfig },
     { plugin: LayoutPlugin, options: {} },
+    { plugin: PermalinkPlugin, options: {} },
+    { plugin: MenuOrderPlugin, options: {} },
   ];
 
   const finalMetaPlugins = executeSetupFunctions(
@@ -216,9 +238,8 @@ function generateEleventyComputed() {
 module.exports = {
   generateEleventyComputed,
   LayoutPlugin,
-  TitleMetaPlugin,
-  TitlePlugin,
-  EleventyNavigationPlugin,
+  PermalinkPlugin,
+  MenuOrderPlugin,
   SectionPlugin,
   SocialMediaImagePlugin,
   JoiningBlocksPlugin,
