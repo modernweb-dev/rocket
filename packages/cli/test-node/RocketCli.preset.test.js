@@ -19,7 +19,7 @@ describe('RocketCli preset', () => {
     }
   });
 
-  it('offers a default layout (with head, header, content, footer, bottom) and raw layout', async () => {
+  it.only('offers a default layout (with head, header, content, footer, bottom) and raw layout', async () => {
     cli = await executeStart('preset-fixtures/default/rocket.config.js');
 
     const rawHtml = await readStartOutput(cli, 'raw/index.html');
@@ -86,12 +86,6 @@ describe('RocketCli preset', () => {
         '    </div>',
         '',
         '    <footer id="main-footer"></footer>',
-        '',
-        '    <script',
-        '      type="module"',
-        '      inject-service-worker=""',
-        '      src="/_merged_assets/scripts/registerServiceWorker.js"',
-        '    ></script>',
         '  </body>',
         '</html>',
       ].join('\n'),

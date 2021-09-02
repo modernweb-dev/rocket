@@ -4,4 +4,6 @@
   window.__rocketServiceWorkerUrl = '{{ rocketServiceWorkerUrl | url }}';
 </script>
 
+{% if rocketConfig.command == 'build' %}
 <script type="module" inject-service-worker="" src="{{ '/_assets/scripts/registerServiceWorker.js' | asset | url }}"></script>
+{% endif %}
