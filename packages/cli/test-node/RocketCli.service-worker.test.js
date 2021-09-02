@@ -31,7 +31,7 @@ describe('RocketCli e2e', () => {
     }
   });
 
-  it('will add a script to inject the service worker', async () => {
+  it.only('will add a script to inject the service worker', async () => {
     cli = await executeBuild('e2e-fixtures/service-worker/rocket.config.js');
     const indexHtml = await readStartOutput(cli, 'index.html');
     const indexInject = getInjectServiceWorker(indexHtml);
