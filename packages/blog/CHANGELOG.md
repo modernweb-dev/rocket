@@ -1,5 +1,11 @@
 # @rocket/blog
 
+## 0.3.3
+
+### Patch Changes
+
+- e1089c5: add title to blog page
+
 ## 0.3.2
 
 ### Patch Changes

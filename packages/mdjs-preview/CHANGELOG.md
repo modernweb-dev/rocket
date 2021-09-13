@@ -1,5 +1,12 @@
 # @mdjs/mdjs-preview
 
+## 0.5.2
+
+### Patch Changes
+
+- 0987a41: - Make [slot="content"] selector more specific
+- 0987a41: Fix styling in darkmode
+
 ## 0.5.1
 
 ### Patch Changes

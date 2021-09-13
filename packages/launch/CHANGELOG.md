@@ -1,5 +1,11 @@
 # @rocket/launch
 
+## 0.5.6
+
+### Patch Changes
+
+- 0987a41: Fix styling in darkmode
+
 ## 0.5.5
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @rocket/cli
 
+## 0.9.11
+
+### Patch Changes
+
+- 7301a0f: Pass on rocketConfig to the eleventy function to enable conditional configurations/filters
+- 42418f2: Disable the service worker for local development
+- 5ac6aa6: Set the encoding of the simulator to utf8 via a html meta tag
+
 ## 0.9.10
 
 ### Patch Changes
