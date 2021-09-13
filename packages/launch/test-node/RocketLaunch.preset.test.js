@@ -19,7 +19,7 @@ describe('RocketLaunch preset', () => {
     }
   });
 
-  it.only('sets layout-sidebar as default', async () => {
+  it('sets layout-sidebar as default', async () => {
     cli = await executeStart('fixtures/layout-sidebar/rocket.config.js');
 
     const indexHtml = await readStartOutput(cli, 'page/index.html', {
@@ -502,12 +502,6 @@ describe('RocketLaunch preset', () => {
         '    </footer>',
         '',
         '    <script type="module" src="/_merged_assets/scripts/init-navigation.js"></script>',
-        '',
-        '    <script',
-        '      type="module"',
-        '      inject-service-worker=""',
-        '      src="/_merged_assets/scripts/registerServiceWorker.js"',
-        '    ></script>',
         '  </body>',
         '</html>',
       ].join('\n'),

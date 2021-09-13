@@ -19,7 +19,7 @@ describe('RocketCli preset', () => {
     }
   });
 
-  it.only('offers a default layout (with head, header, content, footer, bottom) and raw layout', async () => {
+  it('offers a default layout (with head, header, content, footer, bottom) and raw layout', async () => {
     cli = await executeStart('preset-fixtures/default/rocket.config.js');
 
     const rawHtml = await readStartOutput(cli, 'raw/index.html');
