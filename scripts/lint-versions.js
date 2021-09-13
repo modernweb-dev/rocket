@@ -40,7 +40,7 @@ function compareVersions(versionsA, versionsB) {
       versionsA[dep] &&
       versionsB[dep] &&
       versionsA[dep] !== versionsB[dep] &&
-      !semver.satisfies(versionsA[dep], versionsB[dep])
+      !semver.intersects(versionsA[dep], versionsB[dep])
     ) {
       output += `  - "${dep}" should be "${versionsA[dep]}" but is "${versionsB[dep]}"\n`;
     }
