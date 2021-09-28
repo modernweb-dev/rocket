@@ -159,7 +159,7 @@ yarn start
 ```
 
 ```bash tab pnpm
-pnpx start
+pnpm start
 ```
 
 </code-tabs>
