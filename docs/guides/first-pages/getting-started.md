@@ -42,15 +42,15 @@ pnpm init -y
 <code-tabs collection="package-managers" default-tab="npm" align="end">
 
 ```bash tab npm
-npm install --save-dev @rocket/cli @rocket/launch
+npm install --save-dev @rocket/cli @rocket/drawer @rocket/launch @rocket/navigation
 ```
 
 ```bash tab yarn
-yarn add -D @rocket/cli @rocket/launch
+yarn add -D @rocket/cli @rocket/drawer @rocket/launch @rocket/navigation
 ```
 
 ```bash tab pnpm
-pnpm add -D @rocket/cli @rocket/launch
+pnpm add -D @rocket/cli @rocket/drawer @rocket/launch @rocket/navigation
 ```
 
 </code-tabs>
