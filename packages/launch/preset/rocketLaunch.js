@@ -2,12 +2,14 @@ import path from 'path';
 import { adjustPluginOptions } from 'plugins-manager';
 // import { addPlugin } from 'plugins-manager';
 import { fileURLToPath } from 'url';
+import { LayoutPlugin } from '@rocket/cli';
+import htmlHeading from 'rehype-autolink-headings';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function addOcticonToHeadlines(plugins) {
   return plugins.map(pluginObj => {
-    if (pluginObj.name === 'htmlHeading') {
+    if (pluginObj.plugin === htmlHeading) {
       return {
         ...pluginObj,
         options: {
@@ -50,7 +52,7 @@ export function rocketLaunch() {
     path: path.resolve(__dirname),
     setupUnifiedPlugins: [addOcticonToHeadlines],
     setupEleventyComputedConfig: [
-      adjustPluginOptions('layout', { defaultLayout: 'layout-sidebar' }),
+      adjustPluginOptions(LayoutPlugin, { defaultLayout: 'layout-sidebar' }),
     ],
     adjustImagePresets: imagePresets => ({
       ...imagePresets,

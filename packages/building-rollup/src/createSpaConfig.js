@@ -1,13 +1,13 @@
 import { rollupPluginHTML } from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import { polyfillsLoader } from '@web/rollup-plugin-polyfills-loader';
-import { metaConfigToRollupConfig } from 'plugins-manager';
+import { applyPlugins } from 'plugins-manager';
 
 import { createBasicMetaConfig } from './createBasicConfig.js';
 
 export function createSpaConfig(userConfig) {
   const { config, metaPlugins } = createSpaMetaConfig(userConfig);
-  return metaConfigToRollupConfig(config, metaPlugins);
+  return applyPlugins(config, metaPlugins);
 }
 
 export function createSpaMetaConfig(userConfig = { output: {} }) {
@@ -30,7 +30,6 @@ export function createSpaMetaConfig(userConfig = { output: {} }) {
   const spaMetaPlugins = [
     ...metaPlugins,
     {
-      name: 'html',
       plugin: rollupPluginHTML,
       options: {
         rootDir,
@@ -38,11 +37,9 @@ export function createSpaMetaConfig(userConfig = { output: {} }) {
       },
     },
     {
-      name: 'import-meta-assets',
       plugin: importMetaAssets,
     },
     {
-      name: 'polyfills-loader',
       plugin: polyfillsLoader,
       options: {
         polyfills: {},

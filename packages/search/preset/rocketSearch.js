@@ -8,6 +8,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export function rocketSearch() {
   return {
     path: path.resolve(__dirname),
-    setupCliPlugins: [addPlugin({ name: 'rocket-search', plugin: RocketSearchPlugin })],
+    setupCliPlugins: [addPlugin(RocketSearchPlugin)],
   };
 }

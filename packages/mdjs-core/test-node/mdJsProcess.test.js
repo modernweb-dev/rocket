@@ -3,6 +3,8 @@
 const chai = require('chai');
 const { adjustPluginOptions } = require('plugins-manager');
 const { mdjsProcess } = require('../src/mdjsProcess.js');
+const { mdjsSetupCode } = require('../src/mdjsSetupCode.js');
+const { mdjsStoryParse } = require('../src/mdjsStoryParse.js');
 
 const { expect } = chai;
 
@@ -106,7 +108,7 @@ describe('mdjsProcess', () => {
 
     function replaceStoryTag(plugins) {
       return plugins.map(pluginObj => {
-        if (pluginObj.name === 'mdjsStoryParse') {
+        if (pluginObj.plugin === mdjsStoryParse) {
           return {
             ...pluginObj,
             options: {
@@ -136,7 +138,7 @@ describe('mdjsProcess', () => {
 
     function replaceStoryTag2(plugins) {
       return plugins.map(pluginObj => {
-        if (pluginObj.name === 'mdjsStoryParse') {
+        if (pluginObj.plugin === mdjsStoryParse) {
           return {
             ...pluginObj,
             options: {
@@ -202,7 +204,7 @@ describe('mdjsProcess', () => {
     ].join('\n');
     const result = await mdjsProcess(input, {
       setupUnifiedPlugins: [
-        adjustPluginOptions('mdjsSetupCode', {
+        adjustPluginOptions(mdjsSetupCode, {
           simulationSettings: { languages: [{ key: 'en', name: 'English' }] },
         }),
       ],

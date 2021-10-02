@@ -1,8 +1,9 @@
+const htmlHeading = require('rehype-autolink-headings');
 const pluginMdjs = require('../../../index.js');
 
 function addClassAnchorToHtmlHeading(plugins) {
   return plugins.map(pluginObj => {
-    if (pluginObj.name === 'htmlHeading') {
+    if (pluginObj.plugin === htmlHeading) {
       return {
         ...pluginObj,
         options: {

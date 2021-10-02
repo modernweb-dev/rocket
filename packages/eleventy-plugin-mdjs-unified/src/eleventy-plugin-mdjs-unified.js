@@ -5,6 +5,7 @@ const fs = require('fs');
 const { mdjsProcess } = require('@mdjs/core');
 const visit = require('unist-util-visit');
 const { init, parse } = require('es-module-lexer');
+const markdown = require('remark-parse');
 
 // @ts-ignore
 const { parseTitle } = require('@rocket/core/title');
@@ -45,12 +46,12 @@ function cleanupTitleHeadline() {
  * @param {MdjsProcessPlugin[]} plugins
  */
 function addCleanupTitleHeadline(plugins) {
-  if (plugins.findIndex(plugin => plugin.name === 'cleanupTitleHeadline') === -1) {
+  if (plugins.findIndex(pluginObj => pluginObj.plugin === cleanupTitleHeadline) === -1) {
     // add plugins right after markdown
-    const markdownPluginIndex = plugins.findIndex(plugin => plugin.name === 'markdown');
+    const markdownPluginIndex = plugins.findIndex(pluginObj => pluginObj.plugin === markdown);
     plugins.splice(markdownPluginIndex + 1, 0, {
-      name: 'cleanupTitleHeadline',
       plugin: cleanupTitleHeadline,
+      options: {},
     });
   }
   return plugins;

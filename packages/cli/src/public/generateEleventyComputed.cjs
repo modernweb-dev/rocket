@@ -5,8 +5,10 @@ const { createSocialImage: defaultCreateSocialImage } = require('./createSocialI
 const { getComputedConfig } = require('./computedConfig.cjs');
 const { executeSetupFunctions } = require('plugins-manager');
 
-function titleMetaPlugin() {
-  return async data => {
+class TitleMetaPlugin {
+  static dataName = 'titleMeta';
+
+  async execute(data) {
     if (data.titleMeta) {
       return data.titleMeta;
     }
@@ -17,29 +19,35 @@ function titleMetaPlugin() {
       return titleMetaFromContent;
     }
     return {};
-  };
+  }
 }
 
-function titlePlugin() {
-  return async data => {
+class TitlePlugin {
+  static dataName = 'title';
+
+  async execute(data) {
     if (data.title) {
       return data.title;
     }
     return data.titleMeta?.title;
-  };
+  }
 }
 
-function eleventyNavigationPlugin() {
-  return async data => {
+class EleventyNavigationPlugin {
+  static dataName = 'eleventyNavigation';
+
+  async execute(data) {
     if (data.eleventyNavigation) {
       return data.eleventyNavigation;
     }
     return data.titleMeta?.eleventyNavigation;
-  };
+  }
 }
 
-function sectionPlugin() {
-  return async data => {
+class SectionPlugin {
+  static dataName = 'section';
+
+  async execute(data) {
     if (data.section) {
       return data.section;
     }
@@ -52,11 +60,17 @@ function sectionPlugin() {
         return parts[1];
       }
     }
-  };
+  }
 }
 
-function layoutPlugin({ defaultLayout = 'layout-default' } = {}) {
-  return async data => {
+class LayoutPlugin {
+  static dataName = 'layout';
+
+  constructor({ defaultLayout = 'layout-default' } = {}) {
+    this.defaultLayout = defaultLayout;
+  }
+
+  async execute(data) {
     if (data.layout) {
       return data.layout;
     }
@@ -66,22 +80,29 @@ function layoutPlugin({ defaultLayout = 'layout-default' } = {}) {
         return 'layout-index';
       }
     }
-    return defaultLayout;
-  };
+    return this.defaultLayout;
+  }
 }
 
-function socialMediaImagePlugin(args = {}) {
-  const { createSocialImage = defaultCreateSocialImage, rocketConfig = {} } = args;
+class SocialMediaImagePlugin {
+  static dataName = 'socialMediaImage';
 
-  const cleanedUpArgs = { ...args };
-  delete cleanedUpArgs.createSocialImage;
+  constructor(args = {}) {
+    const { createSocialImage = defaultCreateSocialImage, rocketConfig = {} } = args;
 
-  return async data => {
+    this.cleanedUpArgs = { ...args };
+    delete this.cleanedUpArgs.createSocialImage;
+
+    this.rocketConfig = rocketConfig;
+    this.createSocialImage = createSocialImage;
+  }
+
+  async execute(data) {
     if (data.socialMediaImage) {
       return data.socialMediaImage;
     }
 
-    if (rocketConfig.createSocialMediaImages === false) {
+    if (this.rocketConfig.createSocialMediaImages === false) {
       return;
     }
 
@@ -95,15 +116,15 @@ function socialMediaImagePlugin(args = {}) {
     const section = data.section ? ' ' + data.section[0].toUpperCase() + data.section.slice(1) : '';
     const footer = `${data.site.name}${section}`;
 
-    const imgUrl = await createSocialImage({
+    const imgUrl = await this.createSocialImage({
       title,
       subTitle,
       footer,
       section,
-      ...cleanedUpArgs,
+      ...this.cleanedUpArgs,
     });
     return imgUrl;
-  };
+  }
 }
 
 function sortByOrder(a, b) {
@@ -146,26 +167,31 @@ async function dirToTree(sourcePath, extra = '') {
   return sortedTree;
 }
 
-function joiningBlocksPlugin(rocketConfig) {
-  const { _inputDirCwdRelative } = rocketConfig;
-  const partialsSource = path.resolve(_inputDirCwdRelative, '_merged_includes');
-  return async () => {
-    const joiningBlocks = await dirToTree(partialsSource, '_joiningBlocks');
+class JoiningBlocksPlugin {
+  static dataName = '_joiningBlocks';
+
+  constructor(rocketConfig) {
+    const { _inputDirCwdRelative } = rocketConfig;
+    this.partialsSource = path.resolve(_inputDirCwdRelative, '_merged_includes');
+  }
+
+  async execute() {
+    const joiningBlocks = await dirToTree(this.partialsSource, '_joiningBlocks');
     return joiningBlocks;
-  };
+  }
 }
 
 function generateEleventyComputed() {
   const rocketConfig = getComputedConfig();
 
   let metaPlugins = [
-    { name: 'titleMeta', plugin: titleMetaPlugin },
-    { name: 'title', plugin: titlePlugin },
-    { name: 'eleventyNavigation', plugin: eleventyNavigationPlugin },
-    { name: 'section', plugin: sectionPlugin },
-    { name: 'socialMediaImage', plugin: socialMediaImagePlugin, options: { rocketConfig } },
-    { name: '_joiningBlocks', plugin: joiningBlocksPlugin, options: rocketConfig },
-    { name: 'layout', plugin: layoutPlugin },
+    { plugin: TitleMetaPlugin, options: {} },
+    { plugin: TitlePlugin, options: {} },
+    { plugin: EleventyNavigationPlugin, options: {} },
+    { plugin: SectionPlugin, options: {} },
+    { plugin: SocialMediaImagePlugin, options: { rocketConfig } },
+    { plugin: JoiningBlocksPlugin, options: rocketConfig },
+    { plugin: LayoutPlugin, options: {} },
   ];
 
   const finalMetaPlugins = executeSetupFunctions(
@@ -176,13 +202,24 @@ function generateEleventyComputed() {
   const eleventyComputed = {};
   for (const pluginObj of finalMetaPlugins) {
     if (pluginObj.options) {
-      eleventyComputed[pluginObj.name] = pluginObj.plugin(pluginObj.options);
+      const inst = new pluginObj.plugin(pluginObj.options);
+      eleventyComputed[inst.constructor.dataName] = inst.execute.bind(inst);
     } else {
-      eleventyComputed[pluginObj.name] = pluginObj.plugin();
+      const inst = new pluginObj.plugin();
+      eleventyComputed[inst.constructor.dataName] = inst.execute.bind(inst);
     }
   }
 
   return eleventyComputed;
 }
 
-module.exports = { generateEleventyComputed };
+module.exports = {
+  generateEleventyComputed,
+  LayoutPlugin,
+  TitleMetaPlugin,
+  TitlePlugin,
+  EleventyNavigationPlugin,
+  SectionPlugin,
+  SocialMediaImagePlugin,
+  JoiningBlocksPlugin,
+};
