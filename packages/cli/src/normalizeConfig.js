@@ -174,11 +174,7 @@ export async function normalizeConfig(inConfig) {
   config._presetPaths.push(path.resolve(_inputDirCwdRelative));
 
   /** @type {MetaPlugin[]} */
-  let pluginsMeta = [
-    { name: 'RocketStart', plugin: RocketStart },
-    { name: 'RocketBuild', plugin: RocketBuild },
-    { name: 'RocketLint', plugin: RocketLint },
-  ];
+  let pluginsMeta = [{ plugin: RocketStart }, { plugin: RocketBuild }, { plugin: RocketLint }];
 
   if (Array.isArray(config.setupCliPlugins)) {
     for (const setupFn of config.setupCliPlugins) {

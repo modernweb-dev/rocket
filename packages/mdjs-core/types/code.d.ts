@@ -31,4 +31,4 @@ export interface ParseResult {
   };
 }
 
-export type MdjsProcessPlugin = MetaPlugin<unified.Plugin, unified.Settings>;
+export type MdjsProcessPlugin = MetaPlugin<unified.Plugin>;

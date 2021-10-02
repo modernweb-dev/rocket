@@ -1,3 +1,4 @@
+import remark2rehype from 'remark-rehype';
 import { adjustPluginOptions } from 'plugins-manager';
 
 function image(h, node) {
@@ -10,7 +11,7 @@ function image(h, node) {
 /** @type {Partial<import("../../../types/main").RocketCliOptions>} */
 const config = {
   setupUnifiedPlugins: [
-    adjustPluginOptions('remark2rehype', {
+    adjustPluginOptions(remark2rehype, {
       handlers: {
         image,
       },

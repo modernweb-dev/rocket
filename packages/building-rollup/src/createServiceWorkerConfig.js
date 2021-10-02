@@ -3,13 +3,13 @@ import { terser } from 'rollup-plugin-terser';
 import babelPkg from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
 
-import { metaConfigToRollupConfig } from 'plugins-manager';
+import { applyPlugins } from 'plugins-manager';
 
 const { babel } = babelPkg;
 
 export function createServiceWorkerConfig(userConfig) {
   const { config, metaPlugins } = createServiceWorkerMetaConfig(userConfig);
-  return metaConfigToRollupConfig(config, metaPlugins);
+  return applyPlugins(config, metaPlugins);
 }
 
 export function createServiceWorkerMetaConfig(userConfig = { output: {} }) {
@@ -33,21 +33,18 @@ export function createServiceWorkerMetaConfig(userConfig = { output: {} }) {
 
   let metaPlugins = [
     {
-      name: 'node-resolve',
       plugin: resolve,
       options: {
         moduleDirectories: ['node_modules', 'web_modules'],
       },
     },
     {
-      name: 'replace',
       plugin: replace,
       options: {
         'process.env.NODE_ENV': JSON.stringify(developmentMode ? 'development' : 'production'),
       },
     },
     {
-      name: 'babel',
       plugin: babel,
       options: {
         babelHelpers: 'bundled',
@@ -74,7 +71,6 @@ export function createServiceWorkerMetaConfig(userConfig = { output: {} }) {
       },
     },
     {
-      name: 'terser',
       plugin: terser,
       options: {
         mangle: {

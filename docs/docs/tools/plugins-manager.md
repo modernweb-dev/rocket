@@ -3,6 +3,111 @@
 The Plugins Manager replaces the specific registration/execution (with options) in a given plugin system by an intend to use a plugin (with these options).
 This allows your users to adjust the options before actually applying the plugins.
 
+## Setup
+
+1. Install npm package
+   ```bash
+   npm i plugins-manager
+   ```
+2. Change your public API from an array of plugin "instances" to an array of setup functions
+   ```diff
+     import myPlugin from 'my-plugin';
+   + import { addPlugin } from 'plugins-manager';
+     export default {
+   -   plugins: [myPlugin],
+   +   setupPlugins: [addPlugin(myPlugin)]
+     }
+   ```
+3. Convert setup function to plugins
+
+   ```js
+   import { applyPlugins } from 'plugins-manager';
+
+   const finalConfig = applyPlugins(config); // "converts" setupPlugins to plugins
+
+   // work with plugins or pass it on to another tool
+   const bundle = await rollup(finalConfig);
+   ```
+
+## Usage
+
+As you users in most cases you will need to either add or adjust a given plugin in a config file.
+
+👉 `my-tool.config.js`
+
+```js
+import { addPlugin, adjustPluginOptions } from 'plugins-manager';
+import json from '@rollup/plugin-json';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+
+export default {
+  setupPlugins: [
+    // add a new plugin with optional plugin options
+    addPlugin(json, {
+      /* ... */
+    }),
+
+    // adjust the options of a plugin that is already registered
+    adjustPluginOptions(nodeResolve, {
+      /* ... */
+    }),
+  ],
+};
+```
+
+## Plugins can be functions or classes
+
+### Function Plugins
+
+```js
+function myPlugin({ lastName: 'initial-second' }) {
+  // ...
+}
+
+export default {
+  setupPlugins: [addPlugin(myPlugin)],
+};
+
+// function parameters are type safe
+addPlugin(myPlugin, { lastName: 'new name' }); // ts ok
+addPlugin(myPlugin, { otherProp: 'new name' }); // ts error
+```
+
+### Class Plugins
+
+The options are passed to the constructor.
+
+```js
+/**
+ * @typedef {object} MyClassOptions
+ * @property {string} lastName
+ */
+
+class MyClass {
+  /** @type {MyClassOptions} */
+  options = {
+    lastName: 'initial-second',
+  };
+
+  /**
+   * @param {Partial<MyClassOptions>} options
+   */
+  constructor(options = {}) {
+    this.options = { ...this.options, ...options };
+  }
+
+  // ...
+}
+
+export default {
+  setupPlugins: [addPlugin(MyClass)],
+};
+
+// constructor parameters are type safe
+addPlugin(MyClass, { lastName: 'new name' }); // ts ok
+addPlugin(MyClass, { otherProp: 'new name' }); // ts error
+```
+
 ## Problem
 
 Many plugin systems require you to either execute a plugin function like in `rollup`.
@@ -48,18 +153,14 @@ This means if you wish to define default plugins and allow your user to override
 
 The plugins manager lets you orchestrate a set of "meta plugins" which are defined by
 
-- name
-- plugin
-- options
+- plugin (class or function)
+- it's options
 
 ```js
 import beep from '@rollup/plugin-beep';
 import url from '@rollup/plugin-url';
 
-let metaPlugins = [
-  { name: 'beep', plugin: beep },
-  { name: 'url', plugin: url, options: { limit: 10000 } },
-];
+let metaPlugins = [{ plugin: beep }, { plugin: url, options: { limit: 10000 } }];
 ```
 
 This array can be modified by adding/removing or adjusting options.
@@ -94,16 +195,13 @@ export default {
 
 ### Adding Helpers
 
-Doing array manipulations is kinda error-prone so we offer encourage to use an array of setup function. Where as each setup function can either add a new plugin (with a unique name) or adjust an already existing plugin.
+Doing array manipulations is kinda error-prone so we encourage to use an array of setup function. Where as each setup function can either add a new plugin (with a unique name) or adjust an already existing plugin.
 
 ```js
 import { addPlugin, adjustPluginOptions } from 'plugins-manager';
 
-const systemSetupFunctions = [
-  addPlugin({ name: 'first', plugin: first }),
-  addPlugin({ name: 'second', plugin: second }),
-];
-const userSetupFunctions = [adjustPluginOptions('first', { my: 'options' })];
+const systemSetupFunctions = [addPlugin(first), addPlugin(second)];
+const userSetupFunctions = [adjustPluginOptions(first, { my: 'options' })];
 ```
 
 Arrays of functions can by merged like so
@@ -115,9 +213,9 @@ const finalSetupFunctions = [...systemSetupFunctions, ...userSetupFunctions];
 and then converted to the final output.
 
 ```js
-import { metaPluginsToRollupPlugins } from 'plugins-manager';
+import { applyPlugins } from 'plugins-manager';
 
-const plugins = metaPluginsToRollupPlugins(finalSetupFunctions, metaPlugins);
+const plugins = applyPlugins(finalSetupFunctions, metaPlugins);
 ```
 
 ## Adding a Plugin
@@ -133,18 +231,27 @@ By default it adds at the bottom.
 import json from '@rollup/plugin-json';
 import { addPlugin } from 'plugins-manager';
 
-const userSetupFunctions = [
-  addPlugin({ name: 'json', plugin: json, options: { preferConst: true } }),
-];
+const userSetupFunctions = [addPlugin(json, { preferConst: true })];
 ```
 
 Example usage:
 
 ```js
-addPlugin({ name: 'json', plugin: json }); // Add at the bottom (default)
-addPlugin({ name: 'json', plugin: json, location: 'top' }); // Add at the top/beginning of the array
-addPlugin({ name: 'json', plugin: json, location: 'beep' }); // Add after (default) plugin 'beep'
-addPlugin({ name: 'json', plugin: json, location: 'beep', how: 'before' }); // Add before plugin 'beep'
+addPlugin(json); // Add at the bottom (default)
+addPlugin(json, {}, { location: 'top' }); // Add at the top/beginning of the array
+addPlugin(json, {}, { location: beep }); // Add after (default) plugin 'beep'
+addPlugin(json, {}, { location: beep, how: 'before' }); // Add before plugin 'beep'
+```
+
+This is type safe and typescript will throw an error if you pass the wrong type.
+
+```js
+function myPlugin({ myFlag = false } = {}) {
+  // ...
+}
+
+addPlugin(myPlugin, { myFlag: true }); // ts ok
+addPlugin(myPlugin, { notExisting: true }); // ts error
 ```
 
 ## Adjusting Plugin Options
@@ -154,12 +261,14 @@ Adjusting options means to either
 - flatly merge objects (e.g. only the first level will be preserved)
 - calling a function to do the merge yourself
 - setting the raw value (if not an object or function)
+- you need to have a reference to the plugin (which is used to auto complete the available options via typescript)
 
 ```js
+import json from '@rollup/plugin-json';
 import { adjustPluginOptions } from 'plugins-manager';
 
 const userSetupFunctions = [
-  adjustPluginOptions('json', { preferConst: false, anotherOption: 'format' }),
+  adjustPluginOptions(json, { preferConst: false, anotherOption: 'format' }),
 ];
 ```
 
@@ -167,34 +276,51 @@ Example usage:
 
 ```js
 // given
-addPlugin({
-  name: 'json',
-  plugin: json,
-  options: {
-    other: {
-      nested: 'other.nested',
-      nested2: 'other.nested2',
-    },
-    main: true,
+addPlugin(json, {
+  other: {
+    nested: 'other.nested',
+    nested2: 'other.nested2',
   },
+  main: true,
 });
 
 // merge objects flately
-adjustPluginOptions('json', { other: { nested: '--overwritten--' } });
+adjustPluginOptions(json, { other: { nested: '--overwritten--' } });
 // resulting options = { other: { nested: '--overwritten--' }, main: true }
 // NOTE: nested2 is removed
 
 // merge via function
-adjustPluginOptions('json', config => ({ other: { ...config.other, nested: '--overwritten--' } }));
+adjustPluginOptions(json, config => ({ other: { ...config.other, nested: '--overwritten--' } }));
 // resulting options = { other: { nested: '--overwritten--', nested2: 'other.nested2' }, main: true }
 
 // merge via function to override full options
-adjustPluginOptions('json', config => ({ only: 'this' }));
+adjustPluginOptions(json, config => ({ only: 'this' }));
 // resulting options = { only: 'this' }
 
 // setting a raw value
-adjustPluginOptions('json', false);
+adjustPluginOptions(json, false);
 // resulting options = false
+```
+
+This is type safe and typescript will throw an error if you pass the wrong type.
+
+```js
+function myPlugin({ myFlag = false } = {}) {
+  // ...
+}
+
+adjustPluginOptions(myPlugin, { myFlag: true }); // ts ok
+adjustPluginOptions(myPlugin, { notExisting: true }); // ts error
+```
+
+## Remove Plugin
+
+Sometimes you would like to remove a default plugin from the config.
+
+```js
+export default {
+  setupPlugins: [removePlugin(json)],
+};
 ```
 
 ## Converting metaPlugins to an Actual Plugin
@@ -227,25 +353,9 @@ Rollup has a more specific helper that handles
 Note: if you provide `config.plugins` then it will return that directly ignoring `setupPlugins`
 
 ```js
-import { metaConfigToRollupConfig } from 'plugins-manager';
+import { applyPlugins } from 'plugins-manager';
 
-const finalConfig = metaConfigToRollupConfig(currentConfig, defaultMetaPlugins);
-```
-
-Web Dev Server has a more specific helper that handles
-
-- `config.setupPlugins`
-- `config.setupRollupPlugins`
-
-Note: if you provide `config.plugins` then it will return that directly ignoring `setupPlugins` and `setupRollupPlugins`
-
-```js
-import { metaConfigToWebDevServerConfig } from 'plugins-manager';
-import { fromRollup } from '@web/dev-server-rollup';
-
-const finalConfig = metaConfigToWebDevServerConfig(currentConfig, defaultMetaPlugins, {
-  rollupWrapperFunction: fromRollup,
-});
+const finalConfig = applyPlugins(currentConfig, defaultMetaPlugins);
 ```
 
 Eleventy

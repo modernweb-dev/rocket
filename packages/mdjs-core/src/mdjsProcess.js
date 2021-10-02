@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/** @typedef {import('@mdjs/core/types/code').Story} Story */
-/** @typedef {import('@mdjs/core/types/code').ParseResult} ParseResult */
-/** @typedef {import('@mdjs/core/types/code').ProcessResult} ProcessResult */
-/** @typedef {import('@mdjs/core/types/code').MdjsProcessPlugin} MdjsProcessPlugin */
+/** @typedef {import('../types/code').Story} Story */
+/** @typedef {import('../types/code').ParseResult} ParseResult */
+/** @typedef {import('../types/code').ProcessResult} ProcessResult */
+/** @typedef {import('../types/code').MdjsProcessPlugin} MdjsProcessPlugin */
 
 const unified = require('unified');
 const markdown = require('remark-parse');
@@ -22,23 +22,23 @@ const { mdjsSetupCode } = require('./mdjsSetupCode.js');
 
 /** @type {MdjsProcessPlugin[]} */
 const defaultMetaPlugins = [
-  { name: 'markdown', plugin: markdown },
-  { name: 'gfm', plugin: gfm },
-  { name: 'mdjsParse', plugin: mdjsParse },
-  { name: 'mdjsStoryParse', plugin: mdjsStoryParse },
-  { name: 'mdjsSetupCode', plugin: mdjsSetupCode },
+  { plugin: markdown, options: {} },
+  { plugin: gfm, options: {} },
+  { plugin: mdjsParse, options: {} },
+  { plugin: mdjsStoryParse, options: {} },
+  { plugin: mdjsSetupCode, options: {} },
   // @ts-ignore
-  { name: 'remark2rehype', plugin: remark2rehype, options: { allowDangerousHtml: true } },
+  { plugin: remark2rehype, options: { allowDangerousHtml: true } },
   // @ts-ignore
-  { name: 'rehypePrism', plugin: rehypePrism },
+  { plugin: rehypePrism, options: {} },
   // @ts-ignore
-  { name: 'raw', plugin: raw },
+  { plugin: raw, options: {} },
   // @ts-ignore
-  { name: 'htmlSlug', plugin: htmlSlug },
+  { plugin: htmlSlug, options: {} },
   // @ts-ignore
-  { name: 'htmlHeading', plugin: htmlHeading },
+  { plugin: htmlHeading, options: {} },
   // @ts-ignore
-  { name: 'htmlStringify', plugin: htmlStringify },
+  { plugin: htmlStringify, options: {} },
 ];
 
 /**
@@ -57,33 +57,8 @@ async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
 
   const metaPlugins = executeSetupFunctions(setupUnifiedPlugins, defaultMetaPlugins);
 
-  /**
-   * @param {string} code
-   */
-  async function highlightCode(code) {
-    // @ts-ignore
-    const codePlugins = metaPlugins.filter(pluginObj =>
-      ['markdown', 'remark2rehype', 'rehypePrism', 'htmlStringify'].includes(pluginObj.name),
-    );
-    const codeParser = unified();
-    // @ts-ignore
-    for (const pluginObj of codePlugins) {
-      codeParser.use(pluginObj.plugin, pluginObj.options);
-    }
-    const codeResult = await codeParser.process(code);
-    return codeResult.contents;
-  }
-
-  // @ts-ignore
   for (const pluginObj of metaPlugins) {
-    if (pluginObj.name === 'mdjsSetupCode') {
-      if (pluginObj.options && !pluginObj.options.highlightCode) {
-        pluginObj.options.highlightCode = highlightCode;
-      }
-      if (!pluginObj.options) {
-        pluginObj.options = { highlightCode };
-      }
-    }
+    // @ts-ignore
     parser.use(pluginObj.plugin, pluginObj.options);
   }
 

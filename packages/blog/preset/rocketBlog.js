@@ -47,6 +47,6 @@ export function rocketBlog({ section = SECTION, postCollection = POST_COLLECTION
 
   return {
     path: path.resolve(__dirname),
-    setupEleventyPlugins: [addPlugin({ name: 'rocket-blog', plugin: eleventyPluginRocketBlog })],
+    setupEleventyPlugins: [addPlugin(eleventyPluginRocketBlog)],
   };
 }

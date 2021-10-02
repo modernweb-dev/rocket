@@ -2,13 +2,13 @@ import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import babelPkg from '@rollup/plugin-babel';
 
-import { metaConfigToRollupConfig } from 'plugins-manager';
+import { applyPlugins } from 'plugins-manager';
 
 const { babel } = babelPkg;
 
 export function createBasicConfig(userConfig) {
   const { config, metaPlugins } = createBasicMetaConfig(userConfig);
-  return metaConfigToRollupConfig(config, metaPlugins);
+  return applyPlugins(config, metaPlugins);
 }
 
 export function createBasicMetaConfig(userConfig = { output: {} }) {
@@ -39,14 +39,12 @@ export function createBasicMetaConfig(userConfig = { output: {} }) {
 
   let metaPlugins = [
     {
-      name: 'node-resolve',
       plugin: resolve,
       options: {
         moduleDirectories: ['node_modules', 'web_modules'],
       },
     },
     {
-      name: 'babel',
       plugin: babel,
       options: {
         babelHelpers: 'bundled',
@@ -73,7 +71,6 @@ export function createBasicMetaConfig(userConfig = { output: {} }) {
       },
     },
     {
-      name: 'terser',
       plugin: terser,
     },
   ];

@@ -5,6 +5,7 @@ import { rollup } from 'rollup';
 import fs from 'fs-extra';
 import path from 'path';
 import { copy } from '@web/rollup-plugin-copy';
+import { rollupPluginHTML } from '@web/rollup-plugin-html';
 
 import { createMpaConfig, createServiceWorkerConfig } from '@rocket/building-rollup';
 import { addPlugin, adjustPluginOptions } from 'plugins-manager';
@@ -25,18 +26,14 @@ async function buildAndWrite(config) {
 
 async function productionBuild(config) {
   const defaultSetupPlugins = [
-    addPlugin({
-      name: 'copy',
-      plugin: copy,
-      options: {
-        patterns: ['!(*.md|*.html)*', '_merged_assets/_static/**/*'],
-        rootDir: config.outputDevDir,
-      },
+    addPlugin(copy, {
+      patterns: ['!(*.md|*.html)*', '_merged_assets/_static/**/*'],
+      rootDir: config.outputDevDir,
     }),
   ];
   if (config.pathPrefix) {
     defaultSetupPlugins.push(
-      adjustPluginOptions('html', { absolutePathPrefix: config.pathPrefix }),
+      adjustPluginOptions(rollupPluginHTML, { absolutePathPrefix: config.pathPrefix }),
     );
   }
 

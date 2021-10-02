@@ -1,5 +1,6 @@
 const eleventyPluginMdjsUnified = require('@rocket/eleventy-plugin-mdjs-unified');
 const eleventyRocketNav = require('@rocket/eleventy-rocket-nav');
+const remark2rehype = require('remark-rehype');
 
 const { getComputedConfig } = require('../public/computedConfig.cjs');
 const rocketFilters = require('../eleventy-plugins/rocketFilters.cjs');
@@ -9,7 +10,7 @@ const { adjustPluginOptions } = require('plugins-manager');
 const image = require('./mdjsImageHandler.cjs');
 
 const defaultSetupUnifiedPlugins = [
-  adjustPluginOptions('remark2rehype', {
+  adjustPluginOptions(remark2rehype, {
     handlers: {
       image,
     },
@@ -23,28 +24,24 @@ module.exports = function (eleventyConfig) {
 
   let metaPlugins = [
     {
-      name: 'rocket-filters',
       plugin: rocketFilters,
       options: { _inputDirCwdRelative },
     },
     {
-      name: 'rocket-copy',
       plugin: rocketCopy,
       options: { _inputDirCwdRelative },
     },
     {
-      name: 'eleventy-plugin-mdjs-unified',
       plugin: eleventyPluginMdjsUnified,
       options: {
         setupUnifiedPlugins: [...defaultSetupUnifiedPlugins, ...config.setupUnifiedPlugins],
       },
     },
     {
-      name: 'eleventy-rocket-nav',
       plugin: eleventyRocketNav,
+      options: {},
     },
     {
-      name: 'rocket-collections',
       plugin: rocketCollections,
       options: { _inputDirCwdRelative },
     },
