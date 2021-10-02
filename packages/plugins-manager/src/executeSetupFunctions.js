@@ -1,9 +1,8 @@
-/** @typedef {import('../types/main').MetaPlugin} MetaPlugin */
-
 /**
+ * @template T
  * @param {function[]} setupFunctions
- * @param {MetaPlugin[]} metaPlugins
- * @return {MetaPlugin[]}
+ * @param {import('../types/main').MetaPlugin<T>[]} metaPlugins
+ * @return {import('../types/main').MetaPlugin<T>[]}
  */
 export function executeSetupFunctions(setupFunctions, metaPlugins = []) {
   let _metaPlugins = [...metaPlugins];

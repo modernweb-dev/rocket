@@ -1,26 +1,19 @@
-/** @typedef {import('../types/main').MetaPlugin} MetaPlugin */
-
 /**
- * @template {Function} T
- * @param {import('../types/main').AddPluginOptions<T>} metaPluginAndOptions
+ * @template {import('../types/main').Plugin} T
+ * @param {T} plugin
+ * @param {import('../types/main').GetPluginOptions<T>} [options]
+ * @param {import('../types/main').ManagerOptions} [managerOptions]
  */
-export function addPlugin(metaPluginAndOptions) {
-  const {
-    name,
-    plugin,
-    options = undefined,
-    how = 'after',
-    location = 'bottom',
-  } = metaPluginAndOptions;
+export function addPlugin(plugin, options = {}, { how = 'after', location = 'bottom' } = {}) {
   /**
-   * @param {MetaPlugin[]} plugins
+   * @param {import('../types/main').MetaPlugin<T>[]} plugins
    */
   const addPluginFn = plugins => {
     if (plugins === undefined) {
       plugins = [];
     }
     // only add if name is not already in the meta plugin list
-    if (plugins.findIndex(pluginObj => pluginObj.name === name) === -1) {
+    if (plugins.findIndex(pluginObj => pluginObj.plugin === plugin) === -1) {
       let index = -1;
       let _how = how;
       switch (location) {
@@ -33,11 +26,12 @@ export function addPlugin(metaPluginAndOptions) {
           _how = 'fixed';
           break;
         default:
-          index = plugins.findIndex(plugin => plugin.name === location);
+          index = plugins.findIndex(pluginObj => pluginObj.plugin === location);
       }
       if (index < 0) {
+        const errorName = location === 'top' || location === 'bottom' ? location : location.name;
         throw new Error(
-          `Could not find a plugin with the name "${location}" to insert "${name}" ${how} it.`,
+          `Could not find a plugin with the name "${errorName}" to insert "${plugin.name}" ${how} it.`,
         );
       }
 
@@ -46,7 +40,6 @@ export function addPlugin(metaPluginAndOptions) {
       }
 
       plugins.splice(index, 0, {
-        name,
         plugin,
         options,
       });

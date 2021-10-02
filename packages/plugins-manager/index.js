@@ -1,9 +1,11 @@
-/** @typedef {import('./types/main').MetaPlugin} MetaPlugin */
-/** @typedef {import('./types/main').AddPluginFn} AddPluginFn */
-/** @typedef {import('./types/main').AddPluginType} AddPluginType */
+/**
+ * @template T
+ * @typedef {import('./types/main').MetaPlugin<T>} MetaPlugin
+ **/
+/** @typedef {import('./types/main').Plugin} Plugin */
 
 export { addPlugin } from './src/addPlugin.js';
+export { removePlugin } from './src/removePlugin.js';
 export { adjustPluginOptions } from './src/adjustPluginOptions.js';
-export { metaConfigToRollupConfig } from './src/metaConfigToRollupConfig.js';
-export { metaConfigToWebDevServerConfig } from './src/metaConfigToWebDevServerConfig.js';
+export { applyPlugins } from './src/applyPlugins.js';
 export { executeSetupFunctions } from './src/executeSetupFunctions.js';
