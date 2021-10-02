@@ -25,7 +25,8 @@
     "build:package": "rimraf dist && esbuild --platform=node --format=cjs --bundle --outfile=dist/index.cjs ./index.js",
     "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
     "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
-    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/",
+    "prepublishOnly": "publish-docs --github-url https://github.com/modernweb-dev/rocket/ --git-root-dir ../../"
   },
   "files": [
     "*.js",
