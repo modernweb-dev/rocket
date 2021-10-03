@@ -1,5 +1,16 @@
 # @rocket/eleventy-plugin-mdjs-unified
 
+## 0.6.0
+
+### Minor Changes
+
+- 70bb7a1: BREAKING CHANGE: Updating to latest version of `@mdjs/core` which requires the latest version of `plugins-manager`
+
+### Patch Changes
+
+- Updated dependencies [70bb7a1]
+  - @mdjs/core@0.9.0
+
 ## 0.5.2
 
 ### Patch Changes
