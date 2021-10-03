@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import { executeStart, readStartOutput, setFixtureDir } from '@rocket/cli/test-helpers';
+import { execute, setFixtureDir } from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
 describe('RocketLaunch preset', () => {
-  let cli;
+  let cleanupCli;
 
   before(() => {
     // ignore colors in tests as most CIs won't support it
@@ -14,15 +14,18 @@ describe('RocketLaunch preset', () => {
   });
 
   afterEach(async () => {
-    if (cli?.cleanup) {
-      await cli.cleanup();
+    if (cleanupCli?.cleanup) {
+      await cleanupCli.cleanup();
     }
   });
 
   it('sets layout-sidebar as default', async () => {
-    cli = await executeStart('fixtures/layout-sidebar/rocket.config.js');
+    const { cli, readOutput } = await execute('fixtures/layout-sidebar/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'page/index.html', {
+    const indexHtml = await readOutput('page/index.html', {
       stripScripts: true,
       formatHtml: true,
     });
@@ -251,9 +254,12 @@ describe('RocketLaunch preset', () => {
   });
 
   it('offers a layout-home', async () => {
-    cli = await executeStart('fixtures/layout-home/rocket.config.js');
+    const { cli, readOutput } = await execute('fixtures/layout-home/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html', {
+    const indexHtml = await readOutput('index.html', {
       stripScripts: true,
       formatHtml: true,
     });

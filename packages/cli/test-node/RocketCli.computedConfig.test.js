@@ -1,17 +1,11 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import {
-  executeBuild,
-  executeStart,
-  readBuildOutput,
-  readStartOutput,
-  setFixtureDir,
-} from '@rocket/cli/test-helpers';
+import { execute, setFixtureDir } from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
 describe('RocketCli computedConfig', () => {
-  let cli;
+  let cleanupCli;
 
   before(() => {
     // ignore colors in tests as most CIs won't support it
@@ -20,90 +14,117 @@ describe('RocketCli computedConfig', () => {
   });
 
   afterEach(async () => {
-    if (cli?.cleanup) {
-      await cli.cleanup();
+    if (cleanupCli?.cleanup) {
+      await cleanupCli.cleanup();
     }
   });
 
   it('will extract a title from markdown and set first folder as section', async () => {
-    cli = await executeStart('computed-config-fixtures/headlines/rocket.config.js');
+    const { cli, readOutput } = await execute(
+      'computed-config-fixtures/headlines/rocket.config.js',
+      { captureLog: true },
+    );
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     const [indexTitle, indexSection] = indexHtml.split('\n');
     expect(indexTitle).to.equal('Root');
     expect(indexSection).to.be.undefined;
 
-    const subHtml = await readStartOutput(cli, 'sub/index.html');
+    const subHtml = await readOutput('sub/index.html');
     const [subTitle, subSection] = subHtml.split('\n');
     expect(subTitle).to.equal('Root: Sub');
     expect(subSection).to.equal('sub');
 
-    const subSubHtml = await readStartOutput(cli, 'sub/subsub/index.html');
+    const subSubHtml = await readOutput('sub/subsub/index.html');
     const [subSubTitle, subSubSection] = subSubHtml.split('\n');
     expect(subSubTitle).to.equal('Sub: SubSub');
     expect(subSubSection).to.equal('sub');
 
-    const sub2Html = await readStartOutput(cli, 'sub2/index.html');
+    const sub2Html = await readOutput('sub2/index.html');
     const [sub2Title, sub2Section] = sub2Html.split('\n');
     expect(sub2Title).to.equal('Root: Sub2');
     expect(sub2Section).to.equal('sub2');
 
-    const withDataHtml = await readStartOutput(cli, 'with-data/index.html');
+    const withDataHtml = await readOutput('with-data/index.html');
     const [withDataTitle, withDataSection] = withDataHtml.split('\n');
     expect(withDataTitle).to.equal('Set via data');
     expect(withDataSection).be.undefined;
   });
 
   it('will note create a social media image in "start"', async () => {
-    cli = await executeStart('computed-config-fixtures/social-images-only-build/rocket.config.js');
+    const { cli, readOutput } = await execute(
+      'computed-config-fixtures/social-images-only-build/rocket.config.js',
+      {
+        captureLog: true,
+      },
+    );
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(indexHtml).to.equal('');
   });
 
   it('will create a social media image in "build"', async () => {
-    cli = await executeBuild('computed-config-fixtures/social-images-only-build/rocket.config.js');
+    const { cli, readOutput } = await execute(
+      'computed-config-fixtures/social-images-only-build/rocket.config.js',
+      {
+        captureLog: true,
+        type: 'build',
+      },
+    );
+    cleanupCli = cli;
 
-    const indexHtml = await readBuildOutput(cli, 'index.html', {
+    const indexHtml = await readOutput('index.html', {
       stripToBody: true,
     });
     expect(indexHtml).to.equal('/_merged_assets/11ty-img/5893749-1200.png');
   });
 
   it('will create a social media image for every page', async () => {
-    cli = await executeStart('computed-config-fixtures/social-images/rocket.config.js');
+    const { cli, readOutput } = await execute(
+      'computed-config-fixtures/social-images/rocket.config.js',
+      {
+        captureLog: true,
+      },
+    );
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(indexHtml).to.equal('/_merged_assets/11ty-img/c4c29ec7-1200.png');
 
-    const guidesHtml = await readStartOutput(cli, 'guides/index.html');
+    const guidesHtml = await readOutput('guides/index.html');
     expect(guidesHtml).to.equal('/_merged_assets/11ty-img/c593a8cd-1200.png');
 
-    const gettingStartedHtml = await readStartOutput(
-      cli,
-      'guides/first-pages/getting-started/index.html',
-    );
+    const gettingStartedHtml = await readOutput('guides/first-pages/getting-started/index.html');
     expect(gettingStartedHtml).to.equal('/_merged_assets/11ty-img/d989ab1a-1200.png');
   });
 
   it('can override the svg function globally to adjust all social media image', async () => {
-    cli = await executeStart('computed-config-fixtures/social-images-override/rocket.config.js');
+    const { cli, readOutput } = await execute(
+      'computed-config-fixtures/social-images-override/rocket.config.js',
+      {
+        captureLog: true,
+      },
+    );
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(indexHtml).to.equal('/_merged_assets/11ty-img/d76265ed-1200.png');
 
-    const guidesHtml = await readStartOutput(cli, 'guides/index.html');
+    const guidesHtml = await readOutput('guides/index.html');
     expect(guidesHtml).to.equal('/_merged_assets/11ty-img/d76265ed-1200.png');
 
-    const gettingStartedHtml = await readStartOutput(
-      cli,
-      'guides/first-pages/getting-started/index.html',
-    );
+    const gettingStartedHtml = await readOutput('guides/first-pages/getting-started/index.html');
     expect(gettingStartedHtml).to.equal('/_merged_assets/11ty-img/d76265ed-1200.png');
   });
 
   it('will add "../" for links and image urls only within named template files', async () => {
-    cli = await executeStart('computed-config-fixtures/image-link/rocket.config.js');
+    const {
+      cli,
+      readOutput,
+    } = await execute('computed-config-fixtures/image-link/rocket.config.js', { captureLog: true });
+    cleanupCli = cli;
 
     const namedMdContent = [
       '<p>',
@@ -127,22 +148,22 @@ describe('RocketCli computedConfig', () => {
       '</div>',
     ];
 
-    const templateHtml = await readStartOutput(cli, 'template/index.html', { formatHtml: true });
+    const templateHtml = await readOutput('template/index.html', { formatHtml: true });
     expect(templateHtml, 'template/index.html does not match').to.equal(
       namedHtmlContent.join('\n'),
     );
 
-    const guidesHtml = await readStartOutput(cli, 'guides/index.html', { formatHtml: true });
+    const guidesHtml = await readOutput('guides/index.html', { formatHtml: true });
     expect(guidesHtml, 'guides/index.html does not match').to.equal(
       [...namedMdContent, ...namedHtmlContent].join('\n'),
     );
 
-    const noAdjustHtml = await readStartOutput(cli, 'no-adjust/index.html');
+    const noAdjustHtml = await readOutput('no-adjust/index.html');
     expect(noAdjustHtml, 'no-adjust/index.html does not match').to.equal(
       '<p>Nothing to adjust in here</p>',
     );
 
-    const rawHtml = await readStartOutput(cli, 'one-level/raw/index.html');
+    const rawHtml = await readOutput('one-level/raw/index.html');
     expect(rawHtml, 'raw/index.html does not match').to.equal(
       [
         '<div>',
@@ -159,7 +180,7 @@ describe('RocketCli computedConfig', () => {
     );
 
     // for index files no '../' will be added
-    const indexHtml = await readStartOutput(cli, 'index.html', { formatHtml: true });
+    const indexHtml = await readOutput('index.html', { formatHtml: true });
     expect(indexHtml, 'index.html does not match').to.equal(
       [
         '<p>',
@@ -188,19 +209,28 @@ describe('RocketCli computedConfig', () => {
   });
 
   it('can be configured via setupEleventyComputedConfig', async () => {
-    cli = await executeStart('computed-config-fixtures/setup/addPlugin.rocket.config.js');
+    const { cli, readOutput } = await execute(
+      'computed-config-fixtures/setup/addPlugin.rocket.config.js',
+      {
+        captureLog: true,
+      },
+    );
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(indexHtml).to.equal('test-value');
   });
 
   it('always assigns layout-default exept for index.* files who get layout-index', async () => {
-    cli = await executeStart('computed-config-fixtures/layout/rocket.config.js');
+    const { cli, readOutput } = await execute('computed-config-fixtures/layout/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(indexHtml).to.include('<body layout="layout-index">');
 
-    const pageHtml = await readStartOutput(cli, 'page/index.html');
+    const pageHtml = await readOutput('page/index.html');
     expect(pageHtml).to.include('<body layout="layout-default">');
   });
 });

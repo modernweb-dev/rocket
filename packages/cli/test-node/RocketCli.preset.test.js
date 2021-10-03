@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import { executeStart, readStartOutput, setFixtureDir } from '@rocket/cli/test-helpers';
+import { execute, setFixtureDir } from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
 describe('RocketCli preset', () => {
-  let cli;
+  let cleanupCli;
 
   before(() => {
     // ignore colors in tests as most CIs won't support it
@@ -14,21 +14,24 @@ describe('RocketCli preset', () => {
   });
 
   afterEach(async () => {
-    if (cli?.cleanup) {
-      await cli.cleanup();
+    if (cleanupCli?.cleanup) {
+      await cleanupCli.cleanup();
     }
   });
 
   it('offers a default layout (with head, header, content, footer, bottom) and raw layout', async () => {
-    cli = await executeStart('preset-fixtures/default/rocket.config.js');
+    const { cli, readOutput } = await execute('preset-fixtures/default/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const rawHtml = await readStartOutput(cli, 'raw/index.html');
+    const rawHtml = await readOutput('raw/index.html');
     expect(rawHtml).to.equal('<p>Just raw</p>');
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(indexHtml).to.include('<body layout="layout-index">');
 
-    const pageHtml = await readStartOutput(cli, 'page/index.html', {
+    const pageHtml = await readOutput('page/index.html', {
       stripScripts: true,
       formatHtml: true,
     });
@@ -93,16 +96,22 @@ describe('RocketCli preset', () => {
   });
 
   it('allows to add content to the head without overriding', async () => {
-    cli = await executeStart('preset-fixtures/add-to-head/rocket.config.js');
+    const { cli, readOutput } = await execute('preset-fixtures/add-to-head/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(indexHtml).to.include('<meta name="added" content="at the top" />');
   });
 
   it('a preset can provide an adjustImagePresets() function', async () => {
-    cli = await executeStart('preset-fixtures/use-preset/rocket.config.js');
+    const { cli, readOutput } = await execute('preset-fixtures/use-preset/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html', {
+    const indexHtml = await readOutput('index.html', {
       formatHtml: true,
       replaceImageHashes: true,
     });

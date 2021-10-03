@@ -298,7 +298,7 @@ export class RocketCli {
   async cleanup() {
     setComputedConfig({});
     if (this.eleventy) {
-      this.eleventy.finish();
+      // this.eleventy.finish();
       // await this.eleventy.stopWatch();
     }
     this.stop();

@@ -1,16 +1,11 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import {
-  executeStart,
-  readStartOutput,
-  setFixtureDir,
-  startOutputExist,
-} from '@rocket/cli/test-helpers';
+import { execute, setFixtureDir } from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
 describe('RocketCli use cases', () => {
-  let cli;
+  let cleanupCli;
 
   before(() => {
     // ignore colors in tests as most CIs won't support it
@@ -19,18 +14,22 @@ describe('RocketCli use cases', () => {
   });
 
   afterEach(async () => {
-    if (cli?.cleanup) {
-      await cli.cleanup();
+    if (cleanupCli?.cleanup) {
+      await cleanupCli.cleanup();
     }
   });
 
   it('supports dynamic imports', async () => {
-    cli = await executeStart('use-cases/dynamic-imports/rocket.config.js');
+    const {
+      cli,
+      readOutput,
+      outputExists,
+    } = await execute('use-cases/dynamic-imports/rocket.config.js', { captureLog: true });
+    cleanupCli = cli;
 
-    expect(startOutputExist(cli, 'sub/assets/myData.js'), 'static files did not get copied').to.be
-      .true;
+    expect(outputExists('sub/assets/myData.js'), 'static files did not get copied').to.be.true;
 
-    const aboutHtml = await readStartOutput(cli, 'about/index.html', { formatHtml: true });
+    const aboutHtml = await readOutput('about/index.html', { formatHtml: true });
     expect(aboutHtml).to.equal(
       [
         '<p><code>about.md</code></p>',
@@ -38,7 +37,7 @@ describe('RocketCli use cases', () => {
       ].join('\n'),
     );
 
-    const subHtml = await readStartOutput(cli, 'sub/index.html', { formatHtml: true });
+    const subHtml = await readOutput('sub/index.html', { formatHtml: true });
     expect(subHtml).to.equal(
       [
         '<p><code>sub/index.md</code></p>',
@@ -46,7 +45,7 @@ describe('RocketCli use cases', () => {
       ].join('\n'),
     );
 
-    const subDetailsHtml = await readStartOutput(cli, 'sub/details/index.html', {
+    const subDetailsHtml = await readOutput('sub/details/index.html', {
       formatHtml: true,
     });
     expect(subDetailsHtml).to.equal(
@@ -56,7 +55,7 @@ describe('RocketCli use cases', () => {
       ].join('\n'),
     );
 
-    const indexHtml = await readStartOutput(cli, 'index.html', { formatHtml: true });
+    const indexHtml = await readOutput('index.html', { formatHtml: true });
     expect(indexHtml).to.equal(
       [
         '<p><code>index.md</code></p>',
