@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import { executeStart, readStartOutput, setFixtureDir } from '@rocket/cli/test-helpers';
+import { execute, setFixtureDir } from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
 describe('RocketCli images', () => {
-  let cli;
+  let cleanupCli;
 
   before(() => {
     // ignore colors in tests as most CIs won't support it
@@ -14,15 +14,18 @@ describe('RocketCli images', () => {
   });
 
   afterEach(async () => {
-    if (cli?.cleanup) {
-      await cli.cleanup();
+    if (cleanupCli?.cleanup) {
+      await cleanupCli.cleanup();
     }
   });
 
   describe('Images', () => {
     it('does render content images responsive', async () => {
-      cli = await executeStart('e2e-fixtures/images/rocket.config.js');
-      const indexHtml = await readStartOutput(cli, 'index.html', {
+      const { cli, readOutput } = await execute('e2e-fixtures/images/rocket.config.js', {
+        captureLog: true,
+      });
+      cleanupCli = cli;
+      const indexHtml = await readOutput('index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });
@@ -57,7 +60,7 @@ describe('RocketCli images', () => {
         ].join('\n'),
       );
 
-      const keepSvgHtml = await readStartOutput(cli, 'ignores/index.html', {
+      const keepSvgHtml = await readOutput('ignores/index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });
@@ -102,7 +105,7 @@ describe('RocketCli images', () => {
         ].join('\n'),
       );
 
-      const tableHtml = await readStartOutput(cli, 'table/index.html', {
+      const tableHtml = await readOutput('table/index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });
@@ -150,8 +153,12 @@ describe('RocketCli images', () => {
     });
 
     it('can configure more patterns to ignore', async () => {
-      cli = await executeStart('e2e-fixtures/images/ignore-more.rocket.config.js');
-      const keepSvgHtml = await readStartOutput(cli, 'ignores/index.html', {
+      const { cli, readOutput } = await execute(
+        'e2e-fixtures/images/ignore-more.rocket.config.js',
+        { captureLog: true },
+      );
+      cleanupCli = cli;
+      const keepSvgHtml = await readOutput('ignores/index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });
@@ -178,8 +185,11 @@ describe('RocketCli images', () => {
     });
 
     it('renders multiple images in the correct order', async () => {
-      cli = await executeStart('e2e-fixtures/images/rocket.config.js');
-      const indexHtml = await readStartOutput(cli, 'two-images/index.html', {
+      const { cli, readOutput } = await execute('e2e-fixtures/images/rocket.config.js', {
+        captureLog: true,
+      });
+      cleanupCli = cli;
+      const indexHtml = await readOutput('two-images/index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });
@@ -242,8 +252,11 @@ describe('RocketCli images', () => {
     });
 
     it('can configure those responsive images', async () => {
-      cli = await executeStart('e2e-fixtures/images/small.rocket.config.js');
-      const indexHtml = await readStartOutput(cli, 'index.html', {
+      const { cli, readOutput } = await execute('e2e-fixtures/images/small.rocket.config.js', {
+        captureLog: true,
+      });
+      cleanupCli = cli;
+      const indexHtml = await readOutput('index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });
@@ -280,8 +293,11 @@ describe('RocketCli images', () => {
     });
 
     it('will only render a figure & figcaption if there is a caption/title', async () => {
-      cli = await executeStart('e2e-fixtures/images/small.rocket.config.js');
-      const indexHtml = await readStartOutput(cli, 'no-title/index.html', {
+      const { cli, readOutput } = await execute('e2e-fixtures/images/small.rocket.config.js', {
+        captureLog: true,
+      });
+      cleanupCli = cli;
+      const indexHtml = await readOutput('no-title/index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });
@@ -315,8 +331,12 @@ describe('RocketCli images', () => {
     });
 
     it('will render an img with srcset and sizes if there is only one image format', async () => {
-      cli = await executeStart('e2e-fixtures/images/single-format.rocket.config.js');
-      const indexHtml = await readStartOutput(cli, 'no-title/index.html', {
+      const {
+        cli,
+        readOutput,
+      } = await execute('e2e-fixtures/images/single-format.rocket.config.js', { captureLog: true });
+      cleanupCli = cli;
+      const indexHtml = await readOutput('no-title/index.html', {
         formatHtml: true,
         replaceImageHashes: true,
       });

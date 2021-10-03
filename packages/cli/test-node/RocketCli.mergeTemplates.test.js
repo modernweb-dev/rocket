@@ -1,16 +1,11 @@
 import chai from 'chai';
 import chalk from 'chalk';
-import {
-  executeStart,
-  readStartOutput,
-  trimWhiteSpace,
-  setFixtureDir,
-} from '@rocket/cli/test-helpers';
+import { execute, trimWhiteSpace, setFixtureDir } from '@rocket/cli/test-helpers';
 
 const { expect } = chai;
 
 describe('RocketCli mergeTemplates', () => {
-  let cli;
+  let cleanupCli;
 
   before(() => {
     // ignore colors in tests as most CIs won't support it
@@ -19,15 +14,18 @@ describe('RocketCli mergeTemplates', () => {
   });
 
   afterEach(async () => {
-    if (cli?.cleanup) {
-      await cli.cleanup();
+    if (cleanupCli?.cleanup) {
+      await cleanupCli.cleanup();
     }
   });
 
   it('merges it in the defined order', async () => {
-    cli = await executeStart('merge-templates-fixtures/order/rocket.config.js');
+    const { cli, readOutput } = await execute('merge-templates-fixtures/order/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(trimWhiteSpace(indexHtml)).to.equal(
       [
         '<p>30-first</p>',
@@ -40,9 +38,13 @@ describe('RocketCli mergeTemplates', () => {
   });
 
   it('presets can overwrite in order', async () => {
-    cli = await executeStart('merge-templates-fixtures/overwrite/rocket.config.js');
+    const { cli, readOutput } = await execute(
+      'merge-templates-fixtures/overwrite/rocket.config.js',
+      { captureLog: true },
+    );
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(trimWhiteSpace(indexHtml)).to.equal(
       ['<p>overwritten second</p>', '<p>third</p>', '<p>overwritten first to be last</p>'].join(
         '\n',
@@ -51,9 +53,12 @@ describe('RocketCli mergeTemplates', () => {
   });
 
   it('presets can add inbetween', async () => {
-    cli = await executeStart('merge-templates-fixtures/add/rocket.config.js');
+    const { cli, readOutput } = await execute('merge-templates-fixtures/add/rocket.config.js', {
+      captureLog: true,
+    });
+    cleanupCli = cli;
 
-    const indexHtml = await readStartOutput(cli, 'index.html');
+    const indexHtml = await readOutput('index.html');
     expect(trimWhiteSpace(indexHtml)).to.equal(
       [
         '<p>first</p>',

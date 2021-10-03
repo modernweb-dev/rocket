@@ -42,6 +42,7 @@ export function createServiceWorkerMetaConfig(userConfig = { output: {} }) {
       plugin: replace,
       options: {
         'process.env.NODE_ENV': JSON.stringify(developmentMode ? 'development' : 'production'),
+        preventAssignment: true,
       },
     },
     {

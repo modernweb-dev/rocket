@@ -91,86 +91,78 @@ export async function readOutput(
   return text;
 }
 
-export function startOutputExist(cli, fileName) {
-  const outputDir = cli.config.outputDevDir;
-  return fs.existsSync(path.join(outputDir, fileName));
-}
-
-export function buildOutputExist(cli, fileName) {
-  const outputDir = cli.config.outputDir;
-  return fs.existsSync(path.join(outputDir, fileName));
-}
-
-/**
- * @param {*} cli
- * @param {string} fileName
- * @param {readOutputOptions} options
- */
-export async function readStartOutput(cli, fileName, options = {}) {
-  options.type = 'start';
-  return readOutput(cli, fileName, options);
-}
-
-/**
- * @param {*} cli
- * @param {string} fileName
- * @param {readOutputOptions} options
- */
-export async function readBuildOutput(cli, fileName, options = {}) {
-  options.type = 'build';
-  return readOutput(cli, fileName, options);
-}
-
 export async function getfixtureExpectedFiles(pathToDir) {
   const cwd = path.join(fixtureDir, pathToDir);
   const paths = await globby('**/*', { cwd, absolute: true, dot: true });
   return paths;
 }
 
-export async function execute(cli, configFileDir) {
+export async function execute(pathToConfig, { type = 'start', captureLog = false } = {}) {
+  let log = [];
+  const origLog = console.log;
+  if (captureLog) {
+    console.log = (...args) => {
+      log = [...log, ...args];
+    };
+  }
+
+  const configFile = path.join(fixtureDir, pathToConfig.split('/').join(path.sep));
+  const configFileDir = path.dirname(configFile);
+
+  const cli = new RocketCli({
+    argv: [type, '--config-file', configFile],
+  });
+
   await cli.setup();
   cli.config.outputDevDir = path.join(configFileDir, '__output-dev');
   cli.config.devServer.open = false;
   cli.config.devServer.port = 8080;
   cli.config.watch = false;
   cli.config.outputDir = path.join(configFileDir, '__output');
+
+  await fs.emptyDir(cli.config.outputDevDir);
+  await fs.emptyDir(cli.config.outputDir);
+
   await cli.run();
-  return cli;
+
+  /**
+   * @param {*} cli
+   * @param {string} fileName
+   * @param {readOutputOptions} options
+   */
+  async function readOutput2(fileName, options = {}) {
+    options.type = type;
+    return readOutput(cli, fileName, options);
+  }
+
+  function outputExists(fileName) {
+    const outputDir = type === 'build' ? cli.config.outputDir : cli.config.outputDevDir;
+    const filePath = path.join(outputDir, fileName);
+
+    return fs.existsSync(filePath);
+  }
+
+  if (captureLog) {
+    console.log = origLog;
+  }
+  return { log, readOutput: readOutput2, cli, outputExists };
 }
 
 export async function executeBootstrap(pathToDir) {
   const configFileDir = path.join(fixtureDir, pathToDir.split('/').join(path.sep));
   const cli = new RocketCli({ argv: ['bootstrap'] });
+
+  await cli.setup();
+  cli.config.outputDevDir = path.join(configFileDir, '__output-dev');
+  cli.config.devServer.open = false;
+  cli.config.devServer.port = 8080;
+  cli.config.watch = false;
+  cli.config.outputDir = path.join(configFileDir, '__output');
+
   await fs.emptyDir(configFileDir);
-  await execute(cli, configFileDir);
-  return cli;
-}
+  await cli.run();
 
-export async function executeStart(pathToConfig) {
-  const configFile = path.join(fixtureDir, pathToConfig.split('/').join(path.sep));
-  const cli = new RocketCli({
-    argv: ['start', '--config-file', configFile],
-  });
-  await execute(cli, path.dirname(configFile));
-  return cli;
-}
-
-export async function executeBuild(pathToConfig) {
-  const configFile = path.join(fixtureDir, pathToConfig.split('/').join(path.sep));
-  const cli = new RocketCli({
-    argv: ['build', '--config-file', configFile],
-  });
-  await execute(cli, path.dirname(configFile));
-  return cli;
-}
-
-export async function executeLint(pathToConfig) {
-  const configFile = path.join(fixtureDir, pathToConfig.split('/').join(path.sep));
-  const cli = new RocketCli({
-    argv: ['lint', '--config-file', configFile],
-  });
-  await execute(cli, path.dirname(configFile));
-  return cli;
+  return { cli };
 }
 
 export function trimWhiteSpace(inString) {
