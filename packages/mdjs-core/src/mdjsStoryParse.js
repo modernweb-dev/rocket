@@ -77,17 +77,32 @@ function mdjsStoryParse({
       const newValue = previewStoryTag(storyData.name);
       if (newValue.includes('[[CODE SLOT]]')) {
         const tagParts = newValue.split('[[CODE SLOT]]');
+
+        const inside = [node];
+        let skipAmount = 1;
+        const next = parent.children[index + 1];
+        if (next && next.type === 'code' && next.meta === 'story-code') {
+          inside.push(next);
+          skipAmount += 1;
+
+          const next2 = parent.children[index + 2];
+          if (next2 && next2.type === 'code' && next2.meta === 'story-code') {
+            inside.push(next2);
+            skipAmount += 1;
+          }
+        }
+
         node = {
           type: 'root',
           children: [
             { type: 'html', value: tagParts[0] },
             { type: 'text', value: '\n\n' },
-            node,
+            ...inside,
             { type: 'text', value: '\n\n' },
             { type: 'html', value: tagParts[1] },
           ],
         };
-        parent.children.splice(index, 1, node);
+        parent.children.splice(index, skipAmount, node);
       } else {
         node.type = 'html';
         node.value = previewStoryTag(storyData.name);
@@ -115,17 +130,31 @@ function mdjsStoryParse({
       const newValue = previewStoryTag(storyData.name);
       if (newValue.includes('[[CODE SLOT]]')) {
         const tagParts = newValue.split('[[CODE SLOT]]');
+        const inside = [node];
+        let skipAmount = 1;
+        const next = parent.children[index + 1];
+        if (next && next.type === 'code' && next.meta === 'story-code') {
+          inside.push(next);
+          skipAmount += 1;
+
+          const next2 = parent.children[index + 2];
+          if (next2 && next2.type === 'code' && next2.meta === 'story-code') {
+            inside.push(next2);
+            skipAmount += 1;
+          }
+        }
+
         node = {
           type: 'root',
           children: [
             { type: 'html', value: tagParts[0] },
             { type: 'text', value: '\n\n' },
-            node,
+            ...inside,
             { type: 'text', value: '\n\n' },
             { type: 'html', value: tagParts[1] },
           ],
         };
-        parent.children.splice(index, 1, node);
+        parent.children.splice(index, skipAmount, node);
       } else {
         node.type = 'html';
         node.value = previewStoryTag(storyData.name);

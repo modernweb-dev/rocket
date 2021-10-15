@@ -21,6 +21,7 @@
     }
   },
   "scripts": {
+    "prepublishOnly": "publish-docs --github-url https://github.com/modernweb-dev/rocket/ --git-root-dir ../../",
     "start": "npm run start:stories",
     "start:script": "web-dev-server -c demo/script/server.js --root-dir ../../",
     "start:stories": "web-dev-server -c demo/stories/server.js --root-dir ../../",

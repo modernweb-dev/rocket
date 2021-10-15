@@ -47,7 +47,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       contentHeight: { type: Number },
       simulatorUrl: { type: String },
       // page settings
-      platform: { type: String },
+      platform: { type: String, reflect: true },
       platforms: { type: Array },
       size: { type: String },
       sizes: { type: Array },
@@ -292,8 +292,15 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
   }
 
   async onCopy() {
-    if (this.textContent) {
-      await navigator.clipboard.writeText(this.textContent.trim());
+    let nodeToConsider = this.children[0];
+    if (this.platform === 'android') {
+      nodeToConsider = this.children[1];
+    }
+    if (this.platform === 'ios') {
+      nodeToConsider = this.children[2];
+    }
+    if (nodeToConsider && nodeToConsider.textContent) {
+      await navigator.clipboard.writeText(nodeToConsider.textContent.trim());
       this.__copyButtonText = 'Copied ✅';
       setTimeout(() => {
         this.__copyButtonText = 'Copy code';
@@ -844,6 +851,21 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
         padding: 5px;
         border: 1px solid #333;
         border-radius: 3px;
+      }
+
+      /** Showing/Hiding additional code blocks **/
+      ::slotted(pre) {
+        display: none;
+      }
+
+      :host([platform='web']) ::slotted(pre:nth-child(1)) {
+        display: block;
+      }
+      :host([platform='android']) ::slotted(pre:nth-child(2)) {
+        display: block;
+      }
+      :host([platform='ios']) ::slotted(pre:nth-child(3)) {
+        display: block;
       }
     `;
   }
