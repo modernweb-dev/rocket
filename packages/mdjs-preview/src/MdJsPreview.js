@@ -107,8 +107,16 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       // { key: 'ios', name: 'iOS' },
     ];
 
-    this.size = 'webSmall';
+    this.size = 'webInline';
     this.sizes = [
+      {
+        key: 'webInline',
+        name: 'Inline',
+        platform: 'web',
+        width: 360,
+        height: 640,
+        dpr: 1,
+      },
       {
         key: 'webSmall',
         name: 'Small',
@@ -241,6 +249,10 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     if (this.lightDomRenderTarget && changeProps.has('story')) {
       render(this.story({ shadowRoot: this }), this.lightDomRenderTarget);
     }
+
+    if (changeProps.has('platform') || changeProps.has('size')) {
+      this.deviceMode = this.platform === 'web' && this.size === 'webInline' ? false : true;
+    }
   }
 
   disconnectedCallback() {
@@ -311,7 +323,6 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
   renderPlatforms() {
     if (this.platforms.length) {
       return html`
-        <h4>Platform</h4>
         <div
           class="segmented-control"
           @change=${
@@ -344,8 +355,19 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     if (this.platforms.length) {
       return html`
         <div>
-          <h3>Platform</h3>
+          <h4>Platform</h4>
           ${this.renderPlatforms()}
+        </div>
+      `;
+    }
+  }
+
+  renderSize() {
+    if (this.sizes.length) {
+      return html`
+        <div>
+          <h4>Size</h4>
+          ${this.renderSizes()}
         </div>
       `;
     }
@@ -354,7 +376,6 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
   renderSizes() {
     if (this.sizes.length) {
       return html`
-        <h4>Size</h4>
         <div
           class="segmented-control"
           @change=${
@@ -387,7 +408,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     return html`
       <div>
         <h3>Viewport</h3>
-        ${this.renderSizes()} ${this.renderAutoHeight()}
+        ${this.renderAutoHeight()}
       </div>
     `;
   }
@@ -571,6 +592,11 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
+      ${this.simulatorUrl
+        ? html`
+            <div class="platform-size-controls">${this.renderPlatform()} ${this.renderSize()}</div>
+          `
+        : ``}
       <div id="wrapper">
         <slot name="story"></slot>
         ${this.deviceMode === true
@@ -588,19 +614,28 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
           : nothing}
       </div>
       <lion-accordion class="options">
-        ${this.deviceMode
+        ${this.simulatorUrl
           ? html`
               <h3 slot="invoker">
                 <button>Settings</button>
               </h3>
               <div slot="content">
+                ${this.deviceMode
+                  ? ``
+                  : html`<div>
+                      Note: Additional settings become available when not in web inline mode
+                    </div>`}
                 <div class="settings-wrapper">
-                  ${this.renderPlatform()} ${this.renderViewport()} ${this.renderVisual()}
-                  ${this.renderLocalization()} ${this.renderSyncSettings()}
+                  ${this.deviceMode
+                    ? html`
+                        ${this.renderViewport()} ${this.renderVisual()} ${this.renderLocalization()}
+                        ${this.renderSyncSettings()}
+                      `
+                    : html` ${this.renderSyncSettings()} `}
                 </div>
               </div>
             `
-          : ''}
+          : ``}
         <h3 slot="invoker">
           <button>Code</button>
         </h3>
@@ -615,12 +650,6 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
         ? html`
             <div class="controls">
               <a href=${this.iframeUrl} target="_blank">Open simulation in new window</a>
-              <button
-                @click=${() => (this.deviceMode = !this.deviceMode)}
-                class="simulation-toggle"
-              >
-                ${this.deviceMode ? html`Disable` : html`Enable`} device simulation
-              </button>
             </div>
           `
         : ''}
@@ -636,6 +665,10 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
 
       :host([device-mode]) slot[name='story'] {
         display: none;
+      }
+
+      :host(:not([device-mode])) #wrapper {
+        border: 2px solid #4caf50;
       }
 
       iframe {
@@ -730,6 +763,15 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       .options {
         display: block;
         padding: 15px 0;
+      }
+
+      .platform-size-controls {
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      .platform-size-controls > * {
+        margin-right: 25px;
       }
 
       .controls {
