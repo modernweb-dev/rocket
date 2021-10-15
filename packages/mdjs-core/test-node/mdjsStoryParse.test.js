@@ -114,4 +114,136 @@ describe('mdjsStoryParse', () => {
     const result = await parser.process(input);
     expect(result.contents).to.equal(expected);
   });
+
+  it('will wrap following story-code blocks', async () => {
+    const input = [
+      '```js preview-story',
+      'export const foo = () => {};',
+      '```',
+      '',
+      '```swift story-code',
+      'CODE for iOS',
+      '```',
+      '',
+      '```xml story-code',
+      'CODE for Android',
+      '```',
+    ].join('\n');
+
+    const expected = [
+      '<mdjs-preview mdjs-story-name="foo">',
+      '',
+      '',
+      '',
+      '<pre><code class="language-js">export const foo = () => {};',
+      '</code></pre>',
+      '<pre><code class="language-swift">CODE for iOS',
+      '</code></pre>',
+      '<pre><code class="language-xml">CODE for Android',
+      '</code></pre>',
+      '',
+      '',
+      '',
+      '</mdjs-preview>',
+      '',
+    ].join('\n');
+
+    const parser = unified().use(markdown).use(mdjsStoryParse).use(html);
+    const result = await parser.process(input);
+    expect(result.contents).to.equal(expected);
+  });
+
+  it('will wrap following story-code blocks also for html stories', async () => {
+    const input = [
+      '```html preview-story',
+      '<my-el></my-el>',
+      '```',
+      '',
+      '```swift story-code',
+      'CODE for iOS',
+      '```',
+      '',
+      '```xml story-code',
+      'CODE for Android',
+      '```',
+    ].join('\n');
+
+    const expected = [
+      '<mdjs-preview mdjs-story-name="HtmlStory0">',
+      '',
+      '',
+      '',
+      '<pre><code class="language-html">&#x3C;my-el>&#x3C;/my-el>',
+      '</code></pre>',
+      '<pre><code class="language-swift">CODE for iOS',
+      '</code></pre>',
+      '<pre><code class="language-xml">CODE for Android',
+      '</code></pre>',
+      '',
+      '',
+      '',
+      '</mdjs-preview>',
+      '',
+    ].join('\n');
+
+    const parser = unified().use(markdown).use(mdjsStoryParse).use(html);
+    const result = await parser.process(input);
+    expect(result.contents).to.equal(expected);
+  });
+
+  it('will wrap only following story-code blocks', async () => {
+    const input = [
+      '```js preview-story',
+      'export const foo = () => {};',
+      '```',
+      '```swift story-code',
+      'CODE for iOS',
+      '```',
+      '# hey',
+      '```swift story-code',
+      'SHOULD BE OUTSIDE',
+      '```',
+      '```js preview-story',
+      'export const foo2 = () => {};',
+      '```',
+      '```xml story-code',
+      'CODE for Android',
+      '```',
+    ].join('\n');
+
+    const expected = [
+      '<mdjs-preview mdjs-story-name="foo">',
+      '',
+      '',
+      '',
+      '<pre><code class="language-js">export const foo = () => {};',
+      '</code></pre>',
+      '<pre><code class="language-swift">CODE for iOS',
+      '</code></pre>',
+      '',
+      '',
+      '',
+      '</mdjs-preview>',
+      '<h1>hey</h1>',
+      '<pre><code class="language-swift">SHOULD BE OUTSIDE',
+      '</code></pre>',
+      '<mdjs-preview mdjs-story-name="foo2">',
+      '',
+      '',
+      '',
+      '<pre><code class="language-js">export const foo2 = () => {};',
+      '</code></pre>',
+      '<pre><code class="language-xml">CODE for Android',
+      '</code></pre>',
+      '',
+      '',
+      '',
+      '</mdjs-preview>',
+      '',
+    ].join('\n');
+
+    const parser = unified().use(markdown).use(mdjsStoryParse).use(html);
+    const result = await parser.process(input);
+    expect(result.contents).to.equal(expected);
+  });
 });

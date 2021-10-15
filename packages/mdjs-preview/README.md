@@ -1,3 +1,3 @@
 # Preview element for mdjs
 
-For docs please see our homepage [https://rocket.modern-web.dev/docs/markdown-javascript/preview/](https://rocket.modern-web.dev/docs/markdown-javascript/preview/).
+[=> See Source <=](../../docs/docs/markdown-javascript/preview.md)

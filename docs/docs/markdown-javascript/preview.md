@@ -40,6 +40,60 @@ will result in
 export const foo = () => html` <demo-element></demo-element> `;
 ```
 
+#### Story Code
+
+If your preview is followed by a code blocks marked as `story-code` then those will be shown when switching between multiple platforms
+
+````md
+```js preview-story
+// will be visible when platform web is selected
+export const JsPreviewStory = () => html` <demo-element></demo-element> `;
+```
+
+```xml story-code
+<!-- will be visible when platform android is selected -->
+<Button
+    android:id="@+id/demoElement"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Android Code"
+    style="@style/Widget.Demo.Element"
+/>
+```
+
+```swift story-code
+// will be visible when platform ios is selected
+import Demo.Element
+
+let card = DemoElement()
+```
+````
+
+See it in action by opening up the code block and switching platforms
+
+```js preview-story
+// will be visible when platform web is selected
+export const JsPreviewStory = () => html` <demo-element></demo-element> `;
+```
+
+```xml story-code
+<!-- will be visible when platform android is selected -->
+<Button
+    android:id="@+id/demoElement"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Android Code"
+    style="@style/Widget.Demo.Element"
+/>
+```
+
+```swift story-code
+// will be visible when platform ios is selected
+import Demo.Element
+
+let card = DemoElement()
+```
+
 ## HTML Story
 
 ````md
