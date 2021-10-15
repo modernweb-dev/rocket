@@ -40,6 +40,14 @@ will result in
 export const foo = () => html` <demo-element></demo-element> `;
 ```
 
+```js story-code
+// not defined for android
+```
+
+```js story-code
+// not defined for ios
+```
+
 #### Story Code
 
 If your preview is followed by a code blocks marked as `story-code` then those will be shown when switching between multiple platforms

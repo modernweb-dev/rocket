@@ -28,11 +28,8 @@ describe('mdjs-preview', () => {
     expect(preview1.edgeDistance).to.be.true;
     expect(preview2.edgeDistance).to.be.true;
 
-    preview1.platform = 'android';
     preview1.edgeDistance = false;
     await preview1.updateComplete;
-    expect(preview1.platform).to.equal('android');
-    expect(preview2.platform).to.equal('android');
     expect(preview1.edgeDistance).to.be.false;
     expect(preview2.edgeDistance).to.be.false;
   });
