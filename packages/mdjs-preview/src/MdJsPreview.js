@@ -51,7 +51,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       platforms: { type: Array },
       size: { type: String },
       sizes: { type: Array },
-      theme: { type: String, reflect: true },
+      theme: { type: String },
       themes: { type: Array },
       language: { type: String },
       languages: { type: Array },
