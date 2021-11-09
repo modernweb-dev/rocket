@@ -14,19 +14,37 @@
     <script type="module">
       import { render } from '@mdjs/mdjs-story';
 
+      function sanitize(input, type) {
+        return `${document.location.origin}/${input.match(/[a-zA-Z0-9\/\-_]*/)[0]}.${type}`;
+      }
+
       async function onHashChange() {
         const urlParts = new URLSearchParams(document.location.hash.substr(1));
 
         if (urlParts.get('stylesheets')) {
           for (const stylesheet of urlParts.getAll('stylesheets')) {
-            if (!document.querySelector(`link[rel="stylesheet"][href="${stylesheet}"]`)) {
+            const safeStylesheetUrl = sanitize(stylesheet, 'css');
+            if (!document.querySelector(`link[rel="stylesheet"][href="${safeStylesheetUrl}"]`)) {
               const link = document.createElement('link');
               link.rel = 'stylesheet';
-              link.href = stylesheet;
+              link.href = safeStylesheetUrl;
               document.head.appendChild(link);
             }
           }
         }
+
+        if (urlParts.get('moduleUrls')) {
+          for (const moduleUrl of urlParts.getAll('moduleUrls')) {
+            const safeModuleUrl = sanitize(moduleUrl, 'js');
+            if (!document.querySelector(`script[type=module][src="${safeModuleUrl}"]`)) {
+              const script = document.createElement('script');
+              script.type = 'module';
+              script.src = safeModuleUrl;
+              document.head.appendChild(script);
+            }
+          }
+        }
+
         if (urlParts.get('theme')) {
           document.documentElement.setAttribute('theme', urlParts.get('theme'));
         }
@@ -46,7 +64,8 @@
           document.documentElement.removeAttribute('edge-distance');
         }
 
-        const mod = await import(urlParts.get('story-file'));
+        const safeStoryUrl = sanitize(urlParts.get('story-file'), 'js');
+        const mod = await import(safeStoryUrl);
         render(mod[urlParts.get('story-key')]({ shadowRoot: document }), document.body);
       }
 

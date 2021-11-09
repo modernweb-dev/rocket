@@ -11,6 +11,16 @@ import {
 import { addResizeHandler } from './resizeHandler.js';
 
 /**
+ * @param {string} input
+ * @param {'js'|'css'} type
+ * @returns {string}
+ */
+function sanitize(input, type) {
+  const url = new URL(input);
+  return url.pathname.slice(1, (type.length + 1) * -1);
+}
+
+/**
  * @typedef {object} StoryOptions
  * @property {HTMLElement | null} StoryOptions.shadowRoot
  */
@@ -273,9 +283,8 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     if (!mdjsSetupScript) {
       throw new Error('Could not find a <script type="module" src="..." mdjs-setup></script>');
     }
-
     const params = new URLSearchParams();
-    params.set('story-file', mdjsSetupScript.src);
+    params.set('story-file', sanitize(mdjsSetupScript.src, 'js'));
     params.set('story-key', this.key);
     params.set('theme', this.theme);
     params.set('platform', this.platform);
@@ -287,7 +296,16 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     ]);
     for (const link of links) {
       if (link.href) {
-        params.append('stylesheets', link.href);
+        params.append('stylesheets', sanitize(link.href, 'css'));
+      }
+    }
+
+    const moduleUrls = /** @type {HTMLScriptElement[]} */ ([
+      ...document.querySelectorAll('script[type=module][mdjs-use]'),
+    ]);
+    for (const moduleUrl of moduleUrls) {
+      if (moduleUrl.src) {
+        params.append('moduleUrls', sanitize(moduleUrl.src, 'js'));
       }
     }
 
