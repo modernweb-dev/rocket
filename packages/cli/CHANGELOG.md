@@ -1,5 +1,16 @@
 # @rocket/cli
 
+## 0.10.1
+
+### Patch Changes
+
+- 15a82c0: Enable including script files into the simulator via `<script src=".." mdjs-use>`
+- 15a82c0: Allow only a limited set of characters for simulator includes `[a-zA-Z0-9\/\-_]`.
+  Notably, there is no:
+
+  - `:` to prevent `http://...` includes
+  - `.` so filenames as `this.is.my.js` are not supported. Also includes will be without file endings which will be added automatically
+
 ## 0.10.0
 
 ### Minor Changes
