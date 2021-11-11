@@ -686,11 +686,11 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       }
 
       :host(:not([device-mode])) #wrapper {
-        border: 2px solid #4caf50;
+        border: 2px solid var(--primary-lines-color, #4caf50);
       }
 
       iframe {
-        border: 2px solid #4caf50;
+        border: 2px solid var(--primary-lines-color, #4caf50);
         background: #fff;
       }
 
