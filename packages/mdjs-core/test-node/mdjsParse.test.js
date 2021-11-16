@@ -20,7 +20,7 @@ describe('mdjsParse', () => {
       'const bar = 22;',
       '```',
     ].join('\n');
-    const parser = unified().use(markdown).use(mdjsParse).use(html);
+    const parser = unified().use(markdown).use(mdjsParse).use(html, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal(
       '<h2>Intro</h2>\n<pre><code class="language-js">const foo = 1;\n</code></pre>\n',
@@ -36,7 +36,7 @@ describe('mdjsParse', () => {
       'const bar = 22;',
       '```',
     ].join('\n');
-    const parser = unified().use(markdown).use(mdjsParse).use(html);
+    const parser = unified().use(markdown).use(mdjsParse).use(html, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal('');
     expect(/** @type {MDJSVFileData} */ (result.data).jsCode).to.equal('const bar = 22;');

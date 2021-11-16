@@ -106,7 +106,7 @@ describe('Integration', () => {
       })
       .use(mdSlug)
       .use(mdHeadings)
-      .use(mdStringify);
+      .use(mdStringify, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal(expected);
     expect(/** @type {MDJSVFileData} */ (result.data).stories).to.deep.equal([
