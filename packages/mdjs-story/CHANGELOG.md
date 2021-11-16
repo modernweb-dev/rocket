@@ -1,5 +1,11 @@
 # @mdjs/mdjs-story
 
+## 0.3.1
+
+### Patch Changes
+
+- 445b028: Update to latest lit, @open-wc, @lion packages
+
 ## 0.3.0
 
 ### Minor Changes

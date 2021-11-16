@@ -1,5 +1,11 @@
 # @mdjs/mdjs-preview
 
+## 0.5.5
+
+### Patch Changes
+
+- 445b028: Update to latest lit, @open-wc, @lion packages
+
 ## 0.5.4
 
 ### Patch Changes

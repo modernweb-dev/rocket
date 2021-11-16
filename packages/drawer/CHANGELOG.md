@@ -1,5 +1,11 @@
 # @rocket/drawer
 
+## 0.1.4
+
+### Patch Changes
+
+- 445b028: Update to latest lit, @open-wc, @lion packages
+
 ## 0.1.3
 
 ### Patch Changes
