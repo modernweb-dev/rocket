@@ -189,7 +189,7 @@ export class RocketSearchCombobox extends LionCombobox {
   }
 
   static get properties() {
-    return /** @type {typeof LionCombobox['properties'] & { showInput: import("lit-element").PropertyDeclaration } } */ ({
+    return /** @type {typeof LionCombobox['properties'] & { showInput: import("lit").PropertyDeclaration } } */ ({
       showInput: { type: Boolean, reflect: true, attribute: 'show-input' },
     });
   }
