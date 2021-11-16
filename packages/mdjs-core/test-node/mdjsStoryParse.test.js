@@ -61,7 +61,7 @@ describe('mdjsStoryParse', () => {
       '',
     ].join('\n');
 
-    const parser = unified().use(markdown).use(mdjsStoryParse).use(html);
+    const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal(expected);
     expect(/** @type {MDJSVFileData} */ (result.data).stories).to.deep.equal([
@@ -110,7 +110,7 @@ describe('mdjsStoryParse', () => {
         storyTag: name => `<Story name="${name}"></Story>`,
         previewStoryTag: name => `<Preview><Story name="${name}"></Story></Preview>`,
       })
-      .use(html);
+      .use(html, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal(expected);
   });
@@ -148,7 +148,7 @@ describe('mdjsStoryParse', () => {
       '',
     ].join('\n');
 
-    const parser = unified().use(markdown).use(mdjsStoryParse).use(html);
+    const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal(expected);
   });
@@ -186,7 +186,7 @@ describe('mdjsStoryParse', () => {
       '',
     ].join('\n');
 
-    const parser = unified().use(markdown).use(mdjsStoryParse).use(html);
+    const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal(expected);
   });
@@ -242,7 +242,7 @@ describe('mdjsStoryParse', () => {
       '',
     ].join('\n');
 
-    const parser = unified().use(markdown).use(mdjsStoryParse).use(html);
+    const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
     expect(result.contents).to.equal(expected);
   });
