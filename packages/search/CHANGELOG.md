@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.5.1
+
+### Patch Changes
+
+- 445b028: Update to latest lit, @open-wc, @lion packages
+
 ## 0.5.0
 
 ### Minor Changes
