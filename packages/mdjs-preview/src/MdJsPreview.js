@@ -615,7 +615,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
             <div class="platform-size-controls">${this.renderPlatform()} ${this.renderSize()}</div>
           `
         : ``}
-      <div id="wrapper">
+      <div id="wrapper" part="wrapper">
         <slot name="story"></slot>
         ${this.deviceMode === true
           ? html`
@@ -685,7 +685,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
         display: none;
       }
 
-      :host(:not([device-mode])) #wrapper {
+      :host(:not([device-mode])) [part='wrapper'] {
         border: 2px solid #4caf50;
       }
 
