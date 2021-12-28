@@ -61,7 +61,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
       platforms: { type: Array },
       size: { type: String },
       sizes: { type: Array },
-      theme: { type: String, reflect: true },
+      previewTheme: { type: String, reflect: true, attribute: 'preview-theme' },
       themes: { type: Array },
       language: { type: String },
       languages: { type: Array },
@@ -82,7 +82,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     this.__supportsClipboard = 'clipboard' in navigator;
     this.__copyButtonText = 'Copy Code';
 
-    this.theme = 'light';
+    this.previewTheme = 'light';
     /** @type {{ key: string, name: string }[]} */
     this.themes = [
       // { key: 'light', name: 'Light' },
@@ -286,7 +286,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     const params = new URLSearchParams();
     params.set('story-file', sanitize(mdjsSetupScript.src, 'js'));
     params.set('story-key', this.key);
-    params.set('theme', this.theme);
+    params.set('theme', this.previewTheme);
     params.set('platform', this.platform);
     params.set('language', this.language);
     params.set('edge-distance', this.edgeDistance.toString());
@@ -439,20 +439,20 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
           @change=${
             /** @param {Event} ev */ ev => {
               if (ev.target) {
-                this.theme = /** @type {HTMLInputElement} */ (ev.target).value;
+                this.previewTheme = /** @type {HTMLInputElement} */ (ev.target).value;
               }
             }
           }
         >
           ${this.themes.map(
-            theme => html`
-              <label class="${this.theme === theme.key ? 'selected' : ''}">
-                <span>${theme.name}</span>
+            previewTheme => html`
+              <label class="${this.previewTheme === previewTheme.key ? 'selected' : ''}">
+                <span>${previewTheme.name}</span>
                 <input
                   type="radio"
                   name="theme"
-                  value="${theme.key}"
-                  ?checked=${this.theme === theme.key}
+                  value="${previewTheme.key}"
+                  ?checked=${this.previewTheme === previewTheme.key}
                 />
               </label>
             `,
