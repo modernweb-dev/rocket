@@ -1,7 +1,7 @@
 const _sharedStates = {
   platform: 'web',
   size: 'webSmall',
-  theme: 'light',
+  previewTheme: 'light',
   language: 'en',
   autoHeight: true,
   deviceMode: false,
