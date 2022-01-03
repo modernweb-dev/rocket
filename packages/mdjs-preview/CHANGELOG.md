@@ -1,5 +1,12 @@
 # @mdjs/mdjs-preview
 
+## 0.5.6
+
+### Patch Changes
+
+- e81b77f: Change theme attribute into preview-theme attribute to separate theme styling of the preview section and the full mdjs viewer.
+- 456b8e7: Add css variable to style border-color of the mdjs-viewer
+
 ## 0.5.5
 
 ### Patch Changes
