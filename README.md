@@ -38,7 +38,7 @@
 
 **The modern web setup for static sites with a sprinkle of JavaScript!**
 
-- **Meta Framework:** Build on top of giants like <a href="https://www.11ty.dev/">Eleventy</a>, <a href="https://rollupjs.org/">Rollup</a>, and <a href="https://www.modern-web.dev/">Modern Web</a>.
+- **Meta Framework:** Build on top of giants like <a href="https://lit.dev/">Lit</a>, <a href="https://rollupjs.org/">Rollup</a> and <a href="https://www.modern-web.dev/">Modern Web</a>.
 - **Powerful Default Template:** Provide content and you are ready to go.
 - **Small:** No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed..
 
@@ -54,6 +54,16 @@ Get a site up and running in no time and focus on the content.
 You can still tweak every detail of every underlying tool that gets used.
 
 Rocket is part of the [Modern Web Family](https://twitter.com/modern_web_dev).
+
+## Quick Start
+
+```
+mkdir test-rocket
+cd test-rocket
+npm init -y
+npm i @rocket/cli@alpha @rocket/launch@alpha
+npx rocket init
+```
 
 ## 🤝 Contributing
 

@@ -1,6 +1,5 @@
 ## editors
 /.idea
-/.vscode
 
 ## system files
 .DS_Store
@@ -28,9 +27,7 @@ stats.html
 *.tsbuildinfo
 
 ## Rocket ignore files (need to be the full relative path to the folders)
-docs/_merged_data/
-docs/_merged_assets/
-docs/_merged_includes/
+*-mdjs-generated.js
 _site
 _site-dev
 
@@ -40,3 +37,4 @@ _merged_assets
 _merged_includes
 __output
 __output-dev
+docs_backup

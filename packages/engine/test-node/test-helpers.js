@@ -1,0 +1,168 @@
+import path from 'path';
+import chai from 'chai';
+import { fileURLToPath } from 'url';
+import prettier from 'prettier';
+import { rm, writeFile } from 'fs/promises';
+import { existsSync, readFileSync } from 'fs';
+
+import { Engine } from '../src/Engine.js';
+import { litServerRender } from '../src/helpers/litServerRender.js';
+import { urlToSourceRelativeFilePath } from '../src/urlPathConverter.js';
+
+const { expect } = chai;
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * @param {function} method
+ * @param {string} errorMessage
+ */
+export async function expectThrowsAsync(method, { errorMatch, errorMessage } = {}) {
+  let error = null;
+  try {
+    await method();
+  } catch (err) {
+    error = err;
+  }
+  expect(error).to.be.an('Error', 'No error was thrown');
+  if (errorMatch) {
+    expect(error.message).to.match(errorMatch);
+  }
+  if (errorMessage) {
+    expect(error.message).to.equal(errorMessage);
+  }
+}
+
+export async function testLitServerRender(
+  template,
+  { format = false, cleanupLitMarkers = true } = {},
+) {
+  let text = await litServerRender(template);
+  if (cleanupLitMarkers) {
+    text = cleanupLitMarkersFn(text);
+  }
+  if (format) {
+    text = formatFn(text, format);
+  }
+  return text;
+}
+
+function formatFn(text, format = 'html') {
+  const formatted = prettier.format(text, { parser: format, printWidth: 100 });
+  return formatted
+    .split('\n')
+    .filter(line => line.trim() !== '')
+    .join('\n');
+}
+
+/**
+ * @param {string} text
+ * @returns {string}
+ */
+function cleanupLitMarkersFn(text) {
+  let newText = text;
+  newText = newText.replace(/<!--\/?lit-part.*?-->/g, '');
+  newText = newText.replace(/<!--lit-node.*?-->/g, '');
+  newText = newText.replace(/<!---->/g, '');
+  return newText;
+}
+
+export const format = formatFn;
+export const cleanupLitMarkers = cleanupLitMarkersFn;
+
+export async function setupTestEngine(docsDir, options = {}) {
+  const useOptions = { ...options, docsDir };
+  if (useOptions.docsDir) {
+    useOptions.docsDir = path.join(__dirname, docsDir.split('/').join(path.sep));
+  }
+  useOptions.outputDir = path.join(useOptions.docsDir, '..', '__output');
+  useOptions.watchDir = path.join(useOptions.docsDir, '..');
+
+  const engine = new Engine();
+  engine.setOptions(useOptions);
+  await engine.clearOutputDir();
+
+  function readOutput(toInspect, { format = false, cleanupLitMarkers = true } = {}) {
+    const filePath = path.join(engine.outputDir, toInspect);
+    if (!existsSync(filePath)) {
+      throw new Error(`Rendering to ${toInspect} did not happen\nFull path: ${filePath}`);
+    }
+    let text = readFileSync(filePath).toString();
+    if (cleanupLitMarkers) {
+      text = cleanupLitMarkersFn(text);
+    }
+    if (format) {
+      text = formatFn(text, format);
+    }
+    return text;
+  }
+
+  function readSource(toInspect, { format = false } = {}) {
+    const filePath = path.join(engine.docsDir, toInspect);
+    let text = readFileSync(filePath).toString();
+    if (format) {
+      text = formatFn(text, format);
+    }
+    return text;
+  }
+
+  async function writeSource(toInspect, text) {
+    const filePath = path.join(engine.docsDir, toInspect);
+    await writeFile(filePath, text);
+  }
+
+  async function deleteSource(toInspect) {
+    const filePath = path.join(engine.docsDir, toInspect);
+    await rm(filePath, { force: true });
+  }
+
+  function outputExists(toInspect) {
+    const filePath = path.join(engine.outputDir, toInspect);
+    return existsSync(filePath);
+  }
+
+  async function cleanup() {
+    await engine.stop();
+  }
+
+  async function build() {
+    await engine.build();
+    await cleanup();
+  }
+
+  function watch() {
+    engine.watch();
+  }
+
+  function start() {
+    engine.start();
+  }
+
+  function setAsOpenedInBrowser(toInspect) {
+    const sourceFilePath = path.join(engine.docsDir, toInspect);
+    engine.watcher?.addWebSocketToPage(sourceFilePath, { send: () => {} });
+  }
+
+  function anEngineEvent(eventName) {
+    return new Promise((resolve, reject) => {
+      engine.events.on(eventName, () => {
+        resolve();
+      });
+    });
+  }
+
+  return {
+    readOutput,
+    outputExists,
+    readSource,
+    build,
+    writeSource,
+    deleteSource,
+    watch,
+    cleanup,
+    start,
+    engine,
+    anEngineEvent,
+    setAsOpenedInBrowser,
+  };
+}

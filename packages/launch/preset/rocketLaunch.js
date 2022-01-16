@@ -1,9 +1,10 @@
 import path from 'path';
-import { adjustPluginOptions } from 'plugins-manager';
+import { addPlugin } from 'plugins-manager';
+// import { adjustPluginOptions } from 'plugins-manager';
 // import { addPlugin } from 'plugins-manager';
 import { fileURLToPath } from 'url';
-import { LayoutPlugin } from '@rocket/cli';
-import htmlHeading from 'rehype-autolink-headings';
+// import { LayoutPlugin } from '@rocket/cli';
+// import htmlHeading from 'rehype-autolink-headings';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -47,20 +48,29 @@ function addOcticonToHeadlines(plugins) {
   });
 }
 
+class EnginePluginLaunch {
+  static publicFolder = new URL('../preset/__public', import.meta.url).pathname;
+}
+
 export function rocketLaunch() {
   return {
     path: path.resolve(__dirname),
-    setupUnifiedPlugins: [addOcticonToHeadlines],
-    setupEleventyComputedConfig: [
-      adjustPluginOptions(LayoutPlugin, { defaultLayout: 'layout-sidebar' }),
-    ],
-    adjustImagePresets: imagePresets => ({
-      ...imagePresets,
-      responsive: {
-        ...imagePresets.responsive,
-        widths: [600, 900, 1640],
-        sizes: '(min-width: 1024px) 820px, calc(100vw - 40px)',
-      },
-    }),
+    setupEnginePlugins: [addPlugin(EnginePluginLaunch)],
+    adjustSettings: settings => {
+      settings.serviceWorkerSourcePath = new URL(
+        '../src/service-worker.js',
+        import.meta.url,
+      ).pathname;
+      return settings;
+    },
+    // setupUnifiedPlugins: [addOcticonToHeadlines],
+    // adjustImagePresets: imagePresets => ({
+    //   ...imagePresets,
+    //   responsive: {
+    //     ...imagePresets.responsive,
+    //     widths: [600, 900, 1640],
+    //     sizes: '(min-width: 1024px) 820px, calc(100vw - 40px)',
+    //   },
+    // }),
   };
 }

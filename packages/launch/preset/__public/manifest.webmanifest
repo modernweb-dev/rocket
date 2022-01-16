@@ -1,0 +1,15 @@
+{
+  "name": "Rocket",
+  "short_name": "Rocket",
+  "theme_color": "#e63946",
+  "background_color": "#1d3557",
+  "display": "standalone",
+  "orientation": "portrait",
+  "Scope": "/",
+  "start_url": "/",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "splash_pages": null
+}

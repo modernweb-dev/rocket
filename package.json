@@ -10,8 +10,7 @@
   "scripts": {
     "analyze": "run-s analyze:* format:*",
     "analyze:analyze": "node scripts/workspaces-scripts-bin.mjs analyze",
-    "build": "npm run build:packages && npm run build:site",
-    "build:packages": "node scripts/workspaces-scripts-bin.mjs build:package",
+    "build": "DEBUG=engine:rendering node packages/cli/src/cli.js build",
     "build:site": "run-s analyze:* rocket:build",
     "changeset": "changeset",
     "debug": "web-test-runner --watch --config web-test-runner-chrome.config.mjs",
@@ -29,14 +28,15 @@
     "postinstall": "npm run setup",
     "release": "changeset publish && yarn format",
     "rocket:build": "node packages/cli/src/cli.js build",
+    "rocket:upgrade": "node packages/cli/src/cli.js upgrade",
     "search": "node packages/cli/src/cli.js search",
-    "setup": "npm run setup:ts-configs && npm run build:packages",
+    "setup": "npm run setup:ts-configs",
     "setup:patches": "npx patch-package",
     "setup:ts-configs": "node scripts/generate-ts-configs.mjs",
     "xprestart": "yarn analyze",
-    "start": "node --trace-warnings packages/cli/src/cli.js start",
+    "start": "DEBUG=engine:rendering node packages/cli/src/cli.js start --open",
     "test": "yarn test:node && yarn test:web",
-    "test:node": "mocha \"packages/*/test-node/**/*.test.{ts,js,mjs,cjs}\" --timeout 5000 --reporter dot --exit",
+    "test:node": "mocha \"packages/*/test-node/**/*.test.{ts,js,mjs,cjs}\" -- --timeout 5000 --reporter dot --exit",
     "test:web": "web-test-runner",
     "types": "run-s types:clear types:copy types:build",
     "types:build": "tsc --build",
@@ -90,7 +90,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "sinon": "^9.2.3",
     "ts-node": "^9.1.1",
-    "typescript": "^4.3.2"
+    "typescript": "^4.6.0-dev.20211108"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -136,5 +136,6 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {}
 }

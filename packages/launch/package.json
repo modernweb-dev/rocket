@@ -1,6 +1,6 @@
 {
   "name": "@rocket/launch",
-  "version": "0.6.0",
+  "version": "0.20.0-alpha.0",
   "publishConfig": {
     "access": "public"
   },
@@ -17,8 +17,12 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./preset/": "./preset/",
+    "./assets/*": "./assets/*",
+    "./css/*": "./css/*",
+    "./js/*": "./js/*",
+    "./preset/*": "./preset/*",
     "./inline-notification": "./inline-notification/index.js",
+    "./inline-notification/define": "./inline-notification/inline-notification.js",
     "./inline-notification/inline-notification.js": "./inline-notification/inline-notification.js"
   },
   "scripts": {
@@ -28,8 +32,12 @@
   },
   "files": [
     "*.js",
+    "assets",
+    "css",
     "inline-notification",
-    "preset"
+    "js",
+    "preset",
+    "src"
   ],
   "keywords": [
     "rocket",
@@ -37,7 +45,8 @@
   ],
   "dependencies": {
     "@rocket/drawer": "^0.1.3",
-    "@rocket/navigation": "^0.2.1"
+    "lit": "^2.0.0",
+    "workbox-window": "^6.1.5"
   },
   "customElements": "custom-elements.json"
 }

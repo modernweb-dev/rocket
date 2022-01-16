@@ -1,0 +1,1169 @@
+{
+  "title": "Rocket | Rocket",
+  "h1": "Rocket",
+  "name": "Rocket",
+  "menuLinkText": "Rocket",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.md",
+  "level": 0,
+  "children": [
+    {
+      "title": "Learning Rocket | Rocket",
+      "h1": "Learning Rocket",
+      "headlinesWithId": [
+        {
+          "text": "Learning Rocket",
+          "id": "learning-rocket",
+          "level": 1
+        }
+      ],
+      "menuLinkText": "Guides",
+      "name": "Learning Rocket",
+      "url": "/guides/",
+      "outputRelativeFilePath": "guides/index.html",
+      "sourceRelativeFilePath": "10--guides/index.rocket.md",
+      "level": 1,
+      "children": [
+        {
+          "title": "First Pages | Rocket",
+          "h1": "First Pages",
+          "menuNoLink": true,
+          "name": "First Pages",
+          "menuLinkText": "First Pages",
+          "url": "/guides/first-pages/",
+          "outputRelativeFilePath": "guides/first-pages/index.html",
+          "sourceRelativeFilePath": "10--guides/10--first-pages/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Getting Started | Rocket",
+              "h1": "Getting Started",
+              "headlinesWithId": [
+                {
+                  "text": "Getting Started",
+                  "id": "getting-started",
+                  "level": 1
+                },
+                {
+                  "text": "Setup",
+                  "id": "setup",
+                  "level": 2
+                },
+                {
+                  "text": "Step 1. Initialize the Project Package",
+                  "id": "step-1-initialize-the-project-package",
+                  "level": 3
+                },
+                {
+                  "text": "Step 2. Install dependencies",
+                  "id": "step-2-install-dependencies",
+                  "level": 3
+                },
+                {
+                  "text": "Step 3. Bootstrap the project",
+                  "id": "step-3-bootstrap-the-project",
+                  "level": 3
+                },
+                {
+                  "text": "Add your First Page",
+                  "id": "add-your-first-page",
+                  "level": 2
+                },
+                {
+                  "text": "Startup",
+                  "id": "startup",
+                  "level": 2
+                },
+                {
+                  "text": "Taking Inventory Before Adding Pages:",
+                  "id": "taking-inventory-before-adding-pages",
+                  "level": 2
+                }
+              ],
+              "name": "Getting Started",
+              "menuLinkText": "Getting Started",
+              "url": "/guides/first-pages/getting-started/",
+              "outputRelativeFilePath": "guides/first-pages/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/10--first-pages/10--getting-started.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Adding Pages | Rocket",
+              "h1": "Adding Pages",
+              "headlinesWithId": [
+                {
+                  "text": "Adding Pages",
+                  "id": "adding-pages",
+                  "level": 1
+                },
+                {
+                  "text": "Add a Section",
+                  "id": "add-a-section",
+                  "level": 2
+                },
+                {
+                  "text": "Adding a Category",
+                  "id": "adding-a-category",
+                  "level": 2
+                },
+                {
+                  "text": "Adding a Page to a Category",
+                  "id": "adding-a-page-to-a-category",
+                  "level": 2
+                },
+                {
+                  "text": "Headings as Anchor and Menu Items",
+                  "id": "headings-as-anchor-and-menu-items",
+                  "level": 2
+                },
+                {
+                  "text": "Example as a Reference",
+                  "id": "example-as-a-reference",
+                  "level": 2
+                }
+              ],
+              "name": "Adding Pages",
+              "menuLinkText": "Adding Pages",
+              "url": "/guides/first-pages/adding-pages/",
+              "outputRelativeFilePath": "guides/first-pages/adding-pages/index.html",
+              "sourceRelativeFilePath": "10--guides/10--first-pages/20--adding-pages.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Use JavaScript | Rocket",
+              "h1": "Use JavaScript",
+              "headlinesWithId": [
+                {
+                  "text": "Use JavaScript",
+                  "id": "use-javascript",
+                  "level": 1
+                },
+                {
+                  "text": "Component Story Format",
+                  "id": "component-story-format",
+                  "level": 2
+                }
+              ],
+              "name": "Use JavaScript",
+              "menuLinkText": "Use JavaScript",
+              "url": "/guides/first-pages/use-javascript/",
+              "outputRelativeFilePath": "guides/first-pages/use-javascript/index.html",
+              "sourceRelativeFilePath": "10--guides/10--first-pages/30--use-javascript.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Presets | Rocket",
+          "h1": "Presets",
+          "menuNoLink": true,
+          "name": "Presets",
+          "menuLinkText": "Presets",
+          "url": "/guides/presets/",
+          "outputRelativeFilePath": "guides/presets/index.html",
+          "sourceRelativeFilePath": "10--guides/20--presets/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Getting Started | Rocket",
+              "h1": "Getting Started",
+              "headlinesWithId": [
+                {
+                  "text": "Getting Started",
+                  "id": "getting-started",
+                  "level": 1
+                },
+                {
+                  "text": "Community Presets",
+                  "id": "community-presets",
+                  "level": 2
+                }
+              ],
+              "name": "Getting Started",
+              "menuLinkText": "Getting Started",
+              "url": "/guides/presets/getting-started/",
+              "outputRelativeFilePath": "guides/presets/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/20--presets/10--getting-started.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Overriding | Rocket",
+              "h1": "Overriding",
+              "headlinesWithId": [
+                {
+                  "text": "Overriding",
+                  "id": "overriding",
+                  "level": 1
+                }
+              ],
+              "name": "Overriding",
+              "menuLinkText": "Overriding",
+              "url": "/guides/presets/overriding/",
+              "outputRelativeFilePath": "guides/presets/overriding/index.html",
+              "sourceRelativeFilePath": "10--guides/20--presets/20--overriding.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Configuration | Rocket",
+          "h1": "Configuration",
+          "menuNoLink": true,
+          "name": "Configuration",
+          "menuLinkText": "Configuration",
+          "url": "/guides/configuration/",
+          "outputRelativeFilePath": "guides/configuration/index.html",
+          "sourceRelativeFilePath": "10--guides/30--configuration/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Getting Started | Rocket",
+              "h1": "Getting Started",
+              "headlinesWithId": [
+                {
+                  "text": "Getting Started",
+                  "id": "getting-started",
+                  "level": 1
+                },
+                {
+                  "text": "Adding Remark/Unified Plugins",
+                  "id": "adding-remarkunified-plugins",
+                  "level": 2
+                }
+              ],
+              "name": "Getting Started",
+              "menuLinkText": "Getting Started",
+              "url": "/guides/configuration/getting-started/",
+              "outputRelativeFilePath": "guides/configuration/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/30--configuration/10--getting-started.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Go Live | Rocket",
+          "h1": "Go Live",
+          "menuNoLink": true,
+          "name": "Go Live",
+          "menuLinkText": "Go Live",
+          "url": "/guides/go-live/",
+          "outputRelativeFilePath": "guides/go-live/index.html",
+          "sourceRelativeFilePath": "10--guides/40--go-live/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Overview | Rocket",
+              "h1": "Overview",
+              "headlinesWithId": [
+                {
+                  "text": "Overview",
+                  "id": "overview",
+                  "level": 1
+                },
+                {
+                  "text": "Add a Not Found Page",
+                  "id": "add-a-not-found-page",
+                  "level": 2
+                },
+                {
+                  "text": "Add a Sitemap",
+                  "id": "add-a-sitemap",
+                  "level": 2
+                }
+              ],
+              "name": "Overview",
+              "menuLinkText": "Overview",
+              "url": "/guides/go-live/overview/",
+              "outputRelativeFilePath": "guides/go-live/overview/index.html",
+              "sourceRelativeFilePath": "10--guides/40--go-live/10--overview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Social Media | Rocket",
+              "h1": "Social Media",
+              "headlinesWithId": [
+                {
+                  "text": "Social Media",
+                  "id": "social-media",
+                  "level": 1
+                },
+                {
+                  "text": "Setting it via Front Matter",
+                  "id": "setting-it-via-front-matter",
+                  "level": 2
+                },
+                {
+                  "text": "Providing Your Own Text",
+                  "id": "providing-your-own-text",
+                  "level": 2
+                },
+                {
+                  "text": "Override the Default Image",
+                  "id": "override-the-default-image",
+                  "level": 2
+                },
+                {
+                  "text": "Using an SVG File as a src with Nunjucks",
+                  "id": "using-an-svg-file-as-a-src-with-nunjucks",
+                  "level": 2
+                },
+                {
+                  "text": "Enabling / Disabling",
+                  "id": "enabling--disabling",
+                  "level": 2
+                }
+              ],
+              "name": "Social Media",
+              "menuLinkText": "Social Media",
+              "url": "/guides/go-live/social-media/",
+              "outputRelativeFilePath": "guides/go-live/social-media/index.html",
+              "sourceRelativeFilePath": "10--guides/40--go-live/20--social-media.rocket.md",
+              "level": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Documentation | Rocket",
+      "h1": "Documentation",
+      "headlinesWithId": [
+        {
+          "text": "Documentation",
+          "id": "documentation",
+          "level": 1
+        },
+        {
+          "text": "Contents",
+          "id": "contents",
+          "level": 2
+        }
+      ],
+      "menuLinkText": "Docs",
+      "name": "Documentation",
+      "url": "/docs/",
+      "outputRelativeFilePath": "docs/index.html",
+      "sourceRelativeFilePath": "20--docs/index.rocket.md",
+      "level": 1,
+      "children": [
+        {
+          "title": "Configuration | Rocket",
+          "h1": "Configuration",
+          "menuNoLink": true,
+          "name": "Configuration",
+          "menuLinkText": "Configuration",
+          "url": "/docs/configuration/",
+          "outputRelativeFilePath": "docs/configuration/index.html",
+          "sourceRelativeFilePath": "20--docs/10--configuration/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Overview | Rocket",
+              "h1": "Overview",
+              "headlinesWithId": [
+                {
+                  "text": "Overview",
+                  "id": "overview",
+                  "level": 1
+                },
+                {
+                  "text": "Adding Rollup Plugins",
+                  "id": "adding-rollup-plugins",
+                  "level": 2
+                },
+                {
+                  "text": "Modifying Options of Plugins",
+                  "id": "modifying-options-of-plugins",
+                  "level": 2
+                },
+                {
+                  "text": "Advanced",
+                  "id": "advanced",
+                  "level": 2
+                },
+                {
+                  "text": "Rollup",
+                  "id": "rollup",
+                  "level": 3
+                }
+              ],
+              "name": "Overview",
+              "menuLinkText": "Overview",
+              "url": "/docs/configuration/overview/",
+              "outputRelativeFilePath": "docs/configuration/overview/index.html",
+              "sourceRelativeFilePath": "20--docs/10--configuration/10--overview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Service Worker | Rocket",
+              "h1": "Service Worker",
+              "headlinesWithId": [
+                {
+                  "text": "Service Worker",
+                  "id": "service-worker",
+                  "level": 1
+                },
+                {
+                  "text": "Adjusting the file name",
+                  "id": "adjusting-the-file-name",
+                  "level": 2
+                },
+                {
+                  "text": "Meet the Service Worker",
+                  "id": "meet-the-service-worker",
+                  "level": 2
+                },
+                {
+                  "text": "Registration",
+                  "id": "registration",
+                  "level": 2
+                }
+              ],
+              "name": "Service Worker",
+              "menuLinkText": "Service Worker",
+              "url": "/docs/configuration/service-worker/",
+              "outputRelativeFilePath": "docs/configuration/service-worker/index.html",
+              "sourceRelativeFilePath": "20--docs/10--configuration/20--service-worker.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Images | Rocket",
+              "h1": "Images",
+              "headlinesWithId": [
+                {
+                  "text": "Images",
+                  "id": "images",
+                  "level": 1
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                },
+                {
+                  "text": "Benefits",
+                  "id": "benefits",
+                  "level": 2
+                },
+                {
+                  "text": "Adding a caption",
+                  "id": "adding-a-caption",
+                  "level": 2
+                },
+                {
+                  "text": "Adjusting options",
+                  "id": "adjusting-options",
+                  "level": 2
+                },
+                {
+                  "text": "Ignoring Images",
+                  "id": "ignoring-images",
+                  "level": 2
+                },
+                {
+                  "text": "Adjusting ignore function",
+                  "id": "adjusting-ignore-function",
+                  "level": 3
+                },
+                {
+                  "text": "Defining your own presets",
+                  "id": "defining-your-own-presets",
+                  "level": 2
+                },
+                {
+                  "text": "How does it work?",
+                  "id": "how-does-it-work",
+                  "level": 2
+                },
+                {
+                  "text": "Default Formats",
+                  "id": "default-formats",
+                  "level": 2
+                },
+                {
+                  "text": "Default widths",
+                  "id": "default-widths",
+                  "level": 2
+                }
+              ],
+              "name": "Images",
+              "menuLinkText": "Images",
+              "url": "/docs/configuration/images/",
+              "outputRelativeFilePath": "docs/configuration/images/index.html",
+              "sourceRelativeFilePath": "20--docs/10--configuration/30--images.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Presets | Rocket",
+          "h1": "Presets",
+          "menuNoLink": true,
+          "name": "Presets",
+          "menuLinkText": "Presets",
+          "url": "/docs/presets/",
+          "outputRelativeFilePath": "docs/presets/index.html",
+          "sourceRelativeFilePath": "20--docs/20--presets/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Joining Blocks | Rocket",
+              "h1": "Joining Blocks",
+              "headlinesWithId": [
+                {
+                  "text": "Joining Blocks",
+                  "id": "joining-blocks",
+                  "level": 1
+                },
+                {
+                  "text": "Adding content without overriding",
+                  "id": "adding-content-without-overriding",
+                  "level": 2
+                },
+                {
+                  "text": "Overriding Content",
+                  "id": "overriding-content",
+                  "level": 2
+                },
+                {
+                  "text": "Reordering and Overriding",
+                  "id": "reordering-and-overriding",
+                  "level": 2
+                }
+              ],
+              "name": "Joining Blocks",
+              "menuLinkText": "Joining Blocks",
+              "url": "/docs/presets/joining-blocks/",
+              "outputRelativeFilePath": "docs/presets/joining-blocks/index.html",
+              "sourceRelativeFilePath": "20--docs/20--presets/10--joining-blocks.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Launch | Rocket",
+              "h1": "Launch",
+              "menuNoLink": true,
+              "name": "Launch",
+              "menuLinkText": "Launch",
+              "url": "/docs/presets/launch/",
+              "outputRelativeFilePath": "docs/presets/launch/index.html",
+              "sourceRelativeFilePath": "20--docs/20--presets/20--launch/index.rocket.js",
+              "level": 3,
+              "children": [
+                {
+                  "title": "Overview | Rocket",
+                  "h1": "Overview",
+                  "headlinesWithId": [
+                    {
+                      "text": "Overview",
+                      "id": "overview",
+                      "level": 1
+                    },
+                    {
+                      "text": "Installation",
+                      "id": "installation",
+                      "level": 2
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    },
+                    {
+                      "text": "Data",
+                      "id": "data",
+                      "level": 2
+                    },
+                    {
+                      "text": "Inline Notification",
+                      "id": "inline-notification",
+                      "level": 2
+                    },
+                    {
+                      "text": "Modify the Title",
+                      "id": "modify-the-title",
+                      "level": 3
+                    }
+                  ],
+                  "name": "Overview",
+                  "menuLinkText": "Overview",
+                  "url": "/docs/presets/launch/overview/",
+                  "outputRelativeFilePath": "docs/presets/launch/overview/index.html",
+                  "sourceRelativeFilePath": "20--docs/20--presets/20--launch/overview.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Search | Rocket",
+              "h1": "Search",
+              "menuNoLink": true,
+              "name": "Search",
+              "menuLinkText": "Search",
+              "url": "/docs/presets/search/",
+              "outputRelativeFilePath": "docs/presets/search/index.html",
+              "sourceRelativeFilePath": "20--docs/20--presets/30--search/index.rocket.js",
+              "level": 3,
+              "children": [
+                {
+                  "title": "Overview | Rocket",
+                  "h1": "Overview",
+                  "headlinesWithId": [
+                    {
+                      "text": "Overview",
+                      "id": "overview",
+                      "level": 1
+                    },
+                    {
+                      "text": "Installation",
+                      "id": "installation",
+                      "level": 2
+                    },
+                    {
+                      "text": "Usage",
+                      "id": "usage",
+                      "level": 2
+                    }
+                  ],
+                  "name": "Overview",
+                  "menuLinkText": "Overview",
+                  "url": "/docs/presets/search/overview/",
+                  "outputRelativeFilePath": "docs/presets/search/overview/index.html",
+                  "sourceRelativeFilePath": "20--docs/20--presets/30--search/overview.rocket.md",
+                  "level": 4
+                }
+              ]
+            },
+            {
+              "title": "Blog | Rocket",
+              "h1": "Blog",
+              "headlinesWithId": [
+                {
+                  "text": "Blog",
+                  "id": "blog",
+                  "level": 1
+                },
+                {
+                  "text": "Installation",
+                  "id": "installation",
+                  "level": 2
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                }
+              ],
+              "name": "Blog",
+              "menuLinkText": "Blog",
+              "url": "/docs/presets/blog/",
+              "outputRelativeFilePath": "docs/presets/blog/index.html",
+              "sourceRelativeFilePath": "20--docs/20--presets/40--blog.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Markdown Javascript | Rocket",
+          "h1": "Markdown Javascript",
+          "menuNoLink": true,
+          "name": "Markdown Javascript",
+          "menuLinkText": "Markdown Javascript",
+          "url": "/docs/markdown-javascript/",
+          "outputRelativeFilePath": "docs/markdown-javascript/index.html",
+          "sourceRelativeFilePath": "20--docs/30--markdown-javascript/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Overview | Rocket",
+              "h1": "Overview",
+              "headlinesWithId": [
+                {
+                  "text": "Overview",
+                  "id": "overview",
+                  "level": 1
+                },
+                {
+                  "text": "Web Components",
+                  "id": "web-components",
+                  "level": 2
+                },
+                {
+                  "text": "Demo Support (Story)",
+                  "id": "demo-support-story",
+                  "level": 2
+                },
+                {
+                  "text": "Story",
+                  "id": "story",
+                  "level": 3
+                },
+                {
+                  "text": "Full Code Support",
+                  "id": "full-code-support",
+                  "level": 4
+                },
+                {
+                  "text": "Preview Story",
+                  "id": "preview-story",
+                  "level": 3
+                },
+                {
+                  "text": "Story Code",
+                  "id": "story-code",
+                  "level": 4
+                },
+                {
+                  "text": "Supported Systems",
+                  "id": "supported-systems",
+                  "level": 2
+                },
+                {
+                  "text": "Storybook",
+                  "id": "storybook",
+                  "level": 3
+                },
+                {
+                  "text": "Chrome Extension (currently only for GitHub)",
+                  "id": "chrome-extension-currently-only-for-github",
+                  "level": 3
+                },
+                {
+                  "text": "Build mdjs",
+                  "id": "build-mdjs",
+                  "level": 2
+                },
+                {
+                  "text": "Basic",
+                  "id": "basic",
+                  "level": 3
+                },
+                {
+                  "text": "Advanced",
+                  "id": "advanced",
+                  "level": 3
+                }
+              ],
+              "name": "Overview",
+              "menuLinkText": "Overview",
+              "url": "/docs/markdown-javascript/overview/",
+              "outputRelativeFilePath": "docs/markdown-javascript/overview/index.html",
+              "sourceRelativeFilePath": "20--docs/30--markdown-javascript/10--overview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Preview | Rocket",
+              "h1": "Preview",
+              "headlinesWithId": [
+                {
+                  "text": "Preview",
+                  "id": "preview",
+                  "level": 1
+                },
+                {
+                  "text": "Features",
+                  "id": "features",
+                  "level": 2
+                },
+                {
+                  "text": "JavaScript Story",
+                  "id": "javascript-story",
+                  "level": 2
+                },
+                {
+                  "text": "Story Code",
+                  "id": "story-code",
+                  "level": 4
+                },
+                {
+                  "text": "HTML Story",
+                  "id": "html-story",
+                  "level": 2
+                },
+                {
+                  "text": "Setup Simulation Mode",
+                  "id": "setup-simulation-mode",
+                  "level": 2
+                },
+                {
+                  "text": "Simulator states",
+                  "id": "simulator-states",
+                  "level": 2
+                }
+              ],
+              "name": "Preview",
+              "menuLinkText": "Preview",
+              "url": "/docs/markdown-javascript/preview/",
+              "outputRelativeFilePath": "docs/markdown-javascript/preview/index.html",
+              "sourceRelativeFilePath": "20--docs/30--markdown-javascript/20--preview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Story | Rocket",
+              "h1": "Story",
+              "headlinesWithId": [
+                {
+                  "text": "Story",
+                  "id": "story",
+                  "level": 1
+                }
+              ],
+              "name": "Story",
+              "menuLinkText": "Story",
+              "url": "/docs/markdown-javascript/story/",
+              "outputRelativeFilePath": "docs/markdown-javascript/story/index.html",
+              "sourceRelativeFilePath": "20--docs/30--markdown-javascript/30--story.rocket.md",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Tools | Rocket",
+          "h1": "Tools",
+          "menuNoLink": true,
+          "name": "Tools",
+          "menuLinkText": "Tools",
+          "url": "/docs/tools/",
+          "outputRelativeFilePath": "docs/tools/index.html",
+          "sourceRelativeFilePath": "20--docs/50--tools/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "title": "Plugins Manager | Rocket",
+              "h1": "Plugins Manager",
+              "headlinesWithId": [
+                {
+                  "text": "Plugins Manager",
+                  "id": "plugins-manager",
+                  "level": 1
+                },
+                {
+                  "text": "Setup",
+                  "id": "setup",
+                  "level": 2
+                },
+                {
+                  "text": "Usage",
+                  "id": "usage",
+                  "level": 2
+                },
+                {
+                  "text": "Plugins can be functions or classes",
+                  "id": "plugins-can-be-functions-or-classes",
+                  "level": 2
+                },
+                {
+                  "text": "Function Plugins",
+                  "id": "function-plugins",
+                  "level": 3
+                },
+                {
+                  "text": "Class Plugins",
+                  "id": "class-plugins",
+                  "level": 3
+                },
+                {
+                  "text": "Problem",
+                  "id": "problem",
+                  "level": 2
+                },
+                {
+                  "text": "Problem Statement",
+                  "id": "problem-statement",
+                  "level": 2
+                },
+                {
+                  "text": "Solution",
+                  "id": "solution",
+                  "level": 2
+                },
+                {
+                  "text": "Adding Helpers",
+                  "id": "adding-helpers",
+                  "level": 3
+                },
+                {
+                  "text": "Adding a Plugin",
+                  "id": "adding-a-plugin",
+                  "level": 2
+                },
+                {
+                  "text": "Adjusting Plugin Options",
+                  "id": "adjusting-plugin-options",
+                  "level": 2
+                },
+                {
+                  "text": "Remove Plugin",
+                  "id": "remove-plugin",
+                  "level": 2
+                },
+                {
+                  "text": "Converting metaPlugins to an Actual Plugin",
+                  "id": "converting-metaplugins-to-an-actual-plugin",
+                  "level": 2
+                }
+              ],
+              "name": "Plugins Manager",
+              "menuLinkText": "Plugins Manager",
+              "url": "/docs/tools/plugins-manager/",
+              "outputRelativeFilePath": "docs/tools/plugins-manager/index.html",
+              "sourceRelativeFilePath": "20--docs/50--tools/10--plugins-manager.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Rollup Config | Rocket",
+              "h1": "Rollup Config",
+              "headlinesWithId": [
+                {
+                  "text": "Rollup Config",
+                  "id": "rollup-config",
+                  "level": 1
+                },
+                {
+                  "text": "Features",
+                  "id": "features",
+                  "level": 2
+                },
+                {
+                  "text": "Setup",
+                  "id": "setup",
+                  "level": 2
+                },
+                {
+                  "text": "Customizations",
+                  "id": "customizations",
+                  "level": 2
+                },
+                {
+                  "text": "Customizing the Babel Config",
+                  "id": "customizing-the-babel-config",
+                  "level": 3
+                },
+                {
+                  "text": "Customizing Default Plugins",
+                  "id": "customizing-default-plugins",
+                  "level": 3
+                }
+              ],
+              "name": "Rollup Config",
+              "menuLinkText": "Rollup Config",
+              "url": "/docs/tools/rollup-config/",
+              "outputRelativeFilePath": "docs/tools/rollup-config/index.html",
+              "sourceRelativeFilePath": "20--docs/50--tools/20--rollup-config.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Check HTML Links | Rocket",
+              "h1": "Check HTML Links",
+              "headlinesWithId": [
+                {
+                  "text": "Check HTML Links",
+                  "id": "check-html-links",
+                  "level": 1
+                },
+                {
+                  "text": "Features",
+                  "id": "features",
+                  "level": 2
+                },
+                {
+                  "text": "Installation",
+                  "id": "installation",
+                  "level": 2
+                },
+                {
+                  "text": "CLI flags",
+                  "id": "cli-flags",
+                  "level": 2
+                },
+                {
+                  "text": "Usage Examples",
+                  "id": "usage-examples",
+                  "level": 2
+                },
+                {
+                  "text": "Example Output",
+                  "id": "example-output",
+                  "level": 2
+                },
+                {
+                  "text": "Comparison",
+                  "id": "comparison",
+                  "level": 2
+                }
+              ],
+              "name": "Check HTML Links",
+              "menuLinkText": "Check HTML Links",
+              "url": "/docs/tools/check-html-links/",
+              "outputRelativeFilePath": "docs/tools/check-html-links/index.html",
+              "sourceRelativeFilePath": "20--docs/50--tools/30--check-html-links.rocket.md",
+              "level": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Rocket Blog | Rocket",
+      "h1": "Rocket Blog",
+      "menuLinkText": "Blog",
+      "name": "Rocket Blog",
+      "url": "/blog/",
+      "outputRelativeFilePath": "blog/index.html",
+      "sourceRelativeFilePath": "30--blog/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "title": "Introducing Check HTML Links - no more bad links | Rocket",
+          "h1": "Introducing Check HTML Links - no more bad links",
+          "headlinesWithId": [
+            {
+              "text": "Introducing Check HTML Links - no more bad links",
+              "id": "introducing-check-html-links---no-more-bad-links",
+              "level": 1
+            },
+            {
+              "text": "Evaluation and the Decision for a New Tool",
+              "id": "evaluation-and-the-decision-for-a-new-tool",
+              "level": 2
+            },
+            {
+              "text": "Focusing on Useful Output",
+              "id": "focusing-on-useful-output",
+              "level": 2
+            },
+            {
+              "text": "Error in File Focused",
+              "id": "error-in-file-focused",
+              "level": 3
+            },
+            {
+              "text": "Missing File Focused",
+              "id": "missing-file-focused",
+              "level": 3
+            },
+            {
+              "text": "A Clear Winner",
+              "id": "a-clear-winner",
+              "level": 3
+            },
+            {
+              "text": "Focusing on Speed",
+              "id": "focusing-on-speed",
+              "level": 2
+            },
+            {
+              "text": "Being Part of the Node.js Ecosystem",
+              "id": "being-part-of-the-nodejs-ecosystem",
+              "level": 2
+            },
+            {
+              "text": "Focusing on a Small Dependency Tree",
+              "id": "focusing-on-a-small-dependency-tree",
+              "level": 2
+            },
+            {
+              "text": "Solution",
+              "id": "solution",
+              "level": 2
+            },
+            {
+              "text": "Usage",
+              "id": "usage",
+              "level": 2
+            },
+            {
+              "text": "GitHub Action Usage",
+              "id": "github-action-usage",
+              "level": 2
+            },
+            {
+              "text": "Comparison",
+              "id": "comparison",
+              "level": 2
+            },
+            {
+              "text": "Future",
+              "id": "future",
+              "level": 2
+            },
+            {
+              "text": "Acknowledgements",
+              "id": "acknowledgements",
+              "level": 2
+            }
+          ],
+          "name": "Introducing Check HTML Links - no more bad links",
+          "menuLinkText": "Introducing Check HTML Links - no more bad links",
+          "url": "/blog/introducing-check-html-links/",
+          "outputRelativeFilePath": "blog/introducing-check-html-links/index.html",
+          "sourceRelativeFilePath": "30--blog/introducing-check-html-links.rocket.md",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "title": "About | Rocket",
+      "h1": "About",
+      "headlinesWithId": [
+        {
+          "text": "About",
+          "id": "about",
+          "level": 1
+        }
+      ],
+      "menuNoLink": true,
+      "name": "About",
+      "menuLinkText": "About",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about/index.rocket.md",
+      "level": 1,
+      "children": [
+        {
+          "title": "Slack | Rocket",
+          "h1": "Slack",
+          "headlinesWithId": [
+            {
+              "text": "Slack",
+              "id": "slack",
+              "level": 1
+            }
+          ],
+          "name": "Slack",
+          "menuLinkText": "Slack",
+          "url": "/about/slack/",
+          "outputRelativeFilePath": "about/slack/index.html",
+          "sourceRelativeFilePath": "about/slack.rocket.md",
+          "level": 2
+        },
+        {
+          "title": "Sponsor | Rocket",
+          "h1": "Sponsor",
+          "headlinesWithId": [
+            {
+              "text": "Sponsor",
+              "id": "sponsor",
+              "level": 1
+            }
+          ],
+          "name": "Sponsor",
+          "menuLinkText": "Sponsor",
+          "url": "/about/sponsor/",
+          "outputRelativeFilePath": "about/sponsor/index.html",
+          "sourceRelativeFilePath": "about/sponsor.rocket.md",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "menuNoLink": true,
+      "name": "simulator.rocket.js",
+      "menuLinkText": "simulator.rocket.js",
+      "url": "/simulator/",
+      "outputRelativeFilePath": "simulator/index.html",
+      "sourceRelativeFilePath": "simulator.rocket.js",
+      "level": 1
+    }
+  ]
+}

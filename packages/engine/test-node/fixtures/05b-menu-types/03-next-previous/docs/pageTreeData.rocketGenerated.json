@@ -1,0 +1,38 @@
+{
+  "h1": "Home",
+  "name": "Home",
+  "menuLinkText": "Home",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "h1": "one",
+      "name": "one",
+      "menuLinkText": "one",
+      "url": "/one/",
+      "outputRelativeFilePath": "one/index.html",
+      "sourceRelativeFilePath": "10--one.rocket.js",
+      "level": 1
+    },
+    {
+      "h1": "two",
+      "name": "two",
+      "menuLinkText": "two",
+      "url": "/two/",
+      "outputRelativeFilePath": "two/index.html",
+      "sourceRelativeFilePath": "20--two.rocket.js",
+      "level": 1
+    },
+    {
+      "h1": "three",
+      "name": "three",
+      "menuLinkText": "three",
+      "url": "/three/",
+      "outputRelativeFilePath": "three/index.html",
+      "sourceRelativeFilePath": "30--three.rocket.js",
+      "level": 1
+    }
+  ]
+}

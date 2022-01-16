@@ -1,0 +1,47 @@
+{
+  "name": "@rocket/engine",
+  "version": "0.1.0-alpha.3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "A fast low dependency engine renderer for html sites",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/engine"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/docs/tools/engine/",
+  "main": "./index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./server": "./src/index.server.js"
+  },
+  "scripts": {
+    "debug": "DEBUG=engine:rendering yarn test",
+    "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+  },
+  "files": [
+    "*.js",
+    "dist",
+    "dist-types",
+    "preset",
+    "src"
+  ],
+  "dependencies": {
+    "@d4kmor/tree-model": "^0.1.2",
+    "@lit-labs/ssr": "^2.0.1",
+    "@mdjs/core": "^0.9.2",
+    "@parcel/watcher": "^2.0.2",
+    "@web/dev-server": "^0.1.4",
+    "diary": "^0.3.0",
+    "es-module-lexer": "^0.9.3",
+    "plugins-manager": "^0.3.0",
+    "sax-wasm": "^2.1.1"
+  },
+  "types": "dist-types/index.d.ts"
+}

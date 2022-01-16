@@ -1,0 +1,11 @@
+<html>
+  <head>
+    {% if menuOrder %}
+      <meta name="menu:order" content="{{ menuOrder }}"/>
+    {% endif %}
+  </head>
+  <body>
+    <web-menu name="site"></web-menu>
+    {{ content | safe }}
+  </body>
+</html>

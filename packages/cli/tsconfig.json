@@ -23,15 +23,6 @@
     },
     {
       "path": "../mdjs-core/tsconfig.json"
-    },
-    {
-      "path": "../core/tsconfig.json"
-    },
-    {
-      "path": "../eleventy-plugin-mdjs-unified/tsconfig.json"
-    },
-    {
-      "path": "../eleventy-rocket-nav/tsconfig.json"
     }
   ],
   "include": [

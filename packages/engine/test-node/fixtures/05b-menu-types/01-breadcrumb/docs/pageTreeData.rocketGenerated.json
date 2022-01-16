@@ -1,0 +1,40 @@
+{
+  "h1": "Home",
+  "name": "Home",
+  "menuLinkText": "Home",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "h1": "Components",
+      "name": "Components",
+      "menuLinkText": "Components",
+      "url": "/components/",
+      "outputRelativeFilePath": "components/index.html",
+      "sourceRelativeFilePath": "components/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "h1": "Button Blue",
+          "name": "Button Blue",
+          "menuLinkText": "Button Blue",
+          "url": "/components/button-blue/",
+          "outputRelativeFilePath": "components/button-blue/index.html",
+          "sourceRelativeFilePath": "components/button-blue.rocket.js",
+          "level": 2
+        },
+        {
+          "h1": "Button Red",
+          "name": "Button Red",
+          "menuLinkText": "Button Red",
+          "url": "/components/button-red/",
+          "outputRelativeFilePath": "components/button-red/index.html",
+          "sourceRelativeFilePath": "components/button-red.rocket.js",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}
