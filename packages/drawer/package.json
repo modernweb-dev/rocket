@@ -13,6 +13,11 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./rocket-drawer.js": "./rocket-drawer.js",
+    "./define": "./rocket-drawer.js"
+  },
   "scripts": {
     "dev": "web-dev-server --node-resolve --root-dir ../../ --open packages/drawer/ --watch",
     "rocket:build": "node src/build/cli.js -c demo/docs",
