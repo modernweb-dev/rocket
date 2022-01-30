@@ -1,5 +1,11 @@
 # @rocket/drawer
 
+## 0.1.5
+
+### Patch Changes
+
+- 1f14105: Add export map which enables side effect import via `@rocket/drawer/define`
+
 ## 0.1.4
 
 ### Patch Changes
