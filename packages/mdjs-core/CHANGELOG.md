@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.9.2
+
+### Patch Changes
+
+- 97cb38c: Add missing slash dependency
+
 ## 0.9.1
 
 ### Patch Changes
