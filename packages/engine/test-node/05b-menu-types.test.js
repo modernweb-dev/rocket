@@ -10,7 +10,7 @@ describe('Menu Types', () => {
     );
     await build();
 
-    expect(readOutput('components/button-blue/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/button-blue/index.html')).to.equal(
       [
         '<nav aria-label="Breadcrumb">',
         '  <ol>',
@@ -29,7 +29,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('components/button-red/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/button-red/index.html')).to.equal(
       [
         '<nav aria-label="Breadcrumb">',
         '  <ol>',
@@ -48,7 +48,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('components/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/index.html')).to.equal(
       [
         '<nav aria-label="Breadcrumb">',
         '  <ol>',
@@ -64,7 +64,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<nav aria-label="Breadcrumb">',
         '  <ol>',
@@ -82,7 +82,7 @@ describe('Menu Types', () => {
     const { readOutput, build } = await setupTestEngine('fixtures/05b-menu-types/02-site/docs');
     await build();
 
-    expect(readOutput('components/button-red/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/button-red/index.html')).to.equal(
       [
         '<nav aria-label="site">',
         '  <a href="/about/"> About </a>',
@@ -92,7 +92,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('components/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/index.html')).to.equal(
       [
         '<nav aria-label="site">',
         '  <a href="/about/"> About </a>',
@@ -109,7 +109,7 @@ describe('Menu Types', () => {
     );
     await build();
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<a href="/one/" class="next-menu">',
         '  <span class="next-menu__description">Next article</span>',
@@ -119,7 +119,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('one/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('one/index.html')).to.equal(
       [
         '<a href="/" class="previous-menu">',
         '  <span class="previous-menu__description">Previous article</span>',
@@ -133,7 +133,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('two/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('two/index.html')).to.equal(
       [
         '<a href="/one/" class="previous-menu">',
         '  <span class="previous-menu__description">Previous article</span>',
@@ -147,7 +147,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('three/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('three/index.html')).to.equal(
       [
         '<a href="/two/" class="previous-menu">',
         '  <span class="previous-menu__description">Previous article</span>',
@@ -164,7 +164,7 @@ describe('Menu Types', () => {
     );
     await build();
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<a href="/guides/" class="next-menu">',
         '  <span class="next-menu__description">Next article</span>',
@@ -174,7 +174,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('guides/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('guides/index.html')).to.equal(
       [
         '<a href="/" class="previous-menu">',
         '  <span class="previous-menu__description">Previous article</span>',
@@ -188,9 +188,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(
-      readOutput('guides/first-pages/getting-started/index.html', { format: 'html' }),
-    ).to.equal(
+    expect(readOutput('guides/first-pages/getting-started/index.html')).to.equal(
       [
         '<a href="/guides/" class="previous-menu">',
         '  <span class="previous-menu__description">Previous article</span>',
@@ -204,9 +202,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(
-      readOutput('guides/first-pages/writing-content/index.html', { format: 'html' }),
-    ).to.equal(
+    expect(readOutput('guides/first-pages/writing-content/index.html')).to.equal(
       [
         '<a href="/guides/first-pages/adding-pages/" class="previous-menu">',
         '  <span class="previous-menu__description">Previous article</span>',
@@ -227,11 +223,9 @@ describe('Menu Types', () => {
     );
     await build();
 
-    expect(readOutput('blog/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('blog/index.html')).to.equal(
       [
-        '<div class="blog-intro">',
-        '  <h1>Blog Overview</h1>',
-        '</div>',
+        '<div class="blog-intro"><h1>Blog Overview</h1></div>',
         '<div>',
         '  <article class="post">',
         // '    <div class="cover">',
@@ -277,9 +271,7 @@ describe('Menu Types', () => {
     const { readOutput, build } = await setupTestEngine('fixtures/05b-menu-types/05-index/docs');
     await build();
 
-    expect(
-      readOutput('components/content/accordion/overview/index.html', { format: 'html' }),
-    ).to.equal(
+    expect(readOutput('components/content/accordion/overview/index.html')).to.equal(
       [
         '<nav aria-label="index" data-type="index">',
         '  <ul class="lvl-2">',
@@ -320,7 +312,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('components/inputs/textarea/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/inputs/textarea/index.html')).to.equal(
       [
         '<nav aria-label="index" data-type="index">',
         '  <ul class="lvl-2">',
@@ -359,7 +351,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('getting-started/setup/install-cli/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('getting-started/setup/install-cli/index.html')).to.equal(
       [
         '<nav aria-label="index" data-type="index">',
         '  <ul class="lvl-2">',
@@ -384,7 +376,7 @@ describe('Menu Types', () => {
     );
     await build();
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<aside>',
         '  <h2>Contents</h2>',
@@ -441,7 +433,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('empty/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('empty/index.html')).to.equal(
       [
         '<main>',
         '  <h1>Empty because no sub headlines</h1>',
@@ -457,7 +449,7 @@ describe('Menu Types', () => {
     );
     await build();
 
-    expect(readOutput('components/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/index.html')).to.equal(
       [
         '<nav aria-label="Child List Menu" data-type="child-list-menu">',
         '  <ul class="lvl-2">',
@@ -489,7 +481,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('components/inputs/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('components/inputs/index.html')).to.equal(
       [
         '<nav aria-label="Child List Menu" data-type="child-list-menu">',
         '  <ul class="lvl-3">',
@@ -508,7 +500,7 @@ describe('Menu Types', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<nav aria-label="Child List Menu" data-type="child-list-menu">',
         '  <ul class="lvl-1">',

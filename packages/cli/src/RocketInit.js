@@ -50,7 +50,7 @@ export class RocketInit {
         type: 'module',
         scripts: {
           ...packageJson.scripts,
-          start: 'DEBUG=engine:rendering rocket start',
+          start: 'DEBUG=engine:rendering rocket start --open',
           build: 'DEBUG=engine:rendering rocket build',
         },
       },

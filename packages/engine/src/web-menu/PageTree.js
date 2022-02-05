@@ -121,39 +121,39 @@ export class PageTree {
     }
   }
 
-  /**
-   * @param {string} sourceRelativeFilePath
-   */
-  async update(sourceRelativeFilePath) {
-    // function findSelf(child, tree) {
-    //   return tree.first(
-    //     node => child.model.sourceRelativeFilePath === node.model.sourceRelativeFilePath,
-    //   );
-    // }
-    // const { relativeFilePath, outputFilePath } = page;
-    // const htmlMetaData = await getHtmlMetaData(outputFilePath);
-    // const outputRelativeFilePath = pathToUrl(sourceRelativeFilePath);
-    // const pageData = {
-    //   ...htmlMetaData,
-    //   url: sourceRelativeFilePathToUrl(sourceRelativeFilePath),
-    //   outputRelativeFilePath,
-    //   sourceRelativeFilePath: relativeFilePath,
-    //   level: outputRelativeFilePath.split('/').length - 1,
-    // };
-    // const pageModel = this.treeModel.parse(pageData);
-    // let tree;
-    // if (existsSync(pageTreeDataFilePath)) {
-    //   tree = await restoreFromJsonFile(pageTreeDataFilePath, treeModel);
-    // } else {
-    //   tree = pageModel;
-    // }
-    // const parent = findParent(pageModel, tree);
-    // if (parent) {
-    //   parent.addChild(pageModel);
-    // }
-    // console.log(JSON.stringify(tree, null, 2));
-    // await writeFile(pageTreeDataFilePath, JSON.stringify(tree, null, 2));
-  }
+  // /**
+  //  * @param {string} sourceRelativeFilePath
+  //  */
+  // async update(sourceRelativeFilePath) {
+  //   // function findSelf(child, tree) {
+  //   //   return tree.first(
+  //   //     node => child.model.sourceRelativeFilePath === node.model.sourceRelativeFilePath,
+  //   //   );
+  //   // }
+  //   // const { relativeFilePath, outputFilePath } = page;
+  //   // const htmlMetaData = await getHtmlMetaData(outputFilePath);
+  //   // const outputRelativeFilePath = pathToUrl(sourceRelativeFilePath);
+  //   // const pageData = {
+  //   //   ...htmlMetaData,
+  //   //   url: sourceRelativeFilePathToUrl(sourceRelativeFilePath),
+  //   //   outputRelativeFilePath,
+  //   //   sourceRelativeFilePath: relativeFilePath,
+  //   //   level: outputRelativeFilePath.split('/').length - 1,
+  //   // };
+  //   // const pageModel = this.treeModel.parse(pageData);
+  //   // let tree;
+  //   // if (existsSync(pageTreeDataFilePath)) {
+  //   //   tree = await restoreFromJsonFile(pageTreeDataFilePath, treeModel);
+  //   // } else {
+  //   //   tree = pageModel;
+  //   // }
+  //   // const parent = findParent(pageModel, tree);
+  //   // if (parent) {
+  //   //   parent.addChild(pageModel);
+  //   // }
+  //   // console.log(JSON.stringify(tree, null, 2));
+  //   // await writeFile(pageTreeDataFilePath, JSON.stringify(tree, null, 2));
+  // }
 
   async restore() {
     if (existsSync(this.dataFilePath)) {

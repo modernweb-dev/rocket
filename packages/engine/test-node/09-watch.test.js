@@ -5,7 +5,7 @@ import { setupTestEngine } from './test-helpers.js';
 const { expect } = chai;
 
 describe('Engine start', () => {
-  it('updates rocket header on a *.rocket.js file change', async () => {
+  it('01: updates rocket header on a *.rocket.js file change', async () => {
     const {
       writeSource,
       cleanup,
@@ -45,7 +45,7 @@ describe('Engine start', () => {
     await cleanup();
   });
 
-  it('updates rocket header on a *.rocket.md file change', async () => {
+  it('01b: updates rocket header on a *.rocket.md file change', async () => {
     const {
       writeSource,
       cleanup,
@@ -78,7 +78,7 @@ describe('Engine start', () => {
     await cleanup();
   });
 
-  it('if started updates the header on a dependency file change', async () => {
+  it('02: if started updates the header on a dependency file change', async () => {
     const {
       writeSource,
       cleanup,
@@ -120,7 +120,7 @@ describe('Engine start', () => {
     setAsOpenedInBrowser('about.rocket.js');
     await writeSource(
       'local.data.js',
-      ["export const some = 'data';", "export const more = 'stuff';"].join('\n'),
+      ["export const some = 'data';", "export const more = 'stuff';", ''].join('\n'),
     );
     await anEngineEvent('rocketUpdated');
 
@@ -152,7 +152,7 @@ describe('Engine start', () => {
     await cleanup();
   });
 
-  it('renders only pages that are fetched or that are opened in browser', async () => {
+  it('03: renders only pages that are fetched or that are opened in browser', async () => {
     const {
       readOutput,
       writeSource,
@@ -376,7 +376,7 @@ describe('Engine start', () => {
       ].join('\n'),
     );
     await anEngineEvent('rocketUpdated');
-    expect(readOutput('about/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('about/index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en">',
@@ -527,7 +527,7 @@ describe('Engine start', () => {
     );
 
     // edits to page files itself should always result in a valid output of that page
-    expect(readOutput('about/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('about/index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en">',
@@ -549,7 +549,7 @@ describe('Engine start', () => {
     );
 
     // index gets rerendered as it's set to opened in the browser with the updated PageTree
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en">',
@@ -621,7 +621,7 @@ describe('Engine start', () => {
     );
     await anEngineEvent('rocketUpdated');
 
-    expect(readOutput('about/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('about/index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en">',
@@ -643,7 +643,7 @@ describe('Engine start', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en">',

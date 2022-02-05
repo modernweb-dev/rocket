@@ -1,0 +1,23 @@
+<script type="module" server>
+/* START - Rocket auto generated - do not touch */
+export const sourceRelativeFilePath = 'index.rocket.html';
+/* END - Rocket auto generated - do not touch */
+  import { html } from 'lit-html';
+  const header = 'Welcome';
+</script>
+
+<h1>${header}</h1>
+
+<p>index.rocket.md sourceRelativeFilePath: "${sourceRelativeFilePath}"</p>
+
+<script type="module" server>
+  let foo = html`<p>bar</p>`;
+</script>
+
+${foo}
+
+<script type="module" server>
+  foo = html`<p>bar2</p>`;
+</script>
+
+${foo}

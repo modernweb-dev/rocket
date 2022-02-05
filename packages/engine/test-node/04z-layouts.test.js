@@ -33,9 +33,9 @@ describe('Layouts', () => {
       '</html>',
     ].join('\n');
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(outcome);
+    expect(readOutput('index.html')).to.equal(outcome);
 
-    expect(readOutput('markdown/index.html', { format: 'html' })).to.equal(outcome);
+    expect(readOutput('markdown/index.html')).to.equal(outcome);
   });
 
   it.skip('permalink-invalid-filename', async () => {
@@ -54,7 +54,7 @@ describe('Layouts', () => {
     const { build, readOutput } = await setupTestEngine('fixtures/04-layouts/02-class/docs');
     await build();
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en-US">',
@@ -74,9 +74,9 @@ describe('Layouts', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('layout-raw/index.html', { format: 'html' })).to.equal('<p>Hey there</p>');
+    expect(readOutput('layout-raw/index.html')).to.equal('<p>Hey there</p>');
 
-    expect(readOutput('adding-before/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('adding-before/index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="de-DE">',
@@ -99,7 +99,7 @@ describe('Layouts', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('show-data/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('show-data/index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en-US">',

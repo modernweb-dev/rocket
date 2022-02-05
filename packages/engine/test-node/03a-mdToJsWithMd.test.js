@@ -1,7 +1,7 @@
 import chai from 'chai';
 import { readFile } from 'fs/promises';
-import { mdToJsWithMd } from '../src/mdToJsWithMd.js';
 import { mdHtmlToJsTemplate, mdInJsToMdHtmlInJs, mdToMdInJs } from '../src/markdown.js';
+import { format } from './test-helpers.js';
 
 const { expect } = chai;
 
@@ -21,30 +21,34 @@ describe('markdown conversion', async () => {
 
   it('1. converts *.rocket.md files to js files', async () => {
     expect(
-      mdToMdInJs(
-        [
-          '```js server',
-          "let foo = 'bar';",
-          "export const sourceRelativeFilePath = 'index.rocket.md';",
-          '```',
-          '',
-          'index.rocket.md sourceRelativeFilePath: "${sourceRelativeFilePath}"',
-          '',
-          '${foo}',
-          '',
-          '```js server',
-          "foo = 'baz';",
-          '```',
-          '',
-          '${foo}',
-        ].join('\n'),
-      ) + '\n',
+      format(
+        mdToMdInJs(
+          [
+            '```js server',
+            "let foo = 'bar';",
+            "export const sourceRelativeFilePath = 'index.rocket.md';",
+            '```',
+            '',
+            'index.rocket.md sourceRelativeFilePath: "${sourceRelativeFilePath}"',
+            '',
+            '${foo}',
+            '',
+            '```js server',
+            "foo = 'baz';",
+            '```',
+            '',
+            '${foo}',
+          ].join('\n'),
+        ),
+        { format: 'js' },
+      ),
     ).to.equal(
-      (
+      format(
         await readFile(
           new URL('./fixtures/03-formats/01-md-in-js-to-md-html/md-in-js.js', import.meta.url),
-        )
-      ).toString(),
+        ).then(foo => foo.toString()),
+        { format: 'js' },
+      ),
     );
   });
 
@@ -118,142 +122,142 @@ describe('markdown conversion', async () => {
   });
 });
 
-describe.skip('mdToJsWithMd', () => {
-  it('wraps simple text', async () => {
-    expect(mdToJsWithMd('Hello')).to.equal(
-      [
-        `import { md } from '@rocket/engine';`,
-        `let rocketAutoConvertedMdText = '';`,
-        'rocketAutoConvertedMdText += md`Hello`;',
-        `export default rocketAutoConvertedMdText;`,
-      ].join('\n'),
-    );
-  });
+// describe.skip('mdToJsWithMd', () => {
+//   it('wraps simple text', async () => {
+//     expect(mdToJsWithMd('Hello')).to.equal(
+//       [
+//         `import { md } from '@rocket/engine';`,
+//         `let rocketAutoConvertedMdText = '';`,
+//         'rocketAutoConvertedMdText += md`Hello`;',
+//         `export default rocketAutoConvertedMdText;`,
+//       ].join('\n'),
+//     );
+//   });
 
-  it('removes the js server code block wrapper', async () => {
-    const result = mdToJsWithMd(
-      [
-        //
-        '```js server',
-        'let a = 1;',
-        '```',
-      ].join('\n'),
-    );
-    expect(result).to.equal(
-      [
-        `import { md } from '@rocket/engine';`,
-        `let rocketAutoConvertedMdText = '';`,
-        'let a = 1;',
-        `export default rocketAutoConvertedMdText;`,
-      ].join('\n'),
-    );
-  });
+//   it('removes the js server code block wrapper', async () => {
+//     const result = mdToJsWithMd(
+//       [
+//         //
+//         '```js server',
+//         'let a = 1;',
+//         '```',
+//       ].join('\n'),
+//     );
+//     expect(result).to.equal(
+//       [
+//         `import { md } from '@rocket/engine';`,
+//         `let rocketAutoConvertedMdText = '';`,
+//         'let a = 1;',
+//         `export default rocketAutoConvertedMdText;`,
+//       ].join('\n'),
+//     );
+//   });
 
-  it('removes multiple js server code block wrappers', async () => {
-    const result = mdToJsWithMd(
-      [
-        //
-        '```js server',
-        'let a = 1;',
-        '```',
-        'some text',
-        '   ```js server',
-        '   let b = 1;',
-        '   ```',
-      ].join('\n'),
-    );
-    expect(result).to.equal(
-      [
-        `import { md } from '@rocket/engine';`,
-        `let rocketAutoConvertedMdText = '';`,
-        'let a = 1;',
-        'rocketAutoConvertedMdText += md`some text`;',
-        '   let b = 1;',
-        `export default rocketAutoConvertedMdText;`,
-      ].join('\n'),
-    );
-  });
+//   it('removes multiple js server code block wrappers', async () => {
+//     const result = mdToJsWithMd(
+//       [
+//         //
+//         '```js server',
+//         'let a = 1;',
+//         '```',
+//         'some text',
+//         '   ```js server',
+//         '   let b = 1;',
+//         '   ```',
+//       ].join('\n'),
+//     );
+//     expect(result).to.equal(
+//       [
+//         `import { md } from '@rocket/engine';`,
+//         `let rocketAutoConvertedMdText = '';`,
+//         'let a = 1;',
+//         'rocketAutoConvertedMdText += md`some text`;',
+//         '   let b = 1;',
+//         `export default rocketAutoConvertedMdText;`,
+//       ].join('\n'),
+//     );
+//   });
 
-  it('removes js server-markdown code block wrappers but keep it as markdown text', async () => {
-    const result = mdToJsWithMd(
-      [
-        //
-        'some text',
-        '```js server-markdown',
-        '${members.map(member => `- ${member}\\n`)}',
-        '```',
-      ].join('\n'),
-    );
-    expect(result).to.equal(
-      [
-        `import { md } from '@rocket/engine';`,
-        `let rocketAutoConvertedMdText = '';`,
-        'rocketAutoConvertedMdText += md`some text`;',
-        'rocketAutoConvertedMdText += md`${members.map(member => `- ${member}\\n`)}`;',
-        `export default rocketAutoConvertedMdText;`,
-      ].join('\n'),
-    );
-  });
+//   it('removes js server-markdown code block wrappers but keep it as markdown text', async () => {
+//     const result = mdToJsWithMd(
+//       [
+//         //
+//         'some text',
+//         '```js server-markdown',
+//         '${members.map(member => `- ${member}\\n`)}',
+//         '```',
+//       ].join('\n'),
+//     );
+//     expect(result).to.equal(
+//       [
+//         `import { md } from '@rocket/engine';`,
+//         `let rocketAutoConvertedMdText = '';`,
+//         'rocketAutoConvertedMdText += md`some text`;',
+//         'rocketAutoConvertedMdText += md`${members.map(member => `- ${member}\\n`)}`;',
+//         `export default rocketAutoConvertedMdText;`,
+//       ].join('\n'),
+//     );
+//   });
 
-  it('will not remove the js code block wrappers if inside a "bigger" code fence block', async () => {
-    const result = mdToJsWithMd(
-      [
-        //
-        'You can write it like this:',
-        '`````',
-        '```js server',
-        'let a = 1;',
-        '```',
-        '`````',
-      ].join('\n'),
-    );
-    expect(result).to.equal(
-      [
-        `import { md } from '@rocket/engine';`,
-        `let rocketAutoConvertedMdText = '';`,
-        'rocketAutoConvertedMdText += md`You can write it like this:`;',
-        'rocketAutoConvertedMdText += md`\\`\\`\\`\\`\\``;',
-        'rocketAutoConvertedMdText += md`\\`\\`\\`js server`;',
-        'rocketAutoConvertedMdText += md`let a = 1;`;',
-        'rocketAutoConvertedMdText += md`\\`\\`\\``;',
-        'rocketAutoConvertedMdText += md`\\`\\`\\`\\`\\``;',
-        `export default rocketAutoConvertedMdText;`,
-      ].join('\n'),
-    );
-  });
+//   it('will not remove the js code block wrappers if inside a "bigger" code fence block', async () => {
+//     const result = mdToJsWithMd(
+//       [
+//         //
+//         'You can write it like this:',
+//         '`````',
+//         '```js server',
+//         'let a = 1;',
+//         '```',
+//         '`````',
+//       ].join('\n'),
+//     );
+//     expect(result).to.equal(
+//       [
+//         `import { md } from '@rocket/engine';`,
+//         `let rocketAutoConvertedMdText = '';`,
+//         'rocketAutoConvertedMdText += md`You can write it like this:`;',
+//         'rocketAutoConvertedMdText += md`\\`\\`\\`\\`\\``;',
+//         'rocketAutoConvertedMdText += md`\\`\\`\\`js server`;',
+//         'rocketAutoConvertedMdText += md`let a = 1;`;',
+//         'rocketAutoConvertedMdText += md`\\`\\`\\``;',
+//         'rocketAutoConvertedMdText += md`\\`\\`\\`\\`\\``;',
+//         `export default rocketAutoConvertedMdText;`,
+//       ].join('\n'),
+//     );
+//   });
 
-  it('escapes $ in code blocks', async () => {
-    const result = mdToJsWithMd(
-      [
-        //
-        '````md',
-        '```js story',
-        'export const JsStory = () => {',
-        '  const calculateSomething = 12;',
-        '  return html`',
-        '    <demo-wc-card .header=${`Something: ${calculateSomething}`}>JS Story</demo-wc-card>',
-        '  `;',
-        '};',
-        '```',
-        '````',
-      ].join('\n'),
-    );
-    expect(result).to.equal(
-      [
-        "import { md } from '@rocket/engine';",
-        "let rocketAutoConvertedMdText = '';",
-        'rocketAutoConvertedMdText += md`\\`\\`\\`\\`md`;',
-        'rocketAutoConvertedMdText += md`\\`\\`\\`js story`;',
-        'rocketAutoConvertedMdText += md`export const JsStory = () => {`;',
-        'rocketAutoConvertedMdText += md`  const calculateSomething = 12;`;',
-        'rocketAutoConvertedMdText += md`  return html\\``;',
-        'rocketAutoConvertedMdText += md`    <demo-wc-card .header=\\${\\`Something: \\${calculateSomething}\\`}>JS Story</demo-wc-card>`;',
-        'rocketAutoConvertedMdText += md`  \\`;`;',
-        'rocketAutoConvertedMdText += md`};`;',
-        'rocketAutoConvertedMdText += md`\\`\\`\\``;',
-        'rocketAutoConvertedMdText += md`\\`\\`\\`\\``;',
-        'export default rocketAutoConvertedMdText;',
-      ].join('\n'),
-    );
-  });
-});
+//   it('escapes $ in code blocks', async () => {
+//     const result = mdToJsWithMd(
+//       [
+//         //
+//         '````md',
+//         '```js story',
+//         'export const JsStory = () => {',
+//         '  const calculateSomething = 12;',
+//         '  return html`',
+//         '    <demo-wc-card .header=${`Something: ${calculateSomething}`}>JS Story</demo-wc-card>',
+//         '  `;',
+//         '};',
+//         '```',
+//         '````',
+//       ].join('\n'),
+//     );
+//     expect(result).to.equal(
+//       [
+//         "import { md } from '@rocket/engine';",
+//         "let rocketAutoConvertedMdText = '';",
+//         'rocketAutoConvertedMdText += md`\\`\\`\\`\\`md`;',
+//         'rocketAutoConvertedMdText += md`\\`\\`\\`js story`;',
+//         'rocketAutoConvertedMdText += md`export const JsStory = () => {`;',
+//         'rocketAutoConvertedMdText += md`  const calculateSomething = 12;`;',
+//         'rocketAutoConvertedMdText += md`  return html\\``;',
+//         'rocketAutoConvertedMdText += md`    <demo-wc-card .header=\\${\\`Something: \\${calculateSomething}\\`}>JS Story</demo-wc-card>`;',
+//         'rocketAutoConvertedMdText += md`  \\`;`;',
+//         'rocketAutoConvertedMdText += md`};`;',
+//         'rocketAutoConvertedMdText += md`\\`\\`\\``;',
+//         'rocketAutoConvertedMdText += md`\\`\\`\\`\\``;',
+//         'export default rocketAutoConvertedMdText;',
+//       ].join('\n'),
+//     );
+//   });
+// });

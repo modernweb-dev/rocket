@@ -10,7 +10,7 @@ import { stripRocketSuffix } from '../helpers/stripRocketSuffix.js';
 /** @typedef {import('sax-wasm').Tag} Tag */
 /** @typedef {import('sax-wasm').Position} Position */
 
-import { parser, SaxEventType, streamOptions } from '../web-menu/sax-parser.js';
+import { parser, SaxEventType } from '../web-menu/sax-parser.js';
 
 /**
  * @param {object} options

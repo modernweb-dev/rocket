@@ -4,6 +4,8 @@ import { writeFile, readFile } from 'fs/promises';
 
 import { init, parse } from 'es-module-lexer';
 import { getServerCodeFromMd } from './helpers/getServerCodeFromMd.js';
+import { getServerCodeFromHtml } from './formats/html.js';
+import { importsToImportNames } from './file-header/import-names.js';
 
 await init;
 
@@ -32,8 +34,20 @@ function setRocketHeader(content, header, filePath) {
   if (startIndex >= 0 && endIndex >= 0) {
     lines.splice(startIndex, endIndex - startIndex + 1, header);
   } else {
-    const wrapBefore = filePath.endsWith('.md') ? ['```js server'] : [];
-    const warpAfter = filePath.endsWith('.md') ? ['```'] : [];
+    const extension = filePath.split('.').pop();
+
+    let wrapBefore = [];
+    let warpAfter = [];
+    switch (extension) {
+      case 'md':
+        wrapBefore = ['```js server'];
+        warpAfter = ['```'];
+        break;
+      case 'html':
+        wrapBefore = ['<script type="module" server>'];
+        warpAfter = ['</script>'];
+        break;
+    }
 
     lines.unshift([...wrapBefore, header, ...warpAfter, ''].join('\n'));
   }
@@ -72,7 +86,7 @@ async function generateRocketHeader(content, { filePath, docsDir }) {
   for (const dataFile of dataFiles) {
     const { filePath: dataFilePath, exportModuleName } = dataFile;
     const readDataFile = await readFile(dataFilePath);
-    const [imports, exports] = parse(readDataFile.toString());
+    const [, exports] = parse(readDataFile.toString());
 
     for (const dataExportName of exports) {
       const foundIndex = possibleImports.findIndex(el => el.importName === dataExportName);
@@ -91,10 +105,16 @@ async function generateRocketHeader(content, { filePath, docsDir }) {
   if (filePath.endsWith('.md')) {
     contentWithoutRocketHeader = getServerCodeFromMd(contentWithoutRocketHeader);
   }
+  if (filePath.endsWith('.html')) {
+    contentWithoutRocketHeader = getServerCodeFromHtml(contentWithoutRocketHeader);
+  }
 
-  const [imports, thisExports] = parse(contentWithoutRocketHeader);
+  const [thisImports, thisExports] = parse(contentWithoutRocketHeader);
 
-  for (const thisExport of thisExports) {
+  const thisImportNames = importsToImportNames(thisImports, contentWithoutRocketHeader);
+  const thisImportsAndExports = [...thisImportNames, ...thisExports];
+
+  for (const thisExport of thisImportsAndExports) {
     const foundIndex = possibleImports.findIndex(el => el.importName === thisExport);
     if (foundIndex >= 0) {
       const asOriginalVariableName = `original${capitalizeFirstLetter(

@@ -20,10 +20,10 @@ export class Menu {
   }
 
   /**
-   * @param {NodeOfPage} node
+   * *@param {NodeOfPage} node
    * @returns {boolean}
    */
-  childCondition(node) {
+  childCondition() {
     return true;
   }
 

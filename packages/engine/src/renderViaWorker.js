@@ -6,6 +6,14 @@ let worker = new Worker(workerFilePath);
 const history = new Set();
 let isRendering = '';
 
+/**
+ * @param {object} options
+ * @param {string} options.filePath
+ * @param {string} options.outputDir
+ * @param {boolean} options.writeFileToDisk
+ * @param {string} options.renderMode
+ * @returns 
+ */
 export function renderViaWorker({
   filePath,
   outputDir,
@@ -29,21 +37,24 @@ export function renderViaWorker({
 
     worker.postMessage({ action: 'renderFile', filePath, outputDir, writeFileToDisk, renderMode });
 
+    function handleError(error) {
+      isRendering = '';
+      // the worker is dead long live the worker
+      worker.unref();
+      worker = new Worker(workerFilePath);
+      reject(error);
+    }
+
     worker.once('message', result => {
       isRendering = '';
+      worker.removeListener('error', handleError);
       if (result.filePath === filePath) {
         resolve(result);
       } else {
         reject(new Error(`File path mismatch: ${result.filePath} !== ${filePath}`));
       }
     });
-    worker.once('error', error => {
-      isRendering = '';
-      // the worker is dead long live the worker
-      worker.unref();
-      worker = new Worker(workerFilePath);
-      reject(error);
-    });
+    worker.once('error', handleError);
   });
 }
 

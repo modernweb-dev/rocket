@@ -7,7 +7,6 @@ import { existsSync, readFileSync } from 'fs';
 
 import { Engine } from '../src/Engine.js';
 import { litServerRender } from '../src/helpers/litServerRender.js';
-import { urlToSourceRelativeFilePath } from '../src/urlPathConverter.js';
 
 const { expect } = chai;
 
@@ -42,17 +41,51 @@ export async function testLitServerRender(
     text = cleanupLitMarkersFn(text);
   }
   if (format) {
-    text = formatFn(text, format);
+    text = formatFn(text, { format });
   }
   return text;
 }
 
-function formatFn(text, format = 'html') {
-  const formatted = prettier.format(text, { parser: format, printWidth: 100 });
-  return formatted
-    .split('\n')
-    .filter(line => line.trim() !== '')
-    .join('\n');
+function formatFn(text, { format = 'html', removeEndNewLine = false } = {}) {
+  let useFormat = format;
+  switch (format) {
+    case 'html':
+      useFormat = 'html';
+      break;
+    case 'js':
+    case 'babel':
+      useFormat = 'babel';
+      break;
+    case 'md':
+    case 'markdown':
+      useFormat = 'markdown';
+      break;
+    default:
+      useFormat = false;
+  }
+
+  if (useFormat === false) {
+    return text;
+  }
+
+  let formatted = prettier.format(text, { parser: useFormat, printWidth: 100, singleQuote: true });
+
+  // remove all empty lines for html
+  if (useFormat === 'html') {
+    formatted = formatted
+      .split('\n')
+      .filter(line => line.trim() !== '')
+      .join('\n');
+  }
+
+  // remove end newline
+  if (removeEndNewLine) {
+    if (formatted.charAt(formatted.length - 1) === '\n') {
+      formatted = formatted.substring(0, formatted.length - 1);
+    }
+  }
+
+  return formatted;
 }
 
 /**
@@ -82,7 +115,7 @@ export async function setupTestEngine(docsDir, options = {}) {
   engine.setOptions(useOptions);
   await engine.clearOutputDir();
 
-  function readOutput(toInspect, { format = false, cleanupLitMarkers = true } = {}) {
+  function readOutput(toInspect, { format = 'auto', cleanupLitMarkers = true } = {}) {
     const filePath = path.join(engine.outputDir, toInspect);
     if (!existsSync(filePath)) {
       throw new Error(`Rendering to ${toInspect} did not happen\nFull path: ${filePath}`);
@@ -91,23 +124,30 @@ export async function setupTestEngine(docsDir, options = {}) {
     if (cleanupLitMarkers) {
       text = cleanupLitMarkersFn(text);
     }
-    if (format) {
-      text = formatFn(text, format);
+
+    let useFormat = format === 'auto' ? toInspect.split('.').pop() : format;
+    if (useFormat) {
+      text = formatFn(text, { format: useFormat, removeEndNewLine: true });
     }
     return text;
   }
 
-  function readSource(toInspect, { format = false } = {}) {
+  function readSource(toInspect, { format = 'auto' } = {}) {
     const filePath = path.join(engine.docsDir, toInspect);
     let text = readFileSync(filePath).toString();
-    if (format) {
-      text = formatFn(text, format);
+    let useFormat = format === 'auto' ? toInspect.split('.').pop() : format;
+    if (useFormat) {
+      text = formatFn(text, { format: useFormat, removeEndNewLine: true });
     }
     return text;
   }
 
-  async function writeSource(toInspect, text) {
+  async function writeSource(toInspect, text, { format = 'auto' } = {}) {
     const filePath = path.join(engine.docsDir, toInspect);
+    let useFormat = format === 'auto' ? toInspect.split('.').pop() : format;
+    if (useFormat) {
+      text = formatFn(text, { format: useFormat });
+    }
     await writeFile(filePath, text);
   }
 
@@ -140,11 +180,11 @@ export async function setupTestEngine(docsDir, options = {}) {
 
   function setAsOpenedInBrowser(toInspect) {
     const sourceFilePath = path.join(engine.docsDir, toInspect);
-    engine.watcher?.addWebSocketToPage(sourceFilePath, { send: () => {} });
+    engine.watcher?.addWebSocketToPage(sourceFilePath, { send: () => undefined });
   }
 
   function anEngineEvent(eventName) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       engine.events.on(eventName, () => {
         resolve();
       });

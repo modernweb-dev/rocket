@@ -16,10 +16,10 @@ export class ChildListMenu extends Menu {
   };
 
   /**
-   * @param {NodeOfPage} node
+   * *@param {NodeOfPage} node
    * @returns {TemplateResult | nothing}
    */
-  render(node) {
+  render() {
     if (!this.currentNode) {
       return nothing;
     }

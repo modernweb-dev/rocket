@@ -1,19 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-// import { normalizeConfig } from './normalizeConfig.js';
 import { Command } from 'commander/esm.mjs';
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
 import { RocketInit } from './RocketInit.js';
 
 import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs-extra';
 import { rm } from 'fs/promises';
-import { existsSync } from 'fs';
 
 /** @typedef {import('../types/main').RocketPlugin} RocketPlugin */
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const program = new Command();
 

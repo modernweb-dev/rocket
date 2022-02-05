@@ -10,7 +10,7 @@ export class LayoutHome extends LayoutSidebar {
     // set it in two passes so we can us the values above in the templates
     this.setGlobalOptions({
       bodyLayout: 'layout-home-background',
-      content__10: data => {
+      content__10: () => {
         return html`
           <img class="page-logo" src="${this.options.logoSrc}" alt="${this.options.logoAlt}" />
 

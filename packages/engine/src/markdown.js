@@ -222,7 +222,7 @@ export function serverCodeParse() {
    * @param {number} index
    * @param {UnistParent} parent
    */
-  const nodeCodeVisitor = (node, index, parent) => {
+  const nodeCodeVisitor = (node /*, index, parent*/) => {
     if (
       node.type === 'code' &&
       node.lang === 'js' &&

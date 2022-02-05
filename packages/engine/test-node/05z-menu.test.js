@@ -8,7 +8,7 @@ describe('Engine menus', () => {
     const { readOutput, build } = await setupTestEngine('fixtures/05-menu/01-two-pages/docs');
     await build();
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<nav aria-label="site">',
         '  <a href="/about/"> About </a>',
@@ -18,7 +18,7 @@ describe('Engine menus', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('about/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('about/index.html')).to.equal(
       [
         '<nav aria-label="site">',
         '  <a href="/about/" aria-current="page"> About </a>',
@@ -80,7 +80,7 @@ describe('Engine menus', () => {
       ],
     });
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<nav aria-label="site">',
         '  <a href="/about/"> About </a>',
@@ -100,7 +100,7 @@ describe('Engine menus', () => {
     );
     await build();
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en-US">',
@@ -129,7 +129,7 @@ describe('Engine menus', () => {
       ].join('\n'),
     );
 
-    expect(readOutput('about/index.html', { format: 'html' })).to.equal(
+    expect(readOutput('about/index.html')).to.equal(
       [
         '<!DOCTYPE html>',
         '<html lang="en-US">',
@@ -185,16 +185,16 @@ describe('Engine menus', () => {
     );
   });
 
-  it('[md] updates the PageTree when a file changes', async () => {
+  it('05: [md] updates the PageTree when a file changes', async () => {
     const { readSource, writeSource, anEngineEvent, cleanup, engine } = await setupTestEngine(
       'fixtures/05-menu/05-update-on-change/docs',
     );
-    await writeSource('index.rocket.md', '# First');
+    await writeSource('index.rocket.md', '# First\n');
     await engine.build();
     // 👆 ensures a valid setup
 
     await engine.start();
-    await writeSource('index.rocket.md', '# Second');
+    await writeSource('index.rocket.md', '# Second\n');
     await anEngineEvent('rocketUpdated');
 
     expect(readSource('pageTreeData.rocketGenerated.json', { format: 'json' })).to.equal(

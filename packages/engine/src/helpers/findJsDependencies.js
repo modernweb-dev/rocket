@@ -12,10 +12,10 @@ export function isBareModuleSpecifier(specifier) {
 }
 
 /**
- *
- * @param {string} source
+ * @param {string} filePath
  * @param {{
  *  nodeModulesDepth?: number,
+ *  source?: string,
  * }} options
  * @returns {Promise<string[]>}
  */
@@ -23,7 +23,7 @@ export async function findJsDependencies(filePath, options = {}) {
   const importsToScan = new Set();
   const dependencies = new Set();
 
-  const nodeModulesDepth = options?.nodeModulesDepth ?? 3;
+  // const nodeModulesDepth = options?.nodeModulesDepth ?? 3;
 
   /** Init es-module-lexer wasm */
   await init;

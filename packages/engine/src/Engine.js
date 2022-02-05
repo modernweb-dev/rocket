@@ -172,7 +172,10 @@ export class Engine {
 
     const devServerAdjustAssetUrls = () => {
       const adjustAssetUrl = new AdjustAssetUrls({
-        adjustAssetUrl: async ({ url, sourceFilePath, sourceRelativeFilePath, outputFilePath }) => {
+        adjustAssetUrl: async ({
+          url,
+          /* sourceFilePath, sourceRelativeFilePath, */ outputFilePath,
+        }) => {
           if (url.startsWith('./') || url.startsWith('../')) {
             const assetFilePath = path.join(path.dirname(outputFilePath), url);
             let relPath = path.relative(this.outputDir, assetFilePath);

@@ -1,7 +1,4 @@
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
-
-// export { html } from './html.js';
-export { md } from './md.js';
 export { html } from 'lit-html';
 
 export { renderJoiningGroup } from './helpers/renderJoiningGroup.js';

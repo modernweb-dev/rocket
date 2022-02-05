@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs/promises';
+import { htmlToJsTemplate } from './formats/html.js';
 import { mdToMdInJs, mdInJsToMdHtmlInJs, mdHtmlToJsTemplate } from './markdown.js';
-// import { mdToJsWithMd,  } from './mdToJsWithMd.js';
 
 /**
  * @param {string} filePath
@@ -16,11 +16,19 @@ export async function convertMdFile(filePath) {
   const jsTemplate = mdHtmlToJsTemplate(mdHtmlInJs);
   const jsTemplateFilePath = filePath.replace('.rocket.md', '.rocketGeneratedFromMd.js');
 
-  // console.log({ mdContent: mdContent.toString() });
+  await writeFile(jsTemplateFilePath, jsTemplate);
+  return jsTemplateFilePath;
+}
 
-  // const jsWithMd = await mdToJsWithMd(mdContent.toString());
+/**
+ * @param {string} filePath
+ */
+ export async function convertHtmlFile(filePath) {
+  const htmlContent = (await readFile(filePath)).toString();
 
-  // const toImportFilePath = mdFilePathToJsFilePath(filePath);
+  const jsTemplate = htmlToJsTemplate(htmlContent);
+  const jsTemplateFilePath = filePath.replace('.rocket.html', '-converted-html.js');
+
   await writeFile(jsTemplateFilePath, jsTemplate);
   return jsTemplateFilePath;
 }

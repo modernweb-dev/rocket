@@ -2,18 +2,24 @@ import watcher from '@parcel/watcher';
 import path from 'path';
 import { diary } from 'diary';
 import { readFile } from 'fs/promises';
-import { convertMdFile } from './converts.js';
+
+// TODO: why importing this let's us run tests? delays loading maybe?
+import '@mdjs/core';
+
 import { findJsDependencies } from './helpers/findJsDependencies.js';
 import { getServerCodeFromMd } from './helpers/getServerCodeFromMd.js';
 
 const logRendering = diary('engine:rendering');
 
+/**
+ * @param {string} sourceFilePath
+ * @returns {Promise<string[]>}
+ */
 async function getJsDependencies(sourceFilePath) {
   let toImportFilePath = sourceFilePath;
 
   let source = await readFile(sourceFilePath, 'utf8');
   if (sourceFilePath.endsWith('.rocket.md')) {
-    // toImportFilePath = await convertMdFile(sourceFilePath);
     source = getServerCodeFromMd(source);
   }
 
@@ -21,6 +27,10 @@ async function getJsDependencies(sourceFilePath) {
   return jsDependencies;
 }
 
+/**
+ * @param {string} filePath
+ * @returns {boolean}
+ */
 function isRocketPageFile(filePath) {
   return (
     filePath.endsWith('.rocket.js') ||
@@ -58,7 +68,9 @@ export class Watcher {
           for (const event of events) {
             if (
               this._taskQueue.has(event.path) ||
-              event.path.endsWith('pageTreeData.rocketGenerated.json')
+              event.path.endsWith('pageTreeData.rocketGenerated.json') ||
+              event.path.endsWith('rocketGeneratedMdInJs.js') ||
+              event.path.endsWith('rocketGeneratedFromMd.js')
             ) {
               // file is either in queue or is the pageTreeData.rocketGenerated.json file
             } else {
@@ -91,7 +103,7 @@ export class Watcher {
   }
 
   async addDeleteTask(sourceFilePath) {
-    for (const [pageSourceFilePath, page] of this.pages) {
+    for (const [pageSourceFilePath /*, page */] of this.pages) {
       if (pageSourceFilePath === sourceFilePath) {
         this._taskQueue.set(pageSourceFilePath, { type: 'delete' });
       }
@@ -147,7 +159,10 @@ export class Watcher {
     this.acceptPageUpdates = true;
   }
 
-  async updatePage(sourceFilePath, options = {}) {
+  /**
+   * @param {string} sourceFilePath
+   */
+  async updatePage(sourceFilePath) {
     if (this.pages.has(sourceFilePath)) {
       const page = this.pages.get(sourceFilePath);
       page.jsDependencies = await getJsDependencies(sourceFilePath);

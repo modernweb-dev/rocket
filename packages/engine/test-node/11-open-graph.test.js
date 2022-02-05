@@ -15,14 +15,19 @@ describe('Open Graph', () => {
     expect(readOutput('index.opengraph.html')).to.equal('Open Graph Index');
   });
 
-  it('creates the open graph file only for html output files', async () => {
+  it('02: creates the open graph file only for html output files', async () => {
     const { build, readOutput, outputExists } = await setupTestEngine(
       'fixtures/11-open-graph/02-formats/docs',
     );
     await build();
 
     expect(readOutput('index.opengraph.html')).to.equal(
-      'Open Graph: <h1 id="index"><a aria-hidden="true" tabindex="-1" href="#index"><span class="icon icon-link"></span></a>Index</h1>',
+      [
+        'Open Graph:',
+        '<h1 id="index">',
+        '  <a aria-hidden="true" tabindex="-1" href="#index"><span class="icon icon-link"></span></a>Index',
+        '</h1>',
+      ].join('\n'),
     );
     expect(readOutput('404.opengraph.html')).to.equal('Open Graph: 404');
     expect(readOutput('about/index.opengraph.html')).to.equal('Open Graph: about');
@@ -40,7 +45,7 @@ describe('Open Graph', () => {
 
     expect(readOutput('index.opengraph.html')).to.equal('Open Graph: Home Headline');
 
-    expect(readOutput('index.html', { format: 'html' })).to.equal(
+    expect(readOutput('index.html')).to.equal(
       [
         '<a',
         '  href="https://v1.screenshot.11ty.dev/http%3A%2F%2Flocalhost%3A8000%2Findex.opengraph.html/opengraph/"',

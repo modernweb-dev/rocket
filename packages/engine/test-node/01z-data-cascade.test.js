@@ -4,7 +4,7 @@ import { setupTestEngine } from './test-helpers.js';
 const { expect } = chai;
 
 describe('Engine Data Cascade', () => {
-  it('injects a header into the source file', async () => {
+  it('01: injects a header into the source file', async () => {
     const { build, readSource, writeSource, readOutput } = await setupTestEngine(
       'fixtures/01-data-cascade/01-basics/docs',
     );
@@ -227,7 +227,7 @@ describe('Engine Data Cascade', () => {
     );
   });
 
-  it('`local.data.js` overwrites data from `recursive.data.js`', async () => {
+  it('06: `local.data.js` overwrites data from `recursive.data.js`', async () => {
     const { build, readSource, writeSource } = await setupTestEngine(
       'fixtures/01-data-cascade/06-local-overwrite/docs',
     );
@@ -285,7 +285,7 @@ describe('Engine Data Cascade', () => {
     );
   });
 
-  it('injects a header into the markdown source file', async () => {
+  it('07: injects a header into the markdown source file', async () => {
     const { build, readSource, writeSource } = await setupTestEngine(
       'fixtures/01-data-cascade/07-markdown/docs',
     );
@@ -306,6 +306,33 @@ describe('Engine Data Cascade', () => {
         '# Slack',
         '',
         'You can also find us on the Polymer Slack in the [#open-wc](https://polymer.slack.com/archives/CE6D9DN05) channel.',
+      ].join('\n'),
+    );
+  });
+
+  it('08: does not inject imports if the file itself imports the key', async () => {
+    const { build, readSource, writeSource } = await setupTestEngine(
+      'fixtures/01-data-cascade/08-consider-user-imports/docs',
+    );
+    await writeSource(
+      'index.rocket.js',
+      [
+        "import { html } from './_dep.js';",
+        'export default () => html`index`;',
+      ].join('\n'),
+    );
+    await build();
+
+    expect(readSource('index.rocket.js')).to.equal(
+      [
+        '/* START - Rocket auto generated - do not touch */',
+        "export const sourceRelativeFilePath = 'index.rocket.js';",
+        "import { control } from './recursive.data.js';",
+        'export { control };',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        "import { html } from './_dep.js';",
+        'export default () => html`index`;',
       ].join('\n'),
     );
   });
