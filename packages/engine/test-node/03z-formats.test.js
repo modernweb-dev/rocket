@@ -53,11 +53,13 @@ describe('Formats', () => {
     const { build, readOutput } = await setupTestEngine('fixtures/03-formats/03-html/docs');
     await build();
 
-    expect(readOutput('index.html')).to.equal([
-      '<h1>Welcome</h1>',
-      '<p>index.rocket.md sourceRelativeFilePath: "index.rocket.html"</p>',
-      '<p>bar</p>',
-      '<p>bar2</p>',
-    ].join('\n'));
+    expect(readOutput('index.html')).to.equal(
+      [
+        '<h1>Welcome</h1>',
+        '<p>index.rocket.md sourceRelativeFilePath: "index.rocket.html"</p>',
+        '<p>bar</p>',
+        '<p>bar2</p>',
+      ].join('\n'),
+    );
   });
 });

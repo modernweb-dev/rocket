@@ -10,12 +10,14 @@ let isRendering = '';
  * @param {object} options
  * @param {string} options.filePath
  * @param {string} options.outputDir
+ * @param {string} options.inputDir
  * @param {boolean} options.writeFileToDisk
  * @param {string} options.renderMode
- * @returns 
+ * @returns
  */
 export function renderViaWorker({
   filePath,
+  inputDir,
   outputDir,
   writeFileToDisk,
   renderMode = 'development',
@@ -35,7 +37,14 @@ export function renderViaWorker({
     }
     isRendering = filePath;
 
-    worker.postMessage({ action: 'renderFile', filePath, outputDir, writeFileToDisk, renderMode });
+    worker.postMessage({
+      action: 'renderFile',
+      filePath,
+      outputDir,
+      inputDir,
+      writeFileToDisk,
+      renderMode,
+    });
 
     function handleError(error) {
       isRendering = '';
@@ -48,6 +57,9 @@ export function renderViaWorker({
     worker.once('message', result => {
       isRendering = '';
       worker.removeListener('error', handleError);
+      if (result.hadError) {
+        reject(result.passOnError);
+      }
       if (result.filePath === filePath) {
         resolve(result);
       } else {

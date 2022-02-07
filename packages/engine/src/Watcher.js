@@ -165,7 +165,11 @@ export class Watcher {
   async updatePage(sourceFilePath) {
     if (this.pages.has(sourceFilePath)) {
       const page = this.pages.get(sourceFilePath);
-      page.jsDependencies = await getJsDependencies(sourceFilePath);
+      try {
+        page.jsDependencies = await getJsDependencies(sourceFilePath);
+      } catch (error) {
+        // ok we just don't update it
+      }
       this.pages.set(sourceFilePath, page);
     } else {
       throw new Error(`Page not found in watch index while trying to update: ${sourceFilePath}`);
@@ -199,8 +203,15 @@ export class Watcher {
   async createPage(sourceFilePath, options = {}) {
     const page = {
       ...options,
-      jsDependencies: await getJsDependencies(sourceFilePath),
+      /** @type {string[]} */
+      jsDependencies: [],
     };
+    try {
+      page.jsDependencies = await getJsDependencies(sourceFilePath);
+    } catch (error) {
+      // ok we can't get them so it will be empty
+    }
+
     this.pages.set(sourceFilePath, page);
     return page;
   }

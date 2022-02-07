@@ -316,10 +316,7 @@ describe('Engine Data Cascade', () => {
     );
     await writeSource(
       'index.rocket.js',
-      [
-        "import { html } from './_dep.js';",
-        'export default () => html`index`;',
-      ].join('\n'),
+      ["import { html } from './_dep.js';", 'export default () => html`index`;'].join('\n'),
     );
     await build();
 

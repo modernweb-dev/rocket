@@ -131,7 +131,6 @@ describe('Layouts', () => {
 
     expect(readOutput('index.html', { format: 'html', cleanupLitMarkers: false })).to.equal(
       [
-        '<!--lit-part DShjzmimhAA=-->',
         '<html>',
         '  <head>',
         '    <title>My title</title>',
@@ -140,7 +139,6 @@ describe('Layouts', () => {
         '    <h1><!--lit-part-->Home<!--/lit-part--></h1>',
         '  </body>',
         '</html>',
-        '<!--/lit-part-->',
       ].join('\n'),
     );
   });

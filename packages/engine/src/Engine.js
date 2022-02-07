@@ -155,14 +155,20 @@ export class Engine {
               logRendering.info(
                 `${sourceRelativeFilePath} because it got requested by a browser tab.`,
               );
-              await this.renderFile(sourceFilePath);
-              await pageTree.add(sourceRelativeFilePath);
-              await pageTree.save();
-              if (pageTree.needsAnotherRenderingPass) {
-                logRendering.info(`${sourceRelativeFilePath} again as the pageTree was modified.`);
+              try {
                 await this.renderFile(sourceFilePath);
-                await this.renderAllOpenedFiles({ triggerSourceFilePath: sourceFilePath });
-                pageTree.needsAnotherRenderingPass = false;
+                await pageTree.add(sourceRelativeFilePath);
+                await pageTree.save();
+                if (pageTree.needsAnotherRenderingPass) {
+                  logRendering.info(
+                    `${sourceRelativeFilePath} again as the pageTree was modified.`,
+                  );
+                  await this.renderFile(sourceFilePath);
+                  await this.renderAllOpenedFiles({ triggerSourceFilePath: sourceFilePath });
+                  pageTree.needsAnotherRenderingPass = false;
+                }
+              } catch (error) {
+                // nothing as error already rendered to file
               }
             }
           }
@@ -262,8 +268,8 @@ export class Engine {
             pageTree.needsAnotherRenderingPass = false;
           }
         } catch (error) {
-          console.log(error);
-          await this.writeErrorAsHtmlToOutput(page.sourceFilePath, error);
+          // TODO: figure out why it is not reloading when an error gets introduced while it reloads when you fix it
+          // nothing as we show the error in the browser
         }
         // reload happens by web dev server automatically
       },
@@ -307,34 +313,6 @@ export class Engine {
     return await urlToSourceFilePath(url, this.docsDir);
   }
 
-  async writeErrorAsHtmlToOutput(sourceFilePath, error) {
-    function escape(input) {
-      let escaped = input;
-      escaped = escaped.replace(/</g, '&gt;');
-      escaped = escaped.replace(/>/g, '&lt;');
-      return escaped;
-    }
-    const outputFilePath = this.getOutputFilePath(sourceFilePath);
-    const errorHtml = `
-      <html>
-        <head>
-          <title>${error.message}</title>
-        </head>
-        <body>
-          <h1>${error.message}</h1>
-          <pre>${escape(error.stack)}</pre>
-        </body>
-      </html>
-    `;
-    const outputFilePathDir = path.dirname(outputFilePath);
-
-    if (!existsSync(outputFilePathDir)) {
-      await mkdir(outputFilePathDir, { recursive: true });
-    }
-
-    await writeFile(outputFilePath, errorHtml);
-  }
-
   async renderAllOpenedFiles({ deleteOtherFiles = true, triggerSourceFilePath = '' } = {}) {
     if (this.watcher) {
       for (const [sourceFilePath, page] of this.watcher.pages.entries()) {
@@ -350,7 +328,11 @@ export class Engine {
               sourceFilePath,
             )} because it is opened in a browser tab and the page tree has changed.`,
           );
-          await this.renderFile(sourceFilePath);
+          try {
+            await this.renderFile(sourceFilePath);
+          } catch (error) {
+            // nothing already shown in the browser
+          }
           // reload happens by web dev server automatically
         } else if (deleteOtherFiles === true) {
           await this.deleteOutputOf(sourceFilePath);
@@ -362,6 +344,7 @@ export class Engine {
   async renderFile(filePath, { writeFileToDisk = true } = {}) {
     const result = await renderViaWorker({
       filePath,
+      inputDir: this.docsDir,
       outputDir: this.outputDir,
       writeFileToDisk,
       renderMode: this.options.renderMode,

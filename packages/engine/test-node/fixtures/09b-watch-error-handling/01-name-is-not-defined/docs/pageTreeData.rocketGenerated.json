@@ -12,5 +12,7 @@
     }
   ],
   "menuLinkText": "index.rocket.js",
-  "name": "index.rocket.js"
+  "name": "index.rocket.js",
+  "title": "name is not defined",
+  "h1": "name is not defined"
 }

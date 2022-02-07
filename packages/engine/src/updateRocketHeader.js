@@ -9,10 +9,20 @@ import { importsToImportNames } from './file-header/import-names.js';
 
 await init;
 
+/**
+ * @param {string} string
+ * @returns {string}
+ */
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ * @param {string} content
+ * @param {string} header
+ * @param {string} filePath
+ * @returns {string}
+ */
 function setRocketHeader(content, header, filePath) {
   const lines = content.toString().split('\n');
 
@@ -36,7 +46,9 @@ function setRocketHeader(content, header, filePath) {
   } else {
     const extension = filePath.split('.').pop();
 
+    /** @type {string[]} */
     let wrapBefore = [];
+    /** @type {string[]} */
     let warpAfter = [];
     switch (extension) {
       case 'md':
@@ -55,6 +67,14 @@ function setRocketHeader(content, header, filePath) {
   return lines.join('\n');
 }
 
+/**
+ *
+ * @param {string} content
+ * @param {object} options
+ * @param {string} options.filePath
+ * @param {string} options.docsDir
+ * @returns {Promise<string>}
+ */
 async function generateRocketHeader(content, { filePath, docsDir }) {
   const dataFiles = [];
 
@@ -161,12 +181,20 @@ async function generateRocketHeader(content, { filePath, docsDir }) {
   return header;
 }
 
+/**
+ * @param {string} filePath
+ * @param {string} docsDir
+ */
 export async function updateRocketHeader(filePath, docsDir) {
   const content = (await readFile(filePath)).toString();
-  const header = await generateRocketHeader(content, { filePath, docsDir });
-  const updatedContent = setRocketHeader(content, header, filePath);
-
-  if (content !== updatedContent) {
-    await writeFile(filePath, updatedContent);
+  try {
+    const header = await generateRocketHeader(content, { filePath, docsDir });
+    const updatedContent = setRocketHeader(content, header, filePath);
+    if (content !== updatedContent) {
+      await writeFile(filePath, updatedContent);
+    }
+  } catch (error) {
+    // we tried to update the rocket header but something failed => user has to fix his code
+    // error will be shown by the render worker
   }
 }

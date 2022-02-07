@@ -23,7 +23,7 @@ export async function convertMdFile(filePath) {
 /**
  * @param {string} filePath
  */
- export async function convertHtmlFile(filePath) {
+export async function convertHtmlFile(filePath) {
   const htmlContent = (await readFile(filePath)).toString();
 
   const jsTemplate = htmlToJsTemplate(htmlContent);

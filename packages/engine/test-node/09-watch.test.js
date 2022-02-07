@@ -424,44 +424,6 @@ describe('Engine start', () => {
     await cleanup();
   });
 
-  // TODO: test works standalone but not when running all tests - probably due to some cleanup issues of wasm in a worker
-  it.skip('continues after error in page rendering', async () => {
-    const {
-      readOutput,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09-watch/08-error-in-page/docs');
-    await writeSource(
-      'index.rocket.js',
-      "import { html } from 'lit-html';\nexport default () => html`index`;",
-    );
-
-    await engine.start();
-    setAsOpenedInBrowser('index.rocket.js');
-    await writeSource(
-      'index.rocket.js',
-      "import { html } from 'lit-html';\nexport default () => html`index ${name}`;",
-    );
-    await anEngineEvent('rocketUpdated');
-    expect(readOutput('index.html')).to.include('ReferenceError: name is not defined');
-
-    await writeSource(
-      'index.rocket.js',
-      [
-        "import { html } from 'lit-html';",
-        "const name = 'Home';",
-        'export default () => html`index ${name}`;',
-      ].join('\n'),
-    );
-    await anEngineEvent('rocketUpdated');
-
-    expect(readOutput('index.html')).to.equal('index Home');
-    await cleanup();
-  });
-
   it('updates the pageTree on creating a new page without needing to open it', async () => {
     const {
       readOutput,
