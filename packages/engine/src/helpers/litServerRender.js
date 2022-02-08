@@ -1,7 +1,12 @@
 import { Readable } from 'stream';
 import { render } from '@lit-labs/ssr/lib/render-with-global-dom-shim.js';
 
+/**
+ * @param {Readable} stream
+ * @returns {Promise<string>}
+ */
 function streamToString(stream) {
+  /** @type {Uint8Array[]} */
   const chunks = [];
   return new Promise((resolve, reject) => {
     stream.on('data', chunk => chunks.push(Buffer.from(chunk)));
@@ -10,6 +15,10 @@ function streamToString(stream) {
   });
 }
 
+/**
+ * @param {string} templateResult
+ * @returns {Promise<string>}
+ */
 export async function litServerRender(templateResult) {
   const ssrResult = render(templateResult);
   const stream = Readable.from(ssrResult);

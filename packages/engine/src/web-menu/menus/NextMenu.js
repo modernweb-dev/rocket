@@ -1,7 +1,7 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';
@@ -16,7 +16,7 @@ export class NextMenu extends Menu {
     }
 
     // 1. check children
-    let next = this.currentNode.first(el => el !== this.currentNode && !el.model.menuNoLink);
+    let next = this.currentNode.first(/** @param {NodeOfPage} el */el => el !== this.currentNode && !el.model.menuNoLink);
 
     // 2. check parents (and their children) in reverse order
     if (!next) {
@@ -31,7 +31,7 @@ export class NextMenu extends Menu {
                 next = child;
                 break;
               } else {
-                next = child.first(el => !el.model.menuNoLink);
+                next = child.first(/** @param {NodeOfPage} el */ el => !el.model.menuNoLink);
                 if (next) {
                   break;
                 }

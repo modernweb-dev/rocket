@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-/** @typedef {import('../types/main').EngineOptions} EngineOptions */
+/** @typedef {import('../types/main.js').EngineOptions} EngineOptions */
 import { existsSync } from 'fs';
 // TODO: implement copy without extra dependency
 import fse from 'fs-extra';
-import { mkdir, rm, writeFile } from 'fs/promises';
+import { mkdir, rm } from 'fs/promises';
 import path from 'path';
 import { EventEmitter } from 'events';
 import { startDevServer } from '@web/dev-server';
@@ -28,9 +28,8 @@ import { AdjustAssetUrls } from './index.js';
 const logRendering = diary('engine:rendering');
 
 export class Engine {
-  /** @type {EngineOptions} */
+  /** @type {Partial<EngineOptions>} */
   options = {
-    plugins: undefined,
     defaultPlugins: [],
     setupPlugins: [],
     renderMode: 'development',
@@ -38,6 +37,10 @@ export class Engine {
   };
 
   events = new EventEmitter();
+
+  docsDir = path.join(process.cwd(), 'docs');
+  outputDir = path.join(process.cwd(), '_site-dev');
+  watchDir = process.cwd();
 
   /**
    * @param {Partial<EngineOptions>} [options]
@@ -115,16 +118,17 @@ export class Engine {
     if (existsSync(publicDir)) {
       await fse.copy(publicDir, this.outputDir);
     }
-
     // copy public files of plugins
-    for (const plugin of this.options.plugins) {
-      const publicFolder = plugin.constructor.publicFolder;
-      if (publicFolder && existsSync(publicFolder)) {
-        await fse.copy(publicFolder, this.outputDir);
-      } else {
-        console.log(
-          `Plugin ${plugin.constructor.name} defined a public folder ${publicFolder} but it does not exist.`,
-        );
+    if (this.options.plugins) {
+      for (const plugin of this.options.plugins) {
+        const publicFolder = plugin.constructor.publicFolder;
+        if (publicFolder && existsSync(publicFolder)) {
+          await fse.copy(publicFolder, this.outputDir);
+        } else {
+          console.log(
+            `Plugin ${plugin.constructor.name} defined a public folder ${publicFolder} but it does not exist.`,
+          );
+        }
       }
     }
   }
@@ -140,6 +144,9 @@ export class Engine {
       return {
         name: 'register-tab-plugin',
         injectWebSocket: true,
+        /**
+         * @param {import('koa').Context} context
+         */
         serve: async context => {
           if (context.path === '/ws-register-tab.js') {
             return "import { sendMessage } from '/__web-dev-server__web-socket.js';\n export default () => { sendMessage({ type: 'register-tab', pathname: document.location.pathname }); }";
@@ -198,6 +205,9 @@ export class Engine {
 
       return {
         name: 'dev-server-adjust-asset-urls',
+        /**
+         * @param {import('koa').Context} context
+         */
         transform: async context => {
           const sourceFilePath = await this.getSourceFilePathFromUrl(context.path);
           if (sourceFilePath) {
@@ -232,56 +242,79 @@ export class Engine {
       // argv: this.__argv,
     });
 
-    this.devServer.webSockets.on('message', async ({ webSocket, data }) => {
-      const sourceFilePath = await this.getSourceFilePathFromUrl(data.pathname);
-      this.watcher?.addWebSocketToPage(sourceFilePath, webSocket);
-    });
+    this.devServer.webSockets.on(
+      'message',
+      /**
+       * @param {object} options
+       * @param {import('@web/dev-server-core').WebSocket} options.webSocket
+       * @param {import('@web/dev-server-core').WebSocketData} options.data
+       */
+      async ({ webSocket, data }) => {
+        const typedData = /** @type {{ pathname: string }} */ (/** @type {unknown} */ (data));
+        const sourceFilePath = await this.getSourceFilePathFromUrl(typedData.pathname);
+        if (sourceFilePath) {
+          this.watcher?.addWebSocketToPage(sourceFilePath, webSocket);
+        }
+      },
+    );
 
-    this.devServer.webSockets.webSocketServer.on('connection', webSocket => {
-      webSocket.on('close', () => {
-        this.watcher?.removeWebSocket(webSocket);
-      });
+    this.devServer.webSockets.webSocketServer.on(
+      'connection',
+      /**
+       * @param {import('@web/dev-server-core').WebSocket} webSocket
+       */
+      webSocket => {
+        webSocket.on('close', () => {
+          this.watcher?.removeWebSocket(webSocket);
+        });
 
-      webSocket.send(
-        JSON.stringify({ type: 'import', data: { importPath: '/ws-register-tab.js' } }),
-      );
-    });
+        webSocket.send(
+          JSON.stringify({ type: 'import', data: { importPath: '/ws-register-tab.js' } }),
+        );
+      },
+    );
 
     this.watcher = new Watcher();
     await this.watcher.init(this.watchDir, { ignore: [this.outputDir], inputDir: this.docsDir });
     await this.watcher.addPages(files);
 
     this.watcher.watchPages({
-      onPageSavedOrOpenedTabAndServerDependencyChanged: async page => {
-        await updateRocketHeader(page.sourceFilePath, this.docsDir);
-        try {
-          await this.renderFile(page.sourceFilePath);
-          const sourceRelativeFilePath = path.relative(this.docsDir, page.sourceFilePath);
+      onPageSavedOrOpenedTabAndServerDependencyChanged:
+        /** @param {{ sourceFilePath: string }} options */
+        async ({ sourceFilePath }) => {
+          await updateRocketHeader(sourceFilePath, this.docsDir);
+          try {
+            await this.renderFile(sourceFilePath);
+            const sourceRelativeFilePath = path.relative(this.docsDir, sourceFilePath);
 
-          await pageTree.add(sourceRelativeFilePath);
-          await pageTree.save();
+            await pageTree.add(sourceRelativeFilePath);
+            await pageTree.save();
 
-          if (pageTree.needsAnotherRenderingPass) {
-            logRendering.info(`${sourceRelativeFilePath} again as the pageTree was modified.`);
-            await this.renderFile(page.sourceFilePath);
-            await this.renderAllOpenedFiles({ triggerSourceFilePath: page.sourceFilePath });
-            pageTree.needsAnotherRenderingPass = false;
+            if (pageTree.needsAnotherRenderingPass) {
+              logRendering.info(`${sourceRelativeFilePath} again as the pageTree was modified.`);
+              await this.renderFile(sourceFilePath);
+              await this.renderAllOpenedFiles({ triggerSourceFilePath: sourceFilePath });
+              pageTree.needsAnotherRenderingPass = false;
+            }
+          } catch (error) {
+            // TODO: figure out why it is not reloading when an error gets introduced while it reloads when you fix it
+            // nothing as we show the error in the browser
           }
-        } catch (error) {
-          // TODO: figure out why it is not reloading when an error gets introduced while it reloads when you fix it
-          // nothing as we show the error in the browser
-        }
-        // reload happens by web dev server automatically
-      },
-      onPageServerDependencySaved: async page => {
-        await updateRocketHeader(page.sourceFilePath, this.docsDir);
-        // no need to render as the page itself is not saved nor is the page open in any browser tab
-        // we however clear the current output file as it's now out of date and will be rerendered on demand
-        await this.deleteOutputOf(page.sourceFilePath);
-      },
-      onPageDeleted: async page => {
-        await this.deleteOutputOf(page.sourceFilePath);
-      },
+          // reload happens by web dev server automatically
+        },
+      onPageServerDependencySaved:
+        /** @param {{ sourceFilePath: string }} options */
+        async ({ sourceFilePath }) => {
+          await updateRocketHeader(sourceFilePath, this.docsDir);
+          // no need to render as the page itself is not saved nor is the page open in any browser tab
+          // we however clear the current output file as it's now out of date and will be rerendered on demand
+          await this.deleteOutputOf(sourceFilePath);
+        },
+      onPageDeleted:
+        /** @param {{ sourceFilePath: string }} options */
+        async ({ sourceFilePath }) => {
+          await this.deleteOutputOf(sourceFilePath);
+        },
       onDone: async () => {
         this.events.emit('rocketUpdated');
       },
@@ -301,6 +334,9 @@ export class Engine {
     await rm(this.getOutputFilePath(sourceFilePath), { force: true });
   }
 
+  /**
+   * @param {string} sourceFilePath
+   */
   getOutputFilePath(sourceFilePath) {
     const sourceRelativeFilePath = path.relative(this.docsDir, sourceFilePath);
     const outputRelativeFilePath = sourceRelativeFilePathToOutputRelativeFilePath(
@@ -309,6 +345,9 @@ export class Engine {
     return path.join(this.outputDir, outputRelativeFilePath);
   }
 
+  /**
+   * @param {string} url
+   */
   async getSourceFilePathFromUrl(url) {
     return await urlToSourceFilePath(url, this.docsDir);
   }
@@ -341,13 +380,16 @@ export class Engine {
     }
   }
 
-  async renderFile(filePath, { writeFileToDisk = true } = {}) {
+  /**
+   * @param {string} filePath
+   * @returns
+   */
+  async renderFile(filePath) {
     const result = await renderViaWorker({
       filePath,
       inputDir: this.docsDir,
       outputDir: this.outputDir,
-      writeFileToDisk,
-      renderMode: this.options.renderMode,
+      renderMode: this.options.renderMode || 'development',
     });
     return result;
   }

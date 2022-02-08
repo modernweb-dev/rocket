@@ -1,7 +1,7 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { nothing } from 'lit';
 import { html } from 'lit-html';
@@ -17,7 +17,9 @@ export class SiteMenu extends Menu {
     }
     return html`
       <nav aria-label="site">
-        ${node.children.filter(child => !child.model.menuNoLink).map(child => this.link(child))}
+        ${node.children
+          .filter(/** @param {NodeOfPage} child */ child => !child.model.menuNoLink)
+          .map(/** @param {NodeOfPage} child */ child => this.link(child))}
       </nav>
     `;
   }

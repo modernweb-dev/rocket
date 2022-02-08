@@ -1,5 +1,5 @@
-/** @typedef {import('../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -15,15 +15,18 @@ export class Menu {
     type: 'menu',
   };
 
+  /** @type {import('../../../types/menu.js').TreeModelOfPage} */
+  treeModel;
+
   constructor(options = {}) {
     this.options = { ...this.options, ...options };
   }
 
   /**
-   * *@param {NodeOfPage} node
+   * @param {NodeOfPage} node
    * @returns {boolean}
    */
-  childCondition() {
+  childCondition(node) {
     return true;
   }
 
@@ -37,7 +40,7 @@ export class Menu {
       const levelCssClass = `lvl-${lvl + 1}`;
       return html`
         <ul class=${levelCssClass}>
-          ${node.children.map(child => this.listItem(child))}
+          ${node.children.map(/** @param {NodeOfPage} child */ child => this.listItem(child))}
         </ul>
       `;
     }

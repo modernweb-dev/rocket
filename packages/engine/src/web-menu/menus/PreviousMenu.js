@@ -1,7 +1,7 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';

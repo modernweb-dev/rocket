@@ -4,7 +4,12 @@ import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { addPlugin } from 'plugins-manager';
 import markdown from 'remark-parse';
+import visit from 'unist-util-visit';
 
+/**
+ * @param {string} mdString
+ * @returns {string}
+ */
 export function mdToMdInJs(mdString) {
   const lines = mdString.split('\n');
   let inCodeBlock = false;
@@ -12,6 +17,7 @@ export function mdToMdInJs(mdString) {
   let shouldProcess = true;
   let serverBlockContent = [];
 
+  /** @type {string[]} */
   let processedLines = [];
   for (const line of lines) {
     let addServerLine = true;
@@ -77,6 +83,10 @@ export function mdToMdInJs(mdString) {
   return wrappedLines.join('\n');
 }
 
+/**
+ * @param {string} toImportFilePath
+ * @returns {Promise<string>}
+ */
 export async function mdInJsToMdHtmlInJs(toImportFilePath) {
   const { default: content, ...data } = await import(toImportFilePath);
 
@@ -137,6 +147,10 @@ function escapeBackTick(str) {
   return newStr;
 }
 
+/**
+ * @param {string} mdHtml
+ * @returns {string}
+ */
 export function mdHtmlToJsTemplate(mdHtml) {
   const lines = mdHtml.split('\n');
   let inServerBlock = false;
@@ -200,27 +214,9 @@ export function mdHtmlToJsTemplate(mdHtml) {
   return outputLines.join('\n');
 }
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/** @typedef {import('@mdjs/core/types/code').Story} Story */
-/** @typedef {import('@mdjs/core/types/code').StoryTypes} StoryTypes */
-/** @typedef {(name: string) => string} TagFunction */
-/** @typedef {import('unist').Node} UnistNode */
-/** @typedef {import('unist').Parent} UnistParent */
-/** @typedef {import('vfile').VFileOptions} VFileOptions */
-
-import visit from 'unist-util-visit';
-
-/**
- * @param {object} arg
- * @param {TagFunction} [arg.storyTag]
- * @param {TagFunction} [arg.previewStoryTag]
- * @param {number} [arg.counter]
- */
 export function serverCodeParse() {
   /**
-   * @param {UnistNode} node
-   * @param {number} index
-   * @param {UnistParent} parent
+   * @param {import('unist').Node} node
    */
   const nodeCodeVisitor = (node /*, index, parent*/) => {
     if (
@@ -248,15 +244,12 @@ export function serverCodeParse() {
 
   /**
    * @param {Node} tree
-   * @param {VFileOptions} file
    */
-  async function transformer(tree, file) {
+  async function transformer(tree) {
     // @ts-ignore
     visit(tree, nodeCodeVisitor);
-
     return tree;
   }
 
   return transformer;
-  /* eslint-enable no-param-reassign */
 }

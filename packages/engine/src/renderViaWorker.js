@@ -11,17 +11,10 @@ let isRendering = '';
  * @param {string} options.filePath
  * @param {string} options.outputDir
  * @param {string} options.inputDir
- * @param {boolean} options.writeFileToDisk
  * @param {string} options.renderMode
  * @returns
  */
-export function renderViaWorker({
-  filePath,
-  inputDir,
-  outputDir,
-  writeFileToDisk,
-  renderMode = 'development',
-}) {
+export function renderViaWorker({ filePath, inputDir, outputDir, renderMode = 'development' }) {
   if (history.has(filePath)) {
     // trying rerender the same file => needs a new worker to clear the module cache
     worker.unref();
@@ -42,10 +35,12 @@ export function renderViaWorker({
       filePath,
       outputDir,
       inputDir,
-      writeFileToDisk,
       renderMode,
     });
 
+    /**
+     * @param {Error} error
+     */
     function handleError(error) {
       isRendering = '';
       // the worker is dead long live the worker
@@ -57,7 +52,7 @@ export function renderViaWorker({
     worker.once('message', result => {
       isRendering = '';
       worker.removeListener('error', handleError);
-      if (result.hadError) {
+      if (result.passOnError) {
         reject(result.passOnError);
       }
       if (result.filePath === filePath) {

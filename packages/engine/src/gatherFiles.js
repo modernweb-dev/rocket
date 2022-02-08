@@ -1,15 +1,7 @@
 import { readdir } from 'fs/promises';
 import path from 'path';
-import { slugify } from './slugify.js';
-
-function isRocketIndexFile(fileName, fileEndings) {
-  for (const ending of fileEndings) {
-    if (fileName === `index${ending}`) {
-      return true;
-    }
-  }
-  return false;
-}
+import { isRocketIndexFile } from './helpers/isRocketIndexFile.js';
+// import { slugify } from './slugify.js';
 
 /**
  * @typedef {object} gatherFilesOptions
@@ -19,7 +11,7 @@ function isRocketIndexFile(fileName, fileEndings) {
 /**
  * @param {string | URL} inRootDir
  * @param {Partial<gatherFilesOptions>} [options]
- * @returns
+ * @returns {Promise<string[]>}
  */
 export async function gatherFiles(inRootDir, options = {}) {
   /** @type {gatherFilesOptions} */
@@ -43,7 +35,7 @@ export async function gatherFiles(inRootDir, options = {}) {
   //   }
   // }
   for (const entry of entries) {
-    if (!entry.isDirectory() && isRocketIndexFile(entry.name, fileEndings)) {
+    if (!entry.isDirectory() && isRocketIndexFile(entry.name)) {
       const filePath = path.join(rootDir, entry.name);
       files.push(filePath);
     }
@@ -66,7 +58,7 @@ export async function gatherFiles(inRootDir, options = {}) {
       //     `File at "${currentPath}" is using invalid characters. Use only url safe characters like [a-z][A-Z]-_`,
       //   );
       // }
-      if (!isRocketIndexFile(name, fileEndings)) {
+      if (!isRocketIndexFile(name)) {
         const filePath = path.join(rootDir, name);
         files.push(filePath);
       }

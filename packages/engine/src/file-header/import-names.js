@@ -1,14 +1,14 @@
 /**
  * Extracts all import names for an already parsed files
  *
- * @param {import('es-module-lexer').ImportSpecifier} imports
+ * @param {import('es-module-lexer').ImportSpecifier[]} imports
  * @param {string} source
  * @returns {string[]}
  */
 export function importsToImportNames(imports, source) {
   const allImportNames = [];
   for (const singleImport of imports) {
-    const importStatement = source.substring(singleImport.ss, singleImport.ee);
+    const importStatement = source.substring(singleImport.ss, singleImport.se);
     const importNames = getImportNames(importStatement);
     allImportNames.push(...importNames);
   }

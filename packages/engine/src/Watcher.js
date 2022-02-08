@@ -40,12 +40,22 @@ function isRocketPageFile(filePath) {
 }
 
 export class Watcher {
+  /**
+   * @type {Map<string, { jsDependencies: string[], webSockets?: Set<import('@web/dev-server-core').WebSocket> }>}
+   */
   pages = new Map();
 
   acceptPageUpdates = true;
 
+  /**
+   * @type {Map<string, { type: string, jsDependencies?: string[], webSockets?: Set<import('@web/dev-server-core').WebSocket> }>}
+   */
   _taskQueue = new Map();
 
+  /**
+   * @param {string} initDir
+   * @param {{ ignore: string[], inputDir: string }} options
+   */
   async init(initDir, { ignore = [], inputDir }) {
     this.inputDir = inputDir;
     this.subscription = await watcher.subscribe(
@@ -85,6 +95,9 @@ export class Watcher {
     );
   }
 
+  /**
+   * @param {string} sourceFilePath
+   */
   async addUpdateTask(sourceFilePath) {
     for (const [pageSourceFilePath, page] of this.pages) {
       if (pageSourceFilePath === sourceFilePath) {
@@ -96,12 +109,18 @@ export class Watcher {
     }
   }
 
+  /**
+   * @param {string} sourceFilePath
+   */
   async addCreateTask(sourceFilePath) {
     if (isRocketPageFile(sourceFilePath)) {
       this._taskQueue.set(sourceFilePath, { type: 'create' });
     }
   }
 
+  /**
+   * @param {string} sourceFilePath
+   */
   async addDeleteTask(sourceFilePath) {
     for (const [pageSourceFilePath /*, page */] of this.pages) {
       if (pageSourceFilePath === sourceFilePath) {
@@ -112,6 +131,9 @@ export class Watcher {
 
   async executeTaskQueue() {
     if (this._taskQueue.size === 0) {
+      return;
+    }
+    if (!this.inputDir) {
       return;
     }
     this.acceptPageUpdates = false;
@@ -165,25 +187,33 @@ export class Watcher {
   async updatePage(sourceFilePath) {
     if (this.pages.has(sourceFilePath)) {
       const page = this.pages.get(sourceFilePath);
-      try {
-        page.jsDependencies = await getJsDependencies(sourceFilePath);
-      } catch (error) {
-        // ok we just don't update it
+      if (page) {
+        try {
+          page.jsDependencies = await getJsDependencies(sourceFilePath);
+        } catch (error) {
+          // ok we just don't update it
+        }
+        this.pages.set(sourceFilePath, page);
       }
-      this.pages.set(sourceFilePath, page);
     } else {
       throw new Error(`Page not found in watch index while trying to update: ${sourceFilePath}`);
     }
   }
 
+  /**
+   * @param {string} sourceFilePath
+   * @param {import('@web/dev-server-core').WebSocket} webSocket
+   */
   addWebSocketToPage(sourceFilePath, webSocket) {
     if (this.pages.has(sourceFilePath)) {
       const page = this.pages.get(sourceFilePath);
-      if (!page.webSockets) {
-        page.webSockets = new Set();
+      if (page) {
+        if (!page.webSockets) {
+          page.webSockets = new Set();
+        }
+        page.webSockets.add(webSocket);
+        this.pages.set(sourceFilePath, page);
       }
-      page.webSockets.add(webSocket);
-      this.pages.set(sourceFilePath, page);
     } else {
       throw new Error(
         `Page not found in watch index while trying to add websocket: ${sourceFilePath}`,
@@ -191,6 +221,9 @@ export class Watcher {
     }
   }
 
+  /**
+   * @param {import('@web/dev-server-core').WebSocket} webSocket
+   */
   removeWebSocket(webSocket) {
     for (const [sourceFilePath, page] of this.pages.entries()) {
       if (page.webSockets && page.webSockets.has(webSocket)) {
@@ -200,6 +233,9 @@ export class Watcher {
     }
   }
 
+  /**
+   * @param {string} sourceFilePath
+   */
   async createPage(sourceFilePath, options = {}) {
     const page = {
       ...options,
@@ -216,6 +252,9 @@ export class Watcher {
     return page;
   }
 
+  /**
+   * @param {string} sourceFilePath
+   */
   async deletePage(sourceFilePath) {
     if (this.pages.has(sourceFilePath)) {
       this.pages.delete(sourceFilePath);
@@ -224,6 +263,9 @@ export class Watcher {
     }
   }
 
+  /**
+   * @param {string[]} sourceFilePaths
+   */
   async addPages(sourceFilePaths) {
     for (const sourceFilePath of sourceFilePaths) {
       await this.createPage(sourceFilePath);

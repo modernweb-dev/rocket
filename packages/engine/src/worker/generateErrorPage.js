@@ -1,12 +1,15 @@
 /**
- * @param {string} input
+ * @param {string | undefined} input
  * @returns {string}
  */
 function escape(input) {
-  let escaped = input;
-  escaped = escaped.replace(/</g, '&gt;');
-  escaped = escaped.replace(/>/g, '&lt;');
-  return escaped;
+  if (input) {
+    let escaped = input;
+    escaped = escaped.replace(/</g, '&gt;');
+    escaped = escaped.replace(/>/g, '&lt;');
+    return escaped;
+  }
+  return '';
 }
 
 /**
@@ -23,7 +26,7 @@ function linkFiles(text) {
       const file = line.substring(indexOpening + 1, indexEnd);
       const url = file.replace('file:///', 'vscode://file/');
       const newString =
-        line.slice(0, indexOpening) + `<a href="${url}">${file}</a>` + line.slice(indexEnd);
+        line.slice(0, indexOpening + 1) + `<a href="${url}">${file}</a>` + line.slice(indexEnd);
       output.push(newString);
     } else {
       output.push(line);

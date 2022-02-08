@@ -1,13 +1,12 @@
 /**
- *
  * @param {string} groupName
  * @param {Record<string, unknown>} options
  * @param {Record<string, unknown>} data
- * @returns {Array<TemplateResult>}
+ * @returns {Array<import('lit').TemplateResult>}
  */
 export function renderJoiningGroup(groupName, options, data) {
   /**
-   * @type { {order: number, stringValue: string}[] }
+   * @type { {order: number, stringValue: import('lit').TemplateResult}[] }
    */
   const group = [];
   for (const key of Object.keys(options)) {

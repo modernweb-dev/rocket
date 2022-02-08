@@ -1,4 +1,4 @@
-/** @typedef {import('../types/main').Plugin} Plugin */
+/** @typedef {import('../types/main.js').Plugin} Plugin */
 
 /**
  * @param {any} obj
@@ -16,14 +16,14 @@ function isFunction(x) {
 }
 
 /**
- * @template {import('../types/main').Plugin} T
+ * @template {import('../types/main.js').Plugin} T
  * @param {T} plugin
- * @param {import('../types/main').adjustPluginOptionsOptions<T>} mergeOptions
+ * @param {import('../types/main.js').adjustPluginOptionsOptions<T>} mergeOptions
  */
 export function adjustPluginOptions(plugin, mergeOptions) {
   /**
    * @template {Function} T
-   * @param {import('../types/main').MetaPlugin<T>[]} plugins
+   * @param {import('../types/main.js').MetaPlugin<T>[]} plugins
    */
   const adjustPluginOptionsFn = plugins => {
     const index = plugins.findIndex(pluginObj => pluginObj.plugin === plugin);

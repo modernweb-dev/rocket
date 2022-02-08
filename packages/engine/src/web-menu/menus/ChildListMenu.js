@@ -1,7 +1,7 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';
@@ -30,6 +30,10 @@ export class ChildListMenu extends Menu {
     `;
   }
 
+  /**
+   * @param {NodeOfPage} node
+   * @returns {boolean}
+   */
   childCondition(node) {
     const depth = node.model.level - this.currentNode.model.level;
     return depth < this.options.maxDepth;
@@ -44,7 +48,7 @@ export class ChildListMenu extends Menu {
     const current = node === this.currentNode ? 'page' : undefined;
     let url = node.model.url;
     if (depth >= this.options.maxDepth) {
-      const linkNode = node.first(node => !node.model.menuNoLink);
+      const linkNode = node.first(/** @param {NodeOfPage} node */ node => !node.model.menuNoLink);
       if (linkNode) {
         url = linkNode.model.url;
         return html`<a href="${url}" aria-current=${ifDefined(current)}

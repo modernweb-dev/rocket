@@ -1,3 +1,7 @@
+/**
+ * @param {string} content
+ * @returns {string}
+ */
 export function getServerCodeFromMd(content) {
   const lines = content.split('\n');
   let capture = false;

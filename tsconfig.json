@@ -5,22 +5,16 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/mdjs-preview/tsconfig.json"
-    },
-    {
-      "path": "./packages/mdjs-story/tsconfig.json"
-    },
-    {
       "path": "./packages/plugins-manager/tsconfig.json"
     },
     {
-      "path": "./packages/check-html-links/tsconfig.json"
-    },
-    {
-      "path": "./packages/drawer/tsconfig.json"
-    },
-    {
       "path": "./packages/mdjs-core/tsconfig.json"
+    },
+    {
+      "path": "./packages/engine/tsconfig.json"
+    },
+    {
+      "path": "./packages/cli/tsconfig.json"
     }
   ]
 }

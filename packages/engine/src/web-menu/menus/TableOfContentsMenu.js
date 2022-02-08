@@ -1,11 +1,17 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';
 
+/**
+ * @param {object} options
+ * @param {{ text: string; id: string; level: number }[]} options.headlinesWithId
+ * @param {NodeOfPage} options.treeModel
+ * @returns 
+ */
 function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
   let node;
   let currentLevel = 0;
@@ -43,8 +49,6 @@ function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
 }
 
 export class TableOfContentsMenu extends Menu {
-  static type = 'table-of-contents';
-
   constructor(options = {}) {
     super();
     this.options = {
@@ -66,7 +70,7 @@ export class TableOfContentsMenu extends Menu {
       const levelCssClass = `lvl-${lvl + 1}`;
       return html`
         <ol class=${levelCssClass}>
-          ${node.children.map(child => this.listItem(child))}
+          ${node.children.map(/** @param {NodeOfPage} child */child => this.listItem(child))}
         </ol>
       `;
     }

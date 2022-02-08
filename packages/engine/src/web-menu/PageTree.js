@@ -8,15 +8,27 @@ import {
 import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 
+/** @typedef {import('../../types/menu.js').NodeOfPage} NodeOfPage */
+
+/**
+ * @param {NodeOfPage} child 
+ * @param {NodeOfPage} tree 
+ * @returns {NodeOfPage}
+ */
 function findParent(child, tree) {
-  return tree.first(node => {
+  return tree.first(/** @param {NodeOfPage} node */ node => {
     return child.model.url.startsWith(node.model.url) && node.model.level === child.model.level - 1;
   });
 }
 
+/**
+ * @param {NodeOfPage} child 
+ * @param {NodeOfPage} tree 
+ * @returns {NodeOfPage}
+ */
 function findSelf(child, tree) {
   return tree.first(
-    node => child.model.sourceRelativeFilePath === node.model.sourceRelativeFilePath,
+    /** @param {NodeOfPage} node */node => child.model.sourceRelativeFilePath === node.model.sourceRelativeFilePath,
   );
 }
 
@@ -50,7 +62,9 @@ export function modelComparatorFn(a, b) {
 
 export class PageTree {
   /**
-   * @param {string | URL} docsDir
+   * @param {object} options
+   * @param {string | URL} options.inputDir
+   * @param {string | URL} options.outputDir
    */
   constructor({ inputDir, outputDir }) {
     this.docsDir = inputDir instanceof URL ? inputDir.pathname : inputDir;
@@ -209,6 +223,12 @@ export class PageTree {
     }
   }
 
+  /**
+   * 
+   * @param {any} inst 
+   * @param {string} sourceRelativeFilePath 
+   * @returns 
+   */
   renderMenu(inst, sourceRelativeFilePath) {
     if (this.tree) {
       this.setCurrent(sourceRelativeFilePath);
@@ -235,6 +255,10 @@ export class PageTree {
     return null;
   }
 
+  /**
+   * @param {() => boolean} predicate 
+   * @returns 
+   */
   all(predicate) {
     if (this.tree) {
       return this.tree.all(predicate);

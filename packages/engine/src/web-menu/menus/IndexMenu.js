@@ -1,15 +1,13 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { html } from 'lit-html';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { nothing } from 'lit';
 
 export class IndexMenu extends Menu {
-  static type = 'index';
-
   options = {
     ...this.options,
     /** @param {string} nav */
@@ -70,14 +68,14 @@ export class IndexMenu extends Menu {
           <details ?open=${open}>
             <summary>${node.model.menuLinkText}</summary>
             <ul class=${levelClass}>
-              ${node.children.map(child => this.listItem(child))}
+              ${node.children.map(/** @param {NodeOfPage} child */ child => this.listItem(child))}
             </ul>
           </details>
         `;
       } else {
         return html`
           <ul class=${levelClass}>
-            ${node.children.map(child => this.listItem(child))}
+            ${node.children.map(/** @param {NodeOfPage} child */ child => this.listItem(child))}
           </ul>
         `;
       }

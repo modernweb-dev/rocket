@@ -1,4 +1,4 @@
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 export class LayoutRaw {
   /**

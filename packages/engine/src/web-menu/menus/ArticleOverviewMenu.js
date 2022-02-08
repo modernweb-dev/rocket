@@ -1,7 +1,7 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';
@@ -34,7 +34,7 @@ export class ArticleOverviewMenu extends Menu {
     return html`
       <div>
         ${this.currentNode.children.map(
-          child => html`
+          /** @param {NodeOfPage} child */ child => html`
             <article class="post">
               <a href="${child.model.url}">
                 <h2>${child.model.name}</h2>

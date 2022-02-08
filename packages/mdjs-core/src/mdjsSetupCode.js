@@ -3,7 +3,7 @@ const slash = require('slash');
 
 /** @typedef {import('vfile').VFileOptions} VFileOptions */
 /** @typedef {import('unist').Node} Node */
-/** @typedef {import('@mdjs/core/types/code').Story} Story */
+/** @typedef {import('../types/code.js').Story} Story */
 
 /**
  * @typedef {Object} simulationSettings

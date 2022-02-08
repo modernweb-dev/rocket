@@ -1,14 +1,12 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../types/main').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';
 
 export class BreadcrumbMenu extends Menu {
-  static type = 'breadcrumb';
-
   childCondition() {
     return false;
   }
@@ -18,17 +16,15 @@ export class BreadcrumbMenu extends Menu {
    * @returns {TemplateResult | nothing}
    */
   render(node) {
-    const current = node.first(node => node.model.current === true);
+    const current = node.first(/** @param {NodeOfPage} node */ node => node.model.current === true);
     if (!current) {
       return nothing;
     }
     const nodePath = current.getPath();
-    // /** @param {NodeOfPage} node */
-    // const breadcrumbItem = node => this.listItem();
     return html`
       <nav aria-label="Breadcrumb">
         <ol>
-          ${nodePath.map(node => this.listItem(node))}
+          ${nodePath.map(/** @param {NodeOfPage} node */ node => this.listItem(node))}
         </ol>
       </nav>
     `;

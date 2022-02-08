@@ -2,7 +2,7 @@ import { renderJoiningGroup } from '../helpers/renderJoiningGroup.js';
 import { html } from 'lit-html';
 import { classMap } from 'lit/directives/class-map.js';
 
-/** @typedef {import('lit-html').TemplateResult} TemplateResult */
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 export class Layout {
   constructor(options = {}) {

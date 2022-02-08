@@ -13,9 +13,9 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/markdown-javascript/overview/",
-  "main": "./index.js",
   "exports": {
     ".": {
+      "types": "./dist-types/index.d.ts",
       "require": "./index.js",
       "default": "./index.mjs"
     }
@@ -72,5 +72,6 @@
     "remark-slug": "^6.0.0",
     "remark-stringify": "^9.0.1"
   },
+  "main": "./index.js",
   "types": "dist-types/index.d.ts"
 }
