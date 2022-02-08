@@ -28,7 +28,7 @@ There are a number of community-made presets available:
 
 - [rocket-preset-code-tabs](https://www.npmjs.com/package/rocket-preset-code-tabs) - Add tab elements for code blocks
 - [rocket-preset-custom-elements-manifest](https://www.npmjs.com/package/rocket-preset-custom-elements-manifest) - Documents code generation for JavaScript libraries, particularly custom elements.
-- [rocket-preset-markdown-directive](https://www.npmjs.com/package/rocket-preset-markdown-directive) - Add your own custom md code block directives
+- [rocket-preset-markdown-directives](https://www.npmjs.com/package/rocket-preset-markdown-directives) - Add your own custom md code block directives
 - [rocket-preset-playground-elements](https://www.npmjs.com/package/rocket-preset-playground-elements) - Live code editors that run in-browser
 - [rocket-preset-slide-decks](https://www.npmjs.com/package/rocket-preset-slide-decks) - Slide decks in Markdown and HTML
 - [rocket-preset-webcomponents-dev](https://www.npmjs.com/package/rocket-preset-webcomponents-dev) - Live code editors that run on webcomponents.dev
