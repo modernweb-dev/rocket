@@ -34,24 +34,26 @@ export async function findJsDependencies(filePath, options = {}) {
 
   const pathRequire = createRequire(path.resolve(filePath));
 
-  imports?.forEach(i => {
-    /** Skip built-in modules like fs, path, etc */
-    if (builtinModules.includes(i.n)) return;
-    /** Skip import.meta */
-    if (i.d === -2) return;
-    /** Skip dynamic imports */
-    if (i.d > 0) return;
+  for (const i of imports) {
+    if (i && i.n) {
+      /** Skip built-in modules like fs, path, etc */
+      if (builtinModules.includes(i.n)) break;
+      /** Skip import.meta */
+      if (i.d === -2) break;
+      /** Skip dynamic imports */
+      if (i.d > 0) break;
 
-    try {
-      const pathToDependency = pathRequire.resolve(i.n);
+      try {
+        const pathToDependency = pathRequire.resolve(i.n);
 
-      importsToScan.add(pathToDependency);
-      dependencies.add(pathToDependency);
-    } catch (e) {
-      console.log(`Failed to resolve dependency "${i.n}" in "${filePath}"`);
-      console.log(e);
+        importsToScan.add(pathToDependency);
+        dependencies.add(pathToDependency);
+      } catch (e) {
+        console.log(`Failed to resolve dependency "${i.n}" in "${filePath}"`);
+        console.log(e);
+      }
     }
-  });
+  }
 
   while (importsToScan.size) {
     importsToScan.forEach(dep => {
@@ -62,35 +64,37 @@ export async function findJsDependencies(filePath, options = {}) {
 
       const depRequire = createRequire(dep);
 
-      imports?.forEach(i => {
-        /** Skip built-in modules like fs, path, etc */
-        if (builtinModules.includes(i.n)) return;
-        /** Skip import.meta */
-        if (i.d === -2) return;
-        /** Skip dynamic imports */
-        if (i.d > 0) return;
+      for (const i of imports) {
+        if (i && i.n) {
+          /** Skip built-in modules like fs, path, etc */
+          if (builtinModules.includes(i.n)) break;
+          /** Skip import.meta */
+          if (i.d === -2) break;
+          /** Skip dynamic imports */
+          if (i.d > 0) break;
 
-        const fileToFind = isBareModuleSpecifier(i.n) ? i.n : path.join(path.dirname(dep), i.n);
-        try {
-          /**
-           * First check in the dependencies' node_modules, then in the project's node_modules,
-           * then up, and up, and up
-           */
-          const pathToDependency = depRequire.resolve(fileToFind);
-          // console.log({ fileToFind, pathToDependency });
-          /**
-           * Don't add dependencies we've already scanned, also avoids circular dependencies
-           * and multiple modules importing from the same module
-           */
-          if (!dependencies.has(pathToDependency)) {
-            importsToScan.add(pathToDependency);
-            dependencies.add(pathToDependency);
+          const fileToFind = isBareModuleSpecifier(i.n) ? i.n : path.join(path.dirname(dep), i.n);
+          try {
+            /**
+             * First check in the dependencies' node_modules, then in the project's node_modules,
+             * then up, and up, and up
+             */
+            const pathToDependency = depRequire.resolve(fileToFind);
+            // console.log({ fileToFind, pathToDependency });
+            /**
+             * Don't add dependencies we've already scanned, also avoids circular dependencies
+             * and multiple modules importing from the same module
+             */
+            if (!dependencies.has(pathToDependency)) {
+              importsToScan.add(pathToDependency);
+              dependencies.add(pathToDependency);
+            }
+          } catch (e) {
+            console.log(`Failed to resolve dependency "${i.n}" in "${dep}"`);
+            console.log(e);
           }
-        } catch (e) {
-          console.log(`Failed to resolve dependency "${i.n}" in "${dep}"`);
-          console.log(e);
         }
-      });
+      }
     });
   }
 

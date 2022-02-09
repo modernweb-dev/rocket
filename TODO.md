@@ -13,6 +13,10 @@
 - make error nice for "needs function export default () => html` instead of just export default html`"
 - make error nice for parent page not found in index => auto generate page? 🤔
 
+- missing
+- ssr render can just be a string concat
+- support <!-- asdf --> in markdown
+
 ## Examples
 
 - docs site, blog (simple), blog (complex), minimal

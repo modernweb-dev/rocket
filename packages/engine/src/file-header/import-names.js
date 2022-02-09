@@ -1,7 +1,7 @@
 /**
  * Extracts all import names for an already parsed files
  *
- * @param {import('es-module-lexer').ImportSpecifier[]} imports
+ * @param {ReadonlyArray<import('es-module-lexer').ImportSpecifier>} imports
  * @param {string} source
  * @returns {string[]}
  */

@@ -83,6 +83,19 @@ export class AdjustAssetUrls {
   ) {
     let output = source;
     if (outputFilePath.endsWith('.html')) {
+      /**
+       * @type {{
+       *   start: Position;
+       *   end: Position;
+       *   url: string;
+       *   attribute: string;
+       *   tag: string;
+       *   sourceFilePath: string;
+       *   sourceRelativeFilePath: string;
+       *   outputFilePath: string;
+       *   outputRelativeFilePath: string
+       * }[]}
+       **/
       const assetUrls = [];
 
       parser.eventHandler = (ev, _data) => {
@@ -94,20 +107,22 @@ export class AdjustAssetUrls {
               .map(({ attribute, tagName }) => (tagName === data.name ? attribute : undefined))
               .filter(Boolean);
             for (const possibleAttributeName of possibleAttributes) {
-              const attribute = getAttributeMeta(data, possibleAttributeName);
-              if (attribute) {
-                const { value, start, end } = attribute;
-                assetUrls.push({
-                  start,
-                  end,
-                  url: value,
-                  attribute: possibleAttributeName,
-                  tag: data.name,
-                  sourceFilePath,
-                  outputFilePath,
-                  sourceRelativeFilePath,
-                  outputRelativeFilePath,
-                });
+              if (possibleAttributeName) {
+                const attribute = getAttributeMeta(data, possibleAttributeName);
+                if (attribute) {
+                  const { value, start, end } = attribute;
+                  assetUrls.push({
+                    start,
+                    end,
+                    url: value,
+                    attribute: possibleAttributeName,
+                    tag: data.name,
+                    sourceFilePath,
+                    outputFilePath,
+                    sourceRelativeFilePath,
+                    outputRelativeFilePath,
+                  });
+                }
               }
             }
           }

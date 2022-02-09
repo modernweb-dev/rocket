@@ -102,6 +102,13 @@ async function generateRocketHeader(content, { filePath, docsDir }) {
     });
   }
 
+  /**
+   * @type {Array<{
+   *  importName: string;
+   *  importModuleName: string;
+   *  as?: string;
+   * }>}
+   */
   const possibleImports = [];
   for (const dataFile of dataFiles) {
     const { filePath: dataFilePath, exportModuleName } = dataFile;
