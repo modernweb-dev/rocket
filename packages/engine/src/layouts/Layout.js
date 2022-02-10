@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { renderJoiningGroup } from '../helpers/renderJoiningGroup.js';
 import { html } from 'lit-html';
 import { classMap } from 'lit/directives/class-map.js';
@@ -90,6 +91,7 @@ export class Layout {
    */
   render(data) {
     this.data = data;
+    // @ts-ignore
     this.options.content__500 = data.content;
 
     const originalOptions = { ...this.options };

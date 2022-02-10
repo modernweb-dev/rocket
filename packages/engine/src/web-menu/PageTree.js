@@ -9,29 +9,40 @@ import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 
 /** @typedef {import('../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('../../types/menu.js').TreeModelOfPage} TreeModelOfPage */
 
 /**
- * @param {NodeOfPage} child 
- * @param {NodeOfPage} tree 
+ * @param {NodeOfPage} child
+ * @param {NodeOfPage} tree
  * @returns {NodeOfPage}
  */
 function findParent(child, tree) {
-  return tree.first(/** @param {NodeOfPage} node */ node => {
-    return child.model.url.startsWith(node.model.url) && node.model.level === child.model.level - 1;
-  });
+  return tree.first(
+    /** @param {NodeOfPage} node */ node => {
+      return (
+        child.model.url.startsWith(node.model.url) && node.model.level === child.model.level - 1
+      );
+    },
+  );
 }
 
 /**
- * @param {NodeOfPage} child 
- * @param {NodeOfPage} tree 
+ * @param {NodeOfPage} child
+ * @param {NodeOfPage} tree
  * @returns {NodeOfPage}
  */
 function findSelf(child, tree) {
   return tree.first(
-    /** @param {NodeOfPage} node */node => child.model.sourceRelativeFilePath === node.model.sourceRelativeFilePath,
+    /** @param {NodeOfPage} node */ node =>
+      child.model.sourceRelativeFilePath === node.model.sourceRelativeFilePath,
   );
 }
 
+/**
+ * @param {TreeModelOfPage} aModel
+ * @param {TreeModelOfPage} bModel
+ * @returns {boolean}
+ */
 function hasSameModelValues(aModel, bModel) {
   const a = { ...aModel };
   delete a.children;
@@ -50,8 +61,8 @@ function hasSameModelValues(aModel, bModel) {
 }
 
 /**
- * @param {ModelOfPage} a
- * @param {ModelOfPage} b
+ * @param {TreeModelOfPage} a
+ * @param {TreeModelOfPage} b
  * @returns {number}
  */
 export function modelComparatorFn(a, b) {
@@ -200,6 +211,7 @@ export class PageTree {
   setCurrent(sourceRelativeFilePath) {
     if (this.tree) {
       const currentNode = this.tree.first(
+        /** @param {NodeOfPage} entry */
         entry => entry.model.sourceRelativeFilePath === sourceRelativeFilePath,
       );
       if (currentNode) {
@@ -213,7 +225,10 @@ export class PageTree {
 
   removeCurrent() {
     if (this.tree) {
-      const currentNode = this.tree.first(entry => entry.model.current === true);
+      const currentNode = this.tree.first(
+        /** @param {NodeOfPage} entry */
+        entry => entry.model.current === true,
+      );
       if (currentNode) {
         currentNode.model.current = false;
         for (const parent of currentNode.getPath()) {
@@ -224,15 +239,17 @@ export class PageTree {
   }
 
   /**
-   * 
-   * @param {any} inst 
-   * @param {string} sourceRelativeFilePath 
-   * @returns 
+   * @param {any} inst
+   * @param {string} sourceRelativeFilePath
+   * @returns
    */
   renderMenu(inst, sourceRelativeFilePath) {
     if (this.tree) {
       this.setCurrent(sourceRelativeFilePath);
-      inst.currentNode = this.tree.first(entry => entry.model.current === true);
+      inst.currentNode = this.tree.first(
+        /** @param {NodeOfPage} entry */
+        entry => entry.model.current === true,
+      );
       inst.treeModel = this.treeModel;
       const output = inst.render(this.tree);
       this.removeCurrent();
@@ -249,6 +266,7 @@ export class PageTree {
   getPage(sourceRelativeFilePath) {
     if (this.tree) {
       return this.tree.first(
+        /** @param {NodeOfPage} entry */
         entry => entry.model.sourceRelativeFilePath === sourceRelativeFilePath,
       );
     }
@@ -256,8 +274,8 @@ export class PageTree {
   }
 
   /**
-   * @param {() => boolean} predicate 
-   * @returns 
+   * @param {() => boolean} predicate
+   * @returns
    */
   all(predicate) {
     if (this.tree) {

@@ -121,6 +121,7 @@ export class Engine {
     // copy public files of plugins
     if (this.options.plugins) {
       for (const plugin of this.options.plugins) {
+        // @ts-ignore
         const publicFolder = plugin.constructor.publicFolder;
         if (publicFolder && existsSync(publicFolder)) {
           await fse.copy(publicFolder, this.outputDir);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mdjsProcess } from '@mdjs/core';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
@@ -91,7 +92,7 @@ export async function mdInJsToMdHtmlInJs(toImportFilePath) {
   const { default: content, ...data } = await import(toImportFilePath);
 
   const options = {
-    setupUnifiedPlugins: [addPlugin(serverCodeParse, {}, { location: markdown })],
+    setupUnifiedPlugins: [addPlugin(serverCodeParse, undefined, { location: markdown })],
   };
   if (data.setupUnifiedPlugins) {
     options.setupUnifiedPlugins = [...options.setupUnifiedPlugins, ...data.setupUnifiedPlugins];
@@ -216,7 +217,7 @@ export function mdHtmlToJsTemplate(mdHtml) {
 
 export function serverCodeParse() {
   /**
-   * @param {import('unist').Node} node
+   * @param {{ type: string; lang: string; meta: string; value: string; children: Array<{ value: string }>}} node
    */
   const nodeCodeVisitor = (node /*, index, parent*/) => {
     if (
@@ -243,7 +244,7 @@ export function serverCodeParse() {
   };
 
   /**
-   * @param {Node} tree
+   * @param {{ type: string; lang: string; meta: string; value: string; children: Array<{ value: string }>}} tree
    */
   async function transformer(tree) {
     // @ts-ignore

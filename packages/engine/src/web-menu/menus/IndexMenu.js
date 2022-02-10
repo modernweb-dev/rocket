@@ -1,23 +1,18 @@
-import { Menu } from './Menu.js';
-
-/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
-/** @typedef {import('lit').TemplateResult} TemplateResult */
-
 import { html } from 'lit-html';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { nothing } from 'lit';
+import { Menu } from './Menu.js';
+
+/** @typedef {import('lit').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('../../../types/menu.js').IndexMenuOptions} IndexMenuOptions */
 
 export class IndexMenu extends Menu {
+  /** @type {IndexMenuOptions} */
   options = {
     ...this.options,
-    /** @param {string} nav */
     navWrapper: nav => html`<nav aria-label="index" data-type="index">${nav}</nav>`,
   };
-
-  constructor(options = {}) {
-    super(options);
-    this.options = { ...this.options, ...options };
-  }
 
   /**
    * @param {NodeOfPage} node

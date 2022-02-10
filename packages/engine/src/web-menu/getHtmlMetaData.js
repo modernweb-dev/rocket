@@ -4,7 +4,7 @@ import { getAttribute, getText } from './sax-helpers.js';
 /** @typedef {import('sax-wasm').Text} Text */
 /** @typedef {import('sax-wasm').Tag} Tag */
 /** @typedef {import('sax-wasm').Position} Position */
-/** @typedef {import('../../types/main.js').ParseMetaData} ParseMetaData */
+/** @typedef {import('../../types/menu.js').Page} Page */
 
 import { parser, SaxEventType, streamOptions } from './sax-parser.js';
 
@@ -24,7 +24,7 @@ function isHeadline(data) {
  * @returns
  */
 export function getHtmlMetaData(htmlFilePath) {
-  /** @type {ParseMetaData} */
+  /** @type {Partial<Page>} */
   const metaData = {
     // headlinesWithId: [],
   };

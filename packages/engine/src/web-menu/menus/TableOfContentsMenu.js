@@ -1,7 +1,8 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
 /** @typedef {import('lit').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('../../../types/menu.js').TableOfContentsMenuOptions} TableOfContentsMenuOptions */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';
@@ -10,7 +11,7 @@ import { nothing } from 'lit';
  * @param {object} options
  * @param {{ text: string; id: string; level: number }[]} options.headlinesWithId
  * @param {NodeOfPage} options.treeModel
- * @returns 
+ * @returns
  */
 function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
   let node;
@@ -28,7 +29,10 @@ function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
           node = node
             .getPath()
             .reverse()
-            .find(n => n.model.level < child.model.level);
+            .find(
+              /** @param {NodeOfPage} el */
+              el => el.model.level < child.model.level,
+            );
         }
         if (!node) {
           throw new Error(`Could not find an h1 in "..."`);
@@ -49,16 +53,14 @@ function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
 }
 
 export class TableOfContentsMenu extends Menu {
-  constructor(options = {}) {
-    super();
-    this.options = {
-      navLabel: 'Table of Contents',
-      navHeader: html`<h2>Contents</h2>`,
-      /** @param {TemplateResult} nav */
-      navWrapper: nav => html`<aside>${nav}</aside>`,
-      ...options,
-    };
-  }
+  /** @type {TableOfContentsMenuOptions} */
+  options = {
+    ...this.options,
+    navLabel: 'Table of Contents',
+    navHeader: html`<h2>Contents</h2>`,
+    /** @param {TemplateResult} nav */
+    navWrapper: nav => html`<aside>${nav}</aside>`,
+  };
 
   /**
    * @param {NodeOfPage} node
@@ -70,7 +72,7 @@ export class TableOfContentsMenu extends Menu {
       const levelCssClass = `lvl-${lvl + 1}`;
       return html`
         <ol class=${levelCssClass}>
-          ${node.children.map(/** @param {NodeOfPage} child */child => this.listItem(child))}
+          ${node.children.map(/** @param {NodeOfPage} child */ child => this.listItem(child))}
         </ol>
       `;
     }

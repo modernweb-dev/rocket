@@ -1,13 +1,15 @@
 import { Menu } from './Menu.js';
 
-/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
 /** @typedef {import('lit').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('../../../types/menu.js').ChildListMenuOptions} ChildListMenuOptions */
 
 import { html } from 'lit-html';
 import { nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 export class ChildListMenu extends Menu {
+  /** @type {ChildListMenuOptions} */
   options = {
     ...this.options,
     label: 'Child List Menu',

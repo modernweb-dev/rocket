@@ -1,5 +1,6 @@
-/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
 /** @typedef {import('lit').TemplateResult} TemplateResult */
+/** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('../../../types/menu.js').MenuOptions} MenuOptions */
 
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -10,6 +11,7 @@ export class Menu {
   /** @type {NodeOfPage | undefined} */
   currentNode = undefined;
 
+  /** @type {MenuOptions} */
   options = {
     label: 'Menu',
     type: 'menu',
