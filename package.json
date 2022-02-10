@@ -10,7 +10,7 @@
   "scripts": {
     "analyze": "run-s analyze:* format:*",
     "analyze:analyze": "node scripts/workspaces-scripts-bin.mjs analyze",
-    "build": "DEBUG=engine:rendering node packages/cli/src/cli.js build",
+    "build": "NODE_DEBUG=engine:rendering node packages/cli/src/cli.js build",
     "build:site": "run-s analyze:* rocket:build",
     "changeset": "changeset",
     "debug": "web-test-runner --watch --config web-test-runner-chrome.config.mjs",
@@ -34,7 +34,7 @@
     "setup:patches": "npx patch-package",
     "setup:ts-configs": "node scripts/generate-ts-configs.mjs",
     "xprestart": "yarn analyze",
-    "start": "DEBUG=engine:rendering node packages/cli/src/cli.js start --open",
+    "start": "NODE_DEBUG=engine:rendering node packages/cli/src/cli.js start --open",
     "test": "yarn test:node && yarn test:web",
     "test:node": "yarn test:unit && yarn test:integration",
     "test:unit": "node --trace-warnings ./node_modules/.bin/mocha \"packages/*/test-node/**/*.test.{ts,js,mjs,cjs}\" -- --timeout 5000 --reporter dot --exit",

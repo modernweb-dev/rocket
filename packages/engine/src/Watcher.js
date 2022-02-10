@@ -1,6 +1,6 @@
 import watcher from '@parcel/watcher';
 import path from 'path';
-import { diary } from 'diary';
+import { debuglog } from 'util';
 import { readFile } from 'fs/promises';
 
 // TODO: why importing this let's us run tests? delays loading maybe?
@@ -9,7 +9,7 @@ import '@mdjs/core';
 import { findJsDependencies } from './helpers/findJsDependencies.js';
 import { getServerCodeFromMd } from './helpers/getServerCodeFromMd.js';
 
-const logRendering = diary('engine:rendering');
+const logRendering = debuglog('engine:rendering');
 
 /**
  * @param {string} sourceFilePath
@@ -139,14 +139,14 @@ export class Watcher {
     this.acceptPageUpdates = false;
     for (const [sourceFilePath, info] of this._taskQueue) {
       if (info.type === 'create') {
-        logRendering.info(
+        logRendering(
           `${path.relative(this.inputDir, sourceFilePath)} because the file got created.`,
         );
         await this.callbacks?.onPageSavedOrOpenedTabAndServerDependencyChanged({ sourceFilePath });
         await this.createPage(sourceFilePath);
       }
       if (info.type === 'update') {
-        logRendering.info(
+        logRendering(
           `${path.relative(this.inputDir, sourceFilePath)} because the file got saved/updated.`,
         );
         await this.callbacks?.onPageSavedOrOpenedTabAndServerDependencyChanged({
@@ -158,7 +158,7 @@ export class Watcher {
       if (info.type === 'update-in-server-dependency') {
         const isOpenedInBrowser = !!info.webSockets?.size ?? false;
         if (isOpenedInBrowser) {
-          logRendering.info(
+          logRendering(
             `${path.relative(this.inputDir, sourceFilePath)} because a dependency changed.`,
           );
           // if opened in browser, we treat it as an update to the page itself

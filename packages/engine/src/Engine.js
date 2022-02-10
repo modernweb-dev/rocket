@@ -8,7 +8,7 @@ import { mkdir, rm } from 'fs/promises';
 import path from 'path';
 import { EventEmitter } from 'events';
 import { startDevServer } from '@web/dev-server';
-import { diary } from 'diary';
+import { debuglog } from 'util';
 
 import { applyPlugins } from 'plugins-manager';
 
@@ -25,7 +25,7 @@ import {
 } from './urlPathConverter.js';
 import { AdjustAssetUrls } from './index.js';
 
-const logRendering = diary('engine:rendering');
+const logRendering = debuglog('engine:rendering');
 
 export class Engine {
   /** @type {Partial<EngineOptions>} */
@@ -159,17 +159,13 @@ export class Engine {
             if (!existsSync(outputFilePath)) {
               const sourceRelativeFilePath = path.relative(this.docsDir, sourceFilePath);
               await updateRocketHeader(sourceFilePath, this.docsDir);
-              logRendering.info(
-                `${sourceRelativeFilePath} because it got requested by a browser tab.`,
-              );
+              logRendering(`${sourceRelativeFilePath} because it got requested by a browser tab.`);
               try {
                 await this.renderFile(sourceFilePath);
                 await pageTree.add(sourceRelativeFilePath);
                 await pageTree.save();
                 if (pageTree.needsAnotherRenderingPass) {
-                  logRendering.info(
-                    `${sourceRelativeFilePath} again as the pageTree was modified.`,
-                  );
+                  logRendering(`${sourceRelativeFilePath} again as the pageTree was modified.`);
                   await this.renderFile(sourceFilePath);
                   await this.renderAllOpenedFiles({ triggerSourceFilePath: sourceFilePath });
                   pageTree.needsAnotherRenderingPass = false;
@@ -291,7 +287,7 @@ export class Engine {
             await pageTree.save();
 
             if (pageTree.needsAnotherRenderingPass) {
-              logRendering.info(`${sourceRelativeFilePath} again as the pageTree was modified.`);
+              logRendering(`${sourceRelativeFilePath} again as the pageTree was modified.`);
               await this.renderFile(sourceFilePath);
               await this.renderAllOpenedFiles({ triggerSourceFilePath: sourceFilePath });
               pageTree.needsAnotherRenderingPass = false;
@@ -361,7 +357,7 @@ export class Engine {
         }
         const isOpenedInBrowser = !!page.webSockets?.size ?? false;
         if (isOpenedInBrowser) {
-          logRendering.info(
+          logRendering(
             `${path.relative(
               this.docsDir,
               sourceFilePath,
