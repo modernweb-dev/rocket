@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable */
+// @ts-nocheck
 
 import { readdir, rename, writeFile } from 'fs/promises';
 import path from 'path';

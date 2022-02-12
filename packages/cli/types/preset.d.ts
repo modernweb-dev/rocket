@@ -1,4 +1,5 @@
 import { AddPluginFn } from 'plugins-manager';
+import { RocketCliOptions } from './main.js';
 
 type ImageFormat = 'avif' | 'webp' | 'jpg' | 'jpeg' | 'png' | 'svg';
 
@@ -6,24 +7,19 @@ export interface ImagePreset {
   widths: number[];
   formats: ImageFormat[];
   sizes: string;
+  ignore: ({ src: string }) => boolean;
 }
 
 type ImagePresetHook = (preset: { [key: string]: ImagePreset }) => { [key: string]: ImagePreset };
 
 export interface RocketPreset {
-  path: string;
-
   adjustImagePresets?: ImagePresetHook;
-
-  /** Hook that runs before rocket starts 11ty. Can be sync or async */
-  before11ty?: () => void | Promise<void>;
+  adjustSettings?: (settings: RocketCliOptions) => RocketCliOptions;
 
   // TODO: improve all setup functions
-  setupUnifiedPlugins?: AddPluginFn[];
-  setupDevAndBuildPlugins?: AddPluginFn[];
+  setupDevServerAndBuildPlugins?: AddPluginFn[];
   setupBuildPlugins?: AddPluginFn[];
-  setupDevPlugins?: AddPluginFn[];
+  setupDevServerPlugins?: AddPluginFn[];
   setupCliPlugins?: AddPluginFn[];
-  setupEleventyPlugins?: AddPluginFn[];
-  setupEleventyComputedConfig?: AddPluginFn[];
+  setupEnginePlugins?: AddPluginFn[];
 }

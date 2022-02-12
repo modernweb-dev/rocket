@@ -29,6 +29,7 @@
   ],
   "exclude": [
     "dist",
-    "dist-types"
+    "dist-types",
+    "src/init-files/"
   ]
 }

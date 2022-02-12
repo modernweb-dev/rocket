@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-
 import path from 'path';
-
 import fs from 'fs-extra';
 import { fileURLToPath } from 'url';
 
 export class RocketInit {
   /**
-   * @param {RocketCliOptions} config
+   * @param {import('commander').Command} program
+   * @param {import('./RocketCli.js').RocketCli} cli
    */
   async setupCommand(program, cli) {
     this.cli = cli;
@@ -28,6 +25,10 @@ export class RocketInit {
   }
 
   async init() {
+    if (!this.outputDir) {
+      return;
+    }
+
     const moduleDir = path.dirname(fileURLToPath(import.meta.url));
     const initFilesDir = path.join(moduleDir, 'init-files');
     const packageJsonPath = path.join(this.outputDir, 'package.json');
@@ -50,8 +51,8 @@ export class RocketInit {
         type: 'module',
         scripts: {
           ...packageJson.scripts,
-          start: 'DEBUG=engine:rendering rocket start --open',
-          build: 'DEBUG=engine:rendering rocket build',
+          start: 'NODE_DEBUG=engine:rendering rocket start --open',
+          build: 'NODE_DEBUG=engine:rendering rocket build',
         },
       },
       { spaces: 2 },

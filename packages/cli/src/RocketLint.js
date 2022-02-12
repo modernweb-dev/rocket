@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable */
+// @ts-nocheck
 
 /** @typedef {import('../types/main').RocketCliOptions} RocketCliOptions */
 

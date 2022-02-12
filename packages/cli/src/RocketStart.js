@@ -1,10 +1,58 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-// import { startDevServer } from '@web/dev-server';
 // import { fromRollup } from '@web/dev-server-rollup';
 // import { executeSetupFunctions } from 'plugins-manager';
 
-/** @typedef {import('../types/main').RocketCliOptions} RocketCliOptions */
 /** @typedef {import('@web/dev-server').DevServerConfig} DevServerConfig */
+/** @typedef {import('../types/main.js').RocketCliOptions} RocketCliOptions */
+
+import { Engine } from '@rocket/engine/server';
+
+export class RocketStart {
+  /**
+   * @param {import('commander').Command} program
+   * @param {import('./RocketCli.js').RocketCli} cli
+   */
+  async setupCommand(program, cli) {
+    this.cli = cli;
+    this.active = true;
+
+    program
+      .command('start')
+      .option('-i, --input-dir <path>', 'path to where to search for source files')
+      .option('-o, --open', 'automatically open the browser')
+      .action(async cliOptions => {
+        cli.setOptions(cliOptions);
+
+        await this.start();
+      });
+  }
+
+  async start() {
+    if (!this.cli) {
+      return;
+    }
+    this.engine = new Engine();
+    this.engine.setOptions({
+      docsDir: this.cli.options.inputDir,
+      outputDir: this.cli.options.outputDir,
+      setupPlugins: this.cli.options.setupEnginePlugins,
+      open: this.cli.options.open,
+    });
+    try {
+      console.log('🚀 Engines online');
+      await this.engine.start();
+    } catch (e) {
+      console.log('Engine start errored');
+      console.error(e);
+    }
+  }
+
+  async stop() {
+    if (this.engine) {
+      await this.engine.stop();
+    }
+  }
+}
 
 // /**
 //  * @param {any} config
@@ -56,90 +104,26 @@
 //   return config;
 // }
 
-import { Engine } from '@rocket/engine/server';
+// async startCommand() {
+// if (useOptions.docsDir) {
+//   useOptions.docsDir = path.join(__dirname, docsDir.split('/').join(path.sep));
+// }
+// useOptions.outputDir = path.join(useOptions.docsDir, '..', '__output');
 
-export class RocketStart {
-  static pluginName = 'RocketStart';
+// /** @type {DevServerConfig} */
+// const devServerConfig = metaConfigToWebDevServerConfig(
+//   {
+//     nodeResolve: true,
+//     watch: this.config.watch !== undefined ? this.config.watch : true,
+//     rootDir: this.config.outputDevDir,
+//     open: true,
+//     clearTerminalOnReload: false,
+//     ...this.config.devServer,
 
-  /**
-   * @param {RocketCliOptions} config
-   */
-  async setupCommand(program, cli) {
-    this.cli = cli;
-
-    program
-      .command('start')
-      .option('-i, --input-dir <path>', 'path to where to search for source files')
-      .option('-o, --open', 'automatically open the browser')
-      .action(async cliOptions => {
-        cli.setOptions(cliOptions);
-
-        await this.start();
-      });
-  }
-
-  async start() {
-    this.engine = new Engine();
-    this.engine.setOptions({
-      docsDir: this.cli.options.inputDir,
-      outputDir: this.cli.options.outputDir,
-      setupPlugins: this.cli.options.setupEnginePlugins,
-      open: this.cli.options.open,
-    });
-    try {
-      await this.engine.start();
-      console.log('🚀 Engine started');
-    } catch (e) {
-      console.log('Engine start errored');
-      console.error(e);
-    }
-  }
-
-  async startCommand() {
-    // if (!this.config) {
-    //   return;
-    // }
-
-    await this.engine.start();
-    // if (useOptions.docsDir) {
-    //   useOptions.docsDir = path.join(__dirname, docsDir.split('/').join(path.sep));
-    // }
-    // useOptions.outputDir = path.join(useOptions.docsDir, '..', '__output');
-
-    // if (this.config.watch) {
-    //   await this.eleventy.watch();
-    // } else {
-    //   await this.eleventy.write();
-    // }
-
-    // /** @type {DevServerConfig} */
-    // const devServerConfig = metaConfigToWebDevServerConfig(
-    //   {
-    //     nodeResolve: true,
-    //     watch: this.config.watch !== undefined ? this.config.watch : true,
-    //     rootDir: this.config.outputDevDir,
-    //     open: true,
-    //     clearTerminalOnReload: false,
-    //     ...this.config.devServer,
-
-    //     setupRollupPlugins: this.config.setupDevAndBuildPlugins,
-    //     setupPlugins: this.config.setupDevPlugins,
-    //   },
-    //   [],
-    //   { rollupWrapperFunction: fromRollup },
-    // );
-
-    // this.devServer = await startDevServer({
-    //   config: devServerConfig,
-    //   readCliArgs: true,
-    //   readFileConfig: false,
-    //   argv: this.__argv,
-    // });
-  }
-
-  async stop() {
-    if (this.engine) {
-      await this.engine.cleanup();
-    }
-  }
-}
+//     setupRollupPlugins: this.config.setupDevAndBuildPlugins,
+//     setupPlugins: this.config.setupDevPlugins,
+//   },
+//   [],
+//   { rollupWrapperFunction: fromRollup },
+// );
+// }

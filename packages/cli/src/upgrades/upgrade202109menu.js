@@ -1,7 +1,7 @@
 import { readFile } from 'fs/promises';
 import matter from 'gray-matter';
 
-/** @typedef {import('@rocket/cli/types/upgrade').upgrade} upgrade */
+/** @typedef {import('../../types/upgrade.js').upgrade} upgrade */
 
 /**
  *

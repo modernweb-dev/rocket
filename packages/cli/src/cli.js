@@ -25,4 +25,4 @@ for (const configFile of configFiles) {
   }
 }
 
-await cli.execute();
+await cli.start();
