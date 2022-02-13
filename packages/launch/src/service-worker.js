@@ -1,11 +1,14 @@
+/* eslint-disable no-undef */
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 addEventListener('install', () => {
-  // eslint-disable-next-line no-undef
+  /* eslint-disable @typescript-eslint/ban-ts-comment */
+  // @ts-ignore
   skipWaiting();
+  /* eslint-enable @typescript-eslint/ban-ts-comment */
 });
 
 // addEventListener('activate', () => {

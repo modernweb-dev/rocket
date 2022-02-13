@@ -1,6 +1,5 @@
-```js server
 /* START - Rocket auto generated - do not touch */
-export const sourceRelativeFilePath = 'index.rocket.md';
+export const sourceRelativeFilePath = 'index.rocket.js';
 import { pageTree, setupUnifiedPlugins, footerMenu } from './recursive.data.js';
 export { pageTree, setupUnifiedPlugins, footerMenu };
 /* END - Rocket auto generated - do not touch */
@@ -47,4 +46,5 @@ export const layout = new LayoutHome({
     },
   ],
 });
-```
+
+export default () => '';

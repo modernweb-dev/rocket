@@ -1,6 +1,6 @@
 import { DevServerConfig } from '@web/dev-server';
 // import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
-import { ImagePreset, RocketPreset } from './preset';
+import { ImagePreset, RocketPreset } from './preset.js';
 export { ImagePreset, RocketPreset };
 
 import { Command } from 'commander';
@@ -21,6 +21,7 @@ export interface RocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   presets?: Array<RocketPreset>;
   // pathPrefix?: string;
   serviceWorkerName?: string;
+  serviceWorkerSourcePath?: string;
   inputDir?: string;
   outputDir?: string;
   emptyOutputDir?: boolean;

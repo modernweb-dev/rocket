@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import path from 'path';
 import { TreeModel } from '@d4kmor/tree-model';
 import { getHtmlMetaData } from './getHtmlMetaData.js';
@@ -7,6 +8,7 @@ import {
 } from '../urlPathConverter.js';
 import { readFile, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
+// import { html } from 'lit';
 
 /** @typedef {import('../../types/menu.js').NodeOfPage} NodeOfPage */
 /** @typedef {import('../../types/menu.js').TreeModelOfPage} TreeModelOfPage */
@@ -241,7 +243,7 @@ export class PageTree {
   /**
    * @param {any} inst
    * @param {string} sourceRelativeFilePath
-   * @returns
+   * @returns {import('lit').TemplateResult}
    */
   renderMenu(inst, sourceRelativeFilePath) {
     if (this.tree) {
@@ -255,13 +257,16 @@ export class PageTree {
       this.removeCurrent();
       return output;
     }
+
+    // TODO: should be either "return nothing; or return html``;" but doing "import { html } from 'lit';" breaks it
+    // @ts-ignore
     return '';
   }
 
   /**
    *
    * @param {string} sourceRelativeFilePath
-   * @returns
+   * @returns {NodeOfPage | null}
    */
   getPage(sourceRelativeFilePath) {
     if (this.tree) {
@@ -275,7 +280,7 @@ export class PageTree {
 
   /**
    * @param {() => boolean} predicate
-   * @returns
+   * @returns {NodeOfPage[]}
    */
   all(predicate) {
     if (this.tree) {

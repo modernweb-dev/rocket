@@ -18,3 +18,5 @@ export { PreviousMenu } from './web-menu/menus/PreviousMenu.js';
 export { SiteMenu } from './web-menu/menus/SiteMenu.js';
 export { TableOfContentsMenu } from './web-menu/menus/TableOfContentsMenu.js';
 export { ChildListMenu } from './web-menu/menus/ChildListMenu.js';
+
+/** @typedef {import('../types/layout.js').LayoutOptions} LayoutOptions */

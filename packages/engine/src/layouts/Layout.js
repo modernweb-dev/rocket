@@ -6,12 +6,15 @@ import { classMap } from 'lit/directives/class-map.js';
 /** @typedef {import('lit').TemplateResult} TemplateResult */
 
 export class Layout {
+  /** @type {import('../../types/layout.js').LayoutOptions} */
+  options = {
+    lang: 'en-US',
+    bodyClasses: {},
+    bodyLayout: 'layout',
+    content__500: html``,
+  };
+
   constructor(options = {}) {
-    this.options = {
-      lang: 'en-US',
-      bodyClasses: {},
-      bodyLayout: 'layout',
-    };
     this.setGlobalOptions(options);
     this.data = {};
     this.pageOptions = new Map();
@@ -27,7 +30,7 @@ export class Layout {
   /**
    *
    * @param {string} sourceRelativeFilePath
-   * @param {Record<string, unknown>} options
+   * @param {import('../../types/layout.js').LayoutOptions} options
    */
   setOptions(sourceRelativeFilePath, options) {
     if (this.pageOptions.has(sourceRelativeFilePath)) {
@@ -85,13 +88,21 @@ export class Layout {
     `;
   }
 
+  renderHtml() {
+    return html`
+      <!DOCTYPE html>
+      <html-server-only lang="${this.options.lang}">
+        ${this.renderHead()} ${this.renderBody()}
+      </html-server-only>
+    `;
+  }
+
   /**
    * @param {Record<string, unknown>} data
    * @returns {TemplateResult}
    */
   render(data) {
     this.data = data;
-    // @ts-ignore
     this.options.content__500 = data.content;
 
     const originalOptions = { ...this.options };
@@ -99,12 +110,7 @@ export class Layout {
       this.setGlobalOptions(this.pageOptions.get(data.sourceRelativeFilePath));
     }
 
-    const output = html`
-      <!DOCTYPE html>
-      <html-server-only lang="${this.options.lang}">
-        ${this.renderHead()} ${this.renderBody()}
-      </html-server-only>
-    `;
+    const output = this.renderHtml();
 
     this.options = originalOptions;
     return output;

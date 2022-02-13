@@ -143,6 +143,7 @@ export class RocketCli {
 
       if (preset.setupDevServerAndBuildPlugins) {
         this.options.setupDevServerAndBuildPlugins = [
+          // @ts-ignore
           ...this.options.setupDevServerAndBuildPlugins,
           ...preset.setupDevServerAndBuildPlugins,
         ];

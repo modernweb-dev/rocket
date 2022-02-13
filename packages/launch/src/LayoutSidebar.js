@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Layout, renderJoiningGroup, html } from '@rocket/engine';
 import { SiteMenu, IndexMenu, NextMenu, PreviousMenu } from '@rocket/engine';
 import { readFile } from 'fs/promises';
@@ -5,6 +6,10 @@ import { readFile } from 'fs/promises';
 import { nothing } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
+/**
+ * @param {import('fs').PathLike} filePath
+ * @returns {Promise<import('lit/directive.js').DirectiveResult>}
+ */
 async function inlineFile(filePath) {
   const fileContent = await readFile(filePath, 'utf8');
   return unsafeHTML(fileContent.toString());
@@ -21,35 +26,41 @@ const socialIcons = {
 };
 
 export class LayoutSidebar extends Layout {
+  /** @type {import('../types/layout.js').LayoutSidebarOptions} */
+  options = {
+    ...this.options,
+    siteName: 'Rocket',
+    logoSrc: '/icon.svg',
+    logoAlt: 'Rocket Logo',
+    gitSiteUrl: 'https://github.com/modernweb-dev/rocket',
+    gitBranch: 'master',
+    description: 'A static site generator for modern web development',
+    socialLinks: [
+      {
+        name: 'GitHub',
+        url: 'https://github.com/modernweb-dev/rocket',
+      },
+      {
+        name: 'Slack',
+        url:
+          'https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw',
+      },
+    ],
+    footerMenu: [],
+    titleWrapperFn: title => `${title} | ${this.options.siteName}`,
+  };
+
+  /**
+   * @param {Partial<import('../types/layout.js').LayoutSidebarOptions>} options
+   */
   constructor(options) {
     super(options);
-    this.setGlobalOptions({
-      siteName: 'Rocket',
-      logoSrc: '/icon.svg',
-      logoAlt: 'Rocket Logo',
-      gitSiteUrl: 'https://github.com/modernweb-dev/rocket',
-      gitBranch: 'master',
-      description: 'A static site generator for modern web development',
-      socialLinks: [
-        {
-          name: 'GitHub',
-          url: 'https://github.com/modernweb-dev/rocket',
-        },
-        {
-          name: 'Slack',
-          url:
-            'https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw',
-        },
-      ],
-      footerMenu: [],
-      titleWrapperFn: title => `${title} | ${this.options.siteName}`,
-
-      ...options,
-    });
 
     // set it in two passes so we can us the values above in the templates
-    this.setGlobalOptions({
-      head__10_basics: data => {
+    this.options = {
+      ...this.options,
+
+      head__10: data => {
         const description = data.description ? data.description : this.options.description;
         const title = this.options.titleWrapperFn(
           this.options.pageTree.getPage(data.sourceRelativeFilePath)?.model?.name,
@@ -70,22 +81,21 @@ export class LayoutSidebar extends Layout {
           <meta property="og:url" content="${data.url}" />
         `;
       },
-
       // icons https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
-      head__20_icon: html`
+      head__20: html`
         <link rel="icon" href="/favicon.ico" sizes="any" /><!-- 32x32 -->
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" /><!-- 180x180 -->
         <link rel="manifest" href="/manifest.webmanifest" />
       `,
 
-      head__30_social_media: html`
+      head__30: html`
         <meta property="og:site_name" content="${this.options.siteName}" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
       `,
 
-      head__40_css: html`
+      head__40: html`
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 
         <link
@@ -103,24 +113,24 @@ export class LayoutSidebar extends Layout {
         <link rel="stylesheet" href="resolve:@rocket/launch/css/style.css" />
       `,
 
-      header__10_logo: html`
+      header__10: html`
         <a class="logo-link" href="/">
           <img src="/icon.svg" alt="${this.options.logoAlt}" />
           <span>${this.options.siteName}</span>
         </a>
       `,
 
-      header__20_mobile_trigger: () => html`
+      header__20: () => html`
         <button id="mobile-menu-trigger" data-action="trigger-mobile-menu">
           <span class="sr-only">Show Menu</span>
           ${burgerSvg}
         </button>
       `,
 
-      header__50_menu: data =>
+      header__50: data =>
         this.options.pageTree.renderMenu(new SiteMenu(), data.sourceRelativeFilePath),
 
-      header__60_social: () =>
+      header__60: () =>
         html`
           ${this.options.socialLinks.map(
             socialLink => html`
@@ -134,30 +144,31 @@ export class LayoutSidebar extends Layout {
                 <span class="sr-only">${socialLink.name}</span>
                 ${socialLink.image
                   ? html`<img src="${socialLink.image}" alt="${socialLink.alt}" />`
-                  : socialIcons[socialLink.name.toLowerCase()]}
+                  : // @ts-ignore
+                    socialIcons[socialLink.name.toLowerCase()]}
               </a>
             `,
           )}
         `,
 
-      sidebar__10_logo: html`
+      sidebar__10: html`
         <a class="logo-link" href="/">
           <img src="${this.options.logoSrc}" alt="${this.options.logoAlt}" />
           <span>${this.options.siteName}</span>
         </a>
       `,
 
-      sidebar__100_nav: data =>
+      sidebar__100: data =>
         this.options.pageTree.renderMenu(new IndexMenu(), data.sourceRelativeFilePath),
 
-      content__600_previous_next: data => html`
+      content__600: data => html`
         <div class="content-previous-next">
           ${this.options.pageTree.renderMenu(new PreviousMenu(), data.sourceRelativeFilePath)}
           ${this.options.pageTree.renderMenu(new NextMenu(), data.sourceRelativeFilePath)}
         </div>
       `,
 
-      content__650_edit: data => html`
+      content__650: data => html`
         <div class="content-footer">
           <p>
             Caught a mistake or want to contribute to the documentation?
@@ -170,7 +181,7 @@ export class LayoutSidebar extends Layout {
         </div>
       `,
 
-      footer__100_menu: html`
+      footer__100: html`
         <div id="footer-menu">
           ${this.options.footerMenu.map(
             category => html`
@@ -191,12 +202,12 @@ export class LayoutSidebar extends Layout {
         </div>
       `,
 
-      bottom__50_navigation_js: html`
+      bottom__50: html`
         <script type="module" src="resolve:@rocket/drawer/define"></script>
         <script type="module" src="resolve:@rocket/launch/js/init-mobile-navigation.js"></script>
       `,
 
-      bottom__60_service_worker_registration: data => {
+      bottom__60: data => {
         if (data.renderMode === 'production') {
           return html`<script
             type="module"
@@ -205,7 +216,7 @@ export class LayoutSidebar extends Layout {
         }
         return nothing;
       },
-    });
+    };
   }
 
   renderContent() {

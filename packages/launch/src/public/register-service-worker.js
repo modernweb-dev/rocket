@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 (async () => {
   if ('serviceWorker' in navigator) {
     const { Workbox } = await import('workbox-window');
 
+    // @ts-ignore
     const url = window.__rocketServiceWorkerUrl || '/service-worker.js';
     const wb = new Workbox(url);
     wb.addEventListener('message', event => {

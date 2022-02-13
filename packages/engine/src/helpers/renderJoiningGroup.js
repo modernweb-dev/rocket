@@ -1,6 +1,8 @@
+// TODO: is there a way to not need any for options? 🤔
+
 /**
  * @param {string} groupName
- * @param {Record<string, unknown>} options
+ * @param {any} options
  * @param {Record<string, unknown>} data
  * @returns {Array<import('lit').TemplateResult>}
  */
