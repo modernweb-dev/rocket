@@ -14,7 +14,6 @@
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/tools/engine/",
   "main": "./src/index.js",
-  "types": "./dist-types/src/index.d.ts",
   "type": "module",
   "exports": {
     ".": {
@@ -49,5 +48,16 @@
     "es-module-lexer": "^0.9.3",
     "plugins-manager": "^0.3.0",
     "sax-wasm": "^2.1.1"
+  },
+  "types": "./dist-types/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist-types/src/index.d.ts"
+      ],
+      "server": [
+        "./dist-types/src/index.server.d.ts"
+      ]
+    }
   }
 }
