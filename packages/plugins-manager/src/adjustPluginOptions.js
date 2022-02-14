@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /** @typedef {import('../types/main.js').Plugin} Plugin */
 
 /**
@@ -37,10 +38,12 @@ export function adjustPluginOptions(plugin, mergeOptions) {
     }
 
     if (isFunction(mergeOptions)) {
+      // @ts-ignore
       plugins[index].options = mergeOptions(plugins[index].options);
     } else if (isObject(plugins[index].options)) {
       plugins[index].options = { ...plugins[index].options, ...mergeOptions };
     } else {
+      // @ts-ignore
       plugins[index].options = mergeOptions;
     }
 

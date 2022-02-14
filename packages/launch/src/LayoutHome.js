@@ -63,9 +63,7 @@ export class LayoutHome extends LayoutSidebar {
   }
 
   renderContent() {
-    this.setGlobalOptions({
-      bodyLayout: this.options.background ? 'layout-home-background' : 'layout-home',
-    });
+    this.options.bodyLayout = this.options.background ? 'layout-home-background' : 'layout-home';
 
     return html`
       <div id="content-wrapper">

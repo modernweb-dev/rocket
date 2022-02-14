@@ -15,16 +15,9 @@ export class Layout {
   };
 
   constructor(options = {}) {
-    this.setGlobalOptions(options);
+    this.options = { ...this.options, ...options };
     this.data = {};
     this.pageOptions = new Map();
-  }
-
-  /**
-   * @param {Record<string, unknown>} options
-   */
-  setGlobalOptions(options) {
-    this.options = { ...this.options, ...options };
   }
 
   /**
@@ -107,7 +100,7 @@ export class Layout {
 
     const originalOptions = { ...this.options };
     if (this.pageOptions.has(data.sourceRelativeFilePath)) {
-      this.setGlobalOptions(this.pageOptions.get(data.sourceRelativeFilePath));
+      this.options = { ...this.options, ...this.pageOptions.get(data.sourceRelativeFilePath) };
     }
 
     const output = this.renderHtml();

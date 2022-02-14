@@ -4,10 +4,8 @@ import { html } from 'lit-html';
 export class LayoutSidebar extends Layout {
   constructor(options) {
     super(options);
-    this.setGlobalOptions({
-      sidebar__20_nav: data =>
-        this.options.pageTree.renderMenu(new SiteMenu(), data.sourceRelativeFilePath),
-    });
+    this.options.sidebar__20 = data =>
+      this.options.pageTree.renderMenu(new SiteMenu(), data.sourceRelativeFilePath);
   }
 
   renderContent() {

@@ -81,20 +81,17 @@ export class LayoutSidebar extends Layout {
           <meta property="og:url" content="${data.url}" />
         `;
       },
-      // icons https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
       head__20: html`
         <link rel="icon" href="/favicon.ico" sizes="any" /><!-- 32x32 -->
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" /><!-- 180x180 -->
         <link rel="manifest" href="/manifest.webmanifest" />
       `,
-
       head__30: html`
         <meta property="og:site_name" content="${this.options.siteName}" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
       `,
-
       head__40: html`
         <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 

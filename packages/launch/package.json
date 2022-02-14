@@ -1,6 +1,6 @@
 {
   "name": "@rocket/launch",
-  "version": "0.20.0-alpha.0",
+  "version": "0.20.0-alpha.1",
   "publishConfig": {
     "access": "public"
   },
@@ -33,15 +33,16 @@
   "scripts": {
     "analyze": "cem analyze --litelement",
     "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
-    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test"
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
   },
   "files": [
+    "__public",
     "*.js",
     "assets",
     "css",
-    "inline-notification",
-    "js",
-    "preset",
+    "custom-elements.json",
+    "dist-types",
     "src"
   ],
   "keywords": [

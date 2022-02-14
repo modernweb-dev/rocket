@@ -6,12 +6,10 @@ type TemplateValue =
   | ((data: any) => TemplateResult)
   | string
   | ((data: any) => string)
-//  | nothing  // allowing nothing here prevents setting data to any for functions?
+  //  | nothing  // allowing nothing here means we loos inference of data in the functions?
   | ((data: any) => nothing);
 
 type LayoutValue = TemplateResult | string;
-
-// type number = '0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8'|'9';
 
 type TemplateValueKey<Str extends string> = `${Str}__${number}`;
 
@@ -33,36 +31,83 @@ export interface LayoutSidebarOptions extends LayoutOptions {
   footerMenu: {
     name: string;
     children: {
-      text: string;
+      text: LayoutValue;
       href: string;
     }[];
   }[];
   titleWrapperFn: (title: string) => string;
   pageTree: PageTree;
 
+  /**
+   * Sets primary html metadata like
+   * - charset
+   * - viewport
+   * - title
+   * - ...
+   */
   head__10: TemplateValue;
   /**
-   * Defines the icons according to
+   * Defines the icons/favicons according to
    * https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
    */
   head__20: TemplateValue;
+  /**
+   * social media meta tags
+   */
   head__30: TemplateValue;
+  /**
+   * defines stylesheets (+ font loading)
+   */
   head__40: TemplateValue;
 
+  /**
+   * linked logo
+   */
   header__10: TemplateValue;
+  /**
+   * burger menu button for mobile drawer
+   */
   header__20: TemplateValue;
+  /**
+   * site navigation
+   */
   header__50: TemplateValue;
+  /**
+   * social media links
+   */
   header__60: TemplateValue;
 
+  /**
+   * linked logo in the mobile drawer
+   */
   sidebar__10: TemplateValue;
+
+  /**
+   * index menu (main navigation) on the left
+   */
   sidebar__100: TemplateValue;
 
+  /**
+   * previous /  next navigation after main content
+   */
   content__600: TemplateValue;
+  /**
+   * edit on github link
+   */
   content__650: TemplateValue;
 
+  /**
+   * footer navigation
+   */
   footer__100: TemplateValue;
 
+  /**
+   * load drawer and init burger menu
+   */
   bottom__50: TemplateValue;
+  /**
+   * register service worker only during production build
+   */
   bottom__60: TemplateValue;
 }
 
