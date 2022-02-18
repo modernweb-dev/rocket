@@ -6,7 +6,7 @@ export { layout };
 
 import { html } from 'lit-html';
 
-layout.setOptions(sourceRelativeFilePath, {
+layout.setPageOptions(sourceRelativeFilePath, {
   lang: 'de-DE',
   content__10: html`<p>content__10</p>`,
 });

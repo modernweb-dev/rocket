@@ -6,7 +6,7 @@ export { layout };
 
 import { html } from 'lit-html';
 
-layout.setOptions(sourceRelativeFilePath, {
+layout.setPageOptions(sourceRelativeFilePath, {
   content__10: data => html`<p>content__10 ${data.magic}</p>`,
 });
 

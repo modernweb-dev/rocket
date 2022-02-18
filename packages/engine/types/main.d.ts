@@ -1,4 +1,4 @@
-import { Plugin, MetaPlugin } from 'plugins-manager';
+import { MetaPlugin } from 'plugins-manager';
 
 export interface EngineOptions {
   docsDir: string;
@@ -7,11 +7,11 @@ export interface EngineOptions {
   open: boolean;
   plugins: EnginePlugin[];
   defaultPlugins: MetaPluginOfEngine[];
-  setupPlugins: MetaPlugin[];
+  setupPlugins: MetaPluginOfEngine[];
   renderMode: 'development' | 'production';
 }
 
-export interface EnginePlugin extends Plugin {
+export class EnginePlugin {
   static publicFolder: string;
 }
 

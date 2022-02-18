@@ -1,10 +1,13 @@
-import { Node, TreeModel } from '@dakmor/tree-model';
-import { TemplateResult } from 'lit';
+import { Node, TreeModel } from '@d4kmor/tree-model';
+import { TemplateResult, nothing } from 'lit';
 
-export class Page {
-  level: string;
+export type Page = {
+  level: number;
+  name: string;
   url: string;
-  children: Node<Page>;
+  current?: boolean;
+  sourceRelativeFilePath?: string;
+  // children: Node<Page>;
   menuOrder?: number;
   menuLinkText?: string;
   releaseDateTime?: string;
@@ -18,7 +21,6 @@ export class Page {
     id: string;
     level: number;
   }>;
-  // tableOfContentsNode
 }
 
 export type NodeOfPage = Node<Page>;
@@ -30,7 +32,7 @@ export interface MenuOptions {
 }
 
 export interface IndexMenuOptions extends MenuOptions {
-  navWrapper: (nav: TemplateResult | nothing) => TemplateResult;
+  navWrapper: (nav: TemplateResult | typeof nothing) => TemplateResult;
 }
 
 export interface ChildListMenuOptions extends MenuOptions {
@@ -38,7 +40,7 @@ export interface ChildListMenuOptions extends MenuOptions {
 }
 
 export interface TableOfContentsMenuOptions extends MenuOptions {
-  navWrapper: (nav: TemplateResult | nothing) => TemplateResult;
+  navWrapper: (nav: TemplateResult | typeof nothing) => TemplateResult;
   navLabel: string | TemplateResult;
   navHeader: string | TemplateResult;
 }

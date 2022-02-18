@@ -1,4 +1,5 @@
 import { DevServerConfig } from '@web/dev-server';
+import { MetaPlugin } from 'plugins-manager';
 // import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
 import { ImagePreset, RocketPreset } from './preset.js';
 export { ImagePreset, RocketPreset };
@@ -37,16 +38,16 @@ export interface RocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   // advanced
   devServer?: DevServerConfig;
   build?: any; // TODO: improve
-  plugins?: RocketPlugin[];
+  plugins?: RocketCliPlugin[];
 
   // rarely used
   configFile?: string;
   outputDevDir?: string;
 }
 
-export type RocketPlugin = {
-  setupCommand?(program?: Command, cli: RocketCli): void;
+export class RocketCliPlugin {
+  setupCommand?(program: Command, cli: RocketCli): void;
   stop?(): void;
-};
+}
 
-export type MetaPluginOfRocket = MetaPlugin<RocketPlugin>;
+export type MetaPluginOfRocketCli = MetaPlugin<RocketCliPlugin>;

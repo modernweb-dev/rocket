@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import path from 'path';
 import { TreeModel } from '@d4kmor/tree-model';
@@ -16,7 +17,7 @@ import { existsSync } from 'fs';
 /**
  * @param {NodeOfPage} child
  * @param {NodeOfPage} tree
- * @returns {NodeOfPage}
+ * @returns {NodeOfPage | undefined}
  */
 function findParent(child, tree) {
   return tree.first(
@@ -31,7 +32,7 @@ function findParent(child, tree) {
 /**
  * @param {NodeOfPage} child
  * @param {NodeOfPage} tree
- * @returns {NodeOfPage}
+ * @returns {NodeOfPage | undefined}
  */
 function findSelf(child, tree) {
   return tree.first(
@@ -266,7 +267,7 @@ export class PageTree {
   /**
    *
    * @param {string} sourceRelativeFilePath
-   * @returns {NodeOfPage | null}
+   * @returns {NodeOfPage | undefined}
    */
   getPage(sourceRelativeFilePath) {
     if (this.tree) {
@@ -275,7 +276,7 @@ export class PageTree {
         entry => entry.model.sourceRelativeFilePath === sourceRelativeFilePath,
       );
     }
-    return null;
+    return undefined;
   }
 
   /**

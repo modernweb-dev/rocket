@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Menu } from './Menu.js';
 
 /** @typedef {import('lit').TemplateResult} TemplateResult */
 /** @typedef {import('../../../types/menu.js').NodeOfPage} NodeOfPage */
+/** @typedef {import('../../../types/menu.js').TreeModelOfPage} TreeModelOfPage */
 /** @typedef {import('../../../types/menu.js').TableOfContentsMenuOptions} TableOfContentsMenuOptions */
 
 import { html } from 'lit-html';
@@ -10,7 +12,7 @@ import { nothing } from 'lit';
 /**
  * @param {object} options
  * @param {{ text: string; id: string; level: number }[]} options.headlinesWithId
- * @param {NodeOfPage} options.treeModel
+ * @param {TreeModelOfPage} options.treeModel
  * @returns
  */
 function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
@@ -23,6 +25,7 @@ function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
         name: text,
         url: `#${id}`,
         level,
+        headlinesWithId: [],
       });
       if (node) {
         if (level <= currentLevel) {
@@ -58,7 +61,7 @@ export class TableOfContentsMenu extends Menu {
     ...this.options,
     navLabel: 'Table of Contents',
     navHeader: html`<h2>Contents</h2>`,
-    /** @param {TemplateResult} nav */
+    /** @param {TemplateResult | nothing} nav */
     navWrapper: nav => html`<aside>${nav}</aside>`,
   };
 
@@ -83,7 +86,7 @@ export class TableOfContentsMenu extends Menu {
    * @returns {TemplateResult | nothing}
    */
   render() {
-    if (!this.currentNode) {
+    if (!this.currentNode || !this.treeModel) {
       return nothing;
     }
 

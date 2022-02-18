@@ -9,7 +9,7 @@ import path from 'path';
 import { rm } from 'fs/promises';
 import { mergeDeep } from './helpers/mergeDeep.js';
 
-/** @typedef {import('../types/main.js').RocketPlugin} RocketPlugin */
+/** @typedef {import('../types/main.js').RocketCliPlugin} RocketPlugin */
 /** @typedef {import('../types/main.js').RocketCliOptions} RocketCliOptions */
 /** @typedef {import('../types/preset.js').ImagePreset} ImagePreset */
 
@@ -68,17 +68,18 @@ export class RocketCli {
     // @ts-ignore
     this.options = mergeDeep(this.options, newOptions);
 
-    /** @type {import('../types/main.js').MetaPluginOfRocket} */
+    /** @type {import('../types/main.js').MetaPluginOfRocketCli[]} */
     let pluginsMeta = [
-      { plugin: RocketStart },
-      { plugin: RocketBuild },
-      { plugin: RocketInit },
+      { plugin: RocketStart, options: {} },
+      { plugin: RocketBuild, options: {} },
+      { plugin: RocketInit, options: {} },
       // { plugin: RocketLint },
       // { plugin: RocketUpgrade}
     ];
 
     if (Array.isArray(this.options.setupCliPlugins)) {
       for (const setupFn of this.options.setupCliPlugins) {
+        // @ts-ignore
         pluginsMeta = setupFn(pluginsMeta);
       }
     }
@@ -88,7 +89,9 @@ export class RocketCli {
     for (const pluginObj of pluginsMeta) {
       /** @type {RocketPlugin} */
       let pluginInst = pluginObj.options
+        // @ts-ignore
         ? new pluginObj.plugin(pluginObj.options)
+        // @ts-ignore
         : new pluginObj.plugin();
       this.options.plugins.push(pluginInst);
     }
@@ -161,11 +164,11 @@ export class RocketCli {
         ];
       }
       if (preset.setupCliPlugins) {
-        this.options.setupCliPlugins = [...this.options.setupCliPlugins, ...preset.setupCliPlugins];
+        this.options.setupCliPlugins = [...(this.options.setupCliPlugins || []), ...preset.setupCliPlugins];
       }
       if (preset.setupEnginePlugins) {
         this.options.setupEnginePlugins = [
-          ...this.options.setupEnginePlugins,
+          ...(this.options.setupEnginePlugins || []),
           ...preset.setupEnginePlugins,
         ];
       }

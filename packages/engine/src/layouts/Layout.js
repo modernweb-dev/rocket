@@ -6,7 +6,25 @@ import { classMap } from 'lit/directives/class-map.js';
 /** @typedef {import('lit').TemplateResult} TemplateResult */
 
 export class Layout {
-  /** @type {import('../../types/layout.js').LayoutOptions} */
+  /**
+   * Options for this layout.
+   *
+   * ⚠️ changes effect all following pages using this layout
+   * => mostly useful in recursive.data.js and local.data.js files
+   *
+   * If you want to change only the current page, use `setPageOptions`
+   *
+   * Example: append html to content only for this page
+   * @example
+   * layout.setPageOptions(sourceRelativeFilePath,
+   *   {
+   *     content__510: html`
+   *       <p>appended only on this page</p>
+   *     `
+   *   }
+   * );
+   *
+   * @type {import('../../types/layout.js').LayoutOptions} */
   options = {
     lang: 'en-US',
     bodyClasses: {},
@@ -21,11 +39,10 @@ export class Layout {
   }
 
   /**
-   *
    * @param {string} sourceRelativeFilePath
-   * @param {import('../../types/layout.js').LayoutOptions} options
+   * @param {Partial<import('../../types/layout.js').LayoutOptions>} options
    */
-  setOptions(sourceRelativeFilePath, options) {
+  setPageOptions(sourceRelativeFilePath, options) {
     if (this.pageOptions.has(sourceRelativeFilePath)) {
       this.pageOptions.set(sourceRelativeFilePath, {
         ...this.pageOptions.get(sourceRelativeFilePath),
@@ -91,7 +108,7 @@ export class Layout {
   }
 
   /**
-   * @param {Record<string, unknown>} data
+   * @param {import('../../types/layout.js').renderOptions} data
    * @returns {TemplateResult}
    */
   render(data) {

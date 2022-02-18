@@ -37,6 +37,9 @@ export class ChildListMenu extends Menu {
    * @returns {boolean}
    */
   childCondition(node) {
+    if (!this.currentNode) {
+      return true;
+    }
     const depth = node.model.level - this.currentNode.model.level;
     return depth < this.options.maxDepth;
   }
@@ -46,6 +49,9 @@ export class ChildListMenu extends Menu {
    * @returns {TemplateResult | nothing}
    */
   link(node) {
+    if (!this.currentNode) {
+      return nothing;
+    }
     const depth = node.model.level - this.currentNode.model.level;
     const current = node === this.currentNode ? 'page' : undefined;
     let url = node.model.url;

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { renderJoiningGroup, html } from '@rocket/engine';
 import { LayoutSidebar } from './LayoutSidebar.js';
 
 import { nothing } from 'lit';
 
 export class LayoutHome extends LayoutSidebar {
-   /** @type {import('../types/layout.js').LayoutHomeOptions} */
+  /** @type {import('../types/layout.js').LayoutHomeOptions} */
   options = {
     ...this.options,
     background: '',
@@ -55,10 +56,11 @@ export class LayoutHome extends LayoutSidebar {
   };
 
   /**
-   * @param {import('../types/layout.js').LayoutHomeOptions} options 
+   * @param {Partial<import('../types/layout.js').LayoutHomeOptions>} options
    */
   constructor(options) {
     super(options);
+    // @ts-ignore
     this.options = { ...this.options, ...options };
   }
 

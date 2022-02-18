@@ -17,7 +17,7 @@ export class Menu {
     type: 'menu',
   };
 
-  /** @type {import('../../../types/menu.js').TreeModelOfPage} */
+  /** @type {import('../../../types/menu.js').TreeModelOfPage | undefined} */
   treeModel;
 
   constructor(options = {}) {
@@ -55,8 +55,8 @@ export class Menu {
    */
   listItem(node) {
     const cssClasses = {
-      'web-menu-active': node.model.active && !node.model.current,
-      'web-menu-current': node.model.current,
+      'web-menu-active': !!(node.model.active && !node.model.current),
+      'web-menu-current': !!node.model.current,
     };
     return html`
       <li class=${classMap(cssClasses)}>

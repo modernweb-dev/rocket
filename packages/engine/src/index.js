@@ -20,3 +20,4 @@ export { TableOfContentsMenu } from './web-menu/menus/TableOfContentsMenu.js';
 export { ChildListMenu } from './web-menu/menus/ChildListMenu.js';
 
 /** @typedef {import('../types/layout.js').LayoutOptions} LayoutOptions */
+/** @typedef {import('../types/main.js').MetaPluginOfEngine} MetaPluginOfEngine */

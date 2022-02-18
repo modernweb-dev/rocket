@@ -26,7 +26,26 @@ const socialIcons = {
 };
 
 export class LayoutSidebar extends Layout {
-  /** @type {import('../types/layout.js').LayoutSidebarOptions} */
+  /**
+   * Options for this layout.
+   *
+   * ⚠️ changes effect all following pages using this layout
+   * => mostly useful in recursive.data.js and local.data.js files
+   *
+   * If you want to change only the current page, use `setPageOptions`
+   *
+   * Example: append html to sidebar only for this page
+   * @example
+   * layout.setPageOptions(sourceRelativeFilePath,
+   *   {
+   *     sidebar__70: html`
+   *       <p>appended only on this page</p>
+   *     `
+   *   }
+   * );
+   *
+   * @type {import('../types/layout.js').LayoutSidebarOptions}
+   */
   options = {
     ...this.options,
     siteName: 'Rocket',
@@ -51,6 +70,14 @@ export class LayoutSidebar extends Layout {
   };
 
   /**
+   * @param {string} sourceRelativeFilePath
+   * @param {Partial<import('../types/layout.js').LayoutSidebarOptions>} options
+   */
+  setPageOptions(sourceRelativeFilePath, options) {
+    super.setPageOptions(sourceRelativeFilePath, options);
+  }
+
+  /**
    * @param {Partial<import('../types/layout.js').LayoutSidebarOptions>} options
    */
   constructor(options) {
@@ -63,6 +90,7 @@ export class LayoutSidebar extends Layout {
       head__10: data => {
         const description = data.description ? data.description : this.options.description;
         const title = this.options.titleWrapperFn(
+          // @ts-ignore
           this.options.pageTree.getPage(data.sourceRelativeFilePath)?.model?.name,
         );
         return html`
@@ -204,6 +232,7 @@ export class LayoutSidebar extends Layout {
         <script type="module" src="resolve:@rocket/launch/js/init-mobile-navigation.js"></script>
       `,
 
+      // @ts-ignore
       bottom__60: data => {
         if (data.renderMode === 'production') {
           return html`<script

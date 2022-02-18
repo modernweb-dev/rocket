@@ -6,8 +6,8 @@ type TemplateValue =
   | ((data: any) => TemplateResult)
   | string
   | ((data: any) => string)
-  //  | nothing  // allowing nothing here means we loos inference of data in the functions?
-  | ((data: any) => nothing);
+  | typeof nothing
+  | ((data: any) => typeof nothing);
 
 type LayoutValue = TemplateResult | string;
 
@@ -47,12 +47,12 @@ export interface LayoutSidebarOptions extends LayoutOptions {
    */
   head__10: TemplateValue;
   /**
-   * Defines the icons/favicons according to
+   * Defines the icons/favicon according to
    * https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs
    */
   head__20: TemplateValue;
   /**
-   * social media meta tags
+   * Social media meta tags
    */
   head__30: TemplateValue;
   /**

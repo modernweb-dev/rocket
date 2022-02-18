@@ -20,6 +20,9 @@
     },
     {
       "path": "../engine/tsconfig.json"
+    },
+    {
+      "path": "../cli/tsconfig.json"
     }
   ],
   "include": [

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { addPlugin } from 'plugins-manager';
 // import { adjustPluginOptions } from 'plugins-manager';
 // import { addPlugin } from 'plugins-manager';
@@ -49,6 +50,7 @@ class EnginePluginLaunch {
 }
 
 export function rocketLaunch() {
+  // @ts-ignore
   return /** @type {import('@rocket/cli').RocketPreset} */ ({
     setupEnginePlugins: [addPlugin(EnginePluginLaunch)],
     adjustSettings: settings => {
