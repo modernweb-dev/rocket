@@ -16,7 +16,9 @@ export class NextMenu extends Menu {
     }
 
     // 1. check children
-    let next = this.currentNode.first(/** @param {NodeOfPage} el */el => el !== this.currentNode && !el.model.menuNoLink);
+    let next = this.currentNode.first(
+      /** @param {NodeOfPage} el */ el => el !== this.currentNode && !el.model.menuNoLink,
+    );
 
     // 2. check parents (and their children) in reverse order
     if (!next) {

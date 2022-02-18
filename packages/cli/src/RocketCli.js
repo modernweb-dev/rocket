@@ -89,10 +89,10 @@ export class RocketCli {
     for (const pluginObj of pluginsMeta) {
       /** @type {RocketPlugin} */
       let pluginInst = pluginObj.options
-        // @ts-ignore
-        ? new pluginObj.plugin(pluginObj.options)
-        // @ts-ignore
-        : new pluginObj.plugin();
+        ? // @ts-ignore
+          new pluginObj.plugin(pluginObj.options)
+        : // @ts-ignore
+          new pluginObj.plugin();
       this.options.plugins.push(pluginInst);
     }
 
@@ -164,7 +164,10 @@ export class RocketCli {
         ];
       }
       if (preset.setupCliPlugins) {
-        this.options.setupCliPlugins = [...(this.options.setupCliPlugins || []), ...preset.setupCliPlugins];
+        this.options.setupCliPlugins = [
+          ...(this.options.setupCliPlugins || []),
+          ...preset.setupCliPlugins,
+        ];
       }
       if (preset.setupEnginePlugins) {
         this.options.setupEnginePlugins = [

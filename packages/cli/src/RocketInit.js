@@ -54,6 +54,12 @@ export class RocketInit {
           start: 'NODE_DEBUG=engine:rendering rocket start --open',
           build: 'NODE_DEBUG=engine:rendering rocket build',
         },
+        imports: {
+          '#images/*': './docs/__shared/*',
+        },
+        exports: {
+          '.': './src/index.js',
+        },
       },
       { spaces: 2 },
     );

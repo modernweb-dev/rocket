@@ -1,8 +1,8 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '10--guides/10--first-pages/20--custom-layout.rocket.md';
-import { pageTree, footerMenu } from '../../recursive.data.js';
-export { pageTree, footerMenu };
+import { pageTree } from '../../recursive.data.js';
+export { pageTree };
 /* END - Rocket auto generated - do not touch */
 
 import { html } from 'lit-html';

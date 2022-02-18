@@ -50,9 +50,9 @@
     "preset"
   ],
   "dependencies": {
+    "@rocket/cli": "^0.20.0-alpha.10",
     "@rocket/drawer": "^0.1.3",
     "@rocket/engine": "^0.1.0-alpha.10",
-    "@rocket/cli": "^0.20.0-alpha.10",
     "lit": "^2.0.0",
     "workbox-window": "^6.1.5"
   },

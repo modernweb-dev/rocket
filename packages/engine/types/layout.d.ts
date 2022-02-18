@@ -28,7 +28,6 @@ export interface LayoutOptions {
   content__500: TemplateValue;
 }
 
-
 export interface renderOptions {
   content: TemplateResult | string | typeof nothing;
   [key: string]: unknown;

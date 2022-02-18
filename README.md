@@ -61,7 +61,7 @@ Rocket is part of the [Modern Web Family](https://twitter.com/modern_web_dev).
 mkdir test-rocket
 cd test-rocket
 npm init -y
-npm i @rocket/cli@alpha @rocket/launch@alpha
+npm i @rocket/cli@alpha @rocket/launch@alpha @11ty/eleventy-cache-assets typescript
 npx rocket init
 ```
 

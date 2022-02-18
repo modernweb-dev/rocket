@@ -13,6 +13,7 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/",
+  "main": "./src/index.js",
   "bin": {
     "rocket": "src/cli.js"
   },
@@ -62,7 +63,6 @@
     "gray-matter": "^4.0.3",
     "plugins-manager": "^0.3.0"
   },
-  "main": "./src/index.js",
   "types": "./dist-types/src/index.d.ts",
   "typesVersions": {
     "*": {

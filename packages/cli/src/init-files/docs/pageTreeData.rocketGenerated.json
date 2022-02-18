@@ -26,7 +26,7 @@
       "level": 1,
       "children": [
         {
-          "title": "First Pages asdf | Rocket",
+          "title": "First Pages | Rocket",
           "h1": "First Pages",
           "menuNoLink": true,
           "name": "First Pages",
@@ -49,36 +49,6 @@
                   "text": "Setup",
                   "id": "setup",
                   "level": 2
-                },
-                {
-                  "text": "Step 1. Initialize the Project Package",
-                  "id": "step-1-initialize-the-project-package",
-                  "level": 3
-                },
-                {
-                  "text": "Step 2. Install dependencies",
-                  "id": "step-2-install-dependencies",
-                  "level": 3
-                },
-                {
-                  "text": "Step 3. Bootstrap the project",
-                  "id": "step-3-bootstrap-the-project",
-                  "level": 3
-                },
-                {
-                  "text": "Add your First Page",
-                  "id": "add-your-first-page",
-                  "level": 2
-                },
-                {
-                  "text": "Startup",
-                  "id": "startup",
-                  "level": 2
-                },
-                {
-                  "text": "Taking Inventory Before Adding Pages:",
-                  "id": "taking-inventory-before-adding-pages",
-                  "level": 2
                 }
               ],
               "name": "Getting Started",
@@ -89,13 +59,6 @@
               "level": 3
             },
             {
-              "title": "undefined | Rocket",
-              "name": "Custom Layout",
-              "menuLinkText": "Custom Layout",
-              "url": "/guides/first-pages/custom-layout/",
-              "outputRelativeFilePath": "guides/first-pages/custom-layout/index.html",
-              "sourceRelativeFilePath": "10--guides/10--first-pages/20--custom-layout.rocket.md",
-              "level": 3,
               "h1": "Custom Layout",
               "headlinesWithId": [
                 {
@@ -103,7 +66,30 @@
                   "id": "custom-layout",
                   "level": 1
                 }
-              ]
+              ],
+              "name": "Custom Layout",
+              "menuLinkText": "Custom Layout",
+              "url": "/guides/first-pages/custom-layout/",
+              "outputRelativeFilePath": "guides/first-pages/custom-layout/index.html",
+              "sourceRelativeFilePath": "10--guides/10--first-pages/20--custom-layout.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Images | Rocket",
+              "h1": "Images",
+              "headlinesWithId": [
+                {
+                  "text": "Images",
+                  "id": "images",
+                  "level": 1
+                }
+              ],
+              "name": "Images",
+              "menuLinkText": "Images",
+              "url": "/guides/first-pages/images/",
+              "outputRelativeFilePath": "guides/first-pages/images/index.html",
+              "sourceRelativeFilePath": "10--guides/10--first-pages/20--images.rocket.md",
+              "level": 3
             }
           ]
         }
@@ -111,20 +97,25 @@
     },
     {
       "title": "Documentation | Rocket",
-      "h1": "Documentation",
-      "headlinesWithId": [
-        {
-          "text": "Documentation",
-          "id": "documentation",
-          "level": 1
-        }
-      ],
       "menuLinkText": "Docs",
+      "h1": "Documentation",
       "name": "Documentation",
       "url": "/docs/",
       "outputRelativeFilePath": "docs/index.html",
-      "sourceRelativeFilePath": "20--docs/index.rocket.md",
-      "level": 1
+      "sourceRelativeFilePath": "20--docs/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "title": "Star Wars | Rocket",
+          "h1": "Star Wars",
+          "name": "Star Wars",
+          "menuLinkText": "Star Wars",
+          "url": "/docs/star-wars/",
+          "outputRelativeFilePath": "docs/star-wars/index.html",
+          "sourceRelativeFilePath": "20--docs/star-wars.rocket.js",
+          "level": 2
+        }
+      ]
     }
   ]
 }

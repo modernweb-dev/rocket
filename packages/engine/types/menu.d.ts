@@ -21,7 +21,7 @@ export type Page = {
     id: string;
     level: number;
   }>;
-}
+};
 
 export type NodeOfPage = Node<Page>;
 export type TreeModelOfPage = TreeModel<Page>;

@@ -1,12 +1,13 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = 'index.rocket.js';
-import { pageTree, footerMenu } from './recursive.data.js';
-export { pageTree, footerMenu };
+import { pageTree } from './recursive.data.js';
+export { pageTree };
 /* END - Rocket auto generated - do not touch */
 
 import { html } from 'lit-html';
 
 import { LayoutHome } from '@rocket/launch';
+import { footerMenu } from './__shared/footerMenu.js';
 
 export const layout = new LayoutHome({
   pageTree,
