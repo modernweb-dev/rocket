@@ -1,0 +1,21 @@
+{
+  "name": "@example/blog",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm start",
+    "start": "NODE_DEBUG=engine:rendering rocket start --open",
+    "build": "rocket build",
+    "preview": "rocket preview"
+  },
+  "devDependencies": {
+    "@rocket/cli": "^0.20.0-alpha.11",
+    "@rocket/engine": "^0.1.0-alpha.11"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./styles/*": "./src/styles/*",
+    "./components/*": "./src/components/*"
+  }
+}

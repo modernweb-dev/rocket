@@ -78,9 +78,12 @@ export class Watcher {
           for (const event of events) {
             if (
               this._taskQueue.has(event.path) ||
+              // we exclude files here as `@parcel/watcher` does not support globs in `ignore`
+              // https://github.com/parcel-bundler/watcher/issues/64
               event.path.endsWith('pageTreeData.rocketGenerated.json') ||
               event.path.endsWith('rocketGeneratedMdInJs.js') ||
-              event.path.endsWith('rocketGeneratedFromMd.js')
+              event.path.endsWith('rocketGeneratedFromMd.js') ||
+              event.path.endsWith('-converted-html.js')
             ) {
               // file is either in queue or is the pageTreeData.rocketGenerated.json file
             } else {

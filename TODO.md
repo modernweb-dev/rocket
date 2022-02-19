@@ -12,6 +12,8 @@
 
 - write to `_site-dev` instead of `_site` while using `rocket start`
 - nested `recursive.data.js` do not overwrite the parent data
+- rocketGeneratedMdInJs => converted-md-source
+- rocketGeneratedFromMd => converted-md
 - support <!-- asdf --> in markdown
 - ssr render can just be a string concat
 

@@ -1,5 +1,6 @@
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
-export { html } from 'lit-html';
+export { html, nothing } from 'lit';
+/** @typedef {import('lit').TemplateResult} TemplateResult */
 
 export { renderJoiningGroup } from './helpers/renderJoiningGroup.js';
 export { Layout } from './layouts/Layout.js';

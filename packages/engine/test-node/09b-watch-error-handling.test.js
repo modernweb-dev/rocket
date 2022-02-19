@@ -68,4 +68,56 @@ describe('Engine start error handling', () => {
     expect(readOutput('index.html')).to.equal('index');
     await cleanup();
   });
+
+  it('03: error in markdown', async () => {
+    const { readOutput, writeSource, anEngineEvent, cleanup, engine } = await setupTestEngine(
+      'fixtures/09b-watch-error-handling/03-markdown/docs',
+    );
+    await writeSource(
+      'index.rocket.md',
+      [
+        //
+        '```js server',
+        "export const foo = 'bar';",
+        '```',
+        '# Title',
+      ].join('\n'),
+    );
+
+    await engine.start();
+    await writeSource(
+      'index.rocket.md',
+      [
+        //
+        '```js server',
+        "export const const foo = 'bar';",
+        '```',
+        '# Title',
+      ].join('\n'),
+      { format: false },
+    );
+    await anEngineEvent('rocketUpdated');
+    expect(readOutput('index.html')).to.include("Unexpected token 'const'");
+
+    await writeSource(
+      'index.rocket.md',
+      [
+        //
+        '```js server',
+        "export const foo = 'bar';",
+        '```',
+        '# Title',
+      ].join('\n'),
+    );
+    await anEngineEvent('rocketUpdated');
+
+    expect(readOutput('index.html')).to.equal(
+      [
+        '<h1 id="title">',
+        '  <a aria-hidden="true" tabindex="-1" href="#title"><span class="icon icon-link"></span></a>Title',
+        '</h1>',
+      ].join('\n'),
+    );
+    await cleanup();
+  });
 });

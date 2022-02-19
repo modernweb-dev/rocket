@@ -1,0 +1,8 @@
+{
+  "files.exclude": {
+    "**/*-mdjs-generated.js": true,
+  },
+  "search.exclude": {
+    "**/*-mdjs-generated.js": true,
+  }
+}

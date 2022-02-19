@@ -33,12 +33,11 @@
     "setup": "npm run setup:ts-configs && npm run setup:patches",
     "setup:patches": "npx patch-package",
     "setup:ts-configs": "node scripts/generate-ts-configs.mjs",
-    "xprestart": "yarn analyze",
     "start": "NODE_DEBUG=engine:rendering node packages/cli/src/cli.js start --open",
     "test": "yarn test:node && yarn test:web",
+    "test:integration": "playwright test packages/*/test-node/*.spec.js",
     "test:node": "yarn test:unit && yarn test:integration",
     "test:unit": "node --trace-warnings ./node_modules/.bin/mocha \"packages/*/test-node/**/*.test.{ts,js,mjs,cjs}\" -- --timeout 5000 --reporter dot --exit",
-    "test:integration": "playwright test packages/*/test-node/*.spec.js",
     "test:web": "web-test-runner",
     "types": "run-s types:clear types:copy types:build",
     "types:build": "tsc --build",
@@ -46,8 +45,10 @@
     "types:copy": "node scripts/workspaces-scripts-bin.mjs types:copy",
     "update-dependency": "node scripts/update-dependency.js",
     "update-esm-entrypoints": "node scripts/update-esm-entrypoints.mjs && yarn format",
-    "update-package-configs": "node scripts/update-package-configs.mjs && yarn format"
+    "update-package-configs": "node scripts/update-package-configs.mjs && yarn format",
+    "xprestart": "yarn analyze"
   },
+  "dependencies": {},
   "devDependencies": {
     "@changesets/cli": "^2.12.0",
     "@custom-elements-manifest/analyzer": "^0.4.12",
@@ -138,7 +139,7 @@
     "trailingComma": "all"
   },
   "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {}
+    "packages/*",
+    "examples/*"
+  ]
 }

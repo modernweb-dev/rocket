@@ -1,6 +1,6 @@
 {
   "name": "@rocket/cli",
-  "version": "0.20.0-alpha.10",
+  "version": "0.20.0-alpha.11",
   "publishConfig": {
     "access": "public"
   },
