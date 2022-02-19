@@ -5,4 +5,4 @@ export { layout };
 /* END - Rocket auto generated - do not touch */
 
 import { html } from 'lit-html';
-export default () => html`index`;
+export default () => html`updated index`;

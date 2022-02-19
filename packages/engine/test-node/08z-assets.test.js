@@ -10,22 +10,20 @@ async function cleanUpFetch(request) {
 }
 
 describe('Assets', () => {
-  it.only('image in index file', async () => {
+  it('image in index file', async () => {
     const { readOutput, engine, cleanup } = await setupTestEngine(
       'fixtures/08-assets/01-image-in-index/docs',
     );
     await engine.start();
-    console.log('START');
+    const { port } = engine.devServer.config;
 
-    const index = await fetch('http://localhost:8000');
-    console.log('START FETCH');
+    const index = await fetch(`http://localhost:${port}`);
     expect(readOutput('index.html')).to.equal(`<img src="../docs/test.png" alt="test" />`);
     expect(await cleanUpFetch(index)).to.equal(
       `<img src="/__wds-outside-root__/1/docs/test.png" alt="test" />`,
     );
-    console.log('START FETCH NEXT');
 
-    const about = await fetch('http://localhost:8000/about/');
+    const about = await fetch(`http://localhost:${port}/about/`);
     expect(readOutput('about/index.html')).to.equal(`<img src="../../docs/test.png" alt="test" />`);
     expect(await cleanUpFetch(about)).to.equal(
       `<img src="/__wds-outside-root__/1/docs/test.png" alt="test" />`,
@@ -39,14 +37,15 @@ describe('Assets', () => {
       'fixtures/08-assets/02-image-named-file/docs',
     );
     await engine.start();
+    const { port } = engine.devServer.config;
 
-    const index = await fetch('http://localhost:8000');
+    const index = await fetch(`http://localhost:${port}`);
     expect(readOutput('index.html')).to.equal(`<img src="../docs/test.png" alt="index" />`);
     expect(await cleanUpFetch(index)).to.equal(
       `<img src="/__wds-outside-root__/1/docs/test.png" alt="index" />`,
     );
 
-    const about = await fetch('http://localhost:8000/about/');
+    const about = await fetch(`http://localhost:${port}/about/`);
     expect(readOutput('about/index.html')).to.equal(
       `<img src="../../docs/test.png" alt="about" />`,
     );
@@ -54,7 +53,7 @@ describe('Assets', () => {
       `<img src="/__wds-outside-root__/1/docs/test.png" alt="about" />`,
     );
 
-    const components = await fetch('http://localhost:8000/components/');
+    const components = await fetch(`http://localhost:${port}/components/`);
     expect(readOutput('components/index.html')).to.equal(
       `<img src="../../docs/test.png" alt="components" />`,
     );
@@ -62,7 +61,7 @@ describe('Assets', () => {
       `<img src="/__wds-outside-root__/1/docs/test.png" alt="components" />`,
     );
 
-    const tabs = await fetch('http://localhost:8000/components/tabs/');
+    const tabs = await fetch(`http://localhost:${port}/components/tabs/`);
     expect(readOutput('components/tabs/index.html')).to.equal(
       `<img src="../../../docs/test.png" alt="tabs" />`,
     );
@@ -78,8 +77,9 @@ describe('Assets', () => {
       'fixtures/08-assets/03-multiple-images/docs',
     );
     await engine.start();
+    const { port } = engine.devServer.config;
 
-    const index = await fetch('http://localhost:8000');
+    const index = await fetch(`http://localhost:${port}`);
     expect(readOutput('index.html')).to.equal(
       `<img src="../docs/test.png" alt="index" /><img src="../docs/test.png" alt="index" />`,
     );
@@ -95,14 +95,15 @@ describe('Assets', () => {
       'fixtures/08-assets/04-link-href/docs',
     );
     await engine.start();
+    const { port } = engine.devServer.config;
 
-    const index = await fetch('http://localhost:8000');
+    const index = await fetch(`http://localhost:${port}`);
     expect(readOutput('index.html')).to.equal(`<link rel="stylesheet" href="../docs/style.css" />`);
     expect(await cleanUpFetch(index)).to.equal(
       `<link rel="stylesheet" href="/__wds-outside-root__/1/docs/style.css" />`,
     );
 
-    const about = await fetch('http://localhost:8000/about/');
+    const about = await fetch(`http://localhost:${port}/about/`);
     expect(readOutput('about/index.html')).to.equal(
       `<link rel="stylesheet" href="../../docs/style.css" />`,
     );
@@ -118,12 +119,13 @@ describe('Assets', () => {
       'fixtures/08-assets/05-a-href/docs',
     );
     await engine.start();
+    const { port } = engine.devServer.config;
 
-    const index = await fetch('http://localhost:8000');
+    const index = await fetch(`http://localhost:${port}`);
     expect(readOutput('index.html')).to.equal(`Index: <a href="/about/">to about</a>`);
     expect(await cleanUpFetch(index)).to.equal(`Index: <a href="/about/">to about</a>`);
 
-    const about = await fetch('http://localhost:8000/about/');
+    const about = await fetch(`http://localhost:${port}/about/`);
     expect(readOutput('about/index.html')).to.equal(`About: <a href="/">to index</a>`);
     expect(await cleanUpFetch(about)).to.equal(`About: <a href="/">to index</a>`);
 
@@ -135,14 +137,15 @@ describe('Assets', () => {
       'fixtures/08-assets/06-node-resolve-local/docs',
     );
     await engine.start();
+    const { port } = engine.devServer.config;
 
-    const index = await fetch('http://localhost:8000');
+    const index = await fetch(`http://localhost:${port}`);
     expect(readOutput('index.html')).to.equal(`<img src="../test.png" alt="test" />`);
     expect(await cleanUpFetch(index)).to.equal(
       `<img src="/__wds-outside-root__/1/test.png" alt="test" />`,
     );
 
-    const about = await fetch('http://localhost:8000/about/');
+    const about = await fetch(`http://localhost:${port}/about/`);
     expect(readOutput('about/index.html')).to.equal(`<img src="../../test.png" alt="test" />`);
     expect(await cleanUpFetch(about)).to.equal(
       `<img src="/__wds-outside-root__/1/test.png" alt="test" />`,
@@ -156,8 +159,9 @@ describe('Assets', () => {
       'fixtures/08-assets/07-node-resolve-dependency/docs',
     );
     await engine.start();
+    const { port } = engine.devServer.config;
 
-    const index = await fetch('http://localhost:8000');
+    const index = await fetch(`http://localhost:${port}`);
     expect(readOutput('index.html')).to.equal(
       `<img src="../node_modules/some-dependency/assets/test.png" alt="test" />`,
     );
@@ -165,7 +169,7 @@ describe('Assets', () => {
       `<img src="/__wds-outside-root__/1/node_modules/some-dependency/assets/test.png" alt="test" />`,
     );
 
-    const about = await fetch('http://localhost:8000/about/');
+    const about = await fetch(`http://localhost:${port}/about/`);
     expect(readOutput('about/index.html')).to.equal(
       `<img src="../../node_modules/some-dependency/assets/test.png" alt="test" />`,
     );

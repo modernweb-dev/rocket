@@ -7,8 +7,9 @@ test('reloads current window on dependency change', async ({ page }) => {
   );
   await writeSource('name.js', "export const name = 'Home';");
   await engine.start();
+  const { port } = engine.devServer.config;
 
-  await page.goto('localhost:8000');
+  await page.goto(`localhost:${port}`);
   const title = page.locator('h1');
   await expect(title).toHaveText('index');
   const name = page.locator('p');

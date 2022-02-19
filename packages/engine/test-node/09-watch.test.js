@@ -177,12 +177,13 @@ describe('Engine start', () => {
       ].join('\n'),
     );
     await engine.start();
+    const { port } = engine.devServer.config;
     // nothing is written so far
     expect(outputExists('index.html')).to.be.false;
     expect(outputExists('about/index.html')).to.be.false;
 
     // fetching it results in the file being written
-    await fetch('http://localhost:8000/');
+    await fetch(`http://localhost:${port}/`);
     expect(readOutput('index.html')).to.equal('<my-layout>index</my-layout>');
 
     // a file open in browser will rerender
@@ -206,7 +207,7 @@ describe('Engine start', () => {
     // about page is still not there
     expect(outputExists('about/index.html')).to.be.false;
     // lets make it
-    await fetch('http://localhost:8000/about/');
+    await fetch(`http://localhost:${port}/about/`);
     expect(readOutput('about/index.html')).to.equal('<my-layout>about</my-layout>');
 
     await cleanup();
@@ -276,7 +277,8 @@ describe('Engine start', () => {
     );
 
     await engine.start();
-    await fetch('http://localhost:8000/');
+    const { port } = engine.devServer.config;
+    await fetch(`http://localhost:${port}/`);
     expect(readOutput('index.html')).to.equal('<p>initialSomeDependency</p>');
 
     setAsOpenedInBrowser('index.rocket.js');
@@ -320,7 +322,8 @@ describe('Engine start', () => {
     );
 
     await engine.start();
-    await fetch('http://localhost:8000/');
+    const { port } = engine.devServer.config;
+    await fetch(`http://localhost:${port}/`);
     setAsOpenedInBrowser('index.rocket.js');
     // will not trigger a write as not part of the jsDependencies
     await writeSource('name.js', "export const name = '🚀 stage 1';");
@@ -655,12 +658,13 @@ describe('Engine start', () => {
     );
 
     await engine.start();
+    const { port } = engine.devServer.config;
     // we only fetch but don't set as opened in browser
-    await fetch('http://localhost:8000/');
+    await fetch(`http://localhost:${port}/`);
     expect(readOutput('index.html')).to.equal('<my-layout>index</my-layout>');
 
     // fetch + set opened in browser
-    await fetch('http://localhost:8000/about/');
+    await fetch(`http://localhost:${port}/about/`);
     setAsOpenedInBrowser('about.rocket.js');
     expect(readOutput('about/index.html')).to.equal('<my-layout>about</my-layout>');
 

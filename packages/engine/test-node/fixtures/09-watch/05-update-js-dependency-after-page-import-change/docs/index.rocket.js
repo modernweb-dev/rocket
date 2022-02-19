@@ -2,7 +2,7 @@
 export const sourceRelativeFilePath = 'index.rocket.js';
 /* END - Rocket auto generated - do not touch */
 
-import { name } from './name-initial.js';
+import { name } from './name.js';
 
 import { html } from 'lit-html';
 export default () => html`name: "${name}"`;
