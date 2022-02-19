@@ -28,7 +28,8 @@
       "url": "/show-data/",
       "outputRelativeFilePath": "show-data/index.html",
       "sourceRelativeFilePath": "show-data.rocket.js",
-      "level": 1
+      "level": 1,
+      "magic": "🎉"
     }
   ]
 }

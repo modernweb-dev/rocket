@@ -17,7 +17,7 @@ export class LayoutBlogPost {
         <body>
           ${blogHeader()}
           <div class="wrapper">
-            <blog-post title2=${title} author=${author} hero-image=${heroImage} publish-date=${publishDate} alt2=${alt}>
+            <blog-post title=${title} author=${author} hero-image=${heroImage} publish-date=${publishDate} alt2=${alt}>
               ${data.content()}
             </blog-post>
           </div>

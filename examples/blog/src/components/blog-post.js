@@ -1,14 +1,15 @@
 import { html, css, LitElement } from 'lit';
-// import './blog-author.js';
+import './blog-author.js';
 
 export class BlogPost extends LitElement {
   static get properties() {
     return {
-      title2: { type: String },
+      title: { type: String },
       author: { type: String },
+      authorHref: { type: String },
       publishDate: { type: String, attribute: 'publish-date' },
       heroImage: { type: String, attribute: 'hero-image' },
-      alt2: { type: String },
+      alt: { type: String },
     };
   }
 
@@ -30,7 +31,7 @@ export class BlogPost extends LitElement {
                 : ''}
               <p class="publish-date">${this.publishDate}</p>
               <h1 class="title">${this.title}</h1>
-              <blog-author2 name="@FredKSchott" href="https://twitter.com/FredKSchott"></blog-author2>
+              <blog-author name=${this.author} href=${this.authorHref}></blog-author>
             </header>
             <main>
               <slot></slot>

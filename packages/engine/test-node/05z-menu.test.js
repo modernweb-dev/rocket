@@ -220,4 +220,38 @@ describe('Engine menus', () => {
 
     await cleanup();
   });
+
+  it('06: saves all string, number exports to the pageTree', async () => {
+    const { readSource, build } = await setupTestEngine('fixtures/05-menu/06-saves-exports/docs');
+    await build();
+
+    expect(readSource('pageTreeData.rocketGenerated.json')).to.equal(
+      JSON.stringify(
+        {
+          h1: 'Welcome to Hello World!',
+          headlinesWithId: [
+            {
+              text: 'Welcome to Hello World!',
+              id: 'welcome-to-hello-world',
+              level: 1,
+            },
+          ],
+          name: 'Welcome to Hello World!',
+          menuLinkText: 'Welcome to Hello World!',
+          url: '/',
+          outputRelativeFilePath: 'index.html',
+          sourceRelativeFilePath: 'index.rocket.md',
+          level: 0,
+          author: 'Thomas Allmer (@daKmoR)',
+          authorHref: 'https://twitter.com/daKmoR',
+          description: 'Just a Hello World Post!',
+          publishDate: '12 Sep 2021',
+          title: 'Hello world!',
+          value: 128,
+        },
+        null,
+        2,
+      ),
+    );
+  });
 });

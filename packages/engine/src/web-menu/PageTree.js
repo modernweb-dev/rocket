@@ -103,6 +103,27 @@ export class PageTree {
       return;
     }
 
+    // this imports the actual source file and grabs all exported string and number values
+    const importData = {};
+    try {
+      const sourceFilePath = path.join(this.docsDir, sourceRelativeFilePath);
+      let importFilePath = sourceFilePath;
+      if (sourceFilePath.endsWith('.rocket.md')) {
+        importFilePath = sourceFilePath.replace('.rocket.md', '.rocketGeneratedFromMd.js');
+      }
+      const data = await import(importFilePath);
+      for (const [key, value] of Object.entries(data)) {
+        if (key === 'default') {
+          continue;
+        }
+        if (typeof value === 'string' || typeof value === 'number') {
+          importData[key] = value;
+        }
+      }
+    } catch (error) {
+      // if we can't import we don't add the data to the page
+    }
+
     const outputFilePath = path.join(this.outputDir, outputRelativeFilePath);
     const htmlMetaData = await getHtmlMetaData(outputFilePath);
 
@@ -118,6 +139,7 @@ export class PageTree {
       outputRelativeFilePath,
       sourceRelativeFilePath: sourceRelativeFilePath,
       level: outputRelativeFilePath.split('/').length - 1,
+      ...importData
     };
     const pageModel = this.treeModel.parse(pageData);
 

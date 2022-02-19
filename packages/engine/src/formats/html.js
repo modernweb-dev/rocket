@@ -1,6 +1,6 @@
 /**
  * @param {string} htmlString
- * @returns ${string}
+ * @returns {string}
  */
 export function htmlToJsTemplate(htmlString) {
   const lines = htmlString.split('\n');

@@ -10,17 +10,20 @@ async function cleanUpFetch(request) {
 }
 
 describe('Assets', () => {
-  it('image in index file', async () => {
+  it.only('image in index file', async () => {
     const { readOutput, engine, cleanup } = await setupTestEngine(
       'fixtures/08-assets/01-image-in-index/docs',
     );
     await engine.start();
+    console.log('START');
 
     const index = await fetch('http://localhost:8000');
+    console.log('START FETCH');
     expect(readOutput('index.html')).to.equal(`<img src="../docs/test.png" alt="test" />`);
     expect(await cleanUpFetch(index)).to.equal(
       `<img src="/__wds-outside-root__/1/docs/test.png" alt="test" />`,
     );
+    console.log('START FETCH NEXT');
 
     const about = await fetch('http://localhost:8000/about/');
     expect(readOutput('about/index.html')).to.equal(`<img src="../../docs/test.png" alt="test" />`);

@@ -1,5 +1,5 @@
 {
-  "title": "Fixed Title | Rocket",
+  "title": "Fixed Title",
   "h1": "\n    Welcome Members:\n  ",
   "headlinesWithId": [
     {
@@ -16,7 +16,7 @@
   "level": 0,
   "children": [
     {
-      "title": "Fixed Title | Rocket",
+      "title": "Fixed Title",
       "h1": "Welcome Members:",
       "headlinesWithId": [
         {

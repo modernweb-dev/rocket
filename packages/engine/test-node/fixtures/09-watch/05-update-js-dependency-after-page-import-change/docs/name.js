@@ -1,1 +1,1 @@
-export const name = '🚀 stage 2';
+export const name = 'I am name.js';

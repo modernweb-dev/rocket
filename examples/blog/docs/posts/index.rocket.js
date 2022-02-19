@@ -5,4 +5,4 @@ import { layout } from './local.data.js';
 export { html, layout };
 /* END - Rocket auto generated - do not touch */
 
-export default () => 'test';
+export default () => 'posts';
