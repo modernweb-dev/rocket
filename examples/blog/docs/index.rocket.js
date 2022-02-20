@@ -4,10 +4,11 @@ import { html } from './recursive.data.js';
 export { html };
 /* END - Rocket auto generated - do not touch */
 
-import { PageTree, Menu, nothing } from '@rocket/engine';
-
+import { PageTree, nothing } from '@rocket/engine';
 import { baseHead } from '../src/parts/baseHead.js';
-import { blogHeader } from '../src/parts/blog-header.js';
+
+import '../src/components/blog-post-preview.js';
+import '../src/components/blog-header.js';
 
 export const title = 'Example Blog';
 export const description = 'The perfect starter for your perfect blog.';
@@ -19,43 +20,19 @@ export const pageTree = new PageTree({
 });
 await pageTree.restore();
 
-class BlogMenu extends Menu {
-  /**
-   * @param {NodeOfPage} node
-   * @returns {TemplateResult | nothing}
-   */
-  renderDescription(node) {
-    if (node.model.subHeading) {
-      return html`
-        <div class="description">
-          <a href="${node.model.url}" tabindex="-1">
-            <p>${node.model.subHeading}</p>
-          </a>
-        </div>
-      `;
-    }
-    return nothing;
-  }
-
+class BlogMenu {
   /**
    * @returns {TemplateResult | nothing}
    */
   render() {
-    // console.log(this.currentNode);
     if (!this.currentNode || !this.currentNode.children) {
       return nothing;
     }
-    console.log('do', this.currentNode.children);
     return html`
       <div>
         ${this.currentNode.children.map(
           /** @param {NodeOfPage} child */ child => html`
-            <article class="post">
-              <a href="${child.model.url}">
-                <h2>${child.model.name}</h2>
-              </a>
-              ${this.renderDescription(child)}
-            </article>
+            <blog-post-preview .post=${child.model}></blog-post-preview>
           `,
         )}
       </div>
@@ -105,7 +82,7 @@ export default () => html`
     </head>
 
     <body>
-      ${blogHeader()}
+      <blog-header></blog-header>
       <div class="wrapper">
         <main class="content">
           <section class="intro">

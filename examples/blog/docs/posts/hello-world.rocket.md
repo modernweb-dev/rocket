@@ -22,6 +22,11 @@ This is so cool!
 
 Do variables work ${value * 2}?
 
+<br>
+
+---
+
+<br>
 
 There are multiple Co-Authors:
 - <blog-author name="Another Author" href="https://twitter.com/daKmoR"></blog-author>

@@ -1,44 +1,57 @@
 {
   "title": "Example Blog",
-  "h1": "Example Blog",
-  "name": "Example Blog",
-  "menuLinkText": "Example Blog",
+  "h1": "\n            \n          ",
+  "name": "\n            \n          ",
+  "menuLinkText": "\n            \n          ",
   "url": "/",
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
+  "description": "The perfect starter for your perfect blog.",
+  "permalink": "https://example.com/",
   "children": [
     {
-      "name": "Logo",
-      "menuLinkText": "Logo",
+      "title": "",
+      "h1": "",
+      "name": "posts/index.rocket.js",
+      "menuLinkText": "posts/index.rocket.js",
       "url": "/posts/",
       "outputRelativeFilePath": "posts/index.html",
       "sourceRelativeFilePath": "posts/index.rocket.js",
       "level": 1,
       "children": [
         {
-          "name": "Hello world!",
-          "menuLinkText": "Hello world!",
+          "title": "Hello world!",
+          "h1": "\n            \n          ",
+          "name": "\n            \n          ",
+          "menuLinkText": "\n            \n          ",
           "url": "/posts/hello-world/",
           "outputRelativeFilePath": "posts/hello-world/index.html",
           "sourceRelativeFilePath": "posts/hello-world.rocket.md",
           "level": 2,
-          "title": "Hello world!",
-          "h1": "Hello world!"
+          "author": "Thomas Allmer (@daKmoR)",
+          "authorHref": "https://twitter.com/daKmoR",
+          "description": "Just a Hello World Post!",
+          "publishDate": "12 Sep 2021",
+          "value": 128
         },
         {
           "title": "With Image!",
-          "h1": "With Image!",
-          "name": "With Image!",
-          "menuLinkText": "With Image!",
+          "h1": "\n            \n          ",
+          "name": "\n            \n          ",
+          "menuLinkText": "\n            \n          ",
           "url": "/posts/with-image/",
           "outputRelativeFilePath": "posts/with-image/index.html",
           "sourceRelativeFilePath": "posts/with-image.rocket.md",
-          "level": 2
+          "level": 2,
+          "author": "Thomas Allmer (@daKmoR)",
+          "authorHref": "https://twitter.com/daKmoR",
+          "description": "Now with an image!",
+          "heroImage": "./assets/liftoff-flames.jpg",
+          "publishDate": "13 Sep 2021",
+          "value": 128
         }
-      ],
-      "title": "Logo",
-      "h1": ""
+      ]
     }
   ]
 }

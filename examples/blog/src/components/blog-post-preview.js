@@ -3,21 +3,20 @@ import { html, css, LitElement } from 'lit';
 export class BlogPostPreview extends LitElement {
   static get properties() {
     return {
-      name: { type: String },
-      href: { type: String },
+      post: { type: Object },
     };
   }
 
   render() {
     return html`
-    <article class="post-preview"></article>
-	<header>
-		<p class="publish-date">{post.publishDate}</p>
-		<a href={post.url}><h1 class="title">{post.title}</h1></a>
-	</header>
-	<p>{post.description}</p>
-	<a href={post.url}>Read more</a>
-</article>
+      <article class="post-preview">
+        <header>
+          <p class="publish-date">${this.post.publishDate}</p>
+          <a href="${this.post.url}"><h1 class="title">${this.post.title}</h1></a>
+        </header>
+        <p>${this.post.description}</p>
+        <a href=${this.post.url}>Read more</a>
+      </article>
     `;
   }
 
