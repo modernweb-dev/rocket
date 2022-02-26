@@ -28,12 +28,6 @@ declare module 'rehype-autolink-headings' {
   export = unified.Plugin;
 }
 
-declare module 'rehype-prism-template' {
-  import unified from 'unified';
-
-  export = unified.Plugin;
-}
-
 declare module 'unist-util-remove' {
   import unified from 'unified';
 

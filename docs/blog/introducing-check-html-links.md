@@ -140,7 +140,7 @@ The features so far are:
 
 It checks your final HTML output so you need to execute it after your Static Site Generator.
 
-```
+```shell
 npx check-html-links _site
 ```
 

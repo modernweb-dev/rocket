@@ -23,7 +23,7 @@ Will be ordered as `First`, `Second`,
 
 Internally `# Foo >> Bar >> Baz ||20` gets converted to.
 
-```
+```yml
 ---
 title: Bar: Baz
 eleventyNavigation:

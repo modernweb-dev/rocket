@@ -4,7 +4,7 @@ Use mdjs in your Eleventy site.
 
 ## Setup
 
-```
+```shell
 npm install @rocket/eleventy-plugin-mdjs
 ```
 

@@ -20,8 +20,8 @@
     "./define": "./src/define/define.js"
   },
   "scripts": {
-    "prepublishOnly": "publish-docs --github-url https://github.com/modernweb-dev/rocket/ --git-root-dir ../../",
     "debug": "cd ../../ && npm run debug -- --group mdjs-preview",
+    "prepublishOnly": "publish-docs --github-url https://github.com/modernweb-dev/rocket/ --git-root-dir ../../",
     "test": "npm run test:web",
     "test:web": "cd ../../ && npm run test:web -- --group mdjs-preview"
   },

@@ -22,7 +22,7 @@ Read the [Introducing Check HTMl Links - no more bad links](../../blog/introduci
 
 ## Installation
 
-```
+```shell
 npm i -D check-html-links
 ```
 
