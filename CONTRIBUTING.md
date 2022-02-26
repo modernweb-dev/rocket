@@ -8,25 +8,25 @@ First, create a fork of the [modernweb-dev/rocket](https://github.com/modernweb-
 
 Next, clone our repository onto your computer.
 
-```sh
+```shell
 git clone git@github.com:modernweb-dev/rocket.git
 ```
 
 Once cloning is complete, change directory to the repository.
 
-```sh
+```shell
 cd rocket
 ```
 
 Now add your fork as a remote (replacing YOUR_USERNAME with your GitHub username).
 
-```sh
+```shell
 git remote add fork git@github.com:<YOUR_USERNAME>/rocket.git
 ```
 
 Create a new local branch.
 
-```sh
+```shell
 git checkout -b my-awesome-fix
 ```
 
@@ -34,7 +34,7 @@ git checkout -b my-awesome-fix
 
 Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed, then run the following commands to set up the development environment.
 
-```sh
+```shell
 yarn install
 ```
 
@@ -69,7 +69,7 @@ This documents your intent to release, and allows you to specify a message that 
 
 Run
 
-```sh
+```shell
 yarn changeset
 ```
 
@@ -92,7 +92,7 @@ Exceptions:
 Commit messages must follow the [conventional commit format](https://www.conventionalcommits.org/en/v1.0.0/)
 Modern-web uses package name as scope. So for example if you fix a _terrible bug_ in the package `@web/test-runner`, the commit message should look like this:
 
-```sh
+```shell
 fix(test-runner): fix terrible bug
 ```
 
@@ -100,7 +100,7 @@ fix(test-runner): fix terrible bug
 
 Now it's time to push your branch that contains your committed changes to your fork.
 
-```sh
+```shell
 git push -u fork my-awesome-fix
 ```
 

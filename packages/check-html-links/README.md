@@ -4,13 +4,13 @@ A fast checker for broken links/references in HTML.
 
 ## Installation
 
-```
+```shell
 npm i -D check-html-links
 ```
 
 ## Usage
 
-```
+```bash
 npx check-html-links _site
 ```
 
