@@ -13,10 +13,10 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/tools/plugins-manager/",
-  "main": "./dist/index.cjs",
   "type": "module",
   "exports": {
     ".": {
+      "types": "./dist-types/index.d.ts",
       "require": "./dist/index.cjs",
       "default": "./index.js"
     }
@@ -34,5 +34,5 @@
     "dist-types",
     "src"
   ],
-  "types": "dist-types/index.d.ts"
+  "types": "./dist-types/index.d.ts"
 }

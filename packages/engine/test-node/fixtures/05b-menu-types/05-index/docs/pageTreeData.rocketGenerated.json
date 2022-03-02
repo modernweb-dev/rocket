@@ -1,0 +1,122 @@
+{
+  "h1": "Home",
+  "name": "Home",
+  "menuLinkText": "Home",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "h1": "Components",
+      "name": "Components",
+      "menuLinkText": "Components",
+      "url": "/components/",
+      "outputRelativeFilePath": "components/index.html",
+      "sourceRelativeFilePath": "components/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "h1": "Content",
+          "name": "Content",
+          "menuLinkText": "Content",
+          "url": "/components/content/",
+          "outputRelativeFilePath": "components/content/index.html",
+          "sourceRelativeFilePath": "components/content/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "h1": "Accordion",
+              "name": "Accordion",
+              "menuLinkText": "Accordion",
+              "url": "/components/content/accordion/",
+              "outputRelativeFilePath": "components/content/accordion/index.html",
+              "sourceRelativeFilePath": "components/content/accordion/index.rocket.js",
+              "level": 3,
+              "children": [
+                {
+                  "h1": "Accordion Overview",
+                  "name": "Accordion Overview",
+                  "menuLinkText": "Accordion Overview",
+                  "url": "/components/content/accordion/overview/",
+                  "outputRelativeFilePath": "components/content/accordion/overview/index.html",
+                  "sourceRelativeFilePath": "components/content/accordion/10--overview.rocket.js",
+                  "level": 4
+                },
+                {
+                  "h1": "Accordion API",
+                  "name": "Accordion API",
+                  "menuLinkText": "Accordion API",
+                  "url": "/components/content/accordion/api/",
+                  "outputRelativeFilePath": "components/content/accordion/api/index.html",
+                  "sourceRelativeFilePath": "components/content/accordion/20--api.rocket.js",
+                  "level": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "h1": "Inputs",
+          "name": "Inputs",
+          "menuLinkText": "Inputs",
+          "url": "/components/inputs/",
+          "outputRelativeFilePath": "components/inputs/index.html",
+          "sourceRelativeFilePath": "components/inputs/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "h1": "Input Text",
+              "name": "Input Text",
+              "menuLinkText": "Input Text",
+              "url": "/components/inputs/input-text/",
+              "outputRelativeFilePath": "components/inputs/input-text/index.html",
+              "sourceRelativeFilePath": "components/inputs/input-text/index.rocket.js",
+              "level": 3
+            },
+            {
+              "h1": "Textarea",
+              "name": "Textarea",
+              "menuLinkText": "Textarea",
+              "url": "/components/inputs/textarea/",
+              "outputRelativeFilePath": "components/inputs/textarea/index.html",
+              "sourceRelativeFilePath": "components/inputs/textarea/index.rocket.js",
+              "level": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "h1": "Getting started",
+      "name": "Getting started",
+      "menuLinkText": "Getting started",
+      "url": "/getting-started/",
+      "outputRelativeFilePath": "getting-started/index.html",
+      "sourceRelativeFilePath": "getting-started/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "h1": "Setup",
+          "name": "Setup",
+          "menuLinkText": "Setup",
+          "url": "/getting-started/setup/",
+          "outputRelativeFilePath": "getting-started/setup/index.html",
+          "sourceRelativeFilePath": "getting-started/setup/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "h1": "Install Cli",
+              "name": "Install Cli",
+              "menuLinkText": "Install Cli",
+              "url": "/getting-started/setup/install-cli/",
+              "outputRelativeFilePath": "getting-started/setup/install-cli/index.html",
+              "sourceRelativeFilePath": "getting-started/setup/install-cli.rocket.js",
+              "level": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

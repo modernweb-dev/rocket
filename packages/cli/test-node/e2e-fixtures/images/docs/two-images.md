@@ -2,10 +2,10 @@
 layout: layout-raw
 ---
 
-## one
+one
 
 ![one](./_assets/my-image.jpg)
 
-## two
+two
 
 ![two](./_assets/my-image.jpg)

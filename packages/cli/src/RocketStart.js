@@ -1,129 +1,147 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { startDevServer } from '@web/dev-server';
 import { fromRollup } from '@web/dev-server-rollup';
-import { executeSetupFunctions } from 'plugins-manager';
 
-/** @typedef {import('../types/main').RocketCliOptions} RocketCliOptions */
-/** @typedef {import('@web/dev-server').DevServerConfig} DevServerConfig */
-
-/**
- * @param {any} config
- * @param {MetaPluginWrapable[]} metaPlugins
- * @param {object} [options]
- * @param {function | null} [options.rollupWrapperFunction]
- */
-export function metaConfigToWebDevServerConfig(
-  config,
-  metaPlugins,
-  { rollupWrapperFunction = null } = {},
-) {
-  if (config.plugins) {
-    delete config.setupPlugins;
-    delete config.setupRollupPlugins;
-    return config;
-  }
-
-  const metaPluginsNoWrap = metaPlugins.map(pluginObj => {
-    pluginObj.__noWrap = true;
-    return pluginObj;
-  });
-
-  const rollupPlugins = /** @type {MetaPluginWrapable[]} */ (executeSetupFunctions(
-    config.setupRollupPlugins,
-    [...metaPluginsNoWrap],
-  ));
-
-  const wrappedRollupPlugins = rollupPlugins.map(pluginObj => {
-    if (typeof rollupWrapperFunction === 'function' && pluginObj.__noWrap !== true) {
-      pluginObj.plugin = rollupWrapperFunction(pluginObj.plugin);
-    }
-    return pluginObj;
-  });
-
-  const _metaPlugins = executeSetupFunctions(config.setupPlugins, [...wrappedRollupPlugins]);
-
-  const plugins = _metaPlugins.map(pluginObj => {
-    if (pluginObj.options) {
-      return pluginObj.plugin(pluginObj.options);
-    } else {
-      return pluginObj.plugin();
-    }
-  });
-  config.plugins = plugins;
-
-  delete config.setupPlugins;
-  delete config.setupRollupPlugins;
-  return config;
-}
+import { Engine } from '@rocket/engine/server';
 
 export class RocketStart {
-  static pluginName = 'RocketStart';
-  commands = ['start'];
+  /** @type {Engine | undefined} */
+  engine = undefined;
 
   /**
-   * @param {RocketCliOptions} config
+   * @param {import('commander').Command} program
+   * @param {import('./RocketCli.js').RocketCli} cli
    */
-  setupCommand(config) {
-    delete config.pathPrefix;
-    config.createSocialMediaImages = !!config?.start?.createSocialMediaImages;
-    return config;
+  async setupCommand(program, cli) {
+    this.cli = cli;
+    this.active = true;
+
+    program
+      .command('start')
+      .option('-i, --input-dir <path>', 'path to where to search for source files')
+      .option('-o, --open', 'automatically open the browser')
+      .action(async cliOptions => {
+        cli.setOptions(cliOptions);
+        cli.activePlugin = this;
+
+        await this.start();
+      });
   }
 
-  /**
-   * @param {object} options
-   * @param {RocketCliOptions} options.config
-   * @param {any} options.argv
-   */
-  async setup({ config, argv, eleventy }) {
-    this.__argv = argv;
-    this.config = {
-      ...config,
-      devServer: {
-        ...config.devServer,
-      },
-    };
-    this.eleventy = eleventy;
-  }
-
-  async startCommand() {
-    if (!this.config) {
+  async start() {
+    if (!this.cli) {
       return;
     }
 
-    if (this.config.watch) {
-      await this.eleventy.watch();
-    } else {
-      await this.eleventy.write();
+    // TODO: enable URL support in the Engine and remove this "workaround"
+    if (
+      typeof this.cli.options.inputDir !== 'string' ||
+      typeof this.cli.options.outputDir !== 'string'
+    ) {
+      return;
     }
 
-    /** @type {DevServerConfig} */
-    const devServerConfig = metaConfigToWebDevServerConfig(
-      {
-        nodeResolve: true,
-        watch: this.config.watch !== undefined ? this.config.watch : true,
-        rootDir: this.config.outputDevDir,
-        open: true,
-        clearTerminalOnReload: false,
-        ...this.config.devServer,
-
-        setupRollupPlugins: this.config.setupDevAndBuildPlugins,
-        setupPlugins: this.config.setupDevPlugins,
-      },
-      [],
-      { rollupWrapperFunction: fromRollup },
-    );
-
-    this.devServer = await startDevServer({
-      config: devServerConfig,
-      readCliArgs: true,
-      readFileConfig: false,
-      argv: this.__argv,
+    this.engine = new Engine();
+    this.engine.setOptions({
+      docsDir: this.cli.options.inputDir,
+      outputDir: this.cli.options.outputDir,
+      setupPlugins: this.cli.options.setupEnginePlugins,
+      open: this.cli.options.open,
+      adjustDevServerOptions: this.cli.options.adjustDevServerOptions,
+      setupDevServerMiddleware: this.cli.options.setupDevServerMiddleware,
+      setupDevServerPlugins: [
+        ...this.cli.options.setupDevServerPlugins,
+        ...this.cli.options.setupDevServerAndBuildPlugins?.map(modFunction => {
+          modFunction.wrapPlugin = fromRollup;
+          return modFunction;
+        }),
+      ],
     });
+    try {
+      console.log('🚀 Engines online');
+      await this.engine.start();
+    } catch (e) {
+      console.log('Engine start errored');
+      console.error(e);
+    }
   }
 
-  async stop() {
-    if (this.devServer) {
-      await this.devServer.stop();
+  async stop({ hard = true } = {}) {
+    if (this.engine) {
+      await this.engine.stop({ hard });
+      console.log('🚀 Engines offline');
     }
   }
 }
+
+// /**
+//  * @param {any} config
+//  * @param {MetaPluginWrapable[]} metaPlugins
+//  * @param {object} [options]
+//  * @param {function | null} [options.rollupWrapperFunction]
+//  */
+// export function metaConfigToWebDevServerConfig(
+//   config,
+//   metaPlugins,
+//   { rollupWrapperFunction = null } = {},
+// ) {
+//   if (config.plugins) {
+//     delete config.setupPlugins;
+//     delete config.setupRollupPlugins;
+//     return config;
+//   }
+
+//   const metaPluginsNoWrap = metaPlugins.map(pluginObj => {
+//     pluginObj.__noWrap = true;
+//     return pluginObj;
+//   });
+
+//   const rollupPlugins = /** @type {MetaPluginWrapable[]} */ (executeSetupFunctions(
+//     config.setupRollupPlugins,
+//     [...metaPluginsNoWrap],
+//   ));
+
+//   const wrappedRollupPlugins = rollupPlugins.map(pluginObj => {
+//     if (typeof rollupWrapperFunction === 'function' && pluginObj.__noWrap !== true) {
+//       pluginObj.plugin = rollupWrapperFunction(pluginObj.plugin);
+//     }
+//     return pluginObj;
+//   });
+
+//   const _metaPlugins = executeSetupFunctions(config.setupPlugins, [...wrappedRollupPlugins]);
+
+//   const plugins = _metaPlugins.map(pluginObj => {
+//     if (pluginObj.options) {
+//       return pluginObj.plugin(pluginObj.options);
+//     } else {
+//       return pluginObj.plugin();
+//     }
+//   });
+//   config.plugins = plugins;
+
+//   delete config.setupPlugins;
+//   delete config.setupRollupPlugins;
+//   return config;
+// }
+
+// async startCommand() {
+// if (useOptions.docsDir) {
+//   useOptions.docsDir = path.join(__dirname, docsDir.split('/').join(path.sep));
+// }
+// useOptions.outputDir = path.join(useOptions.docsDir, '..', '__output');
+
+// /** @type {DevServerConfig} */
+// const devServerConfig = metaConfigToWebDevServerConfig(
+//   {
+//     nodeResolve: true,
+//     watch: this.config.watch !== undefined ? this.config.watch : true,
+//     rootDir: this.config.outputDevDir,
+//     open: true,
+//     clearTerminalOnReload: false,
+//     ...this.config.devServer,
+
+//     setupRollupPlugins: this.config.setupDevAndBuildPlugins,
+//     setupPlugins: this.config.setupDevPlugins,
+//   },
+//   [],
+//   { rollupWrapperFunction: fromRollup },
+// );
+// }

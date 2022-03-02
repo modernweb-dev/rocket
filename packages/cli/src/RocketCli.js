@@ -1,306 +1,233 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import commandLineArgs from 'command-line-args';
-import { normalizeConfig } from './normalizeConfig.js';
-import { orderedCopyFiles } from './orderedCopyFiles.js';
-
-/** @typedef {import('../types/main').RocketPlugin} RocketPlugin */
-
-// @ts-ignore
-import computedConfigPkg from './public/computedConfig.cjs';
+import { Command } from 'commander';
+import { RocketStart } from './RocketStart.js';
+import { RocketBuild } from './RocketBuild.js';
+import { RocketInit } from './RocketInit.js';
+// import { ignore } from './images/ignore.js';
 
 import path from 'path';
-import Eleventy from '@11ty/eleventy';
-import TemplateConfig from '@11ty/eleventy/src/TemplateConfig.js';
-import { fileURLToPath } from 'url';
-import fs from 'fs-extra';
+import { rm } from 'fs/promises';
+import { mergeDeep } from './helpers/mergeDeep.js';
+import { existsSync } from 'fs';
 
-const { setComputedConfig } = computedConfigPkg;
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-export class RocketEleventy extends Eleventy {
-  /** @type{Required<import('../types/main').RocketCliOptions>} */
-  // @ts-expect-error: awkward to type this in jsdoc
-  config;
-
-  /**
-   * @param {string} input
-   * @param {string} output
-   * @param {RocketCli} cli
-   */
-  constructor(input, output, cli) {
-    super(input, output);
-    /** @type {*} */
-    this.eleventyFiles;
-    this.__rocketCli = cli;
-  }
-
-  async write() {
-    await this.__rocketCli.mergePresets();
-    for (const fn of this.__rocketCli.config.__before11tyFunctions) await fn();
-    await super.write();
-    await this.__rocketCli.update();
-  }
-
-  // forks it so we can watch for changes but don't include them while building
-  getChokidarConfig() {
-    let ignores = this.eleventyFiles.getGlobWatcherIgnores();
-
-    const keepWatching = [
-      path.join(this.__rocketCli.config._inputDirCwdRelative, '_assets', '**'),
-      path.join(this.__rocketCli.config._inputDirCwdRelative, '_data', '**'),
-      path.join(this.__rocketCli.config._inputDirCwdRelative, '_includes', '**'),
-    ];
-
-    ignores = ignores.filter(
-      /** @param {string} ignore */
-      ignore => !keepWatching.includes(ignore),
-    );
-    // debug("Ignoring watcher changes to: %o", ignores);
-
-    let configOptions = this.config.chokidarConfig;
-
-    // can’t override these yet
-    // TODO maybe if array, merge the array?
-    delete configOptions.ignored;
-
-    return Object.assign(
-      {
-        ignored: ignores,
-        ignoreInitial: true,
-        // also interesting: awaitWriteFinish
-      },
-      configOptions,
-    );
-  }
-}
+/** @typedef {import('../types/main.js').RocketCliPlugin} RocketCliPlugin */
+/** @typedef {import('../types/main.js').FullRocketCliOptions} FullRocketCliOptions */
+/** @typedef {import('../types/main.js').RocketCliOptions} RocketCliOptions */
+/** @typedef {import('../types/preset.js').ImagePreset} ImagePreset */
 
 export class RocketCli {
-  /** @type {string[]} */
-  errors = [];
+  /** @type {FullRocketCliOptions} */
+  options = {
+    plugins: [],
 
-  /** @type{Required<import('../types/main').RocketCliOptions>} */
-  // @ts-expect-error: awkward to type this in jsdoc
-  config;
+    presets: [],
+    setupDevServerAndBuildPlugins: [],
+    setupDevServerPlugins: [],
+    setupDevServerMiddleware: [],
+    setupBuildPlugins: [],
+    setupCliPlugins: [],
+    setupEnginePlugins: [],
 
-  constructor({ argv } = { argv: undefined }) {
-    const mainDefinitions = [
-      { name: 'command', defaultOption: true, defaultValue: 'help' },
-      {
-        name: 'config-file',
-        alias: 'c',
-        type: String,
-        description: 'Location of Rocket configuration',
-      },
+    watch: true,
+    open: false,
+    cwd: process.cwd(),
+    inputDir: 'FALLBACK',
+    outputDir: '_site',
+    outputDevDir: '_site-dev',
+
+    serviceWorkerSourcePath: '',
+    serviceWorkerName: 'service-worker.js',
+    buildOptimize: true,
+    buildAutoStop: true,
+
+    adjustBuildOptions: options => options,
+    adjustDevServerOptions: options => options,
+
+    configFile: '',
+    absoluteBaseUrl: '',
+    emptyOutputDir: true,
+
+    // /** @type {{[key: string]: ImagePreset}} */
+    // imagePresets: {
+    //   responsive: {
+    //     widths: [600, 900, 1640],
+    //     formats: ['avif', 'jpeg'],
+    //     sizes: '100vw',
+    //     ignore,
+    //   },
+    // },
+  };
+
+  /** @type {RocketCliPlugin | undefined} */
+  activePlugin = undefined;
+
+  constructor({ argv = process.argv } = {}) {
+    this.argv = argv;
+
+    this.program = new Command();
+    this.program.allowUnknownOption().option('-c, --config-file <path>', 'path to config file');
+    this.program.parse(this.argv);
+
+    this.program.allowUnknownOption(false);
+
+    if (this.program.opts().configFile) {
+      this.options.configFile = this.program.opts().configFile;
+    }
+  }
+
+  /**
+   * @param {RocketCliOptions} newOptions
+   */
+  setOptions(newOptions) {
+    // @ts-ignore
+    this.options = mergeDeep(this.options, newOptions);
+
+    if (this.options.inputDir === 'FALLBACK') {
+      this.options.inputDir = path.join(this.options.cwd, 'site', 'pages');
+    }
+    if (this.options.inputDir instanceof URL) {
+      this.options.inputDir = this.options.inputDir.pathname;
+    }
+    if (this.options.outputDir instanceof URL) {
+      this.options.outputDir = this.options.outputDir.pathname;
+    }
+    if (this.options.outputDevDir instanceof URL) {
+      this.options.outputDevDir = this.options.outputDevDir.pathname;
+    }
+
+    // this.options = {
+    //   ...this.options,
+    //   ...newOptions,
+    //   setupPlugins,
+    // };
+  }
+
+  async applyConfigFile() {
+    if (this.options.configFile) {
+      const configFilePath = path.resolve(this.options.configFile);
+      const fileOptions = (await import(configFilePath)).default;
+      this.setOptions(fileOptions);
+    } else {
+      // make sure all default settings are properly initialized
+      this.setOptions({});
+    }
+  }
+
+  async prepare() {
+    await this.clearOutputDirs();
+    if (!this.options.presets) {
+      return;
+    }
+    for (const preset of this.options.presets) {
+      if (preset.adjustOptions) {
+        this.options = preset.adjustOptions(this.options);
+      }
+
+      // if (preset.adjustImagePresets && this.options.imagePresets) {
+      //   this.options.imagePresets = preset.adjustImagePresets(this.options.imagePresets);
+      // }
+
+      if (preset.setupDevServerAndBuildPlugins) {
+        this.options.setupDevServerAndBuildPlugins = [
+          ...this.options.setupDevServerAndBuildPlugins,
+          ...preset.setupDevServerAndBuildPlugins,
+        ];
+      }
+      if (preset.setupDevServerPlugins) {
+        this.options.setupDevServerPlugins = [
+          ...this.options.setupDevServerPlugins,
+          ...preset.setupDevServerPlugins,
+        ];
+      }
+      if (preset.setupDevServerMiddleware) {
+        this.options.setupDevServerMiddleware = [
+          ...this.options.setupDevServerMiddleware,
+          ...preset.setupDevServerMiddleware,
+        ];
+      }
+      if (preset.setupBuildPlugins) {
+        this.options.setupBuildPlugins = [
+          ...this.options.setupBuildPlugins,
+          ...preset.setupBuildPlugins,
+        ];
+      }
+      if (preset.setupCliPlugins) {
+        this.options.setupCliPlugins = [
+          ...(this.options.setupCliPlugins || []),
+          ...preset.setupCliPlugins,
+        ];
+      }
+      if (preset.setupEnginePlugins) {
+        this.options.setupEnginePlugins = [
+          ...(this.options.setupEnginePlugins || []),
+          ...preset.setupEnginePlugins,
+        ];
+      }
+    }
+
+    /** @type {import('../types/main.js').MetaPluginOfRocketCli[]} */
+    let pluginsMeta = [
+      { plugin: RocketStart, options: {} },
+      { plugin: RocketBuild, options: {} },
+      { plugin: RocketInit, options: {} },
+      // { plugin: RocketLint },
+      // { plugin: RocketUpgrade}
     ];
-    const options = commandLineArgs(mainDefinitions, {
-      stopAtFirstUnknown: true,
-      argv,
-    });
-    this.subArgv = options._unknown || [];
-    this.argvConfig = {
-      command: options.command,
-      configFile: options['config-file'],
-    };
-    this.__isSetup = false;
-  }
 
-  async setupEleventy() {
-    if (!this.eleventy) {
-      const { _inputDirCwdRelative, outputDevDir } = this.config;
-
-      // We need to merge before we setup 11ty as the write phase is too late for _data
-      // TODO: find a way so we don't need to double merge
-      await this.mergePresets();
-
-      const elev = new RocketEleventy(_inputDirCwdRelative, outputDevDir, this);
-      // 11ty always wants a relative path to cwd - why?
-      const rel = path.relative(process.cwd(), path.join(__dirname));
-      const relCwdPathToConfig = path.join(rel, 'shared', '.eleventy.cjs');
-
-      const config = new TemplateConfig(null, relCwdPathToConfig);
-      elev.config = config.getConfig();
-      /** @type {*} */
-      (elev).resetConfig();
-      elev.setConfigPathOverride(relCwdPathToConfig);
-
-      elev.isVerbose = false;
-      await elev.init();
-
-      this.eleventy = elev;
-    }
-  }
-
-  async mergePresets() {
-    for (const folder of ['_assets', '_data', '_includes']) {
-      const to = path.join(this.config._inputDirCwdRelative, `_merged${folder}`);
-      await fs.emptyDir(to);
-      for (const sourceDir of this.config._presetPaths) {
-        const from = path.join(sourceDir, folder);
-        if (fs.existsSync(from)) {
-          if (folder === '_includes') {
-            await orderedCopyFiles({ from, to });
-          } else {
-            await fs.copy(from, to);
-          }
-        }
-      }
-    }
-  }
-
-  /**
-   * Separate this so we can test it
-   */
-  async setup() {
-    if (this.__isSetup === false) {
-      this.config =
-        /** @type{Required<import('../types/main').RocketCliOptions>} */
-        (await normalizeConfig(this.argvConfig));
-      setComputedConfig(this.config);
-      this.__isSetup = true;
-    }
-  }
-
-  async run() {
-    await this.setup();
-
-    if (this.config.command === 'bootstrap') {
-      return this.bootstrap();
-    }
-
-    for (const plugin of this.config.plugins) {
-      if (this.considerPlugin(plugin) && typeof plugin.setupCommand === 'function') {
-        this.config = plugin.setupCommand(this.config);
+    if (Array.isArray(this.options.setupCliPlugins)) {
+      for (const setupFn of this.options.setupCliPlugins) {
+        // @ts-ignore
+        pluginsMeta = setupFn(pluginsMeta);
       }
     }
 
-    await fs.emptyDir(this.config.outputDevDir);
-    await this.setupEleventy();
-
-    for (const plugin of this.config.plugins) {
-      if (typeof plugin.setup === 'function') {
-        await plugin.setup({ config: this.config, argv: this.subArgv, eleventy: this.eleventy });
-      }
-    }
-
-    // execute the actual command
-    let executedAtLeastOneCommand = false;
-    const commandFn = `${this.config.command}Command`;
-    for (const plugin of this.config.plugins) {
-      if (this.considerPlugin(plugin) && typeof plugin[commandFn] === 'function') {
-        console.log(`Rocket executes ${commandFn} of ${plugin.constructor.pluginName}`);
-        executedAtLeastOneCommand = true;
-        await plugin[commandFn]();
-      }
-    }
-    if (executedAtLeastOneCommand === false) {
-      throw new Error(`No Rocket Cli Plugin had a ${commandFn} function.`);
-    }
-
-    for (const plugin of this.config.plugins) {
-      if (this.considerPlugin(plugin) && typeof plugin.postCommand === 'function') {
-        await plugin.postCommand();
-      }
-    }
-
-    if (this.config.command === 'help') {
-      console.log('Help is here: use build or start');
+    /** @type {RocketCliPlugin[]} */
+    this.options.plugins = [];
+    for (const pluginObj of pluginsMeta) {
+      /** @type {RocketCliPlugin} */
+      let pluginInst = pluginObj.options
+        ? // @ts-ignore
+          new pluginObj.plugin(pluginObj.options)
+        : // @ts-ignore
+          new pluginObj.plugin();
+      this.options.plugins.push(pluginInst);
     }
   }
 
-  async bootstrap() {
-    const outputDir = path.join(this.config.outputDir, '..');
-    const moduleDir = path.dirname(fileURLToPath(import.meta.url));
-    const bootstrapFilesDir = path.join(moduleDir, 'public', 'bootstrap');
-    const packageJsonPath = path.join(outputDir, 'package.json');
-    const gitignorePath = path.join(outputDir, '.gitignore');
+  async start() {
+    await this.applyConfigFile();
+    await this.prepare();
 
-    if (!(await fs.pathExists(packageJsonPath))) {
-      await fs.writeJson(packageJsonPath, {});
-    }
-
-    await fs.copy(bootstrapFilesDir, outputDir, {
-      errorOnExist: true,
-      filter: file => !file.endsWith('_gitignore'),
-    });
-
-    const packageJson = await fs.readJson(packageJsonPath);
-
-    await fs.writeJson(
-      packageJsonPath,
-      {
-        ...packageJson,
-        type: 'module',
-        scripts: {
-          ...packageJson.scripts,
-          start: 'rocket start',
-          docs: 'rocket build',
-        },
-      },
-      { spaces: 2 },
-    );
-
-    await fs.ensureFile(gitignorePath);
-    await fs.appendFile(
-      gitignorePath,
-      await fs.readFile(path.join(bootstrapFilesDir, '_gitignore'), 'utf8'),
-    );
-  }
-
-  /**
-   * @param {RocketPlugin} plugin
-   */
-  considerPlugin(plugin) {
-    return plugin.commands.includes(this.config.command);
-  }
-
-  async update() {
-    if (!this.eleventy || (this.eleventy && !this.eleventy.writer)) {
+    if (!this.options.plugins) {
       return;
     }
 
-    for (const page of this.eleventy.writer.templateMap._collection.items) {
-      const { title, content: html, layout } = page.data;
-      const url = page.data.page.url;
-      const { inputPath, outputPath } = page;
-
-      for (const plugin of this.config.plugins) {
-        if (this.considerPlugin(plugin) && typeof plugin.inspectRenderedHtml === 'function') {
-          await plugin.inspectRenderedHtml({
-            html,
-            inputPath,
-            outputPath,
-            layout,
-            title,
-            url,
-            data: page.data,
-            eleventy: this.eleventy,
-          });
-        }
+    for (const plugin of this.options.plugins) {
+      if (plugin.setupCommand) {
+        await plugin.setupCommand(this.program, this);
       }
     }
 
-    for (const plugin of this.config.plugins) {
-      if (this.considerPlugin(plugin) && typeof plugin.updated === 'function') {
-        await plugin.updated();
+    await this.program.parseAsync(this.argv);
+  }
+
+  async stop({ hard = true } = {}) {
+    if (!this.options.plugins) {
+      return;
+    }
+    for (const plugin of this.options.plugins) {
+      if (plugin.stop) {
+        await plugin.stop({ hard });
       }
     }
   }
 
-  async stop() {
-    for (const plugin of this.config.plugins) {
-      if (this.considerPlugin(plugin) && typeof plugin.stop === 'function') {
-        await plugin.stop();
-      }
+  async clearOutputDirs() {
+    if (this.options.outputDir && existsSync(this.options.outputDir)) {
+      await rm(this.options.outputDir, { recursive: true, force: true });
     }
-  }
-
-  async cleanup() {
-    setComputedConfig({});
-    if (this.eleventy) {
-      // this.eleventy.finish();
-      // await this.eleventy.stopWatch();
+    if (this.options.outputDevDir && existsSync(this.options.outputDevDir)) {
+      await rm(this.options.outputDevDir, { recursive: true, force: true });
     }
-    this.stop();
   }
 }

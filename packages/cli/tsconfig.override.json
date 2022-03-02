@@ -1,0 +1,3 @@
+{
+  "exclude": ["dist", "dist-types", "src/init-files/"]
+}

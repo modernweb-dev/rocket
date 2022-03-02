@@ -1,0 +1,23 @@
+<script type="module" server>
+/* START - Rocket auto generated - do not touch */
+export const sourceRelativeFilePath = 'index.rocket.html';
+/* END - Rocket auto generated - do not touch */
+  import { html } from 'lit';
+  export const keepConvertedFiles = true;
+</script>
+
+<h1>Client side JS</h1>
+
+<script type="module">
+  console.log('test1');
+</script>
+
+<script type="module" server>
+  const foo = html`<p>bar</p>`;
+</script>
+
+<script type="module" client>
+  console.log('test2');
+</script>
+
+${foo}

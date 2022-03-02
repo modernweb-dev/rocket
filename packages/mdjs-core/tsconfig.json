@@ -13,12 +13,6 @@
   },
   "references": [
     {
-      "path": "../mdjs-preview/tsconfig.json"
-    },
-    {
-      "path": "../mdjs-story/tsconfig.json"
-    },
-    {
       "path": "../plugins-manager/tsconfig.json"
     }
   ],

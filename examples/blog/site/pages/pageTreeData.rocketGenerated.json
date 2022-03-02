@@ -1,0 +1,58 @@
+{
+  "title": "Example Blog",
+  "h1": "\n            \n          ",
+  "name": "\n            \n          ",
+  "menuLinkText": "\n            \n          ",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "description": "The perfect starter for your perfect blog.",
+  "permalink": "https://example.com/",
+  "children": [
+    {
+      "name": "blog/index.rocket.js",
+      "menuLinkText": "blog/index.rocket.js",
+      "url": "/blog/",
+      "outputRelativeFilePath": "blog/index.html",
+      "sourceRelativeFilePath": "blog/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "title": "Hello world!",
+          "h1": "\n            \n          ",
+          "name": "\n            \n          ",
+          "menuLinkText": "\n            \n          ",
+          "url": "/blog/hello-world/",
+          "outputRelativeFilePath": "blog/hello-world/index.html",
+          "sourceRelativeFilePath": "blog/hello-world.rocket.md",
+          "level": 2,
+          "alt": "",
+          "author": "Thomas Allmer (@daKmoR)",
+          "authorHref": "https://twitter.com/daKmoR",
+          "description": "Just a Hello World Post!",
+          "heroImage": "",
+          "publishDate": "12 Sep 2021",
+          "value": 128
+        },
+        {
+          "title": "With Image!",
+          "h1": "\n            \n          ",
+          "name": "\n            \n          ",
+          "menuLinkText": "\n            \n          ",
+          "url": "/blog/with-image/",
+          "outputRelativeFilePath": "blog/with-image/index.html",
+          "sourceRelativeFilePath": "blog/with-image.rocket.md",
+          "level": 2,
+          "alt": "Liftoff Flames",
+          "author": "Thomas Allmer (@daKmoR)",
+          "authorHref": "https://twitter.com/daKmoR",
+          "description": "Now with an image!",
+          "heroImage": "./assets/liftoff-flames.jpg",
+          "publishDate": "13 Sep 2021",
+          "value": 128
+        }
+      ]
+    }
+  ]
+}

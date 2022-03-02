@@ -13,25 +13,13 @@
   },
   "references": [
     {
-      "path": "../mdjs-preview/tsconfig.json"
-    },
-    {
-      "path": "../mdjs-story/tsconfig.json"
-    },
-    {
       "path": "../plugins-manager/tsconfig.json"
     },
     {
       "path": "../mdjs-core/tsconfig.json"
     },
     {
-      "path": "../core/tsconfig.json"
-    },
-    {
-      "path": "../eleventy-plugin-mdjs-unified/tsconfig.json"
-    },
-    {
-      "path": "../eleventy-rocket-nav/tsconfig.json"
+      "path": "../engine/tsconfig.json"
     }
   ],
   "include": [
@@ -41,6 +29,7 @@
   ],
   "exclude": [
     "dist",
-    "dist-types"
+    "dist-types",
+    "src/init-files/"
   ]
 }

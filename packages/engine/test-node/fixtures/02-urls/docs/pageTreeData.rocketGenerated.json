@@ -1,0 +1,52 @@
+{
+  "name": "index.rocket.js",
+  "menuLinkText": "index.rocket.js",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "name": "01--discover/index.rocket.js",
+      "menuLinkText": "01--discover/index.rocket.js",
+      "url": "/discover/",
+      "outputRelativeFilePath": "discover/index.html",
+      "sourceRelativeFilePath": "01--discover/index.rocket.js",
+      "level": 1
+    },
+    {
+      "name": "02--components/index.rocket.js",
+      "menuLinkText": "02--components/index.rocket.js",
+      "url": "/components/",
+      "outputRelativeFilePath": "components/index.html",
+      "sourceRelativeFilePath": "02--components/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "name": "02--components/01--tabs.rocket.js",
+          "menuLinkText": "02--components/01--tabs.rocket.js",
+          "url": "/components/tabs/",
+          "outputRelativeFilePath": "components/tabs/index.html",
+          "sourceRelativeFilePath": "02--components/01--tabs.rocket.js",
+          "level": 2
+        },
+        {
+          "name": "02--components/02--accordion.rocket.js",
+          "menuLinkText": "02--components/02--accordion.rocket.js",
+          "url": "/components/accordion/",
+          "outputRelativeFilePath": "components/accordion/index.html",
+          "sourceRelativeFilePath": "02--components/02--accordion.rocket.js",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "name": "about.rocket.js",
+      "menuLinkText": "about.rocket.js",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.js",
+      "level": 1
+    }
+  ]
+}

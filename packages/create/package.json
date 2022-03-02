@@ -1,0 +1,60 @@
+{
+  "name": "@rocket/create",
+  "version": "0.0.4",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "You are about to embark upon a new mission",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/create"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/",
+  "main": "./src/index.js",
+  "bin": {
+    "create-rocket": "src/cli.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist-types/src/index.d.ts",
+      "default": "./src/index.js"
+    }
+  },
+  "scripts": {
+    "prepublishOnly": "node ./scripts/prepublish.js",
+    "start": "npm run rocket:start",
+    "test": "mocha test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+  },
+  "files": [
+    "dist",
+    "dist-types",
+    "src"
+  ],
+  "keywords": [
+    "rocket",
+    "docs",
+    "ssg",
+    "demo",
+    "rollup"
+  ],
+  "dependencies": {
+    "colorette": "^2.0.16",
+    "commander": "^9.0.0",
+    "degit": "^2.0.0",
+    "prompts": "^2.2.0"
+  },
+  "types": "./dist-types/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist-types/src/index.d.ts"
+      ]
+    }
+  }
+}

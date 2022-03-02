@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Blog",
+    "description": "Get started with a new blog",
+    "value": "blog"
+  },
+  {
+    "title": "Minimal",
+    "description": "Only includes the minimal basics",
+    "value": "minimal"
+  },
+  {
+    "title": "Custom (community built)",
+    "description": "Use a community built template by providing a git url",
+    "value": "--custom--"
+  }
+]

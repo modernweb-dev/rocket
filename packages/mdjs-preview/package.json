@@ -17,7 +17,8 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./define": "./src/define/define.js"
+    "./define": "./src/define/define.js",
+    "./server": "./server/index.js"
   },
   "scripts": {
     "debug": "cd ../../ && npm run debug -- --group mdjs-preview",

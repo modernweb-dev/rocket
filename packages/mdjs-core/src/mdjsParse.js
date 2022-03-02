@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 const visit = require('unist-util-visit');
+// @ts-ignore
 const remove = require('unist-util-remove');
 
 /** @typedef {import('vfile').VFileOptions} VFileOptions */

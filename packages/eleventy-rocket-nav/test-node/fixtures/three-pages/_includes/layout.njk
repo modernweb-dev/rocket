@@ -1,9 +1,0 @@
-<body>
-  {{ collections.all | rocketNav | rocketNavToHtml({
-    listItemClass: "menu-item",
-    activeListItemClass: "current",
-    activeKey: eleventyNavigation.key
-  }) | safe }}
-
-  {{ content | safe }}
-</body>

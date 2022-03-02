@@ -1,7 +1,7 @@
 import { executeSetupFunctions } from './executeSetupFunctions.js';
 
-/** @typedef {import('../types/main').Constructor} Constructor */
-/** @typedef {import('../types/main').AnyFn} AnyFn */
+/** @typedef {import('../types/main.js').Constructor} Constructor */
+/** @typedef {import('../types/main.js').AnyFn} AnyFn */
 
 /**
  * @param {unknown} func
@@ -19,9 +19,9 @@ function isClass(func) {
 }
 
 /**
- * @template {import('../types/main').Plugin} T
+ * @template {import('../types/main.js').Plugin} T
  * @param {any} config
- * @param {import('../types/main').MetaPlugin<T>[]} [defaultPlugins]
+ * @param {import('../types/main.js').MetaPlugin<T>[]} [defaultPlugins]
  */
 export function applyPlugins(config, defaultPlugins = []) {
   if (config.plugins) {
