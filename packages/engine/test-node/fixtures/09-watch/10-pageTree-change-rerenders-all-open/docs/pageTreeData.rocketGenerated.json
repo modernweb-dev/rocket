@@ -1,0 +1,41 @@
+{
+  "title": "Document",
+  "name": "Document",
+  "menuLinkText": "Document",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "title": "Document",
+      "h1": "new about",
+      "name": "new about",
+      "menuLinkText": "new about",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.js",
+      "level": 1
+    },
+    {
+      "title": "Document",
+      "h1": "components",
+      "name": "components",
+      "menuLinkText": "components",
+      "url": "/components/",
+      "outputRelativeFilePath": "components/index.html",
+      "sourceRelativeFilePath": "components.rocket.js",
+      "level": 1
+    },
+    {
+      "title": "Document",
+      "h1": "getting-started",
+      "name": "getting-started",
+      "menuLinkText": "getting-started",
+      "url": "/getting-started/",
+      "outputRelativeFilePath": "getting-started/index.html",
+      "sourceRelativeFilePath": "getting-started.rocket.js",
+      "level": 1
+    }
+  ]
+}

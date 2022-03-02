@@ -2,9 +2,10 @@ import chai from 'chai';
 import { RocketCli } from '../src/RocketCli.js';
 import path from 'path';
 import globby from 'globby';
-import fs from 'fs-extra';
+import fs, { move, remove } from 'fs-extra';
 import prettier from 'prettier';
 import { fileURLToPath } from 'url';
+import { existsSync } from 'fs';
 
 const { expect } = chai;
 
@@ -163,6 +164,37 @@ export async function executeBootstrap(pathToDir) {
   await cli.run();
 
   return { cli };
+}
+
+export async function executeUpgrade(pathToConfig) {
+  const configFile = path.join(fixtureDir, pathToConfig.split('/').join(path.sep));
+  const cli = new RocketCli({
+    argv: ['upgrade', '--config-file', configFile],
+  });
+  await cli.setup();
+
+  // restore from backup if available - in cases the test did stop in the middle
+  if (cli.config._inputDirCwdRelative) {
+    const backupDir = path.join(cli.config._inputDirCwdRelative, '..', 'docs_backup');
+    if (existsSync(backupDir)) {
+      await remove(cli.config._inputDirCwdRelative);
+      await move(backupDir, cli.config._inputDirCwdRelative);
+    }
+  }
+  await cli.run();
+  return {
+    cli,
+    fileExists: fileName => {
+      const outputDir = cli.config._inputDirCwdRelative;
+      return fs.existsSync(path.join(outputDir, fileName));
+    },
+    readFile: async fileName => {
+      // TODO: use readOutput once it's changed to read full file paths
+      const filePath = path.join(cli.config._inputDirCwdRelative, fileName);
+      const text = await fs.promises.readFile(filePath);
+      return text.toString();
+    },
+  };
 }
 
 export function trimWhiteSpace(inString) {

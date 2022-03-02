@@ -1,4 +1,6 @@
-import { AddPluginFn } from 'plugins-manager';
+import { MetaPluginOfEngine } from '@rocket/engine';
+import { addPlugin } from 'plugins-manager';
+import { MetaPluginOfRocketCli, RocketCliOptions } from './main.js';
 
 type ImageFormat = 'avif' | 'webp' | 'jpg' | 'jpeg' | 'png' | 'svg';
 
@@ -6,24 +8,19 @@ export interface ImagePreset {
   widths: number[];
   formats: ImageFormat[];
   sizes: string;
+  // ignore: ({ src: string }) => boolean;
 }
 
 type ImagePresetHook = (preset: { [key: string]: ImagePreset }) => { [key: string]: ImagePreset };
 
 export interface RocketPreset {
-  path: string;
-
   adjustImagePresets?: ImagePresetHook;
-
-  /** Hook that runs before rocket starts 11ty. Can be sync or async */
-  before11ty?: () => void | Promise<void>;
+  adjustSettings?: (settings: RocketCliOptions) => RocketCliOptions;
 
   // TODO: improve all setup functions
-  setupUnifiedPlugins?: AddPluginFn[];
-  setupDevAndBuildPlugins?: AddPluginFn[];
-  setupBuildPlugins?: AddPluginFn[];
-  setupDevPlugins?: AddPluginFn[];
-  setupCliPlugins?: AddPluginFn[];
-  setupEleventyPlugins?: AddPluginFn[];
-  setupEleventyComputedConfig?: AddPluginFn[];
+  setupDevServerAndBuildPlugins?: typeof addPlugin[];
+  setupBuildPlugins?: typeof addPlugin[];
+  setupDevServerPlugins?: typeof addPlugin[];
+  setupCliPlugins?: MetaPluginOfRocketCli[];
+  setupEnginePlugins?: MetaPluginOfEngine[];
 }

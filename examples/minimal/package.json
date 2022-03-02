@@ -1,0 +1,19 @@
+{
+  "name": "@example/minimal",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Only includes the minimal basics",
+  "type": "module",
+  "scripts": {
+    "build": "rocket build",
+    "dev": "rocket start --open",
+    "preview": "rocket preview",
+    "start": "rocket start --open"
+  },
+  "devDependencies": {
+    "@rocket/cli": "^0.20.0-alpha.11",
+    "@rocket/engine": "^0.1.0-alpha.11",
+    "lit": "^2.0.0"
+  },
+  "@rocket/template-name": "Minimal"
+}

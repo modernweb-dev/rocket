@@ -1,12 +1,12 @@
-/** @typedef {import('../types/main').Plugin} Plugin */
+/** @typedef {import('../types/main.js').Plugin} Plugin */
 
 /**
- * @param {import('../types/main').Plugin} plugin
+ * @param {import('../types/main.js').Plugin} plugin
  */
 export function removePlugin(plugin) {
   /**
    * @template {Function} T
-   * @param {import('../types/main').MetaPlugin<T>[]} plugins
+   * @param {import('../types/main.js').MetaPlugin<T>[]} plugins
    */
   const removePluginFn = plugins => {
     const index = plugins.findIndex(pluginObj => pluginObj.plugin === plugin);

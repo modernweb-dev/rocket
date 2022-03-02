@@ -12,3 +12,7 @@ __output
 __output-dev
 
 docs/_merged*
+*-mdjs-generated.js
+
+/packages/engine/test-node/fixtures/06-error-handling/01-page-error/docs/index.rocket.js
+/packages/engine/test-node/fixtures/03b-format-markdown/c01-md-in-js-to-md-html/md-in-js.js

@@ -12,6 +12,7 @@ const raw = require('rehype-raw');
 const htmlStringify = require('rehype-stringify');
 const htmlSlug = require('rehype-slug');
 const htmlHeading = require('rehype-autolink-headings');
+// @ts-ignore
 const rehypePrism = require('rehype-prism-template');
 // @ts-ignore
 const { executeSetupFunctions } = require('plugins-manager');
