@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.9.3
+
+### Patch Changes
+
+- 62637a8: Replaces `rehype-prism-template` with `rehype-prism` to get a newer version of prism with essential security updates
+
 ## 0.9.2
 
 ### Patch Changes
