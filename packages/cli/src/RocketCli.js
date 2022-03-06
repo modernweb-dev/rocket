@@ -10,34 +10,42 @@ import { rm } from 'fs/promises';
 import { mergeDeep } from './helpers/mergeDeep.js';
 import { existsSync } from 'fs';
 
-/** @typedef {import('../types/main.js').RocketCliPlugin} RocketPlugin */
+/** @typedef {import('../types/main.js').RocketCliPlugin} RocketCliPlugin */
+/** @typedef {import('../types/main.js').FullRocketCliOptions} FullRocketCliOptions */
 /** @typedef {import('../types/main.js').RocketCliOptions} RocketCliOptions */
 /** @typedef {import('../types/preset.js').ImagePreset} ImagePreset */
 
 export class RocketCli {
-  /** @type {RocketCliOptions} */
+  /** @type {FullRocketCliOptions} */
   options = {
     plugins: [],
 
     presets: [],
     setupDevServerAndBuildPlugins: [],
     setupDevServerPlugins: [],
+    setupDevServerMiddleware: [],
     setupBuildPlugins: [],
     setupCliPlugins: [],
     setupEnginePlugins: [],
 
     watch: true,
+    open: false,
     cwd: process.cwd(),
     inputDir: 'FALLBACK',
     outputDir: '_site',
     outputDevDir: '_site-dev',
 
-    // serviceWorkerSource: '@rocket/launch/',
+    serviceWorkerSourcePath: '',
     serviceWorkerName: 'service-worker.js',
-    build: {},
     buildOptimize: true,
     buildAutoStop: true,
-    devServer: {},
+
+    adjustBuildOptions: options => options,
+    adjustDevServerOptions: options => options,
+
+    configFile: '',
+    absoluteBaseUrl: '',
+    emptyOutputDir: true,
 
     // /** @type {{[key: string]: ImagePreset}} */
     // imagePresets: {
@@ -49,6 +57,9 @@ export class RocketCli {
     //   },
     // },
   };
+
+  /** @type {RocketCliPlugin | undefined} */
+  activePlugin = undefined;
 
   constructor({ argv = process.argv } = {}) {
     this.argv = argv;
@@ -65,39 +76,11 @@ export class RocketCli {
   }
 
   /**
-   * @param {Partial<RocketCliOptions>} newOptions
+   * @param {RocketCliOptions} newOptions
    */
   setOptions(newOptions) {
     // @ts-ignore
     this.options = mergeDeep(this.options, newOptions);
-
-    /** @type {import('../types/main.js').MetaPluginOfRocketCli[]} */
-    let pluginsMeta = [
-      { plugin: RocketStart, options: {} },
-      { plugin: RocketBuild, options: {} },
-      { plugin: RocketInit, options: {} },
-      // { plugin: RocketLint },
-      // { plugin: RocketUpgrade}
-    ];
-
-    if (Array.isArray(this.options.setupCliPlugins)) {
-      for (const setupFn of this.options.setupCliPlugins) {
-        // @ts-ignore
-        pluginsMeta = setupFn(pluginsMeta);
-      }
-    }
-
-    /** @type {RocketPlugin[]} */
-    this.options.plugins = [];
-    for (const pluginObj of pluginsMeta) {
-      /** @type {RocketPlugin} */
-      let pluginInst = pluginObj.options
-        ? // @ts-ignore
-          new pluginObj.plugin(pluginObj.options)
-        : // @ts-ignore
-          new pluginObj.plugin();
-      this.options.plugins.push(pluginInst);
-    }
 
     if (this.options.inputDir === 'FALLBACK') {
       this.options.inputDir = path.join(this.options.cwd, 'site', 'pages');
@@ -111,20 +94,6 @@ export class RocketCli {
     if (this.options.outputDevDir instanceof URL) {
       this.options.outputDevDir = this.options.outputDevDir.pathname;
     }
-
-    // const setupEnginePlugins = newOptions.setupUnifiedPlugins
-    //   ? [...this.options.setupUnifiedPlugins, ...newOptions.setupUnifiedPlugins]
-    //   : this.options.setupUnifiedPlugins;
-    // const devServer = newOptions.devServer
-    //   ? { ...this.options.devServer, ...newOptions.devServer }
-    //   : this.options.devServer;
-
-    // if (inConfig.imagePresets && inConfig.imagePresets.responsive) {
-    //   config.imagePresets.responsive = {
-    //     ...config.imagePresets.responsive,
-    //     ...inConfig.imagePresets.responsive,
-    //   };
-    // }
 
     // this.options = {
     //   ...this.options,
@@ -150,8 +119,8 @@ export class RocketCli {
       return;
     }
     for (const preset of this.options.presets) {
-      if (preset.adjustSettings) {
-        this.options = preset.adjustSettings(this.options);
+      if (preset.adjustOptions) {
+        this.options = preset.adjustOptions(this.options);
       }
 
       // if (preset.adjustImagePresets && this.options.imagePresets) {
@@ -160,7 +129,6 @@ export class RocketCli {
 
       if (preset.setupDevServerAndBuildPlugins) {
         this.options.setupDevServerAndBuildPlugins = [
-          // @ts-ignore
           ...this.options.setupDevServerAndBuildPlugins,
           ...preset.setupDevServerAndBuildPlugins,
         ];
@@ -169,6 +137,12 @@ export class RocketCli {
         this.options.setupDevServerPlugins = [
           ...this.options.setupDevServerPlugins,
           ...preset.setupDevServerPlugins,
+        ];
+      }
+      if (preset.setupDevServerMiddleware) {
+        this.options.setupDevServerMiddleware = [
+          ...this.options.setupDevServerMiddleware,
+          ...preset.setupDevServerMiddleware,
         ];
       }
       if (preset.setupBuildPlugins) {
@@ -189,6 +163,34 @@ export class RocketCli {
           ...preset.setupEnginePlugins,
         ];
       }
+    }
+
+    /** @type {import('../types/main.js').MetaPluginOfRocketCli[]} */
+    let pluginsMeta = [
+      { plugin: RocketStart, options: {} },
+      { plugin: RocketBuild, options: {} },
+      { plugin: RocketInit, options: {} },
+      // { plugin: RocketLint },
+      // { plugin: RocketUpgrade}
+    ];
+
+    if (Array.isArray(this.options.setupCliPlugins)) {
+      for (const setupFn of this.options.setupCliPlugins) {
+        // @ts-ignore
+        pluginsMeta = setupFn(pluginsMeta);
+      }
+    }
+
+    /** @type {RocketCliPlugin[]} */
+    this.options.plugins = [];
+    for (const pluginObj of pluginsMeta) {
+      /** @type {RocketCliPlugin} */
+      let pluginInst = pluginObj.options
+        ? // @ts-ignore
+          new pluginObj.plugin(pluginObj.options)
+        : // @ts-ignore
+          new pluginObj.plugin();
+      this.options.plugins.push(pluginInst);
     }
   }
 

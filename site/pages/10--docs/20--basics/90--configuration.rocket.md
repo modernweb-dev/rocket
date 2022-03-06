@@ -23,7 +23,7 @@ It typically looks something like this
 import { rocketLaunch } from '@rocket/launch';
 import { absoluteBaseUrlNetlify } from '@rocket/netlify';
 
-export default /** @type {Partial<import('@rocket/cli').RocketCliOptions>} */ ({
+export default /** @type {import('@rocket/cli').RocketCliOptions} */ ({
   presets: [rocketLaunch()],
   absoluteBaseUrl: absoluteBaseUrlNetlify('http://localhost:8080'),
 });
@@ -53,6 +53,9 @@ export default {
   // add a plugin to the web dev server (will not be wrapped) (e.g. esbuild for TypeScript)
   setupDevServerPlugins: [],
 
+  // add a middleware to the web dev server (e.g. api proxy)
+  setupDevServerMiddleware: [],
+
   // add a plugin to the rollup build (e.g. optimization steps)
   setupBuildPlugins: [],
 
@@ -78,12 +81,37 @@ Here is an example where we use a deeper folder for the pages and output to a ro
 👉 `config/rocket.config.js`
 
 ```js
-/** @type {import('rocket/cli').RocketCliConfig} */
 export default {
   inputDir: new URL('../projectX/site/pages', import.meta.url),
   outputDir: new URL('../dist', import.meta.url),
 };
 ```
+
+## Adding an API proxy
+
+If we want to access an API client side we need to access it via the same domain. 
+However in most cases the API server is running on a different server/url/domain.
+
+Doing cross domain/port request is not allowed on the client side.
+To still access it we can use a proxy. 
+
+Let's say we have an API server running on port 9000 and the Rocket Dev Server is run on port 8000.
+
+```js
+import proxy from 'koa-proxy';
+import { addPlugin } from 'plugins-manager';
+
+export default /** @type {import('rocket/cli').RocketCliConfig} */ ({
+  setupDevServerMiddleware: [
+    addPlugin(proxy, {
+      host: 'http://localhost:9000/',
+      match: /^\/api\//,
+    }),
+  ],
+});
+```
+
+We can now do ajax requests to `http://localhost:8000/api/message` and it will be proxied to `http://localhost:9000/api/message`.
 
 ## Adding Rollup Plugins
 
@@ -104,7 +132,7 @@ import { addPlugin } from 'plugins-manager';
 /** @type {import('@rocket/cli').RocketCliOptions} */
 export default {
   setupDevServerAndBuildPlugins: [
-    addPlugin({ name: 'json', plugin: json, location: 'top', options: { my: 'settings' } }),
+    addPlugin(json, { my: 'settings' }, { location: 'top' }),
   ],
 };
 ```
@@ -121,7 +149,7 @@ import { adjustPluginOptions } from 'plugins-manager';
 
 /** @type {import('@rocket/cli').RocketCliOptions} */
 export default {
-  setupDevServerAndBuildPlugins: [adjustPluginOptions('json', { my: 'overwrite settings' })],
+  setupDevServerAndBuildPlugins: [adjustPluginOptions(json, { my: 'overwrite settings' })],
 };
 ```
 
@@ -129,18 +157,28 @@ export default {
 
 Sometimes you need even more control over specific settings.
 
-### Rollup
+### DevServerOptions (@web/dev-server)
+
+```js
+export default /** @type {import('rocket/cli').RocketCliOptions} */ ({
+  adjustDevServerOptions: options => ({
+    ...options,
+    hostname: 'my-hostname',
+  }),
+});
+```
+
+### BuildOptions (rollup)
 
 For example if you wanna add an `acron` plugin to rollup
 
 ```js
 import { importAssertions } from 'acorn-import-assertions';
 
-/** @type {import('rocket/cli').RocketCliConfig} */
-export default {
-  rollup: config => ({
-    ...config,
+export default /** @type {import('rocket/cli').RocketCliOptions} */ ({
+  adjustBuildOptions: options => ({
+    ...options,
     acornInjectPlugins: [importAssertions],
   }),
-};
+});
 ```

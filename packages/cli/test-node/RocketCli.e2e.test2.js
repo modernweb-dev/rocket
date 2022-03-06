@@ -20,47 +20,6 @@ describe('RocketCli e2e', () => {
     }
   });
 
-  describe('setupDevAndBuildPlugins in config', () => {
-    it('can add a rollup plugin via setupDevAndBuildPlugins for build command', async () => {
-      const { cli, readOutput } = await execute(
-        'e2e-fixtures/rollup-plugin/devbuild.rocket.config.js',
-        {
-          captureLog: true,
-          type: 'build',
-        },
-      );
-      cleanupCli = cli;
-      const inlineModule = await readOutput('e97af63d.js');
-      expect(inlineModule).to.equal('var a={test:"data"};console.log(a);');
-    });
-
-    it('can add a rollup plugin via setupDevAndBuildPlugins for start command', async () => {
-      const { cli } = await execute('e2e-fixtures/rollup-plugin/devbuild.rocket.config.js', {
-        captureLog: true,
-      });
-      cleanupCli = cli;
-
-      const response = await fetch('http://localhost:8080/test-data.json');
-      expect(response.ok).to.be.true; // no server error
-
-      const text = await response.text();
-      expect(text).to.equal('export var test = "data";\nexport default {\n\ttest: test\n};\n');
-    });
-  });
-
-  it('can add a rollup plugin for dev & build and modify a build only plugin via the config', async () => {
-    const { cli, readOutput } = await execute(
-      'e2e-fixtures/rollup-plugin/devbuild-build.rocket.config.js',
-      {
-        captureLog: true,
-        type: 'build',
-      },
-    );
-    cleanupCli = cli;
-    const inlineModule = await readOutput('e97af63d.js');
-    expect(inlineModule).to.equal('var a={test:"data"};console.log(a);');
-  });
-
   it('can adjust the inputDir', async () => {
     const { cli, readOutput } = await execute('e2e-fixtures/change-input-dir/rocket.config.js', {
       captureLog: true,

@@ -137,7 +137,8 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
     await writeFile(outputFilePath, fileContent);
   }
 
-  parentPort?.postMessage({
+  /** @type {import('../../types/main.js').renderWorkerResult} */
+  const result = {
     status: 200,
     outputFilePath,
     fileContent,
@@ -145,7 +146,9 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
     sourceRelativeFilePath,
     passOnError,
     keepConvertedFiles,
-  });
+  };
+
+  parentPort?.postMessage(result);
 }
 
 parentPort?.on('message', message => {

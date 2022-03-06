@@ -7,47 +7,45 @@ export { ImagePreset, RocketPreset };
 import { Command } from 'commander';
 import { RocketCli } from '../src/RocketCli.js';
 
-interface RocketStartConfig {
-  createSocialMediaImages?: boolean;
-}
-
 type PresetKeys =
   | 'setupDevServerAndBuildPlugins'
   | 'setupDevServerPlugins'
+  | 'setupDevServerMiddleware'
   | 'setupBuildPlugins'
   | 'setupCliPlugins'
   | 'setupEnginePlugins';
 
-export interface RocketCliOptions extends Pick<RocketPreset, PresetKeys> {
-  presets?: Array<RocketPreset>;
-  // pathPrefix?: string;
-  serviceWorkerName?: string;
-  serviceWorkerSourcePath?: string;
+export interface FullRocketCliOptions extends Pick<RocketPreset, PresetKeys> {
+  presets: Array<RocketPreset>;
+  // pathPrefix: string;
+  serviceWorkerName: string;
+  serviceWorkerSourcePath: string;
   cwd: string;
   inputDir: URL | string;
   outputDir: URL | string;
-  emptyOutputDir?: boolean;
-  absoluteBaseUrl?: string;
-  watch?: boolean;
-  open?: boolean;
-  imagePresets?: {
-    [key: string]: ImagePreset;
-  };
+  emptyOutputDir: boolean;
+  absoluteBaseUrl: string;
+  watch: boolean;
+  open: boolean;
+  // imagePresets: {
+  //   [key: string]: ImagePreset;
+  // };
 
-  start?: RocketStartConfig;
+  adjustDevServerOptions: (options: DevServerConfig) => DevServerConfig;
+  adjustBuildOptions: (options: any) => any;
 
   // advanced
-  devServer?: DevServerConfig;
-  build?: any; // TODO: improve
-  plugins?: RocketCliPlugin[];
+  plugins: RocketCliPlugin[];
 
   buildOptimize: boolean;
   buildAutoStop: boolean;
 
   // rarely used
-  configFile?: string;
+  configFile: string;
   outputDevDir: URL | string;
 }
+
+export type RocketCliOptions = Partial<FullRocketCliOptions>;
 
 export class RocketCliPlugin {
   setupCommand?(program: Command, cli: RocketCli): void;

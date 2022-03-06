@@ -70,5 +70,8 @@
         "./dist-types/src/index.d.ts"
       ]
     }
+  },
+  "devDependencies": {
+    "koa-proxy": "^1.0.0-alpha.3"
   }
 }

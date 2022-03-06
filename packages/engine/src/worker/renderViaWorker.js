@@ -35,7 +35,7 @@ let isRendering = '';
  * @param {string} options.outputDir
  * @param {string} options.inputDir
  * @param {string} options.renderMode
- * @returns
+ * @returns {Promise<import('../../types/main.js').renderWorkerResult>}
  */
 export function renderViaWorker({
   sourceFilePath,

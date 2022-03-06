@@ -14,6 +14,9 @@ export function addPlugin(plugin, options = {}, { how = 'after', location = 'bot
     if (plugins === undefined) {
       plugins = [];
     }
+    // @ts-ignore
+    const usePlugin = addPluginFn.wrapPlugin ? addPluginFn.wrapPlugin(plugin) : plugin;
+
     // only add if name is not already in the meta plugin list
     if (plugins.findIndex(pluginObj => pluginObj.plugin === plugin) === -1) {
       let index = -1;
@@ -42,7 +45,7 @@ export function addPlugin(plugin, options = {}, { how = 'after', location = 'bot
       }
 
       plugins.splice(index, 0, {
-        plugin,
+        plugin: usePlugin,
         options,
       });
     }

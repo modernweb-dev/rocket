@@ -48,7 +48,10 @@ async function productionBuild(config) {
       ...config.setupBuildPlugins,
     ],
   });
-  const finalConfig = typeof config.rollup === 'function' ? config.rollup(mpaConfig) : mpaConfig;
+  const finalConfig =
+    typeof config.adjustBuildOptions === 'function'
+      ? config.adjustBuildOptions(mpaConfig)
+      : mpaConfig;
   await buildAndWrite(finalConfig);
 
   const { serviceWorkerSourcePath } = config;

@@ -53,12 +53,12 @@ export function rocketLaunch() {
   // @ts-ignore
   return /** @type {import('@rocket/cli').RocketPreset} */ ({
     setupEnginePlugins: [addPlugin(EnginePluginLaunch)],
-    adjustSettings: settings => {
-      settings.serviceWorkerSourcePath = new URL(
+    adjustOptions: options => {
+      options.serviceWorkerSourcePath = new URL(
         '../src/public/service-worker.js',
         import.meta.url,
       ).pathname;
-      return settings;
+      return options;
     },
     // setupUnifiedPlugins: [addOcticonToHeadlines],
     // adjustImagePresets: imagePresets => ({

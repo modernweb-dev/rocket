@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// import { fromRollup } from '@web/dev-server-rollup';
-// import { executeSetupFunctions } from 'plugins-manager';
-
-/** @typedef {import('@web/dev-server').DevServerConfig} DevServerConfig */
-/** @typedef {import('../types/main.js').RocketCliOptions} RocketCliOptions */
+import { fromRollup } from '@web/dev-server-rollup';
 
 import { Engine } from '@rocket/engine/server';
 
 export class RocketStart {
+  /** @type {Engine | undefined} */
+  engine = undefined;
+
   /**
    * @param {import('commander').Command} program
    * @param {import('./RocketCli.js').RocketCli} cli
@@ -22,6 +20,7 @@ export class RocketStart {
       .option('-o, --open', 'automatically open the browser')
       .action(async cliOptions => {
         cli.setOptions(cliOptions);
+        cli.activePlugin = this;
 
         await this.start();
       });
@@ -46,6 +45,15 @@ export class RocketStart {
       outputDir: this.cli.options.outputDir,
       setupPlugins: this.cli.options.setupEnginePlugins,
       open: this.cli.options.open,
+      adjustDevServerOptions: this.cli.options.adjustDevServerOptions,
+      setupDevServerMiddleware: this.cli.options.setupDevServerMiddleware,
+      setupDevServerPlugins: [
+        ...this.cli.options.setupDevServerPlugins,
+        ...this.cli.options.setupDevServerAndBuildPlugins?.map(modFunction => {
+          modFunction.wrapPlugin = fromRollup;
+          return modFunction;
+        }),
+      ],
     });
     try {
       console.log('🚀 Engines online');
@@ -59,6 +67,7 @@ export class RocketStart {
   async stop({ hard = true } = {}) {
     if (this.engine) {
       await this.engine.stop({ hard });
+      console.log('🚀 Engines offline');
     }
   }
 }
