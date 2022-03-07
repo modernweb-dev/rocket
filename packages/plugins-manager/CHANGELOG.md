@@ -1,5 +1,11 @@
 # plugins-manager
 
+## 0.3.1
+
+### Patch Changes
+
+- 7e277cd: Add a "hidden" feature in addPlugin that if you attach a `wrapPlugin` property to the returning function it will call `wrapPlugin` on the plugin before adding it.
+
 ## 0.3.0
 
 ### Minor Changes
