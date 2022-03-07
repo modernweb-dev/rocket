@@ -112,16 +112,13 @@ addPlugin(MyClass, { otherProp: 'new name' }); // ts error
 
 Many plugin systems require you to either execute a plugin function like in `rollup`.
 
-<!-- prettier-ignore-start -->
 ```js
 import json from '@rollup/plugin-json';
 
-/** @type {import('rocket/cli').RocketCliConfig} */
-export default ({
+export default /** @type {import('rocket/cli').RocketCliConfig} */ ({
   plugins: [json({ preferConst: true })],
 });
 ```
-<!-- prettier-ignore-end -->
 
 or add it in a special way like in `eleventy`
 
@@ -252,6 +249,18 @@ function myPlugin({ myFlag = false } = {}) {
 
 addPlugin(myPlugin, { myFlag: true }); // ts ok
 addPlugin(myPlugin, { notExisting: true }); // ts error
+```
+
+Note: There is a "hidden" feature in addPlugin that if you attach a `wrapPlugin` property to the returning function it will call `wrapPlugin` on the plugin before adding it.
+
+```js
+// example auto wrap rollup plugins for @web/dev-server
+import { fromRollup } from '@web/dev-server-rollup';
+
+const userSetupFunctions = [addPlugin(json)].map(mod => {
+  mod.wrapPlugin = fromRollup;
+  return mod;
+});
 ```
 
 ## Adjusting Plugin Options

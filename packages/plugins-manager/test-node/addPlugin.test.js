@@ -109,4 +109,18 @@ describe('addPlugin', () => {
     });
     expect(config.plugins).to.deep.equal(['-- newFirst last Plugin --']);
   });
+
+  it('[advanced] can add a `wrapPlugin` property to the function itself which will call it on the plugin on init', async () => {
+    function myWrapper(plugin) {
+      return () => 'wrapped' + plugin();
+    }
+
+    const config = applyPlugins({
+      setupPlugins: [addPlugin(insertPlugin)].map(mod => {
+        mod.wrapPlugin = myWrapper;
+        return mod;
+      }),
+    });
+    expect(config.plugins).to.deep.equal(['wrapped-- first last Plugin --']);
+  });
 });
