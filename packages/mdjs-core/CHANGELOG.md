@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.9.4
+
+### Patch Changes
+
+- e6c3d27: Support `js client` as an alias to `js script`
+
 ## 0.9.3
 
 ### Patch Changes
