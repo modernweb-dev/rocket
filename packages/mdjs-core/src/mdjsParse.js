@@ -16,6 +16,9 @@ function mdjsParse() {
       if (node.lang === 'js' && node.meta === 'script') {
         jsCode += node.value;
       }
+      if (node.lang === 'js' && node.meta === 'client') {
+        jsCode += node.value;
+      }
     });
     // we can only return/modify the tree but jsCode should not be part of the tree
     // so we attach it globally to the file.data
@@ -26,7 +29,9 @@ function mdjsParse() {
      * @param {Node} node
      */
     const removeFunction = node =>
-      node.type === 'code' && node.lang === 'js' && node.meta === 'script';
+      node.type === 'code' &&
+      node.lang === 'js' &&
+      (node.meta === 'script' || node.meta === 'client');
     remove(tree, removeFunction);
 
     return tree;
