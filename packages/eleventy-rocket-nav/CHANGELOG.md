@@ -1,5 +1,11 @@
 # @rocket/eleventy-rocket-nav
 
+## 0.3.1
+
+### Patch Changes
+
+- 60310ab: Improve performance by initializing sax-wasm only once even when it is running in parallel
+
 ## 0.3.0
 
 ### Minor Changes
