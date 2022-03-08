@@ -243,9 +243,9 @@ async function insertResponsiveImages(html) {
   const config = getComputedConfig();
 
   if (!isSetup) {
-    await parser.prepareWasm(saxWasmBuffer);
-    isSetup = true;
+    isSetup = parser.prepareWasm(saxWasmBuffer);
   }
+  await isSetup;
 
   const options = {
     inputPath: this.inputPath,

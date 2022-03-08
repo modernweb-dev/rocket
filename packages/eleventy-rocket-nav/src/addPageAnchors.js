@@ -97,6 +97,7 @@ function getHeadingsOfHtml(html) {
   return { headings, insertPoint };
 }
 
+/** @type {boolean | Promise<unknown>} */
 let isSetup = false;
 
 /**
@@ -104,9 +105,9 @@ let isSetup = false;
  */
 async function addPageAnchors(content) {
   if (!isSetup) {
-    await parser.prepareWasm(saxWasmBuffer);
-    isSetup = true;
+    isSetup = parser.prepareWasm(saxWasmBuffer);
   }
+  await isSetup;
 
   const { headings, insertPoint } = getHeadingsOfHtml(content);
   const pageAnchorsHtml = [];
