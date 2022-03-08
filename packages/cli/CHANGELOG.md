@@ -1,5 +1,13 @@
 # @rocket/cli
 
+## 0.10.2
+
+### Patch Changes
+
+- 60310ab: Improve performance by initializing sax-wasm only once even when it is running in parallel
+- Updated dependencies [60310ab]
+  - @rocket/eleventy-rocket-nav@0.3.1
+
 ## 0.10.1
 
 ### Patch Changes
