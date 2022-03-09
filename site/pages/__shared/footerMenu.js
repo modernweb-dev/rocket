@@ -25,7 +25,11 @@ export const footerMenu = [
       },
       {
         text: 'Slack',
-        href: '/about/slack/',
+        href: 'https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw',
+      },
+      {
+        text: 'Discord',
+        href: 'https://discord.gg/sTdpM2rkKJ',
       },
     ],
   },
@@ -34,7 +38,7 @@ export const footerMenu = [
     children: [
       {
         text: 'Sponsor',
-        href: '/about/sponsor/',
+        href: 'https://opencollective.com/modern-web',
       },
       {
         text: 'Contribute',

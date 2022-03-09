@@ -10,7 +10,7 @@ import '@rocket/launch/inline-notification/define';
 
 # Overview
 
-Rocket comes with a preset you will love. Simple, responsive and behaving like native, it sure is going to be a hit among your users.
+Rocket comes with a documentation preset you will love. Simple, responsive and behaving like native, it sure is going to be a hit among your users.
 
 ## Installation
 
@@ -21,6 +21,23 @@ npm i @rocket/launch
 ```
 
 ## Usage
+
+Rocket Launch comes with a few layouts you can use:
+
+- `LayoutSidebar`
+- `LayoutHome`
+- `Layout404`
+
+👉 `site/pages/recursive.data.js`
+
+```js
+import { LayoutSidebar } from '@rocket/launch';
+
+export const layout = new LayoutSidebar();
+```
+
+You should also define it as a preset in the configuration so that it can copy some default public files.
+(this step is not requires but it is recommended)
 
 👉 `config/rocket.config.js`
 
@@ -33,19 +50,11 @@ export default {
 };
 ```
 
-## Data
-
-You can define your own data for the available Layouts.
-
 ## Inline Notification
 
-```js script
+Launch ships with `<inline-notification>`, a custom element that applies some styles similar to "info boxes".
 
-```
-
-Launch ships with `<inline-notification>`, a custom element that applies some styles similar to "info boxes". The element works for `<noscript>` users as well, as long as you don't [override](/guides/presets/overriding/) the default `noscript.css` file.
-
-To add an inline notification you need to remember to import the element definition:
+To add an inline notification you need to import the element definition:
 
 ````md
 ```js server
@@ -53,7 +62,7 @@ import '@rocket/launch/inline-notification/define';
 ```
 ````
 
-Then you can add your notification to the page. If you want to write the notification's content using markdown, just pad the opening and closing tags with empty lines.
+Then you can add your notification to the page. If you want to write the notification's content using markdown, pad the opening and closing tags with empty lines.
 
 There are three varieties of `<inline-notification>`, "tip", "warning", and "danger"
 

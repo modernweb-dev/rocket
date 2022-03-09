@@ -8,9 +8,32 @@ import { rocketLaunch } from '@rocket/launch';
 // import { codeTabs } from 'rocket-preset-code-tabs';
 // import { customElementsManifest } from 'rocket-preset-custom-elements-manifest';
 
+/**
+ * Extracts the current applicable absoluteBaseUrl from Netlify system variables
+ *
+ * @param {string} fallback
+ */
+ export function absoluteBaseUrlNetlify(fallback) {
+  let absoluteBaseUrl = fallback;
+
+  switch (process.env.CONTEXT) {
+    case 'production':
+      absoluteBaseUrl = process.env.URL ?? '';
+      break;
+    case 'deploy-preview':
+      absoluteBaseUrl = process.env.DEPLOY_URL ?? '';
+      break;
+    case 'branch-deploy':
+      absoluteBaseUrl = process.env.DEPLOY_PRIME_URL ?? '';
+      break;
+    /* no default */
+  }
+  return absoluteBaseUrl;
+}
+
 /** @type {import('@rocket/cli/types/main').RocketCliOptions} */
 export default {
-  absoluteBaseUrl: 'http://localhost:8080',
+  absoluteBaseUrl: absoluteBaseUrlNetlify('http://localhost:8080'),
 
   presets: [
     rocketLaunch(),
