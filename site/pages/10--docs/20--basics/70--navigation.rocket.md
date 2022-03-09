@@ -110,7 +110,7 @@ The url `mysite/basics/` now works just fine but in a navigation most people do 
 
 In order to not confuse people if `Basics` is clickable or not - of if there is valuable content or not you can say this page is not clickable.
 
-You can do so by
+You can do so by exporting a flag in `20--basics/index.rocket.js` like so:
 
 ```js
 export const menuNoLink = true;

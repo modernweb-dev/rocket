@@ -291,6 +291,16 @@
                   "text": "Components",
                   "id": "components",
                   "level": 1
+                },
+                {
+                  "text": "Defining a component",
+                  "id": "defining-a-component",
+                  "level": 2
+                },
+                {
+                  "text": "Loading Components",
+                  "id": "loading-components",
+                  "level": 2
                 }
               ],
               "name": "Components",
@@ -412,6 +422,23 @@
               "level": 3
             },
             {
+              "title": "Hydration | Rocket",
+              "h1": "Hydration",
+              "headlinesWithId": [
+                {
+                  "text": "Hydration",
+                  "id": "hydration",
+                  "level": 1
+                }
+              ],
+              "name": "Hydration",
+              "menuLinkText": "Hydration",
+              "url": "/docs/basics/hydration/",
+              "outputRelativeFilePath": "docs/basics/hydration/index.html",
+              "sourceRelativeFilePath": "10--docs/20--basics/80--hydration.rocket.md",
+              "level": 3
+            },
+            {
               "title": "Assets | Rocket",
               "h1": "Assets",
               "headlinesWithId": [
@@ -419,6 +446,46 @@
                   "text": "Assets",
                   "id": "assets",
                   "level": 1
+                },
+                {
+                  "text": "Source Assets",
+                  "id": "source-assets",
+                  "level": 2
+                },
+                {
+                  "text": "HTML",
+                  "id": "html",
+                  "level": 3
+                },
+                {
+                  "text": "CSS",
+                  "id": "css",
+                  "level": 3
+                },
+                {
+                  "text": "Markdown",
+                  "id": "markdown",
+                  "level": 3
+                },
+                {
+                  "text": "Javascript",
+                  "id": "javascript",
+                  "level": 3
+                },
+                {
+                  "text": "Static Assets",
+                  "id": "static-assets",
+                  "level": 2
+                },
+                {
+                  "text": "The  Function",
+                  "id": "the-resolve-function",
+                  "level": 2
+                },
+                {
+                  "text": "Node exports",
+                  "id": "node-exports",
+                  "level": 2
                 }
               ],
               "name": "Assets",
@@ -443,6 +510,11 @@
                   "level": 2
                 },
                 {
+                  "text": "Adding an API proxy",
+                  "id": "adding-an-api-proxy",
+                  "level": 2
+                },
+                {
                   "text": "Adding Rollup Plugins",
                   "id": "adding-rollup-plugins",
                   "level": 2
@@ -458,8 +530,13 @@
                   "level": 2
                 },
                 {
-                  "text": "Rollup",
-                  "id": "rollup",
+                  "text": "DevServerOptions (@web/dev-server)",
+                  "id": "devserveroptions-webdev-server",
+                  "level": 3
+                },
+                {
+                  "text": "BuildOptions (rollup)",
+                  "id": "buildoptions-rollup",
                   "level": 3
                 }
               ],
@@ -467,26 +544,8 @@
               "menuLinkText": "Configuration",
               "url": "/docs/basics/configuration/",
               "outputRelativeFilePath": "docs/basics/configuration/index.html",
-              "sourceRelativeFilePath": "10--docs/20--basics/90--configuration.rocket.md",
+              "sourceRelativeFilePath": "10--docs/20--basics/95--configuration.rocket.md",
               "level": 3
-            },
-            {
-              "title": "Hydration | Rocket",
-              "h1": "Hydration",
-              "headlinesWithId": [
-                {
-                  "text": "Hydration",
-                  "id": "hydration",
-                  "level": 1
-                }
-              ],
-              "name": "Hydration",
-              "menuLinkText": "Hydration",
-              "url": "/docs/basics/hydration/",
-              "outputRelativeFilePath": "docs/basics/hydration/index.html",
-              "sourceRelativeFilePath": "10--docs/20--basics/80--hydration.rocket.md",
-              "level": 3,
-              "menuOrder": 12
             }
           ]
         },
@@ -500,23 +559,6 @@
           "sourceRelativeFilePath": "10--docs/30--guides/index.rocket.js",
           "level": 2,
           "children": [
-            {
-              "title": "Overview | Rocket",
-              "h1": "Overview",
-              "headlinesWithId": [
-                {
-                  "text": "Overview",
-                  "id": "overview",
-                  "level": 1
-                }
-              ],
-              "name": "Overview",
-              "menuLinkText": "Overview",
-              "url": "/docs/guides/overview/",
-              "outputRelativeFilePath": "docs/guides/overview/index.html",
-              "sourceRelativeFilePath": "10--docs/30--guides/10--overview.rocket.md",
-              "level": 3
-            },
             {
               "title": "Social Media | Rocket",
               "h1": "Social Media",
@@ -658,6 +700,23 @@
               "url": "/docs/guides/go-live/",
               "outputRelativeFilePath": "docs/guides/go-live/index.html",
               "sourceRelativeFilePath": "10--docs/30--guides/50--go-live.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Cross Browser | Rocket",
+              "h1": "Cross Browser",
+              "headlinesWithId": [
+                {
+                  "text": "Cross Browser",
+                  "id": "cross-browser",
+                  "level": 1
+                }
+              ],
+              "name": "Cross Browser",
+              "menuLinkText": "Cross Browser",
+              "url": "/docs/guides/cross-browser/",
+              "outputRelativeFilePath": "docs/guides/cross-browser/index.html",
+              "sourceRelativeFilePath": "10--docs/30--guides/60--cross-browser.rocket.md",
               "level": 3
             }
           ]

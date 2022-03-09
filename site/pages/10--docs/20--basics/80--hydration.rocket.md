@@ -4,8 +4,6 @@ export const sourceRelativeFilePath = '10--docs/20--basics/80--hydration.rocket.
 import { html, layout, setupUnifiedPlugins } from '../../recursive.data.js';
 export { html, layout, setupUnifiedPlugins };
 /* END - Rocket auto generated - do not touch */
-
-export const menuOrder = 12;
 ```
 
 # Hydration

@@ -136,11 +136,12 @@ const layoutB =
 Partial html is not supported in [lit](http://lit.dev) as it uses the browser build in html parser which try to "auto correct" your html by closing tags.
 e.g. this
 
+<!-- prettier-ignore-start -->
+
 ```js
 const mainStart = html`
   <main>
     <p>Always at the top</p>
-  </main>
 `;
 
 const mainEnd = html`
@@ -154,14 +155,18 @@ const layout = () => html`
 `;
 ```
 
+<!-- prettier-ignore-end -->
+
 will result in
 
 ```html
 <main>
   <p>Always at the top</p>
-  <p>Hello World</p>
 </main>
+<p>Hello World</p>
 ```
+
+Which is most likely not what you want.
 
 </inline-notification>
 

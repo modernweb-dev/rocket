@@ -54,6 +54,10 @@ export class LayoutSidebar extends Layout {
    */
   options = {
     ...this.options,
+    bodyClasses: {
+      ...this.options.bodyClasses,
+      'dsd-pending': true,
+    },
     siteName: 'Rocket',
     logoSrc: '/icon.svg',
     logoAlt: 'Rocket Logo',
@@ -146,6 +150,14 @@ export class LayoutSidebar extends Layout {
         <link rel="stylesheet" href="resolve:@rocket/launch/css/style.css" />
       `,
 
+      head__50: html`
+        <style>
+          body[dsd-pending] {
+            display: none;
+          }
+        </style>
+      `,
+
       header__10: html`
         <a class="logo-link" href="/">
           <img src="/icon.svg" alt="${this.options.logoAlt}" />
@@ -193,6 +205,14 @@ export class LayoutSidebar extends Layout {
 
       sidebar__100: data =>
         this.options.pageTree.renderMenu(new IndexMenu(), data.sourceRelativeFilePath),
+
+      top__10: () => html`
+        <script>
+          if (HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
+            document.body.removeAttribute('dsd-pending');
+          }
+        </script>
+      `,
 
       content__600: data => html`
         <div class="content-previous-next">
@@ -250,6 +270,20 @@ export class LayoutSidebar extends Layout {
         }
         return nothing;
       },
+
+      bottom__70: () => html`
+        <script type="module">
+          (async () => {
+            if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
+              const { hydrateShadowRoots } = await import(
+                '@webcomponents/template-shadowroot/template-shadowroot.js'
+              );
+              hydrateShadowRoots(document.body);
+              document.body.removeAttribute('dsd-pending');
+            }
+          })();
+        </script>
+      `,
     };
   }
 

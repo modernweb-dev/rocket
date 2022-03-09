@@ -1,6 +1,5 @@
 ## Features
 
-- ssr render can just be a string concat
 - recursive rendering of lit / html / and markdown
   - "import" markdown with frontmatter
 - mdjs update to unified v10 AND go esm only (only cjs pkg we have now)

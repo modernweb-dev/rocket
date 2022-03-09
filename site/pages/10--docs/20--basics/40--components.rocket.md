@@ -21,6 +21,8 @@ Web component only live within the html body. For content within the head or a f
 Rocket uses [lit](https://lit.dev) for layouts so using it for components as well makes it easy to switch back and forth.
 However any web component code/library should work.
 
+## Defining a component
+
 A lit component typically looks like this:
 
 👉 `site/src/components/TwoColumns.js`
@@ -55,6 +57,30 @@ import { TwoColumns } from './TwoColumns.js';
 
 customElements.define('two-columns', TwoColumns);
 ```
+
+With the element being define you can now use it in markdown, html or JavaScript.
+
+```md
+# Hello World
+
+<two-columns><div slot="left">
+
+This is **left** content
+
+</div><div slot="right">
+
+And here comes the **right** content
+
+</div></two-columns>
+```
+
+<inline-notification>
+
+Note the empty lines between html & markdown. They are necessary as this is how the markdown parser separates unprocessed html from markdown.
+
+</inline-notification>
+
+## Loading Components
 
 For each component you then need to decide if you want to render server or client side.
 

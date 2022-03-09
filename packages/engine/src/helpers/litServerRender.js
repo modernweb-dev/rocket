@@ -1,19 +1,4 @@
-import { Readable } from 'stream';
 import { render } from '@lit-labs/ssr/lib/render-with-global-dom-shim.js';
-
-/**
- * @param {Readable} stream
- * @returns {Promise<string>}
- */
-function streamToString(stream) {
-  /** @type {Uint8Array[]} */
-  const chunks = [];
-  return new Promise((resolve, reject) => {
-    stream.on('data', chunk => chunks.push(Buffer.from(chunk)));
-    stream.on('error', err => reject(err));
-    stream.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
-  });
-}
 
 /**
  * @param {string} templateResult
@@ -21,8 +6,10 @@ function streamToString(stream) {
  */
 export async function litServerRender(templateResult) {
   const ssrResult = render(templateResult);
-  const stream = Readable.from(ssrResult);
-  let outputString = await streamToString(stream);
+  let outputString = '';
+  for (const chunk of ssrResult) {
+    outputString += chunk;
+  }
   // TODO: lit-ssr has a bug where it does not handle dynamic content in <title>, <body>, <html>, ...
   // https://github.com/lit/lit/issues/2441
   // we are now writing <body-server-only> in the template and before we write the file we remove the `-server-only` part
@@ -32,7 +19,7 @@ export async function litServerRender(templateResult) {
   outputString = outputString.replace(/<(.*?)-server-only/g, '<$1');
 
   // TODO: remove workaround once https://github.com/lit/lit/issues/2470 is fixed
-  // we remove <?> from the source code as it's invalid html and sax-wasm can not handle it
+  // we remove <?> from the source code as it's html that requires error handling and some versions of sax-wasm can not handle it
   outputString = outputString.replace(/<\?>/g, '<!---->');
 
   return outputString;

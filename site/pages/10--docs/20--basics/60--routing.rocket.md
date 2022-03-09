@@ -8,11 +8,11 @@ export { html, layout, setupUnifiedPlugins };
 
 # Routing
 
-Rocket uses **file-based routing** to generate your build URLs based on the file layout of your project `docs` directory. When a file is added to the `docs` directory of your project, it is automatically available as a route based on its filename.
+Rocket uses **file-based routing** to generate your build URLs based on the file layout of your project `site/pages` directory. When a file is added to the `site/pages` directory of your project, it is automatically available as a route based on its filename.
 
 ## Static routes
 
-Rocket Pages as Markdown (`rocket.md`), HTML (`rocket.html`) and JavaScript (`rocket.js`) in the `docs` directory become pages on your website. Each page’s route is decided based on its filename and path within the `docs` directory. This means that there is no separate "routing config" to maintain in an Rocket project.
+Rocket Pages are Markdown (`rocket.md`), HTML (`rocket.html`) and JavaScript (`rocket.js`) in the `site/pages` directory become pages on your website. Each page’s route is decided based on its filename and path within the `site/pages` directory. This means that there is no separate "routing config" to maintain in an Rocket project.
 
 ```bash
 # Example: Static routes
