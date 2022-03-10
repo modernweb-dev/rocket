@@ -26,15 +26,15 @@
       "level": 1,
       "children": [
         {
-          "title": "First Pages | Rocket",
-          "h1": "First Pages",
-          "menuNoLink": true,
-          "name": "First Pages",
-          "menuLinkText": "First Pages",
+          "title": "Setup | Rocket",
+          "h1": "Setup",
+          "name": "Setup",
+          "menuLinkText": "Setup",
           "url": "/docs/setup/",
           "outputRelativeFilePath": "docs/setup/index.html",
           "sourceRelativeFilePath": "10--docs/10--setup/index.rocket.js",
           "level": 2,
+          "menuNoLink": true,
           "children": [
             {
               "title": "Getting started | Rocket",
@@ -172,13 +172,13 @@
         {
           "title": "Basics | Rocket",
           "h1": "Basics",
-          "menuNoLink": true,
           "name": "Basics",
           "menuLinkText": "Basics",
           "url": "/docs/basics/",
           "outputRelativeFilePath": "docs/basics/index.html",
           "sourceRelativeFilePath": "10--docs/20--basics/index.rocket.js",
           "level": 2,
+          "menuNoLink": true,
           "children": [
             {
               "title": "Project Structure | Rocket",
@@ -558,6 +558,7 @@
           "outputRelativeFilePath": "docs/guides/index.html",
           "sourceRelativeFilePath": "10--docs/30--guides/index.rocket.js",
           "level": 2,
+          "menuNoLink": true,
           "children": [
             {
               "title": "Social Media | Rocket",
@@ -749,6 +750,7 @@
           "outputRelativeFilePath": "presets/launch/index.html",
           "sourceRelativeFilePath": "20--presets/10--launch/index.rocket.js",
           "level": 2,
+          "menuNoLink": true,
           "children": [
             {
               "title": "Overview | Rocket",
@@ -854,6 +856,7 @@
           "outputRelativeFilePath": "tools/plugins-manager/index.html",
           "sourceRelativeFilePath": "30--tools/10--plugins-manager/index.rocket.js",
           "level": 2,
+          "menuNoLink": true,
           "children": [
             {
               "title": "Overview | Rocket",
@@ -1145,7 +1148,8 @@
               "sourceRelativeFilePath": "30--tools/30--rollup-config/10--overview.rocket.md",
               "level": 3
             }
-          ]
+          ],
+          "menuNoLink": true
         },
         {
           "title": "Check Html Links | Rocket",

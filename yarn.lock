@@ -1585,13 +1585,14 @@
     lit "^2.0.0"
     lit-html "^2.0.0"
 
-"@lit-labs/ssr@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@lit-labs/ssr/-/ssr-2.0.1.tgz#18e5aa000b9937aeaa4325998e98a6f1c1a90b13"
-  integrity sha512-WVBWmGj8NmuJLDu/Y812zsro4kzh03ZVzTTIinFlDIrSawZcPi8ZOCDIxtsXcNLYkYhmBNOsEb9nDtF9opdXnA==
+"@lit-labs/ssr@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@lit-labs/ssr/-/ssr-2.0.4.tgz#326e7f163e16de6df368ebed6312c200e0bab2e5"
+  integrity sha512-8DzMXAGJ6eGJg/Pa9Va6//pW2LGpF8FNz6z/kDX5cAcsZ4BLJRkVUkAoM1Sc9TXaNu04hAxpw6j5sY1tz7zpfg==
   dependencies:
     "@lit-labs/ssr-client" "^1.0.0"
     "@lit/reactive-element" "^1.1.0"
+    "@types/node" "^16.0.0"
     lit "^2.1.0"
     lit-element "^3.1.0"
     lit-html "^2.1.0"
@@ -2156,6 +2157,11 @@
   version "14.18.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.12.tgz#0d4557fd3b94497d793efd4e7d92df2f83b4ef24"
   integrity sha512-q4jlIR71hUpWTnGhXWcakgkZeHa3CCjcQcnuzU8M891BAWA2jHiziiWEPEkdS5pFsz7H9HJiy8BrK7tBRNrY7A==
+
+"@types/node@^16.0.0":
+  version "16.11.26"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.26.tgz#63d204d136c9916fb4dcd1b50f9740fe86884e47"
+  integrity sha512-GZ7bu5A6+4DtG7q9GsoHXy3ALcgeIHP4NnL0Vv2wu0uUB/yQex26v0tf6/na1mm0+bS9Uw+0DFex7aaKr2qawQ==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -7654,10 +7660,10 @@ rehype-parse@^7.0.1:
     hast-util-from-parse5 "^6.0.0"
     parse5 "^6.0.0"
 
-rehype-prism@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/rehype-prism/-/rehype-prism-1.0.0.tgz#f5d473ea3532f9e4f269abe7d334e756588b5a5f"
-  integrity sha512-SbTnRj6YTXI/E+GiemW/kPTViHJEtT9P/VIev3RqNsC+wwX67KuE6i0e9T0m4O+hgg5VK8cHxb2RwhqvT3de9g==
+rehype-prism@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/rehype-prism/-/rehype-prism-1.0.1.tgz#b0c7a63af0451ca82487864645f2c0224f6d61d9"
+  integrity sha512-q4Ls6Eex0H3C67Qhbdr3xfxWLZjb3lDHIp4vBgFLFP3WQGpKE+TkxcpmGeWXFbudnriDjZFW1/ISZ2aKy9G89A==
   dependencies:
     "@types/node" "^14.14.31"
     "@types/prismjs" "^1.16.6"
