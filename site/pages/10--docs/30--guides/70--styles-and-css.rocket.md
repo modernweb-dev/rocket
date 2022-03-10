@@ -22,11 +22,11 @@ Styles with Rocket can be as simple or as complex as you'd like them to be. In t
 
 ...
 
-### 2. Global CSS Styling
+### 2. Global CSS Template Literals
 
 ...
 
-### 3. Completely Component Scoped Styles
+### 3. Component Scoped Styles
 
 ...
 
