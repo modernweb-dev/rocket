@@ -55,7 +55,7 @@ function hasSameModelValues(aModel, bModel) {
   delete b.children;
   delete b.headlinesWithId;
 
-  for (const key of Object.keys(a)) {
+  for (const key of Object.keys(b)) {
     if (a[key] !== b[key]) {
       return false;
     }

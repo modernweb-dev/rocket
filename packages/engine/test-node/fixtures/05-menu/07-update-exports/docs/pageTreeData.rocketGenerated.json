@@ -5,5 +5,6 @@
   "url": "/",
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
-  "level": 0
+  "level": 0,
+  "flag": true
 }

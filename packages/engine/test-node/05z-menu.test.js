@@ -226,7 +226,7 @@ describe('Engine menus', () => {
     await cleanup();
   });
 
-  it('06: saves all string, number exports to the pageTree', async () => {
+  it('06: saves all string, number, boolean exports to the pageTree', async () => {
     const { readSource, build } = await setupTestEngine('fixtures/05-menu/06-saves-exports/docs');
     await build();
 
@@ -250,6 +250,7 @@ describe('Engine menus', () => {
           author: 'Thomas Allmer (@daKmoR)',
           authorHref: 'https://twitter.com/daKmoR',
           description: 'Just a Hello World Post!',
+          flag: true,
           publishDate: '12 Sep 2021',
           title: 'Hello world!',
           value: 128,
@@ -279,7 +280,10 @@ describe('Engine menus', () => {
     await engine.start();
     await writeSource(
       'index.rocket.js',
-      "export const menuLinkText = 'Guides'; export default () => '<h1>Learning Rocket</h1>';",
+      [
+        "export const menuLinkText = 'Guides';",
+        "export default () => '<h1>Learning Rocket</h1>';",
+      ].join('\n'),
     );
     await anEngineEvent('rocketUpdated');
 
@@ -293,6 +297,31 @@ describe('Engine menus', () => {
         '  "outputRelativeFilePath": "index.html",',
         '  "sourceRelativeFilePath": "index.rocket.js",',
         '  "level": 0',
+        '}',
+      ].join('\n'),
+    );
+
+    await writeSource(
+      'index.rocket.js',
+      [
+        "export const menuLinkText = 'Guides';",
+        'export const flag = true;',
+        "export default () => '<h1>Learning Rocket</h1>';",
+      ].join('\n'),
+    );
+    await anEngineEvent('rocketUpdated');
+
+    expect(readSource('pageTreeData.rocketGenerated.json', { format: 'json' })).to.equal(
+      [
+        '{',
+        '  "h1": "Learning Rocket",',
+        '  "name": "Learning Rocket",',
+        '  "menuLinkText": "Guides",',
+        '  "url": "/",',
+        '  "outputRelativeFilePath": "index.html",',
+        '  "sourceRelativeFilePath": "index.rocket.js",',
+        '  "level": 0,',
+        '  "flag": true',
         '}',
       ].join('\n'),
     );

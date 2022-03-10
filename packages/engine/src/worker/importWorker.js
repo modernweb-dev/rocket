@@ -30,7 +30,7 @@ parentPort?.on('message', message => {
         if (key === 'default') {
           continue;
         }
-        if (typeof value === 'string' || typeof value === 'number') {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
           importData[key] = value;
         }
       }

@@ -16,6 +16,7 @@
   "author": "Thomas Allmer (@daKmoR)",
   "authorHref": "https://twitter.com/daKmoR",
   "description": "Just a Hello World Post!",
+  "flag": true,
   "publishDate": "12 Sep 2021",
   "title": "Hello world!",
   "value": 128
