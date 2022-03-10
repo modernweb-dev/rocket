@@ -25,7 +25,8 @@ export const footerMenu = [
       },
       {
         text: 'Slack',
-        href: 'https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw',
+        href:
+          'https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw',
       },
       {
         text: 'Discord',

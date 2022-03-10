@@ -5,6 +5,7 @@
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
+  "onRootLevel": true,
   "children": [
     {
       "name": "about.rocket.js",
@@ -12,7 +13,8 @@
       "url": "/about/",
       "outputRelativeFilePath": "about/index.html",
       "sourceRelativeFilePath": "about.rocket.js",
-      "level": 1
+      "level": 1,
+      "onRootLevel": true
     },
     {
       "name": "components/index.rocket.js",
@@ -21,6 +23,7 @@
       "outputRelativeFilePath": "components/index.html",
       "sourceRelativeFilePath": "components/index.rocket.js",
       "level": 1,
+      "inComponents": true,
       "children": [
         {
           "name": "components/accordion.rocket.js",
@@ -28,7 +31,8 @@
           "url": "/components/accordion/",
           "outputRelativeFilePath": "components/accordion/index.html",
           "sourceRelativeFilePath": "components/accordion.rocket.js",
-          "level": 2
+          "level": 2,
+          "inComponents": true
         },
         {
           "name": "components/tabs.rocket.js",
@@ -36,7 +40,8 @@
           "url": "/components/tabs/",
           "outputRelativeFilePath": "components/tabs/index.html",
           "sourceRelativeFilePath": "components/tabs.rocket.js",
-          "level": 2
+          "level": 2,
+          "inComponents": true
         }
       ]
     }

@@ -11,8 +11,12 @@
       "outputRelativeFilePath": "about/index.html",
       "sourceRelativeFilePath": "about.rocket.js",
       "level": 1,
-      "name": "about.rocket.js"
+      "name": "about.rocket.js",
+      "more": "stuff",
+      "some": "data"
     }
   ],
-  "name": "index.rocket.js"
+  "name": "index.rocket.js",
+  "more": "stuff",
+  "some": "data"
 }

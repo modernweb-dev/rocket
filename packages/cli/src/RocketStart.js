@@ -39,6 +39,13 @@ export class RocketStart {
       return;
     }
 
+    const withWrap = this.cli.options.setupDevServerAndBuildPlugins
+      ? this.cli.options.setupDevServerAndBuildPlugins.map(modFunction => {
+          modFunction.wrapPlugin = fromRollup;
+          return modFunction;
+        })
+      : [];
+
     this.engine = new Engine();
     this.engine.setOptions({
       docsDir: this.cli.options.inputDir,
@@ -47,13 +54,7 @@ export class RocketStart {
       open: this.cli.options.open,
       adjustDevServerOptions: this.cli.options.adjustDevServerOptions,
       setupDevServerMiddleware: this.cli.options.setupDevServerMiddleware,
-      setupDevServerPlugins: [
-        ...this.cli.options.setupDevServerPlugins,
-        ...this.cli.options.setupDevServerAndBuildPlugins?.map(modFunction => {
-          modFunction.wrapPlugin = fromRollup;
-          return modFunction;
-        }),
-      ],
+      setupDevServerPlugins: [...this.cli.options.setupDevServerPlugins, ...withWrap],
     });
     try {
       console.log('🚀 Engines online');

@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import chai from 'chai';
 import http from 'http';
 import fetch from 'node-fetch';
@@ -37,9 +38,7 @@ describe('Config', () => {
   });
 
   it('03: can add a middleware (api proxy) to the dev server', async () => {
-    const { cleanup, cli } = await setupTestCli('fixtures/01-config/03-add-middleware/', [
-      'start',
-    ]);
+    const { cleanup, cli } = await setupTestCli('fixtures/01-config/03-add-middleware/', ['start']);
     const apiServer = http.createServer((request, response) => {
       if (request.url === '/api/message') {
         response.writeHead(200);
@@ -62,7 +61,11 @@ describe('Config', () => {
   });
 
   it('04: can add a rollup plugin via setupDevServerAndBuildPlugins to build', async () => {
-    const { build, readOutput } = await setupTestCli('fixtures/01-config/04-add-rollup-plugin/', undefined, { buildOptimize: true });
+    const { build, readOutput } = await setupTestCli(
+      'fixtures/01-config/04-add-rollup-plugin/',
+      undefined,
+      { buildOptimize: true },
+    );
     await build();
     const inlineModule = await readOutput('e97af63d.js', { format: false });
     expect(inlineModule).to.equal('var a={test:"data"};console.log(a);\n');

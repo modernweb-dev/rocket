@@ -1,5 +1,4 @@
 import chai from 'chai';
-import fetch from 'node-fetch';
 import chalk from 'chalk';
 import { execute, expectThrowsAsync, setFixtureDir } from '@rocket/cli/test-helpers';
 

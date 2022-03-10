@@ -5,6 +5,7 @@
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
+  "fromRoot": true,
   "children": [
     {
       "name": "about.rocket.js",
@@ -12,7 +13,8 @@
       "url": "/about/",
       "outputRelativeFilePath": "about/index.html",
       "sourceRelativeFilePath": "about.rocket.js",
-      "level": 1
+      "level": 1,
+      "fromRoot": true
     },
     {
       "name": "components/index.rocket.js",
@@ -21,6 +23,7 @@
       "outputRelativeFilePath": "components/index.html",
       "sourceRelativeFilePath": "components/index.rocket.js",
       "level": 1,
+      "fromRoot": true,
       "children": [
         {
           "name": "components/tabs.rocket.js",
@@ -28,7 +31,8 @@
           "url": "/components/tabs/",
           "outputRelativeFilePath": "components/tabs/index.html",
           "sourceRelativeFilePath": "components/tabs.rocket.js",
-          "level": 2
+          "level": 2,
+          "fromRoot": true
         }
       ]
     }

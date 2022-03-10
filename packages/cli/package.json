@@ -63,6 +63,9 @@
     "gray-matter": "^4.0.3",
     "plugins-manager": "^0.3.0"
   },
+  "devDependencies": {
+    "koa-proxy": "^1.0.0-alpha.3"
+  },
   "types": "./dist-types/src/index.d.ts",
   "typesVersions": {
     "*": {
@@ -70,8 +73,5 @@
         "./dist-types/src/index.d.ts"
       ]
     }
-  },
-  "devDependencies": {
-    "koa-proxy": "^1.0.0-alpha.3"
   }
 }

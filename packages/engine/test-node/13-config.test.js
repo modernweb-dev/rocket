@@ -16,7 +16,7 @@ describe('Config', () => {
       'fixtures/13-config/01-add-rollup-plugin/docs',
       {
         setupDevServerPlugins: [addPlugin(json, {}, { location: 'bottom' })],
-        adjustDevServerOptions: (options) => ({
+        adjustDevServerOptions: options => ({
           ...options,
           mimeTypes: {
             // serve all json files as js
@@ -39,14 +39,17 @@ describe('Config', () => {
   });
 
   it('02: can add a middleware (api proxy) to the dev server', async () => {
-    const { cleanup, engine } = await setupTestEngine('fixtures/13-config/02-add-middleware/pages', {
-      setupDevServerMiddleware: [
-        addPlugin(proxy, {
-          host: 'http://localhost:9000/',
-          match: /^\/api\//,
-        }),
-      ],
-    });
+    const { cleanup, engine } = await setupTestEngine(
+      'fixtures/13-config/02-add-middleware/pages',
+      {
+        setupDevServerMiddleware: [
+          addPlugin(proxy, {
+            host: 'http://localhost:9000/',
+            match: /^\/api\//,
+          }),
+        ],
+      },
+    );
     const apiServer = http.createServer((request, response) => {
       if (request.url === '/api/message') {
         response.writeHead(200);

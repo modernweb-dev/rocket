@@ -76,10 +76,8 @@ export class LayoutSidebar extends Layout {
       },
       {
         name: 'Discord',
-        url:
-          'https://discord.gg/sTdpM2rkKJ',
+        url: 'https://discord.gg/sTdpM2rkKJ',
       },
-
     ],
     footerMenu: [],
     titleWrapperFn: title => `${title} | ${this.options.siteName}`,

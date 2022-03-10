@@ -13,7 +13,7 @@ import { rocketLaunch } from '@rocket/launch';
  *
  * @param {string} fallback
  */
- export function absoluteBaseUrlNetlify(fallback) {
+export function absoluteBaseUrlNetlify(fallback) {
   let absoluteBaseUrl = fallback;
 
   switch (process.env.CONTEXT) {

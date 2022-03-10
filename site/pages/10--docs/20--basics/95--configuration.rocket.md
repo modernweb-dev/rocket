@@ -89,11 +89,11 @@ export default {
 
 ## Adding an API proxy
 
-If we want to access an API client side we need to access it via the same domain. 
+If we want to access an API client side we need to access it via the same domain.
 However in most cases the API server is running on a different server/url/domain.
 
 Doing cross domain/port request is not allowed on the client side.
-To still access it we can use a proxy. 
+To still access it we can use a proxy.
 
 Let's say we have an API server running on port 9000 and the Rocket Dev Server is run on port 8000.
 
@@ -131,9 +131,7 @@ import { addPlugin } from 'plugins-manager';
 
 /** @type {import('@rocket/cli').RocketCliOptions} */
 export default {
-  setupDevServerAndBuildPlugins: [
-    addPlugin(json, { my: 'settings' }, { location: 'top' }),
-  ],
+  setupDevServerAndBuildPlugins: [addPlugin(json, { my: 'settings' }, { location: 'top' })],
 };
 ```
 

@@ -1,6 +1,6 @@
 import { MetaPluginOfEngine } from '@rocket/engine';
 import { addPlugin } from 'plugins-manager';
-import { MetaPluginOfRocketCli, RocketCliOptions, FullRocketCliOptions } from './main.js';
+import { MetaPluginOfRocketCli, FullRocketCliOptions } from './main.js';
 import { Plugin as DevServerPlugin } from '@web/dev-server-core';
 
 type ImageFormat = 'avif' | 'webp' | 'jpg' | 'jpeg' | 'png' | 'svg';

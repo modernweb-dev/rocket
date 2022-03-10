@@ -6,4 +6,4 @@ export { html, layout, setupUnifiedPlugins };
 
 export const menuNoLink = true;
 
-export default () => html`<h1>Rollup Config</h1>`; 
+export default () => html`<h1>Rollup Config</h1>`;
