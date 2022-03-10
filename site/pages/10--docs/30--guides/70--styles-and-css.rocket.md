@@ -38,7 +38,7 @@ This is where we'll share our recommendations and what we would consider best pr
 
 ### Global Styles
 
-We would first recommend that you have your global styles (resets, CSS variables, theme colors, etc.) all placed in a .css file or an inline style tag on your base layout. Web components work very well with [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) which is why we a global.css or base.css file would be a great place to set your site's theme colors, global resets, etc.
+Web components work very well with [CSS custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) which is why a global.css or base.css file would be a great place to set your site's theme colors, global resets, etc.
 
 Here's an example of some base properties for a theme.
 
