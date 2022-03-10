@@ -719,6 +719,38 @@
               "outputRelativeFilePath": "docs/guides/cross-browser/index.html",
               "sourceRelativeFilePath": "10--docs/30--guides/60--cross-browser.rocket.md",
               "level": 3
+            },
+            {
+              "title": "Styles And CSS | Rocket",
+              "h1": "Styles And CSS",
+              "headlinesWithId": [
+                {
+                  "text": "Styles And CSS",
+                  "id": "styles-and-css",
+                  "level": 1
+                },
+                {
+                  "text": "1. Simple  Tags and External Files",
+                  "id": "1-simple-link-tags-and-external-files",
+                  "level": 2
+                },
+                {
+                  "text": "2.",
+                  "id": "2",
+                  "level": 2
+                },
+                {
+                  "text": "2. Completely Component Scoped",
+                  "id": "2-completely-component-scoped",
+                  "level": 2
+                }
+              ],
+              "name": "Styles And CSS",
+              "menuLinkText": "Styles And CSS",
+              "url": "/docs/guides/styles-and-css/",
+              "outputRelativeFilePath": "docs/guides/styles-and-css/index.html",
+              "sourceRelativeFilePath": "10--docs/30--guides/70--styles-and-css.rocket.md",
+              "level": 3
             }
           ]
         }
