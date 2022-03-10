@@ -51,7 +51,7 @@ export default () => html`<img src="../path/to/your/image.jpg" alt="My Image" />
 
 ## Static Assets
 
-Oftentimes, you have files such as robots.txt, .htaccess (redirects), favicons, etc. that do not need to be in your `src/` directory. For these types of files that simply need to be copied to the built site you will want to place them in your `site/public/` folder. Anything is this folder will be copied over into the built site completely untouched.
+Oftentimes, you have files such as robots.txt, .htaccess (redirects), favicons, etc. that do not need to be in your `src/` directory. For these types of files that simply need to be copied to the built site you will want to place them in your `site/public/` folder. Anything in this folder will be copied over into the built site completely untouched.
 
 **Note:** Since these files are simply copied over during the build process, anything you place in the `site/public/` directory will not be optimized, bundled, or minified by Rocket.
 
@@ -70,7 +70,7 @@ Here is an example of css file being imported using the `:resolve` function
 
 ## Node exports
 
-If you package is `"type": "module"` then you can also add exports.
+If your package is `"type": "module"` then you can also add exports.
 
 👉 `package.json`
 
