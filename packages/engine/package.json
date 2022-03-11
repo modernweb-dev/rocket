@@ -1,6 +1,6 @@
 {
   "name": "@rocket/engine",
-  "version": "0.1.0-alpha.17",
+  "version": "0.1.0-alpha.18",
   "publishConfig": {
     "access": "public"
   },
@@ -36,10 +36,8 @@
     "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
   },
   "files": [
-    "*.js",
-    "dist",
+    "assets",
     "dist-types",
-    "preset",
     "src"
   ],
   "dependencies": {
