@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--step-5);
+}
+
+h2 {
+  font-size: var(--step-3);
+}
+
+h3 {
+  font-size: var(--step-2);
+}
+
+h4 {
+  font-size: var(--step-1);
+}
+
+h5 {
+  font-size: var(--step-1);
+}
+
+.bg-grey {
+  background-color: #f9f8f8;
+}
+
+.bg-blue {
+  background-color: #272556;
+  color: #fff;
+}
+
+a.cta {
+  display: inline-block;
+  padding: 1.625rem 2.625rem 1.625rem 2.625rem;
+  border: 1px solid #272556;
+  border-radius: 30px;
+  background-color: #272556;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 0;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+a.cta:hover {
+  background-color: transparent;
+  color: #272556; /* needs to stay here because of the color property of a tag */
+  text-decoration: none;
+}
+a.cta-outline {
+  display: inline-block;
+  padding: 1.625rem 2.625rem 1.625rem 2.625rem;
+  border: 1px solid #fff;
+  border-radius: 30px;
+  background-color: transparent;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 0;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+a.cta-outline:hover {
+  background-color: #ffffff;
+  color: #272556;
+}

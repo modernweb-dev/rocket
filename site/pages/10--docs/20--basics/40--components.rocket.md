@@ -42,7 +42,7 @@ class TwoColumns extends LitElement {
     `;
   }
 
-  styles = css`
+  static styles = css`
     :host {
       display: flex;
     }

@@ -1,0 +1,61 @@
+{
+  "name": "@rocket/spark",
+  "version": "0.1.0-alpha.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rocket Spark Preset",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "presets/spark"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/",
+  "main": "./src/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist-types/src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./css/*": "./css/*.css"
+  },
+  "scripts": {
+    "build": "npm run rocket:build",
+    "dev": "node ./eleventyOnly.js",
+    "rocket:build": "node src/cli.js build -c demo",
+    "rocket:start": "node src/cli.js start -c demo",
+    "start": "npm run rocket:start",
+    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/",
+    "xtest:watch": "mocha test/**/*.test.js --parallel --watch"
+  },
+  "files": [
+    "css",
+    "dist-types",
+    "src"
+  ],
+  "keywords": [
+    "rocket",
+    "docs",
+    "ssg",
+    "demo",
+    "rollup"
+  ],
+  "dependencies": {
+    "@rocket/engine": "^0.1.0-alpha.18",
+    "@rocket/blocks": "^0.1.0-alpha.1"
+  },
+  "devDependencies": {},
+  "types": "./dist-types/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist-types/src/index.d.ts"
+      ]
+    }
+  }
+}

@@ -822,6 +822,93 @@
               "level": 3
             }
           ]
+        },
+        {
+          "title": "Spark | Rocket",
+          "h1": "Spark",
+          "name": "Spark",
+          "menuLinkText": "Spark",
+          "url": "/presets/spark/",
+          "outputRelativeFilePath": "presets/spark/index.html",
+          "sourceRelativeFilePath": "20--presets/20--spark/index.rocket.js",
+          "level": 2,
+          "menuNoLink": true,
+          "children": [
+            {
+              "title": "Overview | Rocket",
+              "name": "Overview",
+              "menuLinkText": "Overview",
+              "url": "/presets/spark/overview/",
+              "outputRelativeFilePath": "presets/spark/overview/index.html",
+              "sourceRelativeFilePath": "20--presets/20--spark/10--overview.rocket.md",
+              "level": 3,
+              "h1": "Overview",
+              "headlinesWithId": [
+                {
+                  "text": "Overview",
+                  "id": "overview",
+                  "level": 1
+                }
+              ]
+            },
+            {
+              "title": "\n        \n        \n      ",
+              "h1": "\n        \n        \n      ",
+              "name": "\n        \n        \n      ",
+              "menuLinkText": "Demo",
+              "url": "/presets/spark/demo/",
+              "outputRelativeFilePath": "presets/spark/demo/index.html",
+              "sourceRelativeFilePath": "20--presets/20--spark/20--demo.rocket.js",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "title": "Launch | Rocket",
+          "h1": "Blocks",
+          "name": "Blocks",
+          "menuLinkText": "Blocks",
+          "url": "/presets/blocks/",
+          "outputRelativeFilePath": "presets/blocks/index.html",
+          "sourceRelativeFilePath": "20--presets/05--blocks/index.rocket.js",
+          "level": 2,
+          "menuNoLink": true,
+          "children": [
+            {
+              "title": "Overview | Rocket",
+              "h1": "Overview",
+              "headlinesWithId": [
+                {
+                  "text": "Overview",
+                  "id": "overview",
+                  "level": 1
+                }
+              ],
+              "name": "Overview",
+              "menuLinkText": "Overview",
+              "url": "/presets/blocks/overview/",
+              "outputRelativeFilePath": "presets/blocks/overview/index.html",
+              "sourceRelativeFilePath": "20--presets/05--blocks/10--overview.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Card Icon | Rocket",
+              "name": "Card Icon",
+              "menuLinkText": "Card Icon",
+              "url": "/presets/blocks/card-icon/",
+              "outputRelativeFilePath": "presets/blocks/card-icon/index.html",
+              "sourceRelativeFilePath": "20--presets/05--blocks/card-icon.rocket.md",
+              "level": 3,
+              "h1": "Card Icon",
+              "headlinesWithId": [
+                {
+                  "text": "Card Icon",
+                  "id": "card-icon",
+                  "level": 1
+                }
+              ]
+            }
+          ]
         }
       ]
     },
