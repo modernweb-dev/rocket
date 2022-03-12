@@ -8,11 +8,11 @@ const { expect } = chai;
 
 describe('Config', () => {
   it('01: no config file', async () => {
-    const {
-      build,
-      readOutput,
-      readDevOutput,
-    } = await setupTestCli('fixtures/01-config/01-no-config/', undefined, { buildOptimize: true });
+    const { build, readOutput, readDevOutput } = await setupTestCli(
+      'fixtures/01-config/01-no-config/',
+      undefined,
+      { buildOptimize: true },
+    );
     await build();
 
     expect(readOutput('index.html')).to.equal(

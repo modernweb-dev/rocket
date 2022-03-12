@@ -1,13 +1,11 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '10--docs/20--basics/10--project-structure.rocket.md';
-import { html, layout, setupUnifiedPlugins } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins };
+import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components };
 /* END - Rocket auto generated - do not touch */
 
 export const description = 'Learn how to structure a project with Rocket.';
-
-import '@rocket/launch/inline-notification/define';
 ```
 
 # Project Structure

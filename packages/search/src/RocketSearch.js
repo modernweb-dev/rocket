@@ -118,9 +118,9 @@ export class RocketSearch extends ScopedElementsMixin(LitElement) {
   /** @param {import('lit-element').PropertyValues } changedProperties */
   update(changedProperties) {
     if (this.miniSearch && changedProperties.has('search')) {
-      this.results = /** @type {RocketSearchResult[]} */ (this.miniSearch.search(
-        this.search,
-      )).slice(0, this.maxResults);
+      this.results = /** @type {RocketSearchResult[]} */ (
+        this.miniSearch.search(this.search)
+      ).slice(0, this.maxResults);
     }
 
     super.update(changedProperties);

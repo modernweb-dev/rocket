@@ -327,10 +327,10 @@ describe('RocketCli images', () => {
     });
 
     it('will render an img with srcset and sizes if there is only one image format', async () => {
-      const {
-        cli,
-        readOutput,
-      } = await execute('e2e-fixtures/images/single-format.rocket.config.js', { captureLog: true });
+      const { cli, readOutput } = await execute(
+        'e2e-fixtures/images/single-format.rocket.config.js',
+        { captureLog: true },
+      );
       cleanupCli = cli;
       const indexHtml = await readOutput('no-title/index.html', {
         formatHtml: true,

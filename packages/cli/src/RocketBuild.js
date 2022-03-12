@@ -109,21 +109,4 @@ export class RocketBuild {
       await writeFile(notFoundHtmlFilePath, notFoundHtml);
     }
   }
-
-  // /**
-  //  * @param {RocketCliOptions} config
-  //  */
-  // setupCommand(config) {
-  //   config.watch = false;
-  //   config.lintInputDir = config.outputDir;
-  //   return config;
-  // }
-
-  // async buildCommand() {
-  //   await this.eleventy.write();
-  //   if (this.config.emptyOutputDir) {
-  //     await fs.emptyDir(this.config.outputDir);
-  //   }
-  //   await productionBuild(this.config);
-  // }
 }

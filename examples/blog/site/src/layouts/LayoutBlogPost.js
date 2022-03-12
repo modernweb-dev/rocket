@@ -5,17 +5,8 @@ import '../components/blog-post.js';
 
 export class LayoutBlogPost {
   render(data) {
-    const {
-      title,
-      description,
-      publishDate,
-      author,
-      authorHref,
-      heroImage,
-      permalink,
-      alt,
-      lang,
-    } = data;
+    const { title, description, publishDate, author, authorHref, heroImage, permalink, alt, lang } =
+      data;
     return html`
       <html-server-only lang=${lang || 'en'}>
         <head>

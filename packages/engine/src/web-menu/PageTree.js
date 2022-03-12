@@ -98,9 +98,8 @@ export class PageTree {
    * @param {string} sourceRelativeFilePath
    */
   async add(sourceRelativeFilePath) {
-    const outputRelativeFilePath = sourceRelativeFilePathToOutputRelativeFilePath(
-      sourceRelativeFilePath,
-    );
+    const outputRelativeFilePath =
+      sourceRelativeFilePathToOutputRelativeFilePath(sourceRelativeFilePath);
 
     if (!outputRelativeFilePath.endsWith('index.html')) {
       return;

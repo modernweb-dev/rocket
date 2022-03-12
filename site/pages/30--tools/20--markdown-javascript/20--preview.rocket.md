@@ -1,11 +1,9 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '30--tools/20--markdown-javascript/20--preview.rocket.md';
-import { html, layout, setupUnifiedPlugins } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins };
+import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components };
 /* END - Rocket auto generated - do not touch */
-
-import '@rocket/launch/inline-notification/define';
 ```
 
 # Preview
