@@ -186,14 +186,8 @@ describe('Engine menus', () => {
   });
 
   it('05: [md] updates the PageTree when a file changes', async () => {
-    const {
-      readSource,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      build,
-    } = await setupTestEngine('fixtures/05-menu/05-update-on-change/docs');
+    const { readSource, writeSource, anEngineEvent, cleanup, engine, build } =
+      await setupTestEngine('fixtures/05-menu/05-update-on-change/docs');
     await writeSource('index.rocket.md', '# First\n');
     await build();
     // 👆 ensures a valid setup
@@ -262,14 +256,8 @@ describe('Engine menus', () => {
   });
 
   it('07: on file save updates exports to the pageTree', async () => {
-    const {
-      readSource,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      build,
-    } = await setupTestEngine('fixtures/05-menu/07-update-exports/docs');
+    const { readSource, writeSource, anEngineEvent, cleanup, engine, build } =
+      await setupTestEngine('fixtures/05-menu/07-update-exports/docs');
     await writeSource(
       'index.rocket.js',
       "export const menuLinkText = 'Guid'; export default () => '<h1>Learning Rocket</h1>';",
@@ -330,14 +318,8 @@ describe('Engine menus', () => {
   });
 
   it('07b: on file save updates exports to the pageTree [md]', async () => {
-    const {
-      readSource,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      build,
-    } = await setupTestEngine('fixtures/05-menu/07b-update-exports-[md]/docs');
+    const { readSource, writeSource, anEngineEvent, cleanup, engine, build } =
+      await setupTestEngine('fixtures/05-menu/07b-update-exports-[md]/docs');
     await writeSource(
       'index.rocket.md',
       [

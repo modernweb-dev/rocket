@@ -71,8 +71,7 @@ export class LayoutSidebar extends Layout {
       },
       {
         name: 'Slack',
-        url:
-          'https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw',
+        url: 'https://join.slack.com/t/lit-and-friends/shared_invite/zt-llwznvsy-LZwT13R66gOgnrg12PUGqw',
       },
       {
         name: 'Discord',

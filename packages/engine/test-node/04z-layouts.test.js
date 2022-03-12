@@ -45,7 +45,8 @@ describe('Layouts', () => {
         return build();
       },
       {
-        errorMatch: /File at ".*" is using invalid characters. Use only url safe characters like \[a-z\]\[A-Z\]-_/,
+        errorMatch:
+          /File at ".*" is using invalid characters. Use only url safe characters like \[a-z\]\[A-Z\]-_/,
       },
     );
   });

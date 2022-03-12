@@ -1,0 +1,55 @@
+{
+  "name": "@rocket/spark",
+  "version": "0.1.0-alpha.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rocket Spark Preset",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "presets/spark"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/",
+  "main": "./src/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist-types/src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./components": {
+      "types": "./dist-types/src/index.components.d.ts",
+      "default": "./src/index.components.js"
+    },
+    "./css/*": "./src/css/*.css"
+  },
+  "scripts": {
+    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+  },
+  "files": [
+    "dist-types",
+    "src"
+  ],
+  "keywords": [
+    "rocket",
+    "ssg"
+  ],
+  "dependencies": {
+    "@rocket/components": "^0.1.0-alpha.1",
+    "@rocket/engine": "^0.1.0-alpha.18",
+    "lit": "^2.0.0"
+  },
+  "devDependencies": {},
+  "types": "./dist-types/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist-types/src/index.d.ts"
+      ]
+    }
+  }
+}

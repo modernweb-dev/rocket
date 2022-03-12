@@ -4,6 +4,7 @@ import { mdjsSetupCode } from '@mdjs/core';
 import { footerMenu } from './__shared/footerMenu.js';
 import { pageTree } from './__shared/pageTree.js';
 export { html } from 'lit';
+import { rocketComponents } from '@rocket/components/components';
 
 export const layout = new LayoutSidebar({ pageTree, footerMenu });
 
@@ -23,5 +24,7 @@ export const setupUnifiedPlugins = [
     },
   }),
 ];
+
+export const components = { ...rocketComponents };
 
 // export const openGraphLayout = new OpenGraphLayoutLogo();

@@ -27,7 +27,6 @@
   },
   "scripts": {
     "build": "npm run rocket:build",
-    "dev": "node ./eleventyOnly.js",
     "rocket:build": "node src/cli.js build -c demo",
     "rocket:start": "node src/cli.js start -c demo",
     "start": "npm run rocket:start",

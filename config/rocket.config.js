@@ -1,9 +1,9 @@
 import { rocketLaunch } from '@rocket/launch';
+import { rocketSpark } from '@rocket/spark';
 // import { rocketBlog } from '@rocket/blog';
 // import { rocketSearch } from '@rocket/search';
 // import { absoluteBaseUrlNetlify } from '@rocket/core/helpers';
 // import { adjustPluginOptions } from 'plugins-manager';
-// import { mdjsSetupCode } from '@mdjs/core';
 // TODO: preset needs to be updated to use the new plugin manager
 // import { codeTabs } from 'rocket-preset-code-tabs';
 // import { customElementsManifest } from 'rocket-preset-custom-elements-manifest';
@@ -37,6 +37,7 @@ export default {
 
   presets: [
     rocketLaunch(),
+    rocketSpark(),
     // rocketBlog(),
     // rocketSearch(),
     // codeTabs({
@@ -50,16 +51,6 @@ export default {
     // }),
     // customElementsManifest(),
   ],
-
-  // eleventy(eleventyConfig) {
-  //   eleventyConfig.addTransform('fix-noscript', content =>
-  //     content
-  //       .replace(/&#x26;#x3C;(link|style)/g, '<$1')
-  //       .replace(/&#x26;(link|style)/g, '<$1')
-  //       .replace(/&#x3C;(link|style)/g, '<$1'),
-  //   );
-  // },
-
   // serviceWorkerName: 'sw.js',
   // pathPrefix: '/_site/',
 

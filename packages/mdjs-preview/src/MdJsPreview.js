@@ -277,9 +277,9 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
   }
 
   get iframeUrl() {
-    const mdjsSetupScript = /** @type {HTMLScriptElement} */ (document.querySelector(
-      'script[type=module][mdjs-setup]',
-    ));
+    const mdjsSetupScript = /** @type {HTMLScriptElement} */ (
+      document.querySelector('script[type=module][mdjs-setup]')
+    );
     if (!mdjsSetupScript) {
       throw new Error('Could not find a <script type="module" src="..." mdjs-setup></script>');
     }

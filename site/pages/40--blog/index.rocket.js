@@ -1,7 +1,7 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '40--blog/index.rocket.js';
-import { html, layout, setupUnifiedPlugins } from '../recursive.data.js';
-export { html, layout, setupUnifiedPlugins };
+import { html, layout, setupUnifiedPlugins, components } from '../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components };
 /* END - Rocket auto generated - do not touch */
 
 export const menuLinkText = 'Blog';

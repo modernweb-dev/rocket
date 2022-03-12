@@ -57,7 +57,7 @@ async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
   if (!prismLoaded) {
     prismLoaded = true;
     const rehypePrism = (await import('rehype-prism/lib/src/index.js')).default;
-    loadLanguages(['md', 'shell', 'yml']);
+    loadLanguages(['md', 'shell', 'yml', 'diff']);
     defaultMetaPlugins.splice(6, 0, { plugin: rehypePrism, options: {} });
   }
 

@@ -20,11 +20,10 @@ describe('RocketCli use cases', () => {
   });
 
   it('supports dynamic imports', async () => {
-    const {
-      cli,
-      readOutput,
-      outputExists,
-    } = await execute('use-cases/dynamic-imports/rocket.config.js', { captureLog: true });
+    const { cli, readOutput, outputExists } = await execute(
+      'use-cases/dynamic-imports/rocket.config.js',
+      { captureLog: true },
+    );
     cleanupCli = cli;
 
     expect(outputExists('sub/assets/myData.js'), 'static files did not get copied').to.be.true;
