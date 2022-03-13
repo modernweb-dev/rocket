@@ -1,5 +1,5 @@
 import { Layout } from '@rocket/engine';
-import { pageDefaults } from '@rocket/blocks';
+import { pageDefaults } from '@rocket/components';
 import { html } from 'lit';
 
 export class LayoutHome extends Layout {

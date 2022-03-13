@@ -1,11 +1,18 @@
 /* START - Rocket auto generated - do not touch */
-export const sourceRelativeFilePath = '20--presets/20--spark/20--demo.rocket.js';
-import { html, setupUnifiedPlugins } from '../../recursive.data.js';
+export const sourceRelativeFilePath = '20--presets/30--spark/20--demo.rocket.js';
+import {
+  html,
+  setupUnifiedPlugins,
+  components as originalComponents,
+} from '../../recursive.data.js';
 export { html, setupUnifiedPlugins };
 /* END - Rocket auto generated - do not touch */
 
+export const menuLinkText = 'Demo';
+
 import { LayoutHome } from '@rocket/spark';
 import { pageTree } from '#pageTree';
+
 export const layout = new LayoutHome({
   pageTree,
   titleWrapperFn: title => title,
@@ -13,24 +20,24 @@ export const layout = new LayoutHome({
   siteName: 'Rocket',
 });
 
-export const menuLinkText = 'Demo';
+import { sparkComponents } from '@rocket/spark/components';
 
-import { EqualColumns } from '@rocket/blocks';
-customElements.define('equal-columns', EqualColumns);
-
-import { TestimonialSmall } from '@rocket/blocks';
-customElements.define('testimonial-small', TestimonialSmall);
-
-import { CardIcon } from '@rocket/blocks/server';
-customElements.define('card-icon', CardIcon);
+export const components = {
+  ...originalComponents,
+  ...sparkComponents,
+};
 
 export default () => html`
   <script type="module">
-    import { RotatingText } from '@rocket/blocks';
+    import { RotatingText } from '@rocket/components';
     customElements.define('rotating-text', RotatingText);
   </script>
 
-  <equal-columns style="background: #fff2dc;">
+  <permanent-notification href="/presets/spark/overview/"
+    >⬆️ &nbsp; Back to Rocket &nbsp; ⬆️</permanent-notification
+  >
+
+  <block-columns style="background: #fff2dc;">
     <div>
       <h1>
         <span>We are</span>
@@ -46,10 +53,12 @@ export default () => html`
     <div>
       <img src="./_assets/header-illustration.svg" alt="alternative" />
     </div>
-  </equal-columns>
+  </block-columns>
 
-  <equal-columns>
-    <h2 slot="title">Arcu felis bibendum ut tristique entra les vitoria livanore</h2>
+  <block-features>
+    <h2 slot="title">
+      Arcu felis bibendum ut tristique entra <span class="highlight">les vitoria livanore</span>
+    </h2>
 
     <feature-small>
       <card-icon slot="icon" icon="solid/headphones-alt"></card-icon>
@@ -61,8 +70,8 @@ export default () => html`
     </feature-small>
 
     <feature-small>
-      <card-icon slot="icon" icon="solid/headphones-alt" variation="green"></card-icon>
-      <h4 slot="title">Lorem Ipsum</h4>
+      <card-icon slot="icon" icon="regular/clipboard" variation="green"></card-icon>
+      <h4 slot="title">Vivera Adipis</h4>
       <p slot="description">
         Et blandit nisl libero at arcu. Donec ac lectus sed tellus mollis viverra. Nullam pharetra
         ante at nunc elementum
@@ -70,16 +79,16 @@ export default () => html`
     </feature-small>
 
     <feature-small>
-      <card-icon slot="icon" icon="solid/headphones-alt" variation="green"></card-icon>
-      <h4 slot="title">Lorem Ipsum</h4>
+      <card-icon slot="icon" icon="regular/comments" variation="blue"></card-icon>
+      <h4 slot="title">Atine Tellus</h4>
       <p slot="description">
-        Et blandit nisl libero at arcu. Donec ac lectus sed tellus mollis viverra. Nullam pharetra
-        ante at nunc elementum
+        Ety suscipit metus sollicitudin euqu isq imperdiet nibh nec magna tincidunt, nec pala
+        vehicula neque sodales verum
       </p>
     </feature-small>
-  </equal-columns>
+  </block-features>
 
-  <equal-columns class="bg-grey">
+  <block-columns class="bg-grey">
     <div>
       <h2>Turpis in eu mi bibendum neque egestas congue ortor consequat</h2>
       <p>
@@ -88,16 +97,13 @@ export default () => html`
       </p>
       <a class="cta" href="./sign-up">Do it</a>
     </div>
-
     <div>
       <img src="./_assets/details-1.svg" alt="alternative" />
     </div>
-  </equal-columns>
+  </block-columns>
 
-  <equal-columns>
-    <div>
-      <img src="./_assets/details-2.png" alt="alternative" />
-    </div>
+  <block-columns>
+    <img src="./_assets/details-2.png" alt="alternative" />
     <div>
       <h2>Turpis in eu mi bibendum neque egestas congue ortor consequat</h2>
       <p>
@@ -106,9 +112,9 @@ export default () => html`
       </p>
       <a class="cta" href="./sign-up">Do it</a>
     </div>
-  </equal-columns>
+  </block-columns>
 
-  <equal-columns class="bg-grey">
+  <block-columns class="bg-grey">
     <h2 slot="title">Testimonials</h2>
 
     <testimonial-small>
@@ -137,37 +143,33 @@ export default () => html`
       </p>
       <p slot="caption">Aldous Huxley — Designer</p>
     </testimonial-small>
-  </equal-columns>
+  </block-columns>
 
-  <equal-columns class="bg-blue">
-    <div>
-      <h3>
+  <block-blue>
+    <h3>
+      Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
+      volutpat diam soli
+    </h3>
+    <a class="cta-outline" href="./sign-up">Do it</a>
+  </block-blue>
+
+  <the-block>
+    <h2 slot="title">FAQ</h2>
+    <accordion-group>
+      <h3 slot="invoker">
+        <accordion-button>Sensory Factors</accordion-button>
+      </h3>
+      <accordion-content slot="content">
         Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
         volutpat diam soli
+      </accordion-content>
+      <h3 slot="invoker">
+        <accordion-button>Sensory Factors</accordion-button>
       </h3>
-      <a class="cta-outline" href="./sign-up">Do it</a>
-    </div>
-  </equal-columns>
-
-  <equal-columns>
-    <h2 slot="title">FAQ</h2>
-    <div>
-      <accordion-group>
-        <h3 slot="invoker">
-          <accordion-button>Sensory Factors</accordion-button>
-        </h3>
-        <accordion-content slot="content">
-          Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
-          volutpat diam soli
-        </accordion-content>
-        <h3 slot="invoker">
-          <accordion-button>Sensory Factors</accordion-button>
-        </h3>
-        <accordion-content slot="content">
-          Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
-          volutpat diam soli
-        </accordion-content>
-      </accordion-group>
-    </div>
-  </equal-columns>
+      <accordion-content slot="content">
+        Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
+        volutpat diam soli
+      </accordion-content>
+    </accordion-group>
+  </the-block>
 `;

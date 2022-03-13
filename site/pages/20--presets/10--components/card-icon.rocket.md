@@ -1,11 +1,11 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
-export const sourceRelativeFilePath = '20--presets/05--blocks/card-icon.rocket.md';
-import { html, layout, setupUnifiedPlugins } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins };
+export const sourceRelativeFilePath = '20--presets/10--components/card-icon.rocket.md';
+import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components };
 /* END - Rocket auto generated - do not touch */
 
-import { CardIcon } from '@rocket/blocks/server';
+import { CardIcon } from '@rocket/components/server';
 customElements.define('card-icon', CardIcon);
 ```
 

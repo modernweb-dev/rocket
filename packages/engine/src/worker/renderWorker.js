@@ -31,9 +31,8 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
   let passOnError;
 
   const sourceRelativeFilePath = path.relative(inputDir, sourceFilePath);
-  const outputRelativeFilePath = sourceRelativeFilePathToOutputRelativeFilePath(
-    sourceRelativeFilePath,
-  );
+  const outputRelativeFilePath =
+    sourceRelativeFilePathToOutputRelativeFilePath(sourceRelativeFilePath);
   const outputFilePath = path.join(outputDir, outputRelativeFilePath);
 
   let keepConvertedFiles = false;
@@ -87,6 +86,17 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
       if (typeof templateResult === 'string') {
         fileContent = templateResult;
       } else {
+        // Load components server side
+        if (data.components) {
+          for (const tagName of Object.keys(data.components)) {
+            const componentFn = data.components[tagName];
+            if (typeof componentFn === 'function') {
+              const componentClass = await componentFn();
+              customElements.define(tagName, componentClass);
+            }
+          }
+        }
+
         fileContent = await litServerRender(templateResult);
       }
 

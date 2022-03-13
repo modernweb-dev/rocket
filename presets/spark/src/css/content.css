@@ -1,5 +1,24 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
+    url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+  font-weight: 1 999;
+}
+
 body {
   margin: 0;
+  font-size: var(--step--1);
+  color: #565578;
+  font-family: 'Open Sans', sans-serif;
+}
+
+html {
+  --default-headline-color: #272556;
+}
+
+:where(h1, h2, h3, h4, h5) {
+  font-weight: 600;
+  color: var(--default-headline-color);
 }
 
 h1 {
@@ -7,19 +26,19 @@ h1 {
 }
 
 h2 {
-  font-size: var(--step-3);
-}
-
-h3 {
   font-size: var(--step-2);
 }
 
-h4 {
+h3 {
   font-size: var(--step-1);
 }
 
+h4 {
+  font-size: var(--step-0);
+}
+
 h5 {
-  font-size: var(--step-1);
+  font-size: var(--step--1);
 }
 
 .bg-grey {
@@ -28,6 +47,10 @@ h5 {
 
 .bg-blue {
   background-color: #272556;
+  color: #fff;
+}
+
+.bg-blue :is(h1,h2,h3,h4,h5,h6) {
   color: #fff;
 }
 
@@ -65,4 +88,9 @@ a.cta-outline {
 a.cta-outline:hover {
   background-color: #ffffff;
   color: #272556;
+}
+
+.highlight {
+  color: #f25c05;
+  text-decoration: underline;
 }

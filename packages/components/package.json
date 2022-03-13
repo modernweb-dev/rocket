@@ -1,10 +1,10 @@
 {
-  "name": "@rocket/blocks",
+  "name": "@rocket/components",
   "version": "0.1.0-alpha.1",
   "publishConfig": {
     "access": "public"
   },
-  "description": "Rocket Blocks",
+  "description": "Rocket Components",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -23,11 +23,14 @@
     "./server": {
       "types": "./dist-types/src/index.server.d.ts",
       "default": "./src/index.server.js"
+    },
+    "./components": {
+      "types": "./dist-types/src/index.components.d.ts",
+      "default": "./src/index.components.js"
     }
   },
   "scripts": {
     "build": "npm run rocket:build",
-    "dev": "node ./eleventyOnly.js",
     "rocket:build": "node src/cli.js build -c demo",
     "rocket:start": "node src/cli.js start -c demo",
     "start": "npm run rocket:start",

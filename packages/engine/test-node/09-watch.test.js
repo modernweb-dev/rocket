@@ -49,14 +49,8 @@ describe('Engine start', () => {
   });
 
   it('01: updates rocket header on a *.rocket.js file change', async () => {
-    const {
-      writeSource,
-      cleanup,
-      readSource,
-      engine,
-      anEngineEvent,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09-watch/01-update-header/docs');
+    const { writeSource, cleanup, readSource, engine, anEngineEvent, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09-watch/01-update-header/docs');
     await writeSource(
       'index.rocket.js',
       "import { html } from 'lit';\nexport default () => html`index`;",
@@ -89,14 +83,8 @@ describe('Engine start', () => {
   });
 
   it('01b: updates rocket header on a *.rocket.md file change', async () => {
-    const {
-      writeSource,
-      cleanup,
-      readSource,
-      engine,
-      anEngineEvent,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09-watch/01b-update-header-md/docs');
+    const { writeSource, cleanup, readSource, engine, anEngineEvent, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09-watch/01b-update-header-md/docs');
     await writeSource('index.rocket.md', 'index');
     await new Promise(resolve => setTimeout(resolve, 10));
     expect(readSource('index.rocket.md')).to.equal('index');
@@ -122,14 +110,8 @@ describe('Engine start', () => {
   });
 
   it('02: if started updates the header on a dependency file change', async () => {
-    const {
-      writeSource,
-      cleanup,
-      readSource,
-      engine,
-      anEngineEvent,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09-watch/02-update-header-on-dependency-change/docs');
+    const { writeSource, cleanup, readSource, engine, anEngineEvent, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09-watch/02-update-header-on-dependency-change/docs');
     await writeSource(
       'index.rocket.js',
       [
@@ -257,15 +239,8 @@ describe('Engine start', () => {
   });
 
   it('04: rerenders on a js dependency change', async () => {
-    const {
-      build,
-      readOutput,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09-watch/04-update-js-dependency/docs');
+    const { build, readOutput, writeSource, anEngineEvent, cleanup, engine, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09-watch/04-update-js-dependency/docs');
 
     await writeSource('name.js', "export const name = 'initial name';");
     await build();
@@ -281,15 +256,8 @@ describe('Engine start', () => {
   });
 
   it('04b: rerenders on a js dependency change [in md]', async () => {
-    const {
-      build,
-      readOutput,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09-watch/04b-update-js-dependency-md/docs');
+    const { build, readOutput, writeSource, anEngineEvent, cleanup, engine, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09-watch/04b-update-js-dependency-md/docs');
 
     await writeSource('name.js', "export const name = 'initial name';");
     await build();
@@ -305,14 +273,8 @@ describe('Engine start', () => {
   });
 
   it('04c: rerenders on npm dependency update', async () => {
-    const {
-      readOutput,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09-watch/04c-npm-dependency-update/docs');
+    const { readOutput, writeSource, anEngineEvent, cleanup, engine, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09-watch/04c-npm-dependency-update/docs');
 
     await writeSource(
       '../node_modules/some-dependency/index.js',
@@ -337,16 +299,10 @@ describe('Engine start', () => {
   });
 
   it('rerenders on a js dependency change after an import change in the page', async () => {
-    const {
-      readOutput,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine(
-      'fixtures/09-watch/05-update-js-dependency-after-page-import-change/docs',
-    );
+    const { readOutput, writeSource, anEngineEvent, cleanup, engine, setAsOpenedInBrowser } =
+      await setupTestEngine(
+        'fixtures/09-watch/05-update-js-dependency-after-page-import-change/docs',
+      );
 
     await writeSource('name.js', "export const name = 'I am name.js';");
     await writeSource('name-initial.js', "export const name = 'I am name-initial.js';");
@@ -399,14 +355,8 @@ describe('Engine start', () => {
 
   // TODO: find out why this is ok in isolation but fails if run with all the tests
   it.skip('directly render newly created pages to get the PageTree Metadata', async () => {
-    const {
-      readOutput,
-      writeSource,
-      cleanup,
-      engine,
-      deleteSource,
-      anEngineEvent,
-    } = await setupTestEngine('fixtures/09-watch/06-create-single-page/docs');
+    const { readOutput, writeSource, cleanup, engine, deleteSource, anEngineEvent } =
+      await setupTestEngine('fixtures/09-watch/06-create-single-page/docs');
     await deleteSource('name.js');
     await deleteSource('about.rocket.js');
 

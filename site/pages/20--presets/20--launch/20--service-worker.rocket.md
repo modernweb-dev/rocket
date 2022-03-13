@@ -1,8 +1,8 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
-export const sourceRelativeFilePath = '20--presets/10--launch/20--service-worker.rocket.md';
-import { html, layout, setupUnifiedPlugins } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins };
+export const sourceRelativeFilePath = '20--presets/20--launch/20--service-worker.rocket.md';
+import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components };
 /* END - Rocket auto generated - do not touch */
 
 import { inlineFile } from '@rocket/engine';

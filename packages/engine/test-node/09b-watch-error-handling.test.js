@@ -5,14 +5,8 @@ const { expect } = chai;
 
 describe('Engine start error handling', () => {
   it('01: name is not defined', async () => {
-    const {
-      readOutput,
-      writeSource,
-      anEngineEvent,
-      cleanup,
-      engine,
-      setAsOpenedInBrowser,
-    } = await setupTestEngine('fixtures/09b-watch-error-handling/01-name-is-not-defined/docs');
+    const { readOutput, writeSource, anEngineEvent, cleanup, engine, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09b-watch-error-handling/01-name-is-not-defined/docs');
     await writeSource(
       'index.rocket.js',
       "import { html } from 'lit';\nexport default () => html`index`;",

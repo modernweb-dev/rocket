@@ -41,6 +41,11 @@ export class CardIcon extends LitElement {
       background-color: #defaeb;
       fill: #00d462;
     }
+
+    :host([variation='blue']) {
+      background-color: #e2ebfd;
+      fill: #1f68f3;
+    }
   `;
 
   render() {

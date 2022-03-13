@@ -1,7 +1,7 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = 'index.rocket.js';
-import { html, setupUnifiedPlugins } from './recursive.data.js';
-export { html, setupUnifiedPlugins };
+import { html, setupUnifiedPlugins, components } from './recursive.data.js';
+export { html, setupUnifiedPlugins, components };
 /* END - Rocket auto generated - do not touch */
 
 import { footerMenu } from './__shared/footerMenu.js';
@@ -21,8 +21,7 @@ export const layout = new LayoutHome({
   reasons: [
     {
       header: 'Small',
-      text:
-        'No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed.',
+      text: 'No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed.',
     },
     {
       header: '0 JavaScript by default',
@@ -45,13 +44,11 @@ export const layout = new LayoutHome({
     },
     {
       header: 'Always fast while developing',
-      text:
-        'While developing only pages you visit get rendered - so even with 1000 pages it will start up fast. Additionally assets are not moved but only referenced.',
+      text: 'While developing only pages you visit get rendered - so even with 1000 pages it will start up fast. Additionally assets are not moved but only referenced.',
     },
     {
       header: 'Fast for users',
-      text:
-        'An optimized rollup configuration means that the page will load faster for users, even if you have a slow connection.',
+      text: 'An optimized rollup configuration means that the page will load faster for users, even if you have a slow connection.',
     },
     {
       header: 'Batteries included',
@@ -59,8 +56,7 @@ export const layout = new LayoutHome({
     },
     {
       header: 'Do less work',
-      text:
-        'Rocket does exactly the amount of work it needs to show you the content you want. No more waiting for the server to render pages or copy assets.',
+      text: 'Rocket does exactly the amount of work it needs to show you the content you want. No more waiting for the server to render pages or copy assets.',
     },
   ],
 });

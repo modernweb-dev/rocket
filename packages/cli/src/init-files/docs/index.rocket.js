@@ -22,8 +22,7 @@ export const layout = new LayoutHome({
   reasons: [
     {
       header: 'Small',
-      text:
-        'No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed.',
+      text: 'No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed.',
     },
     {
       header: 'Pre-Rendered',
@@ -45,8 +44,7 @@ export const layout = new LayoutHome({
     },
     {
       header: 'Ready for Production',
-      text:
-        'Optimized for a smaller build size, faster dev compilation and dozens of other improvements.',
+      text: 'Optimized for a smaller build size, faster dev compilation and dozens of other improvements.',
     },
   ],
 });

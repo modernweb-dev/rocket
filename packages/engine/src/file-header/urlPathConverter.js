@@ -85,9 +85,8 @@ export function sourceRelativeFilePathToOutputRelativeFilePath(relPath) {
  * @returns
  */
 export function sourceRelativeFilePathToUrl(sourceRelativeFilePath) {
-  const outputRelativeFilePath = sourceRelativeFilePathToOutputRelativeFilePath(
-    sourceRelativeFilePath,
-  );
+  const outputRelativeFilePath =
+    sourceRelativeFilePathToOutputRelativeFilePath(sourceRelativeFilePath);
 
   return outputRelativeFilePath.endsWith('index.html')
     ? `/${outputRelativeFilePath.substring(0, outputRelativeFilePath.length - 'index.html'.length)}`

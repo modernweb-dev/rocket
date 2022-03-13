@@ -347,9 +347,8 @@ export class Engine {
    */
   getOutputFilePath(sourceFilePath) {
     const sourceRelativeFilePath = path.relative(this.docsDir, sourceFilePath);
-    const outputRelativeFilePath = sourceRelativeFilePathToOutputRelativeFilePath(
-      sourceRelativeFilePath,
-    );
+    const outputRelativeFilePath =
+      sourceRelativeFilePathToOutputRelativeFilePath(sourceRelativeFilePath);
     return path.join(this.outputDir, outputRelativeFilePath);
   }
 
