@@ -4,12 +4,6 @@ export const sourceRelativeFilePath = '10--docs/30--guides/70--styles-and-css.ro
 import { html, layout, setupUnifiedPlugins } from '../../recursive.data.js';
 export { html, layout, setupUnifiedPlugins };
 /* END - Rocket auto generated - do not touch */
-
-import { inlineFile } from '@rocket/engine';
-import { createRequire } from 'module';
-import path from 'path';
-
-const { resolve } = createRequire(new URL('.', import.meta.url));
 ```
 
 # Styles And CSS
@@ -48,7 +42,7 @@ Here's an example of some base properties for a theme.
 :root {
   --theme-bg: #ffffff;
   --theme-on-bg: #000000;
-  --theme-primary: #D21B1D;
+  --theme-primary: #d21b1d;
   --theme-on-primary: #ffffff;
 }
 ```
@@ -62,6 +56,3 @@ You'll see many differing opinions online about styles that normalize or reset y
 To include your reset styles you can simply place them at the top of your `global.css` file or import them from external `reset.css` file at the top of your `global.css` file.
 
 ### Typography
-
-
-
