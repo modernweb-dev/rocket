@@ -1,13 +1,20 @@
-import { html, css, LitElement } from 'lit';
+import { html, css, LitElement, nothing } from 'lit';
 
 export class BlogPostPreview extends LitElement {
-  static get properties() {
-    return {
-      post: { type: Object },
-    };
+  static properties = {
+    post: { type: Object },
+  };
+
+  constructor() {
+    super();
+    /** @type {{ publishDate: string; title: string; description: string; url: string; } | undefined} */
+    this.post = undefined;
   }
 
   render() {
+    if (!this.post) {
+      return nothing;
+    }
     return html`
       <article class="post-preview">
         <header>
@@ -20,8 +27,8 @@ export class BlogPostPreview extends LitElement {
     `;
   }
 
-  static get styles() {
-    return css`
+  static styles = [
+    css`
       .content :global(main > * + *) {
         margin-top: 1rem;
       }
@@ -58,8 +65,6 @@ export class BlogPostPreview extends LitElement {
         font-weight: 700;
         color: var(--theme-text);
       }
-    `;
-  }
+    `,
+  ];
 }
-
-customElements.define('blog-post-preview', BlogPostPreview);

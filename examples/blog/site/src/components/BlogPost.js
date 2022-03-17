@@ -1,16 +1,23 @@
 import { html, css, LitElement } from 'lit';
-import './blog-author.js';
 
 export class BlogPost extends LitElement {
-  static get properties() {
-    return {
-      title: { type: String },
-      author: { type: String },
-      authorHref: { type: String },
-      publishDate: { type: String, attribute: 'publish-date' },
-      heroImage: { type: String, attribute: 'hero-image' },
-      alt: { type: String },
-    };
+  static properties = {
+    title: { type: String },
+    author: { type: String },
+    authorHref: { type: String },
+    publishDate: { type: String, attribute: 'publish-date' },
+    heroImage: { type: String, attribute: 'hero-image' },
+    alt: { type: String },
+  };
+
+  constructor() {
+    super();
+    this.title = '';
+    this.author = '';
+    this.authorHref = '';
+    this.publishDate = '';
+    this.heroImage = '';
+    this.alt = '';
   }
 
   render() {
@@ -42,8 +49,8 @@ export class BlogPost extends LitElement {
     `;
   }
 
-  static get styles() {
-    return css`
+  static styles = [
+    css`
       .hero-image {
         width: 100vw;
         object-fit: cover;
@@ -100,8 +107,6 @@ export class BlogPost extends LitElement {
         font-size: 2.25rem;
         font-weight: 700;
       }
-    `;
-  }
+    `,
+  ];
 }
-
-customElements.define('blog-post', BlogPost);

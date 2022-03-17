@@ -1,7 +1,5 @@
 import { html } from 'lit';
 import { baseHead } from '../parts/baseHead.js';
-import '../components/blog-header.js';
-import '../components/blog-post.js';
 
 export class LayoutBlogPost {
   render(data) {

@@ -1,20 +1,24 @@
 import { html, css, LitElement } from 'lit';
 
 export class BlogAuthor extends LitElement {
-  static get properties() {
-    return {
-      name: { type: String },
-      href: { type: String },
-    };
+  static properties = {
+    name: { type: String },
+    href: { type: String },
+  };
+
+  constructor() {
+    super();
+    this.name = '';
+    this.href = '';
   }
 
-  static get styles() {
-    return css`
+  static styles = [
+    css`
       .author {
         margin-bottom: 0.75rem;
       }
-    `;
-  }
+    `,
+  ];
 
   render() {
     return html`
