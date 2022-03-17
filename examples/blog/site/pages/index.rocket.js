@@ -1,15 +1,12 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = 'index.rocket.js';
-import { html } from './recursive.data.js';
-export { html };
+import { html, components } from './recursive.data.js';
+export { html, components };
 /* END - Rocket auto generated - do not touch */
 
 import { PageTree } from '@rocket/engine';
 import { nothing } from 'lit';
 import { baseHead } from '../src/parts/baseHead.js';
-
-import '../src/components/blog-post-preview.js';
-import '../src/components/blog-header.js';
 
 export const title = 'Example Blog';
 export const description = 'The perfect starter for your perfect blog.';

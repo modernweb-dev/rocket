@@ -1,9 +1,9 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = 'blog/with-image.rocket.md';
-import { html } from '../recursive.data.js';
+import { html, components } from '../recursive.data.js';
 import { layout } from './local.data.js';
-export { html, layout };
+export { html, components, layout };
 /* END - Rocket auto generated - do not touch */
 
 export const title = 'With Image!';
@@ -14,8 +14,6 @@ export const value = 128;
 export const description = 'Now with an image!';
 export const heroImage = './assets/liftoff-flames.jpg';
 export const alt = 'Liftoff Flames';
-
-import '../../src/components/blog-author.js';
 ```
 
 hey
