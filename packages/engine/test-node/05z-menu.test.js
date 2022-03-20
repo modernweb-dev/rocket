@@ -235,7 +235,7 @@ describe('Engine menus', () => {
               level: 1,
             },
           ],
-          name: 'Welcome to Hello World!',
+          name: 'Hello world!',
           menuLinkText: 'Welcome to Hello World!',
           url: '/',
           outputRelativeFilePath: 'index.html',

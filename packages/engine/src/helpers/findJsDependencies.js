@@ -37,8 +37,6 @@ export async function findJsDependencies(filePath, options = {}) {
       if (builtinModules.includes(i.n)) break;
       /** Skip import.meta */
       if (i.d === -2) break;
-      /** Skip dynamic imports */
-      if (i.d > 0) break;
 
       try {
         const pathToDependency = pathRequire.resolve(i.n);
@@ -67,8 +65,6 @@ export async function findJsDependencies(filePath, options = {}) {
           if (builtinModules.includes(i.n)) break;
           /** Skip import.meta */
           if (i.d === -2) break;
-          /** Skip dynamic imports */
-          if (i.d > 0) break;
 
           const fileToFind = isBareModuleSpecifier(i.n) ? i.n : path.join(path.dirname(dep), i.n);
           try {
