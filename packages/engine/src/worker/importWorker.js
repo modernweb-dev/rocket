@@ -22,7 +22,7 @@ parentPort?.on('message', message => {
         // toImportFilePath = await convertMdFile(sourceFilePath);
       }
       if (sourceFilePath.endsWith('.rocket.html')) {
-        importFilePath = sourceFilePath.replace('.rocket.html', '-from-html.js');
+        importFilePath = sourceFilePath.replace('.rocket.html', '-converted-html.js');
         // toImportFilePath = await convertHtmlFile(sourceFilePath);
       }
       const data = await import(importFilePath);

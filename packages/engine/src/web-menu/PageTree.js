@@ -113,11 +113,17 @@ export class PageTree {
 
     const pageData = {
       ...htmlMetaData,
-      name: htmlMetaData.h1 || htmlMetaData.title || sourceRelativeFilePath,
+      name:
+        importData.name ||
+        importData.title ||
+        htmlMetaData.h1 ||
+        htmlMetaData.title ||
+        sourceRelativeFilePath,
       menuLinkText:
         htmlMetaData.menuLinkText ||
         htmlMetaData.h1 ||
         htmlMetaData.title ||
+        importData.title ||
         sourceRelativeFilePath,
       url: sourceRelativeFilePathToUrl(sourceRelativeFilePath),
       outputRelativeFilePath,

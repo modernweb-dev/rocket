@@ -298,6 +298,55 @@ describe('Engine start', () => {
     await cleanup();
   });
 
+  it('04d: rerenders on a dynamic js dependency change', async () => {
+    const { build, readOutput, writeSource, anEngineEvent, cleanup, engine, setAsOpenedInBrowser } =
+      await setupTestEngine('fixtures/09-watch/04d-update-dynamic-js-dependency/docs');
+
+    await writeSource('name.js', "export const name = 'initial name';");
+    await build();
+    expect(readOutput('index.html')).to.equal('name: "initial name"');
+
+    await engine.start();
+    setAsOpenedInBrowser('index.rocket.js');
+    await writeSource('name.js', "export const name = '🚀';");
+    await anEngineEvent('rocketUpdated');
+    expect(readOutput('index.html')).to.equal('name: "🚀"');
+
+    await cleanup();
+  });
+
+  it('04e: does not break on a dynamic js dependency with a variable', async () => {
+    const {
+      readOutput,
+      writeSource,
+      readSource,
+      anEngineEvent,
+      cleanup,
+      engine,
+      setAsOpenedInBrowser,
+    } = await setupTestEngine('fixtures/09-watch/04e-update-variable-dynamic-js-dependency/docs');
+
+    await writeSource('name.js', "export const name = 'initial name';");
+    const source = readSource('index.rocket.js');
+
+    await engine.start();
+    setAsOpenedInBrowser('index.rocket.js');
+    await writeSource('index.rocket.js', source);
+    await anEngineEvent('rocketUpdated');
+    expect(readOutput('index.html')).to.equal('name: "initial name"');
+
+    await writeSource('name.js', "export const name = '🚀';");
+    // output not changed after `name.js` changed
+    expect(readOutput('index.html')).to.equal('name: "initial name"');
+
+    // force a rerender by writing the source file again
+    await writeSource('index.rocket.js', source);
+    await anEngineEvent('rocketUpdated');
+    expect(readOutput('index.html')).to.equal('name: "🚀"');
+
+    await cleanup();
+  });
+
   it('rerenders on a js dependency change after an import change in the page', async () => {
     const { readOutput, writeSource, anEngineEvent, cleanup, engine, setAsOpenedInBrowser } =
       await setupTestEngine(
