@@ -25,6 +25,7 @@ export class LayoutBlogPost {
               ${data.content()}
             </blog-post>
           </div>
+          <site-footer></site-footer>
         </body>
       </html-server-only>
     `;

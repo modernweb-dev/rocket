@@ -1,8 +1,8 @@
 {
-  "name": "@example/minimal",
+  "name": "@example/landing-spark",
   "version": "0.0.1",
   "private": true,
-  "description": "Only includes the minimal basics",
+  "description": "A landing page based on the spark theme",
   "type": "module",
   "scripts": {
     "build": "rocket build",
@@ -12,8 +12,10 @@
   },
   "devDependencies": {
     "@rocket/cli": "^0.20.0-alpha.11",
+    "@rocket/components": "^0.1.0-alpha.1",
     "@rocket/engine": "^0.1.0-alpha.11",
+    "@rocket/spark": "^0.1.0-alpha.1",
     "lit": "^2.0.0"
   },
-  "@rocket/template-name": "Minimal"
+  "@rocket/template-name": "Landing Page (Spark Theme)"
 }

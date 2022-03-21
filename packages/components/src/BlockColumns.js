@@ -12,6 +12,7 @@ export class BlockColumns extends TheBlock {
       }
       ::slotted(*) {
         flex: 1;
+        height: auto;
       }
 
       @media (min-width: 600px) {

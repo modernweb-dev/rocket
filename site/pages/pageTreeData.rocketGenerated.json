@@ -298,9 +298,24 @@
                   "level": 2
                 },
                 {
-                  "text": "Loading Components",
-                  "id": "loading-components",
+                  "text": "Manually Loading Components",
+                  "id": "manually-loading-components",
                   "level": 2
+                },
+                {
+                  "text": "Automatically Load and Register Components",
+                  "id": "automatically-load-and-register-components",
+                  "level": 2
+                },
+                {
+                  "text": "Site level components",
+                  "id": "site-level-components",
+                  "level": 3
+                },
+                {
+                  "text": "Hydration",
+                  "id": "hydration",
+                  "level": 3
                 }
               ],
               "name": "Components",
@@ -730,19 +745,44 @@
                   "level": 1
                 },
                 {
+                  "text": "Approaches to Styling",
+                  "id": "approaches-to-styling",
+                  "level": 2
+                },
+                {
                   "text": "1. Simple  Tags and External Files",
                   "id": "1-simple-link-tags-and-external-files",
+                  "level": 3
+                },
+                {
+                  "text": "2. Global CSS Template Literals",
+                  "id": "2-global-css-template-literals",
+                  "level": 3
+                },
+                {
+                  "text": "3. Component Scoped Styles",
+                  "id": "3-component-scoped-styles",
+                  "level": 3
+                },
+                {
+                  "text": "Recommendations &#x26; Best Practices",
+                  "id": "recommendations--best-practices",
                   "level": 2
                 },
                 {
-                  "text": "2.",
-                  "id": "2",
-                  "level": 2
+                  "text": "Global Styles",
+                  "id": "global-styles",
+                  "level": 3
                 },
                 {
-                  "text": "2. Completely Component Scoped",
-                  "id": "2-completely-component-scoped",
-                  "level": 2
+                  "text": "Resets",
+                  "id": "resets",
+                  "level": 3
+                },
+                {
+                  "text": "Typography",
+                  "id": "typography",
+                  "level": 3
                 }
               ],
               "name": "Styles And CSS",
@@ -943,9 +983,9 @@
               "level": 3
             },
             {
-              "title": "\n        \n        \n      ",
+              "title": "Rocket Landing Page Template (Theme Spark)",
               "h1": "\n        \n        \n      ",
-              "name": "\n        \n        \n      ",
+              "name": "Rocket Landing Page Template (Theme Spark)",
               "menuLinkText": "Demo",
               "url": "/presets/spark/demo/",
               "outputRelativeFilePath": "presets/spark/demo/index.html",

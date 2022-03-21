@@ -10,6 +10,13 @@ export class LayoutHome extends Layout {
       ...pageDefaults({ ...options }),
       ...options,
       head__100: html`
+        <link
+          rel="preload"
+          href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin
+        />
         <link rel="stylesheet" href="resolve:@rocket/spark/css/fluid-type-scale" />
         <link rel="stylesheet" href="resolve:@rocket/spark/css/fluid-space" />
         <link rel="stylesheet" href="resolve:@rocket/spark/css/content" />

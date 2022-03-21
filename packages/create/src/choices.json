@@ -5,6 +5,11 @@
     "value": "blog"
   },
   {
+    "title": "Landing Page (Spark Theme)",
+    "description": "A landing page based on the spark theme",
+    "value": "landing-spark"
+  },
+  {
     "title": "Minimal",
     "description": "Only includes the minimal basics",
     "value": "minimal"
