@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
 import { RocketInit } from './RocketInit.js';
+import { RocketUpgrade } from './RocketUpgrade.js';
 // import { ignore } from './images/ignore.js';
 
 import path from 'path';
@@ -171,7 +172,7 @@ export class RocketCli {
       { plugin: RocketBuild, options: {} },
       { plugin: RocketInit, options: {} },
       // { plugin: RocketLint },
-      // { plugin: RocketUpgrade}
+      { plugin: RocketUpgrade, options: {} },
     ];
 
     if (Array.isArray(this.options.setupCliPlugins)) {

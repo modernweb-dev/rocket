@@ -4,7 +4,7 @@
 import { readdir, rename, writeFile } from 'fs/promises';
 import path from 'path';
 
-import { upgrade202109menu } from './upgrades/upgrade202109menu.js';
+import { upgrade202203menu } from './upgrades/upgrade202203menu.js';
 import { copy } from 'fs-extra';
 
 /** @typedef {import('../types/main').RocketCliOptions} RocketCliOptions */
@@ -104,36 +104,45 @@ function applyFolderRenames(relPath, folderRenames) {
 }
 
 export class RocketUpgrade {
-  static pluginName = 'RocketUpgrade';
-  commands = ['upgrade'];
+  /** @type {Engine | undefined} */
+  engine = undefined;
 
   /**
-   * @param {object} options
-   * @param {RocketCliOptions} options.config
-   * @param {any} options.argv
+   * @param {import('commander').Command} program
+   * @param {import('./RocketCli.js').RocketCli} cli
    */
-  async setup({ config, argv }) {
-    this.__argv = argv;
-    this.config = config;
+  async setupCommand(program, cli) {
+    this.cli = cli;
+    this.active = true;
+
+    program
+      .command('upgrade')
+      .option('-i, --input-dir <path>', 'path to where to search for source files')
+      .action(async cliOptions => {
+        cli.setOptions(cliOptions);
+        cli.activePlugin = this;
+
+        await this.upgrade();
+      });
   }
 
-  async upgradeCommand() {
-    if (!this?.config?._inputDirCwdRelative) {
+  async upgrade() {
+    if (!this.cli.options.inputDir) {
       return;
     }
 
-    const backupPath = path.join(this.config._inputDirCwdRelative, '..', 'docs_backup');
-    await copy(this.config._inputDirCwdRelative, backupPath);
+    const backupPath = path.join(this.cli.options.inputDir, '..', '__backup');
+    await copy(this.cli.options.inputDir, backupPath);
     console.log(`A backup of your docs folder has been created at ${backupPath}.`);
 
     let files = await getAllFiles({
-      rootDir: this.config._inputDirCwdRelative,
-      currentDir: this.config._inputDirCwdRelative,
+      rootDir: this.cli.options.inputDir,
+      currentDir: this.cli.options.inputDir,
     });
     /** @type {FolderRename[]} */
     let folderRenames = [];
 
-    const upgrade = await upgrade202109menu({ files, folderRenames });
+    const upgrade = await upgrade202203menu({ files, folderRenames });
     files = upgrade.files;
     folderRenames = upgrade.folderRenames;
 
@@ -167,7 +176,7 @@ export class RocketUpgrade {
     i = 0;
     for (const file of files) {
       if (file.updatedRelPath) {
-        files[i].updatedPath = path.join(this.config._inputDirCwdRelative, file.updatedRelPath);
+        files[i].updatedPath = path.join(this.cli.options.inputDir, file.updatedRelPath);
       }
       i += 1;
     }
@@ -175,10 +184,12 @@ export class RocketUpgrade {
     // create absolute paths for renames
     i = 0;
     for (const renameObj of folderRenames) {
-      folderRenames[i].fromAbsolute = path.join(this.config._inputDirCwdRelative, renameObj.from);
-      folderRenames[i].toAbsolute = path.join(this.config._inputDirCwdRelative, renameObj.to);
+      folderRenames[i].fromAbsolute = path.join(this.cli.options.inputDir, renameObj.from);
+      folderRenames[i].toAbsolute = path.join(this.cli.options.inputDir, renameObj.to);
       i += 1;
     }
+
+    // console.log({ files, orderedFolderRenames });
 
     await updateFileSystem({
       files,

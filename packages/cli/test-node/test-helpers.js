@@ -6,6 +6,7 @@ import { rm, writeFile, mkdir, rename } from 'fs/promises';
 
 import { RocketCli } from '../src/RocketCli.js';
 import { existsSync, readFileSync } from 'fs';
+import { copy, move, remove } from 'fs-extra';
 
 const { expect } = chai;
 
@@ -147,7 +148,7 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
   }
 
   function readSource(toInspect, { format = 'auto' } = {}) {
-    const filePath = path.join(cli.docsDir, toInspect);
+    const filePath = path.join(cli.options.inputDir, toInspect);
     let text = readFileSync(filePath).toString();
     let useFormat = format === 'auto' ? toInspect.split('.').pop() : format;
     if (useFormat) {
@@ -157,7 +158,7 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
   }
 
   async function writeSource(toInspect, text, { format = 'auto' } = {}) {
-    const filePath = path.join(cli.docsDir, toInspect);
+    const filePath = path.join(cli.options.inputDir, toInspect);
     const dirName = path.dirname(filePath);
     if (!existsSync(dirName)) {
       await mkdir(dirName, { recursive: true });
@@ -171,13 +172,13 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
   }
 
   async function deleteSource(toInspect) {
-    const filePath = path.join(cli.docsDir, toInspect);
+    const filePath = path.join(cli.options.inputDir, toInspect);
     await rm(filePath, { force: true, recursive: true });
   }
 
   async function renameSource(fromRelativePath, toRelativePath) {
-    const fromPath = path.join(cli.docsDir, fromRelativePath);
-    const toPath = path.join(cli.docsDir, toRelativePath);
+    const fromPath = path.join(cli.options.inputDir, fromRelativePath);
+    const toPath = path.join(cli.options.inputDir, toRelativePath);
     await rename(fromPath, toPath);
   }
 
@@ -187,7 +188,7 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
   }
 
   function sourceExists(toInspect) {
-    const filePath = path.join(cli.docsDir, toInspect);
+    const filePath = path.join(cli.options.inputDir, toInspect);
     return existsSync(filePath);
   }
 
@@ -209,8 +210,29 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
   }
 
   function setAsOpenedInBrowser(toInspect) {
-    const sourceFilePath = path.join(cli.docsDir, toInspect);
+    const sourceFilePath = path.join(cli.options.inputDir, toInspect);
     cli.watcher?.addWebSocketToPage(sourceFilePath, { send: () => undefined });
+  }
+
+  async function backupOrRestoreSource() {
+    const backupDir = path.join(cli.options.inputDir, '..', '__backup');
+    if (existsSync(backupDir)) {
+      await restoreSource({ keepBackup: true });
+    } else {
+      await copy(cli.options.inputDir, backupDir);
+    }
+  }
+
+  async function restoreSource({ keepBackup = false } = {}) {
+    const backupDir = path.join(cli.options.inputDir, '..', '__backup');
+    if (existsSync(backupDir)) {
+      await remove(cli.options.inputDir);
+      if (keepBackup === false) {
+        await move(backupDir, cli.options.inputDir);
+      } else {
+        await copy(backupDir, cli.options.inputDir);
+      }
+    }
   }
 
   return {
@@ -228,5 +250,7 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
     setAsOpenedInBrowser,
     sourceExists,
     renameSource,
+    backupOrRestoreSource,
+    restoreSource,
   };
 }

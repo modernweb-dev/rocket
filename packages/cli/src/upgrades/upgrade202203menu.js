@@ -7,7 +7,7 @@ import matter from 'gray-matter';
  *
  * @param {upgrade} options
  */
-export async function upgrade202109menu({ files, folderRenames }) {
+export async function upgrade202203menu({ files, folderRenames }) {
   let i = 0;
 
   const updatedFolderRenames = [...folderRenames];
@@ -25,6 +25,10 @@ export async function upgrade202109menu({ files, folderRenames }) {
       }
       if (lines[0] === '---') {
         const fmObj = matter(content);
+
+        let updatedContent = fmObj.content;
+        const serverCodeBlock = ['```js server'];
+
         if (fmObj.data.eleventyNavigation) {
           const eleventyNav = fmObj.data.eleventyNavigation;
           if (eleventyNav.order) {
@@ -32,7 +36,7 @@ export async function upgrade202109menu({ files, folderRenames }) {
             delete fmObj.data.eleventyNavigation.order;
           }
           if (eleventyNav.key) {
-            fmObj.data.menu = { ...fmObj.data.menu, linkText: eleventyNav.key };
+            serverCodeBlock.push(`export const menuLinkText = '${eleventyNav.key}';`);
             delete fmObj.data.eleventyNavigation.key;
           }
           if (eleventyNav.parent) {
@@ -44,19 +48,23 @@ export async function upgrade202109menu({ files, folderRenames }) {
         }
 
         if (!title && fmObj.data.title) {
-          fmObj.content = `\n# ${fmObj.data.title}\n${fmObj.content}`;
+          updatedContent = `\n# ${fmObj.data.title}\n${updatedContent}`;
           delete fmObj.data.title;
         }
 
         if (fmObj.data.eleventyExcludeFromCollections) {
-          fmObj.data.menu = { ...fmObj.data.menu, exclude: true };
+          serverCodeBlock.push(`export const menuNoLink = true;`);
           delete fmObj.data.eleventyExcludeFromCollections;
         }
 
-        if (Object.keys(fmObj.data).length > 0) {
-          files[i].updatedContent = matter.stringify(fmObj.content, fmObj.data);
+        if (serverCodeBlock.length > 1) {
+          serverCodeBlock.push('```');
+          updatedContent = `${serverCodeBlock.join('\n')}\n${updatedContent}`;
         }
+
+        files[i].updatedContent = updatedContent;
       }
+      files[i].updatedName = fileData.name.replace('.md', '.rocket.md');
       if (order !== 0) {
         if (fileData.relPath.toLowerCase().endsWith('index.md')) {
           const pathParts = fileData.relPath.split('/');
@@ -67,7 +75,7 @@ export async function upgrade202109menu({ files, folderRenames }) {
           dirParts.pop();
           updatedFolderRenames.push({ from: originDirParts.join('/'), to: dirParts.join('/') });
         } else {
-          files[i].updatedName = `${order}--${fileData.name}`;
+          files[i].updatedName = `${order}--${fileData.name.replace('.md', '.rocket.md')}`;
         }
       }
     }
