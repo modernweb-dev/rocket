@@ -4,6 +4,8 @@ import { html, components } from './recursive.data.js';
 export { html, components };
 /* END - Rocket auto generated - do not touch */
 
+export const layout = false;
+
 import { PageTree } from '@rocket/engine';
 import { nothing } from 'lit';
 import { baseHead } from '../src/parts/baseHead.js';
@@ -88,6 +90,7 @@ export default () => html`
           </section>
         </main>
       </div>
+      <site-footer></site-footer>
     </body>
   </html>
 `;

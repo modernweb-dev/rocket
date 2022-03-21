@@ -9,6 +9,7 @@ export { html, setupUnifiedPlugins };
 /* END - Rocket auto generated - do not touch */
 
 export const menuLinkText = 'Demo';
+export const title = 'Rocket Landing Page Template (Theme Spark)';
 
 import { LayoutHome } from '@rocket/spark';
 import { pageTree } from '#pageTree';
@@ -50,9 +51,7 @@ export default () => html`
       <a class="cta" href="./sign-up"> Sign up for free </a>
     </div>
 
-    <div>
-      <img src="./_assets/header-illustration.svg" alt="alternative" />
-    </div>
+    <img src="./_assets/header-illustration.svg" alt="alternative" width="189" height="150" />
   </block-columns>
 
   <block-features>
@@ -88,7 +87,7 @@ export default () => html`
     </feature-small>
   </block-features>
 
-  <block-columns class="bg-grey">
+  <block-columns style="background-color: #f9f8f8;">
     <div>
       <h2>Turpis in eu mi bibendum neque egestas congue ortor consequat</h2>
       <p>
@@ -97,13 +96,11 @@ export default () => html`
       </p>
       <a class="cta" href="./sign-up">Do it</a>
     </div>
-    <div>
-      <img src="./_assets/details-1.svg" alt="alternative" />
-    </div>
+    <img src="./_assets/details-1.svg" alt="alternative" width="146" height="150" />
   </block-columns>
 
   <block-columns>
-    <img src="./_assets/details-2.png" alt="alternative" />
+    <img src="./_assets/details-2.png" alt="alternative" width="544" height="587" />
     <div>
       <h2>Turpis in eu mi bibendum neque egestas congue ortor consequat</h2>
       <p>
@@ -114,11 +111,17 @@ export default () => html`
     </div>
   </block-columns>
 
-  <block-columns class="bg-grey">
+  <block-columns style="background-color: #f9f8f8;">
     <h2 slot="title">Testimonials</h2>
 
     <testimonial-small>
-      <img slot="image" src="./_assets/testimonial-1.jpg" alt="alternative" />
+      <img
+        slot="image"
+        src="./_assets/testimonial-1.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
       <p>
         Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
         you’re pierced.
@@ -127,7 +130,13 @@ export default () => html`
     </testimonial-small>
 
     <testimonial-small>
-      <img slot="image" src="./_assets/testimonial-1.jpg" alt="alternative" />
+      <img
+        slot="image"
+        src="./_assets/testimonial-2.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
       <p>
         Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
         you’re pierced.
@@ -136,7 +145,13 @@ export default () => html`
     </testimonial-small>
 
     <testimonial-small>
-      <img slot="image" src="./_assets/testimonial-1.jpg" alt="alternative" />
+      <img
+        slot="image"
+        src="./_assets/testimonial-3.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
       <p>
         Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
         you’re pierced.

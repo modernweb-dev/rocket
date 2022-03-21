@@ -3,7 +3,7 @@
 export const sourceRelativeFilePath = 'blog/hello-world.rocket.md';
 import { html, components } from '../recursive.data.js';
 import { layout } from './local.data.js';
-export { html, components, layout };
+export { html, layout, components };
 /* END - Rocket auto generated - do not touch */
 
 export const title = 'Hello world!';

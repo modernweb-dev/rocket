@@ -1,30 +1,49 @@
 import { LitElement, html, css } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 
 export class RotatingText extends LitElement {
   static properties = {
     items: { type: Array },
-    activeIndex: { type: Number, reflect: true, attribute: 'active-index' },
+    inIndex: { type: Number, reflect: true, attribute: 'in-index' },
   };
 
   constructor() {
     super();
-    this.activeIndex = 0;
+    this.initIndex = 0;
+    this.inIndex = 0;
+    this.outIndex = -1;
   }
 
   next() {
-    if (this.activeIndex < this.items.length - 1) {
-      this.activeIndex++;
+    this.outIndex = this.inIndex;
+    if (this.inIndex < this.items.length - 1) {
+      this.inIndex += 1;
     } else {
-      this.activeIndex = 0;
+      this.inIndex = 0;
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
+  firstUpdated() {
+    this.initIndex = -1;
     clearInterval(this.timer);
     this.timer = setInterval(() => {
       this.next();
     }, 2000);
+  }
+
+  render() {
+    return html`${this.items.map(
+      (item, index) =>
+        html`<p
+          class=${classMap({
+            'anim-in': index !== this.initIndex && index === this.inIndex,
+            'anim-out': index === this.outIndex,
+            'anim-static': index === this.initIndex,
+          })}
+        >
+          ${item}
+        </p>`,
+    )}`;
   }
 
   static styles = [
@@ -60,13 +79,15 @@ export class RotatingText extends LitElement {
         transform: translate3d(0, -120%, 0);
       }
 
+      .anim-static {
+        transform: translate3d(0, 0, 0);
+      }
+
       .anim-in {
-        transform: translate3d(0, -120%, 0);
         animation: textAnimIn 0.6s 0.3s forwards;
       }
 
       .anim-out {
-        transform: translate3d(0, 0%, 0);
         animation: textAnimOut 0.6s forwards;
       }
 
@@ -88,11 +109,4 @@ export class RotatingText extends LitElement {
       }
     `,
   ];
-
-  render() {
-    return html`${this.items.map(
-      (item, index) =>
-        html`<p class="${index === this.activeIndex ? 'anim-in' : 'anim-in anim-out'}">${item}</p>`,
-    )}`;
-  }
 }

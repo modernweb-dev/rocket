@@ -1,7 +1,7 @@
 {
   "title": "Example Blog",
   "h1": "\n            \n          ",
-  "name": "\n            \n          ",
+  "name": "Example Blog",
   "menuLinkText": "\n            \n          ",
   "url": "/",
   "outputRelativeFilePath": "index.html",
@@ -21,7 +21,7 @@
         {
           "title": "Hello world!",
           "h1": "\n            \n          ",
-          "name": "\n            \n          ",
+          "name": "Hello world!",
           "menuLinkText": "\n            \n          ",
           "url": "/blog/hello-world/",
           "outputRelativeFilePath": "blog/hello-world/index.html",
@@ -38,7 +38,7 @@
         {
           "title": "With Image!",
           "h1": "\n            \n          ",
-          "name": "\n            \n          ",
+          "name": "With Image!",
           "menuLinkText": "\n            \n          ",
           "url": "/blog/with-image/",
           "outputRelativeFilePath": "blog/with-image/index.html",
@@ -52,7 +52,26 @@
           "publishDate": "13 Sep 2021",
           "value": 128
         }
-      ]
+      ],
+      "layout": false
+    },
+    {
+      "title": "",
+      "h1": "\n            \n          ",
+      "headlinesWithId": [
+        {
+          "text": "About",
+          "id": "about",
+          "level": 1
+        }
+      ],
+      "name": "\n            \n          ",
+      "menuLinkText": "\n            \n          ",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.md",
+      "level": 1
     }
-  ]
+  ],
+  "layout": false
 }
