@@ -3,8 +3,6 @@ import { createRequire } from 'module';
 import { getAttributeMeta, replaceBetween } from '../web-menu/sax-helpers.js';
 import { isRocketPageFile } from '../helpers/isRocketPageFile.js';
 import { sourceRelativeFilePathToUrl } from '../file-header/urlPathConverter.js';
-import { isRocketIndexFile } from '../helpers/isRocketIndexFile.js';
-import { stripRocketSuffix } from '../helpers/stripRocketSuffix.js';
 
 /** @typedef {import('sax-wasm').Text} Text */
 /** @typedef {import('sax-wasm').Tag} Tag */
@@ -30,9 +28,7 @@ async function defaultAdjustAssetUrl({
     return url;
   }
   if (isRocketPageFile(url)) {
-    const dir = isRocketIndexFile(url)
-      ? path.dirname(sourceRelativeFilePath)
-      : stripRocketSuffix(sourceRelativeFilePath);
+    const dir = path.dirname(sourceRelativeFilePath);
     return sourceRelativeFilePathToUrl(path.join(dir, url));
   }
   if (url.startsWith('./') || url.startsWith('../')) {

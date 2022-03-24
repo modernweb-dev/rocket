@@ -78,7 +78,7 @@ describe('AdjustAssetUrls', () => {
         sourceRelativeFilePath: 'components.rocket.js',
         outputFilePath: '/my/path/to/__output/components/index.html',
       }),
-    ).to.equal('<a href="/components/about/">go</a>');
+    ).to.equal('<a href="/about/">go</a>');
 
     expect(
       await adjust.transform('<a href="./index.rocket.js">go</a>', {

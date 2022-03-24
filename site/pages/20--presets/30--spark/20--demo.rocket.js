@@ -1,6 +1,10 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '20--presets/30--spark/20--demo.rocket.js';
-import { html, setupUnifiedPlugins, components as originalComponents } from '../../recursive.data.js';
+import {
+  html,
+  setupUnifiedPlugins,
+  components as originalComponents,
+} from '../../recursive.data.js';
 export { html, setupUnifiedPlugins };
 /* END - Rocket auto generated - do not touch */
 
