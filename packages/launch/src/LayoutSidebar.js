@@ -62,7 +62,7 @@ export class LayoutSidebar extends Layout {
     logoSrc: '/icon.svg',
     logoAlt: 'Rocket Logo',
     gitSiteUrl: 'https://github.com/modernweb-dev/rocket',
-    gitBranch: 'master',
+    gitBranch: 'next',
     description: 'A static site generator for modern web development',
     socialLinks: [
       {
@@ -227,7 +227,7 @@ export class LayoutSidebar extends Layout {
             Caught a mistake or want to contribute to the documentation?
             <a
               href="${this.options.gitSiteUrl}/edit/${this.options
-                .gitBranch}/${data.sourceRelativeFilePath}"
+                .gitBranch}/site/pages/${data.sourceRelativeFilePath}"
               >Edit this page on GitHub!</a
             >
           </p>
