@@ -178,7 +178,7 @@ Which may work or may not work for you.
 
 In case you want to take full control over the order you can apply the following approaches:
 
-1. Prefix your folders/files with `xx--` [recommended]
+1. Prefix your folders/files with `xx--` (recommended)
 
    - The menu order and file system order will still match
    - No worries those numbers will not appear in your menu or url

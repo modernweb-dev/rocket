@@ -851,6 +851,45 @@
               "level": 3,
               "description": "Enable a unique and consistent experience via Web Fonts. With the right loading strategy there will be no layout shift.",
               "subTitle": "Use web fonts to ensure a unique and consistent experience."
+            },
+            {
+              "title": "Data Fetching | Rocket",
+              "h1": "Data Fetching",
+              "headlinesWithId": [
+                {
+                  "text": "Data Fetching",
+                  "id": "data-fetching",
+                  "level": 1
+                },
+                {
+                  "text": "Using Eleventy Fetch",
+                  "id": "using-eleventy-fetch",
+                  "level": 2
+                }
+              ],
+              "name": "Data Fetching",
+              "menuLinkText": "Data Fetching",
+              "url": "/docs/guides/data-fetching/",
+              "outputRelativeFilePath": "docs/guides/data-fetching/index.html",
+              "sourceRelativeFilePath": "10--docs/30--guides/90--data-fetching.rocket.md",
+              "level": 3
+            },
+            {
+              "title": "Deploy a Website | Rocket",
+              "h1": "Deploy a Website",
+              "headlinesWithId": [
+                {
+                  "text": "Deploy a Website",
+                  "id": "deploy-a-website",
+                  "level": 1
+                }
+              ],
+              "name": "Deploy a Website",
+              "menuLinkText": "Deploy a Website",
+              "url": "/docs/guides/deploy/",
+              "outputRelativeFilePath": "docs/guides/deploy/index.html",
+              "sourceRelativeFilePath": "10--docs/30--guides/95--deploy.rocket.md",
+              "level": 3
             }
           ]
         }

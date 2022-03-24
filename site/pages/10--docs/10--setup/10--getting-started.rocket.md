@@ -36,13 +36,13 @@ Once you have a project running continue with [the next steps](./20--adding-page
 All kind of different people come to Rocket and each of those may bring a different learning style. Whether you prefer a more theoretical or a practical approach, we hope you'll find this section helpful.
 
 - If you prefer to **learn by doing**, start with our [examples](#example-projects).
-- If you prefer to **learn concepts step by step**, start with our [basic concepts and guides](/en/core-concepts/project-structure).
+- If you prefer to **learn concepts step by step**, start with our [basic concepts and guides](../20--basics/10--project-structure.rocket.md).
 
 Like any unfamiliar technology, Rocket comes with a slight learning curve. However, with practice and some patience, we know, you _will_ get the hang of it, in no time.
 
 ### Example Projects
 
-If you prefer to learn Rocket by example, check out our [examples](https://github.com/modernweb-dev/rocket/tree/main/examples) on GitHub.
+If you prefer to learn Rocket by example, check out our [examples](https://github.com/modernweb-dev/rocket/tree/next/examples) on GitHub.
 
 You locally install any of these examples by running `npx @rocket/create@latest` and selecting it within the wizard.
 
@@ -61,7 +61,7 @@ Templates can also be hosted on [GitLab, BitBucket and Sourcehut](https://github
 
 ### API Reference
 
-This documentation section is useful when you want to learn more details about a particular Rocket API. For example, [Configuration Reference](/en/reference/configuration-reference) lists all possible configuration options available to you. [Built-in Components Reference](/en/reference/builtin-components) lists all available core components, like `<Markdown />` and `<Code />`.
+This documentation section is useful when you want to learn more details about a particular Rocket API. For example, [Configuration Reference](../20--basics/95--configuration.rocket.md) lists all possible configuration options available to you. [Built-in Components Reference](../20--basics/40--components.rocket.md) lists all available core components, like `<Markdown />` and `<Code />`.
 
 ### Versioned Documentation
 

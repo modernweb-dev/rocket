@@ -31,7 +31,7 @@ Be sure to check your preset if it comes with a 404 Layout you can use.
 
 As an example
 
-The [Rocket Launch preset](../../docs/presets/launch.md) ships a default 404 template you can use.
+The [Rocket Launch preset](../../20--presets/20--launch/10--overview.rocket.md) ships a default 404 template you can use.
 
 To enable it, you need to create a `404.md` and use the 404 layout.
 

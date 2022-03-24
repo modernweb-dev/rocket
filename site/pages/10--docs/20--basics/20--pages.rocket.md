@@ -195,7 +195,7 @@ export { html, layout };
 
 Rocket pages can fetch data to help generate your pages. Rocket uses two platform features to get this out of the box: **fetch()** and **top-level await.**
 
-📚 Read our [full guide](/en/guides/data-fetching) on data-fetching to learn more.
+Read our [full guide](../30--guides/90--data-fetching.rocket.md) 📚 on data-fetching to learn more.
 
 ````md
 ```js server
@@ -211,7 +211,7 @@ console.log(data);
 
 ## Custom 404 Error Page
 
-For a custom 404 error page create a `404.html.rocket.js` file in `/site/pages`. That builds to a `404.html` page. Most [deploy services](/en/guides/deploy) will find and use it.
+For a custom 404 error page create a `404.html.rocket.js` file in `/site/pages`. That builds to a `404.html` page. Most [deploy services](../30--guides/95--deploy.rocket.md) will find and use it.
 
 ## Non-HTML Pages
 
