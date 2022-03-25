@@ -23,7 +23,7 @@ export interface FullRocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   cwd: string;
   inputDir: URL | string;
   outputDir: URL | string;
-  emptyOutputDir: boolean;
+  clearOutputDir: boolean;
   absoluteBaseUrl: string;
   watch: boolean;
   open: boolean;
@@ -38,6 +38,7 @@ export interface FullRocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   plugins: RocketCliPlugin[];
 
   buildOptimize: boolean;
+  buildOpenGraphImages: boolean;
   buildAutoStop: boolean;
 
   // rarely used

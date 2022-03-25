@@ -7,6 +7,7 @@ export interface EngineOptions {
   outputDir: string;
   watchDir: string;
   open: boolean;
+  clearOutputDir: boolean;
   plugins: EnginePlugin[];
   defaultPlugins: MetaPluginOfEngine[];
   setupPlugins: MetaPluginOfEngine[];

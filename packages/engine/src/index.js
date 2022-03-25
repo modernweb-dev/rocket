@@ -6,6 +6,8 @@ import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 export { renderJoiningGroup } from './helpers/renderJoiningGroup.js';
 export { inlineFile } from './helpers/inlineFile.js';
 
+export { gatherFiles } from './gatherFiles.js';
+
 export { Layout } from './layouts/Layout.js';
 export { LayoutRaw } from './layouts/LayoutRaw.js';
 export { LayoutSitemap } from './layouts/LayoutSitemap.js';

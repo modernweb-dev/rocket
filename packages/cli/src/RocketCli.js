@@ -40,13 +40,14 @@ export class RocketCli {
     serviceWorkerName: 'service-worker.js',
     buildOptimize: true,
     buildAutoStop: true,
+    buildOpenGraphImages: true,
 
     adjustBuildOptions: options => options,
     adjustDevServerOptions: options => options,
 
     configFile: '',
     absoluteBaseUrl: '',
-    emptyOutputDir: true,
+    clearOutputDir: true,
 
     // /** @type {{[key: string]: ImagePreset}} */
     // imagePresets: {
