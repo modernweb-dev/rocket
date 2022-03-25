@@ -29,8 +29,11 @@ export async function urlToSourceFilePath(url, rootDir) {
     urlToFileMap.set(url, sourceFilePath);
   }
 
-  if (urlToFileMap.has(url)) {
-    return urlToFileMap.get(url);
+  let checkUrl = url.endsWith('.opengraph.html') ? url.replace('.opengraph.html', '.html') : url;
+  checkUrl = checkUrl.endsWith('index.html') ? checkUrl.replace('index.html', '') : checkUrl;
+
+  if (urlToFileMap.has(checkUrl)) {
+    return urlToFileMap.get(checkUrl);
   }
 
   // throw new Error(`Could not find source file for url: ${url}`);

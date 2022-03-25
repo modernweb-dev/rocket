@@ -113,7 +113,10 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
   }
   cli.setOptions(useOptions);
 
-  function readOutput(toInspect, { format = 'auto', cleanupLitMarkers = true } = {}) {
+  function readOutput(
+    toInspect,
+    { format = 'auto', cleanupLitMarkers = true, replaceImageHashes = false } = {},
+  ) {
     const filePath = path.join(cli.options.outputDir, toInspect);
     if (!existsSync(filePath)) {
       throw new Error(`Rendering to ${toInspect} did not happen\nFull path: ${filePath}`);
@@ -121,6 +124,9 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}) {
     let text = readFileSync(filePath).toString();
     if (cleanupLitMarkers) {
       text = cleanupLitMarkersFn(text);
+    }
+    if (replaceImageHashes) {
+      text = text.replace(/http:\/\/my-site.com\/([a-z0-9]+)/g, 'http://my-site.com/__HASH__');
     }
 
     let useFormat = format === 'auto' ? toInspect.split('.').pop() : format;

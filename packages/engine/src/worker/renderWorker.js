@@ -133,7 +133,22 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
           ? openGraphLayout.render(layoutData)
           : openGraphLayout(layoutData);
       const openGraphHtml = await litServerRender(openGraphTemplateResult);
-      await writeFile(layoutData.openGraphOutputFilePath, openGraphHtml);
+
+      let processedOpenGraphHtml = await transformFile(openGraphHtml, {
+        setupPlugins: data.setupEnginePlugins,
+        sourceFilePath,
+        outputFilePath: layoutData.openGraphOutputFilePath,
+        sourceRelativeFilePath,
+        outputRelativeFilePath: layoutData.openGraphOutputRelativeFilePath,
+        url: layoutData.openGraphUrl,
+      });
+
+      processedOpenGraphHtml = processedOpenGraphHtml.trim();
+      // remove leading/ending lit markers as with them web dev server falsy thinks this page is a HTML fragment and will not inject websockets
+      processedOpenGraphHtml = processedOpenGraphHtml.replace(/^<!--lit-part.*?-->/gm, '');
+      processedOpenGraphHtml = processedOpenGraphHtml.replace(/<!--\/lit-part-->$/gm, '');
+
+      await writeFile(layoutData.openGraphOutputFilePath, processedOpenGraphHtml);
     }
   } catch (error) {
     const typed = /** @type {Error} */ (error);

@@ -54,5 +54,5 @@ export default {
   // serviceWorkerName: 'sw.js',
   // pathPrefix: '/_site/',
 
-  // emptyOutputDir: false,
+  // clearOutputDir: false,
 };

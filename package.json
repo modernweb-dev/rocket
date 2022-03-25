@@ -124,6 +124,10 @@
       "pre-commit": "lint-staged"
     }
   },
+  "imports": {
+    "#pageTree": "./site/pages/__shared/pageTree.js",
+    "#assets/*": "./site/src/assets/*"
+  },
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -140,8 +144,5 @@
     "packages/*",
     "examples/*",
     "presets/*"
-  ],
-  "imports": {
-    "#pageTree": "./site/pages/__shared/pageTree.js"
-  }
+  ]
 }
