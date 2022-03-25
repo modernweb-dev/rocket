@@ -143,6 +143,7 @@
   "workspaces": [
     "packages/*",
     "examples/*",
+    "examples/sanity-minimal-starter/frontend",
     "presets/*"
   ]
 }

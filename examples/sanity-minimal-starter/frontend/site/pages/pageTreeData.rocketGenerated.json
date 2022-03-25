@@ -1,0 +1,47 @@
+{
+  "title": "Rocket 🚀 + Sanity Minimal Starter",
+  "h1": "Rocket 🚀 + Sanity Minimal Starter",
+  "name": "Rocket 🚀 + Sanity Minimal Starter",
+  "menuLinkText": "Rocket 🚀 + Sanity Minimal Starter",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "description": "This is the homepage",
+  "permalink": "/",
+  "children": [
+    {
+      "title": "About Page",
+      "h1": "About Page",
+      "name": "About Page",
+      "menuLinkText": "About Page",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.js",
+      "level": 1,
+      "permalink": "/about/"
+    },
+    {
+      "title": "Blog ⚠️ IN DEVELOPMENT",
+      "h1": "Blog ⚠️ IN DEVELOPMENT",
+      "name": "Blog ⚠️ IN DEVELOPMENT",
+      "menuLinkText": "Blog ⚠️ IN DEVELOPMENT",
+      "url": "/blog/",
+      "outputRelativeFilePath": "blog/index.html",
+      "sourceRelativeFilePath": "blog.rocket.js",
+      "level": 1
+    },
+    {
+      "title": "Contact Page",
+      "h1": "Contact Page",
+      "name": "Contact Page",
+      "menuLinkText": "Contact Page",
+      "url": "/contact/",
+      "outputRelativeFilePath": "contact/index.html",
+      "sourceRelativeFilePath": "contact.rocket.js",
+      "level": 1,
+      "description": "This is the contact page",
+      "permalink": "/contact/"
+    }
+  ]
+}
