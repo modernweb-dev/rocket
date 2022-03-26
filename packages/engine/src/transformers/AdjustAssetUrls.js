@@ -24,7 +24,14 @@ async function defaultAdjustAssetUrl({
   sourceRelativeFilePath,
   outputFilePath,
 }) {
-  if (url.startsWith('http') || url.startsWith('//')) {
+  if (url.startsWith('resolve:')) {
+    const bareImport = url.substring(8);
+    const requireOfSource = createRequire(sourceFilePath);
+    const resolvedPath = requireOfSource.resolve(bareImport);
+    const rel = path.relative(path.dirname(outputFilePath), resolvedPath);
+    return rel;
+  }
+  if (url.match(/^[a-z]+:/) || url.startsWith('//')) {
     return url;
   }
   if (isRocketPageFile(url)) {
@@ -36,13 +43,6 @@ async function defaultAdjustAssetUrl({
       path.dirname(outputFilePath),
       path.join(path.dirname(sourceFilePath), url),
     );
-  }
-  if (url.startsWith('resolve:')) {
-    const bareImport = url.substring(8);
-    const requireOfSource = createRequire(sourceFilePath);
-    const resolvedPath = requireOfSource.resolve(bareImport);
-    const rel = path.relative(path.dirname(outputFilePath), resolvedPath);
-    return rel;
   }
   return url;
 }
