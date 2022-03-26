@@ -1,8 +1,14 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '20--presets/index.rocket.md';
-import { html, layout, setupUnifiedPlugins, components } from '../recursive.data.js';
-export { html, layout, setupUnifiedPlugins, components };
+import {
+  html,
+  layout,
+  setupUnifiedPlugins,
+  components,
+  openGraphLayout,
+} from '../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 
 import { pageTree } from '../__shared/pageTree.js';

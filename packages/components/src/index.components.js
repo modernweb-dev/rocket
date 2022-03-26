@@ -10,4 +10,6 @@ export const rocketComponents = {
   'permanent-notification': () =>
     import('./PermanentNotification.js').then(m => m.PermanentNotification),
   'card-icon': () => import('./CardIcon.js').then(m => m.CardIcon),
+  'server-icon': () => import('./ServerIcon.js').then(m => m.ServerIcon),
+  'opengraph-overview': () => import('./OpenGraphOverview.js').then(m => m.OpenGraphOverview),
 };

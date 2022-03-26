@@ -4,8 +4,9 @@ import {
   html,
   setupUnifiedPlugins,
   components as originalComponents,
+  openGraphLayout,
 } from '../../recursive.data.js';
-export { html, setupUnifiedPlugins };
+export { html, setupUnifiedPlugins, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 
 export const menuLinkText = 'Demo';

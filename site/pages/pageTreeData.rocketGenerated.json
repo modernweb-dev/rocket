@@ -7,6 +7,7 @@
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
+  "subTitle": "Everyone can code a website",
   "children": [
     {
       "title": "Learning Rocket | Rocket",
@@ -24,6 +25,7 @@
       "outputRelativeFilePath": "docs/index.html",
       "sourceRelativeFilePath": "10--docs/index.rocket.md",
       "level": 1,
+      "subTitle": "From zero to hero",
       "children": [
         {
           "title": "Setup | Rocket",
@@ -91,7 +93,8 @@
               "url": "/docs/setup/getting-started/",
               "outputRelativeFilePath": "docs/setup/getting-started/index.html",
               "sourceRelativeFilePath": "10--docs/10--setup/10--getting-started.rocket.md",
-              "level": 3
+              "level": 3,
+              "subTitle": "Create your first Rocket site"
             },
             {
               "title": "Adding Pages | Rocket",
@@ -409,6 +412,11 @@
                   "level": 2
                 },
                 {
+                  "text": "Menu Exclude",
+                  "id": "menu-exclude",
+                  "level": 2
+                },
+                {
                   "text": "Your own menu",
                   "id": "your-own-menu",
                   "level": 2
@@ -587,6 +595,26 @@
                 {
                   "text": "How it works",
                   "id": "how-it-works",
+                  "level": 2
+                },
+                {
+                  "text": "How to use it",
+                  "id": "how-to-use-it",
+                  "level": 2
+                },
+                {
+                  "text": "Adjusting the open graph layout",
+                  "id": "adjusting-the-open-graph-layout",
+                  "level": 3
+                },
+                {
+                  "text": "Using the PageTree",
+                  "id": "using-the-pagetree",
+                  "level": 3
+                },
+                {
+                  "text": "Creating an Overview",
+                  "id": "creating-an-overview",
                   "level": 2
                 }
               ],
@@ -1395,12 +1423,12 @@
       "level": 1,
       "children": [
         {
-          "title": "Introducing Check HTML Links - no more bad links | Rocket",
-          "h1": "Introducing Check HTML Links - no more bad links",
+          "title": "Introducing Check HTML Links | Rocket",
+          "h1": "Introducing Check HTML Links",
           "headlinesWithId": [
             {
-              "text": "Introducing Check HTML Links - no more bad links",
-              "id": "introducing-check-html-links---no-more-bad-links",
+              "text": "Introducing Check HTML Links",
+              "id": "introducing-check-html-links",
               "level": 1
             },
             {
@@ -1474,8 +1502,8 @@
               "level": 2
             }
           ],
-          "name": "Introducing Check HTML Links - no more bad links",
-          "menuLinkText": "Introducing Check HTML Links - no more bad links",
+          "name": "Introducing Check HTML Links",
+          "menuLinkText": "Introducing Check HTML Links",
           "url": "/blog/introducing-check-html-links/",
           "outputRelativeFilePath": "blog/introducing-check-html-links/index.html",
           "sourceRelativeFilePath": "40--blog/001--introducing-check-html-links.rocket.md",
@@ -1483,15 +1511,6 @@
           "subTitle": "A fast link checker for static HTML"
         }
       ]
-    },
-    {
-      "menuNoLink": true,
-      "name": "simulator.rocket.js",
-      "menuLinkText": "simulator.rocket.js",
-      "url": "/simulator/",
-      "outputRelativeFilePath": "simulator/index.html",
-      "sourceRelativeFilePath": "simulator.rocket.js",
-      "level": 1
     }
   ]
 }

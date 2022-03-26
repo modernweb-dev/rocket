@@ -1,9 +1,17 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '10--docs/10--setup/10--getting-started.rocket.md';
-import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins, components };
+import {
+  html,
+  layout,
+  setupUnifiedPlugins,
+  components,
+  openGraphLayout,
+} from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
+
+export const subTitle = 'Create your first Rocket site';
 ```
 
 # Getting started
