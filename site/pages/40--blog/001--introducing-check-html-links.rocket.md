@@ -1,8 +1,14 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '40--blog/001--introducing-check-html-links.rocket.md';
-import { html, layout, setupUnifiedPlugins, components } from '../recursive.data.js';
-export { html, layout, setupUnifiedPlugins, components };
+import {
+  html,
+  layout,
+  setupUnifiedPlugins,
+  components,
+  openGraphLayout,
+} from '../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 
 export const tags = ['html', 'javascript', 'webdev', 'node'];
@@ -10,7 +16,7 @@ export const subTitle = 'A fast link checker for static HTML';
 // cover_image: https://dev-to-uploads.s3.amazonaws.com/i/an9z6f4hdll2jlne43u3.jpg
 ```
 
-# Introducing Check HTML Links - no more bad links
+# Introducing Check HTML Links
 
 **TL;DR : I created a standalone tool that can help you fix all the broken links in your websites/documentation. You can check it out [on npm as check-html-links](https://www.npmjs.com/package/check-html-links)**
 

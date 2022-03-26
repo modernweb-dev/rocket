@@ -8,6 +8,8 @@ import { footerMenu } from './__shared/footerMenu.js';
 import { pageTree } from './__shared/pageTree.js';
 import { LayoutHome } from '@rocket/launch';
 
+export const subTitle = 'Everyone can code a website';
+
 export const layout = new LayoutHome({
   pageTree,
   footerMenu,
@@ -62,3 +64,81 @@ export const layout = new LayoutHome({
 });
 
 export default () => '';
+
+export const openGraphLayout = data => html`
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <style>
+        body {
+          background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
+          color: #ccc;
+          font-size: 30px;
+          display: block;
+          height: 100vh;
+          padding: 30px;
+          box-sizing: border-box;
+          margin: 0;
+        }
+        #logo {
+          width: 35%;
+          margin-top: 3%;
+          margin-left: 3%;
+        }
+        p {
+          margin-left: 3%;
+        }
+        #sub-title {
+          font-size: 44px;
+        }
+        #bg-wrapper {
+          position: absolute;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+        }
+        #bg-wrapper img {
+          position: absolute;
+          right: -17%;
+          top: -7%;
+          transform: rotate(45deg);
+          width: 69%;
+        }
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+        .item card-icon {
+          width: 50px;
+          height: 50px;
+        }
+      </style>
+    </head>
+    <body>
+      <img id="logo" src="resolve:#assets/logo-dark-with-text.svg" />
+      <div id="bg-wrapper">
+        <img src="resolve:#assets/home-background.svg" />
+      </div>
+      <p id="sub-title">${data.subTitle || ''}</p>
+
+      <p class="item">
+        <card-icon icon="solid/server" variation="green"></card-icon>
+        <span>Server renders your web components</span>
+      </p>
+
+      <p class="item">
+        <card-icon icon="solid/stopwatch" variation="blue"></card-icon>
+        <span>FAST because of zero or little JavaScript</span>
+      </p>
+
+      <p class="item">
+        <card-icon icon="solid/battery-full"></card-icon>
+        <span>Batteries included with routing/themes/menus/...</span>
+      </p>
+    </body>
+  </html>
+`;

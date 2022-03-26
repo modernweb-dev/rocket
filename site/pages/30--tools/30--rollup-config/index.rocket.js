@@ -1,7 +1,13 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '30--tools/30--rollup-config/index.rocket.js';
-import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins, components };
+import {
+  html,
+  layout,
+  setupUnifiedPlugins,
+  components,
+  openGraphLayout,
+} from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 
 export const menuNoLink = true;
