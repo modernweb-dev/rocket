@@ -717,4 +717,78 @@ describe('Engine menus', () => {
 
     await cleanup();
   });
+
+  it('12: can completely exclude a page', async () => {
+    const { build, readSource } = await setupTestEngine('fixtures/05-menu/12-exclude/docs');
+    await build();
+
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal({
+      h1: 'Home',
+      name: 'Home',
+      menuLinkText: 'Home',
+      url: '/',
+      outputRelativeFilePath: 'index.html',
+      sourceRelativeFilePath: 'index.rocket.js',
+      level: 0,
+    });
+  });
+
+  it('13: modifying exclude while running update the pageTree', async () => {
+    const { build, writeSource, readSource, engine, cleanup, anEngineEvent } =
+      await setupTestEngine('fixtures/05-menu/13-modify-exclude/docs');
+    await writeSource('about.rocket.js', "export default () => '<h1>About</h1>';");
+    await build();
+
+    const withAbout = {
+      h1: 'Home',
+      name: 'Home',
+      menuLinkText: 'Home',
+      url: '/',
+      outputRelativeFilePath: 'index.html',
+      sourceRelativeFilePath: 'index.rocket.js',
+      level: 0,
+      children: [
+        {
+          h1: 'About',
+          name: 'About',
+          menuLinkText: 'About',
+          url: '/about/',
+          outputRelativeFilePath: 'about/index.html',
+          sourceRelativeFilePath: 'about.rocket.js',
+          level: 1,
+        },
+      ],
+    };
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal(withAbout);
+
+    await engine.start();
+
+    // 1. Remove page from tree as we add the menuExclude
+    await writeSource(
+      'about.rocket.js',
+      [
+        //
+        'export const menuExclude = true;',
+        "export default () => '<h1>About</h1>';",
+      ].join('\n'),
+    );
+    await anEngineEvent('rocketUpdated');
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal({
+      h1: 'Home',
+      name: 'Home',
+      menuLinkText: 'Home',
+      url: '/',
+      outputRelativeFilePath: 'index.html',
+      sourceRelativeFilePath: 'index.rocket.js',
+      level: 0,
+      children: [],
+    });
+
+    // 2. Add page to tree as we removed the menuExclude
+    await writeSource('about.rocket.js', "export default () => '<h1>About</h1>';");
+    await anEngineEvent('rocketUpdated');
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal(withAbout);
+
+    await cleanup();
+  });
 });
