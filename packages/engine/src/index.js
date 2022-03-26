@@ -15,6 +15,11 @@ export { sourceRelativeFilePathToOutputRelativeFilePath } from './file-header/ur
 export { PageTree } from './web-menu/PageTree.js';
 export { AdjustAssetUrls } from './transformers/AdjustAssetUrls.js';
 
+export {
+  urlToSourceFilePath,
+  sourceRelativeFilePathToUrl,
+} from './file-header/urlPathConverter.js';
+
 // dev-server
 export { devServerRegisterTab } from './dev-server/devServerRegisterTab.js';
 export { devServerAdjustAssetUrls } from './dev-server/devServerAdjustAssetUrls.js';
