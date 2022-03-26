@@ -137,6 +137,12 @@ export class PageTree {
     if (this.tree) {
       const self = findSelf(pageModel, this.tree);
       if (self) {
+        if (pageData.menuExclude) {
+          self.drop();
+          this.needsAnotherRenderingPass = true;
+          return;
+        }
+
         // UPDATE - only if there is a difference (we do not care about children or headlinesWithId)
         if (!hasSameModelValues(self.model, pageModel.model)) {
           for (const key of Object.keys(pageModel.model)) {
@@ -147,6 +153,10 @@ export class PageTree {
           this.needsAnotherRenderingPass = true;
         }
       } else {
+        if (pageData.menuExclude) {
+          return;
+        }
+
         const parent = findParent(pageModel, this.tree);
         if (parent) {
           parent.addChild(pageModel);
