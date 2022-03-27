@@ -64,7 +64,22 @@ export const openGraphLayout = data => html`
   <html lang="en">
     <head>
       <meta charset="utf-8" />
+      <link
+        rel="preload"
+        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
       <style>
+        @font-face {
+          font-family: 'Open Sans';
+          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2')
+              format('woff2 supports variations'),
+            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-weight: 1 999;
+          font-display: optional;
+        }
         body {
           background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
           color: #ccc;
@@ -73,6 +88,7 @@ export const openGraphLayout = data => html`
           padding: 30px;
           box-sizing: border-box;
           margin: 0;
+          font-family: 'Open Sans', sans-serif;
         }
         #powered-by {
           margin: 3%;
@@ -91,15 +107,15 @@ export const openGraphLayout = data => html`
           background: linear-gradient(to bottom right, #ffe259, #ffa751);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          font-size: 108px;
+          font-size: 100px;
           margin: 3%;
         }
         p {
-          margin-left: 3%;
+          margin: 3%;
         }
         #sub-title {
           font-size: 50px;
-          max-width: 62%;
+          max-width: 67%;
         }
         #bg-wrapper {
           position: absolute;

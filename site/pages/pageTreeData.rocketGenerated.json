@@ -608,6 +608,11 @@
                   "level": 3
                 },
                 {
+                  "text": "Fonts",
+                  "id": "fonts",
+                  "level": 3
+                },
+                {
                   "text": "Using the PageTree",
                   "id": "using-the-pagetree",
                   "level": 3
@@ -819,6 +824,29 @@
               "outputRelativeFilePath": "docs/guides/styles-and-css/index.html",
               "sourceRelativeFilePath": "10--docs/30--guides/70--styles-and-css.rocket.md",
               "level": 3
+            },
+            {
+              "title": "Web Fonts | Rocket",
+              "h1": "Web Fonts",
+              "headlinesWithId": [
+                {
+                  "text": "Web Fonts",
+                  "id": "web-fonts",
+                  "level": 1
+                },
+                {
+                  "text": "Put it all together",
+                  "id": "put-it-all-together",
+                  "level": 2
+                }
+              ],
+              "name": "Web Fonts",
+              "menuLinkText": "Web Fonts",
+              "url": "/docs/guides/web-fonts/",
+              "outputRelativeFilePath": "docs/guides/web-fonts/index.html",
+              "sourceRelativeFilePath": "10--docs/30--guides/80--web-fonts.rocket.md",
+              "level": 3,
+              "subTitle": "Using a variable font file with preload and optional display means NO layout shift at all"
             }
           ]
         }

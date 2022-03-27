@@ -136,15 +136,12 @@ export class LayoutSidebar extends Layout {
         <meta name="twitter:card" content="summary_large_image" />
       `,
       head__40: html`
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-
         <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;display=optional"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=optional"
-          rel="stylesheet"
+          rel="preload"
+          href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin
         />
 
         <link rel="stylesheet" href="resolve:@rocket/launch/css/variables.css" />
