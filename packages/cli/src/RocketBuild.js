@@ -188,7 +188,7 @@ export class RocketBuild {
           }
         }
         const url = `http://localhost:${this.engine.devServer.config.port}/${relUrl}`;
-        await page.goto(url);
+        await page.goto(url, { waitUntil: 'networkidle0' });
         await page.screenshot({ path: imagePath });
 
         await unlink(openGraphFile);

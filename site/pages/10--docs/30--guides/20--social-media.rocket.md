@@ -57,8 +57,23 @@ export const openGraphLayout = () => html`
   <html lang="en">
     <head>
       <meta charset="utf-8" />
+      <link
+        rel="preload"
+        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
       <style>
+        @font-face {
+          font-family: 'Open Sans';
+          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
+            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-weight: 1 999;
+          font-display: optional;
+        }
         body {
+          font-family: 'Open Sans', sans-serif;
           background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
           color: #ccc;
           display: block;
@@ -122,6 +137,15 @@ The best approach is to
 See a small screen capture of how that may look
 https://twitter.com/daKmoR/status/1507727164099248135?s=20&t=iESgVMwNfoPuPMbASLfIlw
 
+### Fonts
+
+In most cases the build of rocket will run within a CI (like Github Actions) or via a service (like Netlify build).
+This means that if we locally design your open graph html with a specific font and then generate the open graph image on a different machine then we may get a different result. The reasons for that is that systems fonts are vastly different per Operating System and Service.
+
+To prevent this it's recommended to use a web font as that will make sure wherever the image gets generated it will always have access to the same font.
+
+Loading web fonts can be tricky so be sure to checkout our [web fonts guide](./80--web-fonts.rocket.md).
+
 ### Using the PageTree
 
 Instead of extra defining the data for the open graph image we can use the [PageTree](../20--basics/50--layouts.rocket.md) to automatically get the page title.
@@ -139,8 +163,23 @@ export const openGraphLayout = () => html`
   <html lang="en">
     <head>
       <meta charset="utf-8" />
+      <link
+        rel="preload"
+        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
       <style>
+        @font-face {
+          font-family: 'Open Sans';
+          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
+            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-weight: 1 999;
+          font-display: optional;
+        }
         body {
+          font-family: 'Open Sans', sans-serif;
           background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
           color: #ccc;
           display: block;
@@ -216,8 +255,23 @@ export const layout = data => html`
   <html lang="en">
     <head>
       <meta charset="utf-8" />
+      <link
+        rel="preload"
+        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
       <style>
+        @font-face {
+          font-family: 'Open Sans';
+          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
+            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-weight: 1 999;
+          font-display: optional;
+        }
         body {
+          font-family: 'Open Sans', sans-serif;
           margin: 20px;
         }
         h1 {

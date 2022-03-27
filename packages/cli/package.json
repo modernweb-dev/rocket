@@ -30,7 +30,7 @@
     "rocket:build": "node src/cli.js build -c demo",
     "rocket:start": "node src/cli.js start -c demo",
     "start": "npm run rocket:start",
-    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs} --timeout 5000",
+    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs} --timeout 8000",
     "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
     "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/",
     "xtest:watch": "mocha test/**/*.test.js --parallel --watch"
