@@ -60,8 +60,8 @@
     "commander": "^9.0.0",
     "fs-extra": "^9.0.1",
     "gray-matter": "^4.0.3",
-    "playwright": "^1.15.0",
-    "plugins-manager": "^0.3.0"
+    "plugins-manager": "^0.3.0",
+    "puppeteer": "^13.0.0"
   },
   "devDependencies": {
     "koa-proxy": "^1.0.0-alpha.3"

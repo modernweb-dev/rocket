@@ -15,7 +15,7 @@ import { adjustPluginOptions } from 'plugins-manager';
 import { existsSync } from 'fs';
 import { readFile, unlink, writeFile } from 'fs/promises';
 
-import { chromium } from 'playwright';
+import puppeteer from 'puppeteer';
 
 /**
  * @param {object} config
@@ -157,13 +157,15 @@ export class RocketBuild {
     try {
       await this.engine.start();
 
-      const browser = await chromium.launch();
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+
       // In 2022 Twitter & Facebook recommend a size of 1200x628 - we capture with 2 dpr for retina displays
-      const context = await browser.newContext({
-        viewport: { width: 1200, height: 628 },
+      await page.setViewport({
+        width: 1200,
+        height: 628,
         deviceScaleFactor: 2,
       });
-      const page = await context.newPage();
 
       for (const openGraphFile of openGraphFiles) {
         const relUrl = path.relative(this.cli.options.outputDevDir, openGraphFile);
