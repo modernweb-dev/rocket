@@ -8,11 +8,14 @@ import { footerMenu } from './__shared/footerMenu.js';
 import { pageTree } from './__shared/pageTree.js';
 import { LayoutHome } from '@rocket/launch';
 
+export const description =
+  'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.';
 export const subTitle = 'Everyone can code a website';
 
 export const layout = new LayoutHome({
   pageTree,
   footerMenu,
+  titleWrapperFn: () => 'Welcome to Rocket',
   slogan: 'Everyone can code a website.',
   callToActionItems: [
     { text: 'Getting started', href: '/docs/setup/getting-started/' },
