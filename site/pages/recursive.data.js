@@ -9,7 +9,12 @@ import htmlHeading from 'rehype-autolink-headings';
 
 export { html };
 
-export const layout = new LayoutSidebar({ pageTree, footerMenu });
+export const layout = new LayoutSidebar({
+  pageTree,
+  footerMenu,
+  description:
+    'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.',
+});
 
 export const setupUnifiedPlugins = [
   adjustPluginOptions(mdjsSetupCode, {

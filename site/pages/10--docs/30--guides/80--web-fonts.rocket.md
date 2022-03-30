@@ -11,8 +11,9 @@ import {
 export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 
-export const subTitle =
-  'Using a variable font file with preload and optional display means NO layout shift at all';
+export const description =
+  'Enable a unique and consistent experience via Web Fonts. With the right loading strategy there will be no layout shift.';
+export const subTitle = 'Use web fonts to ensure a unique and consistent experience.';
 ```
 
 # Web Fonts

@@ -10,6 +10,11 @@ import {
 } from '../../recursive.data.js';
 export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
+
+export const description =
+  'It is important that links to your website stand out from the rest of the content on social media. Design an open graph template image directly in the browser and let Rocket handle the rest.';
+export const subTitle =
+  'Make links to your website attractive on Twitter, Facebook, Discord and other social media.';
 ```
 
 # Social Media
@@ -37,10 +42,19 @@ The functionality is the same as normal [Layouts](../20--basics/50--layouts.rock
    ```
 
 2. During the the build phase is does the following steps
-   a. If there is a `filename.opengraph.html` file it will open that file in playwright
-   b. It sets its screen size to 1200×628px and takes a screenshot with DPR or 2 (e.g. the image will have 2400x1228px)
-   c. Adjusts the "output file" e.g. `index.html` by injecting `<meta property="og:image" content="https://absolute.url/to/screenshot.jpg">` if not already present
-   d. deletes the `filename.opengraph.html` file
+3. If there is a `filename.opengraph.html` file it will open that file in puppeteer
+4. It sets its screen size to 1200×628px and takes a screenshot with DPR or 2 (e.g. the image will have 2400x1228px)
+5. Adjusts the "output file" e.g. `index.html` by injecting
+
+   ```html
+   <meta property="og:image:width" content="2400" />
+   <meta property="og:image:height" content="1256" />
+   <meta property="og:image" content="https://absolute.url/to/screenshot.jpg" />
+   ```
+
+   if no `<meta property="og:image"` is present
+
+6. deletes the `filename.opengraph.html` file
 
 ## How to use it
 
