@@ -87,6 +87,8 @@ export class RocketBuild {
   }
 
   async build() {
+    await this.cli.events.dispatchEventDone('build-start');
+
     this.engine = new Engine();
     this.engine.setOptions({
       docsDir: this.cli.options.inputDir,
@@ -118,6 +120,8 @@ export class RocketBuild {
       );
       await writeFile(notFoundHtmlFilePath, notFoundHtml);
     }
+
+    await this.cli.events.dispatchEventDone('build-end');
   }
 
   async buildOpenGraphImages() {

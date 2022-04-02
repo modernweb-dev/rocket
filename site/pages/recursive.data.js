@@ -5,7 +5,9 @@ import { footerMenu } from './__shared/footerMenu.js';
 import { pageTree } from './__shared/pageTree.js';
 import { html } from 'lit';
 import { rocketComponents } from '@rocket/components/components';
+import { searchComponents } from '@rocket/search/components';
 import htmlHeading from 'rehype-autolink-headings';
+import { search } from './__shared/search.js';
 
 export { html };
 
@@ -14,6 +16,7 @@ export const layout = new LayoutSidebar({
   footerMenu,
   description:
     'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.',
+  header__40: search,
 });
 
 export const setupUnifiedPlugins = [
@@ -62,7 +65,7 @@ export const setupUnifiedPlugins = [
   }),
 ];
 
-export const components = { ...rocketComponents };
+export const components = { ...rocketComponents, ...searchComponents };
 
 export const openGraphLayout = data => html`
   <!DOCTYPE html>

@@ -3,14 +3,35 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./",
+    "module": "ESNext",
+    "outDir": "./dist-types",
+    "rootDir": ".",
     "composite": true,
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    "emitDeclarationOnly": true
   },
-  "references": [],
-  "include": ["src", "preset", "node.js"],
-  "exclude": ["src/browser", "tests", "dist"]
+  "references": [
+    {
+      "path": "../plugins-manager/tsconfig.json"
+    },
+    {
+      "path": "../mdjs-core/tsconfig.json"
+    },
+    {
+      "path": "../engine/tsconfig.json"
+    },
+    {
+      "path": "../cli/tsconfig.json"
+    }
+  ],
+  "include": [
+    "src",
+    "*.js",
+    "types"
+  ],
+  "exclude": [
+    "dist",
+    "dist-types"
+  ]
 }

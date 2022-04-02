@@ -10,6 +10,7 @@ import path from 'path';
 import { rm } from 'fs/promises';
 import { mergeDeep } from './helpers/mergeDeep.js';
 import { existsSync } from 'fs';
+import { AsyncEventEmitter } from './helpers/AsyncEventEmitter.js';
 
 /** @typedef {import('../types/main.js').RocketCliPlugin} RocketCliPlugin */
 /** @typedef {import('../types/main.js').FullRocketCliOptions} FullRocketCliOptions */
@@ -59,6 +60,8 @@ export class RocketCli {
     //   },
     // },
   };
+
+  events = new AsyncEventEmitter();
 
   /** @type {RocketCliPlugin | undefined} */
   activePlugin = undefined;

@@ -23,7 +23,10 @@
       "types": "./dist-types/src/index.d.ts",
       "default": "./src/index.js"
     },
-    "./test-helpers": "./test-helpers/index.js"
+    "./test-helpers": {
+      "types": "./dist-types/test-helpers/index.d.ts",
+      "default": "./test-helpers/index.js"
+    }
   },
   "scripts": {
     "build": "npm run rocket:build",
@@ -36,20 +39,16 @@
     "xtest:watch": "mocha test/**/*.test.js --parallel --watch"
   },
   "files": [
-    "*.cjs",
-    "*.js",
-    "*.mjs",
-    "dist",
     "dist-types",
     "src",
-    "test-helpers"
+    "test-helpers",
+    "types"
   ],
   "keywords": [
     "rocket",
     "docs",
     "ssg",
     "demo",
-    "11ty",
     "rollup"
   ],
   "dependencies": {
@@ -71,6 +70,9 @@
     "*": {
       "*": [
         "./dist-types/src/index.d.ts"
+      ],
+      "test-helpers": [
+        "./dist-types/test-helpers/index.d.ts"
       ]
     }
   }

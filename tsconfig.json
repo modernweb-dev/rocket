@@ -18,6 +18,9 @@
     },
     {
       "path": "./packages/launch/tsconfig.json"
+    },
+    {
+      "path": "./packages/search/tsconfig.json"
     }
   ]
 }
