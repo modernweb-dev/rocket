@@ -3,7 +3,7 @@ import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
 import { stubMethod } from 'hanbi';
 
-import '../rocket-search.js';
+import '@rocket/search/define';
 
 /**
  * @param {function} method

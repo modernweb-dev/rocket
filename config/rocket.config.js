@@ -1,7 +1,7 @@
 import { rocketLaunch } from '@rocket/launch';
 import { rocketSpark } from '@rocket/spark';
 // import { rocketBlog } from '@rocket/blog';
-// import { rocketSearch } from '@rocket/search';
+import { presetRocketSearch } from '@rocket/search';
 // import { absoluteBaseUrlNetlify } from '@rocket/core/helpers';
 // import { adjustPluginOptions } from 'plugins-manager';
 // TODO: preset needs to be updated to use the new plugin manager
@@ -38,8 +38,8 @@ export default {
   presets: [
     rocketLaunch(),
     rocketSpark(),
+    presetRocketSearch(),
     // rocketBlog(),
-    // rocketSearch(),
     // codeTabs({
     //   collections: {
     //     packageManagers: {
