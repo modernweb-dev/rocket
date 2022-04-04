@@ -8,15 +8,17 @@ export interface EngineOptions {
   watchDir: string;
   open: boolean;
   clearOutputDir: boolean;
-  plugins: EnginePlugin[];
+  plugins?: EnginePlugin[];
   defaultPlugins: MetaPluginOfEngine[];
   setupPlugins: MetaPluginOfEngine[];
   renderMode: 'development' | 'production';
+  longFileHeaderWidth: number;
+  longFileHeaderComment: string;
 
   devServerPlugins: DevServerPlugin[];
   setupDevServerPlugins: any[];
   setupDevServerMiddleware: any[];
-  adjustDevServerOptions: (options: DevServerConfig) => DevServerConfig;
+  adjustDevServerOptions?: (options: DevServerConfig) => DevServerConfig;
 }
 
 export class EnginePlugin {
@@ -37,4 +39,36 @@ export interface renderWorkerResult {
   sourceRelativeFilePath: string;
   keepConvertedFiles: boolean;
   passOnError?: Error;
+  componentStrings: ComponentStrings;
+  openGraphHtml: string;
+}
+
+export interface Components {
+  [key: string]: () => Promise<any>;
+}
+
+export interface ComponentStrings {
+  [key: string]: string;
+}
+
+export interface Strategy {
+  type: string;
+  resolveAble: boolean;
+  options?: string;
+}
+
+export interface LoadingStrategy {
+  strategyAttribute: string;
+  strategies: Strategy[];
+  strategyTemplate: string;
+}
+
+interface PotentialLitElement extends Element {
+  updateComplete?: Promise<void>;
+}
+
+export interface ElementWithStrategy extends LoadingStrategy {
+  tagName: string;
+  node: PotentialLitElement;
+  deleteMe?: boolean;
 }

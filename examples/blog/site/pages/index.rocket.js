@@ -2,6 +2,15 @@
 export const sourceRelativeFilePath = 'index.rocket.js';
 import { html, components } from './recursive.data.js';
 export { html, components };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('blog-header', await import('@example/blog/components/BlogHeader').then(m => m.BlogHeader));
+  // prettier-ignore
+  customElements.define('blog-post-preview', await import('@example/blog/components/BlogPostPreview').then(m => m.BlogPostPreview));
+  // prettier-ignore
+  customElements.define('site-footer', await import('@example/blog/components/SiteFooter').then(m => m.SiteFooter));
+}
 /* END - Rocket auto generated - do not touch */
 
 export const layout = false;

@@ -31,9 +31,12 @@ export function absoluteBaseUrlNetlify(fallback) {
   return absoluteBaseUrl;
 }
 
-/** @type {import('@rocket/cli/types/main').RocketCliOptions} */
-export default {
+export default /** @type {import('@rocket/cli/types/main').RocketCliOptions} */ ({
   absoluteBaseUrl: absoluteBaseUrlNetlify('http://localhost:8080'),
+  longFileHeaderWidth: 100,
+  longFileHeaderComment: '// prettier-ignore',
+
+  // buildOpenGraphImages: false,
 
   presets: [
     rocketLaunch(),
@@ -55,4 +58,4 @@ export default {
   // pathPrefix: '/_site/',
 
   // clearOutputDir: false,
-};
+});

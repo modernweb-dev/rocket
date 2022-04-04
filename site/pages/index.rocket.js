@@ -2,6 +2,13 @@
 export const sourceRelativeFilePath = 'index.rocket.js';
 import { html, setupUnifiedPlugins, components } from './recursive.data.js';
 export { html, setupUnifiedPlugins, components };
+export async function registerCustomElements() {
+  // server-only open-graph only components
+  // prettier-ignore
+  customElements.define('card-icon', await import('@rocket/components/components/CardIcon').then(m => m.CardIcon));
+  // client-only components
+  // 'rocket-search': () => import('@rocket/search/web').then(m => m.RocketSearch),
+}
 /* END - Rocket auto generated - do not touch */
 
 import { footerMenu } from './__shared/footerMenu.js';

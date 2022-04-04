@@ -43,6 +43,9 @@ export class RocketCli {
     buildAutoStop: true,
     buildOpenGraphImages: true,
 
+    longFileHeaderWidth: 100,
+    longFileHeaderComment: '',
+
     adjustBuildOptions: options => options,
     adjustDevServerOptions: options => options,
 

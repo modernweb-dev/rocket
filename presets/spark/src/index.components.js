@@ -1,4 +1,4 @@
 export const sparkComponents = {
-  'block-blue': () => import('./BlockBlue.js').then(m => m.BlockBlue),
-  'block-features': () => import('./BlockFeatures.js').then(m => m.BlockFeatures),
+  'block-blue': '@rocket/spark/components/BlockBlue::BlockBlue',
+  'block-features': '@rocket/spark/components/BlockFeatures::BlockFeatures',
 };

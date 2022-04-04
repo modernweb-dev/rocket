@@ -24,6 +24,10 @@
       "types": "./dist-types/src/index.components.d.ts",
       "default": "./src/index.components.js"
     },
+    "./components/*": {
+      "types": "./dist-types/src/*.d.ts",
+      "default": "./src/*.js"
+    },
     "./css/*": "./src/css/*.css"
   },
   "scripts": {

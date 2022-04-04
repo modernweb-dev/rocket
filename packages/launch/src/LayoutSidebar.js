@@ -256,7 +256,6 @@ export class LayoutSidebar extends Layout {
       `,
 
       bottom__50: html`
-        <script type="module" src="resolve:@rocket/drawer/define"></script>
         <script type="module" src="resolve:@rocket/launch/js/init-mobile-navigation.js"></script>
       `,
 
@@ -271,19 +270,19 @@ export class LayoutSidebar extends Layout {
         return nothing;
       },
 
-      bottom__70: () => html`
-        <script type="module">
-          (async () => {
-            if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
-              const { hydrateShadowRoots } = await import(
-                '@webcomponents/template-shadowroot/template-shadowroot.js'
-              );
-              hydrateShadowRoots(document.body);
-              document.body.removeAttribute('dsd-pending');
-            }
-          })();
-        </script>
-      `,
+      // bottom__70: () => html`
+      //   <script type="module">
+      //     (async () => {
+      //       if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
+      //         const { hydrateShadowRoots } = await import(
+      //           '@webcomponents/template-shadowroot/template-shadowroot.js'
+      //         );
+      //         hydrateShadowRoots(document.body);
+      //         document.body.removeAttribute('dsd-pending');
+      //       }
+      //     })();
+      //   </script>
+      // `,
     };
   }
 
@@ -291,7 +290,7 @@ export class LayoutSidebar extends Layout {
     return html`
       <div id="content-wrapper">
         <div class="content-area">
-          <rocket-drawer id="sidebar">
+          <rocket-drawer loading="client" id="sidebar">
             <nav slot="content" id="sidebar-nav">
               ${renderJoiningGroup('sidebar', this.options, this.data)}
             </nav>

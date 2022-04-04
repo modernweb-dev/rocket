@@ -1,12 +1,27 @@
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '20--presets/30--spark/20--demo.rocket.js';
-import {
-  html,
-  setupUnifiedPlugins,
-  components as originalComponents,
-  openGraphLayout,
-} from '../../recursive.data.js';
+// prettier-ignore
+import { html, setupUnifiedPlugins, components as originalComponents, openGraphLayout } from '../../recursive.data.js';
 export { html, setupUnifiedPlugins, openGraphLayout };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('permanent-notification', await import('@rocket/components/components/PermanentNotification').then(m => m.PermanentNotification));
+  // prettier-ignore
+  customElements.define('block-columns', await import('@rocket/components/components/BlockColumns').then(m => m.BlockColumns));
+  // prettier-ignore
+  customElements.define('card-icon', await import('@rocket/components/components/CardIcon').then(m => m.CardIcon));
+  // prettier-ignore
+  customElements.define('feature-small', await import('@rocket/components/components/FeatureSmall').then(m => m.FeatureSmall));
+  // prettier-ignore
+  customElements.define('block-features', await import('@rocket/spark/components/BlockFeatures').then(m => m.BlockFeatures));
+  // prettier-ignore
+  customElements.define('testimonial-small', await import('@rocket/components/components/TestimonialSmall').then(m => m.TestimonialSmall));
+  // prettier-ignore
+  customElements.define('block-blue', await import('@rocket/spark/components/BlockBlue').then(m => m.BlockBlue));
+  // prettier-ignore
+  customElements.define('the-block', await import('@rocket/components/components/TheBlock').then(m => m.TheBlock));
+}
 /* END - Rocket auto generated - do not touch */
 
 export const menuLinkText = 'Demo';

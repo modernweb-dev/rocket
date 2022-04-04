@@ -4,6 +4,17 @@ export const sourceRelativeFilePath = 'blog/with-image.rocket.md';
 import { html, components } from '../recursive.data.js';
 import { layout } from './local.data.js';
 export { html, layout, components };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('blog-header', await import('@example/blog/components/BlogHeader').then(m => m.BlogHeader));
+  // prettier-ignore
+  customElements.define('blog-author', await import('@example/blog/components/BlogAuthor').then(m => m.BlogAuthor));
+  // prettier-ignore
+  customElements.define('blog-post', await import('@example/blog/components/BlogPost').then(m => m.BlogPost));
+  // prettier-ignore
+  customElements.define('site-footer', await import('@example/blog/components/SiteFooter').then(m => m.SiteFooter));
+}
 /* END - Rocket auto generated - do not touch */
 
 export const title = 'With Image!';

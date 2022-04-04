@@ -31,6 +31,9 @@ export interface FullRocketCliOptions extends Pick<FullRocketPreset, PresetKeys>
   //   [key: string]: ImagePreset;
   // };
 
+  longFileHeaderWidth: number;
+  longFileHeaderComment: string;
+
   adjustDevServerOptions: (options: DevServerConfig) => DevServerConfig;
   adjustBuildOptions: (options: any) => any;
 

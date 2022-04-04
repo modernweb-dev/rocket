@@ -94,16 +94,21 @@ export class RocketBuild {
       docsDir: this.cli.options.inputDir,
       outputDir: this.cli.options.outputDevDir,
       setupPlugins: this.cli.options.setupEnginePlugins,
+      longFileHeaderWidth: this.cli.options.longFileHeaderWidth,
+      longFileHeaderComment: this.cli.options.longFileHeaderComment,
       renderMode: 'production',
       clearOutputDir: this.cli.options.clearOutputDir,
     });
+    console.log('Engine building...');
     await this.engine.build({ autoStop: this.cli.options.buildAutoStop });
 
     if (this.cli.options.buildOpenGraphImages) {
+      console.log('Generating Open Graph Images...');
       await this.buildOpenGraphImages();
     }
 
     if (this.cli.options.buildOptimize) {
+      console.log('Optimize Production Build...');
       await productionBuild(this.cli.options);
       await this.engine.copyPublicFilesTo(this.cli.options.outputDir);
     }

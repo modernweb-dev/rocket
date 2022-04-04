@@ -86,4 +86,31 @@ describe('Config', () => {
 
     await cleanup();
   });
+
+  it('05: long file header comments', async () => {
+    const { build, readSource } = await setupTestCli(
+      'fixtures/01-config/05-long-file-header-comment/',
+    );
+    await build();
+
+    expect(readSource('index.rocket.js', { format: false })).to.equal(
+      [
+        '/* START - Rocket auto generated - do not touch */',
+        "export const sourceRelativeFilePath = 'index.rocket.js';",
+        '// prettier-ignore',
+        "import { veryLongFileHeaderValue, multipleLongFileHeaderValues, fakeHtml, fakeComponents, fakeLayout, components } from './local.data.js';",
+        '// prettier-ignore',
+        'export { veryLongFileHeaderValue, multipleLongFileHeaderValues, fakeHtml, fakeComponents, fakeLayout, components };',
+        'export async function registerCustomElements() {',
+        '  // server-only components',
+        '  // prettier-ignore',
+        "  customElements.define('my-el', await import('@test/components').then(m => m.MyVeryLongElementName));",
+        '}',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        "export default () => '<my-el></my-el>';",
+        '',
+      ].join('\n'),
+    );
+  });
 });

@@ -65,7 +65,12 @@ export const setupUnifiedPlugins = [
   }),
 ];
 
-export const components = { ...rocketComponents, ...searchComponents };
+export const components = {
+  ...rocketComponents,
+  ...searchComponents,
+  'my-counter': '#components/MyCounter::MyCounter',
+  'rocket-drawer': '@rocket/drawer::RocketDrawer',
+};
 
 export const openGraphLayout = data => html`
   <!DOCTYPE html>

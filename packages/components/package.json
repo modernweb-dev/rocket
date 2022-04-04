@@ -27,6 +27,14 @@
     "./components": {
       "types": "./dist-types/src/index.components.d.ts",
       "default": "./src/index.components.js"
+    },
+    "./components/*": {
+      "types": "./dist-types/src/*.d.ts",
+      "default": "./src/*.js"
+    },
+    "./dialog": {
+      "types": "./dist-types/dialog/RocketDialog.d.ts",
+      "default": "./dialog/RocketDialog.js"
     }
   },
   "scripts": {

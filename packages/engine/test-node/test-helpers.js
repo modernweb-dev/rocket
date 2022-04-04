@@ -68,7 +68,12 @@ function formatFn(text, { format = 'html', removeEndNewLine = false } = {}) {
     return text;
   }
 
-  let formatted = prettier.format(text, { parser: useFormat, printWidth: 100, singleQuote: true });
+  let formatted = prettier.format(text, {
+    parser: useFormat,
+    printWidth: 100,
+    singleQuote: true,
+    arrowParens: 'avoid',
+  });
 
   // remove all empty lines for html
   if (useFormat === 'html') {
@@ -156,6 +161,12 @@ export async function setupTestEngine(docsDir, options = {}) {
     await writeFile(filePath, text);
   }
 
+  async function adjustSource(relPath, regex, replace) {
+    const content = readSource(relPath);
+    const newContent = content.replace(regex, replace);
+    await writeSource(relPath, newContent);
+  }
+
   async function deleteSource(toInspect) {
     const filePath = path.join(engine.docsDir, toInspect);
     await rm(filePath, { force: true, recursive: true });
@@ -222,5 +233,6 @@ export async function setupTestEngine(docsDir, options = {}) {
     anEngineEvent,
     setAsOpenedInBrowser,
     renameSource,
+    adjustSource,
   };
 }

@@ -17,5 +17,8 @@
     "@rocket/spark": "^0.1.0-alpha.1",
     "lit": "^2.0.0"
   },
-  "@rocket/template-name": "Landing Page (Spark Theme)"
+  "@rocket/template-name": "Landing Page (Spark Theme)",
+  "imports": {
+    "#components/*": "./site/src/components/*.js"
+  }
 }

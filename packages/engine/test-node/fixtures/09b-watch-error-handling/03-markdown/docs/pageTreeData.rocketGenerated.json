@@ -13,5 +13,6 @@
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.md",
   "level": 0,
-  "foo": "bar"
+  "foo": "bar",
+  "title": "Unexpected token 'const'"
 }
