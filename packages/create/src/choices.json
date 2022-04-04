@@ -15,6 +15,11 @@
     "value": "minimal"
   },
   {
+    "title": "Sanity Minimal Starter",
+    "description": "A starter to show an minimal integration between Sanity.io and Rocket",
+    "value": "sanity-minimal-starter"
+  },
+  {
     "title": "Custom (community built)",
     "description": "Use a community built template by providing a git url",
     "value": "--custom--"
