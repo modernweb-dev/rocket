@@ -8,7 +8,7 @@
     "build": "rocket build",
     "dev": "rocket start --open",
     "preview": "rocket preview",
-    "start": "rocket start --open"
+    "start": "NODE_DEBUG=engine:rendering rocket start --open"
   },
   "devDependencies": {
     "@portabletext/to-html": "^1.0.3",
