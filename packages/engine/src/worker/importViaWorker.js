@@ -30,9 +30,10 @@ async function getWorker(sourceFilePath) {
 /**
  * @param {object} options
  * @param {string} options.sourceFilePath
+ * @param {Boolean} [options.throwOnError]
  * @returns
  */
-export function importViaWorker({ sourceFilePath }) {
+export function importViaWorker({ sourceFilePath, throwOnError = false }) {
   return new Promise((resolve, reject) => {
     getWorker(sourceFilePath).then(worker => {
       /**
@@ -59,6 +60,7 @@ export function importViaWorker({ sourceFilePath }) {
       worker.once('error', handleError);
       worker.postMessage({
         sourceFilePath,
+        throwOnError,
       });
     });
   });

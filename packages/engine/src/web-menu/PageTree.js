@@ -232,8 +232,9 @@ export class PageTree {
     this.pageTreeChangedOnSave = false;
     const newContent = JSON.stringify(this.tree, null, 2);
     if (existsSync(this.dataFilePath)) {
-      const content = await readFile(this.dataFilePath);
-      if (content.toString() !== newContent) {
+      const content = (await readFile(this.dataFilePath)).toString();
+
+      if (content !== newContent) {
         this.pageTreeChangedOnSave = true;
         await writeFile(this.dataFilePath, newContent);
       }

@@ -35,6 +35,8 @@ let isRendering = '';
  * @param {string} options.outputDir
  * @param {string} options.inputDir
  * @param {string} options.renderMode
+ * @param {boolean} options.needsLoader
+ * @param {boolean} options.throwOnError
  * @returns {Promise<import('../../types/main.js').renderWorkerResult>}
  */
 export function renderViaWorker({
@@ -42,6 +44,8 @@ export function renderViaWorker({
   inputDir,
   outputDir,
   renderMode = 'development',
+  needsLoader = false,
+  throwOnError = false,
 }) {
   return new Promise((resolve, reject) => {
     getWorker(sourceFilePath).then(worker => {
@@ -68,7 +72,11 @@ export function renderViaWorker({
         isRendering = '';
         worker.removeListener('error', handleError);
         if (result.passOnError) {
-          reject(result.passOnError);
+          if (throwOnError) {
+            reject(result.passOnError);
+          } else {
+            resolve(result);
+          }
         }
         if (result.sourceFilePath === sourceFilePath) {
           resolve(result);
@@ -84,6 +92,8 @@ export function renderViaWorker({
         outputDir,
         inputDir,
         renderMode,
+        needsLoader,
+        throwOnError,
       });
     });
   });

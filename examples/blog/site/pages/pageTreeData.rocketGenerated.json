@@ -8,8 +8,26 @@
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
   "description": "The perfect starter for your perfect blog.",
+  "layout": false,
   "permalink": "https://example.com/",
   "children": [
+    {
+      "title": "",
+      "h1": "\n            \n          ",
+      "headlinesWithId": [
+        {
+          "text": "About",
+          "id": "about",
+          "level": 1
+        }
+      ],
+      "name": "\n            \n          ",
+      "menuLinkText": "\n            \n          ",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.md",
+      "level": 1
+    },
     {
       "name": "blog/index.rocket.js",
       "menuLinkText": "blog/index.rocket.js",
@@ -17,6 +35,7 @@
       "outputRelativeFilePath": "blog/index.html",
       "sourceRelativeFilePath": "blog/index.rocket.js",
       "level": 1,
+      "layout": false,
       "children": [
         {
           "title": "Hello world!",
@@ -27,11 +46,9 @@
           "outputRelativeFilePath": "blog/hello-world/index.html",
           "sourceRelativeFilePath": "blog/hello-world.rocket.md",
           "level": 2,
-          "alt": "",
           "author": "Thomas Allmer (@daKmoR)",
           "authorHref": "https://twitter.com/daKmoR",
           "description": "Just a Hello World Post!",
-          "heroImage": "",
           "publishDate": "12 Sep 2021",
           "value": 128
         },
@@ -52,26 +69,7 @@
           "publishDate": "13 Sep 2021",
           "value": 128
         }
-      ],
-      "layout": false
-    },
-    {
-      "title": "",
-      "h1": "\n            \n          ",
-      "headlinesWithId": [
-        {
-          "text": "About",
-          "id": "about",
-          "level": 1
-        }
-      ],
-      "name": "\n            \n          ",
-      "menuLinkText": "\n            \n          ",
-      "url": "/about/",
-      "outputRelativeFilePath": "about/index.html",
-      "sourceRelativeFilePath": "about.rocket.md",
-      "level": 1
+      ]
     }
-  ],
-  "layout": false
+  ]
 }

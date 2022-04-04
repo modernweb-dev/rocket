@@ -52,6 +52,8 @@ export class RocketStart {
       outputDir: this.cli.options.outputDir,
       setupPlugins: this.cli.options.setupEnginePlugins,
       open: this.cli.options.open,
+      longFileHeaderWidth: this.cli.options.longFileHeaderWidth,
+      longFileHeaderComment: this.cli.options.longFileHeaderComment,
       clearOutputDir: this.cli.options.clearOutputDir,
       adjustDevServerOptions: this.cli.options.adjustDevServerOptions,
       setupDevServerMiddleware: this.cli.options.setupDevServerMiddleware,

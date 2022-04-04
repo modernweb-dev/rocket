@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+
+// @ts-ignore https://github.com/lucaong/minisearch/issues/152
 import MiniSearch from 'minisearch';
 import { getIdBlocksOfHtml } from './getIdBlocksOfHtml.js';
 // import readline from 'readline';

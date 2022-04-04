@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { setupTestEngine } from './test-helpers.js';
 
 test('reloads current window on dependency change', async ({ page }) => {
-  const { engine, writeSource, anEngineEvent } = await setupTestEngine(
+  const { engine, writeSource, anEngineEvent, cleanup } = await setupTestEngine(
     'fixtures/12-playwright/01-file-change-reloads/docs',
   );
   await writeSource('name.js', "export const name = 'Home';");
@@ -20,4 +20,6 @@ test('reloads current window on dependency change', async ({ page }) => {
 
   await expect(title).toHaveText('index');
   await expect(name).toHaveText('New Home');
+
+  await cleanup();
 });

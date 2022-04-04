@@ -2,6 +2,13 @@
 export const sourceRelativeFilePath = 'opengraph.rocket.js';
 import { html, setupUnifiedPlugins, components, openGraphLayout } from './recursive.data.js';
 export { html, setupUnifiedPlugins, components, openGraphLayout };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('server-icon', await import('@rocket/components/components/ServerIcon').then(m => m.ServerIcon));
+  // prettier-ignore
+  customElements.define('opengraph-overview', await import('@rocket/components/components/OpenGraphOverview').then(m => m.OpenGraphOverview));
+}
 /* END - Rocket auto generated - do not touch */
 
 import { pageTree } from '#pageTree';

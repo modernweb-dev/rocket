@@ -3,6 +3,17 @@
 export const sourceRelativeFilePath = 'index.rocket.html';
 import { pageTree, layout, components } from './recursive.data.js';
 export { pageTree, layout, components };
+export async function registerCustomElements() {
+  // server-only components
+  customElements.define('block-columns', await import('@rocket/components/components/BlockColumns').then(m => m.BlockColumns));
+  customElements.define('card-icon', await import('@rocket/components/components/CardIcon').then(m => m.CardIcon));
+  customElements.define('feature-small', await import('@rocket/components/components/FeatureSmall').then(m => m.FeatureSmall));
+  customElements.define('block-features', await import('@rocket/spark/components/BlockFeatures').then(m => m.BlockFeatures));
+  customElements.define('block-columns-gray', await import('#components/BlockColumnsGray').then(m => m.BlockColumnsGray));
+  customElements.define('testimonial-small', await import('@rocket/components/components/TestimonialSmall').then(m => m.TestimonialSmall));
+  customElements.define('block-blue', await import('@rocket/spark/components/BlockBlue').then(m => m.BlockBlue));
+  customElements.define('the-block', await import('@rocket/components/components/TheBlock').then(m => m.TheBlock));
+}
 /* END - Rocket auto generated - do not touch */
 
 export const title = 'Rocket Landing Page Template (Theme Spark)';

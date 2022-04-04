@@ -16,6 +16,5 @@ export const layout = new LayoutHome({
 export const components = {
   ...rocketComponents,
   ...sparkComponents,
-  'block-columns-gray': () =>
-    import('../src/components/BlockColumnsGray.js').then(m => m.BlockColumnsGray),
+  'block-columns-gray': '#components/BlockColumnsGray::BlockColumnsGray',
 };

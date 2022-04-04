@@ -16,6 +16,7 @@ import { transformFile } from '../helpers/transformFile.js';
 
 import { litServerRender } from '../helpers/litServerRender.js';
 import { generateErrorPage } from './generateErrorPage.js';
+import { validateComponentImportString } from '../file-header/validateComponentImportString.js';
 
 /**
  *
@@ -23,10 +24,22 @@ import { generateErrorPage } from './generateErrorPage.js';
  * @param {string} options.sourceFilePath
  * @param {string} options.outputDir
  * @param {string} options.inputDir
+ * @param {Boolean} options.needsLoader
+ * @param {Boolean} options.throwOnError
  * @param {'development'|'production'} options.renderMode
  */
-async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'development' }) {
+async function renderFile({
+  sourceFilePath,
+  outputDir,
+  inputDir,
+  renderMode = 'development',
+  needsLoader = false,
+  throwOnError = false,
+}) {
   let fileContent = '';
+  let openGraphHtml = '';
+  /** @type {{ [key: string]: string; }} */
+  let componentStrings = {};
   /** @type {Error | undefined} */
   let passOnError;
 
@@ -47,6 +60,25 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
 
     const { default: content, ...data } = await import(toImportFilePath);
     const { layout, openGraphLayout } = data;
+    if (data.components) {
+      for (const [tagName, importString] of Object.entries(data.components)) {
+        if (validateComponentImportString(importString)) {
+          componentStrings[tagName] = importString;
+        } else {
+          throw new Error(
+            [
+              `Bad component import: "${importString}"`,
+              `  for: "${tagName}"`,
+              `  while rendering: ${sourceFilePath}`,
+              '  here are some valid examples of component imports:',
+              `  'my-el': '@my-scoped/my-lib/MyEl.js::MyEl'`,
+              `  'my-el': 'my-lib/MyEl.js::MyEl`,
+              `  'my-el': 'my-lib/components/MyEl::default`,
+            ].join('\n'),
+          );
+        }
+      }
+    }
     keepConvertedFiles = data.keepConvertedFiles;
 
     const url = sourceRelativeFilePathToUrl(sourceRelativeFilePath);
@@ -87,12 +119,16 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
         fileContent = templateResult;
       } else {
         // Load components server side
-        if (data.components) {
-          for (const tagName of Object.keys(data.components)) {
-            const componentFn = data.components[tagName];
-            if (typeof componentFn === 'function') {
-              const componentClass = await componentFn();
-              customElements.define(tagName, componentClass);
+        if (data.registerCustomElements) {
+          try {
+            await data.registerCustomElements();
+          } catch (error) {
+            // one of the server side components could not be imported
+            // during start (throwError === false): render it without the server components (no error page)
+            //   this will trigger an additional rendering pass (with throwError true) where hopefully the rocket header imports will be corrected
+            //   if not it throws and the user needs to adjust its "components" { 'tag-name': 'bare-import::ClassName' } to be valid
+            if (throwOnError) {
+              throw error;
             }
           }
         }
@@ -107,6 +143,7 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
         sourceRelativeFilePath,
         outputRelativeFilePath,
         url,
+        needsLoader,
       });
 
       fileContent = fileContent.trim();
@@ -132,23 +169,24 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
         typeof openGraphLayout.render === 'function'
           ? openGraphLayout.render(layoutData)
           : openGraphLayout(layoutData);
-      const openGraphHtml = await litServerRender(openGraphTemplateResult);
+      const rawOpenGraphHtml = await litServerRender(openGraphTemplateResult);
 
-      let processedOpenGraphHtml = await transformFile(openGraphHtml, {
+      openGraphHtml = await transformFile(rawOpenGraphHtml, {
         setupPlugins: data.setupEnginePlugins,
         sourceFilePath,
         outputFilePath: layoutData.openGraphOutputFilePath,
         sourceRelativeFilePath,
         outputRelativeFilePath: layoutData.openGraphOutputRelativeFilePath,
         url: layoutData.openGraphUrl,
+        needsLoader,
       });
 
-      processedOpenGraphHtml = processedOpenGraphHtml.trim();
+      openGraphHtml = openGraphHtml.trim();
       // remove leading/ending lit markers as with them web dev server falsy thinks this page is a HTML fragment and will not inject websockets
-      processedOpenGraphHtml = processedOpenGraphHtml.replace(/^<!--lit-part.*?-->/gm, '');
-      processedOpenGraphHtml = processedOpenGraphHtml.replace(/<!--\/lit-part-->$/gm, '');
+      openGraphHtml = openGraphHtml.replace(/^<!--lit-part.*?-->/gm, '');
+      openGraphHtml = openGraphHtml.replace(/<!--\/lit-part-->$/gm, '');
 
-      await writeFile(layoutData.openGraphOutputFilePath, processedOpenGraphHtml);
+      await writeFile(layoutData.openGraphOutputFilePath, openGraphHtml);
     }
   } catch (error) {
     const typed = /** @type {Error} */ (error);
@@ -171,6 +209,8 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
     sourceRelativeFilePath,
     passOnError,
     keepConvertedFiles,
+    componentStrings,
+    openGraphHtml,
   };
 
   parentPort?.postMessage(result);
@@ -178,7 +218,7 @@ async function renderFile({ sourceFilePath, outputDir, inputDir, renderMode = 'd
 
 parentPort?.on('message', message => {
   if (message.action === 'renderFile') {
-    const { sourceFilePath, outputDir, renderMode, inputDir } = message;
-    renderFile({ sourceFilePath, outputDir, renderMode, inputDir });
+    const { sourceFilePath, outputDir, renderMode, inputDir, needsLoader, throwOnError } = message;
+    renderFile({ sourceFilePath, outputDir, renderMode, inputDir, needsLoader, throwOnError });
   }
 });

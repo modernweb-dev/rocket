@@ -1,14 +1,17 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '10--docs/20--basics/40--components.rocket.md';
-import {
-  html,
-  layout,
-  setupUnifiedPlugins,
-  components,
-  openGraphLayout,
-} from '../../recursive.data.js';
+// prettier-ignore
+import { html, layout, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
 export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('inline-notification', await import('@rocket/components/components/InlineNotification').then(m => m.InlineNotification));
+  // client-only components
+  // 'rocket-search': () => import('@rocket/search/web').then(m => m.RocketSearch),
+  // 'rocket-drawer': () => import('@rocket/drawer').then(m => m.RocketDrawer),
+}
 /* END - Rocket auto generated - do not touch */
 ```
 
@@ -175,12 +178,11 @@ First we need to adjust our component file
 - customElements.define('rocket-greeting', RocketGreeting);
 ```
 
-And then in our page we can export `components` with a function that dynamically loads the component.
+And then in our page we can export `components` where we define tag name, a "globally" working import and the class name.
 
 ```js
 export const components = {
-  'rocket-greeting': () =>
-    import('../src/components/RocketGreeting.js').then(m => m.RocketGreeting),
+  'rocket-greeting': 'my-pkg/src/components/RocketGreeting.js::RocketGreeting',
 };
 ```
 
@@ -194,8 +196,7 @@ import { sparkComponents } from '@rocket/spark/components';
 export const components = {
   ...rocketComponents,
   ...sparkComponents,
-  'rocket-greeting': () =>
-    import('../src/components/RocketGreeting.js').then(m => m.RocketGreeting),
+  'rocket-greeting': 'my-pkg/src/components/RocketGreeting.js::RocketGreeting',
 };
 ```
 
@@ -210,11 +211,22 @@ Let me repeat that:
 - Rocket will handle **if and when the loading and registration should happen**. Be it client or server side or both in a very specific timing via hydration.
 - Rocket will only load the components that are actually used which means that `components` can be a huge list without any performance impact.
 
-<inline-notification type="warning">
+Site level components are implemented in the same way as the [Data Cascade](./30--data-cascade.rocket.md) e.g. by injecting those components into your file header.
+This means that we know all the components and where they are from by looking at the file header.
 
-Not yet fully implemented - currently all components are always loaded server side. Join the [GitHub](https://github.com/modernweb-dev/rocket/issues/308) discussion.
+It may look something like this
 
-</inline-notification>
+```js
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('inline-notification', await import('@rocket/components/components/InlineNotification').then(m => m.InlineNotification));
+  // hydrate-able components
+  customElements.define('my-counter', await import('#components/MyCounter').then(m => m.MyCounter));
+  // client-only components
+  // 'rocket-search': () => import('@rocket/search/web').then(m => m.RocketSearch),
+}
+```
 
 If we wish to disable or override a component then we can do so via
 
@@ -225,7 +237,7 @@ import { components as originalComponents } from '../path/to/recursive.data.js';
 export const components = {
   ...originalComponents, // keep all the original components
   'rocket-greeting': false, // no automatic handling of this component
-  'other-component': () => MyOtherComponent, // override the default component
+  'other-component': 'my-pkg/src/components/OverrideOther.js::OverrideOther', // override the default component
 };
 ```
 
@@ -237,7 +249,7 @@ All other component should be handled via the `components` object to enable hand
 Doing so enables hydration based on attributes on the component.
 
 ```html
-<rocket-greeting render-mode="hydration"></rocket-greeting>
+<rocket-greeting loading="hydration"></rocket-greeting>
 ```
 
 See the [Hydration Docs](./80--hydration.rocket.md) for more information.

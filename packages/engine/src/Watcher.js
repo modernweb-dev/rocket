@@ -117,7 +117,8 @@ export class Watcher {
               event.path.endsWith('-converted-md-source.js') ||
               event.path.endsWith('-converted-md.js') ||
               event.path.endsWith('-converted-html.js') ||
-              event.path.endsWith('-mdjs-generated.js')
+              event.path.endsWith('-mdjs-generated.js') ||
+              event.path.endsWith('-loader-generated.js')
             ) {
               // file is either in queue or is the pageTreeData.rocketGenerated.json file
             } else {

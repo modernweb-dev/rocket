@@ -33,7 +33,7 @@
     "src"
   ],
   "dependencies": {
-    "@lion/accordion": "^0.7.2",
+    "@lion/accordion": "^0.9.0",
     "@open-wc/scoped-elements": "^2.0.0",
     "lit": "^2.0.0"
   },

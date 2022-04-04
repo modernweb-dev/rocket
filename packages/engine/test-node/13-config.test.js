@@ -73,4 +73,39 @@ describe('Config', () => {
     apiServer.close();
     await cleanup();
   });
+
+  it('03: can add a comment to lines longer then x characters in the file header', async () => {
+    const { build, readSource } = await setupTestEngine(
+      'fixtures/13-config/03-long-file-header-comment/pages',
+      {
+        longFileHeaderWidth: 100,
+        longFileHeaderComment: '// prettier-ignore',
+      },
+    );
+
+    await build();
+
+    expect(readSource('index.rocket.js', { format: false })).to.equal(
+      [
+        '/* START - Rocket auto generated - do not touch */',
+        "export const sourceRelativeFilePath = 'index.rocket.js';",
+        '// prettier-ignore',
+        "import { veryLongFileHeaderValue, multipleLongFileHeaderValues, fakeHtml, fakeComponents, fakeLayout, components } from './local.data.js';",
+        '// prettier-ignore',
+        'export { veryLongFileHeaderValue, multipleLongFileHeaderValues, fakeHtml, fakeComponents, fakeLayout, components };',
+        'export async function registerCustomElements() {',
+        '  // server-only components',
+        '  // prettier-ignore',
+        "  customElements.define('my-el', await import('@test/components').then(m => m.MyVeryLongElementName));",
+        '}',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        'export default () => `',
+        '  This will be a very long line that will explain a complex topic in multiple paragraphs. The level of detail is important.',
+        '  <my-el></my-el>',
+        '`;',
+        '',
+      ].join('\n'),
+    );
+  });
 });

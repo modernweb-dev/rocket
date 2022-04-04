@@ -44,8 +44,9 @@ export async function findJsDependencies(filePath, options = {}) {
         importsToScan.add(pathToDependency);
         dependencies.add(pathToDependency);
       } catch (e) {
-        console.log(`Failed to resolve dependency "${i.n}" in "${filePath}"`);
-        console.log(e);
+        // we do not throw here as we only use this function to enhance DX - the actual error will be thrown/shown by renderWorker
+        // console.log(`Failed to resolve dependency "${i.n}" in "${filePath}"`);
+        // console.log(e);
       }
     }
   }
@@ -83,8 +84,9 @@ export async function findJsDependencies(filePath, options = {}) {
               dependencies.add(pathToDependency);
             }
           } catch (e) {
-            console.log(`Failed to resolve dependency "${i.n}" in "${dep}"`);
-            console.log(e);
+            // we do not throw here as we only use this function to enhance DX - the actual error will be thrown/shown by renderWorker
+            // console.log(`Failed to resolve dependency "${i.n}" in "${dep}"`);
+            // console.log(e);
           }
         }
       }

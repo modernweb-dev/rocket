@@ -10,7 +10,7 @@ import { parentPort } from 'worker_threads';
  * this imports the actual source file and grabs all exported string and number values
  */
 parentPort?.on('message', message => {
-  const { sourceFilePath } = message;
+  const { sourceFilePath, throwOnError } = message;
 
   (async () => {
     let importFilePath = sourceFilePath;
@@ -35,6 +35,9 @@ parentPort?.on('message', message => {
         }
       }
     } catch (error) {
+      if (throwOnError) {
+        throw error;
+      }
       // if we can't import we don't add the data to the page
     }
 

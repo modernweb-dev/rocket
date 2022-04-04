@@ -49,6 +49,13 @@ export function defaultHead({ pageTree, titleWrapperFn, description, siteName })
           display: none;
         }
       </style>
+      <noscript>
+        <style>
+          body[dsd-pending] {
+            display: block;
+          }
+        </style>
+      </noscript>
     `,
   };
 }
