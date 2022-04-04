@@ -1,11 +1,9 @@
 {
-  "name": "@example/sanity-minimal-backend",
+  "name": "@example/sanity-minimal",
   "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "package.json",
-  "author": "Jaydan Urwin <jaydan@jaydanurwin.com>",
-  "license": "UNLICENSED",
   "scripts": {
     "start": "sanity start",
     "build": "sanity build"

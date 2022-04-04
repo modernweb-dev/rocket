@@ -2,7 +2,7 @@
   "name": "@example/sanity-minimal-frontend",
   "version": "0.0.1",
   "private": true,
-  "description": "A starter to show an minimal integration between Sanity.io and Rocket",
+  "description": "A starter to show a minimal integration between Sanity.io and Rocket",
   "type": "module",
   "scripts": {
     "build": "rocket build",
