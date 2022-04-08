@@ -2,6 +2,8 @@ import fs from 'fs';
 import saxWasm from 'sax-wasm';
 import { createRequire } from 'module';
 
+/** @typedef {import('sax-wasm').Tag} Tag */
+
 const require = createRequire(import.meta.url);
 
 const { SaxEventType, SAXParser } = saxWasm;
@@ -9,25 +11,37 @@ const { SaxEventType, SAXParser } = saxWasm;
 const saxPath = require.resolve('sax-wasm/lib/sax-wasm.wasm');
 const saxWasmBuffer = fs.readFileSync(saxPath);
 
-export async function getIdBlocksOfHtml({ html, url }) {
-  const parser = new SAXParser(
-    SaxEventType.Attribute |
-      SaxEventType.OpenTag |
-      SaxEventType.OpenTagStart |
-      SaxEventType.Text |
-      SaxEventType.CloseTag,
-    { highWaterMark: 256 * 1024 }, // 256k chunks
-  );
-  await parser.prepareWasm(saxWasmBuffer);
+const parser = new SAXParser(
+  SaxEventType.Attribute |
+    SaxEventType.OpenTag |
+    SaxEventType.OpenTagStart |
+    SaxEventType.Text |
+    SaxEventType.CloseTag,
+  { highWaterMark: 256 * 1024 }, // 256k chunks
+);
+await parser.prepareWasm(saxWasmBuffer);
 
-  const startExcludeMainOpening = html.indexOf('>', html.indexOf('<main')) + 1;
-  const mainHtml = html.substring(startExcludeMainOpening, html.indexOf('</main>'));
+/**
+ *
+ * @param {object} options
+ * @param {string} options.html
+ * @param {string} options.url
+ * @returns
+ */
+export async function getIdBlocksOfHtml({ html, url }) {
+  let mainHtml = html;
+
+  if (mainHtml.includes('<main')) {
+    const startExcludeMainOpening = html.indexOf('>', html.indexOf('<main')) + 1;
+    mainHtml = html.substring(startExcludeMainOpening, html.indexOf('</main>'));
+  }
 
   const blocks = [];
   let captureText = true;
   let insideHeading = false;
   let block = { text: '', headline: '', url };
-  parser.eventHandler = (ev, data) => {
+  parser.eventHandler = (ev, _data) => {
+    const data = /** @type {Tag} */ (/** @type {any} */ (_data));
     if (ev === SaxEventType.OpenTagStart) {
       if (['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(data.name)) {
         insideHeading = true;

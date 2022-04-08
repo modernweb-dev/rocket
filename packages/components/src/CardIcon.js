@@ -34,7 +34,7 @@ export class CardIcon extends LitElement {
     }
 
     .icon {
-      width: 40px;
+      width: 53%;
     }
 
     :host([variation='green']) {

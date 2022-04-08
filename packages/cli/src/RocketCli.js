@@ -10,6 +10,7 @@ import path from 'path';
 import { rm } from 'fs/promises';
 import { mergeDeep } from './helpers/mergeDeep.js';
 import { existsSync } from 'fs';
+import { AsyncEventEmitter } from './helpers/AsyncEventEmitter.js';
 
 /** @typedef {import('../types/main.js').RocketCliPlugin} RocketCliPlugin */
 /** @typedef {import('../types/main.js').FullRocketCliOptions} FullRocketCliOptions */
@@ -40,13 +41,14 @@ export class RocketCli {
     serviceWorkerName: 'service-worker.js',
     buildOptimize: true,
     buildAutoStop: true,
+    buildOpenGraphImages: true,
 
     adjustBuildOptions: options => options,
     adjustDevServerOptions: options => options,
 
     configFile: '',
     absoluteBaseUrl: '',
-    emptyOutputDir: true,
+    clearOutputDir: true,
 
     // /** @type {{[key: string]: ImagePreset}} */
     // imagePresets: {
@@ -58,6 +60,8 @@ export class RocketCli {
     //   },
     // },
   };
+
+  events = new AsyncEventEmitter();
 
   /** @type {RocketCliPlugin | undefined} */
   activePlugin = undefined;

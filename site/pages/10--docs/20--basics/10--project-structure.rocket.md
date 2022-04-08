@@ -1,8 +1,14 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '10--docs/20--basics/10--project-structure.rocket.md';
-import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins, components };
+import {
+  html,
+  layout,
+  setupUnifiedPlugins,
+  components,
+  openGraphLayout,
+} from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 
 export const description = 'Learn how to structure a project with Rocket.';
@@ -41,7 +47,7 @@ Even if there is no enforce project structure it still makes sense to follow som
 - `site/src/*` - Your project source code (components, layouts, ...)
 - `package.json` - A project manifest.
 
-The easiest way to set up your new project is with `npx @rocket/create@latest`. Check out our [Getting started](../10--first-pages/10--getting-started.rocket.md) for more details.
+The easiest way to set up your new project is with `npx @rocket/create@latest`. Check out our [Getting started](../10--setup/10--getting-started.rocket.md) for more details.
 
 Most projects come with a structure similar to this.
 
@@ -78,19 +84,19 @@ Most projects come with a structure similar to this.
 
 The src folder is where most of your project source code lives. This includes:
 
-- [Components](./30--components.rocket.md)
-- [Layouts](./40--layouts.rocket.md)
-- [Styling](/en/guides/styling)
+- [Components](./40--components.rocket.md)
+- [Layouts](./50--layouts.rocket.md)
+- [Styling](../30--guides/70--styles-and-css.rocket.md)
 
 Rocket has complete control over how these files get processed, optimized, and bundled in your final site build. Some files (like only server rendered components) never make it to the browser directly and are instead rendered to HTML. Other files (like CSS) are sent to the browser but may be bundled with other CSS files depending on how your site uses them.
 
 ### `site/src/components`
 
-[Components](./30--components.rocket.md) are web standard [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) which are reusable units of UI for your HTML pages. It is recommended (but not required) that you put your components in this directory. How you organize them within this directory is up to you.
+[Components](./40--components.rocket.md) are web standard [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) which are reusable units of UI for your HTML pages. It is recommended (but not required) that you put your components in this directory. How you organize them within this directory is up to you.
 
 ### `site/src/layouts`
 
-[Layouts](./40--layouts.rocket.md) are reusable components for HTML page layouts. It is recommended (but not required) that you put your layout components in this directory. How you organize them within this directory is up to you.
+[Layouts](./50--layouts.rocket.md) are reusable components for HTML page layouts. It is recommended (but not required) that you put your layout components in this directory. How you organize them within this directory is up to you.
 
 ### `site/public/`
 

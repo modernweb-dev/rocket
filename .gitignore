@@ -26,6 +26,9 @@ dist-types
 stats.html
 *.tsbuildinfo
 
+# Rocket Search
+rocket-search-index.json
+
 ## Rocket ignore files (need to be the full relative path to the folders)
 *-mdjs-generated.js
 _site

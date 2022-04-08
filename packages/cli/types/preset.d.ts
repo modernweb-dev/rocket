@@ -16,9 +16,9 @@ type ImagePresetHook = (preset: { [key: string]: ImagePreset }) => { [key: strin
 
 export type MetaPluginOfDevServer = MetaPlugin<DevServerPlugin>;
 
-export interface RocketPreset {
-  adjustImagePresets?: ImagePresetHook;
-  adjustOptions?: (options: FullRocketCliOptions) => FullRocketCliOptions;
+export interface FullRocketPreset {
+  adjustImagePresets: ImagePresetHook;
+  adjustOptions: (options: FullRocketCliOptions) => FullRocketCliOptions;
 
   // TODO: improve all setup functions
   setupDevServerAndBuildPlugins: MetaPluginOfDevServer[];
@@ -28,3 +28,5 @@ export interface RocketPreset {
   setupCliPlugins: MetaPluginOfRocketCli[];
   setupEnginePlugins: MetaPluginOfEngine[];
 }
+
+export type RocketPreset = Partial<FullRocketPreset>;

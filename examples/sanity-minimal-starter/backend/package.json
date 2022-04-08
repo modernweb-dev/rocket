@@ -1,0 +1,32 @@
+{
+  "name": "@example/sanity-minimal-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "author": "Jaydan Urwin <jaydan@jaydanurwin.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "sanity start",
+    "build": "sanity build"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/base": "^2.27.1",
+    "@sanity/code-input": "^2.27.1",
+    "@sanity/core": "^2.27.0",
+    "@sanity/default-layout": "^2.27.1",
+    "@sanity/default-login": "^2.27.0",
+    "@sanity/desk-tool": "^2.27.1",
+    "@sanity/eslint-config-studio": "^2.0.0",
+    "@sanity/vision": "^2.27.1",
+    "eslint": "^8.6.0",
+    "prop-types": "^15.7",
+    "react": "^17.0",
+    "react-dom": "^17.0",
+    "styled-components": "^5.2.0"
+  },
+  "devDependencies": {}
+}

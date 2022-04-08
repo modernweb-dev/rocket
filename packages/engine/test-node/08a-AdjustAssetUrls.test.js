@@ -68,6 +68,16 @@ describe('AdjustAssetUrls', () => {
     ).to.equal('<a href="//github.com/index.rocket.js">go</a>');
   });
 
+  it('ignores any other protocol', async () => {
+    const adjust = new AdjustAssetUrls();
+    expect(
+      await adjust.transform('<a href="vscode://file/path/to/file.rocket.js">go</a>', options),
+    ).to.equal('<a href="vscode://file/path/to/file.rocket.js">go</a>');
+    expect(await adjust.transform('<a href="urn:isbn:9780141036144">go</a>', options)).to.equal(
+      '<a href="urn:isbn:9780141036144">go</a>',
+    );
+  });
+
   it('adjust <a href="./about.rocket.js"></a>', async () => {
     const adjust = new AdjustAssetUrls();
     expect(await adjust.transform('<a href="./about.rocket.js">go</a>', options)).to.equal(

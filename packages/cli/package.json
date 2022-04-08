@@ -1,6 +1,6 @@
 {
   "name": "@rocket/cli",
-  "version": "0.20.0-alpha.15",
+  "version": "0.20.0-alpha.16",
   "publishConfig": {
     "access": "public"
   },
@@ -23,33 +23,32 @@
       "types": "./dist-types/src/index.d.ts",
       "default": "./src/index.js"
     },
-    "./test-helpers": "./test-helpers/index.js"
+    "./test-helpers": {
+      "types": "./dist-types/test-helpers/index.d.ts",
+      "default": "./test-helpers/index.js"
+    }
   },
   "scripts": {
     "build": "npm run rocket:build",
     "rocket:build": "node src/cli.js build -c demo",
     "rocket:start": "node src/cli.js start -c demo",
     "start": "npm run rocket:start",
-    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs} --timeout 8000",
     "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
     "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/",
     "xtest:watch": "mocha test/**/*.test.js --parallel --watch"
   },
   "files": [
-    "*.cjs",
-    "*.js",
-    "*.mjs",
-    "dist",
     "dist-types",
     "src",
-    "test-helpers"
+    "test-helpers",
+    "types"
   ],
   "keywords": [
     "rocket",
     "docs",
     "ssg",
     "demo",
-    "11ty",
     "rollup"
   ],
   "dependencies": {
@@ -60,7 +59,8 @@
     "commander": "^9.0.0",
     "fs-extra": "^9.0.1",
     "gray-matter": "^4.0.3",
-    "plugins-manager": "^0.3.0"
+    "plugins-manager": "^0.3.0",
+    "puppeteer": "^13.0.0"
   },
   "devDependencies": {
     "koa-proxy": "^1.0.0-alpha.3"
@@ -70,6 +70,9 @@
     "*": {
       "*": [
         "./dist-types/src/index.d.ts"
+      ],
+      "test-helpers": [
+        "./dist-types/test-helpers/index.d.ts"
       ]
     }
   }

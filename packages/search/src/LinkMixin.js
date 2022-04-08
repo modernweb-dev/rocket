@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { dedupeMixin } from '@lion/core';
 
 /**
@@ -12,6 +13,7 @@ import { dedupeMixin } from '@lion/core';
  * - we need to extend from LionOption (and we cannot put the anchor inside
  * the focusable element (LionOption which has [role=option]))
  */
+// @ts-ignore
 const LinkMixinImplementation = superclass =>
   class extends superclass {
     static get properties() {
@@ -33,16 +35,23 @@ const LinkMixinImplementation = superclass =>
       }
     }
 
+    /** @param {import('lit-element').PropertyValues } changedProperties */
     firstUpdated(changedProperties) {
       super.firstUpdated(changedProperties);
       this.addEventListener('click', this.__navigate);
-      this.addEventListener('keydown', ({ key }) => {
-        if (key === ' ' || key === 'Enter') {
-          this.__navigate();
-        }
-      });
+
+      this.addEventListener(
+        'keydown',
+        /** @param {{ key: string }} options */
+        ({ key }) => {
+          if (key === ' ' || key === 'Enter') {
+            this.__navigate();
+          }
+        },
+      );
     }
 
+    /** @param {import('lit-element').PropertyValues } changedProperties */
     updated(changedProperties) {
       super.updated(changedProperties);
       if (changedProperties.has('href')) {

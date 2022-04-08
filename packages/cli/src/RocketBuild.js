@@ -2,6 +2,9 @@
 // @ts-nocheck
 
 import { Engine } from '@rocket/engine/server';
+import { gatherFiles } from '@rocket/engine';
+
+import { fromRollup } from '@web/dev-server-rollup';
 
 import { rollup } from 'rollup';
 import path from 'path';
@@ -10,7 +13,9 @@ import { rollupPluginHTML } from '@web/rollup-plugin-html';
 import { createMpaConfig, createServiceWorkerConfig } from '@rocket/building-rollup';
 import { adjustPluginOptions } from 'plugins-manager';
 import { existsSync } from 'fs';
-import { readFile, writeFile } from 'fs/promises';
+import { readFile, unlink, writeFile } from 'fs/promises';
+
+import puppeteer from 'puppeteer';
 
 /**
  * @param {object} config
@@ -82,14 +87,21 @@ export class RocketBuild {
   }
 
   async build() {
+    await this.cli.events.dispatchEventDone('build-start');
+
     this.engine = new Engine();
     this.engine.setOptions({
       docsDir: this.cli.options.inputDir,
       outputDir: this.cli.options.outputDevDir,
       setupPlugins: this.cli.options.setupEnginePlugins,
       renderMode: 'production',
+      clearOutputDir: this.cli.options.clearOutputDir,
     });
     await this.engine.build({ autoStop: this.cli.options.buildAutoStop });
+
+    if (this.cli.options.buildOpenGraphImages) {
+      await this.buildOpenGraphImages();
+    }
 
     if (this.cli.options.buildOptimize) {
       await productionBuild(this.cli.options);
@@ -107,6 +119,91 @@ export class RocketBuild {
         'link rel="stylesheet" href="/',
       );
       await writeFile(notFoundHtmlFilePath, notFoundHtml);
+    }
+
+    await this.cli.events.dispatchEventDone('build-end');
+  }
+
+  async buildOpenGraphImages() {
+    const openGraphFiles = await gatherFiles(this.cli.options.outputDevDir, {
+      fileEndings: ['.opengraph.html'],
+    });
+    if (openGraphFiles.length === 0) {
+      return;
+    }
+
+    // TODO: enable URL support in the Engine and remove this "workaround"
+    if (
+      typeof this.cli.options.inputDir !== 'string' ||
+      typeof this.cli.options.outputDevDir !== 'string'
+    ) {
+      return;
+    }
+
+    const withWrap = this.cli.options.setupDevServerAndBuildPlugins
+      ? this.cli.options.setupDevServerAndBuildPlugins.map(modFunction => {
+          modFunction.wrapPlugin = fromRollup;
+          return modFunction;
+        })
+      : [];
+
+    this.engine = new Engine();
+    this.engine.setOptions({
+      docsDir: this.cli.options.inputDir,
+      outputDir: this.cli.options.outputDevDir,
+      setupPlugins: this.cli.options.setupEnginePlugins,
+      open: false,
+      clearOutputDir: false,
+      adjustDevServerOptions: this.cli.options.adjustDevServerOptions,
+      setupDevServerMiddleware: this.cli.options.setupDevServerMiddleware,
+      setupDevServerPlugins: [...this.cli.options.setupDevServerPlugins, ...withWrap],
+    });
+    try {
+      await this.engine.start();
+
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+
+      // In 2022 Twitter & Facebook recommend a size of 1200x628 - we capture with 2 dpr for retina displays
+      await page.setViewport({
+        width: 1200,
+        height: 628,
+        deviceScaleFactor: 2,
+      });
+
+      for (const openGraphFile of openGraphFiles) {
+        const relUrl = path.relative(this.cli.options.outputDevDir, openGraphFile);
+        const imagePath = openGraphFile.replace('.opengraph.html', '.opengraph.png');
+        const htmlPath = openGraphFile.replace('.opengraph.html', '.html');
+        const relImageUrl = path.basename(imagePath);
+
+        let htmlString = await readFile(htmlPath, 'utf8');
+        if (!htmlString.includes('<meta property="og:image"')) {
+          if (htmlString.includes('</head>')) {
+            htmlString = htmlString.replace(
+              '</head>',
+              [
+                '    <meta property="og:image:width" content="2400">',
+                '    <meta property="og:image:height" content="1256">',
+                `    <meta property="og:image" content="./${relImageUrl}">`,
+                '  </head>',
+              ].join('\n'),
+            );
+          }
+        }
+        const url = `http://localhost:${this.engine.devServer.config.port}/${relUrl}`;
+        await page.goto(url, { waitUntil: 'networkidle0' });
+        await page.screenshot({ path: imagePath });
+
+        await unlink(openGraphFile);
+        await writeFile(htmlPath, htmlString);
+      }
+      await browser.close();
+
+      await this.engine.stop();
+    } catch (e) {
+      console.log('Could not start dev server to generate open graph images');
+      console.error(e);
     }
   }
 }

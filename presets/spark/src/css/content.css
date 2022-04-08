@@ -3,7 +3,7 @@
   src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
     url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
   font-weight: 1 999;
-  font-display: swap;
+  font-display: optional;
 }
 
 body {

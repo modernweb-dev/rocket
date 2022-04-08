@@ -39,6 +39,7 @@ export class Engine {
     setupPlugins: [],
     renderMode: 'development',
     open: false,
+    clearOutputDir: true,
   };
 
   events = new EventEmitter();
@@ -110,7 +111,7 @@ export class Engine {
     await rm(this.outputDir, { recursive: true, force: true });
   }
 
-  async prepare({ clearOutputDir = true } = {}) {
+  async prepare({ clearOutputDir = this.options.clearOutputDir } = {}) {
     const defaultPlugins = this.options.defaultPlugins ? [...this.options.defaultPlugins] : [];
     this.options = applyPlugins(this.options, defaultPlugins);
 

@@ -7,6 +7,7 @@ export type Page = {
   url: string;
   current?: boolean;
   sourceRelativeFilePath?: string;
+  outputRelativeFilePath?: string;
   // children: Node<Page>;
   menuOrder?: number;
   menuLinkText?: string;

@@ -1,8 +1,8 @@
 import { DevServerConfig } from '@web/dev-server';
 import { MetaPlugin } from 'plugins-manager';
 // import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
-import { ImagePreset, RocketPreset } from './preset.js';
-export { ImagePreset, RocketPreset };
+import { ImagePreset, FullRocketPreset } from './preset.js';
+export { ImagePreset, FullRocketPreset as RocketPreset };
 
 import { Command } from 'commander';
 import { RocketCli } from '../src/RocketCli.js';
@@ -15,15 +15,15 @@ type PresetKeys =
   | 'setupCliPlugins'
   | 'setupEnginePlugins';
 
-export interface FullRocketCliOptions extends Pick<RocketPreset, PresetKeys> {
-  presets: Array<RocketPreset>;
+export interface FullRocketCliOptions extends Pick<FullRocketPreset, PresetKeys> {
+  presets: Array<FullRocketPreset>;
   // pathPrefix: string;
   serviceWorkerName: string;
   serviceWorkerSourcePath: string;
   cwd: string;
   inputDir: URL | string;
   outputDir: URL | string;
-  emptyOutputDir: boolean;
+  clearOutputDir: boolean;
   absoluteBaseUrl: string;
   watch: boolean;
   open: boolean;
@@ -38,6 +38,7 @@ export interface FullRocketCliOptions extends Pick<RocketPreset, PresetKeys> {
   plugins: RocketCliPlugin[];
 
   buildOptimize: boolean;
+  buildOpenGraphImages: boolean;
   buildAutoStop: boolean;
 
   // rarely used

@@ -16,16 +16,20 @@
   "main": "./node.js",
   "type": "module",
   "exports": {
-    ".": "./node.js",
-    "./node": "./node.js",
-    "./web": "./web.js",
-    "./rocket-search.js": "./rocket-search.js"
+    ".": "./src/index.node.js",
+    "./node": "./src/index.node.js",
+    "./web": "./src/index.web.js",
+    "./define": "./src/define.js",
+    "./components": {
+      "types": "./dist-types/src/index.components.d.ts",
+      "default": "./src/index.components.js"
+    }
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
     "debug": "cd ../../ && npm run debug -- --group search",
     "test": "npm run test:node && npm run test:web",
-    "test:node": "mocha test-node/**/*.test.js test-node/*.test.js",
+    "test:node": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.js test-node/*.test.js",
     "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.js' -- npm run test:node",
     "test:web": "cd ../../ && npm run test:web -- --group search"
   },
@@ -46,10 +50,13 @@
     "@lion/core": "^0.19.0",
     "@lion/listbox": "^0.10.7",
     "@open-wc/scoped-elements": "^2.0.0",
-    "chalk": "^4.0.0",
+    "@rocket/engine": "^0.1.0-alpha.22",
     "minisearch": "^3.0.2",
     "plugins-manager": "^0.3.0",
     "sax-wasm": "^2.0.0"
+  },
+  "devDependencies": {
+    "@rocket/cli": "^0.20.0-alpha.16"
   },
   "customElements": "custom-elements.json"
 }

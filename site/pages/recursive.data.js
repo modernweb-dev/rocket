@@ -3,11 +3,21 @@ import { adjustPluginOptions } from 'plugins-manager';
 import { mdjsSetupCode } from '@mdjs/core';
 import { footerMenu } from './__shared/footerMenu.js';
 import { pageTree } from './__shared/pageTree.js';
-export { html } from 'lit';
+import { html } from 'lit';
 import { rocketComponents } from '@rocket/components/components';
+import { searchComponents } from '@rocket/search/components';
 import htmlHeading from 'rehype-autolink-headings';
+import { search } from './__shared/search.js';
 
-export const layout = new LayoutSidebar({ pageTree, footerMenu });
+export { html };
+
+export const layout = new LayoutSidebar({
+  pageTree,
+  footerMenu,
+  description:
+    'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.',
+  header__40: search,
+});
 
 export const setupUnifiedPlugins = [
   adjustPluginOptions(mdjsSetupCode, {
@@ -55,6 +65,102 @@ export const setupUnifiedPlugins = [
   }),
 ];
 
-export const components = { ...rocketComponents };
+export const components = { ...rocketComponents, ...searchComponents };
 
-// export const openGraphLayout = new OpenGraphLayoutLogo();
+export const openGraphLayout = data => html`
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <link
+        rel="preload"
+        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin
+      />
+      <style>
+        @font-face {
+          font-family: 'Open Sans';
+          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2')
+              format('woff2 supports variations'),
+            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-weight: 1 999;
+          font-display: optional;
+        }
+        body {
+          background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
+          color: #ccc;
+          display: block;
+          height: 100vh;
+          padding: 30px;
+          box-sizing: border-box;
+          margin: 0;
+          font-family: 'Open Sans', sans-serif;
+        }
+        #powered-by {
+          margin: 3%;
+          font-size: 40px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          position: absolute;
+          bottom: 0;
+        }
+        #powered-by img {
+          height: 40px;
+        }
+
+        h1 {
+          background: linear-gradient(to bottom right, #ffe259, #ffa751);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-size: 100px;
+          margin: 3%;
+        }
+        p {
+          margin: 3%;
+        }
+        #sub-title {
+          font-size: 50px;
+          max-width: 67%;
+        }
+        #bg-wrapper {
+          position: absolute;
+          width: 100vw;
+          height: 100vh;
+          overflow: hidden;
+          left: 0;
+          top: 0;
+        }
+        #bg-wrapper img {
+          position: absolute;
+          right: -20%;
+          top: 32%;
+          transform: rotate(326deg);
+          width: 59%;
+        }
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+        .item card-icon {
+          width: 50px;
+          height: 50px;
+        }
+      </style>
+    </head>
+    <body>
+      <h1>${pageTree.getPage(data.sourceRelativeFilePath)?.model?.name}</h1>
+      <p id="sub-title">${data.subTitle || ''}</p>
+      <div id="powered-by">
+        <span>powered by</span>
+        <img id="logo" src="resolve:#assets/logo-dark-with-text.svg" />
+      </div>
+      <div id="bg-wrapper">
+        <img src="resolve:#assets/home-background.svg" />
+      </div>
+    </body>
+  </html>
+`;

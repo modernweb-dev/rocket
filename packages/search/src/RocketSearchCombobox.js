@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { css } from '@lion/core';
 import { LionCombobox } from '@lion/combobox';
 import { withDropdownConfig } from '@lion/overlays';
@@ -194,13 +195,13 @@ export class RocketSearchCombobox extends LionCombobox {
     });
   }
 
-  /** @private */
   _connectSlotMixin() {
     if (!this.__isConnectedSlotMixin) {
       Object.keys(this.slots).forEach(slotName => {
         if (!this.querySelector(`[slot=${slotName}]`)) {
           const slotFactory = this.slots[slotName];
           /** @type {HTMLElement | undefined | HTMLElement[]} */
+          // @ts-ignore
           let slotEls = slotFactory();
           if (!slotEls) return;
           if (!Array.isArray(slotEls)) {
@@ -221,7 +222,6 @@ export class RocketSearchCombobox extends LionCombobox {
     }
   }
 
-  /** @private */
   _defineOverlayConfig() {
     /** @type {'bottom'} */
     const placement = 'bottom';
@@ -234,12 +234,11 @@ export class RocketSearchCombobox extends LionCombobox {
   }
 
   /** @type {LionCombobox['slots']} */
-  // @ts-expect-error: explicitly overriding with accessor
   get slots() {
     return {
       ...super.slots,
-      // @ts-expect-error: error in LionCombobox types.
       prefix: () => {
+        // @ts-ignore
         const [closeButton] = closeBtnTmpl.content.cloneNode(true).children;
         closeButton.addEventListener('click', () => {
           if (window.innerWidth < 1024) {
@@ -247,6 +246,7 @@ export class RocketSearchCombobox extends LionCombobox {
           }
         });
 
+        // @ts-ignore
         const [searchButton] = searchBtnTmpl.content.cloneNode(true).children;
 
         searchButton.addEventListener('click', () => {

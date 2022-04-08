@@ -14,6 +14,10 @@ __output-dev
 docs/_merged*
 *-mdjs-generated.js
 
+# sanity example has a separate backend that is unrelated to Rocket
+# therefore it does not need to follow it code rules
+/examples/sanity-minimal-starter/backend/
+
 /packages/engine/test-node/fixtures/06-error-handling/01-page-error/docs/index.rocket.js
 /packages/engine/test-node/fixtures/03b-format-markdown/c01-md-in-js-to-md-html/md-in-js.js
 /packages/engine/test-node/fixtures/03b-format-markdown/04-keep-converted-files/index-converted-md.js

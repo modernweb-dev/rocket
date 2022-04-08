@@ -1,8 +1,14 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = '10--docs/20--basics/70--navigation.rocket.md';
-import { html, layout, setupUnifiedPlugins, components } from '../../recursive.data.js';
-export { html, layout, setupUnifiedPlugins, components };
+import {
+  html,
+  layout,
+  setupUnifiedPlugins,
+  components,
+  openGraphLayout,
+} from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 ```
 
@@ -116,6 +122,18 @@ You can do so by exporting a flag in `20--basics/index.rocket.js` like so:
 export const menuNoLink = true;
 ```
 
+## Menu Exclude
+
+Sometimes there is a need to completely exclude a page from the pageTree.
+Pages with this flag will not exist at all in the pageTree - therefore you will not be able to access them for "anything" not even in a sitemap or an update feed.
+Pages that have sub pages can NOT use this flag as it would mean those sub pages would not have a parent page.
+
+Typical use case are utility pages that are not meant to be accessed by typical users.
+
+```js
+export const menuExclude = true;
+```
+
 ## Your own menu
 
 A menu is a class that has a `render` method.
@@ -160,7 +178,7 @@ Which may work or may not work for you.
 
 In case you want to take full control over the order you can apply the following approaches:
 
-1. Prefix your folders/files with `xx--` [recommended]
+1. Prefix your folders/files with `xx--` (recommended)
 
    - The menu order and file system order will still match
    - No worries those numbers will not appear in your menu or url

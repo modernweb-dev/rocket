@@ -62,7 +62,7 @@ export class LayoutSidebar extends Layout {
     logoSrc: '/icon.svg',
     logoAlt: 'Rocket Logo',
     gitSiteUrl: 'https://github.com/modernweb-dev/rocket',
-    gitBranch: 'master',
+    gitBranch: 'next',
     description: 'A static site generator for modern web development',
     socialLinks: [
       {
@@ -136,15 +136,12 @@ export class LayoutSidebar extends Layout {
         <meta name="twitter:card" content="summary_large_image" />
       `,
       head__40: html`
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-
         <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;display=optional"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&amp;display=optional"
-          rel="stylesheet"
+          rel="preload"
+          href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+          as="font"
+          type="font/woff2"
+          crossorigin
         />
 
         <link rel="stylesheet" href="resolve:@rocket/launch/css/variables.css" />
@@ -230,7 +227,7 @@ export class LayoutSidebar extends Layout {
             Caught a mistake or want to contribute to the documentation?
             <a
               href="${this.options.gitSiteUrl}/edit/${this.options
-                .gitBranch}/${data.sourceRelativeFilePath}"
+                .gitBranch}/site/pages/${data.sourceRelativeFilePath}"
               >Edit this page on GitHub!</a
             >
           </p>
