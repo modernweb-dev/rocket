@@ -34,21 +34,18 @@ describe('AdjustAssetUrls', () => {
     );
   });
 
-  it.only('adjust 📚<a href="./foo.html"></a>', async () => {
+  it('adjust <a href="./foo.html"></a>', async () => {
+    const adjust = new AdjustAssetUrls();
+    expect(await adjust.transform('<a href="./foo.html">go</a>', options)).to.equal(
+      '<a href="../docs/foo.html">go</a>',
+    );
+  });
+
+  it('adjust 📚<a href="./foo.html"></a>', async () => {
     const adjust = new AdjustAssetUrls();
     expect(await adjust.transform('📚<a href="./foo.html">go</a>', options)).to.equal(
       '📚<a href="../docs/foo.html">go</a>',
     );
-  });
-
-  it('adjust <img src="./foo.png">', async () => {
-    const adjust = new AdjustAssetUrls();
-    expect(await adjust.transform('<img src="./foo.png" />', options)).to.equal(
-      '<img src="../docs/foo.png" />',
-    );
-    expect(
-      await adjust.transform('<img src="./foo.png" /><img src="./bar.png" />', options),
-    ).to.equal('<img src="../docs/foo.png" /><img src="../docs/bar.png" />');
   });
 
   it('ignores <a href="#foo"></a>', async () => {
