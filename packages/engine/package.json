@@ -49,7 +49,7 @@
     "es-module-lexer": "^0.9.3",
     "lit": "^2.0.0",
     "plugins-manager": "^0.3.0",
-    "sax-wasm": "^2.1.1"
+    "sax-wasm": "^2.1.3"
   },
   "types": "./dist-types/src/index.d.ts",
   "typesVersions": {
