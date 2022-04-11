@@ -18,6 +18,7 @@ export async function activate(context: vscode.ExtensionContext) {
   const workspaceRoot = path.resolve(rootDir);
 
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { Engine } = await import('@rocket/engine/server');
 
   const engine = new Engine();
