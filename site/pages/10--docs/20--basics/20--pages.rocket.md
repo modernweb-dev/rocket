@@ -195,7 +195,7 @@ export { html, layout };
 
 Rocket pages can fetch data to help generate your pages. Rocket uses two platform features to get this out of the box: **fetch()** and **top-level await.**
 
-Read our 📚 [full guide](../30--guides/90--data-fetching.rocket.md)  on data-fetching to learn more.
+Read our 📚 [full guide](../30--guides/90--data-fetching.rocket.md) on data-fetching to learn more.
 
 ````md
 ```js server
