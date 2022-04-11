@@ -41,6 +41,13 @@ describe('AdjustAssetUrls', () => {
     );
   });
 
+  it('adjust 📚<a href="./foo.html"></a>', async () => {
+    const adjust = new AdjustAssetUrls();
+    expect(await adjust.transform('📚<a href="./foo.html">go</a>', options)).to.equal(
+      '📚<a href="../docs/foo.html">go</a>',
+    );
+  });
+
   it('ignores <a href="#foo"></a>', async () => {
     const adjust = new AdjustAssetUrls();
     expect(await adjust.transform('<a href="#foo">go</a>', options)).to.equal(

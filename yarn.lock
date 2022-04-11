@@ -8062,10 +8062,10 @@ sax-wasm@^2.0.0:
   resolved "https://registry.yarnpkg.com/sax-wasm/-/sax-wasm-2.1.0.tgz#4e2e28c267b4314c47becb830aea6865f2e37e5d"
   integrity sha512-4bhz7VAtbhEC1K8++Zv9+kjAyWZ1HJs68yPqgd9wyH5/ZbJmb0XWqx7ABJctIviQioKFKJ2ohfhvr7XUf4Xjvw==
 
-sax-wasm@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/sax-wasm/-/sax-wasm-2.1.1.tgz#8d264f867c74748fd0ff36640fa66c3ff75d1d75"
-  integrity sha512-tUye78BvJq7NzOx/d2qxRrlbUs8GHAOmkErRQ873y5zyziDRwy0hMQnqKBCvsPgVWvC8CgdGKRIsoIXtWzhhJA==
+sax-wasm@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/sax-wasm/-/sax-wasm-2.1.3.tgz#cebd5dd26ef87228bcfe7655d6cec5346e177e70"
+  integrity sha512-lGGPTA5Q9A52JWL+RKwuy/DKh+kTpdp5QRv6EJjwpyVyRh+Q76BBT8R+zU0NxiuQV38I/kO46sht61UUCSUajw==
 
 section-matter@^1.0.0:
   version "1.0.0"
