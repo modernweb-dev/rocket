@@ -241,14 +241,12 @@ import { isTemplateResult as isTemplateResult2 } from 'lit/directive-helpers.js'
 import { render as render1  } from 'lit-html';
 
 export class HybridLitMdjsPreview extends MdJsPreview {
-  get renderFunction() {
-    return function renderHybrid(html, container, options) {
-        if (isTemplateResult2(html)) {
-          render2(html, container, options);
-        } else {
-          render1(html, container, options);
-        }
-    };
+  renderStory(html, container, options) {
+    if (isTemplateResult2(html)) {
+      render2(html, container, options);
+    } else {
+      render1(html, container, options);
+    }
   }
 customElements.define('mdjs-preview', HybridLitMdjsPreview);
 ```

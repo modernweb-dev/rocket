@@ -10,15 +10,13 @@ describe('mdjs-preview Subclasser', () => {
   it('will expose a render function getter to override in extensions', async () => {
     let isCalled = false;
     class HybridLitMdjsPreview extends MdJsPreview {
-      get renderFunction() {
-        return function renderStrict(html, container, options) {
-          isCalled = true;
-          if (isTemplateResult2(html)) {
-            render2(html, container, options);
-          } else {
-            throw new Error('[mdjs-preview]: Only lit2 allowed');
-          }
-        };
+      renderStory(html, container, options) {
+        isCalled = true;
+        if (isTemplateResult2(html)) {
+          render2(html, container, options);
+        } else {
+          throw new Error('[mdjs-preview]: Only lit2 allowed');
+        }
       }
     }
     customElements.define('mdjs-preview', HybridLitMdjsPreview);
