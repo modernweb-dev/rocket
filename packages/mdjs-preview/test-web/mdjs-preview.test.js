@@ -5,7 +5,7 @@ import '@mdjs/mdjs-preview/define';
 /** @typedef {import('@mdjs/mdjs-preview').MdJsPreview} MdJsPreview */
 
 describe('mdjs-preview', () => {
-  it('will render the element into the shadow root by default', async () => {
+  it('will render the element into light dom by default', async () => {
     const el = await fixture(html`
       <mdjs-preview .story=${() => storyHtml`<p id="testing"></p>`}></mdjs-preview>
     `);
