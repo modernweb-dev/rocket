@@ -11,6 +11,13 @@ import {
 import { addResizeHandler } from './resizeHandler.js';
 
 /**
+ * @typedef {{values: unknown[], strings:string[],processor:Function}} TemplateResult1
+ * @typedef {import('lit').TemplateResult} TemplateResult2
+ * @typedef {{templateFactory:any; eventContext: EventTarget }} RenderOptions1
+ * @typedef {import('lit').RenderOptions} RenderOptions2
+ */
+
+/**
  * @param {string} input
  * @param {'js'|'css'} type
  * @returns {string}
@@ -79,6 +86,16 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
    * TemplateResult, whether the render function of lit 1 or 2 should called.
    * Overriding the render function would look like:
    *
+   * @protected
+   * @param {TemplateResult1|TemplateResult2|LitHtmlStoryFn} html Any value renderable by NodePart - typically a TemplateResult
+   * created by evaluating a template tag like `html` or `svg`.
+   * @param {HTMLElement} container A DOM parent to render to. The entire contents are either
+   * replaced, or efficiently updated if the same result type was previous
+   * rendered there.
+   * @param {Partial<RenderOptions2>} [options] RenderOptions for the entire render tree rendered to this
+   * container. Render options must *not* change between renders to the same
+   * container, as those changes will not effect previously rendered DOM.
+   *
    * @example
    * ```js
    * import { MdJsPreview } from '@mdjs/mdjs-preview';
@@ -87,21 +104,19 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
    * import { render as render1  } from 'lit-html';
    *
    * export class HybridLitMdjsPreview extends MdJsPreview {
-   *   get renderFunction() {
-   *     return function renderHybrid(html, container, options) {
-   *        if (isTemplateResult2(html)) {
-   *          render2(html, container, options);
-   *        } else {
-   *          render1(html, container, options);
-   *        }
-   *     };
+   *   renderStory(html, container, options) {
+   *     if (isTemplateResult2(html)) {
+   *       render2(html, container, options);
+   *     } else {
+   *       render1(html, container, options);
+   *     }
    *   }
    * }
    * customElements.define('mdjs-preview', HybridLitMdjsPreview);
    * ```
    */
-  get renderFunction() {
-    return render;
+  renderStory(html, container, options) {
+    render(html, container, options);
   }
 
   constructor() {
@@ -289,7 +304,10 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     }
 
     if (this.lightDomRenderTarget && changeProps.has('story')) {
-      this.renderFunction(this.story({ shadowRoot: this }), this.lightDomRenderTarget);
+      this.renderStory(
+        /** @type {LitHtmlStoryFn} */ (this.story({ shadowRoot: this })),
+        this.lightDomRenderTarget,
+      );
     }
 
     if (changeProps.has('platform') || changeProps.has('size')) {
