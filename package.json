@@ -33,7 +33,6 @@
     "setup": "npm run setup:ts-configs && npm run build:packages",
     "setup:patches": "npx patch-package",
     "setup:ts-configs": "node scripts/generate-ts-configs.mjs",
-    "xprestart": "yarn analyze",
     "start": "node --trace-warnings packages/cli/src/cli.js start",
     "test": "yarn test:node && yarn test:web",
     "test:node": "mocha \"packages/*/test-node/**/*.test.{ts,js,mjs,cjs}\" --timeout 5000 --reporter dot --exit",
@@ -44,12 +43,13 @@
     "types:copy": "node scripts/workspaces-scripts-bin.mjs types:copy",
     "update-dependency": "node scripts/update-dependency.js",
     "update-esm-entrypoints": "node scripts/update-esm-entrypoints.mjs && yarn format",
-    "update-package-configs": "node scripts/update-package-configs.mjs && yarn format"
+    "update-package-configs": "node scripts/update-package-configs.mjs && yarn format",
+    "xprestart": "yarn analyze"
   },
   "devDependencies": {
     "@changesets/cli": "^2.20.0",
     "@custom-elements-manifest/analyzer": "^0.4.12",
-    "@open-wc/testing": "^3.0.0-next.1",
+    "@open-wc/testing": "^3.1.2",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-typescript": "^8.1.0",

@@ -72,6 +72,38 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     };
   }
 
+  /**
+   * By default, the render of lit2 is provided, which is compatible with TemplateResults of lit2.
+   * However, in contexts that need to run multiple versions of lit, it should be possible to
+   * provide a specific render function, like renderHybrid, that internally checks, based on the
+   * TemplateResult, whether the render function of lit 1 or 2 should called.
+   * Overriding the render function would look like:
+   *
+   * @example
+   * ```js
+   * import { MdJsPreview } from '@mdjs/mdjs-preview';
+   * import { render as render2 } from 'lit';
+   * import { isTemplateResult as isTemplateResult2 } from 'lit/directive-helpers.js';
+   * import { render as render1  } from 'lit-html';
+   *
+   * export class HybridLitMdjsPreview extends MdJsPreview {
+   *   get renderFunction() {
+   *     return function renderHybrid(html, container, options) {
+   *        if (isTemplateResult2(html)) {
+   *          render2(html, container, options);
+   *        } else {
+   *          render1(html, container, options);
+   *        }
+   *     };
+   *   }
+   * }
+   * customElements.define('mdjs-preview', HybridLitMdjsPreview);
+   * ```
+   */
+  get renderFunction() {
+    return render;
+  }
+
   constructor() {
     super();
     /** @type {LitHtmlStoryFn} */
@@ -257,7 +289,7 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
     }
 
     if (this.lightDomRenderTarget && changeProps.has('story')) {
-      render(this.story({ shadowRoot: this }), this.lightDomRenderTarget);
+      this.renderFunction(this.story({ shadowRoot: this }), this.lightDomRenderTarget);
     }
 
     if (changeProps.has('platform') || changeProps.has('size')) {
