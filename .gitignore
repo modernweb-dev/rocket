@@ -1,6 +1,7 @@
 ## editors
 /.idea
 /.vscode
+/.history
 
 ## system files
 .DS_Store
