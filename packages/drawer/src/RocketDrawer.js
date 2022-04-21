@@ -13,6 +13,7 @@ function transitionend(el) {
   });
 }
 
+// @ts-expect-error
 export class RocketDrawer extends OverlayMixin(LitElement) {
   static get properties() {
     return {
