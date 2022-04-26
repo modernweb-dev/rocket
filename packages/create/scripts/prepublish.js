@@ -10,11 +10,13 @@ for (const folderName of folders) {
   const info = await readFile(path.join(examplesDir, folderName, 'package.json')).then(res =>
     JSON.parse(res),
   );
-  choices.push({
-    title: info['@rocket/template-name'],
-    description: info.description,
-    value: folderName,
-  });
+  if (info['@rocket/template-name']) {
+    choices.push({
+      title: info['@rocket/template-name'],
+      description: info.description,
+      value: folderName,
+    });
+  }
 }
 
 choices.push({

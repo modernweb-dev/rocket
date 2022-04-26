@@ -1,23 +1,28 @@
 [
   {
-    "title": "Blog",
+    "title": "Hydration Starter",
+    "description": "Example on how to hydrate web components",
+    "value": "01-hydration-starter"
+  },
+  {
+    "title": "Blog Starter",
     "description": "Get started with a new blog",
-    "value": "blog"
+    "value": "02-blog-starter"
   },
   {
-    "title": "Landing Page (Spark Theme)",
-    "description": "A landing page based on the spark theme",
-    "value": "landing-spark"
-  },
-  {
-    "title": "Minimal",
+    "title": "Minimal Starter",
     "description": "Only includes the minimal basics",
-    "value": "minimal"
+    "value": "03-minimal-starter"
   },
   {
     "title": "Sanity Minimal Starter",
     "description": "A starter to show an minimal integration between Sanity.io and Rocket",
-    "value": "sanity-minimal-starter"
+    "value": "04-sanity-minimal-starter"
+  },
+  {
+    "title": "Landing Page (Spark Theme)",
+    "description": "A landing page based on the spark theme",
+    "value": "50-landing-theme-spark"
   },
   {
     "title": "Custom (community built)",
