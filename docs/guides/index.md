@@ -9,7 +9,7 @@ Rocket helps you generate static pages from Markdown files while giving you the 
 
 - [First Pages](./first-pages/getting-started/) Learn how to bootstrap and run a Rocket site
   - [Adding Pages](./first-pages/adding-pages/) Create your own content pages
-  - [Linking](./first-pages/link-to-other-pages/) Link between yuor markdown pages
+  - [Linking](./first-pages/link-to-other-pages/) Link between your markdown pages
   - [Managing Sidebar](./first-pages/manage-sidebar/) Customize your site's navigation
   - [Use JavaScript](./first-pages/use-javascript/) Write inline scripts in markdown
   - [URLs](./first-pages/urls/) Customize your pages' permalinks
