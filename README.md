@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://github.com/modernweb-dev/rocket/actions"
     ><img
-      src="https://img.shields.io/github/workflow/status/modernweb-dev/rocket/Release/main?label=workflow&style=flat-square"
+      src="https://img.shields.io/github/workflow/status/modernweb-dev/rocket/Release/next?label=workflow&style=flat-square"
       alt="GitHub Actions workflow status"
   /></a>
   <a href="https://twitter.com/modern_web_dev"
@@ -27,11 +27,11 @@
 </p>
 
 <p align="center">
-  <a href="https://rocket.modern-web.dev">Website</a>
+  <a href="https://next.rocket.modern-web.dev">Website</a>
   ·
-  <a href="https://rocket.modern-web.dev/guides/">Guides</a>
+  <a href="https://next.rocket.modern-web.dev/guides/">Guides</a>
   ·
-  <a href="https://rocket.modern-web.dev/docs/">Documentation</a>
+  <a href="https://next.rocket.modern-web.dev/docs/">Documentation</a>
 </p>
 
 <h1></h1>
@@ -43,7 +43,7 @@
 - **Small:** No overblown tools or frontend frameworks, add JavaScript and/or Web Components only on pages where needed..
 
 <p align="center">
-  <a href="https://rocket.modern-web.dev/guides/"><strong>Explore the Rocket Guides&nbsp;&nbsp;▶</strong></a>
+  <a href="https://next.rocket.modern-web.dev/guides/"><strong>Explore the Rocket Guides&nbsp;&nbsp;▶</strong></a>
 </p>
 
 ## The Goal for Rocket
@@ -69,7 +69,7 @@ npx rocket init
 
 We are always looking for contributors of all skill levels! If you're looking to ease your way into the project, try out a [good first issue](https://github.com/modernweb-dev/rocket/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
-If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/rocket/blob/main/CONTRIBUTING.md). Also, feel free to drop into [slack](https://rocket.modern-web.dev/about/slack/) and say hi. 👋
+If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/rocket/blob/next/CONTRIBUTING.md). Also, feel free to drop into [slack](https://next.rocket.modern-web.dev/about/slack/) and say hi. 👋
 
 ### Financial Contributors
 
