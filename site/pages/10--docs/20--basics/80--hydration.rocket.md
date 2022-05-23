@@ -7,12 +7,19 @@ export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore
+  customElements.define('rocket-social-link', await import('@rocket/components/social-link.js').then(m => m.RocketSocialLink));
+  // prettier-ignore
+  customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
+  // prettier-ignore
   customElements.define('inline-notification', await import('@rocket/components/components/InlineNotification').then(m => m.InlineNotification));
+  // prettier-ignore
+  customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
   // hydrate-able components
+  // prettier-ignore
+  customElements.define('rocket-search', await import('@rocket/search/web').then(m => m.RocketSearch));
+  // prettier-ignore
+  customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
   customElements.define('my-counter', await import('#components/MyCounter').then(m => m.MyCounter));
-  // client-only components
-  // 'rocket-search': () => import('@rocket/search/web').then(m => m.RocketSearch),
-  // 'rocket-drawer': () => import('@rocket/drawer').then(m => m.RocketDrawer),
 }
 /* END - Rocket auto generated - do not touch */
 ```
@@ -164,9 +171,10 @@ You can specify and combine multiple conditions on when to hydrate a component.
 | Option                         | Description                                                                             |
 | ------------------------------ | --------------------------------------------------------------------------------------- |
 | onClientLoad                   | as soon as possible                                                                     |
-| onClick                        | as you click on the element                                                             |
+| onClick                        | as you click on the element (will reDispatch the click event after hydration)           |
+| onFocus                        | as you focus the element (will reDispatch the focus event after hydration)              |
 | onMedia                        | as soon as a media query is met                                                         |
-| onVisible                      | as soon as component + optional padding becomes visible                                 |
+| onVisible                      | as soon as the component becomes visible on the screen                                  |
 | onHover (⚠️ not implemented)   | as you hover over the element + optional padding (click triggers hover => touchscreens) |
 | withIdle (⚠️ not implemented)  | as soon there is a free slot in the main thread                                         |
 | withDelay (⚠️ not implemented) | after x ms                                                                              |
@@ -180,7 +188,6 @@ Each of the options can be combined via `&&` or `||`.
 | `onMedia('(min-width: 640px)') && onClick`                      | chart that only becomes interactive on desktop after a click                                         |
 | `onMedia('(prefers-reduced-motion: no-preference)') && onClick` | a visual animation that plays on click only if there is no prefers-reduced-motion                    |
 | `onVisible`                                                     | heavy chart that becomes interactive when element becomes visible                                    |
-| `onVisible(100px)`                                              | heavy chart that becomes interactive when element + 100px padding becomes visible                    |
 
 <inline-notification type="warning">
 

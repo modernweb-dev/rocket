@@ -17,6 +17,7 @@ export interface LayoutOptions {
   lang: string;
   bodyClasses: ClassInfo;
   bodyLayout: string;
+  dsdPending: boolean;
   [key: TemplateValueKey<'head'>]: TemplateValue;
   [key: TemplateValueKey<'header'>]: TemplateValue;
   [key: TemplateValueKey<'top'>]: TemplateValue;
@@ -30,7 +31,16 @@ export interface LayoutOptions {
   content__500: TemplateValue;
 }
 
-export interface renderOptions {
+export interface renderData {
   content: TemplateResult | string | typeof nothing;
+  sourceFilePath: string;
+  outputFilePath: string;
+  sourceRelativeFilePath: string;
+  outputRelativeFilePath: string;
+  url: string;
+  renderMode: string;
+  openGraphOutputFilePath: string;
+  openGraphOutputRelativeFilePath: string;
+  openGraphUrl: string;
   [key: string]: unknown;
 }

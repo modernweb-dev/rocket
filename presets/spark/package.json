@@ -45,7 +45,7 @@
   "dependencies": {
     "@rocket/components": "^0.1.0-alpha.1",
     "@rocket/engine": "^0.1.0-alpha.18",
-    "lit": "^2.0.0"
+    "lit": "^2.2.5"
   },
   "devDependencies": {},
   "types": "./dist-types/src/index.d.ts",

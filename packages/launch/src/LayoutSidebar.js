@@ -6,30 +6,11 @@ import {
   IndexMenu,
   NextMenu,
   PreviousMenu,
+  TableOfContentsMenu,
 } from '@rocket/engine';
 import { html, nothing } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-
-import { readFile } from 'fs/promises';
-
-/**
- * @param {import('fs').PathLike} filePath
- * @returns {Promise<import('lit/directive.js').DirectiveResult>}
- */
-async function inlineFile(filePath) {
-  const fileContent = await readFile(filePath, 'utf8');
-  return unsafeHTML(fileContent.toString());
-}
-
-const burgerSvg = await inlineFile(new URL('../assets/burger-menu.svg', import.meta.url));
-const socialIcons = {
-  discord: await inlineFile(new URL('../assets/brand-logos/discord.svg', import.meta.url)),
-  github: await inlineFile(new URL('../assets/brand-logos/github.svg', import.meta.url)),
-  gitlab: await inlineFile(new URL('../assets/brand-logos/gitlab.svg', import.meta.url)),
-  slack: await inlineFile(new URL('../assets/brand-logos/slack.svg', import.meta.url)),
-  telegram: await inlineFile(new URL('../assets/brand-logos/telegram.svg', import.meta.url)),
-  twitter: await inlineFile(new URL('../assets/brand-logos/twitter.svg', import.meta.url)),
-};
+// @ts-ignore
+import { pageDefaults } from '@rocket/components';
 
 export class LayoutSidebar extends Layout {
   /**
@@ -54,10 +35,11 @@ export class LayoutSidebar extends Layout {
    */
   options = {
     ...this.options,
+    ...pageDefaults({ ...this.options }),
     bodyClasses: {
       ...this.options.bodyClasses,
-      'dsd-pending': true,
     },
+    dsdPending: true,
     siteName: 'Rocket',
     logoSrc: '/icon.svg',
     logoAlt: 'Rocket Logo',
@@ -111,6 +93,7 @@ export class LayoutSidebar extends Layout {
         return html`
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="color-scheme" content="light" />
 
           <title-server-only>${title}</title-server-only>
           <meta property="og:title" content="${title}" />
@@ -138,16 +121,16 @@ export class LayoutSidebar extends Layout {
       head__40: html`
         <link
           rel="preload"
-          href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+          href="/fonts/Rubik-VariableFont_wght.woff2"
           as="font"
           type="font/woff2"
           crossorigin
+          fetchpriority="low"
         />
 
         <link rel="stylesheet" href="resolve:@rocket/launch/css/variables.css" />
         <link rel="stylesheet" href="resolve:@rocket/launch/css/layout.css" />
         <link rel="stylesheet" href="resolve:@rocket/launch/css/markdown.css" />
-        <link rel="stylesheet" href="resolve:@rocket/launch/css/style.css" />
       `,
 
       head__50: html`
@@ -159,17 +142,10 @@ export class LayoutSidebar extends Layout {
       `,
 
       header__10: html`
-        <a class="logo-link" href="/">
+        <a class="logo-link" href="/" slot="logo">
           <img src="/icon.svg" alt="${this.options.logoAlt}" />
           <span>${this.options.siteName}</span>
         </a>
-      `,
-
-      header__20: () => html`
-        <button id="mobile-menu-trigger" data-action="trigger-mobile-menu">
-          <span class="sr-only">Show Menu</span>
-          ${burgerSvg}
-        </button>
       `,
 
       header__50: data =>
@@ -179,40 +155,42 @@ export class LayoutSidebar extends Layout {
         html`
           ${this.options.socialLinks.map(
             socialLink => html`
-              <a
-                class="social-link"
-                href="${socialLink.url}"
-                aria-label="${this.options.siteName} on ${socialLink.name}"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <span class="sr-only">${socialLink.name}</span>
-                ${socialLink.image
-                  ? html`<img src="${socialLink.image}" alt="${socialLink.alt}" />`
-                  : // @ts-ignore
-                    socialIcons[socialLink.name.toLowerCase()]}
-              </a>
+              <rocket-social-link
+                url="${socialLink.url}"
+                name="${socialLink.name}"
+                siteName=${this.options.siteName}
+                slot="social"
+              ></rocket-social-link>
             `,
           )}
         `,
 
-      sidebar__10: html`
+      drawer__10: html`
         <a class="logo-link" href="/">
           <img src="${this.options.logoSrc}" alt="${this.options.logoAlt}" />
           <span>${this.options.siteName}</span>
         </a>
       `,
 
-      sidebar__100: data =>
+      drawer__20: html`
+        <div class="drawer-social">
+          ${this.options.socialLinks.map(
+            socialLink => html`
+              <rocket-social-link
+                url="${socialLink.url}"
+                name="${socialLink.name}"
+                siteName=${this.options.siteName}
+              ></rocket-social-link>
+            `,
+          )}
+        </div>
+      `,
+
+      drawer__50: data =>
         this.options.pageTree.renderMenu(new IndexMenu(), data.sourceRelativeFilePath),
 
-      top__10: () => html`
-        <script>
-          if (HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
-            document.body.removeAttribute('dsd-pending');
-          }
-        </script>
-      `,
+      sidebar__100: data =>
+        this.options.pageTree.renderMenu(new IndexMenu(), data.sourceRelativeFilePath),
 
       content__600: data => html`
         <div class="content-previous-next">
@@ -255,10 +233,6 @@ export class LayoutSidebar extends Layout {
         </div>
       `,
 
-      bottom__50: html`
-        <script type="module" src="resolve:@rocket/launch/js/init-mobile-navigation.js"></script>
-      `,
-
       // @ts-ignore
       bottom__60: data => {
         if (data.renderMode === 'production') {
@@ -269,37 +243,32 @@ export class LayoutSidebar extends Layout {
         }
         return nothing;
       },
-
-      // bottom__70: () => html`
-      //   <script type="module">
-      //     (async () => {
-      //       if (!HTMLTemplateElement.prototype.hasOwnProperty('shadowRoot')) {
-      //         const { hydrateShadowRoots } = await import(
-      //           '@webcomponents/template-shadowroot/template-shadowroot.js'
-      //         );
-      //         hydrateShadowRoots(document.body);
-      //         document.body.removeAttribute('dsd-pending');
-      //       }
-      //     })();
-      //   </script>
-      // `,
     };
+  }
+
+  renderHeader() {
+    return html`
+      <rocket-header>
+        ${renderJoiningGroup('header', this.options, this.data)}
+        <rocket-drawer slot="mobile-menu" loading="hydrate:onMedia('(max-width: 1024px)')">
+          <div class="drawer">${renderJoiningGroup('drawer', this.options, this.data)}</div>
+        </rocket-drawer>
+      </rocket-header>
+    `;
   }
 
   renderContent() {
     return html`
-      <div id="content-wrapper">
-        <div class="content-area">
-          <rocket-drawer loading="client" id="sidebar">
-            <nav slot="content" id="sidebar-nav">
-              ${renderJoiningGroup('sidebar', this.options, this.data)}
-            </nav>
-          </rocket-drawer>
-          <main class="markdown-body">
-            ${renderJoiningGroup('content', this.options, this.data)}
-          </main>
-        </div>
-      </div>
+      <main-docs>
+        <nav slot="menu">${renderJoiningGroup('sidebar', this.options, this.data)}</nav>
+        <main class="markdown-body">${renderJoiningGroup('content', this.options, this.data)}</main>
+        <aside slot="toc">
+          ${this.options.pageTree.renderMenu(
+            new TableOfContentsMenu(),
+            this.data.sourceRelativeFilePath,
+          )}
+        </aside>
+      </main-docs>
     `;
   }
 }

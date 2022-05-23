@@ -8,6 +8,7 @@ import { rocketComponents } from '@rocket/components/components';
 import { searchComponents } from '@rocket/search/components';
 import htmlHeading from 'rehype-autolink-headings';
 import { search } from './__shared/search.js';
+import { launchComponents } from '@rocket/launch/components.js';
 
 export { html };
 
@@ -17,6 +18,7 @@ export const layout = new LayoutSidebar({
   description:
     'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.',
   header__40: search,
+  drawer__30: search,
 });
 
 export const setupUnifiedPlugins = [
@@ -68,8 +70,9 @@ export const setupUnifiedPlugins = [
 export const components = {
   ...rocketComponents,
   ...searchComponents,
+  ...launchComponents,
   'my-counter': '#components/MyCounter::MyCounter',
-  'rocket-drawer': '@rocket/drawer::RocketDrawer',
+  // 'rocket-drawer': '@rocket/drawer::RocketDrawer',
 };
 
 export const openGraphLayout = data => html`
@@ -79,17 +82,16 @@ export const openGraphLayout = data => html`
       <meta charset="utf-8" />
       <link
         rel="preload"
-        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        href="/fonts/Rubik-VariableFont_wght.woff2"
         as="font"
         type="font/woff2"
         crossorigin
       />
       <style>
         @font-face {
-          font-family: 'Open Sans';
-          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2')
-              format('woff2 supports variations'),
-            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-family: 'Rubik';
+          src: url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2 supports variations'),
+            url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2-variations');
           font-weight: 1 999;
           font-display: optional;
         }
@@ -101,7 +103,7 @@ export const openGraphLayout = data => html`
           padding: 30px;
           box-sizing: border-box;
           margin: 0;
-          font-family: 'Open Sans', sans-serif;
+          font-family: 'Rubik', sans-serif;
         }
         #powered-by {
           margin: 3%;
@@ -161,7 +163,7 @@ export const openGraphLayout = data => html`
       <p id="sub-title">${data.subTitle || ''}</p>
       <div id="powered-by">
         <span>powered by</span>
-        <img id="logo" src="resolve:#assets/logo-dark-with-text.svg" />
+        <img id="logo" src="resolve:#assets/rocket-logo-dark-with-text.svg" />
       </div>
       <div id="bg-wrapper">
         <img src="resolve:#assets/home-background.svg" />

@@ -23,12 +23,7 @@
     "./assets/*": "./assets/*",
     "./css/*": "./css/*",
     "./js/*": "./src/public/*",
-    "./inline-notification": {
-      "types": "./dist-types/src/inline-notification/index.d.ts",
-      "default": "./src/inline-notification/index.js"
-    },
-    "./inline-notification/define": "./src/inline-notification/define.js",
-    "./inline-notification/inline-notification.js": "./src/inline-notification/define.js"
+    "./*": "./exports/*"
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
@@ -54,7 +49,7 @@
     "@rocket/drawer": "^0.1.3",
     "@rocket/engine": "^0.1.0-alpha.10",
     "@webcomponents/template-shadowroot": "^0.1.0",
-    "lit": "^2.0.0",
+    "lit": "^2.2.5",
     "workbox-window": "^6.1.5"
   },
   "types": "./dist-types/src/index.d.ts",

@@ -29,12 +29,26 @@ export class Layout {
     lang: 'en-US',
     bodyClasses: {},
     bodyLayout: 'layout',
+    dsdPending: false,
     content__500: html``,
+  };
+
+  /** @type {import('../../types/layout.js').renderData} */
+  data = {
+    sourceFilePath: '',
+    outputFilePath: '',
+    sourceRelativeFilePath: '',
+    outputRelativeFilePath: '',
+    url: '',
+    renderMode: '',
+    openGraphOutputFilePath: '',
+    openGraphOutputRelativeFilePath: '',
+    openGraphUrl: '',
+    content: '',
   };
 
   constructor(options = {}) {
     this.options = { ...this.options, ...options };
-    this.data = {};
     this.pageOptions = new Map();
   }
 
@@ -63,17 +77,13 @@ export class Layout {
 
   renderHeader() {
     return html`
-      <header id="main-header">
-        <div class="content-area">${renderJoiningGroup('header', this.options, this.data)}</div>
-      </header>
+      <header id="main-header">${renderJoiningGroup('header', this.options, this.data)}</header>
     `;
   }
 
   renderFooter() {
     return html`
-      <footer id="main-footer">
-        <div class="content-area">${renderJoiningGroup('footer', this.options, this.data)}</div>
-      </footer>
+      <footer id="main-footer">${renderJoiningGroup('footer', this.options, this.data)}</footer>
     `;
   }
 
@@ -82,6 +92,7 @@ export class Layout {
       <body-server-only
         class=${classMap(this.options.bodyClasses)}
         layout="${this.options.bodyLayout}"
+        ?dsd-pending=${this.options.dsdPending}
       >
         ${renderJoiningGroup('top', this.options, this.data)} ${this.renderHeader()}
         ${this.renderContent()} ${this.renderFooter()}
@@ -91,11 +102,7 @@ export class Layout {
   }
 
   renderContent() {
-    return html`
-      <div class="content-area">
-        <main>${renderJoiningGroup('content', this.options, this.data)}</main>
-      </div>
-    `;
+    return html`<main>${renderJoiningGroup('content', this.options, this.data)}</main>`;
   }
 
   renderHtml() {
@@ -108,7 +115,7 @@ export class Layout {
   }
 
   /**
-   * @param {import('../../types/layout.js').renderOptions} data
+   * @param {import('../../types/layout.js').renderData} data
    * @returns {TemplateResult}
    */
   render(data) {

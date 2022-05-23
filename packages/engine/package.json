@@ -52,7 +52,7 @@
     "@parcel/watcher": "^2.0.5",
     "@web/dev-server": "^0.1.4",
     "es-module-lexer": "^0.9.3",
-    "lit": "^2.0.0",
+    "lit": "^2.2.5",
     "plugins-manager": "^0.3.0",
     "sax-wasm": "^2.1.3"
   },

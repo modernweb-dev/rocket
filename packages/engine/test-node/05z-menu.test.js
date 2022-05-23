@@ -10,20 +10,16 @@ describe('Engine menus', () => {
 
     expect(readOutput('index.html')).to.equal(
       [
-        '<nav aria-label="site">',
-        '  <a href="/about/"> About </a>',
-        '  <a href="/components/"> Components </a>',
-        '</nav>',
+        '<a href="/about/"> About </a>',
+        '<a href="/components/"> Components </a>',
         '<main><h1>Home</h1></main>',
       ].join('\n'),
     );
 
     expect(readOutput('about/index.html')).to.equal(
       [
-        '<nav aria-label="site">',
-        '  <a href="/about/" aria-current="page"> About </a>',
-        '  <a href="/components/"> Components </a>',
-        '</nav>',
+        '<a href="/about/" aria-current="page"> About </a>',
+        '<a href="/components/"> Components </a>',
         '<main><h1>About</h1></main>',
       ].join('\n'),
     );
@@ -82,10 +78,8 @@ describe('Engine menus', () => {
 
     expect(readOutput('index.html')).to.equal(
       [
-        '<nav aria-label="site">',
-        '  <a href="/about/"> About </a>',
-        '  <a href="/components/"> Components </a>',
-        '</nav>',
+        '<a href="/about/"> About </a>',
+        '<a href="/components/"> Components </a>',
         '<main>',
         '  <meta name="menu:link.text" content="Home" />',
         '  <h1>This is Home</h1>',
@@ -106,24 +100,18 @@ describe('Engine menus', () => {
         '<html lang="en-US">',
         '  <head> </head>',
         '  <body class="  " layout="layout">',
-        '    <header id="main-header">',
-        '      <div class="content-area"></div>',
-        '    </header>',
+        '    <header id="main-header"></header>',
         '    <div class="content-area">',
         '      <div id="sidebar">',
-        '        <nav aria-label="site">',
-        '          <a href="/about/"> About </a>',
-        '          <a href="/components/"> Components </a>',
-        '        </nav>',
+        '        <a href="/about/"> About </a>',
+        '        <a href="/components/"> Components </a>',
         '      </div>',
         '      <main class="markdown-body">',
         '        <meta name="menu:link.text" content="Home" />',
         '        <h1>This is Home</h1>',
         '      </main>',
         '    </div>',
-        '    <footer id="main-footer">',
-        '      <div class="content-area"></div>',
-        '    </footer>',
+        '    <footer id="main-footer"></footer>',
         '  </body>',
         '</html>',
       ].join('\n'),
@@ -135,24 +123,18 @@ describe('Engine menus', () => {
         '<html lang="en-US">',
         '  <head> </head>',
         '  <body class="  " layout="layout">',
-        '    <header id="main-header">',
-        '      <div class="content-area"></div>',
-        '    </header>',
+        '    <header id="main-header"></header>',
         '    <div class="content-area">',
         '      <div id="sidebar">',
-        '        <nav aria-label="site">',
-        '          <a href="/about/" aria-current="page"> About </a>',
-        '          <a href="/components/"> Components </a>',
-        '        </nav>',
+        '        <a href="/about/" aria-current="page"> About </a>',
+        '        <a href="/components/"> Components </a>',
         '      </div>',
         '      <main class="markdown-body">',
         '        <meta name="menu:link.text" content="About" />',
         '        <h1>This is About</h1>',
         '      </main>',
         '    </div>',
-        '    <footer id="main-footer">',
-        '      <div class="content-area"></div>',
-        '    </footer>',
+        '    <footer id="main-footer"></footer>',
         '  </body>',
         '</html>',
       ].join('\n'),
@@ -388,12 +370,7 @@ describe('Engine menus', () => {
     // 👆 ensures a valid setup
 
     expect(readOutput('index.html')).to.equal(
-      [
-        '<nav aria-label="site">',
-        '  <a href="/about/"> About </a>',
-        '</nav>',
-        '<main><h1>Home</h1></main>',
-      ].join('\n'),
+      ['<a href="/about/"> About </a>', '<main><h1>Home</h1></main>'].join('\n'),
     );
 
     await engine.start();
@@ -415,7 +392,6 @@ describe('Engine menus', () => {
     expect(readOutput('index.html')).to.equal(
       [
         //
-        '<nav aria-label="site"></nav>',
         '<main><h1>Home</h1></main>',
       ].join('\n'),
     );
@@ -443,12 +419,7 @@ describe('Engine menus', () => {
     // 👆 ensures a valid setup
 
     expect(readOutput('index.html')).to.equal(
-      [
-        '<nav aria-label="site">',
-        '  <a href="/about/"> About </a>',
-        '</nav>',
-        '<main><h1>Home</h1></main>',
-      ].join('\n'),
+      ['<a href="/about/"> About </a>', '<main><h1>Home</h1></main>'].join('\n'),
     );
 
     await engine.start();
@@ -480,9 +451,7 @@ describe('Engine menus', () => {
     expect(readOutput('index.html')).to.equal(
       [
         //
-        '<nav aria-label="site">',
-        '  <a href="/about-me/"> About </a>',
-        '</nav>',
+        '<a href="/about-me/"> About </a>',
         '<main><h1>Home</h1></main>',
       ].join('\n'),
     );

@@ -109,7 +109,17 @@ export const format = formatFn;
 export const cleanupLitMarkers = cleanupLitMarkersFn;
 
 export async function setupTestEngine(docsDir, options = {}) {
-  const useOptions = { ...options, docsDir };
+  const useOptions = {
+    adjustDevServerOptions: options => ({
+      ...options,
+      nodeResolve: {
+        ...options.nodeResolve,
+        exportConditions: ['development'],
+      },
+    }),
+    ...options,
+    docsDir,
+  };
   if (useOptions.docsDir) {
     useOptions.docsDir = path.join(__dirname, docsDir.split('/').join(path.sep));
   }

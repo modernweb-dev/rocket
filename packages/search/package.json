@@ -46,10 +46,6 @@
     "search"
   ],
   "dependencies": {
-    "@lion/combobox": "^0.10.0",
-    "@lion/core": "^0.22.0",
-    "@lion/listbox": "^0.13.0",
-    "@open-wc/scoped-elements": "^2.0.0",
     "@rocket/engine": "^0.1.0-alpha.22",
     "minisearch": "^3.0.2",
     "plugins-manager": "^0.3.0",

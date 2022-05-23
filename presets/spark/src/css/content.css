@@ -1,7 +1,7 @@
 @font-face {
-  font-family: 'Open Sans';
-  src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
-    url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+  font-family: 'Rubik';
+  src: url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2 supports variations'),
+    url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2-variations');
   font-weight: 1 999;
   font-display: optional;
 }
@@ -10,7 +10,7 @@ body {
   margin: 0;
   font-size: var(--step--1);
   color: #565578;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 html {

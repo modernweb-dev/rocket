@@ -12,7 +12,7 @@ export class LayoutHome extends Layout {
       head__100: html`
         <link
           rel="preload"
-          href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+          href="/fonts/Rubik-VariableFont_wght.woff2"
           as="font"
           type="font/woff2"
           crossorigin

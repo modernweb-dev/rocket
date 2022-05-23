@@ -4,6 +4,7 @@ type TemplateValueKey<Str extends string> = `${Str}__${number}`;
 
 export interface LayoutSidebarOptions extends LayoutOptions {
   [key: TemplateValueKey<'sidebar'>]: TemplateValue;
+  [key: TemplateValueKey<'drawer'>]: TemplateValue;
 
   siteName: string;
   logoSrc: string;

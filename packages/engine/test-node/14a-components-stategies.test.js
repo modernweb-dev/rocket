@@ -58,6 +58,11 @@ describe('hydration condition', () => {
         strategyTemplate: '{{0}}',
         strategies: [{ type: 'onVisible', resolveAble: false }],
       });
+      expect(extractStrategies(`onFocus`)).to.deep.equal({
+        strategyAttribute: 'onFocus',
+        strategyTemplate: '{{0}}',
+        strategies: [{ type: 'onFocus', resolveAble: false }],
+      });
     });
 
     it('single strategy default resolveAble', async () => {

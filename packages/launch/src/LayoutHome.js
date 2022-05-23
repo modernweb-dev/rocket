@@ -7,73 +7,36 @@ export class LayoutHome extends LayoutSidebar {
   /** @type {import('../types/layout.js').LayoutHomeOptions} */
   options = {
     ...this.options,
-    background: '',
-    bodyLayout: 'layout-home-background',
-    content__10: () => {
-      return html`
-        <img class="page-logo" src="${this.options.logoSrc}" alt="${this.options.logoAlt}" />
-
-        ${this.options.background
-          ? html`
-              <img class="page-background" src="${this.options.background}" role="presentation" />
-            `
-          : nothing}
-
-        <h1 class="page-title">${this.options.siteName}</h1>
-
-        <p class="page-slogan">${this.options.slogan}</p>
-
-        <div class="call-to-action-list" role="list">
-          ${this.options.callToActionItems.map(
-            callToAction => html`
-              <a class="call-to-action" href="${callToAction.href}" role="listitem"
-                >${callToAction.text}</a
-              >
-            `,
-          )}
-        </div>
-
-        <h2 class="reason-header">${this.options.reasonHeader}</h2>
-
-        <section class="reasons">
-          ${this.options.reasons.map(
-            reason => html`
-              <article>
-                <h3>${reason.header}</h3>
-                ${reason.text}
-              </article>
-            `,
-          )}
-        </section>
-      `;
-    },
-
-    header__20: () => nothing,
-
+    header__60: () =>
+      html`
+        ${this.options.socialLinks.map(
+          socialLink => html`
+            <rocket-social-link
+              dark-background
+              url="${socialLink.url}"
+              name="${socialLink.name}"
+              siteName=${this.options.siteName}
+              slot="social"
+            ></rocket-social-link>
+          `,
+        )}
+      `,
     content__600: () => nothing,
     content__650: () => nothing,
   };
 
-  /**
-   * @param {Partial<import('../types/layout.js').LayoutHomeOptions>} options
-   */
-  constructor(options) {
-    super(options);
-    // @ts-ignore
-    this.options = { ...this.options, ...options };
+  renderHeader() {
+    return html`
+      <rocket-header hide-logo no-background not-sticky dark-background>
+        ${renderJoiningGroup('header', this.options, this.data)}
+        <rocket-drawer slot="mobile-menu" loading="hydrate:onMedia('(max-width: 1024px)')">
+          <div class="drawer">${renderJoiningGroup('drawer', this.options, this.data)}</div>
+        </rocket-drawer>
+      </rocket-header>
+    `;
   }
 
   renderContent() {
-    this.options.bodyLayout = this.options.background ? 'layout-home-background' : 'layout-home';
-
-    return html`
-      <div id="content-wrapper">
-        <div class="content-area">
-          <main class="markdown-body">
-            ${renderJoiningGroup('content', this.options, this.data)}
-          </main>
-        </div>
-      </div>
-    `;
+    return html` <main>${renderJoiningGroup('content', this.options, this.data)}</main> `;
   }
 }
