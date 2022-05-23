@@ -35,6 +35,13 @@ export default /** @type {import('@rocket/cli/types/main').RocketCliOptions} */ 
   absoluteBaseUrl: absoluteBaseUrlNetlify('http://localhost:8080'),
   longFileHeaderWidth: 100,
   longFileHeaderComment: '// prettier-ignore',
+  // adjustDevServerOptions: (options) => ({
+  //   ...options,
+  //   nodeResolve: {
+  //     ...options.nodeResolve,
+  //     exportConditions: ['development'],
+  //   },
+  // }),
 
   // buildOpenGraphImages: false,
 

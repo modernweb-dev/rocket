@@ -16,11 +16,9 @@ export class SiteMenu extends Menu {
       return nothing;
     }
     return html`
-      <nav aria-label="site">
-        ${node.children
-          .filter(/** @param {NodeOfPage} child */ child => !child.model.menuNoLink)
-          .map(/** @param {NodeOfPage} child */ child => this.link(child))}
-      </nav>
+      ${node.children
+        .filter(/** @param {NodeOfPage} child */ child => !child.model.menuNoLink)
+        .map(/** @param {NodeOfPage} child */ child => this.link(child))}
     `;
   }
 }

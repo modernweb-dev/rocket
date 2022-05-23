@@ -12,4 +12,8 @@ export const rocketComponents = {
   'server-icon': '@rocket/components/components/ServerIcon::ServerIcon',
   'opengraph-overview': '@rocket/components/components/OpenGraphOverview::OpenGraphOverview',
   'rocket-dialog': '@rocket/components/dialog::RocketDialog',
+  'rocket-drawer': '@rocket/components/drawer.js::RocketDrawer',
+  'rocket-header': '@rocket/components/header.js::RocketHeader',
+  'main-docs': '@rocket/components/main-docs.js::MainDocs',
+  'rocket-social-link': '@rocket/components/social-link.js::RocketSocialLink',
 };

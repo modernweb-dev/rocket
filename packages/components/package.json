@@ -35,6 +35,10 @@
     "./dialog": {
       "types": "./dist-types/dialog/RocketDialog.d.ts",
       "default": "./dialog/RocketDialog.js"
+    },
+    "./*": {
+      "types": "./dist-types/*",
+      "default": "./exports/*"
     }
   },
   "scripts": {
@@ -54,7 +58,7 @@
   "dependencies": {
     "@webcomponents/template-shadowroot": "^0.1.0",
     "fontawesome-free": "^1.0.4",
-    "lit": "^2.0.0"
+    "lit": "^2.2.5"
   },
   "devDependencies": {},
   "types": "./dist-types/src/index.d.ts",

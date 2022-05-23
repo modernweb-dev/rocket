@@ -18,7 +18,7 @@
   "devDependencies": {
     "@rocket/cli": "^0.20.0-alpha.17",
     "@rocket/engine": "^0.1.0-alpha.23",
-    "lit": "^2.0.0"
+    "lit": "^2.2.5"
   },
   "@rocket/template-name": "Blog Starter"
 }

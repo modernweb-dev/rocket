@@ -68,6 +68,7 @@ export function extractStrategies(input) {
       // global events
       case 'onClientLoad':
       case 'onClick':
+      case 'onFocus':
       // element events               eslint fall through
       case 'onHover':
       case 'onMedia':

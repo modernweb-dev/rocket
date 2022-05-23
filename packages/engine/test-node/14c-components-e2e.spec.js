@@ -23,7 +23,34 @@ test.describe('hydration', async () => {
     await cleanup();
   });
 
-  test('51: hydrate onClick', async ({ page }) => {
+  test('50b: hydrate onClientLoad multiple', async ({ page }) => {
+    const { engine, cleanup } = await setupTestEngine(
+      'fixtures/14-components/50b-hydration-onClientLoad-multiple/docs',
+    );
+    await engine.start();
+    const { port } = engine.devServer.config;
+
+    const errors = [];
+    page.on('pageerror', message => {
+      errors.push(message);
+    });
+    await page.goto(`localhost:${port}`);
+
+    const myEl = page.locator('my-el:first-child');
+    const hydrated1 = await myEl.getAttribute('hydrated');
+    expect(hydrated1).toBe(null); // not hydrated
+
+    await page.waitForLoadState('networkidle0');
+
+    const hydrated2 = await myEl.getAttribute('hydrated');
+    expect(hydrated2).toBe(''); // boolean attribute is there
+
+    // check that no "DOMException: Failed to execute 'define' on 'CustomElementRegistry': the name "my-el" has already been used with this registry" occurred
+    expect(errors).toEqual([]);
+    await cleanup();
+  });
+
+  test('51: hydrate onClick && reDispatches click event', async ({ page }) => {
     const { engine, cleanup } = await setupTestEngine(
       'fixtures/14-components/51-hydration-onClick/docs',
     );
@@ -36,11 +63,16 @@ test.describe('hydration', async () => {
     const hydrated1 = await myEl.getAttribute('hydrated');
     expect(hydrated1).toBe(null); // not hydrated
 
-    await myEl.click();
+    // need to manually reach into shadow root as the element is not hydrated
+    const shadowButton = await myEl.locator('.shadow-button');
+    await shadowButton.click();
     await page.waitForLoadState('networkidle0');
 
     const hydrated2 = await myEl.getAttribute('hydrated');
     expect(hydrated2).toBe(''); // boolean attribute is there
+
+    const myElClicked = await myEl.getAttribute('clicked');
+    expect(myElClicked).toBe(''); // boolean attribute is there
 
     await cleanup();
   });
@@ -184,6 +216,34 @@ test.describe('hydration', async () => {
     const hydrated4 = await myEl2.getAttribute('hydrated');
     expect(hydrated4).toBe(''); // boolean attribute is there
 
+    await cleanup();
+  });
+
+  test('56: hydrate onFocus & reDispatch focusin event', async ({ page }) => {
+    const { engine, cleanup } = await setupTestEngine(
+      'fixtures/14-components/56-hydration-onFocus/docs',
+    );
+    await engine.start();
+    const { port } = engine.devServer.config;
+
+    await page.goto(`localhost:${port}`);
+
+    const myEl = await page.locator('my-el');
+    const hydrated1 = await myEl.getAttribute('hydrated');
+    expect(hydrated1).toBe(null); // not hydrated
+
+    // need to manually reach into shadow root as the element is not hydrated
+    const shadowInput = await myEl.locator('.shadow-input');
+    await shadowInput.focus();
+    await page.waitForLoadState('networkidle0');
+
+    const hydrated2 = await myEl.getAttribute('hydrated');
+    expect(hydrated2).toBe(''); // boolean attribute is there
+
+    const focusInEv = await myEl.getAttribute('focusin-ev');
+    expect(focusInEv).toBe('');
+
+    // NOTE: focus event is NOT supported as it does not bubble
     await cleanup();
   });
 });

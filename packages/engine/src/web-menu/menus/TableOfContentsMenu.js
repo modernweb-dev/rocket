@@ -13,9 +13,10 @@ import { nothing } from 'lit';
  * @param {object} options
  * @param {{ text: string; id: string; level: number }[]} options.headlinesWithId
  * @param {TreeModelOfPage} options.treeModel
+ * @param {string} options.sourceRelativeFilePath
  * @returns
  */
-function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
+function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel, sourceRelativeFilePath }) {
   let node;
   let currentLevel = 0;
   if (headlinesWithId && headlinesWithId.length > 0) {
@@ -38,7 +39,7 @@ function headlinesWithIdToTreeModelNode({ headlinesWithId, treeModel }) {
             );
         }
         if (!node) {
-          throw new Error(`Could not find an h1 in "..."`);
+          throw new Error(`Could not find an h1 in ${sourceRelativeFilePath} `);
         }
         if (node) {
           node.addChild(child);
@@ -61,8 +62,6 @@ export class TableOfContentsMenu extends Menu {
     ...this.options,
     navLabel: 'Table of Contents',
     navHeader: html`<h2>Contents</h2>`,
-    /** @param {TemplateResult | nothing} nav */
-    navWrapper: nav => html`<aside>${nav}</aside>`,
   };
 
   /**
@@ -93,16 +92,17 @@ export class TableOfContentsMenu extends Menu {
     const tableOfContentsNode = headlinesWithIdToTreeModelNode({
       headlinesWithId: this.currentNode.model.headlinesWithId,
       treeModel: this.treeModel,
+      sourceRelativeFilePath: this.currentNode.model.sourceRelativeFilePath || 'unknown filepath',
     });
 
     if (tableOfContentsNode && tableOfContentsNode.children.length > 0) {
-      const { navHeader, navLabel, navWrapper } = this.options;
+      const { navHeader, navLabel } = this.options;
 
       const navTemplate = html`
         ${navHeader}
-        <nav aria-label="${navLabel}">${this.list(tableOfContentsNode)}</nav>
+        <nav aria-label="${navLabel}" data-type="toc">${this.list(tableOfContentsNode)}</nav>
       `;
-      return navWrapper(navTemplate);
+      return navTemplate;
     }
     return nothing;
   }

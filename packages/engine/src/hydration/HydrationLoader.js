@@ -22,14 +22,17 @@ export class HydrationLoader {
   }
 
   /**
-   *
    * @param {number} index
    * @param {object} options
-   * @param {Event} [options.ev]
+   * @param {HTMLElement[]} [options.composedPath]
+   * @param {Event} [options.event]
    * @returns {Promise<{ needsCleanup: boolean }>}
    */
-  async checkElement(index, { ev } = {}) {
+  async checkElement(index, { composedPath, event } = {}) {
     const el = this.elements[index];
+    if (el.deleteMe) {
+      return { needsCleanup: true };
+    }
     const allResolveAble = evaluate({
       strategyTemplate: el.strategyTemplate,
       strategies: el.strategies,
@@ -51,11 +54,10 @@ export class HydrationLoader {
         }
       }
 
-      if (ev) {
-        // @ts-ignore
-        const reFire = ev.path[0];
-        if (reFire) {
-          reFire.click();
+      if (composedPath && event) {
+        const reDispatchEl = composedPath[0];
+        if (reDispatchEl) {
+          reDispatchEl.dispatchEvent(event);
         }
       }
 
@@ -149,7 +151,7 @@ export class HydrationLoader {
 
     await this.handleOnVisible();
     await this.handleOnClick();
-
+    await this.handleOnFocus();
     await this.handleOnMedia();
   }
 
@@ -201,7 +203,7 @@ export class HydrationLoader {
       }
       this.setResolveAbleOn(
         { target: ev.target, strategyType: 'onClick', resolveAble: true },
-        { ev },
+        { composedPath: ev.composedPath(), event: ev },
       );
 
       // reset the onClick resolveAble if the click did not resulted in the hydration of the element
@@ -210,6 +212,26 @@ export class HydrationLoader {
           return;
         }
         this.setResolveAbleOn({ target: ev.target, strategyType: 'onClick', resolveAble: false });
+      }, 10);
+    });
+  }
+
+  async handleOnFocus() {
+    document.body.addEventListener('focusin', async ev => {
+      if (!ev.target) {
+        return;
+      }
+      this.setResolveAbleOn(
+        { target: ev.target, strategyType: 'onFocus', resolveAble: true },
+        { composedPath: ev.composedPath(), event: ev },
+      );
+
+      // reset the onFocus resolveAble if the focus did not resulted in the hydration of the element
+      setTimeout(() => {
+        if (!ev.target) {
+          return;
+        }
+        this.setResolveAbleOn({ target: ev.target, strategyType: 'onFocus', resolveAble: false });
       }, 10);
     });
   }

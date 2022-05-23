@@ -5,9 +5,18 @@ export const sourceRelativeFilePath = '10--docs/30--guides/20--social-media.rock
 import { html, layout, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
 export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 export async function registerCustomElements() {
-  // client-only components
-  // 'rocket-search': () => import('@rocket/search/web').then(m => m.RocketSearch),
-  // 'rocket-drawer': () => import('@rocket/drawer').then(m => m.RocketDrawer),
+  // server-only components
+  // prettier-ignore
+  customElements.define('rocket-social-link', await import('@rocket/components/social-link.js').then(m => m.RocketSocialLink));
+  // prettier-ignore
+  customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
+  // prettier-ignore
+  customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
+  // hydrate-able components
+  // prettier-ignore
+  customElements.define('rocket-search', await import('@rocket/search/web').then(m => m.RocketSearch));
+  // prettier-ignore
+  customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
 }
 /* END - Rocket auto generated - do not touch */
 
@@ -73,21 +82,21 @@ export const openGraphLayout = () => html`
       <meta charset="utf-8" />
       <link
         rel="preload"
-        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        href="/fonts/Rubik-VariableFont_wght.woff2"
         as="font"
         type="font/woff2"
         crossorigin
       />
       <style>
         @font-face {
-          font-family: 'Open Sans';
-          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
-            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-family: 'Rubik';
+          src: url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2 supports variations'), url('/fonts/Rubik-VariableFont_wght.woff2')
+              format('woff2-variations');
           font-weight: 1 999;
           font-display: optional;
         }
         body {
-          font-family: 'Open Sans', sans-serif;
+          font-family: 'Rubik', sans-serif;
           background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
           color: #ccc;
           display: block;
@@ -179,21 +188,21 @@ export const openGraphLayout = () => html`
       <meta charset="utf-8" />
       <link
         rel="preload"
-        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        href="/fonts/Rubik-VariableFont_wght.woff2"
         as="font"
         type="font/woff2"
         crossorigin
       />
       <style>
         @font-face {
-          font-family: 'Open Sans';
-          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
-            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-family: 'Rubik';
+          src: url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2 supports variations'), url('/fonts/Rubik-VariableFont_wght.woff2')
+              format('woff2-variations');
           font-weight: 1 999;
           font-display: optional;
         }
         body {
-          font-family: 'Open Sans', sans-serif;
+          font-family: 'Rubik', sans-serif;
           background: conic-gradient(from 90deg at 50% 0%, #111, 50%, #222, #111);
           color: #ccc;
           display: block;
@@ -271,21 +280,21 @@ export const layout = data => html`
       <meta charset="utf-8" />
       <link
         rel="preload"
-        href="/fonts/OpenSans-VariableFont_wdth,wght.woff2"
+        href="/fonts/Rubik-VariableFont_wght.woff2"
         as="font"
         type="font/woff2"
         crossorigin
       />
       <style>
         @font-face {
-          font-family: 'Open Sans';
-          src: url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2 supports variations'),
-            url('/fonts/OpenSans-VariableFont_wdth,wght.woff2') format('woff2-variations');
+          font-family: 'Rubik';
+          src: url('/fonts/Rubik-VariableFont_wght.woff2') format('woff2 supports variations'), url('/fonts/Rubik-VariableFont_wght.woff2')
+              format('woff2-variations');
           font-weight: 1 999;
           font-display: optional;
         }
         body {
-          font-family: 'Open Sans', sans-serif;
+          font-family: 'Rubik', sans-serif;
           margin: 20px;
         }
         h1 {

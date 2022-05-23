@@ -93,6 +93,7 @@ async function renderFile({
         openGraphUrl: url.replace(/\.html$/, '.opengraph.html'),
       };
     }
+    /** @type {import('../../types/layout').renderData} */
     const layoutData = {
       sourceFilePath,
       outputFilePath,
@@ -149,7 +150,9 @@ async function renderFile({
       fileContent = fileContent.trim();
       // remove leading/ending lit markers as with them web dev server falsy thinks this page is a HTML fragment and will not inject websockets
       fileContent = fileContent.replace(/^<!--lit-part.*?-->/gm, '');
-      fileContent = fileContent.replace(/<!--\/lit-part-->$/gm, '');
+      if (fileContent.endsWith('<!--/lit-part-->')) {
+        fileContent = fileContent.substring(0, fileContent.length - '<!--/lit-part-->'.length);
+      }
     } else {
       const error = new Error(
         `The file ${sourceRelativeFilePath} should return a function but returned a ${typeof content}`,
@@ -184,7 +187,9 @@ async function renderFile({
       openGraphHtml = openGraphHtml.trim();
       // remove leading/ending lit markers as with them web dev server falsy thinks this page is a HTML fragment and will not inject websockets
       openGraphHtml = openGraphHtml.replace(/^<!--lit-part.*?-->/gm, '');
-      openGraphHtml = openGraphHtml.replace(/<!--\/lit-part-->$/gm, '');
+      if (fileContent.endsWith('<!--/lit-part-->')) {
+        fileContent = fileContent.substring(0, fileContent.length - '<!--/lit-part-->'.length);
+      }
 
       await writeFile(layoutData.openGraphOutputFilePath, openGraphHtml);
     }
