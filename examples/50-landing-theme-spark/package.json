@@ -19,6 +19,6 @@
   },
   "@rocket/template-name": "Landing Page (Spark Theme)",
   "imports": {
-    "#components/*": "./site/src/components/*.js"
+    "#components/*": "./site/src/components/*"
   }
 }

@@ -38,6 +38,7 @@
     "css",
     "custom-elements.json",
     "dist-types",
+    "exports",
     "src"
   ],
   "keywords": [

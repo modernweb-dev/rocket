@@ -13,31 +13,15 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/",
-  "main": "./src/index.js",
+  "main": "./exports/index.js",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist-types/src/index.d.ts",
-      "default": "./src/index.js"
-    },
-    "./server": {
-      "types": "./dist-types/src/index.server.d.ts",
-      "default": "./src/index.server.js"
-    },
-    "./components": {
-      "types": "./dist-types/src/index.components.d.ts",
-      "default": "./src/index.components.js"
-    },
-    "./components/*": {
-      "types": "./dist-types/src/*.d.ts",
-      "default": "./src/*.js"
-    },
-    "./dialog": {
-      "types": "./dist-types/dialog/RocketDialog.d.ts",
-      "default": "./dialog/RocketDialog.js"
+      "types": "./dist-types/exports/index.d.ts",
+      "default": "./exports/index.js"
     },
     "./*": {
-      "types": "./dist-types/*",
+      "types": "./dist-types/exports/*",
       "default": "./exports/*"
     }
   },
@@ -49,6 +33,7 @@
   },
   "files": [
     "dist-types",
+    "exports",
     "src"
   ],
   "keywords": [
@@ -61,11 +46,11 @@
     "lit": "^2.2.5"
   },
   "devDependencies": {},
-  "types": "./dist-types/src/index.d.ts",
+  "types": "./dist-types/exports/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "./dist-types/src/index.d.ts"
+        "./dist-types/exports/index.d.ts"
       ]
     }
   }

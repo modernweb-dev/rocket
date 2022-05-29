@@ -1,5 +1,5 @@
 import { css } from 'lit';
-import { TheBlock } from '@rocket/components';
+import { TheBlock } from '@rocket/components/the-block.js';
 
 export class BlockBlue extends TheBlock {
   static styles = [

@@ -17,9 +17,9 @@ export class LayoutHome extends Layout {
           type="font/woff2"
           crossorigin
         />
-        <link rel="stylesheet" href="resolve:@rocket/spark/css/fluid-type-scale" />
-        <link rel="stylesheet" href="resolve:@rocket/spark/css/fluid-space" />
-        <link rel="stylesheet" href="resolve:@rocket/spark/css/content" />
+        <link rel="stylesheet" href="resolve:@rocket/spark/css/fluid-type-scale.css" />
+        <link rel="stylesheet" href="resolve:@rocket/spark/css/fluid-space.css" />
+        <link rel="stylesheet" href="resolve:@rocket/spark/css/content.css" />
       `,
     };
   }

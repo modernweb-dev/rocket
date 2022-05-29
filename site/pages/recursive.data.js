@@ -4,8 +4,8 @@ import { mdjsSetupCode } from '@mdjs/core';
 import { footerMenu } from './__shared/footerMenu.js';
 import { pageTree } from './__shared/pageTree.js';
 import { html } from 'lit';
-import { rocketComponents } from '@rocket/components/components';
-import { searchComponents } from '@rocket/search/components';
+import { rocketComponents } from '@rocket/components/components.js';
+import { searchComponents } from '@rocket/search/components.js';
 import htmlHeading from 'rehype-autolink-headings';
 import { search } from './__shared/search.js';
 import { launchComponents } from '@rocket/launch/components.js';
@@ -72,7 +72,6 @@ export const components = {
   ...searchComponents,
   ...launchComponents,
   'my-counter': '#components/MyCounter::MyCounter',
-  // 'rocket-drawer': '@rocket/drawer::RocketDrawer',
 };
 
 export const openGraphLayout = data => html`

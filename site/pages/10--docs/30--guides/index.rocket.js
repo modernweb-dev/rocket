@@ -13,7 +13,7 @@ export async function registerCustomElements() {
   customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
   // hydrate-able components
   // prettier-ignore
-  customElements.define('rocket-search', await import('@rocket/search/web').then(m => m.RocketSearch));
+  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
 }

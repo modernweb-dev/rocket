@@ -6,21 +6,21 @@ export { html, setupUnifiedPlugins, openGraphLayout };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore
-  customElements.define('permanent-notification', await import('@rocket/components/components/PermanentNotification').then(m => m.PermanentNotification));
+  customElements.define('permanent-notification', await import('@rocket/components/permanent-notification.js').then(m => m.PermanentNotification));
   // prettier-ignore
-  customElements.define('block-columns', await import('@rocket/components/components/BlockColumns').then(m => m.BlockColumns));
+  customElements.define('block-columns', await import('@rocket/components/block-columns.js').then(m => m.BlockColumns));
   // prettier-ignore
-  customElements.define('card-icon', await import('@rocket/components/components/CardIcon').then(m => m.CardIcon));
+  customElements.define('card-icon', await import('@rocket/components/card-icon.js').then(m => m.CardIcon));
   // prettier-ignore
-  customElements.define('feature-small', await import('@rocket/components/components/FeatureSmall').then(m => m.FeatureSmall));
+  customElements.define('feature-small', await import('@rocket/components/feature-small.js').then(m => m.FeatureSmall));
   // prettier-ignore
-  customElements.define('block-features', await import('@rocket/spark/components/BlockFeatures').then(m => m.BlockFeatures));
+  customElements.define('block-features', await import('@rocket/spark/block-features.js').then(m => m.BlockFeatures));
   // prettier-ignore
-  customElements.define('testimonial-small', await import('@rocket/components/components/TestimonialSmall').then(m => m.TestimonialSmall));
+  customElements.define('testimonial-small', await import('@rocket/components/testimonial-small.js').then(m => m.TestimonialSmall));
   // prettier-ignore
-  customElements.define('block-blue', await import('@rocket/spark/components/BlockBlue').then(m => m.BlockBlue));
+  customElements.define('block-blue', await import('@rocket/spark/block-blue.js').then(m => m.BlockBlue));
   // prettier-ignore
-  customElements.define('the-block', await import('@rocket/components/components/TheBlock').then(m => m.TheBlock));
+  customElements.define('the-block', await import('@rocket/components/the-block.js').then(m => m.TheBlock));
 }
 /* END - Rocket auto generated - do not touch */
 
@@ -37,7 +37,7 @@ export const layout = new LayoutHome({
   siteName: 'Rocket',
 });
 
-import { sparkComponents } from '@rocket/spark/components';
+import { sparkComponents } from '@rocket/spark/components.js';
 
 export const components = {
   ...originalComponents,
@@ -46,7 +46,7 @@ export const components = {
 
 export default () => html`
   <script type="module">
-    import { RotatingText } from '@rocket/components';
+    import { RotatingText } from '@rocket/components/rotating-text.js';
     customElements.define('rotating-text', RotatingText);
   </script>
 

@@ -11,18 +11,18 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('card-icon', await import('@rocket/components/components/CardIcon').then(m => m.CardIcon));
+  customElements.define('card-icon', await import('@rocket/components/card-icon.js').then(m => m.CardIcon));
   // prettier-ignore
   customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
   // hydrate-able components
   // prettier-ignore
-  customElements.define('rocket-search', await import('@rocket/search/web').then(m => m.RocketSearch));
+  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
 }
 /* END - Rocket auto generated - do not touch */
 
-import { CardIcon } from '@rocket/components/server';
+import { CardIcon } from '@rocket/components/card-icon.js';
 customElements.define('card-icon', CardIcon);
 ```
 

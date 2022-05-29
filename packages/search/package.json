@@ -16,13 +16,11 @@
   "main": "./node.js",
   "type": "module",
   "exports": {
-    ".": "./src/index.node.js",
-    "./node": "./src/index.node.js",
-    "./web": "./src/index.web.js",
+    ".": "./exports/index.js",
     "./define": "./src/define.js",
-    "./components": {
-      "types": "./dist-types/src/index.components.d.ts",
-      "default": "./src/index.components.js"
+    "./*": {
+      "types": "./dist-types/exports/*",
+      "default": "./exports/*"
     }
   },
   "scripts": {
@@ -38,7 +36,7 @@
     "assets",
     "dist",
     "dist-types",
-    "preset",
+    "exports",
     "src"
   ],
   "keywords": [

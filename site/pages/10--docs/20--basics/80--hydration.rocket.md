@@ -11,12 +11,12 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('inline-notification', await import('@rocket/components/components/InlineNotification').then(m => m.InlineNotification));
+  customElements.define('inline-notification', await import('@rocket/components/inline-notification.js').then(m => m.InlineNotification));
   // prettier-ignore
   customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
   // hydrate-able components
   // prettier-ignore
-  customElements.define('rocket-search', await import('@rocket/search/web').then(m => m.RocketSearch));
+  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
   customElements.define('my-counter', await import('#components/MyCounter').then(m => m.MyCounter));

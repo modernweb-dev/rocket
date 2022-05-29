@@ -11,33 +11,31 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('inline-notification', await import('@rocket/components/components/InlineNotification').then(m => m.InlineNotification));
+  customElements.define('inline-notification', await import('@rocket/components/inline-notification.js').then(m => m.InlineNotification));
   // prettier-ignore
   customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
   // hydrate-able components
   // prettier-ignore
-  customElements.define('rocket-search', await import('@rocket/search/web').then(m => m.RocketSearch));
+  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
 }
 /* END - Rocket auto generated - do not touch */
-
-import { InlineNotification } from '@rocket/components';
-customElements.define('inline-notification', InlineNotification);
 ```
 
 # Inline Notification
 
-Launch ships with `<inline-notification>`, a custom element that applies some styles similar to "info boxes".
+Components ships with `<inline-notification>`, a custom element that applies some styles similar to "info boxes".
 
-To add an inline notification you need to import the element definition:
+To add all components to the rocket loader add this to `site/pages/recursive.data.js`:
 
-````md
-```js server
-import { InlineNotification } from '@rocket/components';
-customElements.define('inline-notification', InlineNotification);
+```js
+import { rocketComponents } from '@rocket/components/components.js';
+
+export const components = {
+  ...rocketComponents,
+};
 ```
-````
 
 Then you can add your notification to the page. If you want to write the notification's content using markdown, pad the opening and closing tags with empty lines.
 
