@@ -17,18 +17,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist-types/src/index.d.ts",
-      "default": "./src/index.js"
+      "types": "./dist-types/exports/index.d.ts",
+      "default": "./exports/index.js"
     },
-    "./components": {
-      "types": "./dist-types/src/index.components.d.ts",
-      "default": "./src/index.components.js"
-    },
-    "./components/*": {
-      "types": "./dist-types/src/*.d.ts",
-      "default": "./src/*.js"
-    },
-    "./css/*": "./src/css/*.css"
+    "./css/*": "./src/css/*",
+    "./*": {
+      "types": "./dist-types/exports/*",
+      "default": "./exports/*"
+    }
   },
   "scripts": {
     "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
@@ -36,6 +32,7 @@
   },
   "files": [
     "dist-types",
+    "exports",
     "src"
   ],
   "keywords": [

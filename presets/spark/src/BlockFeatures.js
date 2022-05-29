@@ -1,5 +1,5 @@
 import { css } from 'lit';
-import { BlockColumns } from '@rocket/components';
+import { BlockColumns } from '@rocket/components/block-columns.js';
 
 export class BlockFeatures extends BlockColumns {
   static styles = [

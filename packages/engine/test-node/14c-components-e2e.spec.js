@@ -170,7 +170,7 @@ test.describe('hydration', async () => {
       height: 480,
     });
     await myEl.click();
-    await page.waitForTimeout(100); // TODO: why is this timeout needed?
+    await page.waitForTimeout(150); // TODO: why is this timeout needed?
     await page.waitForLoadState('networkidle0');
 
     const hydrated2 = await myEl.getAttribute('hydrated');

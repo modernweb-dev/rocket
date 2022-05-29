@@ -1,1 +1,1 @@
-export { RocketDrawer } from '../drawer/RocketDrawer.js';
+export { RocketDrawer } from '../src/drawer/RocketDrawer.js';

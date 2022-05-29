@@ -1,3 +1,3 @@
-import { RocketSearch } from './RocketSearch.js';
+import { RocketSearch } from '../src/RocketSearch.js';
 
 customElements.define('rocket-search', RocketSearch);
