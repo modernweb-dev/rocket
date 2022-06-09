@@ -18,7 +18,7 @@ export async function generateGithubActionsDeployment(newFolderPath) {
   const githubDeploymentFileTarget = path.join(
     '.',
     newFolderPath,
-    GITHUB_ACTION_FILE_PATH
+    GITHUB_ACTION_FILE_PATH,
     GITHUB_DEPLOYMENT_FILE_NAME,
   );
   writeFileSync(githubDeploymentFileTarget, githubDeploymentFile);
