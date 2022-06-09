@@ -6,7 +6,9 @@ import { mkdir, readFile } from 'fs/promises';
 import path from 'path';
 import { existsSync } from 'fs';
 import degit from 'degit';
+import { generateGithubActionsDeployment } from './deployment-generator.js';
 
+const EXAMPLES_PATH = `modernweb-dev/rocket/examples/`;
 const program = new Command();
 
 const choices = await readFile(new URL('./choices.json', import.meta.url)).then(res =>
@@ -114,7 +116,7 @@ export class CreateCli {
     let newFolderPath = path.join('.', `rocket-mission`);
     if (choices.find(choice => choice.value === url)) {
       newFolderPath = path.join('.', `rocket-${url}`);
-      url = `modernweb-dev/rocket/examples/${url}#next`;
+      url = `${EXAMPLES_PATH}${url}#next`;
     }
 
     console.log(`${blue('>')} Fueling up the rocket...`);
@@ -167,6 +169,8 @@ export class CreateCli {
         }
       }
     } while (cloneError === true);
+
+    await generateGithubActionsDeployment(EXAMPLES_PATH);
 
     console.log(`${green('✔')} Final checks are green!`);
     console.log('');
