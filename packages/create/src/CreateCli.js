@@ -9,6 +9,7 @@ import degit from 'degit';
 import { generateGithubActionsDeployment } from './deployment-generator.js';
 
 const EXAMPLES_PATH = `modernweb-dev/rocket/examples/`;
+const TARGET_BRANCH = `#next`;
 const program = new Command();
 
 const choices = await readFile(new URL('./choices.json', import.meta.url)).then(res =>
@@ -116,7 +117,7 @@ export class CreateCli {
     let newFolderPath = path.join('.', `rocket-mission`);
     if (choices.find(choice => choice.value === url)) {
       newFolderPath = path.join('.', `rocket-${url}`);
-      url = `${EXAMPLES_PATH}${url}#next`;
+      url = `${EXAMPLES_PATH}${url}${TARGET_BRANCH}`;
     }
 
     console.log(`${blue('>')} Fueling up the rocket...`);
@@ -170,7 +171,7 @@ export class CreateCli {
       }
     } while (cloneError === true);
 
-    await generateGithubActionsDeployment(EXAMPLES_PATH);
+    await generateGithubActionsDeployment(newFolderPath);
 
     console.log(`${green('✔')} Final checks are green!`);
     console.log('');

@@ -1,25 +1,25 @@
-import { existsSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { mkdir } from 'fs/promises';
 import path from 'path';
 import { blue } from 'colorette';
-import degit from 'degit';
 
-const GITHUB_ACTION_FILE_NAME = 'github-build-and-deploy-rocket-action.yml';
+const GITHUB_ACTION_FILE_PATH = '.github/workflows';
+const GITHUB_DEPLOYMENT_FILE_NAME = 'github-build-and-deploy-rocket-action.yml';
+const GITHUB_DEPLOYMENT_FILE_PATH = `./deployments/github-pages/${GITHUB_DEPLOYMENT_FILE_NAME}`;
 
-const degitOptions = {
-  cache: false,
-  force: true,
-  verbose: true,
-};
-
-export async function generateGithubActionsDeployment(templatePath) {
+export async function generateGithubActionsDeployment(newFolderPath) {
   console.log(`${blue('>')} Generating deployment actions...`);
 
-  const githubActionsPath = path.join('.', `.github/workflows`);
-  const gitHandler = degit(templatePath + GITHUB_ACTION_FILE_NAME, degitOptions);
+  const githubActionsPath = path.join(newFolderPath, GITHUB_ACTION_FILE_PATH);
   await createDeploymentsFolder(githubActionsPath);
 
-  await gitHandler.clone(githubActionsPath + '/' + GITHUB_ACTION_FILE_NAME);
+  const githubDeploymentFile = readFileSync(path.join('.', GITHUB_DEPLOYMENT_FILE_PATH));
+
+  const githubDeploymentFileTarget = path.join(
+    '.',
+    `${newFolderPath}/${GITHUB_ACTION_FILE_PATH}/${GITHUB_DEPLOYMENT_FILE_NAME}`,
+  );
+  writeFileSync(githubDeploymentFileTarget, githubDeploymentFile);
 }
 
 async function createDeploymentsFolder(deploymentsPath) {
