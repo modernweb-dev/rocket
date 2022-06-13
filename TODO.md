@@ -1,3 +1,8 @@
+## TODO
+
+- 404 page background images are not being loaded
+- sitemap.xml not deployed on netlify
+
 ## Features
 
 - recursive rendering of lit / html / and markdown
