@@ -334,6 +334,42 @@ describe('Engine Data Cascade', () => {
     );
   });
 
+  it('08b: does not inject imports if the file itself imports the key [md]', async () => {
+    const { build, readSource, writeSource } = await setupTestEngine(
+      'fixtures/01-data-cascade/08b-consider-user-imports-[md]/docs',
+    );
+    await writeSource(
+      'index.rocket.md',
+      [
+        '```js server',
+        '/* START - Rocket auto generated - do not touch */',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        "import { html } from './_dep.js';",
+        '```',
+        '',
+        'index',
+      ].join('\n'),
+    );
+    await build();
+
+    expect(readSource('index.rocket.md')).to.equal(
+      [
+        '```js server',
+        '/* START - Rocket auto generated - do not touch */',
+        "export const sourceRelativeFilePath = 'index.rocket.md';",
+        "import { control } from './recursive.data.js';",
+        'export { control };',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        "import { html } from './_dep.js';",
+        '```',
+        '',
+        'index',
+      ].join('\n'),
+    );
+  });
+
   it('09: only injects into the first header it finds', async () => {
     const { build, readSource, writeSource } = await setupTestEngine(
       'fixtures/01-data-cascade/09-touch-only-first-header/docs',

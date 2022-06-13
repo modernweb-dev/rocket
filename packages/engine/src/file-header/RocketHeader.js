@@ -285,7 +285,7 @@ export class RocketHeader {
     }
 
     if (startIndex >= 0 && endIndex >= 0) {
-      return lines.splice(endIndex + 1).join('\n');
+      return [...lines.slice(0, startIndex), ...lines.slice(endIndex + 1)].join('\n');
     }
     return lines.join('\n');
   }
