@@ -24,5 +24,6 @@ export async function execute(inPath, opts) {
       return newItems;
     },
     errors,
+    testDir,
   };
 }

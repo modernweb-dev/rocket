@@ -1,13 +1,15 @@
 import path from 'path';
 import chalk from 'chalk';
+import levenshtein from './levenshtein.js';
 
 /** @typedef {import('../types/main').Error} Error */
 
 /**
  * @param {Error[]} errors
- * @param {*} relativeFrom
+ * @param {{ relativeFrom?: string; files: string[] }} opts
  */
-export function formatErrors(errors, relativeFrom = process.cwd()) {
+// @ts-expect-error we need empty obj to destructure from
+export function formatErrors(errors, { relativeFrom = process.cwd(), files } = {}) {
   let output = [];
   let number = 0;
   for (const error of errors) {
@@ -41,6 +43,27 @@ export function formatErrors(errors, relativeFrom = process.cwd()) {
       output.push(`  ... ${more} more references to this target`);
     }
     output.push('');
+
+    /**
+     * Also consider finding the updated path. This can be useful when documentation is restructured
+     * For instance, the folder name was changed, but the file name was not.
+     */
+    let suggestion;
+    let lowestScore = -1;
+    files.forEach(file => {
+      const filePathToCompare = file.replace(relativeFrom + '/', '');
+      const score = levenshtein(filePathToCompare, filePath);
+      if (score && (lowestScore === -1 || score < lowestScore)) {
+        lowestScore = score;
+        suggestion = filePathToCompare;
+      }
+    });
+
+    if (suggestion) {
+      output.push(
+        chalk.italic(`Suggestion: did you mean ${chalk.magenta(suggestion)} instead?\n\n`),
+      );
+    }
   }
   return output.join('\n');
 }
