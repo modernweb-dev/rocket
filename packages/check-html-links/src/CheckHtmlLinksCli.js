@@ -75,7 +75,7 @@ export class CheckHtmlLinksCli {
         )} missing reference targets (used by ${referenceCount} links) while checking ${
           files.length
         } files:`,
-        ...formatErrors(errors)
+        ...formatErrors(errors, { files })
           .split('\n')
           .map(line => `  ${line}`),
         `Checking links duration: ${performance[0]}s ${performance[1] / 1000000}ms`,
