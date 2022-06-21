@@ -237,6 +237,38 @@ describe('Engine menus', () => {
     );
   });
 
+  // TODO: implement
+  it.skip('06b: saves objects/arrays containing only string, number, booleans to the pageTree', async () => {
+    const { readSource, build } = await setupTestEngine(
+      'fixtures/05-menu/06b-saves-exports-simple-arrays-objects/docs',
+    );
+    await build();
+
+    expect(readSource('pageTreeData.rocketGenerated.json')).to.equal(
+      JSON.stringify(
+        {
+          h1: 'Welcome',
+          name: 'Welcome',
+          menuLinkText: 'Welcome',
+          url: '/',
+          outputRelativeFilePath: 'index.html',
+          sourceRelativeFilePath: 'index.rocket.js',
+          level: 0,
+          tags: ['web', 'javascript'],
+          publishDate: new Date('2020-10-15'),
+          authors: [
+            {
+              name: 'Thomas',
+              age: 10,
+            },
+          ],
+        },
+        null,
+        2,
+      ),
+    );
+  });
+
   it('07: on file save updates exports to the pageTree', async () => {
     const { readSource, writeSource, anEngineEvent, cleanup, engine, build } =
       await setupTestEngine('fixtures/05-menu/07-update-exports/docs');
