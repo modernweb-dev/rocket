@@ -229,7 +229,7 @@ describe('Engine Data Cascade', () => {
 
   it('06: `local.data.js` overwrites data from `recursive.data.js`', async () => {
     const { build, readSource, writeSource } = await setupTestEngine(
-      'fixtures/01-data-cascade/06-local-overwrite/docs',
+      'fixtures/01-data-cascade/06-overwrite-local/docs',
     );
     await writeSource(
       'index.rocket.js',
@@ -277,6 +277,66 @@ describe('Engine Data Cascade', () => {
         "export const sourceRelativeFilePath = 'components/tabs.rocket.js';",
         "import { fromRoot } from './local.data.js';",
         'export { fromRoot };',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        "import { html } from 'lit';",
+        'export default () => html`components/tabs`;',
+      ].join('\n'),
+    );
+  });
+
+  it('06b: nested `recursive.data.js` overwrites data from `recursive.data.js`', async () => {
+    const { build, readSource, writeSource } = await setupTestEngine(
+      'fixtures/01-data-cascade/06b-overwrite-recursive/docs',
+    );
+    await writeSource(
+      'index.rocket.js',
+      "import { html } from 'lit';\nexport default () => html`index`;",
+    );
+    await writeSource(
+      'components/index.rocket.js',
+      "import { html } from 'lit';\nexport default () => html`components/index`;",
+    );
+    await writeSource(
+      'components/tabs.rocket.js',
+      "import { html } from 'lit';\nexport default () => html`components/tabs`;",
+    );
+    await build();
+
+    expect(readSource('index.rocket.js')).to.equal(
+      [
+        `/* START - Rocket auto generated - do not touch */`,
+        "export const sourceRelativeFilePath = 'index.rocket.js';",
+        "import { fromRoot, overwriteMe } from './recursive.data.js';",
+        'export { fromRoot, overwriteMe };',
+        `/* END - Rocket auto generated - do not touch */`,
+        '',
+        "import { html } from 'lit';",
+        'export default () => html`index`;',
+      ].join('\n'),
+    );
+
+    expect(readSource('components/index.rocket.js')).to.equal(
+      [
+        '/* START - Rocket auto generated - do not touch */',
+        "export const sourceRelativeFilePath = 'components/index.rocket.js';",
+        "import { fromRoot } from '../recursive.data.js';",
+        "import { overwriteMe } from './recursive.data.js';",
+        'export { fromRoot, overwriteMe };',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        "import { html } from 'lit';",
+        'export default () => html`components/index`;',
+      ].join('\n'),
+    );
+
+    expect(readSource('components/tabs.rocket.js')).to.equal(
+      [
+        '/* START - Rocket auto generated - do not touch */',
+        "export const sourceRelativeFilePath = 'components/tabs.rocket.js';",
+        "import { fromRoot } from '../recursive.data.js';",
+        "import { overwriteMe } from './recursive.data.js';",
+        'export { fromRoot, overwriteMe };',
         '/* END - Rocket auto generated - do not touch */',
         '',
         "import { html } from 'lit';",
