@@ -167,7 +167,7 @@ export class RocketHeader {
       const fileDir = path.dirname(this.sourceFilePath);
       if (existsSync(thisAndSubDirsFilePath)) {
         const rel = path.relative(fileDir, thisAndSubDirsFilePath);
-        dataFiles.push({
+        dataFiles.unshift({
           filePath: thisAndSubDirsFilePath,
           exportModuleName: rel.startsWith('.') ? rel : `./${rel}`,
         });
