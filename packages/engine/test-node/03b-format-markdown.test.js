@@ -60,4 +60,23 @@ describe('Format Markdown', () => {
     expect(sourceExists('index-converted-md-source.js')).to.be.true;
     expect(sourceExists('index-converted-md.js')).to.be.true;
   });
+
+  it('06: does not break when escaping ${ in code blocks', async () => {
+    const { build, readOutput } = await setupTestEngine(
+      'fixtures/03b-format-markdown/06-format-js',
+    );
+    await build();
+
+    expect(readOutput('index.html')).to.equal(
+      [
+        '<p>Escape JS</p>',
+        '<pre',
+        '  class="language-js"',
+        '><code class="language-js"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token string">\'one\'</span><span class="token punctuation">;</span>',
+        '<span class="token keyword">const</span> bar <span class="token operator">=</span> html<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&#x3C;p>${foo}&#x3C;/p></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>',
+        '<span class="token keyword">const</span> baz <span class="token operator">=</span> html<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">&#x3C;span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">\\${</span>foo<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&#x3C;/span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>',
+        '</code></pre>',
+      ].join('\n'),
+    );
+  });
 });
