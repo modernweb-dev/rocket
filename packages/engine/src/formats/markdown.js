@@ -13,6 +13,21 @@ import markdown from 'remark-parse';
 import visit from 'unist-util-visit';
 
 /**
+ * @param {string} string
+ * @returns {string}
+ */
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
+const REGEX_REPLACE_ESCAPES = new RegExp(
+  escapeRegExp(
+    '\\\\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>',
+  ),
+  'g',
+);
+
+/**
  * @param {string} mdString
  * @returns {string}
  */
@@ -124,7 +139,15 @@ export async function mdInJsToMdHtmlInJs(toImportFilePath) {
     mdjsScriptTag = [`<script type="module" src="./${mdjsFileName}" mdjs-setup></script>`];
   }
 
-  return [mdjs.html, ...mdjsScriptTag].join('\n');
+  let mdHTML = mdjs.html;
+  // in a js code block that gets highlighted it puts a some html between ${ and the escaping backslash
+  // "\${" becomes "\\<span>...</span>${"
+  // this corrects it - escaped
+  mdHTML = mdHTML.replace(
+    REGEX_REPLACE_ESCAPES,
+    '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">\\\\${</span>',
+  );
+  return [mdHTML, ...mdjsScriptTag].join('\n');
 }
 
 /**
