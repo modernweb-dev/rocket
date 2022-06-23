@@ -24,7 +24,6 @@ import { validateComponentImportString } from '../file-header/validateComponentI
  * @param {string} options.sourceFilePath
  * @param {string} options.outputDir
  * @param {string} options.inputDir
- * @param {Boolean} options.needsLoader
  * @param {Boolean} options.throwOnError
  * @param {'development'|'production'} options.renderMode
  */
@@ -33,7 +32,6 @@ async function renderFile({
   outputDir,
   inputDir,
   renderMode = 'development',
-  needsLoader = false,
   throwOnError = false,
 }) {
   let fileContent = '';
@@ -144,7 +142,7 @@ async function renderFile({
         sourceRelativeFilePath,
         outputRelativeFilePath,
         url,
-        needsLoader,
+        needsLoader: !!data.needsLoader,
       });
 
       fileContent = fileContent.trim();
@@ -181,7 +179,7 @@ async function renderFile({
         sourceRelativeFilePath,
         outputRelativeFilePath: layoutData.openGraphOutputRelativeFilePath,
         url: layoutData.openGraphUrl,
-        needsLoader,
+        needsLoader: false, // open graph is always only server side rendered
       });
 
       openGraphHtml = openGraphHtml.trim();
@@ -223,7 +221,7 @@ async function renderFile({
 
 parentPort?.on('message', message => {
   if (message.action === 'renderFile') {
-    const { sourceFilePath, outputDir, renderMode, inputDir, needsLoader, throwOnError } = message;
-    renderFile({ sourceFilePath, outputDir, renderMode, inputDir, needsLoader, throwOnError });
+    const { sourceFilePath, outputDir, renderMode, inputDir, throwOnError } = message;
+    renderFile({ sourceFilePath, outputDir, renderMode, inputDir, throwOnError });
   }
 });

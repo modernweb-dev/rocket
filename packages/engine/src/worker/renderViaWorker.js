@@ -35,7 +35,6 @@ let isRendering = '';
  * @param {string} options.outputDir
  * @param {string} options.inputDir
  * @param {string} options.renderMode
- * @param {boolean} options.needsLoader
  * @param {boolean} options.throwOnError
  * @returns {Promise<import('../../types/main.js').renderWorkerResult>}
  */
@@ -44,7 +43,6 @@ export function renderViaWorker({
   inputDir,
   outputDir,
   renderMode = 'development',
-  needsLoader = false,
   throwOnError = false,
 }) {
   return new Promise((resolve, reject) => {
@@ -92,7 +90,6 @@ export function renderViaWorker({
         outputDir,
         inputDir,
         renderMode,
-        needsLoader,
         throwOnError,
       });
     });

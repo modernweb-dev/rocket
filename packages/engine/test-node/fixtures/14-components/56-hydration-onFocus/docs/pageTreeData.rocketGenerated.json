@@ -7,5 +7,6 @@
   "level": 0,
   "components": {
     "my-el": "() => import('@test/components').then(m => m.MyEl)"
-  }
+  },
+  "needsLoader": true
 }
