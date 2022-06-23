@@ -81,7 +81,6 @@ export class RocketHeader {
   /** @type {String[]} */
   componentDefinitions = [];
   sourceFileContent = '';
-  needsLoader = false;
 
   /**
    *
@@ -123,12 +122,6 @@ export class RocketHeader {
         dataCascade.push(line);
       }
       if (captureComponents === true) {
-        if (
-          line.trim() === '// hydrate-able components' ||
-          line.trim() === '// client-only components'
-        ) {
-          this.needsLoader = true;
-        }
         componentDefinitions.push(line);
       }
 
@@ -483,6 +476,9 @@ export class RocketHeader {
       clientComponents.unshift('  // client-only components');
     }
 
+    const needsLoader = hydrateAbleComponents.length > 0 || clientComponents.length > 0;
+    const needsLoaderExport = needsLoader ? ['export const needsLoader = true;'] : [];
+
     if (
       serverOnlyComponents.length > 0 ||
       serverOnlyOpenGraphOnlyComponents.length > 0 ||
@@ -496,6 +492,7 @@ export class RocketHeader {
         ...hydrateAbleComponents,
         ...clientComponents,
         '}',
+        ...needsLoaderExport,
       ];
     } else {
       this.componentDefinitions = [];
@@ -503,12 +500,11 @@ export class RocketHeader {
 
     await this.set();
     const result = await this.save();
-    if (hydrateAbleComponents.length > 0 || clientComponents.length > 0) {
-      this.needsLoader = true;
+
+    if (needsLoader) {
       await this.saveHydrationFile({ outputFilePath, componentsWithStrategy });
-    } else {
-      this.needsLoader = false;
     }
+
     return result;
   }
 

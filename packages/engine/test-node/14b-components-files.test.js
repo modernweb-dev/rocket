@@ -54,6 +54,7 @@ describe('Components', () => {
         '  // hydrate-able components',
         "  customElements.define('my-el', await import('@test/components').then(m => m.MyEl));",
         '}',
+        'export const needsLoader = true;',
         '/* END - Rocket auto generated - do not touch */',
         '',
         'export default () => html`<my-el loading="hydrate"></my-el>`;',
@@ -102,6 +103,7 @@ describe('Components', () => {
         '  // client-only components',
         "  // 'my-el2': () => import('@test/components').then(m => m.MyEl2),",
         '}',
+        'export const needsLoader = true;',
         '/* END - Rocket auto generated - do not touch */',
         '',
         'export default () => html`<my-el2 loading="client"></my-el2>`;',
@@ -303,6 +305,7 @@ describe('Components', () => {
         '  // hydrate-able components',
         "  customElements.define('my-el', await import('@test/components').then(m => m.MyEl));",
         '}',
+        'export const needsLoader = true;',
         '/* END - Rocket auto generated - do not touch */',
         '',
         'export default () => html`<my-el loading="hydrate:onClick"></my-el>`;',
@@ -483,5 +486,113 @@ describe('Components', () => {
         'export default () => html`<my-el></my-el>`;',
       ].join('\n'),
     );
+  });
+
+  it('13: during start it handles errors in components', async () => {
+    const {
+      writeSource,
+      cleanup,
+      engine,
+      anEngineEvent,
+      readOutput,
+      adjustSource,
+      setAsOpenedInBrowser,
+      readSource,
+    } = await setupTestEngine('fixtures/14-components/13-start-error-in-component/docs');
+
+    // working component
+    await writeSource(
+      '../src/MyEl.js',
+      [
+        "import { LitElement, html } from 'lit';",
+        '',
+        'export class MyEl extends LitElement {',
+        '  render() {',
+        '    return html`<p>Hello World</p>`;',
+        '  }',
+        '}',
+      ].join('\n'),
+    );
+    await adjustSource(
+      'index.rocket.js',
+      /<my-el loading="hydrate:onVisible">.*?<\/my-el>/,
+      '<my-el loading="hydrate:onVisible">0</my-el>',
+    );
+    await engine.start();
+    setAsOpenedInBrowser('index.rocket.js');
+
+    // trigger render
+    await adjustSource(
+      'index.rocket.js',
+      /<my-el loading="hydrate:onVisible">.*?<\/my-el>/,
+      '<my-el loading="hydrate:onVisible">1</my-el>',
+    );
+    await anEngineEvent('rocketUpdated');
+    expect(readOutput('index.html')).to.equal(
+      [
+        '<my-el loading="hydrate:onVisible"',
+        '  ><template shadowroot="open"><p>Hello World</p></template>1</my-el',
+        '>',
+        '<script type="module" src="index-loader-generated.js"></script>',
+      ].join('\n'),
+    );
+    expect(readSource('index.rocket.js')).to.equal(
+      [
+        '/* START - Rocket auto generated - do not touch */',
+        "export const sourceRelativeFilePath = 'index.rocket.js';",
+        "import { html, components } from './recursive.data.js';",
+        'export { html, components };',
+        'export async function registerCustomElements() {',
+        '  // hydrate-able components',
+        "  customElements.define('my-el', await import('@test/components').then(m => m.MyEl));",
+        '}',
+        'export const needsLoader = true;',
+        '/* END - Rocket auto generated - do not touch */',
+        '',
+        'export default () => html`<my-el loading="hydrate:onVisible">1</my-el>`;',
+      ].join('\n'),
+    );
+
+    // introduce error in component
+    await writeSource(
+      '../src/MyEl.js',
+      [
+        "import { LitElement, html } from 'lit';",
+        '',
+        'export class MyEl extends LitElement {',
+        '  render() {',
+        '    let foo = this.does.not.exist;', // <-- this is the error
+        '    return html`<p>Hello World</p>`;',
+        '  }',
+        '}',
+      ].join('\n'),
+    );
+    await anEngineEvent('rocketUpdated');
+    expect(readOutput('index.html')).to.include('<p>🛑 Server Error 🛑</p>');
+
+    // correct error
+    await writeSource(
+      '../src/MyEl.js',
+      [
+        "import { LitElement, html } from 'lit';",
+        '',
+        'export class MyEl extends LitElement {',
+        '  render() {',
+        '    return html`<p>Hello World</p>`;',
+        '  }',
+        '}',
+      ].join('\n'),
+    );
+    await anEngineEvent('rocketUpdated');
+    expect(readOutput('index.html')).to.equal(
+      [
+        '<my-el loading="hydrate:onVisible"',
+        '  ><template shadowroot="open"><p>Hello World</p></template>1</my-el',
+        '>',
+        '<script type="module" src="index-loader-generated.js"></script>',
+      ].join('\n'),
+    );
+
+    await cleanup();
   });
 });

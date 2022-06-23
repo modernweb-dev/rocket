@@ -8,6 +8,7 @@ export async function registerCustomElements() {
   // client-only components
   // 'my-only': () => import('@test/components/MyOnly').then(m => m.MyOnly),
 }
+export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
 export default () => html`
