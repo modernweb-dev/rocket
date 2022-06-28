@@ -55,7 +55,7 @@
     "rehype-prism": "^1.0.0",
     "rehype-raw": "^5.0.0",
     "rehype-slug": "^4.0.1",
-    "rehype-stringify": "^8.0.0",
+    "rehype-stringify": "^9.0.3",
     "remark": "^13.0.0",
     "remark-gfm": "^1.0.0",
     "remark-parse": "^9.0.0",

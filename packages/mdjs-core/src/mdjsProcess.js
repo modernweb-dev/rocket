@@ -9,7 +9,6 @@ const markdown = require('remark-parse');
 const gfm = require('remark-gfm');
 const remark2rehype = require('remark-rehype');
 const raw = require('rehype-raw');
-const htmlStringify = require('rehype-stringify');
 const htmlSlug = require('rehype-slug');
 const htmlHeading = require('rehype-autolink-headings');
 // @ts-ignore
@@ -37,8 +36,6 @@ const defaultMetaPlugins = [
   { plugin: htmlSlug, options: {} },
   // @ts-ignore
   { plugin: htmlHeading, options: {} },
-  // @ts-ignore
-  { plugin: htmlStringify, options: {} },
 ];
 
 /**
@@ -54,6 +51,9 @@ const defaultMetaPlugins = [
  */
 async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
   const parser = unified();
+  const htmlStringifyImport = await import('rehype-stringify');
+  const htmlStringify = htmlStringifyImport.default;
+  defaultMetaPlugins.push({ plugin: htmlStringify, options: {} });
   if (!prismLoaded) {
     prismLoaded = true;
     const rehypePrism = (await import('rehype-prism/lib/src/index.js')).default;

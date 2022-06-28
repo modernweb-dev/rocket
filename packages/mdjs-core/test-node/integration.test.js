@@ -3,7 +3,6 @@
 const unified = require('unified');
 const markdown = require('remark-parse');
 const remark2rehype = require('remark-rehype');
-const htmlStringify = require('rehype-stringify');
 const htmlSlug = require('rehype-slug');
 const htmlHeading = require('rehype-autolink-headings');
 const raw = require('rehype-raw');
@@ -56,6 +55,9 @@ describe('Integration', () => {
       '',
       '</mdjs-preview>',
     ];
+
+    const htmlStringifyImport = await import('rehype-stringify');
+    const htmlStringify = htmlStringifyImport.default;
 
     const parser = unified()
       .use(markdown)
