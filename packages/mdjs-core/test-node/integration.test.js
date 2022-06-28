@@ -1,22 +1,20 @@
 /* eslint-disable no-template-curly-in-string */
 
-const unified = require('unified');
-const markdown = require('remark-parse');
-const remark2rehype = require('remark-rehype');
-const htmlStringify = require('rehype-stringify');
-const htmlSlug = require('rehype-slug');
-const htmlHeading = require('rehype-autolink-headings');
-const raw = require('rehype-raw');
+import { unified } from 'unified';
+import markdown from 'remark-parse';
+import remark2rehype from 'remark-rehype';
+import htmlStringify from 'rehype-stringify';
+import htmlSlug from 'rehype-slug';
+import htmlHeading from 'rehype-autolink-headings';
+import raw from 'rehype-raw';
 
-const mdSlug = require('remark-slug');
-const mdHeadings = require('remark-autolink-headings');
-const mdStringify = require('remark-html');
+import mdSlug from 'remark-slug';
+import mdHeadings from 'remark-autolink-headings';
+import mdStringify from 'remark-html';
 
-const chai = require('chai');
-const { mdjsParse } = require('../src/mdjsParse.js');
-const { mdjsStoryParse } = require('../src/mdjsStoryParse.js');
-
-const { expect } = chai;
+import { expect } from 'chai';
+import { mdjsParse } from '../src/mdjsParse.js';
+import { mdjsStoryParse } from '../src/mdjsStoryParse.js';
 
 /** @typedef {import("../src/mdjsParse.js").MDJSVFileData} MDJSVFileData */
 
@@ -67,8 +65,8 @@ describe('Integration', () => {
       .use(htmlHeading)
       .use(htmlStringify);
     const result = await parser.process(input);
-    if (result.contents instanceof Buffer) throw new Error('contents should not be a buffer');
-    expect(result.contents.split('\n')).to.deep.equal(expected);
+    if (result.value instanceof Buffer) throw new Error('contents should not be a buffer');
+    expect(result.value.split('\n')).to.deep.equal(expected);
     expect(/** @type {MDJSVFileData} */ (result.data).jsCode).to.equal('const bar = 22;');
   });
 
@@ -108,7 +106,7 @@ describe('Integration', () => {
       .use(mdHeadings)
       .use(mdStringify, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(expected);
+    expect(result.value).to.equal(expected);
     expect(/** @type {MDJSVFileData} */ (result.data).stories).to.deep.equal([
       {
         key: 'fooStory',

@@ -11,7 +11,7 @@ import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
 import { addPlugin } from 'plugins-manager';
 import markdown from 'remark-parse';
-import visit from 'unist-util-visit';
+import { visit } from 'unist-util-visit';
 
 /**
  * @param {string} string

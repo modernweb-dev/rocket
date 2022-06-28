@@ -1,13 +1,11 @@
 /* eslint-disable no-template-curly-in-string */
 
-const unified = require('unified');
-const markdown = require('remark-parse');
-const html = require('remark-html');
+import { unified } from 'unified';
+import markdown from 'remark-parse';
+import html from 'remark-html';
+import { mdjsStoryParse } from '../src/mdjsStoryParse.js';
 
-const chai = require('chai');
-const { mdjsStoryParse } = require('../src/mdjsStoryParse.js');
-
-const { expect } = chai;
+import { expect } from 'chai';
 
 /** @typedef {import("../src/mdjsParse.js").MDJSVFileData} MDJSVFileData */
 
@@ -63,7 +61,7 @@ describe('mdjsStoryParse', () => {
 
     const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(expected);
+    expect(result.value).to.equal(expected);
     expect(/** @type {MDJSVFileData} */ (result.data).stories).to.deep.equal([
       {
         key: 'fooStory',
@@ -112,7 +110,7 @@ describe('mdjsStoryParse', () => {
       })
       .use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(expected);
+    expect(result.value).to.equal(expected);
   });
 
   it('will wrap following story-code blocks', async () => {
@@ -150,7 +148,7 @@ describe('mdjsStoryParse', () => {
 
     const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(expected);
+    expect(result.value).to.equal(expected);
   });
 
   it('will wrap following story-code blocks also for html stories', async () => {
@@ -188,7 +186,7 @@ describe('mdjsStoryParse', () => {
 
     const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(expected);
+    expect(result.value).to.equal(expected);
   });
 
   it('will wrap only following story-code blocks', async () => {
@@ -244,6 +242,6 @@ describe('mdjsStoryParse', () => {
 
     const parser = unified().use(markdown).use(mdjsStoryParse).use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(expected);
+    expect(result.value).to.equal(expected);
   });
 });

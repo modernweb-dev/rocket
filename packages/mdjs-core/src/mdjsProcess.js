@@ -4,21 +4,23 @@
 /** @typedef {import('../types/code').ProcessResult} ProcessResult */
 /** @typedef {import('../types/code').MdjsProcessPlugin} MdjsProcessPlugin */
 
-const unified = require('unified');
-const markdown = require('remark-parse');
-const gfm = require('remark-gfm');
-const remark2rehype = require('remark-rehype');
-const raw = require('rehype-raw');
-const htmlStringify = require('rehype-stringify');
-const htmlSlug = require('rehype-slug');
-const htmlHeading = require('rehype-autolink-headings');
+import { unified } from 'unified';
+import markdown from 'remark-parse';
+import gfm from 'remark-gfm';
+import remark2rehype from 'remark-rehype';
+import raw from 'rehype-raw';
+import htmlSlug from 'rehype-slug';
+import htmlHeading from 'rehype-autolink-headings';
+import htmlStringify from 'rehype-stringify';
 // @ts-ignore
-const { executeSetupFunctions } = require('plugins-manager');
-const loadLanguages = require('prismjs/components/');
+import { executeSetupFunctions } from 'plugins-manager';
+import { mdjsParse } from './mdjsParse.js';
+import { mdjsStoryParse } from './mdjsStoryParse.js';
+import { mdjsSetupCode } from './mdjsSetupCode.js';
 
-const { mdjsParse } = require('./mdjsParse.js');
-const { mdjsStoryParse } = require('./mdjsStoryParse.js');
-const { mdjsSetupCode } = require('./mdjsSetupCode.js');
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const loadLanguages = require('prismjs/components/');
 
 let prismLoaded = false;
 
@@ -52,7 +54,7 @@ const defaultMetaPlugins = [
  * @param {function[]} [options.setupUnifiedPlugins]
  * @param {MdjsProcessPlugin[]} [options.plugins] deprecated option use setupUnifiedPlugins instead
  */
-async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
+export async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
   const parser = unified();
   if (!prismLoaded) {
     prismLoaded = true;
@@ -74,9 +76,5 @@ async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
 
   const { stories, setupJsCode } = result.data;
 
-  return { stories, jsCode: setupJsCode, html: result.contents };
+  return { stories, jsCode: setupJsCode, html: result.value };
 }
-
-module.exports = {
-  mdjsProcess,
-};

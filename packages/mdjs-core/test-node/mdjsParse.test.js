@@ -1,11 +1,9 @@
-const unified = require('unified');
-const markdown = require('remark-parse');
-const html = require('remark-html');
+import { unified } from 'unified';
+import markdown from 'remark-parse';
+import html from 'remark-html';
+import { mdjsParse } from '../src/mdjsParse.js';
 
-const chai = require('chai');
-const { mdjsParse } = require('../src/mdjsParse.js');
-
-const { expect } = chai;
+import { expect } from 'chai';
 
 /** @typedef {import("../src/mdjsParse.js").MDJSVFileData} MDJSVFileData */
 
@@ -22,7 +20,7 @@ describe('mdjsParse', () => {
     ].join('\n');
     const parser = unified().use(markdown).use(mdjsParse).use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(
+    expect(result.value).to.equal(
       '<h2>Intro</h2>\n<pre><code class="language-js">const foo = 1;\n</code></pre>\n',
     );
     expect(/** @type {MDJSVFileData} */ (result.data).jsCode).to.equal('const bar = 22;');
@@ -40,7 +38,7 @@ describe('mdjsParse', () => {
     ].join('\n');
     const parser = unified().use(markdown).use(mdjsParse).use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal(
+    expect(result.value).to.equal(
       '<h2>Intro</h2>\n<pre><code class="language-js">const foo = 1;\n</code></pre>\n',
     );
     expect(/** @type {MDJSVFileData} */ (result.data).jsCode).to.equal('const bar = 22;');
@@ -56,7 +54,7 @@ describe('mdjsParse', () => {
     ].join('\n');
     const parser = unified().use(markdown).use(mdjsParse).use(html, { sanitize: false });
     const result = await parser.process(input);
-    expect(result.contents).to.equal('');
+    expect(result.value).to.equal('');
     expect(/** @type {MDJSVFileData} */ (result.data).jsCode).to.equal('const bar = 22;');
   });
 });

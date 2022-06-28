@@ -1,11 +1,11 @@
-const { mdjsProcess } = require('./mdjsProcess.js');
+import { mdjsProcess } from './mdjsProcess.js';
 
 /**
  *
  * @param {string} body
  * @returns {Promise<string>}
  */
-async function mdjsDocPage(body) {
+export async function mdjsDocPage(body) {
   const data = await mdjsProcess(body);
   return `
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -92,7 +92,3 @@ async function mdjsDocPage(body) {
     </div>
   `;
 }
-
-module.exports = {
-  mdjsDocPage,
-};
