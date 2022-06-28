@@ -27,11 +27,3 @@ declare module 'rehype-autolink-headings' {
 
   export = unified.Plugin;
 }
-
-declare module 'unist-util-remove' {
-  import unified from 'unified';
-
-  function remove(ast: unified.Node, opts: any, test?: any): unified.Node;
-
-  export = remove;
-}

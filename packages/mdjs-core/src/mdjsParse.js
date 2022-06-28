@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-const visit = require('unist-util-visit');
-// @ts-ignore
-const remove = require('unist-util-remove');
+import { visit } from 'unist-util-visit';
+import { remove } from 'unist-util-remove';
 
 /** @typedef {import('vfile').VFileOptions} VFileOptions */
 /** @typedef {import('unist').Node} Node */
 
-function mdjsParse() {
+export function mdjsParse() {
   let jsCode = '';
 
   /**
@@ -14,26 +12,37 @@ function mdjsParse() {
    * @param {VFileOptions} file
    */
   function transformer(tree, file) {
-    visit(tree, 'code', node => {
-      if (node.lang === 'js' && node.meta === 'script') {
-        jsCode += node.value;
-      }
-      if (node.lang === 'js' && node.meta === 'client') {
-        jsCode += node.value;
-      }
-    });
+    visit(
+      tree,
+      'code',
+      /** @param {Node & {[key: string]: unknown;}} node */ node => {
+        if (node.lang === 'js' && node.meta === 'script') {
+          jsCode += node.value;
+        }
+        if (node.lang === 'js' && node.meta === 'client') {
+          jsCode += node.value;
+        }
+      },
+    );
     // we can only return/modify the tree but jsCode should not be part of the tree
     // so we attach it globally to the file.data
     // eslint-disable-next-line no-param-reassign
+    if (!file.data) {
+      file.data = {};
+    }
     file.data.jsCode = jsCode;
 
     /**
      * @param {Node} node
      */
-    const removeFunction = node =>
-      node.type === 'code' &&
-      node.lang === 'js' &&
-      (node.meta === 'script' || node.meta === 'client');
+    const removeFunction = node => {
+      const _node = /** @type {Node & {[key: string]: unknown;}} */ (node);
+      return (
+        _node.type === 'code' &&
+        _node.lang === 'js' &&
+        (_node.meta === 'script' || _node.meta === 'client')
+      );
+    };
     remove(tree, removeFunction);
 
     return tree;
@@ -41,7 +50,3 @@ function mdjsParse() {
 
   return transformer;
 }
-
-module.exports = {
-  mdjsParse,
-};

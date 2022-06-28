@@ -4,7 +4,7 @@
  * @param {string} text
  * @returns {boolean}
  */
-function isMdjsContent(text) {
+export function isMdjsContent(text) {
   if (!text) {
     return false;
   }
@@ -18,7 +18,3 @@ function isMdjsContent(text) {
       return false;
   }
 }
-
-module.exports = {
-  isMdjsContent,
-};
