@@ -1,5 +1,5 @@
-const path = require('path');
-const slash = require('slash');
+import path from 'path';
+import slash from 'slash';
 
 /** @typedef {import('vfile').VFileOptions} VFileOptions */
 /** @typedef {import('unist').Node} Node */
@@ -22,7 +22,7 @@ const slash = require('slash');
  * @param {rocketConfig} [options.rocketConfig]
  * @returns
  */
-function mdjsSetupCode({
+export function mdjsSetupCode({
   rootNodeQueryCode = 'document',
   simulationSettings = {},
   rocketConfig = {},
@@ -43,11 +43,13 @@ function mdjsSetupCode({
    * @param {VFileOptions} file
    */
   async function transformer(tree, file) {
+    if (!file.data) {
+      file.data = {};
+    }
     const { stories, jsCode } = file.data;
-
     file.data.setupJsCode = jsCode;
 
-    if (stories && stories.length > 0) {
+    if (Array.isArray(stories) && stories.length > 0) {
       const storiesCode = stories.map(/** @param {Story} story */ story => story.code).join('\n');
 
       const invokeStoriesCode = [];
@@ -86,7 +88,3 @@ function mdjsSetupCode({
 
   return transformer;
 }
-
-module.exports = {
-  mdjsSetupCode,
-};

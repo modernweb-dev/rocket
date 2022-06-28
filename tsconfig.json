@@ -8,6 +8,9 @@
       "path": "./packages/plugins-manager/tsconfig.json"
     },
     {
+      "path": "./packages/mdjs-core/tsconfig.json"
+    },
+    {
       "path": "./packages/engine/tsconfig.json"
     },
     {

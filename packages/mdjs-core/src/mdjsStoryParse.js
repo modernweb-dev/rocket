@@ -6,8 +6,8 @@
 /** @typedef {import('unist').Parent} UnistParent */
 /** @typedef {import('vfile').VFileOptions} VFileOptions */
 
-const visit = require('unist-util-visit');
-const { init, parse } = require('es-module-lexer');
+import { visit } from 'unist-util-visit';
+import { init, parse } from 'es-module-lexer';
 
 /**
  * @typedef {object} MDJSNodeProperties
@@ -50,7 +50,7 @@ function defaultPreviewStoryTag(name) {
  * @param {TagFunction} [arg.previewStoryTag]
  * @param {number} [arg.counter]
  */
-function mdjsStoryParse({
+export function mdjsStoryParse({
   storyTag = defaultStoryTag,
   previewStoryTag = defaultPreviewStoryTag,
 } = {}) {
@@ -61,11 +61,12 @@ function mdjsStoryParse({
   /* eslint-disable no-param-reassign */
 
   /**
-   * @param {UnistNode} node
+   * @param {UnistNode} _node
    * @param {number} index
    * @param {UnistParent} parent
    */
-  const nodeCodeVisitor = (node, index, parent) => {
+  const nodeCodeVisitor = (_node, index, parent) => {
+    let node = /** @type {UnistNode & {[key: string]: unknown}} */ (_node);
     if (node.lang === 'js' && node.meta === 'story' && typeof node.value === 'string') {
       const storyData = extractStoryData(node.value);
       node.type = 'html';
@@ -80,12 +81,17 @@ function mdjsStoryParse({
 
         const inside = [node];
         let skipAmount = 1;
-        const next = parent.children[index + 1];
+
+        const next = /** @type {UnistNode & {[key: string]: unknown}} */ (
+          parent.children[index + 1]
+        );
         if (next && next.type === 'code' && next.meta === 'story-code') {
           inside.push(next);
           skipAmount += 1;
 
-          const next2 = parent.children[index + 2];
+          const next2 = /** @type {UnistNode & {[key: string]: unknown}} */ (
+            parent.children[index + 2]
+          );
           if (next2 && next2.type === 'code' && next2.meta === 'story-code') {
             inside.push(next2);
             skipAmount += 1;
@@ -132,12 +138,16 @@ function mdjsStoryParse({
         const tagParts = newValue.split('[[CODE SLOT]]');
         const inside = [node];
         let skipAmount = 1;
-        const next = parent.children[index + 1];
+        const next = /** @type {UnistNode & {[key: string]: unknown}} */ (
+          parent.children[index + 1]
+        );
         if (next && next.type === 'code' && next.meta === 'story-code') {
           inside.push(next);
           skipAmount += 1;
 
-          const next2 = parent.children[index + 2];
+          const next2 = /** @type {UnistNode & {[key: string]: unknown}} */ (
+            parent.children[index + 2]
+          );
           if (next2 && next2.type === 'code' && next2.meta === 'story-code') {
             inside.push(next2);
             skipAmount += 1;
@@ -176,6 +186,9 @@ function mdjsStoryParse({
     visit(tree, 'code', nodeCodeVisitor);
     // we can only return/modify the tree but stories should not be part of the tree
     // so we attach it globally to the file.data
+    if (!file.data) {
+      file.data = {};
+    }
     file.data.stories = stories;
 
     return tree;
@@ -184,7 +197,3 @@ function mdjsStoryParse({
   return transformer;
   /* eslint-enable no-param-reassign */
 }
-
-module.exports = {
-  mdjsStoryParse,
-};

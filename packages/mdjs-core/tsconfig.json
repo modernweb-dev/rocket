@@ -3,7 +3,7 @@
 {
   "extends": "../../tsconfig.node-base.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ESNext",
     "outDir": "./dist-types",
     "rootDir": ".",
     "composite": true,

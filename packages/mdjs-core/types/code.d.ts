@@ -23,7 +23,7 @@ export interface ProcessResult {
 }
 
 export interface ParseResult {
-  contents: string;
+  value: string;
   data: {
     stories: Story[];
     jsCode: string;

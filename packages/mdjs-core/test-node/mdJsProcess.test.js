@@ -1,12 +1,10 @@
 /* eslint-disable no-template-curly-in-string */
+import { adjustPluginOptions } from 'plugins-manager';
+import { mdjsProcess } from '../src/mdjsProcess.js';
+import { mdjsSetupCode } from '../src/mdjsSetupCode.js';
+import { mdjsStoryParse } from '../src/mdjsStoryParse.js';
 
-const chai = require('chai');
-const { adjustPluginOptions } = require('plugins-manager');
-const { mdjsProcess } = require('../src/mdjsProcess.js');
-const { mdjsSetupCode } = require('../src/mdjsSetupCode.js');
-const { mdjsStoryParse } = require('../src/mdjsStoryParse.js');
-
-const { expect } = chai;
+import { expect } from 'chai';
 
 describe('mdjsProcess', () => {
   const input = [
@@ -68,7 +66,6 @@ describe('mdjsProcess', () => {
     ].join('\n');
 
     const result = await mdjsProcess(input);
-
     expect(result.html).to.equal(expected);
     expect(result.jsCode).to.equal(expectedJsCode);
   });

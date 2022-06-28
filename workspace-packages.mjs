@@ -6,7 +6,7 @@ const packages = [
   { name: 'search', type: 'js', environment: 'node-esm' },
   // { name: 'check-html-links', type: 'js', environment: 'node-esm' },
   // { name: 'drawer', type: 'js', environment: 'browser' },
-  // { name: 'mdjs-core', type: 'js', environment: 'node' },
+  { name: 'mdjs-core', type: 'js', environment: 'node-esm' },
   // { name: 'mdjs-preview', type: 'js', environment: 'browser' },
   // { name: 'mdjs-story', type: 'js', environment: 'browser' },
 ];
