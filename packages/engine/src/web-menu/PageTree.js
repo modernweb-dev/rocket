@@ -64,6 +64,24 @@ function hasSameModelValues(aModel, bModel) {
   return true;
 }
 
+const regexISODate =
+  /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])([T\s](([01]\d|2[0-3]):[0-5]\d|24:00)(:[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?$/;
+
+/**
+ * @param {string} key
+ * @param {string} value
+ * @returns {string | Date}
+ */
+function JSONDateRestoreParser(key, value) {
+  if (typeof value === 'string') {
+    // is ISO-formatted string?
+    if (regexISODate.exec(value)) {
+      return new Date(value);
+    }
+  }
+  return value;
+}
+
 /**
  * @param {TreeModelOfPage} a
  * @param {TreeModelOfPage} b
@@ -223,7 +241,7 @@ export class PageTree {
     const dataFilePath = _dataFilePath instanceof URL ? _dataFilePath.pathname : _dataFilePath;
     if (existsSync(dataFilePath)) {
       const content = await readFile(dataFilePath);
-      const obj = JSON.parse(content.toString());
+      const obj = JSON.parse(content.toString(), JSONDateRestoreParser);
       this.tree = this.treeModel.parse(obj);
     }
   }

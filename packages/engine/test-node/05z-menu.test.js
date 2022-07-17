@@ -237,8 +237,7 @@ describe('Engine menus', () => {
     );
   });
 
-  // TODO: implement
-  it.skip('06b: saves objects/arrays containing only string, number, booleans to the pageTree', async () => {
+  it('06b: saves objects/arrays containing only string, number, booleans to the pageTree', async () => {
     const { readSource, build } = await setupTestEngine(
       'fixtures/05-menu/06b-saves-exports-simple-arrays-objects/docs',
     );
@@ -254,18 +253,61 @@ describe('Engine menus', () => {
           outputRelativeFilePath: 'index.html',
           sourceRelativeFilePath: 'index.rocket.js',
           level: 0,
-          tags: ['web', 'javascript'],
-          publishDate: new Date('2020-10-15'),
           authors: [
             {
               name: 'Thomas',
               age: 10,
             },
           ],
+          extras: {
+            flag: true,
+          },
+          tags: ['web', 'javascript'],
         },
         null,
         2,
       ),
+    );
+  });
+
+  it('06c: saves & restores Dates to the pageTree', async () => {
+    const { readSource, readOutput, build } = await setupTestEngine(
+      'fixtures/05-menu/06c-saves-exports-dates/docs',
+    );
+    await build();
+
+    expect(readSource('pageTreeData.rocketGenerated.json')).to.equal(
+      JSON.stringify(
+        {
+          h1: 'Welcome',
+          name: 'Welcome',
+          menuLinkText: 'Welcome',
+          url: '/',
+          outputRelativeFilePath: 'index.html',
+          sourceRelativeFilePath: 'index.rocket.js',
+          level: 0,
+          authors: [
+            {
+              birthDate: '2000-01-01T00:00:00.000Z',
+            },
+          ],
+          dates: ['2002-01-01T00:00:00.000Z', '2003-01-01T00:00:00.000Z'],
+          extras: {
+            flagDate: '2001-01-01T00:00:00.000Z',
+          },
+          publishDate: '2004-01-01T00:00:00.000Z',
+        },
+        null,
+        2,
+      ),
+    );
+
+    expect(readOutput('index.html')).to.equal(
+      [
+        //
+        '<h1>Welcome</h1>',
+        '<p>1/1/2004</p>',
+      ].join('\n'),
     );
   });
 
