@@ -1,12 +1,55 @@
+```js server
+/* START - Rocket auto generated - do not touch */
+export const sourceRelativeFilePath = '40--blog/004--enable-progressive-hydration/index.rocket.md';
+import { html, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
+import { layout } from '../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('rocket-social-link', await import('@rocket/components/social-link.js').then(m => m.RocketSocialLink));
+  // prettier-ignore
+  customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
+  // prettier-ignore
+  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  // prettier-ignore
+  customElements.define('launch-blog-details', await import('@rocket/launch/blog-details.js').then(m => m.LaunchBlogDetails));
+  // prettier-ignore
+  customElements.define('main-content', await import('@rocket/components/main-content.js').then(m => m.MainContent));
+  // hydrate-able components
+  // prettier-ignore
+  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
+  // prettier-ignore
+  customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
+}
+export const needsLoader = true;
+/* END - Rocket auto generated - do not touch */
+
+import { thomas } from '../../../src/data/authors.js';
+
+export const publishDate = new Date('2022-04-27');
+export const description =
+  'Rocket improves the way it handles web components which means that it can maintain a list of available tag names and which means it can automatically injects imports as needed. Ultimately this enables progressive hydration of your web components.';
+
+export const tags = ['rocket', 'javascript', 'node', 'SSG'];
+export const authors = [thomas];
+```
+
+# Enable Progressive Hydration
+
 🚨 Feature Alert 🚨
 
 Rocket improves the way it handles web components 🎉
 
-➡️ maintain a list of available tag names and it's imports
-➡️ automatically injects imports as needed
-➡️ enables progressive hydration 💪
+➡️ maintain a list of available tag names and it's imports <br>
+➡️ automatically injects imports as needed <br>
+➡️ enables progressive hydration 💪 <br>
 
 How does it work? 👇
+
+<video controls>
+  <source src="./hydration-intro.mp4" type="video/mp4">
+</video>
 
 ---
 
@@ -34,11 +77,10 @@ export class HelloWave extends LitElement {
 
 ---
 
-We then add it to the rocket components object in the format of
-'tag-name': 'bare-import::ClassName'
+We then add it to the rocket components object in the format of `'tag-name': 'bare-import::ClassName'`
 
-➡️ It needs to be a bare import as we do not know in which file it will be imported
-➡️ A separating entrypoint for each class allows us to load them individually
+➡️ It needs to be a bare import as we do not know in which file it will be imported <br>
+➡️ A separating entrypoint for each class allows us to load them individually <br>
 
 👉 `data/pages/recursive.data.js`
 
@@ -52,9 +94,9 @@ export const components = {
 
 Now we can start using the component on our pages.
 
-➡️ Save our file
-➡️ Component Registration gets injected
-➡️ Component gets server rendered to Declarative Shadow DOM
+➡️ Save our file <br>
+➡️ Component Registration gets injected <br>
+➡️ Component gets server rendered to Declarative Shadow DOM <br>
 
 PS: adding component registration to the page had was inspired by a discussion with @fcamblor 🙇‍♂️
 
@@ -109,9 +151,9 @@ Thats it! 🎉
 
 For components that only require styles and no interactivity we are done.
 
-➡️ The HTML output works without any JavaScript
-➡️ It's crystal clear which components are used on the page
-➡️ You do not need to hand write the imports
+➡️ The HTML output works without any JavaScript <br>
+➡️ It's crystal clear which components are used on the page <br>
+➡️ You do not need to hand write the imports <br>
 
 So are we done? 🤔
 
@@ -120,8 +162,8 @@ So are we done? 🤔
 Actually - this is where the fun starts 🎉
 
 Let's add a more interactive element
-✍️ a type writer effect
-🔼 with a counter 🤯
+✍️ a type writer effect <br>
+🔼 with a counter 🤯 <br>
 
 👉 `site/src/components/HelloTyper.js`
 
@@ -186,9 +228,9 @@ export class HelloTyper extends LitElement {
 
 Now if we add this to our page we get...
 
-✅ our component rendered
-❌ ...with no typing effect
-❌ ...and with a button that is not doing anything
+✅ our component rendered <br>
+❌ ...with no typing effect <br>
+❌ ...and with a button that is not doing anything <br>
 
 👉 `site/pages/index.rocket.js`
 
@@ -243,12 +285,14 @@ export default () => html`
 
 This however has a few downsides:
 
-➡️ component does not get rendered initially but only after loading is done
-➡️ brings a layout shift
-➡️ delays initial render
-➡️ requires search engines to execute JS to see the content (some do, some don't)
+➡️ component does not get rendered initially but only after loading is done <br>
+➡️ brings a layout shift <br>
+➡️ delays initial render <br>
+➡️ requires search engines to execute JS to see the content (some do, some don't) <br>
 
-<video src="./typer-client.mp4"></video>
+<video controls>
+  <source src="./typer-client.mp4" type="video/mp4">
+</video>
 
 ---
 
@@ -256,17 +300,17 @@ Or we do ✨ Progressive Hydration ✨
 
 Progressive stands for?
 
-➡️ Start with 0 JavaScript of components
-➡️ Load components as needed
+➡️ Start with 0 JavaScript of components <br>
+➡️ Load components as needed <br>
 
 ---
 
 Hydrations stands for?
 
-1️⃣ Server render (ships HTML with Declarative Shadow Dom)
-2️⃣ Client loads the components JS Code (as needed)
-3️⃣ Rerender the component (sync DOM/JS - no change)
-4️⃣ Now the component can be interacted with
+1️⃣ Server render (ships HTML with Declarative Shadow Dom) <br>
+2️⃣ Client loads the components JS Code (as needed) <br>
+3️⃣ Rerender the component (sync DOM/JS - no change) <br>
+4️⃣ Now the component can be interacted with <br>
 
 ---
 
@@ -293,21 +337,23 @@ export default () => html`
 
 By hydrating our component as soon as it becomes visible we get
 
-➡️ component getting rendered as static content
-➡️ no layout shift or delayed render
-➡️ interactive components as loading conditions are met
+➡️ component getting rendered as static content <br>
+➡️ no layout shift or delayed render <br>
+➡️ interactive components as loading conditions are met <br>
 
-<video src="./typer-hydration.mp4"></video>
+<video controls>
+  <source src="./typer-hydration.mp4" type="video/mp4">
+</video>
 
 ---
 
 There are multiple conditions you can combine to get the best loading strategy for your use case:
-➡️ media query (screen size, reduced motion, ...)
-➡️ client load
-➡️ click
-➡️ visible
-➡️ idle
-➡️ ...
+➡️ media query (screen size, reduced motion, ...) <br>
+➡️ client load <br>
+➡️ click <br>
+➡️ visible <br>
+➡️ idle <br>
+➡️ ... <br>
 
 ```html
 <h1>Rocket Blog</h1>
@@ -343,9 +389,9 @@ There are multiple conditions you can combine to get the best loading strategy f
 
 With that we should have all the stepping stones to build
 
-🏃‍♂️ Fast
-🔻 Small (as we start with next to 0 JS)
-💪 No Magic
+🏃‍♂️ Fast <br>
+🔻 Small (as we start with next to 0 JS) <br>
+💪 No Magic <br>
 
 websites 🎉
 
@@ -357,7 +403,7 @@ https://next.rocket.modern-web.dev/docs/basics/hydration/
 
 Or try it for yourself 💪
 
-👨‍💻 `npx @rocket/create@latest`
+👨‍💻 `npx @rocket/create@latest` <br>
 
 and select the "Hydration Starter"
 
@@ -404,12 +450,12 @@ https://twitter.com/daKmoR/status/1506601983293235209?s=20&t=ujwk5xxUu89jqTALfX9
 
 If you have any questions or are interested in topics like
 
-➡️ Web Standards
-➡️ Template Literals
-➡️ Web Components
-➡️ Hydration
-➡️ Static Site Generator (SSG)
-➡️ ...
+➡️ Web Standards <br>
+➡️ Template Literals <br>
+➡️ Web Components <br>
+➡️ Hydration <br>
+➡️ Static Site Generator (SSG) <br>
+➡️ ... <br>
 
 then you should join our Discord Community 🤗
 

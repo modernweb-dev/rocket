@@ -9,6 +9,8 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
+  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  // prettier-ignore
   customElements.define('launch-home', await import('@rocket/launch/home.js').then(m => m.LaunchHome));
   // server-only open-graph only components
   // prettier-ignore
@@ -19,22 +21,18 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
 }
+export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
-import { footerMenu } from './__shared/footerMenu.js';
-import { pageTree } from './__shared/pageTree.js';
 import { LayoutHome } from '@rocket/launch';
-import { search } from './__shared/search.js';
+import { layoutData } from '../src/layouts/layoutData.js';
 
 export const description =
   'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.';
 export const subTitle = 'Everyone can code a website';
 
 export const layout = new LayoutHome({
-  pageTree,
-  footerMenu,
-  header__40: search,
-  drawer__30: search,
+  ...layoutData,
   titleWrapperFn: () => 'Welcome to Rocket',
   background: '/home-background.svg',
 });
@@ -82,41 +80,43 @@ const reasons = [
 ];
 
 export default () => html`
-  <launch-home .reasons=${reasons}>
-    <h1 slot="title">
-      <picture>
-        <!-- <source srcset="../src/assets/rocket-logo-dark-with-text-below.svg" media="(prefers-color-scheme: dark)"> -->
-        <!-- <source srcset="../src/assets/rocket-logo-dark-with-text.svg" media="(prefers-color-scheme: dark) and (min-width: 1024px)"> -->
-        <source
-          srcset="../src/assets/rocket-logo-light-with-text.svg"
-          media="(min-width: 1024px)"
-          width="250"
-          height="67.87"
-        />
-        <img
-          src="../src/assets/rocket-logo-light-with-text-below.svg"
-          alt="Rocket"
-          width="250"
-          height="257.92"
-        />
-      </picture>
-    </h1>
-    <p slot="slogan">Everyone can code a website.</p>
-    <a slot="cta" role="listitem" href="/docs/setup/getting-started/">Getting Started</a>
-    <a slot="cta" role="listitem" href="/presets/">Browse Themes</a>
-    <h2 slot="reason-header">Why Rocket?</h2>
+  <content-area>
+    <launch-home .reasons=${reasons} background-image>
+      <h1 slot="title">
+        <picture>
+          <!-- <source srcset="../src/assets/rocket-logo-dark-with-text-below.svg" media="(prefers-color-scheme: dark)"> -->
+          <!-- <source srcset="../src/assets/rocket-logo-dark-with-text.svg" media="(prefers-color-scheme: dark) and (min-width: 1024px)"> -->
+          <source
+            srcset="../src/assets/rocket-logo-light-with-text.svg"
+            media="(min-width: 1024px)"
+            width="250"
+            height="67.87"
+          />
+          <img
+            src="../src/assets/rocket-logo-light-with-text-below.svg"
+            alt="Rocket"
+            width="250"
+            height="257.92"
+          />
+        </picture>
+      </h1>
+      <p slot="slogan">Everyone can code a website.</p>
+      <a slot="cta" role="listitem" href="/docs/setup/getting-started/">Getting Started</a>
+      <a slot="cta" role="listitem" href="/presets/">Browse Themes</a>
+      <h2 slot="reason-header">Why Rocket?</h2>
 
-    <img src="../src/assets/home-background.svg" slot="background" role="presentation" />
+      <img src="../src/assets/home-background.svg" slot="background" role="presentation" />
 
-    <style type="text/css">
-      /* workaround until Firefox supports width/height on source tags https://bugzilla.mozilla.org/show_bug.cgi?id=1694741 */
-      @media (min-width: 1024px) {
-        h1 img {
-          height: 67.87px;
+      <style type="text/css">
+        /* workaround until Firefox supports width/height on source tags https://bugzilla.mozilla.org/show_bug.cgi?id=1694741 */
+        @media (min-width: 1024px) {
+          h1 img {
+            height: 67.87px;
+          }
         }
-      }
-    </style>
-  </launch-home>
+      </style>
+    </launch-home>
+  </content-area>
 `;
 
 export const openGraphLayout = data => html`

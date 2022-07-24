@@ -7,5 +7,8 @@
   "level": 0,
   "title": "Cannot read properties of undefined (reading 'not')",
   "h1": "Cannot read properties of undefined (reading 'not')",
-  "needsLoader": true
+  "needsLoader": true,
+  "components": {
+    "my-el": "@test/components::MyEl"
+  }
 }

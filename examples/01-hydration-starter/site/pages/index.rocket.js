@@ -18,6 +18,7 @@ export async function registerCustomElements() {
     await import('#components/MyCounter.js').then(m => m.MyCounter),
   );
 }
+export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
 export default () => html`

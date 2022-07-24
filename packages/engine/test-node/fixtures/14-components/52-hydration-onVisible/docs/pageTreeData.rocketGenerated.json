@@ -6,7 +6,7 @@
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
   "components": {
-    "my-el": "() => import('@test/components').then(m => m.MyEl)"
+    "my-el": "@test/components::MyEl"
   },
   "needsLoader": true
 }

@@ -7,6 +7,13 @@
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
+  "components": {
+    "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+    "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+    "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+    "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+    "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+  },
   "description": "The perfect starter for your perfect blog.",
   "layout": false,
   "permalink": "https://example.com/",
@@ -26,7 +33,14 @@
       "url": "/about/",
       "outputRelativeFilePath": "about/index.html",
       "sourceRelativeFilePath": "about.rocket.md",
-      "level": 1
+      "level": 1,
+      "components": {
+        "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+        "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+        "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+        "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+        "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+      }
     },
     {
       "name": "blog/index.rocket.js",
@@ -35,6 +49,13 @@
       "outputRelativeFilePath": "blog/index.html",
       "sourceRelativeFilePath": "blog/index.rocket.js",
       "level": 1,
+      "components": {
+        "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+        "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+        "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+        "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+        "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+      },
       "layout": false,
       "children": [
         {
@@ -48,6 +69,13 @@
           "level": 2,
           "author": "Thomas Allmer (@daKmoR)",
           "authorHref": "https://twitter.com/daKmoR",
+          "components": {
+            "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+            "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+            "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+            "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+            "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+          },
           "description": "Just a Hello World Post!",
           "publishDate": "12 Sep 2021",
           "value": 128
@@ -64,6 +92,13 @@
           "alt": "Liftoff Flames",
           "author": "Thomas Allmer (@daKmoR)",
           "authorHref": "https://twitter.com/daKmoR",
+          "components": {
+            "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+            "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+            "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+            "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+            "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+          },
           "description": "Now with an image!",
           "heroImage": "./assets/liftoff-flames.jpg",
           "publishDate": "13 Sep 2021",

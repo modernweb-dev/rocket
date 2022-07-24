@@ -52,6 +52,7 @@ export class AdjustAssetUrls {
     assetElements = [
       { tagName: 'img', attribute: 'src' },
       { tagName: 'img', attribute: 'srcset' },
+      { tagName: 'source', attribute: 'src' },
       { tagName: 'source', attribute: 'srcset' },
       { tagName: 'a', attribute: 'href' },
       { tagName: 'link', attribute: 'href' },

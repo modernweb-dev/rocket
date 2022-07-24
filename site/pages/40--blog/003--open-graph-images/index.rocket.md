@@ -1,4 +1,41 @@
-Rocket News 🎉
+```js server
+/* START - Rocket auto generated - do not touch */
+export const sourceRelativeFilePath = '40--blog/003--open-graph-images/index.rocket.md';
+import { html, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
+import { layout } from '../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('rocket-social-link', await import('@rocket/components/social-link.js').then(m => m.RocketSocialLink));
+  // prettier-ignore
+  customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
+  // prettier-ignore
+  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  // prettier-ignore
+  customElements.define('launch-blog-details', await import('@rocket/launch/blog-details.js').then(m => m.LaunchBlogDetails));
+  // prettier-ignore
+  customElements.define('main-content', await import('@rocket/components/main-content.js').then(m => m.MainContent));
+  // hydrate-able components
+  // prettier-ignore
+  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
+  // prettier-ignore
+  customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
+}
+export const needsLoader = true;
+/* END - Rocket auto generated - do not touch */
+
+import { thomas } from '../../../src/data/authors.js';
+
+export const publishDate = new Date('2022-03-31');
+export const description =
+  'When you want to share a link to your website on social media it is important to include an Open Graph image. This means that a nice preview image will be shown which will make the link more attractive to click on.';
+
+export const tags = ['rocket', 'javascript', 'node', 'SSG'];
+export const authors = [thomas];
+```
+
+# Supporting Open Graph Images
 
 We now have support for Open Graph Images out of the box 💪
 Let's dive in and see what we can do with it!
@@ -18,10 +55,10 @@ As it is important that links to your website stand out from the rest of the con
 
 There are many size variations but it's usually similar.
 
-➡️ Facebook: 1200 x 628
-➡️ Twitter: 1200 x 628
-➡️ LinkedIn: 1200 x 627
-➡️ ...
+➡️ Facebook: 1200 x 628 <br>
+➡️ Twitter: 1200 x 628 <br>
+➡️ LinkedIn: 1200 x 627 <br>
+➡️ ... <br>
 
 We will multiply that value by two to have an optimal display on retina screens.
 
@@ -44,17 +81,17 @@ Luckily Rocket can help 💪
 
 How does it work?
 
-1️⃣ Pages with an `openGraphLayout` create an additional `index.opengraph.html` file
-2️⃣ During the build phase puppeteer opens the file and takes a screenshot
-3️⃣ It injects meta tags (with an absolute URL to this image)
+1️⃣ Pages with an `openGraphLayout` create an additional `index.opengraph.html` file <br>
+2️⃣ During the build phase puppeteer opens the file and takes a screenshot <br>
+3️⃣ It injects meta tags (with an absolute URL to this image) <br>
 
 ---
 
 Let's set up Open Graph images for our site.
 
-1️⃣ On the page we export data that gets passed to the layout
-2️⃣ Add `export const openGraphLayout = data => ...` to `recursive.data.js` so it gets injected into every page
-3️⃣ Define the `absoluteBaseUrl` in our config
+1️⃣ On the page we export data that gets passed to the layout <br>
+2️⃣ Add `export const openGraphLayout = data => ...` to `recursive.data.js` so it gets injected into every page <br>
+3️⃣ Define the `absoluteBaseUrl` in our config <br>
 
 👉 `index.rocket.js`
 
@@ -100,9 +137,9 @@ export default {
 
 Let's take a look
 
-1️⃣ Start Rocket via `npm start`
-2️⃣ Open the browser on `http://localhost:8000/index.opengraph.html`
-3️⃣ Open Dev Tools and set width to `1200px` and height to `628px` and zoom to `50%`
+1️⃣ Start Rocket via `npm start` <br>
+2️⃣ Open the browser on `http://localhost:8000/index.opengraph.html` <br>
+3️⃣ Open Dev Tools and set width to `1200px` and height to `628px` and zoom to `50%` <br>
 
 We can now adjust the HTML until we are satisfied with the result.
 
@@ -112,10 +149,10 @@ We can now adjust the HTML until we are satisfied with the result.
 
 After some tinkering we get to our final result:
 
-1️⃣ Picked a gradient from https://open-props.style/#gradients
-2️⃣ Used a web font
-3️⃣ Used server web components to inline font awesome svg icons
-4️⃣ Added an image via a private import
+1️⃣ Picked a gradient from https://open-props.style/#gradients <br>
+2️⃣ Used a web font <br>
+3️⃣ Used server web components to inline font awesome svg icons <br>
+4️⃣ Added an image via a private import <br>
 
 ---
 
@@ -227,14 +264,14 @@ But fear not we can create our own overview of all pages.
 
 The Open Graph Overview features
 
-➡️ Using Rockets PageTree to get a list of all pages
-➡️ Showing Open Graph pages
-➡️ Opening URLs
-➡️ Opening Open Graph pages
-➡️ Opening source files in VSCode
+➡️ Using Rockets PageTree to get a list of all pages <br>
+➡️ Showing Open Graph pages <br>
+➡️ Opening URLs <br>
+➡️ Opening Open Graph pages <br>
+➡️ Opening source files in VSCode <br>
 
-<video width="320" height="240" controls>
-  <source src="./.mp4" type="video/mp4">
+<video controls>
+  <source src="./open-graph-overview.mp4" type="video/mp4">
 </video>
 
 ---

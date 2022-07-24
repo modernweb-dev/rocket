@@ -463,7 +463,7 @@
   background-color: var(--markdown-table-row-odd-background-color, #f6f8fa);
 }
 
-.markdown-body img {
+.markdown-body img, .markdown-body video {
   box-sizing: content-box;
   max-width: 100%;
   width: 100%;

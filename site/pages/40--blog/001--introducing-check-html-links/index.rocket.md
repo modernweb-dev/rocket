@@ -1,8 +1,8 @@
 ```js server
 /* START - Rocket auto generated - do not touch */
-export const sourceRelativeFilePath = '40--blog/001--introducing-check-html-links.rocket.md';
-// prettier-ignore
-import { html, layout, setupUnifiedPlugins, components, openGraphLayout } from '../recursive.data.js';
+export const sourceRelativeFilePath = '40--blog/001--introducing-check-html-links/index.rocket.md';
+import { html, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
+import { layout } from '../recursive.data.js';
 export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 export async function registerCustomElements() {
   // server-only components
@@ -11,18 +11,29 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
+  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  // prettier-ignore
+  customElements.define('launch-blog-details', await import('@rocket/launch/blog-details.js').then(m => m.LaunchBlogDetails));
+  // prettier-ignore
+  customElements.define('main-content', await import('@rocket/components/main-content.js').then(m => m.MainContent));
   // hydrate-able components
   // prettier-ignore
   customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
 }
+export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
+import { thomas } from '../../../src/data/authors.js';
+
+export const description =
+  'A tool that checks the validity of all your HTML links of your whole website.';
+export const publishDate = new Date('2021-05-09');
 
 export const tags = ['html', 'javascript', 'webdev', 'node'];
-export const subTitle = 'A fast link checker for static HTML';
 // cover_image: https://dev-to-uploads.s3.amazonaws.com/i/an9z6f4hdll2jlne43u3.jpg
+
+export const authors = [thomas];
 ```
 
 # Introducing Check HTML Links

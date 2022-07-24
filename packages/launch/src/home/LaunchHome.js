@@ -3,64 +3,52 @@ import { LitElement, html, css } from 'lit';
 export class LaunchHome extends LitElement {
   static properties = {
     reasons: { type: Array },
+    backgroundImage: { type: Boolean, reflect: true, attribute: 'background-image' },
   };
 
   constructor() {
     super();
     /** @type {{ header: string, text: string }[]} */
     this.reasons = [];
+    this.backgroundImage = false;
   }
 
   render() {
     return html`
-      <div id="content-area">
-        <div class="page-background">
-          <slot name="background"></slot>
-        </div>
-        <div class="page-title">
-          <slot name="title"></slot>
-        </div>
-        <div class="page-slogan">
-          <slot name="slogan"></slot>
-        </div>
-        <div class="call-to-action-list" role="list">
-          <slot name="cta"></slot>
-        </div>
-
-        <div class="reason-header">
-          <slot name="reason-header"></slot>
-        </div>
-        <section class="reasons">
-          ${this.reasons.map(
-            reason => html`
-              <article>
-                <h3>${reason.header}</h3>
-                ${reason.text}
-              </article>
-            `,
-          )}
-        </section>
+      <div class="page-background">
+        <slot name="background"></slot>
       </div>
+      <div class="logo">
+        <slot name="logo"></slot>
+      </div>
+      <div class="page-title">
+        <slot name="title"></slot>
+      </div>
+      <div class="page-slogan">
+        <slot name="slogan"></slot>
+      </div>
+      <div class="call-to-action-list" role="list">
+        <slot name="cta"></slot>
+      </div>
+
+      <div class="reason-header">
+        <slot name="reason-header"></slot>
+      </div>
+      <section class="reasons">
+        ${this.reasons.map(
+          reason => html`
+            <article>
+              <h3>${reason.header}</h3>
+              ${reason.text}
+            </article>
+          `,
+        )}
+      </section>
     `;
   }
 
   static styles = [
     css`
-      /** content-area */
-      #content-area {
-        padding: 0 20px;
-        display: block;
-        justify-content: space-between;
-        align-items: center;
-      }
-      @media screen and (min-width: 1024px) {
-        #content-area {
-          max-width: 1200px;
-          margin: 0 auto;
-          position: relative;
-        }
-      }
-
       /** CALL TO ACTION ********************************************************************************/
       .call-to-action-list {
         text-align: center;
@@ -108,6 +96,10 @@ export class LaunchHome extends LitElement {
 
       :host {
         display: block;
+      }
+
+      .logo {
+        text-align: center;
       }
 
       .page-title {
@@ -170,24 +162,24 @@ export class LaunchHome extends LitElement {
       }
 
       @media screen and (min-width: 1024px) {
-        .page-title,
-        .page-slogan {
+        :host([background-image]) .page-title,
+        :host([background-image]) .page-slogan {
           text-align: left;
         }
 
-        .page-title {
+        :host([background-image]) .page-title {
           margin-top: 110px;
         }
 
-        .page-slogan {
+        :host([background-image]) .page-slogan {
           max-width: 500px;
         }
 
-        .call-to-action-list {
+        :host([background-image]) .call-to-action-list {
           text-align: left;
         }
 
-        .page-background {
+        :host([background-image]) .page-background {
           display: block;
           position: absolute;
           top: -305px;
