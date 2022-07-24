@@ -11,6 +11,8 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
+  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  // prettier-ignore
   customElements.define('inline-notification', await import('@rocket/components/inline-notification.js').then(m => m.InlineNotification));
   // prettier-ignore
   customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
@@ -20,6 +22,7 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
 }
+export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 ```
 

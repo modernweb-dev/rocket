@@ -3,13 +3,11 @@ import { LitElement, html, css } from 'lit';
 export class RocketHeader extends LitElement {
   render() {
     return html`
-      <div id="content-area">
-        <slot name="logo"></slot>
-        <slot name="search"></slot>
-        <slot id="content"></slot>
-        <slot name="mobile-menu"></slot>
-        <slot name="social"></slot>
-      </div>
+      <slot name="logo"></slot>
+      <slot name="search"></slot>
+      <slot id="content"></slot>
+      <slot name="mobile-menu"></slot>
+      <slot name="social"></slot>
     `;
   }
 
@@ -27,6 +25,9 @@ export class RocketHeader extends LitElement {
         --shadow-strength: 1%;
         --shadow-2: 0 3px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
           0 7px 14px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%));
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
       slot[name='logo']::slotted(*) {
@@ -46,20 +47,6 @@ export class RocketHeader extends LitElement {
         slot[name='search']::slotted(*),
         #content::slotted(*) {
           margin-right: 40px;
-        }
-      }
-
-      /** content-area */
-      #content-area {
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      @media screen and (min-width: 1024px) {
-        #content-area {
-          max-width: 1200px;
-          margin: 0 auto;
         }
       }
 

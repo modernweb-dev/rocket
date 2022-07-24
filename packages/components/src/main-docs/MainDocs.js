@@ -3,19 +3,17 @@ import { LitElement, html, css } from 'lit';
 export class MainDocs extends LitElement {
   render() {
     return html`
-      <div id="content-area">
-        <div id="menu">
-          <div id="menu-sticky">
-            <slot name="menu"></slot>
-          </div>
+      <div id="menu">
+        <div id="menu-sticky">
+          <slot name="menu"></slot>
         </div>
-        <div id="content">
-          <slot id="content-slot"></slot>
-        </div>
-        <div id="toc">
-          <div id="toc-sticky">
-            <slot name="toc"></slot>
-          </div>
+      </div>
+      <div id="content">
+        <slot id="content-slot"></slot>
+      </div>
+      <div id="toc">
+        <div id="toc-sticky">
+          <slot name="toc"></slot>
         </div>
       </div>
     `;
@@ -23,7 +21,7 @@ export class MainDocs extends LitElement {
 
   static styles = [
     css`
-      #content-area {
+      :host {
         display: grid;
         gap: 5ch;
       }
@@ -42,10 +40,6 @@ export class MainDocs extends LitElement {
       }
 
       @media screen and (min-width: 1024px) {
-        #content-area {
-          max-width: 1200px;
-          margin: 0 auto;
-        }
         #menu,
         #toc {
           display: block;

@@ -28,6 +28,11 @@ export interface LayoutSidebarOptions extends LayoutOptions {
   titleWrapperFn: (title: string) => string;
   pageTree: PageTree;
 
+  headerHideLogo: boolean;
+  headerNoBackground: boolean;
+  headerNotSticky: boolean;
+  headerDarkBackground: boolean;
+
   /**
    * Sets primary html metadata like
    * - charset

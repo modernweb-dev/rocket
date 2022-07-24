@@ -26,6 +26,7 @@ body {
   min-height: 100vh;
   max-width: 100vw;
   overflow-x: hidden;
+  line-height: 24px;
 }
 
 * {
@@ -173,12 +174,6 @@ main {
 
 main > * {
   scroll-margin-top: 85px;
-}
-
-@media screen and (min-width: 1024px) {
-  main {
-    z-index: 50;
-  }
 }
 
 .content-footer {

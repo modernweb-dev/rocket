@@ -1,13 +1,50 @@
-Sharing time 🎉
+```js server
+/* START - Rocket auto generated - do not touch */
+export const sourceRelativeFilePath = '40--blog/002--sharing-time/index.rocket.md';
+import { html, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
+import { layout } from '../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('rocket-social-link', await import('@rocket/components/social-link.js').then(m => m.RocketSocialLink));
+  // prettier-ignore
+  customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
+  // prettier-ignore
+  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  // prettier-ignore
+  customElements.define('launch-blog-details', await import('@rocket/launch/blog-details.js').then(m => m.LaunchBlogDetails));
+  // prettier-ignore
+  customElements.define('main-content', await import('@rocket/components/main-content.js').then(m => m.MainContent));
+  // hydrate-able components
+  // prettier-ignore
+  customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
+  // prettier-ignore
+  customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
+}
+export const needsLoader = true;
+/* END - Rocket auto generated - do not touch */
+import { thomas } from '../../../src/data/authors.js';
+
+export const description =
+  'Let us take a look at Rocket which is sort of a nuxt/next equivalent but instead of vue/react it works best with web standards like custom elements, ES modules, template literals...';
+export const publishDate = new Date('2022-03-23');
+
+export const tags = ['rocket', 'javascript', 'node', 'SSG'];
+export const authors = [thomas];
+```
+
+# Sharing time 🎉
 
 I have been working a lot on `@rocket/engine` which you can see as a sort of a nuxt/next equivalent but instead of vue/react it works best with web standards like custom elements, ES modules, template literals...
 
 ---
 
 You can write content in
-➡️ JavaScript
-➡️ Markdown
-➡️ HTML
+
+➡️ JavaScript <br>
+➡️ Markdown <br>
+➡️ HTML <br>
 
 Markdown and HTML are ultimately "compiled" to JavaScript and then rendered.
 
@@ -17,16 +54,19 @@ Let's take a closer look.
 
 In `index.rocket.js` we see
 
-➡️ an auto-generated file header
-➡️ usage of @buildWithLit's html to gain access to all its directives, helpers and to output safe HTML
-➡️ usage variables to define our content
-➡️ the export of a layout to separate content from its surrounding
+➡️ an auto-generated file header <br>
+➡️ usage of @buildWithLit's html to gain access to all its directives, helpers and to output safe HTML <br>
+➡️ usage variables to define our content <br>
+➡️ the export of a layout to separate content from its surrounding <br>
 
 ```js
 // site/pages/index.rocket.js
 
 /* START - Rocket auto generated - do not touch */
-export const sourceRelativeFilePath = 'index.rocket.js';
+export const sourceRelativeFilePath = '40--blog/002--sharing-time/index.rocket.md';
+// prettier-ignore
+import { html, layout, setupUnifiedPlugins, components, openGraphLayout } from '../../recursive.data.js';
+export { html, layout, setupUnifiedPlugins, components, openGraphLayout };
 /* END - Rocket auto generated - do not touch */
 
 import { html } from 'lit';
@@ -48,7 +88,7 @@ export const layout = data => html`
 
 Looking at the output we only see HTML which means that it is executed server-side and will NOT ship any JavaScript.
 
-✨ Instead of nunjucks or liquid we use lit template literals as your template engine
+✨ Instead of nunjucks or liquid we use lit template literals as your template engine <br>
 🤯 This means that you can share templates between server and client
 
 ```html
@@ -65,8 +105,8 @@ Looking at the output we only see HTML which means that it is executed server-si
 We want to reuse that layout for all the pages of our site.
 We want this handled by a very explicit and non-magical data cascade that injects content into the auto-generated header.
 
-➡️ We move the `layout` export into `recursive.data.js`
-➡️ We let the system inject it
+➡️ We move the `layout` export into `recursive.data.js` <br>
+➡️ We let the system inject it <br>
 
 ```js
 // site/pages/recursive.data.js
@@ -103,8 +143,9 @@ export default () => html`<h1>Hello ${world}</h1>`;
 Only needing to write the actual content of every page makes it way nicer to use.
 
 We can get the exact same HTML output via
-➡️ Markdown using a code fence block `js server`
-➡️ HTML using a `script type="module" server` tag
+
+➡️ Markdown using a code fence block `js server` <br>
+➡️ HTML using a `script type="module" server` tag <br>
 
 We can use template literals in all languages 🤯
 
@@ -119,7 +160,7 @@ export { html, layout };
 const world = 'world!';
 ```
 
-# Hello ${world}
+# Hello \\${world}
 ````
 
 ```html
@@ -141,8 +182,9 @@ const world = 'world!';
 Now we add a web component to our page using markdown.
 
 We define and register the component server-side which means that
-➡️ It will output only HTML
-➡️ It works even with disabled JavaScript (as there is none)
+
+➡️ It will output only HTML <br>
+➡️ It works even with disabled JavaScript (as there is none) <br>
 
 \*Non-chromium browsers need a polyfill for declarative shadow dom
 
@@ -157,7 +199,7 @@ export { html, layout };
 const world = 'world!';
 ```
 
-# Hello ${world}
+# Hello \\${world}
 
 <my-warning>
 
@@ -228,9 +270,9 @@ Defining a component within markdown will get problematic once we use it on mult
 
 Let's use Rockets component loader.
 
-1️⃣ Move component to `site/src/components/MyWarning.js`
-2️⃣ Export class and remove the registration
-3️⃣ Add the component to the component loader
+1️⃣ Move component to `site/src/components/MyWarning.js` <br>
+2️⃣ Export class and remove the registration <br>
+3️⃣ Add the component to the component loader <br>
 
 ```js
 // site/src/components/MyWarning.js
@@ -279,7 +321,7 @@ export { html, layout, components };
 const world = 'world!';
 ```
 
-# Hello ${world}
+# Hello \\${world}
 
 <my-warning>
 
@@ -293,17 +335,18 @@ This **is** a demo.
 Now we can use all loader-defined components on every page.
 
 Let me repeat that...
-➡️ We add the components ONCE to the `export const components`
-➡️ Rocket will decide if and when the loading and registration should happen
+
+➡️ We add the components ONCE to the `export const components` <br>
+➡️ Rocket will decide if and when the loading and registration should happen <br>
 
 ---
 
 Components will be server-rendered by default and no JavaScript will be required
 This opens up a whole new world of possibilities 🤯
 
-➡️ Componentize our styles
-➡️ Only styles of components that we actually use will be shipped
-➡️ Sort of tree shaking for CSS on a component basis
+➡️ Componentize our styles <br>
+➡️ Only styles of components that we actually use will be shipped <br>
+➡️ Sort of tree shaking for CSS on a component basis <br>
 
 ---
 
@@ -345,9 +388,10 @@ await fs.writeFile(outputPath, data.content);
 ---
 
 Rockets complexity is for Developer Experience:
-➡️ A dependency tree of rendered pages for smart rerenders and reloads
-➡️ A PageTree to render menus without touching other files
-➡️ Rendering via workers that get cycled as the es module graph changes (there is no way to clear it)
+
+➡️ A dependency tree of rendered pages for smart rerenders and reloads <br>
+➡️ A PageTree to render menus without touching other files <br>
+➡️ Rendering via workers that get cycled as the es module graph changes (there is no way to clear it) <br>
 
 ---
 
@@ -379,8 +423,9 @@ docs/about/background.svg.rocket.js  -> mysite.com/about/background.svg
 Rocket handles assets uniquely by referencing the original location you define via relative link or node resolution (probably the ONLY non-standard feature of Rocket)
 
 This means that
-➡️ Relative URL within assets will work
-➡️ Less work during development as there is NO copying
+
+➡️ Relative URL within assets will work <br>
+➡️ Less work during development as there is NO copying <br>
 
 ```html
 <!-- site/pages/about/bridge.rocket.html -->
@@ -408,7 +453,7 @@ This means that
 
 ---
 
-🚧 All the packages are released in alpha state
+🚧 All the packages are released in alpha state <br>
 💡 The docs have all the core concepts explained but are still incomplete
 
 Wanna know more? 🤔
@@ -428,9 +473,9 @@ https://next.rocket.modern-web.dev/chat
 
 Interested?
 
-🕑 Getting started takes you only 5 minutes
-🏃‍♂️ Run "npx @rocket/create@latest" in the terminal.
-🎯 Choose your template and start coding!
+🕑 Getting started takes you only 5 minutes <br>
+🏃‍♂️ Run "npx @rocket/create@latest" in the terminal <br>
+🎯 Choose your template and start coding! <br>
 
 PS: It creates a folder for you now worries 🤗
 
@@ -467,9 +512,9 @@ What do you get?
 
 For example the Landing Page
 
-➡️ it uses 10+ web components
-➡️ ONLY one gets shipped via JS to the user
-➡️ Rearrange or reuse those components in any way you want
+➡️ it uses 10+ web components <br>
+➡️ ONLY one gets shipped via JS to the user <br>
+➡️ Rearrange or reuse those components in any way you want <br>
 
 See live demo
 https://next.rocket.modern-web.dev/presets/spark/demo/
@@ -478,21 +523,21 @@ https://next.rocket.modern-web.dev/presets/spark/demo/
 
 What can you expect in the future?
 
-➡️ We build this in public and open source
-➡️ Partial Hydration / Island Architecture
-➡️ Open Graph Images
-➡️ Search
-➡️ Your suggestion 🤗
+➡️ We build this in public and open source <br>
+➡️ Partial Hydration / Island Architecture <br>
+➡️ Open Graph Images <br>
+➡️ Search <br>
+➡️ Your suggestion 🤗 <br>
 
 ---
 
 To finish up I wanna thank all those awesome projects that inspired Rocket.
 
-➡️ @buildWithLit for an awesome community, SSR, template literals on steroids, and an effective way to write web components
-➡️ @eleven_ty for the data cascade and for being a super honest project
+➡️ @buildWithLit for an awesome community, SSR, template literals on steroids, and an effective way to write web components <br>
+➡️ @eleven_ty for the data cascade and for being a super honest project <br>
 
 ---
 
-➡️ @astrodotbuild for bringing the island architecture to the masses - also some docs and examples are ported from it
-➡️ next/nuxt as a landmark on features users need
-➡️ remix for pioneering "back to HTML with React"
+➡️ @astrodotbuild for bringing the island architecture to the masses - also some docs and examples are ported from it <br>
+➡️ next/nuxt as a landmark on features users need <br>
+➡️ remix for pioneering "back to HTML with React" <br>

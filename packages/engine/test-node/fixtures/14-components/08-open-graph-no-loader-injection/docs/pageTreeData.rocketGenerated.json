@@ -5,5 +5,11 @@
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
   "level": 0,
-  "needsLoader": true
+  "components": {
+    "my-el": "@test/components::MyEl"
+  },
+  "needsLoader": true,
+  "openGraphServerComponents": {
+    "my-el": "@test/components::MyEl"
+  }
 }

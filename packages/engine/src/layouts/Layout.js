@@ -132,4 +132,17 @@ export class Layout {
     this.options = originalOptions;
     return output;
   }
+
+  getCurrentPage() {
+    if (this.options.pageTree) {
+      return this.options.pageTree.getPage(this.data.sourceRelativeFilePath);
+    }
+  }
+
+  getCurrentPageData() {
+    const current = this.getCurrentPage();
+    if (current) {
+      return current.model;
+    }
+  }
 }

@@ -14,5 +14,7 @@ export const rocketComponents = {
   'rocket-drawer': '@rocket/components/drawer.js::RocketDrawer',
   'rocket-header': '@rocket/components/header.js::RocketHeader',
   'main-docs': '@rocket/components/main-docs.js::MainDocs',
+  'main-content': '@rocket/components/main-content.js::MainContent',
   'rocket-social-link': '@rocket/components/social-link.js::RocketSocialLink',
+  'content-area': '@rocket/components/content-area.js::ContentArea',
 };

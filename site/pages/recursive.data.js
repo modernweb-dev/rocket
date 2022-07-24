@@ -1,24 +1,20 @@
 import { LayoutSidebar } from '@rocket/launch';
 import { adjustPluginOptions } from 'plugins-manager';
 import { mdjsSetupCode } from '@mdjs/core';
-import { footerMenu } from './__shared/footerMenu.js';
 import { pageTree } from './__shared/pageTree.js';
 import { html } from 'lit';
 import { rocketComponents } from '@rocket/components/components.js';
 import { searchComponents } from '@rocket/search/components.js';
 import htmlHeading from 'rehype-autolink-headings';
-import { search } from './__shared/search.js';
 import { launchComponents } from '@rocket/launch/components.js';
+import { layoutData } from '../src/layouts/layoutData.js';
 
 export { html };
 
 export const layout = new LayoutSidebar({
-  pageTree,
-  footerMenu,
+  ...layoutData,
   description:
     'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.',
-  header__40: search,
-  drawer__30: search,
 });
 
 export const setupUnifiedPlugins = [
