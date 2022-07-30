@@ -7,7 +7,7 @@ export class LaunchBlogDetails extends LitElement {
 
   constructor() {
     super();
-    /** @type {{ firstName: string; lastName: string; twitter: string; image: string; } | undefined} */
+    /** @type {{ firstName: string; lastName: string; twitter: string; image: string; publishDate: Date; authors: [{ firstName: string; lastName: string; twitter: string; }], tags: string[] } | undefined} */
     this.data = undefined;
     this.dateFormatter = new Intl.DateTimeFormat('en-US', {
       year: 'numeric',

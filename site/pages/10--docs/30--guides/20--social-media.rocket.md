@@ -258,7 +258,7 @@ To enable we create a file
 👉 `opengraph.rocket.js`
 
 ```js
-import { pageTree } from '#pageTree';
+import { pageTree } from '#src/layouts/layoutData.js';
 
 export const menuExclude = true;
 
@@ -315,7 +315,7 @@ export const layout = data => html`
 There is quite some much in there so let's go though the code.
 
 ```js
-import { pageTree } from '#pageTree';
+import { pageTree } from '#src/layouts/layoutData.js';
 ```
 
 This imports an existing PageTree if you do not have one yet [you can create one](../20--basics/70--navigation.rocket.md).

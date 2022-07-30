@@ -28,7 +28,7 @@ export const menuLinkText = 'Demo';
 export const title = 'Rocket Landing Page Template (Theme Spark)';
 
 import { LayoutHome } from '@rocket/spark';
-import { pageTree } from '#pageTree';
+import { pageTree } from '#src/layouts/layoutData.js';
 
 export const layout = new LayoutHome({
   pageTree,

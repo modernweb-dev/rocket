@@ -233,7 +233,10 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('inline-notification', await import('@rocket/components/components/InlineNotification').then(m => m.InlineNotification));
   // hydrate-able components
-  customElements.define('my-counter', await import('#components/MyCounter').then(m => m.MyCounter));
+  customElements.define(
+    'my-counter',
+    await import('#src/components/MyCounter.js').then(m => m.MyCounter),
+  );
   // client-only components
   // 'rocket-search': () => import('@rocket/search/web').then(m => m.RocketSearch),
 }

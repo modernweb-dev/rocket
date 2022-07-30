@@ -20,9 +20,14 @@
     "value": "04-sanity-minimal-starter"
   },
   {
-    "title": "Landing Page (Spark Theme)",
+    "title": "Landing Page (@rocket/spark Theme)",
     "description": "A landing page based on the spark theme",
     "value": "50-landing-theme-spark"
+  },
+  {
+    "title": "Documentation Website (@rocket/launch Theme)",
+    "description": "A documentation page based on the @rocket/launch theme",
+    "value": "51-docs-theme-launch"
   },
   {
     "title": "Custom (community built)",

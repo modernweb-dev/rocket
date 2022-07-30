@@ -21,7 +21,8 @@ export async function registerCustomElements() {
   customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
   // prettier-ignore
   customElements.define('rocket-drawer', await import('@rocket/components/drawer.js').then(m => m.RocketDrawer));
-  customElements.define('my-counter', await import('#components/MyCounter').then(m => m.MyCounter));
+  // prettier-ignore
+  customElements.define('my-counter', await import('#src/components/MyCounter.js').then(m => m.MyCounter));
 }
 export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */

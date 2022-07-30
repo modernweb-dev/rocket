@@ -39,3 +39,4 @@ export { ChildListMenu } from './web-menu/menus/ChildListMenu.js';
 /** @typedef {import('../types/layout.js').TemplateValue} TemplateValue */
 /** @typedef {import('../types/layout.js').LayoutValue} LayoutValue */
 /** @typedef {import('../types/main.js').MetaPluginOfEngine} MetaPluginOfEngine */
+/** @typedef {import('../types/menu.js').NodeOfPage} NodeOfPage */

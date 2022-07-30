@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { LitElement, html, nothing } from 'lit';
 import { LaunchBlogPreview } from './LaunchBlogPreview.js';
+
+/** @typedef {import('@rocket/engine').NodeOfPage} NodeOfPage */
 
 /**
  * @param {{ model: { publishDate: Date }}} a
@@ -17,8 +20,11 @@ function sortByPublishDate(a, b) {
 }
 
 class BlogMenu {
+  /** @type {NodeOfPage | undefined} */
+  currentNode = undefined;
+
   /**
-   * @returns {TemplateResult | nothing}
+   * @returns {import('lit').TemplateResult | nothing}
    */
   render() {
     if (!this.currentNode || !this.currentNode.children) {
@@ -27,6 +33,7 @@ class BlogMenu {
     return html`
       <div>
         ${this.currentNode.children
+          // @ts-ignore
           .sort(sortByPublishDate)
           .map(
             /** @param {NodeOfPage} child */ child => html`
@@ -38,12 +45,21 @@ class BlogMenu {
   }
 }
 
+// we do this for the sake of SSR - as there is no way yet to define them as sub-components (should be possible in the future via scoped registry)
 if (customElements.get('launch-blog-preview') === undefined) {
   customElements.define('launch-blog-preview', LaunchBlogPreview);
 }
 
 export class LaunchBlogOverview extends LitElement {
+  /** @type {import('@rocket/engine').PageTree | undefined} */
+  pageTree = undefined;
+
+  sourceRelativeFilePath = '';
+
   render() {
-    return html` ${this.pageTree.renderMenu(new BlogMenu(), this.sourceRelativeFilePath)} `;
+    if (!this.pageTree) {
+      return nothing;
+    }
+    return html`${this.pageTree.renderMenu(new BlogMenu(), this.sourceRelativeFilePath)}`;
   }
 }

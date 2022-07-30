@@ -1,12 +1,6 @@
 import { rocketLaunch } from '@rocket/launch';
 import { rocketSpark } from '@rocket/spark';
-// import { rocketBlog } from '@rocket/blog';
 import { presetRocketSearch } from '@rocket/search';
-// import { absoluteBaseUrlNetlify } from '@rocket/core/helpers';
-// import { adjustPluginOptions } from 'plugins-manager';
-// TODO: preset needs to be updated to use the new plugin manager
-// import { codeTabs } from 'rocket-preset-code-tabs';
-// import { customElementsManifest } from 'rocket-preset-custom-elements-manifest';
 
 /**
  * Extracts the current applicable absoluteBaseUrl from Netlify system variables
@@ -45,22 +39,7 @@ export default /** @type {import('@rocket/cli/types/main').RocketCliOptions} */ 
 
   // buildOpenGraphImages: false,
 
-  presets: [
-    rocketLaunch(),
-    rocketSpark(),
-    presetRocketSearch(),
-    // rocketBlog(),
-    // codeTabs({
-    //   collections: {
-    //     packageManagers: {
-    //       npm: { label: 'NPM', iconHref: '/_merged_assets/_static/logos/npm.svg' },
-    //       yarn: { label: 'Yarn', iconHref: '/_merged_assets/_static/logos/yarn.svg' },
-    //       pnpm: { label: 'PNPM', iconHref: '/_merged_assets/_static/logos/pnpm.svg' },
-    //     },
-    //   },
-    // }),
-    // customElementsManifest(),
-  ],
+  presets: [rocketLaunch(), rocketSpark(), presetRocketSearch()],
   // serviceWorkerName: 'sw.js',
   // pathPrefix: '/_site/',
 

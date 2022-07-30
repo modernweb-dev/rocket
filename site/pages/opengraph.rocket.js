@@ -11,7 +11,7 @@ export async function registerCustomElements() {
 }
 /* END - Rocket auto generated - do not touch */
 
-import { pageTree } from '#pageTree';
+import { pageTree } from '#src/layouts/layoutData.js';
 
 export const menuExclude = true;
 
