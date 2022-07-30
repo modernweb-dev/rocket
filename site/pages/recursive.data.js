@@ -1,13 +1,12 @@
 import { LayoutSidebar } from '@rocket/launch';
 import { adjustPluginOptions } from 'plugins-manager';
 import { mdjsSetupCode } from '@mdjs/core';
-import { pageTree } from './__shared/pageTree.js';
 import { html } from 'lit';
 import { rocketComponents } from '@rocket/components/components.js';
 import { searchComponents } from '@rocket/search/components.js';
 import htmlHeading from 'rehype-autolink-headings';
 import { launchComponents } from '@rocket/launch/components.js';
-import { layoutData } from '../src/layouts/layoutData.js';
+import { layoutData, pageTree } from '#src/layouts/layoutData.js';
 
 export { html };
 
@@ -67,7 +66,7 @@ export const components = {
   ...rocketComponents,
   ...searchComponents,
   ...launchComponents,
-  'my-counter': '#components/MyCounter::MyCounter',
+  'my-counter': '#src/components/MyCounter.js::MyCounter',
 };
 
 export const openGraphLayout = data => html`
@@ -158,10 +157,10 @@ export const openGraphLayout = data => html`
       <p id="sub-title">${data.subTitle || ''}</p>
       <div id="powered-by">
         <span>powered by</span>
-        <img id="logo" src="resolve:#assets/rocket-logo-dark-with-text.svg" />
+        <img id="logo" src="resolve:#src/assets/rocket-logo-dark-with-text.svg" />
       </div>
       <div id="bg-wrapper">
-        <img src="resolve:#assets/home-background.svg" />
+        <img src="resolve:#src/assets/home-background.svg" />
       </div>
     </body>
   </html>

@@ -1,5 +1,6 @@
 import { ClassInfo } from 'lit/directives/class-map.js';
 import { TemplateResult, nothing } from 'lit';
+import { PageTree } from '../src/index.js';
 
 export type TemplateValue =
   | TemplateResult
@@ -18,6 +19,7 @@ export interface LayoutOptions {
   bodyClasses: ClassInfo;
   bodyLayout: string;
   dsdPending: boolean;
+  pageTree?: PageTree;
   [key: TemplateValueKey<'head'>]: TemplateValue;
   [key: TemplateValueKey<'header'>]: TemplateValue;
   [key: TemplateValueKey<'top'>]: TemplateValue;

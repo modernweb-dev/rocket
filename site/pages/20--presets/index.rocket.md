@@ -23,7 +23,7 @@ export async function registerCustomElements() {
 export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
-import { pageTree } from '../__shared/pageTree.js';
+import { pageTree } from '#src/layouts/layoutData.js';
 import { ChildListMenu } from '@rocket/engine';
 ```
 

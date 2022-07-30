@@ -6,7 +6,7 @@ export { html, setupUnifiedPlugins, components, openGraphLayout };
 
 import { LayoutSitemap } from '@rocket/engine';
 
-import { pageTree } from './__shared/pageTree.js';
+import { pageTree } from '#src/layouts/layoutData.js';
 import rocketConfig from '../../config/rocket.config.js';
 
 export const layout = new LayoutSitemap({

@@ -25,7 +25,7 @@ export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
 import { LayoutHome } from '@rocket/launch';
-import { layoutData } from '../src/layouts/layoutData.js';
+import { layoutData } from '#src/layouts/layoutData.js';
 
 export const description =
   'Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.';
@@ -189,9 +189,9 @@ export const openGraphLayout = data => html`
       </style>
     </head>
     <body>
-      <img id="logo" src="resolve:#assets/rocket-logo-dark-with-text.svg" />
+      <img id="logo" src="resolve:#src/assets/rocket-logo-dark-with-text.svg" />
       <div id="bg-wrapper">
-        <img src="resolve:#assets/home-background.svg" />
+        <img src="resolve:#src/assets/home-background.svg" />
       </div>
       <p id="sub-title">${data.subTitle || ''}</p>
 

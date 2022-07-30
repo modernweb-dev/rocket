@@ -28,7 +28,7 @@
     "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
     "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
     "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-    "my-counter": "#components/MyCounter::MyCounter"
+    "my-counter": "#src/components/MyCounter.js::MyCounter"
   },
   "description": "Rocket enables everyone to code a website. Use an existing theme or create your own. Be fast by server rendering web components with little to no JavaScript.",
   "needsLoader": true,
@@ -71,7 +71,7 @@
         "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
         "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
         "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-        "my-counter": "#components/MyCounter::MyCounter"
+        "my-counter": "#src/components/MyCounter.js::MyCounter"
       },
       "needsLoader": true,
       "subTitle": "From zero to hero",
@@ -106,7 +106,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -188,7 +188,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true,
               "subTitle": "Create your first Rocket site"
@@ -245,7 +245,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -311,7 +311,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -347,7 +347,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -394,7 +394,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "description": "Learn how to structure a project with Rocket.",
               "needsLoader": true
@@ -471,7 +471,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "description": "An intro to Rocket pages, which is the actual website content.",
               "needsLoader": true
@@ -523,7 +523,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -589,7 +589,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -640,7 +640,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -691,7 +691,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -777,7 +777,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -848,7 +848,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -929,7 +929,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1005,7 +1005,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -1041,7 +1041,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -1113,7 +1113,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "description": "It is important that links to your website stand out from the rest of the content on social media. Design an open graph template image directly in the browser and let Rocket handle the rest.",
               "needsLoader": true,
@@ -1206,7 +1206,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1252,7 +1252,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1303,7 +1303,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1344,7 +1344,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1425,7 +1425,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1471,7 +1471,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "description": "Enable a unique and consistent experience via Web Fonts. With the right loading strategy there will be no layout shift.",
               "needsLoader": true,
@@ -1519,7 +1519,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1560,7 +1560,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -1605,7 +1605,7 @@
         "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
         "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
         "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-        "my-counter": "#components/MyCounter::MyCounter"
+        "my-counter": "#src/components/MyCounter.js::MyCounter"
       },
       "needsLoader": true,
       "children": [
@@ -1639,7 +1639,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -1681,7 +1681,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1722,7 +1722,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1768,7 +1768,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -1804,7 +1804,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -1856,7 +1856,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -1912,7 +1912,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -1948,7 +1948,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -1990,7 +1990,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -2024,7 +2024,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter",
+                "my-counter": "#src/components/MyCounter.js::MyCounter",
                 "block-blue": "@rocket/spark/block-blue.js::BlockBlue",
                 "block-features": "@rocket/spark/block-features.js::BlockFeatures"
               }
@@ -2075,7 +2075,7 @@
         "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
         "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
         "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-        "my-counter": "#components/MyCounter::MyCounter"
+        "my-counter": "#src/components/MyCounter.js::MyCounter"
       },
       "needsLoader": true,
       "children": [
@@ -2109,7 +2109,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -2216,7 +2216,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -2252,7 +2252,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -2354,7 +2354,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -2425,7 +2425,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             },
@@ -2466,7 +2466,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -2502,7 +2502,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -2569,7 +2569,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -2605,7 +2605,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "menuNoLink": true,
           "needsLoader": true,
@@ -2677,7 +2677,7 @@
                 "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
                 "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-                "my-counter": "#components/MyCounter::MyCounter"
+                "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
               "needsLoader": true
             }
@@ -2715,7 +2715,7 @@
         "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
         "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
         "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-        "my-counter": "#components/MyCounter::MyCounter"
+        "my-counter": "#src/components/MyCounter.js::MyCounter"
       },
       "needsLoader": true,
       "children": [
@@ -2834,7 +2834,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "description": "A tool that checks the validity of all your HTML links of your whole website.",
           "needsLoader": true,
@@ -2891,7 +2891,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "description": "Let us take a look at Rocket which is sort of a nuxt/next equivalent but instead of vue/react it works best with web standards like custom elements, ES modules, template literals...",
           "needsLoader": true,
@@ -2948,7 +2948,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "description": "When you want to share a link to your website on social media it is important to include an Open Graph image. This means that a nice preview image will be shown which will make the link more attractive to click on.",
           "needsLoader": true,
@@ -3005,7 +3005,7 @@
             "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
             "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
             "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
-            "my-counter": "#components/MyCounter::MyCounter"
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
           },
           "description": "Rocket improves the way it handles web components which means that it can maintain a list of available tag names and which means it can automatically injects imports as needed. Ultimately this enables progressive hydration of your web components.",
           "needsLoader": true,

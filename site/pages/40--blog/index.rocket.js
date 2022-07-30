@@ -26,7 +26,7 @@ export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
 import { LayoutMain } from '@rocket/launch';
-import { layoutData } from '../../src/layouts/layoutData.js';
+import { layoutData } from '#src/layouts/layoutData.js';
 
 export const menuLinkText = 'Blog';
 export const layout = new LayoutMain({

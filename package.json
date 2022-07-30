@@ -126,9 +126,7 @@
     }
   },
   "imports": {
-    "#pageTree": "./site/pages/__shared/pageTree.js",
-    "#assets/*": "./site/src/assets/*",
-    "#components/*": "./site/src/components/*.js"
+    "#src/*": "./site/src/*"
   },
   "lint-staged": {
     "*.js": [

@@ -227,9 +227,9 @@ export const openGraphLayout = data => html`
       </style>
     </head>
     <body>
-      <img id="logo" src="resolve:#assets/logo-dark-with-text.svg" />
+      <img id="logo" src="resolve:#src/assets/logo-dark-with-text.svg" />
       <div id="bg-wrapper">
-        <img src="resolve:#assets/home-background.svg" />
+        <img src="resolve:#src/assets/home-background.svg" />
       </div>
       <p id="sub-title">${data.subTitle || ''}</p>
 
