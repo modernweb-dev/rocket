@@ -1525,16 +1525,21 @@
             },
             {
               "title": "Deploy a Website | Rocket",
-              "h1": "Deploy a Website",
+              "h1": "Deploying Rocket",
               "headlinesWithId": [
                 {
-                  "text": "Deploy a Website",
-                  "id": "deploy-a-website",
+                  "text": "Deploying Rocket",
+                  "id": "deploying-rocket",
                   "level": 1
+                },
+                {
+                  "text": "Github Pages",
+                  "id": "github-pages",
+                  "level": 3
                 }
               ],
-              "name": "Deploy a Website",
-              "menuLinkText": "Deploy a Website",
+              "name": "Deploying Rocket",
+              "menuLinkText": "Deploying Rocket",
               "url": "/docs/guides/deploy/",
               "outputRelativeFilePath": "docs/guides/deploy/index.html",
               "sourceRelativeFilePath": "10--docs/30--guides/95--deploy.rocket.md",
