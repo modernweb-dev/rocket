@@ -1,6 +1,6 @@
 {
   "name": "@rocket/create",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "publishConfig": {
     "access": "public"
   },
@@ -32,6 +32,7 @@
     "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
   },
   "files": [
+    "deployments",
     "dist",
     "dist-types",
     "src"
