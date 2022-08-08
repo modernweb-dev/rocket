@@ -3,11 +3,13 @@ import { LitElement, html, css } from 'lit';
 export class RocketHeader extends LitElement {
   render() {
     return html`
-      <slot name="logo"></slot>
-      <slot name="search"></slot>
-      <slot id="content"></slot>
-      <slot name="mobile-menu"></slot>
-      <slot name="social"></slot>
+      <div id="content-area">
+        <slot name="logo"></slot>
+        <slot name="search"></slot>
+        <slot id="content"></slot>
+        <slot name="mobile-menu"></slot>
+        <slot name="social"></slot>
+      </div>
     `;
   }
 
@@ -25,11 +27,7 @@ export class RocketHeader extends LitElement {
         --shadow-strength: 1%;
         --shadow-2: 0 3px 5px -2px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 3%)),
           0 7px 14px -5px hsl(var(--shadow-color) / calc(var(--shadow-strength) + 5%));
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
       }
-
       slot[name='logo']::slotted(*) {
         margin-right: auto;
       }
@@ -49,11 +47,22 @@ export class RocketHeader extends LitElement {
           margin-right: 40px;
         }
       }
-
+      /** content-area */
+      #content-area {
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      @media screen and (min-width: 1024px) {
+        #content-area {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+      }
       slot[name='social']::slotted(*:last-child) {
         margin-right: 0;
       }
-
       slot[name='social'],
       slot[name='logo'],
       slot[name='search'] {
@@ -69,7 +78,6 @@ export class RocketHeader extends LitElement {
           display: none;
         }
       }
-
       /** Home Variation ********/
       :host([hide-logo]) slot[name='logo'] {
         visibility: hidden;
@@ -78,7 +86,6 @@ export class RocketHeader extends LitElement {
         background-color: transparent;
         box-shadow: none;
       }
-
       @media screen and (min-width: 1024px) {
         :host([dark-background]) #content::slotted(a) {
           color: #fff;
@@ -87,7 +94,6 @@ export class RocketHeader extends LitElement {
           color: var(--primary-text-color);
         }
       }
-
       :host([not-sticky]) {
         position: static;
       }

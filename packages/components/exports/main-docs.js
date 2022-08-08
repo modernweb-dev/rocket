@@ -1,1 +1,1 @@
-export { MainDocs } from '../src/main-docs/MainDocs.js';
+export { RocketMainDocs } from '../src/RocketMainDocs.js';

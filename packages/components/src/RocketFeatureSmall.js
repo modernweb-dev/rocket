@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-export class FeatureSmall extends LitElement {
+export class RocketFeatureSmall extends LitElement {
   static styles = css`
     :host {
       display: block;

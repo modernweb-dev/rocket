@@ -5,9 +5,9 @@ export { html, setupUnifiedPlugins, components, openGraphLayout };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore
-  customElements.define('server-icon', await import('@rocket/components/server-icon.js').then(m => m.ServerIcon));
+  customElements.define('rocket-icon', await import('@rocket/components/icon.js').then(m => m.RocketIcon));
   // prettier-ignore
-  customElements.define('opengraph-overview', await import('@rocket/components/open-graph-overview.js').then(m => m.OpenGraphOverview));
+  customElements.define('rocket-opengraph-overview', await import('@rocket/components/open-graph-overview.js').then(m => m.RocketOpenGraphOverview));
 }
 /* END - Rocket auto generated - do not touch */
 
@@ -23,10 +23,10 @@ const pages = pageTree.all().map(node => ({
 export default () => html`
   <h1>Open Graph</h1>
 
-  <opengraph-overview
+  <rocket-opengraph-overview
     .pages="${pages}"
     input-dir=${new URL('./', import.meta.url).pathname}
-  ></opengraph-overview>
+  ></rocket-opengraph-overview>
 `;
 
 export const layout = data => html`

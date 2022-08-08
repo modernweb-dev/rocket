@@ -11,11 +11,11 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  customElements.define('rocket-icon-card', await import('@rocket/components/icon-card.js').then(m => m.RocketIconCard));
   // prettier-ignore
-  customElements.define('card-icon', await import('@rocket/components/card-icon.js').then(m => m.CardIcon));
+  customElements.define('rocket-main-docs', await import('@rocket/components/main-docs.js').then(m => m.RocketMainDocs));
   // prettier-ignore
-  customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
+  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
   // hydrate-able components
   // prettier-ignore
   customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
@@ -25,8 +25,8 @@ export async function registerCustomElements() {
 export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
-import { CardIcon } from '@rocket/components/card-icon.js';
-customElements.define('card-icon', CardIcon);
+// import { RocketIconCard } from '@rocket/components/rocket-icon-card.js';
+// customElements.define('rocket-icon-card', RocketIconCard);
 ```
 
 # Card Icon
@@ -35,10 +35,10 @@ Shows an icon in a card.
 
 _Note: This is a server only component as it reads svg files from the file system and inlines them._
 
-<card-icon icon="solid/headphones-alt"></card-icon>
+<rocket-icon-card icon="solid/headphones-alt"></rocket-icon-card>
 
 ```html
-<card-icon icon="solid/headphones-alt"></card-icon>
+<rocket-icon-card icon="solid/headphones-alt"></rocket-icon-card>
 ```
 
 It does supports the 1,600+ icons from [font awesome](https://fontawesome.com/v5/search?m=free&s=solid).

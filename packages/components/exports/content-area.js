@@ -1,1 +1,1 @@
-export { ContentArea } from '../src/content-area/ContentArea.js';
+export { RocketContentArea } from '../src/RocketContentArea.js';

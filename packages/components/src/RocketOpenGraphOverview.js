@@ -1,6 +1,6 @@
 import { html, css, LitElement } from 'lit';
 
-export class OpenGraphOverview extends LitElement {
+export class RocketOpenGraphOverview extends LitElement {
   static properties = {
     pages: { type: Array },
     inputDir: { type: String, attribute: 'input-dir' },
@@ -23,13 +23,13 @@ export class OpenGraphOverview extends LitElement {
           <a href="${url}">${url}</a>
           <div id="bar-icons">
             <a href="${url}" target="_blank">
-              <server-icon icon="solid/external-link-alt"></server-icon>
+              <rocket-icon icon="solid/external-link-alt"></rocket-icon>
             </a>
             <a href="${iframeUrl}" target="_blank">
-              <server-icon icon="solid/image"></server-icon>
+              <rocket-icon icon="solid/image"></rocket-icon>
             </a>
             <a href="vscode://file${this.inputDir}${sourceRelativeFilePath}">
-              <server-icon icon="solid/laptop-code"></server-icon>
+              <rocket-icon icon="solid/laptop-code"></rocket-icon>
             </a>
           </div>
         </div>

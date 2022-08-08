@@ -1,1 +1,1 @@
-export { TestimonialSmall } from '../src/TestimonialSmall.js';
+export { RocketTestimonialSmall } from '../src/RocketTestimonialSmall.js';

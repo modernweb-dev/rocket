@@ -1,14 +1,13 @@
-import { html, css } from 'lit';
-import { TheBlock } from './TheBlock.js';
+import { html, css, LitElement } from 'lit';
 
-export class BlockColumns extends TheBlock {
+export class RocketColumns extends LitElement {
   static styles = [
-    ...this.styles,
     css`
       #content {
         display: flex;
         gap: var(--space-m, 2rem);
         flex-direction: column;
+        flex-wrap: wrap;
       }
       ::slotted(*) {
         flex: 1;
@@ -24,11 +23,6 @@ export class BlockColumns extends TheBlock {
   ];
 
   render() {
-    return html`
-      <div id="wrapper">
-        <slot name="title"></slot>
-        <slot id="content"></slot>
-      </div>
-    `;
+    return html` <slot id="content"></slot> `;
   }
 }

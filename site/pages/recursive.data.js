@@ -146,7 +146,7 @@ export const openGraphLayout = data => html`
           align-items: center;
           gap: 20px;
         }
-        .item card-icon {
+        .item rocket-icon-card {
           width: 50px;
           height: 50px;
         }

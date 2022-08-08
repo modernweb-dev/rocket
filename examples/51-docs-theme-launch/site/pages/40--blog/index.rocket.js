@@ -13,20 +13,16 @@ export async function registerCustomElements() {
     await import('@rocket/components/header.js').then(m => m.RocketHeader),
   );
   customElements.define(
-    'content-area',
-    await import('@rocket/components/content-area.js').then(m => m.ContentArea),
-  );
-  customElements.define(
-    'launch-blog-preview',
-    await import('@rocket/launch/blog-preview.js').then(m => m.LaunchBlogPreview),
-  );
-  customElements.define(
     'launch-blog-overview',
     await import('@rocket/launch/blog-overview.js').then(m => m.LaunchBlogOverview),
   );
   customElements.define(
-    'main-content',
-    await import('@rocket/components/main-content.js').then(m => m.MainContent),
+    'rocket-content-area',
+    await import('@rocket/components/content-area.js').then(m => m.RocketContentArea),
+  );
+  customElements.define(
+    'rocket-main',
+    await import('@rocket/components/main.js').then(m => m.RocketMain),
   );
   // hydrate-able components
   customElements.define(
@@ -50,7 +46,7 @@ export const layout = new LayoutMain({
 });
 
 export default () => html`
-  <content-area>
+  <rocket-content-area>
     <h1>Rocket Blog</h1>
     <p>
       Discover articles from the core team and contributors about Rocket, tips and tricks included!
@@ -61,5 +57,5 @@ export default () => html`
       .sourceRelativeFilePath=${sourceRelativeFilePath}
     >
     </launch-blog-overview>
-  </content-area>
+  </rocket-content-area>
 `;

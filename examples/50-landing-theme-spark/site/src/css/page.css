@@ -1,0 +1,38 @@
+footer {
+  background: #272456;
+  color: #fff;
+}
+
+footer a {
+  color: #fff;
+}
+
+h1 {
+  font-size: var(--step-2);
+  line-height: var(--step-3);
+}
+
+.legal {
+  text-align: right;
+}
+
+.bg-blue {
+  padding: var(--space-m-l, 2em) 0;
+}
+
+.bg-blue > div {
+  text-align: center;
+}
+
+rocket-header-scroll-menu a:nth-child(2) {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  rocket-header-scroll-menu {
+    --rocket-header-scroll-menu-text-align: right;
+  }
+  rocket-header-scroll-menu a:nth-child(2) {
+    display: inline;
+  }
+}

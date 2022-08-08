@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-export class TestimonialSmall extends LitElement {
+export class RocketTestimonialSmall extends LitElement {
   static properties = {
     cite: { type: String },
   };

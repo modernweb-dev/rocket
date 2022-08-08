@@ -6,7 +6,7 @@ import { createRequire } from 'module';
 
 const { resolve } = createRequire(new URL('.', import.meta.url));
 
-export class CardIcon extends LitElement {
+export class RocketIconCard extends LitElement {
   static properties = {
     icon: { type: String },
     variation: { type: String },

@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
-export class RotatingText extends LitElement {
+export class RocketRotatingText extends LitElement {
   static properties = {
     items: { type: Array },
     inIndex: { type: Number, reflect: true, attribute: 'in-index' },
