@@ -13,12 +13,12 @@ export async function registerCustomElements() {
     await import('@rocket/components/header.js').then(m => m.RocketHeader),
   );
   customElements.define(
-    'content-area',
-    await import('@rocket/components/content-area.js').then(m => m.ContentArea),
-  );
-  customElements.define(
     'launch-home',
     await import('@rocket/launch/home.js').then(m => m.LaunchHome),
+  );
+  customElements.define(
+    'rocket-content-area',
+    await import('@rocket/components/content-area.js').then(m => m.RocketContentArea),
   );
   // hydrate-able components
   customElements.define(
@@ -89,7 +89,7 @@ const reasons = [
 ];
 
 export default () => html`
-  <content-area>
+  <rocket-content-area>
     <launch-home .reasons=${reasons} background-image>
       <h1 slot="title">
         <picture>
@@ -125,5 +125,5 @@ export default () => html`
         }
       </style>
     </launch-home>
-  </content-area>
+  </rocket-content-area>
 `;

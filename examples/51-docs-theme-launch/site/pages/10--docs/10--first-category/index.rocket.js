@@ -19,12 +19,12 @@ export async function registerCustomElements() {
     await import('@rocket/components/header.js').then(m => m.RocketHeader),
   );
   customElements.define(
-    'content-area',
-    await import('@rocket/components/content-area.js').then(m => m.ContentArea),
+    'rocket-main-docs',
+    await import('@rocket/components/main-docs.js').then(m => m.RocketMainDocs),
   );
   customElements.define(
-    'main-docs',
-    await import('@rocket/components/main-docs.js').then(m => m.MainDocs),
+    'rocket-content-area',
+    await import('@rocket/components/content-area.js').then(m => m.RocketContentArea),
   );
   // hydrate-able components
   customElements.define(

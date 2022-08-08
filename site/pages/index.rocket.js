@@ -9,12 +9,12 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
-  // prettier-ignore
   customElements.define('launch-home', await import('@rocket/launch/home.js').then(m => m.LaunchHome));
+  // prettier-ignore
+  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
   // server-only open-graph only components
   // prettier-ignore
-  customElements.define('card-icon', await import('@rocket/components/card-icon.js').then(m => m.CardIcon));
+  customElements.define('rocket-icon-card', await import('@rocket/components/icon-card.js').then(m => m.RocketIconCard));
   // hydrate-able components
   // prettier-ignore
   customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
@@ -80,7 +80,7 @@ const reasons = [
 ];
 
 export default () => html`
-  <content-area>
+  <rocket-content-area>
     <launch-home .reasons=${reasons} background-image>
       <h1 slot="title">
         <picture>
@@ -116,7 +116,7 @@ export default () => html`
         }
       </style>
     </launch-home>
-  </content-area>
+  </rocket-content-area>
 `;
 
 export const openGraphLayout = data => html`
@@ -182,7 +182,7 @@ export const openGraphLayout = data => html`
           align-items: center;
           gap: 20px;
         }
-        .item card-icon {
+        .item rocket-icon-card {
           width: 50px;
           height: 50px;
         }
@@ -196,17 +196,17 @@ export const openGraphLayout = data => html`
       <p id="sub-title">${data.subTitle || ''}</p>
 
       <p class="item">
-        <card-icon icon="solid/server" variation="green"></card-icon>
+        <rocket-icon-card icon="solid/server" variation="green"></rocket-icon-card>
         <span>Server renders your web components</span>
       </p>
 
       <p class="item">
-        <card-icon icon="solid/stopwatch" variation="blue"></card-icon>
+        <rocket-icon-card icon="solid/stopwatch" variation="blue"></rocket-icon-card>
         <span>FAST because of zero or little JavaScript</span>
       </p>
 
       <p class="item">
-        <card-icon icon="solid/battery-full"></card-icon>
+        <rocket-icon-card icon="solid/battery-full"></rocket-icon-card>
         <span>Batteries included with routing/themes/menus/...</span>
       </p>
     </body>

@@ -1,1 +1,1 @@
-export { FeatureSmall } from '../src/FeatureSmall.js';
+export { RocketFeatureSmall } from '../src/RocketFeatureSmall.js';

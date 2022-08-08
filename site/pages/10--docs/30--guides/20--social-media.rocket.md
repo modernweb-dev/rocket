@@ -11,9 +11,9 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
+  customElements.define('rocket-main-docs', await import('@rocket/components/main-docs.js').then(m => m.RocketMainDocs));
   // prettier-ignore
-  customElements.define('main-docs', await import('@rocket/components/main-docs.js').then(m => m.MainDocs));
+  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
   // hydrate-able components
   // prettier-ignore
   customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
@@ -270,10 +270,10 @@ const pages = pageTree.all().map(node => ({
 export default () => html`
   <h1>Open Graph</h1>
 
-  <opengraph-overview
+  <rocket-opengraph-overview
     .pages="${pages}"
     input-dir=${new URL('./', import.meta.url).pathname}
-  ></opengraph-overview>
+  ></rocket-opengraph-overview>
 `;
 
 export const layout = data => html`
@@ -333,11 +333,11 @@ This gets all pages from the pageTree and extracts the url and the sourceRelativ
 export default () => html`
   <h1>Open Graph</h1>
 
-  <opengraph-overview
+  <rocket-opengraph-overview
     .pages="${pages}"
     input-dir=${new URL('./', import.meta.url).pathname}
-  ></opengraph-overview>
+  ></rocket-opengraph-overview>
 `;
 ```
 
-Here we use the opengraph-overview component and we pass on the pages and the path to the input directory.
+Here we use the rocket-opengraph-overview component and we pass on the pages and the path to the input directory.

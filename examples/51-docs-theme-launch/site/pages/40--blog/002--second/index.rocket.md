@@ -15,16 +15,16 @@ export async function registerCustomElements() {
     await import('@rocket/components/header.js').then(m => m.RocketHeader),
   );
   customElements.define(
-    'content-area',
-    await import('@rocket/components/content-area.js').then(m => m.ContentArea),
-  );
-  customElements.define(
     'launch-blog-details',
     await import('@rocket/launch/blog-details.js').then(m => m.LaunchBlogDetails),
   );
   customElements.define(
-    'main-content',
-    await import('@rocket/components/main-content.js').then(m => m.MainContent),
+    'rocket-main',
+    await import('@rocket/components/main.js').then(m => m.RocketMain),
+  );
+  customElements.define(
+    'rocket-content-area',
+    await import('@rocket/components/content-area.js').then(m => m.RocketContentArea),
   );
   // hydrate-able components
   customElements.define(

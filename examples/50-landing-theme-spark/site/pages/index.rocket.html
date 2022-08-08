@@ -1,183 +1,459 @@
 <script type="module" server>
 /* START - Rocket auto generated - do not touch */
 export const sourceRelativeFilePath = 'index.rocket.html';
-import { pageTree, layout, components } from './recursive.data.js';
-export { pageTree, layout, components };
+import { components } from './recursive.data.js';
+export { components };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore
-  customElements.define('block-columns', await import('@rocket/components/block-columns.js').then(m => m.BlockColumns));
+  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
   // prettier-ignore
-  customElements.define('card-icon', await import('@rocket/components/card-icon.js').then(m => m.CardIcon));
+  customElements.define('rocket-header-scroll-menu', await import('@rocket/components/header-scroll-menu.js').then(m => m.RocketHeaderScrollMenu));
   // prettier-ignore
-  customElements.define('feature-small', await import('@rocket/components/feature-small.js').then(m => m.FeatureSmall));
+  customElements.define('rocket-columns', await import('@rocket/components/columns.js').then(m => m.RocketColumns));
   // prettier-ignore
-  customElements.define('block-features', await import('@rocket/spark/block-features.js').then(m => m.BlockFeatures));
+  customElements.define('rocket-icon-card', await import('@rocket/components/icon-card.js').then(m => m.RocketIconCard));
   // prettier-ignore
-  customElements.define('block-columns-gray', await import('#components/BlockColumnsGray.js').then(m => m.BlockColumnsGray));
+  customElements.define('rocket-feature-small', await import('@rocket/components/feature-small.js').then(m => m.RocketFeatureSmall));
   // prettier-ignore
-  customElements.define('testimonial-small', await import('@rocket/components/testimonial-small.js').then(m => m.TestimonialSmall));
+  customElements.define('rocket-card', await import('@rocket/components/card.js').then(m => m.RocketCard));
   // prettier-ignore
-  customElements.define('block-blue', await import('@rocket/spark/block-blue.js').then(m => m.BlockBlue));
+  customElements.define('rocket-testimonial-small', await import('@rocket/components/testimonial-small.js').then(m => m.RocketTestimonialSmall));
   // prettier-ignore
-  customElements.define('the-block', await import('@rocket/components/the-block.js').then(m => m.TheBlock));
+  customElements.define('rocket-details', await import('@rocket/components/details.js').then(m => m.RocketDetails));
+  // hydrate-able components
+  // prettier-ignore
+  customElements.define('rocket-rotating-text', await import('@rocket/components/rotating-text.js').then(m => m.RocketRotatingText));
 }
+export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
 
-export const title = 'Rocket Landing Page Template (Theme Spark)';
+  import { LayoutHome } from '@rocket/spark'; 
+  import { layoutData } from '#src/layouts/layoutData.js';
+
+  export const layout = new LayoutHome({
+    ...layoutData,
+  });
+
+  export const title = 'Potentialbooster';
+  export const description = 'Boosten Sie das Potential Ihres Serviceangebotes!';
 </script>
+ 
+<rocket-content-area>
+  <rocket-columns>
+    <div>
+      <h1 id="home" link-text="Home">
+        <rocket-rotating-text
+          loading="hydrate:onVisible"
+          items='["Boosten", "Verbessern", "Maximieren"]'
+        ></rocket-rotating-text>
+        <span>Sie das Potential Ihres Serviceangebotes! </span>
+      </h1>
+      <p>
+        Die optimale Ergänzung der fachlichen Ausbildung durch wertvolles Know-how aus der Berufs-
+        und Finanzpraxis
+      </p>
+      <a class="cta" href="#termin">Termin ausmachen</a>
+    </div>
 
-<script type="module">
-  import { RotatingText } from '@rocket/components/rotating-text.js';
-  customElements.define('rotating-text', RotatingText);
-</script>
+    <img src="resolve:#src/images/header-illustration.svg" alt="alternative" width="189" height="150" />
+  </rocket-columns>
+</rocket-content-area>
 
-<block-columns style="background: #fff2dc;">
-  <div>
-    <h1>
-      <span>We are</span>
-      <rotating-text items='["Designers", "Developers", "Humans"]'></rotating-text>
-    </h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dignissim, neque ut vanic barem
-      ultrices sollicitudin
-    </p>
-    <a class="cta" href="./sign-up"> Sign up for free </a>
-  </div>
+<rocket-content-area>
+  <rocket-columns>
+    <div>
+      <h2>Potentialbooster im Webinarformat</h2>
+      <p>
+        ✅ Unsere Webinare vermitteln Wissen, das jede/r TeilnehmerIn sofort umsetzen kann. <br />
+        ✅ In 90 Minuten pro Thema bringen wir die Inhalte kompakt auf den Punkt.
+        <br />
+        ✅ Spannend und leicht verständlich. <br />
+        ✅ Zielgruppengerecht, ortsunabhängig und zeitgemäß.<br />
+        ✅ Kostenfrei für Anbieter und TeilnehmerInnen
+      </p>
+      <a class="cta" href="#termin">Termin ausmachen</a>
+    </div>
+    <img src="resolve:#src/images/details-1.svg" alt="alternative" width="146" height="150" />
+  </rocket-columns>
+</rocket-content-area>
 
-  <img src="./_assets/header-illustration.svg" alt="alternative" width="189" height="150" />
-</block-columns>
-
-<block-features>
-  <h2 slot="title">
-    Arcu felis bibendum ut tristique entra <span class="highlight">les vitoria livanore</span>
+<rocket-content-area>
+  <h2 id="schwerpunkte" link-text="Schwerpunkte" class="area-headline">
+    Folgende Schwerpunkte bieten <br />
+    <span class="highlight">den Kern unserer Webinare</span>
   </h2>
 
-  <feature-small>
-    <card-icon slot="icon" icon="solid/headphones-alt"></card-icon>
-    <h4 slot="title">Lorem Ipsum</h4>
-    <p slot="description">
-      Et blandit nisl libero at arcu. Donec ac lectus sed tellus mollis viverra. Nullam pharetra
-      ante at nunc elementum
-    </p>
-  </feature-small>
+  <rocket-columns>
+    <rocket-feature-small>
+      <rocket-icon-card slot="icon" icon="solid/headphones-alt"></rocket-icon-card>
+      <h4 slot="title">Mindset</h4>
+      <p slot="description">
+        Überholte Denkmuster überwinden <br />
+        Selbstwertgefühl stärken<br />
+        Herausforderungen als Chancen für eine erfolgreiche Zukunft erkennen<br />
+      </p>
+    </rocket-feature-small>
 
-  <feature-small>
-    <card-icon slot="icon" icon="regular/clipboard" variation="green"></card-icon>
-    <h4 slot="title">Vivera Adipis</h4>
-    <p slot="description">
-      Et blandit nisl libero at arcu. Donec ac lectus sed tellus mollis viverra. Nullam pharetra
-      ante at nunc elementum
-    </p>
-  </feature-small>
+    <rocket-feature-small>
+      <rocket-icon-card slot="icon" icon="regular/clipboard" variation="green"></rocket-icon-card>
+      <h4 slot="title">Karriere</h4>
+      <p slot="description">
+        Stärken erkennen<br />
+        Potential entfalten<br />
+        Effektiv kommunizieren<br />
+        Erfolgreich verhandeln
+      </p>
+    </rocket-feature-small>
 
-  <feature-small>
-    <card-icon slot="icon" icon="regular/comments" variation="blue"></card-icon>
-    <h4 slot="title">Atine Tellus</h4>
-    <p slot="description">
-      Ety suscipit metus sollicitudin euqu isq imperdiet nibh nec magna tincidunt, nec pala
-      vehicula neque sodales verum
-    </p>
-  </feature-small>
-</block-features>
+    <rocket-feature-small>
+      <rocket-icon-card slot="icon" icon="regular/comments" variation="blue"></rocket-icon-card>
+      <h4 slot="title">Finanzielle Intelligenz</h4>
+      <p slot="description">
+        Unser Wirtschaftssystem verstehen <br />
+        Das eigene Karrierepotential in Wohlstand transformieren
+      </p>
+    </rocket-feature-small>
+  </rocket-columns>
+</rocket-content-area>
 
-<block-columns-gray>
+<rocket-content-area>
+  <h2 id="formate" link-text="Formate" class="area-headline">
+    Unsere beliebtesten <br />
+    <span class="highlight">Webinar-Formate</span>
+  </h2>
+
+  <rocket-columns>
+    <rocket-card>
+      <h4 slot="title">Gehaltsverhandlung & Finanzplanung für Absolventen</h4>
+      <p>Souverän bewerben und selbstbewusst ein Top-Gehalt verhandeln</p>
+      <a slot="cta" class="cta" href="./das-1x1-des-investierens.rocket.html">Details</a>
+    </rocket-card>
+
+    <rocket-card>
+      <h4 slot="title">Pensionssystem 3.0</h4>
+      <p>Sicher und entspannt den Wandel im Pensionssystem meistern</p>
+      <a slot="cta" class="cta" href="./das-1x1-des-investierens.rocket.html">Details</a>
+    </rocket-card>
+
+    <rocket-card>
+      <rocket-icon-card slot="icon" icon="regular/comments" variation="blue"></rocket-icon-card>
+      <h4 slot="title">Das 1x1 des Investierens</h4>
+      <p>Die 7 Grundregeln für erfolgreiche Investments anwenden</p>
+      <a slot="cta" class="cta" href="./das-1x1-des-investierens.rocket.html">Details</a>
+    </rocket-card>
+
+    <rocket-card>
+      <h4 slot="title">Gehaltsverhandlung & Finanzplanung für Berufstätige</h4>
+      <p>Selbstsicher und effektiv das aktuelle Gehalt erhöhen</p>
+      <a slot="cta" class="cta" href="./das-1x1-des-investierens.rocket.html">Details</a>
+    </rocket-card>
+
+    <rocket-card>
+      <h4 slot="title">Investieren in Krisenzeiten</h4>
+      <p>In Krisenzeiten die Nerven behalten und langfristig Vermögen aufbauen</p>
+      <a slot="cta" class="cta" href="./das-1x1-des-investierens.rocket.html">Details</a>
+    </rocket-card>
+
+    <rocket-card>
+      <h4 slot="title">Erstes Gehalt - was tun?</h4>
+      <p>
+        Die wichtigsten finanziellen Schritte für einen reibungslosen Übergang in das Berufsleben
+        bewältigen
+      </p>
+      <a slot="cta" class="cta" href="./das-1x1-des-investierens.rocket.html">Details</a>
+    </rocket-card>
+  </rocket-columns>
+</rocket-content-area>
+
+<rocket-content-area class="bg-blue">
+  <h2 id="termin" link-text="Termin" class="area-headline">
+    Unverbindlichen Kennenlerntermin ausmachen
+  </h2>
   <div>
-    <h2>Turpis in eu mi bibendum neque egestas congue ortor consequat</h2>
-    <p>
-      Vestibulum ullamcorper augue ex imperdiet tincidunt tellus bibendum inconsectetur rutrum
-      mauris orbi scelerisque cursus augue ac suscipit sem mattis at ut suscipit
-    </p>
-    <a class="cta" href="./sign-up">Do it</a>
+    <a class="cta-outline" href="mailto:felix@finum.at">Hier einen Termin aussuchen</a>
   </div>
-  <img src="./_assets/details-1.svg" alt="alternative" width="146" height="150" />
-</block-columns-gray>
+</rocket-content-area>
 
-<block-columns>
-  <img src="./_assets/details-2.png" alt="alternative" width="544" height="587" />
+<rocket-content-area>
+  <h2 id="ueber-uns" link-text="Über Uns" class="area-headline">
+    Was zeichnet die <span class="highlight">PotentialBooster</span> <br />
+    Felix, Michael und Wolfgang aus?
+  </h2>
+  <p>
+    Wir inspirieren und unterstützen Menschen und ihr Umfeld dabei, das Beste aus ihrem finanziellen
+    Potential zu machen, um ein glückliches, selbstbestimmtes Leben zu führen. Uns begeistert dabei,
+    um wie viel erfolgreicher, entspannter und gesünder unsere KundInnen dadurch leben können.
+  </p>
+  <p>
+    Unsere KundInnen profitieren vor allem von unserer langjährigen Erfahrung als Finanzberater für
+    Young Professionals. – Mehr als 30 Jahre gemeinsame Lebens- und Berufserfahrung, die wir in Form
+    von Webinaren und Beratungen an unsere KundInnen weitergeben. Wir haben zu diesem Zweck
+    verschiede Formate für Fachhochschulen und Universitäten entwickelt, Trainer- und Coaching
+    Ausbildungen absolviert und bilden uns ständig weiter.
+  </p>
+  <p>
+    Zusammen haben wir 1000e SeminarteilnehmerInnen durch unsere Webinare begleitet und 1000e
+    erfolgreiche Beratungen durchgeführt, die unsere KundInnen dazu befähigen, das Beste aus ihrem
+    finanziellen Potential zu machen. Zu unseren Ausbildungen: Felix ist studierter IT´ler, Michael
+    ist Volkswirt und Wolfgang hat an der WU BWL studiert. Diese außergerwöhnliche Mischung an
+    Kompetenz und Erfahrung macht den Mix der PotentialBooster aus!
+  </p>
+
+  <rocket-columns>
+    <rocket-testimonial-small>
+      <img
+        slot="image"
+        src="resolve:#src/images/testimonial-1.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
+      <p>
+        Felix ist am liebsten mit dem Kayak unterwegs. Er freut sich wie ein Kind über den selbst
+        produzierten Sonnenstrom. Das Einzige, was er nicht automatisieren kann, sind die
+        Schlafengehzeiten seiner Tochter.
+      </p>
+      <p slot="caption">Felix</p>
+    </rocket-testimonial-small>
+
+    <rocket-testimonial-small>
+      <img
+        slot="image"
+        src="resolve:#src/images/testimonial-2.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
+      <p>
+        Michael ist ein spiritueller Maradona. Er meditiert täglich und kocht vegan. Er liebt
+        Fußball, Karamelleis, die Sonne und das Meer. Er behauptet, schon 7 Unternehmen gegründet zu
+        haben.
+      </p>
+      <p slot="caption">Michael</p>
+    </rocket-testimonial-small>
+
+    <rocket-testimonial-small>
+      <img
+        slot="image"
+        src="resolve:#src/images/testimonial-3.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
+      <p>
+        Wolfgang und ist ein echter Naturbursche. Er liebt raue Felsen, kalte Gebirgsbäche und
+        bezwingt die steilsten Rampen mit dem Mountainbike. Er rühmt sich, mehr als 1500
+        Suppenvariationen gekocht zu haben.
+      </p>
+      <p slot="caption">Wolfgang</p>
+    </rocket-testimonial-small>
+  </rocket-columns>
+</rocket-content-area>
+
+<rocket-content-area>
+  <h2 id="faq" class="area-headline">FAQ</h2>
+
   <div>
-    <h2>Turpis in eu mi bibendum neque egestas congue ortor consequat</h2>
-    <p>
-      Vestibulum ullamcorper augue ex imperdiet tincidunt tellus bibendum inconsectetur rutrum
-      mauris orbi scelerisque cursus augue ac suscipit sem mattis at ut suscipit
-    </p>
-    <a class="cta" href="./sign-up">Do it</a>
+    <h3>Inhalte</h3>
+
+    <rocket-details>
+      <span slot="summary">Welche Inhalte bieten die Webinare und welchen Nutzen haben sie?</span>
+      <div>
+        Unsere Inhalte drehen sich um Themen, die junge, motivierte Menschen interessieren:
+        individuelle Potentialentfaltung, Vermittlung finanzieller Intelligenz, Berufseinstieg und
+        Gehaltsverhandlung. Die Webinare sollen einen Mehrwert zur fachlichen Ausbildung darstellen.
+        Natürlich werden unsere bestehenden Inhalte laufend überarbeitet und ergänzt, um Aktualität
+        zu garantieren.
+      </div>
+    </rocket-details>
+
+    <rocket-details>
+      <span slot="summary">
+        Was unterscheidet die Inhalte der PotentialBooster Webinare von denen anderer Anbieter?
+      </span>
+      <div>
+        Wir konzentrieren uns ausschließlich auf jungen Menschen, die eine höhere Ausbildung machen
+        oder kürzlich abgeschlossen haben und schon im Berufsleben stehen. Dieser Fokus erlaubt uns,
+        unsere Angebote exakt auf unsere Zielgruppe abzustimmen. Die Ausbildung der TeilnehmerInnen
+        wird gleichsam durch unsere Inhalte komplettiert.
+      </div>
+    </rocket-details>
+
+    <rocket-details>
+      <span slot="summary">Was qualifiziert die PotentialBooster ihre Inhalte anzubieten?</span>
+      <div>
+        Wir sind seit über 30 Jahren in unserem Business tätig. Als “alte Hasen” verfügen wir über
+        einen umfassenden beruflichen Erfahrungsschatz aus dem In- und Ausland. Wir betreuen
+        tagtäglich AbsolventInnen und beschäftigen uns schon lange mit unserer Zielgruppe. Dadurch
+        können wir sehr gut abschätzen, wie wir diese mit unserer Kompetenz am besten unterstützen
+        können. Der Praxiserfolg unserer Strategien und Ansätze gibt uns recht.
+      </div>
+    </rocket-details>
+
+    <rocket-details>
+      <span slot="summary">
+        Können wir entscheiden welche Webinare wir unseren Lernenden anbieten möchten?
+      </span>
+      <div>
+        Sie haben die freie Wahl und können sich für einzelne oder mehrere Webinare entscheiden.
+        Gerne beraten wir Sie auch dabei, welche Programme für Ihre Institution sinnvoll sind.
+        Darüber hinaus bieten wir bei Bedarf maßgeschneiderte Formate, die wir mit Ihnen gemeinsam
+        eigens für Ihre Institution entwickeln.
+      </div>
+    </rocket-details>
+
+    <rocket-details>
+      <span slot="summary">
+        Erhalten die TeilnehmerInnen nach den Webinaren Unterlagen zur Vertiefung der Inhalte?
+      </span>
+      <div>
+        Zu jedem Webinar-Thema bieten wir umfassendes Bonusmaterial: die verwendeten Folien,
+        Literaturempfehlungen, interessante Links etc.
+      </div>
+    </rocket-details>
   </div>
-</block-columns>
 
-<block-columns-gray>
-  <h2 slot="title">Testimonials</h2>
+  <!-- --------------------------------------------------------------------------------------------- -->
 
-  <testimonial-small>
-    <img
-      slot="image"
-      src="./_assets/testimonial-1.jpg"
-      alt="alternative"
-      width="80"
-      height="80"
-    />
-    <p>
-      Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
-      you’re pierced.
-    </p>
-    <p slot="caption">Aldous Huxley — Designer</p>
-  </testimonial-small>
+  <h3>Organisation der Webinare:</h3>
+  <rocket-details>
+    <span slot="summary">Ist für die Organisation der Webinare viel Zeit von Nöten?</span>
+    <div>
+      Nein. Alles was Sie tun müssen ist: dafür sorgen, dass die entsprechende Zielgruppe von der
+      Veranstaltung erfährt. Dies kann beispielsweise über die eigene Website,
+      Veranstaltungskalender, E-Mails, soziale Medien etc. geschehen. Den Rest erledigen wir.
+    </div>
+  </rocket-details>
 
-  <testimonial-small>
-    <img
-      slot="image"
-      src="./_assets/testimonial-2.jpg"
-      alt="alternative"
-      width="80"
-      height="80"
-    />
-    <p>
-      Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
-      you’re pierced.
-    </p>
-    <p slot="caption">Aldous Huxley — Designer</p>
-  </testimonial-small>
+  <rocket-details>
+    <span slot="summary">Wie sieht die Organisation eines Webinars für uns konkret aus?</span>
+    <div>
+      Sie erhalten von uns ein Anschreiben und einen Link für die Webinar-Anmeldung. Beides senden
+      Sie an die Zielgruppe des Webinars (Lernende, MitarbeiterInnen etc.) aus. Die weitere
+      Vorbereitung sowie die Durchführung des Webinars liegt bei uns. In den Tagen nach der
+      Veranstaltung melden wir uns bei Ihnen und informieren Sie über TeilnehmerInnenzahl und
+      Feedback.
+    </div>
+  </rocket-details>
 
-  <testimonial-small>
-    <img
-      slot="image"
-      src="./_assets/testimonial-3.jpg"
-      alt="alternative"
-      width="80"
-      height="80"
-    />
-    <p>
-      Words can be like X-rays, if you use them properly—they’ll go through anything. You read and
-      you’re pierced.
-    </p>
-    <p slot="caption">Aldous Huxley — Designer</p>
-  </testimonial-small>
-</block-columns-gray>
+  <rocket-details>
+    <span slot="summary">Wie oft werden die Webinare von den PotentialBooster angeboten?</span>
+    <div>
+      Wir richten uns ganz nach Ihrem Bedarf und vereinbaren das gerne individuell mit Ihnen. Nach
+      unserer Erfahrung hat sich ein Zyklus von drei Webinaren pro Halbjahr bewährt.
+    </div>
+  </rocket-details>
 
-<block-blue>
-  <h3>
-    Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
-    volutpat diam soli
-  </h3>
-  <a class="cta-outline" href="./sign-up">Do it</a>
-</block-blue>
+  <!-- --------------------------------------------------------------------------------------------- -->
 
-<the-block>
-  <h2 slot="title">FAQ</h2>
-  <accordion-group>
-    <h3 slot="invoker">
-      <accordion-button>Sensory Factors</accordion-button>
-    </h3>
-    <accordion-content slot="content">
-      Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
-      volutpat diam soli
-    </accordion-content>
-    <h3 slot="invoker">
-      <accordion-button>Sensory Factors</accordion-button>
-    </h3>
-    <accordion-content slot="content">
-      Nec ultrices dui sapien eget mi proin nibh cras pulvinar mattis nunc sed blandit libero
-      volutpat diam soli
-    </accordion-content>
-  </accordion-group>
-</the-block>
+  <h3>Ablauf</h3>
+  <rocket-details>
+    <span slot="summary">Wie können sich Interessierte zu einem Webinar anmelden?</span>
+    <div>
+      Über einen Anmeldelink ist die Anmeldung in weniger als einer Minute erledigt. Alle Daten
+      werden dabei selbstverständlich streng DSGVO-konform gespeichert.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">Dürfen die TeilnehmerInnen nach dem Webinar noch Fragen stellen?</span>
+    <div>
+      Natürlich beantworten wir sowohl während der Webinare als auch danach gerne alle Fragen der
+      TeilnehmerInnen.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">Werden die TeilnehmerInnen nach dem Webinar kontaktiert?</span>
+    <div>
+      Am Ende jedes Webinars gibt es einen Feedbackbogen, den wir zur laufenden
+      Qualitätsverbesserung verwenden. Im Zuge dieser Befragung hat jede/r TeilnehmerIn die
+      Möglichkeit bei uns einen kostenfreien Beratungstermin zu buchen. Nur TeilnehmerInnen, die
+      dies wünschen werden von uns kontaktiert.
+    </div>
+  </rocket-details>
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  <h3>Nutzen</h3>
+  <rocket-details>
+    <span slot="summary">Wie profitieren die TeilnehmerInnen von den Webinaren?</span>
+    <div>
+      Die Inhalte unserer Webinare sind relevant und praxisnah. Die TeilnehmerInnen lernen neues
+      Know-How, entfalten ihr Potential und tanken Selbstvertrauen. Durch die sofortige und leichte
+      Umsetzbarkeit der Inhalte können die TeilnehmerInnen sowohl ihre Job- und Karriereperspektiven
+      ausbauen als auch ein umfassendes Finanz-Verständnis entwickeln. Diese Aspekte tragen
+      langfristig zu einem höheren Einkommen und mehr finanziellem Erfolg bei.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">Welchen Nutzen hat meine Institution von den Webinaren?</span>
+    <div>
+      Ihre Bildungseinrichtung bietet den Lernenden mit den Webinaren einen erweiterten Service. Die
+      Inhalte unserer Webinare sind für die Lernenden eine wertvolle Brücke von der Ausbildung zur
+      Praxis. Zufriedene Lernende sind ein Aushängeschild für jede Institution und tragen zu deren
+      guter Reputation bei.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">Haben die Webinare auch einen Nutzen für die Gesellschaft?</span>
+    <div>
+      Durchaus, denn wenn viele Menschen in einer Gesellschaft finanziell erfolgreich sind, führt
+      das zur mehr gesamtgesellschaftlichem Wohlstand. Finden die TeilnehmerInnen durch die Webinare
+      den für sie passenden Job, führt das bei ihnen zu mehr Erfüllung und mehr Zufriedenheit. All
+      das trägt dazu bei, dass diese Menschen entspannter leben, gesünder bleiben und somit das
+      Sozialsystem geringer belasten.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">
+      Wie ist das bisherige Feedback auf die Webinare und wie gehen die PotientialBooster mit ihm
+      um?
+    </span>
+    <div>
+      Unsere Feedbackbögen, die wir am Ende eines jeden Webinars ausgeben, eruieren sehr genau die
+      Meinung der TeilnehmerInnen. Im Schnitt bekommen wir 9 von 10 möglichen Punkten bei der
+      Bewertung. Die TeilnehmerInnen schätzen sowohl das Format als auch die Inhalte und empfehlen
+      uns aktiv weiter. Hie und da erhalten wir auch Verbesserungsvorschläge, die wir, wenn sinnvoll
+      und möglich, in das folgende Webinar einarbeiten.
+    </div>
+  </rocket-details>
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  <h3>Why</h3>
+  <rocket-details>
+    <span slot="summary">Warum bieten die PotentialBooster diese Webinare an?</span>
+    <div>
+      Es macht uns einfach Spaß, unser Wissen und unsere Erfahrung an junge, interessierte Menschen
+      weiterzugeben. Es freut uns, sie dabei zu unterstützen, das Beste auf ihrem (finanziellen)
+      Potential zu machen und ihnen zu helfen, zu einem freien, unabhängigen und selbstbestimmten
+      Leben zu finden.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">Warum ist die Teilnahme an den Webinaren kostenlos?</span>
+    <div>
+      Anstatt Geld in klassisches Marketing zu investieren, entwickeln wir maßgeschneiderte
+      Webinar-Inhalte für junge Menschen. Wir kooperieren seit über 15 Jahren mit
+      Bildungsinstitutionen, über die wir unsere Inhalte anbieten. Ein Teil der TeilnehmerInnen
+      unserer Webinare kommt auf uns zurück, wenn sie Unterstützung in finanziellen Belangen
+      benötigen, weil sie uns durch unsere Webinare in positiver Erinnerung haben.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">Sind die Webinare der PotentialBooster Verkaufsveranstaltungen?</span>
+    <div>
+      Nein, natürlich nicht. Wir vermitteln in unseren Webinaren den TeilnehmerInnen
+      praxisrelevantes Wissen und Finanz-Verständnis. Möchte sich ein/e TeilnehmerIn näher mit einem
+      der angesprochenen Themen beschäftigen, stehen wir im Rahmen eines kostenfreien
+      Beratungstermins gerne zur Verfügung.
+    </div>
+  </rocket-details>
+</rocket-content-area>

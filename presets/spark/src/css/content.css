@@ -9,12 +9,14 @@
 body {
   margin: 0;
   font-size: var(--step--1);
+  line-height: var(--step-1);
   color: #565578;
   font-family: 'Rubik', sans-serif;
 }
 
 html {
   --default-headline-color: #272556;
+  --rocket-content-area-padding: var(--space-2xl-3xl, 8em) 0;
 }
 
 :where(h1, h2, h3, h4, h5) {
@@ -24,34 +26,54 @@ html {
 
 h1 {
   font-size: var(--step-5);
+  line-height: var(--step-5);
 }
 
 h2 {
   font-size: var(--step-2);
+  line-height: var(--step-3);
 }
 
 h3 {
   font-size: var(--step-1);
+  line-height: var(--step-2);
 }
 
 h4 {
   font-size: var(--step-0);
+  line-height: var(--step-1);
 }
 
 h5 {
   font-size: var(--step--1);
 }
 
+main > *:nth-child(2n) {
+  background: #fff;
+}
+main > *:nth-child(2n + 1) {
+  background: #f9f8f8;
+}
+
+main > *:nth-child(1) {
+  background: #fff2dc;
+}
+
+.area-headline {
+  text-align: center;
+  margin-bottom: var(--space-l-xl);
+}
+
 .bg-grey {
   background-color: #f9f8f8;
 }
 
-.bg-blue {
+main > .bg-blue {
   background-color: #272556;
   color: #fff;
 }
 
-.bg-blue :is(h1,h2,h3,h4,h5,h6) {
+.bg-blue :is(h1, h2, h3, h4, h5, h6) {
   color: #fff;
 }
 
@@ -94,4 +116,63 @@ a.cta-outline:hover {
 .highlight {
   color: #f25c05;
   text-decoration: underline;
+}
+
+rocket-rotating-text {
+  color: #f25c05;
+}
+
+rocket-details:last-child {
+  border-bottom: none;
+}
+
+h3 + rocket-details {
+  padding-top: 0;
+}
+
+rocket-header-scroll-menu {
+  background: #fff2dc;
+}
+
+rocket-header-scroll-menu a {
+  color: #272556;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+rocket-header-scroll-menu a.active,
+rocket-header-scroll-menu a:hover {
+  color: #f25c05;
+}
+
+@media screen and (min-width: 1024px) {
+  rocket-header-scroll-menu {
+    --rocket-header-scroll-menu-padding-right: 25ch;
+  }
+}
+
+.headline-only {
+  padding-bottom: var(--space-xs-s);
+}
+
+.content-text {
+  padding-top: var(--space-xs-s);
+}
+
+main > *:first-child {
+  padding-top: var(--space-s-l);
+}
+
+rocket-card h4 {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+* {
+  scroll-margin-top: 85px;
 }

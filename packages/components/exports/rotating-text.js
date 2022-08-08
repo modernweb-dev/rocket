@@ -1,1 +1,1 @@
-export { RotatingText } from '../src/RotatingText.js';
+export { RocketRotatingText } from '../src/RocketRotatingText.js';

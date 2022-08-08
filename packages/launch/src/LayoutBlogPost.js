@@ -6,8 +6,8 @@ import { LayoutMain } from './LayoutMain.js';
 export class LayoutBlogPost extends LayoutMain {
   renderContent() {
     return html`
-      <content-area>
-        <main-content>
+      <rocket-content-area>
+        <rocket-main>
           <main class="markdown-body">
             ${renderJoiningGroup('content', this.options, this.data)}
           </main>
@@ -19,8 +19,8 @@ export class LayoutBlogPost extends LayoutMain {
 
             <launch-blog-details .data=${this.getCurrentPageData()}></launch-blog-details>
           </aside>
-        </main-content>
-      </content-area>
+        </rocket-main>
+      </rocket-content-area>
     `;
   }
 }

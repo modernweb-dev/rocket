@@ -252,26 +252,24 @@ export class LayoutMain extends Layout {
 
   renderHeader() {
     return html`
-      <content-area>
-        <rocket-header
-          ?hide-logo=${this.options.headerHideLogo}
-          ?no-background=${this.options.headerNoBackground}
-          ?not-sticky=${this.options.headerNotSticky}
-          ?dark-background=${this.options.headerDarkBackground}
-        >
-          ${renderJoiningGroup('header', this.options, this.data)}
-          <rocket-drawer slot="mobile-menu" loading="hydrate:onMedia('(max-width: 1024px)')">
-            <div class="drawer">${renderJoiningGroup('drawer', this.options, this.data)}</div>
-          </rocket-drawer>
-        </rocket-header>
-      </content-area>
+      <rocket-header
+        ?hide-logo=${this.options.headerHideLogo}
+        ?no-background=${this.options.headerNoBackground}
+        ?not-sticky=${this.options.headerNotSticky}
+        ?dark-background=${this.options.headerDarkBackground}
+      >
+        ${renderJoiningGroup('header', this.options, this.data)}
+        <rocket-drawer slot="mobile-menu" loading="hydrate:onMedia('(max-width: 1024px)')">
+          <div class="drawer">${renderJoiningGroup('drawer', this.options, this.data)}</div>
+        </rocket-drawer>
+      </rocket-header>
     `;
   }
 
   renderContent() {
     return html`
-      <content-area>
-        <main-content>
+      <rocket-content-area>
+        <rocket-main>
           <main class="markdown-body">
             ${renderJoiningGroup('content', this.options, this.data)}
           </main>
@@ -281,8 +279,8 @@ export class LayoutMain extends Layout {
               this.data.sourceRelativeFilePath,
             )}
           </aside>
-        </main-content>
-      </content-area>
+        </rocket-main>
+      </rocket-content-area>
     `;
   }
 }

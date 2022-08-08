@@ -1,5 +1,5 @@
 {
-  "name": "@example/landing-spark",
+  "name": "landing-theme-spark",
   "version": "0.0.1",
   "private": true,
   "description": "A landing page based on the spark theme",
@@ -19,6 +19,6 @@
   },
   "@rocket/template-name": "Landing Page (@rocket/spark Theme)",
   "imports": {
-    "#components/*": "./site/src/components/*"
+    "#src/*": "./site/src/*"
   }
 }

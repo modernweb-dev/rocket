@@ -69,15 +69,18 @@ export function getHtmlMetaData(htmlFilePath) {
 
       if (isHeadline(data)) {
         const id = getAttribute(data, 'id');
-        const text = getText(data);
-        if (id && text) {
+        const rawText = getText(data);
+        const linkText = getAttribute(data, 'link-text');
+        if (id && rawText) {
           if (!metaData.headlinesWithId) {
             metaData.headlinesWithId = [];
           }
+          const rawTextObj = linkText ? { rawText } : {};
           metaData.headlinesWithId.push({
-            text,
+            text: linkText || rawText,
             id,
             level: parseInt(data.name[1], 10),
+            ...rawTextObj,
           });
         }
       }

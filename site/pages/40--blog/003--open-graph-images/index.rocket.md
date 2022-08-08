@@ -11,11 +11,11 @@ export async function registerCustomElements() {
   // prettier-ignore
   customElements.define('rocket-header', await import('@rocket/components/header.js').then(m => m.RocketHeader));
   // prettier-ignore
-  customElements.define('content-area', await import('@rocket/components/content-area.js').then(m => m.ContentArea));
-  // prettier-ignore
   customElements.define('launch-blog-details', await import('@rocket/launch/blog-details.js').then(m => m.LaunchBlogDetails));
   // prettier-ignore
-  customElements.define('main-content', await import('@rocket/components/main-content.js').then(m => m.MainContent));
+  customElements.define('rocket-main', await import('@rocket/components/main.js').then(m => m.RocketMain));
+  // prettier-ignore
+  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
   // hydrate-able components
   // prettier-ignore
   customElements.define('rocket-search', await import('@rocket/search/search.js').then(m => m.RocketSearch));
@@ -220,7 +220,7 @@ export const openGraphLayout = data => html`
           align-items: center;
           gap: 20px;
         }
-        .item card-icon {
+        .item rocket-icon-card {
           width: 50px;
           height: 50px;
         }
@@ -234,17 +234,17 @@ export const openGraphLayout = data => html`
       <p id="sub-title">${data.subTitle || ''}</p>
 
       <p class="item">
-        <card-icon icon="solid/server" variation="green"></card-icon>
+        <rocket-icon-card icon="solid/server" variation="green"></rocket-icon-card>
         <span>Server renders your web components</span>
       </p>
 
       <p class="item">
-        <card-icon icon="solid/stopwatch" variation="blue"></card-icon>
+        <rocket-icon-card icon="solid/stopwatch" variation="blue"></rocket-icon-card>
         <span>FAST because of zero or little JavaScript</span>
       </p>
 
       <p class="item">
-        <card-icon icon="solid/battery-full"></card-icon>
+        <rocket-icon-card icon="solid/battery-full"></rocket-icon-card>
         <span>Batteries included with routing/themes/menus/...</span>
       </p>
     </body>
@@ -300,10 +300,10 @@ const pages = pageTree.all().map(node => ({
 export default () => html`
   <h1>Open Graph</h1>
 
-  <opengraph-overview
+  <rocket-opengraph-overview
     .pages="${pages}"
     input-dir=${new URL('./', import.meta.url).pathname}
-  ></opengraph-overview>
+  ></rocket-opengraph-overview>
 `;
 
 export const layout = data => html`

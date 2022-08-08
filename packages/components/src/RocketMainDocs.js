@@ -1,6 +1,6 @@
 import { LitElement, html, css } from 'lit';
 
-export class MainDocs extends LitElement {
+export class RocketMainDocs extends LitElement {
   render() {
     return html`
       <div id="menu">
