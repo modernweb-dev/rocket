@@ -1,5 +1,11 @@
 # @rocket/search
 
+## 0.6.0
+
+### Minor Changes
+
+- c2c9ecd: Update @lion dependencies
+
 ## 0.5.1
 
 ### Patch Changes

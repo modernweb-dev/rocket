@@ -1,5 +1,11 @@
 # @mdjs/mdjs-preview
 
+## 0.5.7
+
+### Patch Changes
+
+- f4d83fe: add overridable `renderFunction` to mdjs-preview
+
 ## 0.5.6
 
 ### Patch Changes

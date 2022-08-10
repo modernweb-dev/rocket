@@ -253,3 +253,28 @@ class DemoElement extends HTMLElement {
 
 customElements.define('demo-element', DemoElement);
 ```
+
+## Extending mdjs-preview
+
+It is possible to define a custom version of mdjs-preview in order to add functionality, change
+its appearance of make it run in 'hybrid mode' (accepting both lit1 and -2 TemplateResults).
+The example below shows how the latter can be achieved by providing a custom render function.
+Note that we define `mdjs-preview` as the custom element name. We need to make sure that this
+file is executed before the original mdjs-preview definition file is executed.
+
+```js
+import { MdJsPreview } from '@mdjs/mdjs-preview';
+import { render as render2 } from 'lit';
+import { isTemplateResult as isTemplateResult2 } from 'lit/directive-helpers.js';
+import { render as render1  } from 'lit-html';
+
+export class HybridLitMdjsPreview extends MdJsPreview {
+  renderStory(html, container, options) {
+    if (isTemplateResult2(html)) {
+      render2(html, container, options);
+    } else {
+      render1(html, container, options);
+    }
+  }
+customElements.define('mdjs-preview', HybridLitMdjsPreview);
+```
