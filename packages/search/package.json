@@ -1,6 +1,6 @@
 {
   "name": "@rocket/search",
-  "version": "0.6.0-alpha.1",
+  "version": "0.6.0",
   "publishConfig": {
     "access": "public"
   },
@@ -44,13 +44,13 @@
     "search"
   ],
   "dependencies": {
-    "@rocket/engine": "^0.1.0-alpha.22",
+    "@rocket/engine": "^0.1.0",
     "minisearch": "^3.0.2",
     "plugins-manager": "^0.3.0",
     "sax-wasm": "^2.0.0"
   },
   "devDependencies": {
-    "@rocket/cli": "^0.20.0-alpha.16"
+    "@rocket/cli": "^0.19.0"
   },
   "customElements": "custom-elements.json"
 }

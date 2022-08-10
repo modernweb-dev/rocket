@@ -11,10 +11,10 @@
     "start": "NODE_DEBUG=engine:rendering rocket start --open"
   },
   "devDependencies": {
-    "@rocket/cli": "^0.20.0-alpha.17",
-    "@rocket/engine": "^0.1.0-alpha.23",
-    "@rocket/launch": "^0.20.0-alpha.7",
-    "@rocket/search": "^0.6.0-alpha.0",
+    "@rocket/cli": "^0.19.0",
+    "@rocket/engine": "^0.1.0",
+    "@rocket/launch": "^0.20.0",
+    "@rocket/search": "^0.6.0",
     "lit": "^2.2.5"
   },
   "@rocket/template-name": "Documentation Website (@rocket/launch Theme)",

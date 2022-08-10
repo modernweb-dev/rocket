@@ -397,7 +397,7 @@ websites 🎉
 
 Go check it out
 
-https://next.rocket.modern-web.dev/docs/basics/hydration/
+https://rocket.modern-web.dev/docs/basics/hydration/
 
 ---
 
@@ -425,7 +425,7 @@ npx @rocket/create@latest
       ( | )        to search or file a new issue
      ((   ))
     ((  :  ))      Follow us: https://twitter.com/modern_web_dev
-     ((   ))       Chat with us: https://next.rocket.modern-web.dev/chat
+     ((   ))       Chat with us: https://rocket.modern-web.dev/chat
       (( ))
        ( )         Notes: You can exit any time with Ctrl+C or Esc
         .                 A new folder "rocket-<template name>" will be created

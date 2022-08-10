@@ -9,7 +9,7 @@ import degit from 'degit';
 import { generateGithubActionsDeployment } from './deployment-generator.js';
 
 const EXAMPLES_PATH = `modernweb-dev/rocket/examples/`;
-const TARGET_BRANCH = `#next`;
+const TARGET_BRANCH = `#main`;
 const program = new Command();
 
 const choices = await readFile(new URL('./choices.json', import.meta.url)).then(res =>
@@ -53,7 +53,7 @@ export class CreateCli {
       `      ( | )        to search or file a new issue`,
       `     ((   ))       `,
       `    ((  :  ))      Follow us: https://twitter.com/modern_web_dev`,
-      `     ((   ))       Chat with us: https://next.rocket.modern-web.dev/chat`,
+      `     ((   ))       Chat with us: https://rocket.modern-web.dev/chat`,
       `      (( ))        `,
       `       ( )         ${gray('Notes: You can exit any time with Ctrl+C or Esc')}`,
       `        .                 ${gray('A new folder "rocket-<template name>" will be created')}`,

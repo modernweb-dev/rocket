@@ -459,7 +459,7 @@ This means that
 Wanna know more? 🤔
 
 Visit the WIP homepage
-https://next.rocket.modern-web.dev/
+https://rocket.modern-web.dev/
 
 ---
 
@@ -467,7 +467,7 @@ https://next.rocket.modern-web.dev/
 
 If you have any questions, comments or suggestions, please open an issue, create a pull request or join us on Discord or Slack.
 
-https://next.rocket.modern-web.dev/chat
+https://rocket.modern-web.dev/chat
 
 ---
 
@@ -493,7 +493,7 @@ npx @rocket/create@latest
       ( | )        to search or file a new issue
      ((   ))
     ((  :  ))      Follow us: https://twitter.com/modern_web_dev
-     ((   ))       Chat with us: https://next.rocket.modern-web.dev/chat
+     ((   ))       Chat with us: https://rocket.modern-web.dev/chat
       (( ))
        ( )         Notes: You can exit any time with Ctrl+C or Esc
         .                 A new folder "rocket-<template name>" will be created
@@ -517,7 +517,7 @@ For example the Landing Page
 ➡️ Rearrange or reuse those components in any way you want <br>
 
 See live demo
-https://next.rocket.modern-web.dev/presets/spark/demo/
+https://rocket.modern-web.dev/presets/spark/demo/
 
 ---
 
