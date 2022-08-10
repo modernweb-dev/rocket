@@ -12,8 +12,8 @@
   },
   "devDependencies": {
     "@portabletext/to-html": "^1.0.3",
-    "@rocket/cli": "^0.20.0-alpha.15",
-    "@rocket/engine": "^0.1.0-alpha.21",
+    "@rocket/cli": "^0.19.0",
+    "@rocket/engine": "^0.1.0",
     "@sanity/block-content-to-markdown": "^0.0.5",
     "@sanity/client": "^3.1.0",
     "@sanity/image-url": "^1.0.1",

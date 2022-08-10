@@ -1,6 +1,6 @@
 {
   "name": "@rocket/components",
-  "version": "0.1.0-alpha.7",
+  "version": "0.1.0",
   "publishConfig": {
     "access": "public"
   },

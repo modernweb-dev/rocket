@@ -40,7 +40,7 @@ export const authors = [thomas];
 We now have support for Open Graph Images out of the box 💪
 Let's dive in and see what we can do with it!
 
-https://next.rocket.modern-web.dev/docs/guides/social-media/
+https://rocket.modern-web.dev/docs/guides/social-media/
 
 ---
 
