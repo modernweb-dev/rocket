@@ -13,7 +13,7 @@ export function createBasicConfig(userConfig) {
 
 export function createBasicMetaConfig(userConfig = { output: {} }) {
   const developmentMode =
-    typeof userConfig.developmentMode !== undefined
+    typeof userConfig.developmentMode !== 'undefined'
       ? userConfig.developmentMode
       : !!process.env.ROLLUP_WATCH;
   delete userConfig.developmentMode;
