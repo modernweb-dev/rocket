@@ -1,5 +1,11 @@
 # @rocket/building-rollup
 
+## 0.4.1
+
+### Patch Changes
+
+- a22da49: Make sure user provided `developmentMode` actually gets applied.
+
 ## 0.4.0
 
 ### Minor Changes

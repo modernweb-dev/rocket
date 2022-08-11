@@ -1,5 +1,11 @@
 # @mdjs/mdjs-preview
 
+## 0.5.9
+
+### Patch Changes
+
+- ab24361: Add server folder to the published npm package
+
 ## 0.5.8
 
 ### Patch Changes
