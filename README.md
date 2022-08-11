@@ -2,15 +2,15 @@
 
 <p align="center">
   <picture width="60%">
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/modernweb-dev/rocket/next/site/src/assets/rocket-logo-dark-with-text.svg">
-    <img alt="Rocket Logo" src="https://raw.githubusercontent.com/modernweb-dev/rocket/next/site/src/assets/rocket-logo-light-with-text.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/modernweb-dev/rocket/main/site/src/assets/rocket-logo-dark-with-text.svg">
+    <img alt="Rocket Logo" src="https://raw.githubusercontent.com/modernweb-dev/rocket/main/site/src/assets/rocket-logo-light-with-text.svg">
   </picture>
 </p>
 
 <p align="center">
   <a href="https://github.com/modernweb-dev/rocket/actions"
     ><img
-      src="https://img.shields.io/github/workflow/status/modernweb-dev/rocket/Release/next?label=workflow&style=flat-square"
+      src="https://img.shields.io/github/workflow/status/modernweb-dev/rocket/Release/main?label=workflow&style=flat-square"
       alt="GitHub Actions workflow status"
   /></a>
   <a href="https://twitter.com/modern_web_dev"
