@@ -4,6 +4,7 @@ import 'rehype-prism';
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-ignore
 import { mdjsProcess } from '@mdjs/core';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
