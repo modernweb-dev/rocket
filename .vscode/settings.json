@@ -1,0 +1,11 @@
+{
+  "gitdoc.enabled": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.exclude": {
+    "**/*-mdjs-generated.js": false,
+  },
+  "search.exclude": {
+    "**/*-mdjs-generated.js": true,
+    "**/dist-types": true,
+  }
+}

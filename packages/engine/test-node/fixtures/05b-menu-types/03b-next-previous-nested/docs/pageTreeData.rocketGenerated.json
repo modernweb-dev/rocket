@@ -1,0 +1,112 @@
+{
+  "h1": "Home",
+  "name": "Home",
+  "menuLinkText": "Home",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "h1": "Guides",
+      "name": "Guides",
+      "menuLinkText": "Guides",
+      "url": "/guides/",
+      "outputRelativeFilePath": "guides/index.html",
+      "sourceRelativeFilePath": "10--guides/index.rocket.js",
+      "level": 1,
+      "children": [
+        {
+          "menuNoLink": true,
+          "h1": "Setup",
+          "name": "Setup",
+          "menuLinkText": "Setup",
+          "url": "/guides/setup/",
+          "outputRelativeFilePath": "guides/setup/index.html",
+          "sourceRelativeFilePath": "10--guides/10--setup/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "h1": "Getting started",
+              "name": "Getting started",
+              "menuLinkText": "Getting started",
+              "url": "/guides/setup/getting-started/",
+              "outputRelativeFilePath": "guides/setup/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/10--setup/10--getting-started.rocket.js",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "menuNoLink": true,
+          "h1": "First Pages",
+          "name": "First Pages",
+          "menuLinkText": "First Pages",
+          "url": "/guides/first-pages/",
+          "outputRelativeFilePath": "guides/first-pages/index.html",
+          "sourceRelativeFilePath": "10--guides/20--first-pages/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "h1": "Getting started",
+              "name": "Getting started",
+              "menuLinkText": "Getting started",
+              "url": "/guides/first-pages/getting-started/",
+              "outputRelativeFilePath": "guides/first-pages/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/20--first-pages/10--getting-started.rocket.js",
+              "level": 3
+            },
+            {
+              "h1": "Adding Pages",
+              "name": "Adding Pages",
+              "menuLinkText": "Adding Pages",
+              "url": "/guides/first-pages/adding-pages/",
+              "outputRelativeFilePath": "guides/first-pages/adding-pages/index.html",
+              "sourceRelativeFilePath": "10--guides/20--first-pages/20--adding-pages.rocket.js",
+              "level": 3
+            },
+            {
+              "h1": "Writing Content",
+              "name": "Writing Content",
+              "menuLinkText": "Writing Content",
+              "url": "/guides/first-pages/writing-content/",
+              "outputRelativeFilePath": "guides/first-pages/writing-content/index.html",
+              "sourceRelativeFilePath": "10--guides/20--first-pages/30--writing-content.rocket.js",
+              "level": 3
+            }
+          ]
+        },
+        {
+          "menuNoLink": true,
+          "h1": "Configuration",
+          "name": "Configuration",
+          "menuLinkText": "Configuration",
+          "url": "/guides/configuration/",
+          "outputRelativeFilePath": "guides/configuration/index.html",
+          "sourceRelativeFilePath": "10--guides/30--configuration/index.rocket.js",
+          "level": 2,
+          "children": [
+            {
+              "h1": "Getting started",
+              "name": "Getting started",
+              "menuLinkText": "Getting started",
+              "url": "/guides/configuration/getting-started/",
+              "outputRelativeFilePath": "guides/configuration/getting-started/index.html",
+              "sourceRelativeFilePath": "10--guides/30--configuration/10--getting-started.rocket.js",
+              "level": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "h1": "Components",
+      "name": "Components",
+      "menuLinkText": "Components",
+      "url": "/components/",
+      "outputRelativeFilePath": "components/index.html",
+      "sourceRelativeFilePath": "20--components/index.rocket.js",
+      "level": 1
+    }
+  ]
+}

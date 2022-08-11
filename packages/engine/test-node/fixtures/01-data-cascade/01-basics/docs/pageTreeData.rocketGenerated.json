@@ -1,0 +1,26 @@
+{
+  "name": "index.rocket.js",
+  "menuLinkText": "index.rocket.js",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "name": "empty.rocket.js",
+      "menuLinkText": "empty.rocket.js",
+      "url": "/empty/",
+      "outputRelativeFilePath": "empty/index.html",
+      "sourceRelativeFilePath": "empty.rocket.js",
+      "level": 1
+    },
+    {
+      "name": "sub-dir/index.rocket.js",
+      "menuLinkText": "sub-dir/index.rocket.js",
+      "url": "/sub-dir/",
+      "outputRelativeFilePath": "sub-dir/index.html",
+      "sourceRelativeFilePath": "sub-dir/index.rocket.js",
+      "level": 1
+    }
+  ]
+}

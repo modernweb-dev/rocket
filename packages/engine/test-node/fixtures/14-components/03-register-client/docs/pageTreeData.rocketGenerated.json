@@ -1,0 +1,12 @@
+{
+  "name": "index.rocket.js",
+  "menuLinkText": "index.rocket.js",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "components": {
+    "my-el2": "@test/components::MyEl2"
+  },
+  "needsLoader": true
+}

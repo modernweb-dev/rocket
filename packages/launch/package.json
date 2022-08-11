@@ -1,6 +1,6 @@
 {
   "name": "@rocket/launch",
-  "version": "0.6.0",
+  "version": "0.20.0",
   "publishConfig": {
     "access": "public"
   },
@@ -13,31 +13,56 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/presets/launch/",
-  "main": "index.js",
+  "main": "./src/index.js",
   "type": "module",
   "exports": {
-    ".": "./index.js",
-    "./preset/": "./preset/",
-    "./inline-notification": "./inline-notification/index.js",
-    "./inline-notification/inline-notification.js": "./inline-notification/inline-notification.js"
+    ".": {
+      "types": "./dist-types/src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./assets/*": "./assets/*",
+    "./css/*": "./css/*",
+    "./js/*": "./src/public/*",
+    "./*": "./exports/*"
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
     "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
-    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test"
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
   },
   "files": [
+    "__public",
     "*.js",
-    "inline-notification",
-    "preset"
+    "assets",
+    "css",
+    "custom-elements.json",
+    "dist-types",
+    "exports",
+    "src"
   ],
   "keywords": [
     "rocket",
     "preset"
   ],
   "dependencies": {
-    "@rocket/drawer": "^0.1.3",
-    "@rocket/navigation": "^0.2.1"
+    "@rocket/cli": "^0.19.0",
+    "@rocket/components": "^0.1.0",
+    "@rocket/engine": "^0.1.0",
+    "@webcomponents/template-shadowroot": "^0.1.0",
+    "lit": "^2.2.5",
+    "workbox-window": "^6.1.5"
   },
-  "customElements": "custom-elements.json"
+  "types": "./dist-types/src/index.d.ts",
+  "customElements": "custom-elements.json",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist-types/src/index.d.ts"
+      ],
+      "inline-notification": [
+        "./dist-types/src/inline-notification/index.d.ts"
+      ]
+    }
+  }
 }

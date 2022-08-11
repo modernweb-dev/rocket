@@ -1,9 +1,8 @@
-import { expect, fixture as _fixture } from '@open-wc/testing';
+import { aTimeout, expect, fixture as _fixture } from '@open-wc/testing';
 import { html } from 'lit/static-html.js';
 import { setViewport } from '@web/test-runner-commands';
-import { stubMethod } from 'hanbi';
 
-import '../rocket-search.js';
+import '@rocket/search/define.js';
 
 /**
  * @param {function} method
@@ -62,9 +61,9 @@ describe('rocket-search', () => {
     const el = await fixture(html`<rocket-search json-url=${fixtureOneResultUrl}></rocket-search>`);
     expect(el.miniSearch).to.be.null;
 
-    const stub = stubMethod(el, 'setupSearch');
-    el.combobox.focus();
-    expect(stub.callCount).to.equal(1);
+    el.focus();
+    await aTimeout(10);
+    expect(el.miniSearch).to.not.be.null;
   });
 
   it('has search results', async () => {

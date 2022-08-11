@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/** @typedef {import('@mdjs/core/types/code').Story} Story */
-/** @typedef {import('@mdjs/core/types/code').StoryTypes} StoryTypes */
+/** @typedef {import('../types/code.js').Story} Story */
+/** @typedef {import('../types/code.js').StoryTypes} StoryTypes */
 /** @typedef {(name: string) => string} TagFunction */
 /** @typedef {import('unist').Node} UnistNode */
 /** @typedef {import('unist').Parent} UnistParent */

@@ -1,0 +1,110 @@
+{
+  "title": "Example Blog",
+  "h1": "\n            \n          ",
+  "name": "Example Blog",
+  "menuLinkText": "\n            \n          ",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "components": {
+    "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+    "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+    "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+    "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+    "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+  },
+  "description": "The perfect starter for your perfect blog.",
+  "layout": false,
+  "permalink": "https://example.com/",
+  "children": [
+    {
+      "title": "",
+      "h1": "\n            \n          ",
+      "headlinesWithId": [
+        {
+          "text": "About",
+          "id": "about",
+          "level": 1
+        }
+      ],
+      "name": "\n            \n          ",
+      "menuLinkText": "\n            \n          ",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.md",
+      "level": 1,
+      "components": {
+        "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+        "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+        "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+        "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+        "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+      }
+    },
+    {
+      "name": "blog/index.rocket.js",
+      "menuLinkText": "blog/index.rocket.js",
+      "url": "/blog/",
+      "outputRelativeFilePath": "blog/index.html",
+      "sourceRelativeFilePath": "blog/index.rocket.js",
+      "level": 1,
+      "components": {
+        "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+        "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+        "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+        "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+        "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+      },
+      "layout": false,
+      "children": [
+        {
+          "title": "Hello world!",
+          "h1": "\n            \n          ",
+          "name": "Hello world!",
+          "menuLinkText": "\n            \n          ",
+          "url": "/blog/hello-world/",
+          "outputRelativeFilePath": "blog/hello-world/index.html",
+          "sourceRelativeFilePath": "blog/hello-world.rocket.md",
+          "level": 2,
+          "author": "Thomas Allmer (@daKmoR)",
+          "authorHref": "https://twitter.com/daKmoR",
+          "components": {
+            "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+            "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+            "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+            "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+            "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+          },
+          "description": "Just a Hello World Post!",
+          "publishDate": "12 Sep 2021",
+          "value": 128
+        },
+        {
+          "title": "With Image!",
+          "h1": "\n            \n          ",
+          "name": "With Image!",
+          "menuLinkText": "\n            \n          ",
+          "url": "/blog/with-image/",
+          "outputRelativeFilePath": "blog/with-image/index.html",
+          "sourceRelativeFilePath": "blog/with-image.rocket.md",
+          "level": 2,
+          "alt": "Liftoff Flames",
+          "author": "Thomas Allmer (@daKmoR)",
+          "authorHref": "https://twitter.com/daKmoR",
+          "components": {
+            "blog-author": "rocket-blog-starter/components/BlogAuthor::BlogAuthor",
+            "blog-header": "rocket-blog-starter/components/BlogHeader::BlogHeader",
+            "blog-post": "rocket-blog-starter/components/BlogPost::BlogPost",
+            "blog-post-preview": "rocket-blog-starter/components/BlogPostPreview::BlogPostPreview",
+            "site-footer": "rocket-blog-starter/components/SiteFooter::SiteFooter"
+          },
+          "description": "Now with an image!",
+          "heroImage": "./assets/liftoff-flames.jpg",
+          "publishDate": "13 Sep 2021",
+          "value": 128
+        }
+      ]
+    }
+  ]
+}

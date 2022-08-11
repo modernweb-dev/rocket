@@ -1,6 +1,6 @@
-/** @typedef {import('@mdjs/core/types/code').MarkdownResult} MarkdownResult */
-/** @typedef {import('@mdjs/core/types/code').Story} Story */
-/** @typedef {import('@mdjs/core/types/code').MdjsProcessPlugin} MdjsProcessPlugin */
+/** @typedef {import('./types/code.js').MarkdownResult} MarkdownResult */
+/** @typedef {import('./types/code.js').Story} Story */
+/** @typedef {import('./types/code.js').MdjsProcessPlugin} MdjsProcessPlugin */
 
 const { mdjsParse } = require('./src/mdjsParse.js');
 const { mdjsSetupCode } = require('./src/mdjsSetupCode.js');

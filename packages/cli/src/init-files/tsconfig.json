@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "outDir": "./dist-types",
+    "rootDir": ".",
+    "composite": true,
+    "allowJs": true,
+    "checkJs": true,
+    "emitDeclarationOnly": true,
+    "target": "esnext",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "moduleResolution": "Node",
+    "typeRoots": ["@types", "./types"],
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": false,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES6",
+      "ES2017",
+      // Allows array.flatMap. import `array-flat-polyfill` to cover node10
+      "ES2019.array",
+      "ScriptHost"
+    ]
+  }
+}

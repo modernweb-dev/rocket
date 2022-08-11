@@ -1,0 +1,24 @@
+{
+  "name": "rocket-landing-theme-spark",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A landing page based on the spark theme",
+  "type": "module",
+  "scripts": {
+    "build": "rocket build",
+    "dev": "npm start",
+    "preview": "rocket preview",
+    "start": "NODE_DEBUG=engine:rendering rocket start --open"
+  },
+  "devDependencies": {
+    "@rocket/cli": "^0.19.0",
+    "@rocket/components": "^0.1.0",
+    "@rocket/engine": "^0.1.0",
+    "@rocket/spark": "^0.1.0",
+    "lit": "^2.2.5"
+  },
+  "@rocket/template-name": "Landing Page (@rocket/spark Theme)",
+  "imports": {
+    "#src/*": "./site/src/*"
+  }
+}

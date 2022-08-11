@@ -1,0 +1,22 @@
+{
+  "h1": "Welcome",
+  "name": "Welcome",
+  "menuLinkText": "Welcome",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "authors": [
+    {
+      "name": "Thomas",
+      "age": 10
+    }
+  ],
+  "extras": {
+    "flag": true
+  },
+  "tags": [
+    "web",
+    "javascript"
+  ]
+}

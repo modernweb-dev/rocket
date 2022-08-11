@@ -1,0 +1,24 @@
+{
+  "name": "rocket-blog-starter",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Get started with a new blog",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./styles/*": "./site/src/styles/*",
+    "./components/*": "./site/src/components/*.js"
+  },
+  "scripts": {
+    "build": "rocket build",
+    "dev": "npm start",
+    "preview": "rocket preview",
+    "start": "NODE_DEBUG=engine:rendering rocket start --open"
+  },
+  "devDependencies": {
+    "@rocket/cli": "^0.19.0",
+    "@rocket/engine": "^0.1.0",
+    "lit": "^2.2.5"
+  },
+  "@rocket/template-name": "Blog Starter"
+}

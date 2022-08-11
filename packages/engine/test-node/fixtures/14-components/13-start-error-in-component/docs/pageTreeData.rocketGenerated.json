@@ -1,0 +1,14 @@
+{
+  "name": "index.rocket.js",
+  "menuLinkText": "index.rocket.js",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "title": "Cannot read properties of undefined (reading 'not')",
+  "h1": "Cannot read properties of undefined (reading 'not')",
+  "needsLoader": true,
+  "components": {
+    "my-el": "@test/components::MyEl"
+  }
+}

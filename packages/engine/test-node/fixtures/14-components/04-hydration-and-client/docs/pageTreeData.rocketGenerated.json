@@ -1,0 +1,13 @@
+{
+  "name": "index.rocket.js",
+  "menuLinkText": "index.rocket.js",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "components": {
+    "my-el4": "@test/components/MyEl4::MyEl4",
+    "my-only": "@test/components/MyOnly::MyOnly"
+  },
+  "needsLoader": true
+}

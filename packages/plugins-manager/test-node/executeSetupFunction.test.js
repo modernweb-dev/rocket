@@ -11,7 +11,7 @@ describe('executeSetupFunctions', () => {
 
   /**
    * @template T
-   * @type {import('../types/main.js').MetaPlugin<T>[]}
+   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
    */
   const threeExistingPlugin = [
     { plugin: firstPlugin, options: {} },

@@ -13,12 +13,12 @@ describe('addPlugin', () => {
 
   /**
    * @template T
-   * @type {import('../types/main.js').MetaPlugin<T>[]}
+   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
    */
   const oneExistingPlugin = [{ plugin: firstPlugin, options: {} }];
   /**
    * @template T
-   * @type {import('../types/main.js').MetaPlugin<T>[]}
+   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
    */
   const threeExistingPlugins = [
     { plugin: firstPlugin, options: {} },

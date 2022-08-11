@@ -8,12 +8,12 @@ describe('applyPlugins', () => {
   const insertPlugin = () => `-- insertPlugin --`;
   /**
    * @template T
-   * @type {import('../types/main.js').MetaPlugin<T>[]}
+   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
    */
   const oneExistingPlugin = [{ plugin: () => 'firstPlugin', options: {} }];
   /**
    * @template T
-   * @type {import('../types/main.js').MetaPlugin<T>[]}
+   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
    */
   const threeExistingPlugin = [
     { plugin: () => 'firstPlugin', options: {} },

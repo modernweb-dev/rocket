@@ -1,0 +1,279 @@
+<script type="module" server>
+/* START - Rocket auto generated - do not touch */
+export const sourceRelativeFilePath = 'index.rocket.html';
+import { components } from './recursive.data.js';
+export { components };
+export async function registerCustomElements() {
+  // server-only components
+  // prettier-ignore
+  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
+  // prettier-ignore
+  customElements.define('rocket-header-scroll-menu', await import('@rocket/components/header-scroll-menu.js').then(m => m.RocketHeaderScrollMenu));
+  // prettier-ignore
+  customElements.define('rocket-columns', await import('@rocket/components/columns.js').then(m => m.RocketColumns));
+  // prettier-ignore
+  customElements.define('rocket-icon-card', await import('@rocket/components/icon-card.js').then(m => m.RocketIconCard));
+  // prettier-ignore
+  customElements.define('rocket-feature-small', await import('@rocket/components/feature-small.js').then(m => m.RocketFeatureSmall));
+  // prettier-ignore
+  customElements.define('rocket-card', await import('@rocket/components/card.js').then(m => m.RocketCard));
+  // prettier-ignore
+  customElements.define('rocket-testimonial-small', await import('@rocket/components/testimonial-small.js').then(m => m.RocketTestimonialSmall));
+  // prettier-ignore
+  customElements.define('rocket-details', await import('@rocket/components/details.js').then(m => m.RocketDetails));
+  // hydrate-able components
+  // prettier-ignore
+  customElements.define('rocket-rotating-text', await import('@rocket/components/rotating-text.js').then(m => m.RocketRotatingText));
+}
+export const needsLoader = true;
+/* END - Rocket auto generated - do not touch */
+
+  import { LayoutHome } from '@rocket/spark';
+  import { layoutData } from '#src/layouts/layoutData.js';
+
+  export const layout = new LayoutHome({
+    ...layoutData,
+  });
+
+  export const title = 'Spark Rocket Example Template';
+  export const description = 'Everyone can code a website!';
+</script>
+
+<rocket-content-area>
+  <rocket-columns>
+    <div>
+      <h1 id="home" link-text="Home">
+        <rocket-rotating-text
+          loading="hydrate:onVisible"
+          items='["Welcome", "Hello", "Aloa"]'
+        ></rocket-rotating-text>
+        <span>to the world of science.</span>
+      </h1>
+      <p>If we find life out there, and it's not us, we will deem it not intelligent.</p>
+      <a class="cta" href="#signup">I want more</a>
+    </div>
+
+    <img
+      src="resolve:#src/images/header-illustration.svg"
+      alt="alternative"
+      width="189"
+      height="150"
+    />
+  </rocket-columns>
+</rocket-content-area>
+
+<rocket-content-area>
+  <rocket-columns>
+    <div>
+      <h2>I've spent quality time in the aerospace community</h2>
+      <p>
+        ✅ with my service on two presidential commissions. <br />
+        ✅ but at heart, I'm an academic..
+        <br />
+        ✅ Being an academic means I don't wield power over person. <br />
+        ✅ place or thing.<br />
+        ✅ I don't command armies
+      </p>
+      <a class="cta" href="#signup">I want more</a>
+    </div>
+    <img src="resolve:#src/images/details-1.svg" alt="alternative" width="146" height="150" />
+  </rocket-columns>
+</rocket-content-area>
+
+<rocket-content-area>
+  <h2 id="credit" link-text="Credit" class="area-headline">
+    People credit me for <br />
+    <span class="highlight">making the universe interesting,</span>
+  </h2>
+
+  <rocket-columns>
+    <rocket-feature-small>
+      <rocket-icon-card slot="icon" icon="solid/headphones-alt"></rocket-icon-card>
+      <h4 slot="title">when in fact</h4>
+      <p slot="description">
+        the universe is inherently interesting <br />
+        and I'm merely revealing that fact<br />
+        I don't think I'm anything special for this to happen<br />
+      </p>
+    </rocket-feature-small>
+
+    <rocket-feature-small>
+      <rocket-icon-card slot="icon" icon="regular/clipboard" variation="green"></rocket-icon-card>
+      <h4 slot="title">The problem</h4>
+      <p slot="description">
+        is not scientifically illiterate kids<br />
+        it is scientifically illiterate adults<br />
+        Kids are born curious<br />
+        about the natural world
+      </p>
+    </rocket-feature-small>
+
+    <rocket-feature-small>
+      <rocket-icon-card slot="icon" icon="regular/comments" variation="blue"></rocket-icon-card>
+      <h4 slot="title">They are always</h4>
+      <p slot="description">
+        turning over rocks <br />
+        jumping with two feet <br />
+        into mud puddles
+      </p>
+    </rocket-feature-small>
+  </rocket-columns>
+</rocket-content-area>
+
+<rocket-content-area>
+  <h2 id="knowledge" link-text="Knowledge" class="area-headline">
+    I've known from long ago <br />
+    <span class="highlight">that the universe was calling me</span>
+  </h2>
+
+  <rocket-columns>
+    <rocket-card>
+      <h4 slot="title">No astrophysicist</h4>
+      <p>
+        would deny the possibility of life. I think we're not creative enough to imagine what life
+        would be like on another planet. Show me a dead alien. Better yet, show me a live one!
+      </p>
+      <a slot="cta" class="cta" href="./life.rocket.html">Details</a>
+    </rocket-card>
+
+    <rocket-card>
+      <h4 slot="title">No astrophysicist</h4>
+      <p>
+        would deny the possibility of life. I think we're not creative enough to imagine what life
+        would be like on another planet. Show me a dead alien. Better yet, show me a live one!
+      </p>
+      <a slot="cta" class="cta" href="./life.rocket.html">Details</a>
+    </rocket-card>
+
+    <rocket-card>
+      <h4 slot="title">No astrophysicist</h4>
+      <p>
+        would deny the possibility of life. I think we're not creative enough to imagine what life
+        would be like on another planet. Show me a dead alien. Better yet, show me a live one!
+      </p>
+      <a slot="cta" class="cta" href="./life.rocket.html">Details</a>
+    </rocket-card>
+  </rocket-columns>
+</rocket-content-area>
+
+<rocket-content-area class="bg-blue">
+  <h2 id="signup" link-text="Sign Up" class="area-headline">We want to know you</h2>
+  <div>
+    <a class="cta-outline" href="#">Contact us</a>
+  </div>
+</rocket-content-area>
+
+<rocket-content-area>
+  <h2 id="say" link-text="Say" class="area-headline">
+    What others <span class="highlight">say</span> <br />
+    about us?
+  </h2>
+
+  <rocket-columns>
+    <rocket-testimonial-small>
+      <img
+        slot="image"
+        src="resolve:#src/images/testimonial-1.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
+      <p>
+        It was unthinkable not long ago that a biologist or paleontologist would be at the same
+        conference as an astrophysicist. Now we have accumulated so much data in each of these
+        branches of science as it relates to origins that we have learned that no one discipline can
+        answer questions of origins alone.
+      </p>
+      <p slot="caption">Neil</p>
+    </rocket-testimonial-small>
+
+    <rocket-testimonial-small>
+      <img
+        slot="image"
+        src="resolve:#src/images/testimonial-2.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
+      <p>
+        The need to create a new taxonomy that isn't just applying to our own solar system will
+        become so evident and apparent that something will come out of it. I'm sure of it, even if
+        it's not tomorrow.
+      </p>
+      <p slot="caption">deGrasse</p>
+    </rocket-testimonial-small>
+
+    <rocket-testimonial-small>
+      <img
+        slot="image"
+        src="resolve:#src/images/testimonial-3.jpg"
+        alt="alternative"
+        width="80"
+        height="80"
+      />
+      <p>
+        You have people who believe they are scientifically literate but, in fact, are not. And I
+        don't mind if you're not scientifically literate, but just admit that to yourself, so that
+        you'll know, and perhaps you can take a first step to try to eradicate that.
+      </p>
+      <p slot="caption">Tyson</p>
+    </rocket-testimonial-small>
+  </rocket-columns>
+</rocket-content-area>
+
+<rocket-content-area>
+  <h2 id="faq" class="area-headline">FAQ</h2>
+
+  <div>
+    <h3>First</h3>
+
+    <rocket-details>
+      <span slot="summary"
+        >Not enough books focus on how a culture responds to radically new ideas or discovery.</span
+      >
+      <div>
+        Especially in the biography genre, they tend to focus on all the sordid details in the life
+        of the person who made the discovery. I find this path to be voyeuristic but not
+        enlightening.
+      </div>
+    </rocket-details>
+
+    <rocket-details>
+      <span slot="summary"> I'm often asked by parents</span>
+      <div>
+        what advice can I give them to help get kids interested in science? And I have only one bit
+        of advice. Get out of their way. Kids are born curious. Period.
+      </div>
+    </rocket-details>
+  </div>
+
+  <!-- --------------------------------------------------------------------------------------------- -->
+
+  <h3>Second</h3>
+  <rocket-details>
+    <span slot="summary">Once you have an innovation culture</span>
+    <div>
+      even those who are not scientists or engineers - poets, actors, journalists - they, as
+      communities, embrace the meaning of what it is to be scientifically literate. They embrace the
+      concept of an innovation culture. They vote in ways that promote it. They don't fight science
+      and they don't fight technology.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">When Kennedy said, 'Let's go to the moon,'</span>
+    <div>
+      we didn't yet have a vehicle that wouldn't kill you on launch. He said we'll land a man on the
+      moon in eight years and bring him back. That was an audacious goal to put forth in front of
+      the American people.
+    </div>
+  </rocket-details>
+
+  <rocket-details>
+    <span slot="summary">I'm often asked - and occasionally in an accusatory way</span>
+    <div>
+      'Are you atheist?' And it's like, 'You know, the only 'ist' I am is a scientist, all right?' I
+      don't associate with movements. I'm not an 'ism.' I just - I think for myself.
+    </div>
+  </rocket-details>
+</rocket-content-area>

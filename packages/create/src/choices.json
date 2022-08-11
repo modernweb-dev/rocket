@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Hydration Starter",
+    "description": "Example on how to hydrate web components",
+    "value": "01-hydration-starter"
+  },
+  {
+    "title": "Blog Starter",
+    "description": "Get started with a new blog",
+    "value": "02-blog-starter"
+  },
+  {
+    "title": "Minimal Starter",
+    "description": "Only includes the minimal basics",
+    "value": "03-minimal-starter"
+  },
+  {
+    "title": "Sanity Minimal Starter",
+    "description": "A starter to show an minimal integration between Sanity.io and Rocket",
+    "value": "04-sanity-minimal-starter"
+  },
+  {
+    "title": "Landing Page (@rocket/spark Theme)",
+    "description": "A landing page based on the spark theme",
+    "value": "50-landing-theme-spark"
+  },
+  {
+    "title": "Documentation Website (@rocket/launch Theme)",
+    "description": "A documentation page based on the @rocket/launch theme",
+    "value": "51-docs-theme-launch"
+  },
+  {
+    "title": "Custom (community built)",
+    "description": "Use a community built template by providing a git url",
+    "value": "--custom--"
+  }
+]

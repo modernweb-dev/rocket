@@ -1,0 +1,22 @@
+{
+  "h1": "Welcome",
+  "name": "Welcome",
+  "menuLinkText": "Welcome",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "authors": [
+    {
+      "birthDate": "2000-01-01T00:00:00.000Z"
+    }
+  ],
+  "dates": [
+    "2002-01-01T00:00:00.000Z",
+    "2003-01-01T00:00:00.000Z"
+  ],
+  "extras": {
+    "flagDate": "2001-01-01T00:00:00.000Z"
+  },
+  "publishDate": "2004-01-01T00:00:00.000Z"
+}

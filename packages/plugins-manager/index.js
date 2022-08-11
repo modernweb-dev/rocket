@@ -1,8 +1,8 @@
 /**
  * @template T
- * @typedef {import('./types/main').MetaPlugin<T>} MetaPlugin
+ * @typedef {import('./types/main.js').MetaPlugin<T>} MetaPlugin
  **/
-/** @typedef {import('./types/main').Plugin} Plugin */
+/** @typedef {import('./types/main.js').Plugin} Plugin */
 
 export { addPlugin } from './src/addPlugin.js';
 export { removePlugin } from './src/removePlugin.js';

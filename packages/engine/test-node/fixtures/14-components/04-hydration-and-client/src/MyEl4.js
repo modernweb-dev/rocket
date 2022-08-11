@@ -1,0 +1,7 @@
+import { LitElement, html } from 'lit';
+
+export class MyEl4 extends LitElement {
+  render() {
+    return html`<p>Hello World</p>`;
+  }
+}

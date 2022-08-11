@@ -1,79 +1,59 @@
 import { DevServerConfig } from '@web/dev-server';
-import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
-import { WatchOptions } from 'chokidar';
-import { ImagePreset, RocketPreset } from './preset';
-export { ImagePreset, RocketPreset };
-import { Eleventy } from '@11ty/eleventy';
+import { MetaPlugin } from 'plugins-manager';
+// import { CheckHtmlLinksCliOptions } from 'check-html-links/dist-types/types/main';
+import { ImagePreset, FullRocketPreset } from './preset.js';
+export { ImagePreset, FullRocketPreset as RocketPreset };
 
-interface RocketStartConfig {
-  createSocialMediaImages?: boolean;
-}
+import { Command } from 'commander';
+import { RocketCli } from '../src/RocketCli.js';
 
 type PresetKeys =
-  | 'before11ty'
-  | 'setupUnifiedPlugins'
-  | 'setupDevAndBuildPlugins'
+  | 'setupDevServerAndBuildPlugins'
+  | 'setupDevServerPlugins'
+  | 'setupDevServerMiddleware'
   | 'setupBuildPlugins'
-  | 'setupDevPlugins'
   | 'setupCliPlugins'
-  | 'setupEleventyPlugins'
-  | 'setupEleventyComputedConfig';
+  | 'setupEnginePlugins';
 
-export interface RocketCliOptions extends Pick<RocketPreset, PresetKeys> {
-  presets?: Array<RocketPreset>;
-  pathPrefix?: string;
-  serviceWorkerName?: string;
-  inputDir?: string;
-  outputDir?: string;
-  emptyOutputDir?: boolean;
-  absoluteBaseUrl?: string;
-  watch?: boolean;
-  createSocialMediaImages?: boolean;
-  imagePresets?: {
-    [key: string]: ImagePreset;
-  };
+export interface FullRocketCliOptions extends Pick<FullRocketPreset, PresetKeys> {
+  presets: Array<FullRocketPreset>;
+  // pathPrefix: string;
+  serviceWorkerName: string;
+  serviceWorkerSourcePath: string;
+  cwd: string;
+  inputDir: URL | string;
+  outputDir: URL | string;
+  clearOutputDir: boolean;
+  absoluteBaseUrl: string;
+  watch: boolean;
+  open: boolean;
+  // imagePresets: {
+  //   [key: string]: ImagePreset;
+  // };
 
-  chokidarConfig?: WatchOptions;
+  longFileHeaderWidth: number;
+  longFileHeaderComment: string;
 
-  checkLinks?: Partial<CheckHtmlLinksCliOptions>;
-
-  start?: RocketStartConfig;
+  adjustDevServerOptions: (options: DevServerConfig) => DevServerConfig;
+  adjustBuildOptions: (options: any) => any;
 
   // advanced
-  rollup?: (config: any) => void; // TODO: improve
-  devServer?: DevServerConfig;
-  eleventy?: (eleventyConfig: any) => void; // TODO: improve
-  plugins?: RocketPlugin[];
+  plugins: RocketCliPlugin[];
+
+  buildOptimize: boolean;
+  buildOpenGraphImages: boolean;
+  buildAutoStop: boolean;
 
   // rarely used
-  command?: string;
-  configFile?: string;
-  outputDevDir?: string;
-
-  _inputDirCwdRelative?: string;
-  _presetPaths?: string[];
-  __before11tyFunctions?: (() => void | Promise<void>)[];
+  configFile: string;
+  outputDevDir: URL | string;
 }
 
-export type RocketPlugin = {
-  // what can we do, typescript itself types the constructor as `Function`
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  constructor: Function & { pluginName: string };
-  commands: string[];
-  setupCommand?(config?: RocketCliOptions): Required<RocketCliOptions>;
-  setup?(opts: { config: RocketCliOptions; argv: string[]; eleventy: Eleventy }): Promise<void>;
-  inspectRenderedHtml?(opts: {
-    html: string;
-    inputPath: string;
-    outputPath: string;
-    layout: string;
-    title: string;
-    url: string;
-    data: any;
-    eleventy: Eleventy;
-  }): Promise<void>;
-} & {
-  // later ts versions can do this
-  // [index: `${string}Command`]: () => void|Promise<void>;
-  [index: string]: () => void | Promise<void>;
-};
+export type RocketCliOptions = Partial<FullRocketCliOptions>;
+
+export class RocketCliPlugin {
+  setupCommand?(program: Command, cli: RocketCli): void;
+  stop?({ hard: boolean } = {}): void;
+}
+
+export type MetaPluginOfRocketCli = MetaPlugin<RocketCliPlugin>;

@@ -1,0 +1,7 @@
+{
+  "name": "asset-example",
+  "type": "module",
+  "exports": {
+    "./test-img": "./test.png"
+  }
+}

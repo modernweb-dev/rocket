@@ -1,0 +1,20 @@
+{
+  "h1": "Home",
+  "name": "Home",
+  "menuLinkText": "Home",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "h1": "About",
+      "name": "About",
+      "menuLinkText": "About",
+      "url": "/about/",
+      "outputRelativeFilePath": "about/index.html",
+      "sourceRelativeFilePath": "about.rocket.js",
+      "level": 1
+    }
+  ]
+}

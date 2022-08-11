@@ -1,0 +1,57 @@
+{
+  "name": "@rocket/components",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Rocket Components",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/modernweb-dev/rocket.git",
+    "directory": "packages/components"
+  },
+  "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
+  "homepage": "https://rocket.modern-web.dev/",
+  "main": "./exports/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist-types/exports/index.d.ts",
+      "default": "./exports/index.js"
+    },
+    "./*": {
+      "types": "./dist-types/exports/*",
+      "default": "./exports/*"
+    }
+  },
+  "scripts": {
+    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
+    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/",
+    "xtest:watch": "mocha test/**/*.test.js --parallel --watch"
+  },
+  "files": [
+    "dist-types",
+    "exports",
+    "src"
+  ],
+  "keywords": [
+    "rocket",
+    "ssg"
+  ],
+  "dependencies": {
+    "@webcomponents/template-shadowroot": "^0.1.0",
+    "fontawesome-free": "^1.0.4",
+    "lit": "^2.2.5"
+  },
+  "devDependencies": {},
+  "types": "./dist-types/exports/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist-types/exports/index.d.ts"
+      ]
+    }
+  }
+}

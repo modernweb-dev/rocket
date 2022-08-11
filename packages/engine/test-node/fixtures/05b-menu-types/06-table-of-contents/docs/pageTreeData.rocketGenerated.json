@@ -1,0 +1,72 @@
+{
+  "h1": "Welcome to the table of contents menu",
+  "headlinesWithId": [
+    {
+      "text": "Welcome to the table of contents menu",
+      "id": "welcome-to-the-table-of-contents-menu",
+      "level": 1
+    },
+    {
+      "text": "Every headline",
+      "id": "every-headline",
+      "level": 2
+    },
+    {
+      "text": "will be",
+      "id": "will-be",
+      "level": 3
+    },
+    {
+      "text": "listed",
+      "id": "listed",
+      "level": 2
+    },
+    {
+      "text": "considering",
+      "id": "considering",
+      "level": 3
+    },
+    {
+      "text": "nesting",
+      "id": "nesting",
+      "level": 4
+    },
+    {
+      "text": "and",
+      "id": "and",
+      "level": 4
+    },
+    {
+      "text": "returning",
+      "id": "returning",
+      "level": 3
+    },
+    {
+      "text": "to the",
+      "id": "to-the",
+      "level": 2
+    },
+    {
+      "text": "main level",
+      "id": "main-level",
+      "level": 2
+    }
+  ],
+  "name": "Welcome to the table of contents menu",
+  "menuLinkText": "Welcome to the table of contents menu",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.js",
+  "level": 0,
+  "children": [
+    {
+      "h1": "Empty because no sub headlines",
+      "name": "Empty because no sub headlines",
+      "menuLinkText": "Empty because no sub headlines",
+      "url": "/empty/",
+      "outputRelativeFilePath": "empty/index.html",
+      "sourceRelativeFilePath": "empty.rocket.js",
+      "level": 1
+    }
+  ]
+}

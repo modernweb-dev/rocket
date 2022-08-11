@@ -1,0 +1,16 @@
+{
+  "h1": "Slack",
+  "headlinesWithId": [
+    {
+      "text": "Slack",
+      "id": "slack",
+      "level": 1
+    }
+  ],
+  "name": "Slack",
+  "menuLinkText": "Slack",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.md",
+  "level": 0
+}
