@@ -30,6 +30,7 @@
     "*.js",
     "assets",
     "dist-types",
+    "server",
     "src"
   ],
   "dependencies": {
