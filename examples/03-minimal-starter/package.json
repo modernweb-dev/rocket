@@ -11,8 +11,8 @@
     "start": "NODE_DEBUG=engine:rendering rocket start --open"
   },
   "devDependencies": {
-    "@rocket/cli": "^0.19.0",
-    "@rocket/engine": "^0.1.0",
+    "@rocket/cli": "^0.20.0",
+    "@rocket/engine": "^0.2.0",
     "lit": "^2.2.5"
   },
   "@rocket/template-name": "Minimal Starter"

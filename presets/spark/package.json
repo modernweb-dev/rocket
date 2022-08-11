@@ -1,6 +1,6 @@
 {
   "name": "@rocket/spark",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publishConfig": {
     "access": "public"
   },
@@ -40,8 +40,8 @@
     "ssg"
   ],
   "dependencies": {
-    "@rocket/components": "^0.1.0",
-    "@rocket/engine": "^0.1.0",
+    "@rocket/components": "^0.2.0",
+    "@rocket/engine": "^0.2.0",
     "lit": "^2.2.5"
   },
   "devDependencies": {},

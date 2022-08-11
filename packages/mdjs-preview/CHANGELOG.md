@@ -1,5 +1,11 @@
 # @mdjs/mdjs-preview
 
+## 0.5.8
+
+### Patch Changes
+
+- 5226ab0: Update lit version & add a server template for `@rocket/cli@0.20+`.
+
 ## 0.5.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @mdjs/mdjs-story
 
+## 0.3.2
+
+### Patch Changes
+
+- 5226ab0: Update lit version & add a server template for `@rocket/cli@0.20+`.
+
 ## 0.3.1
 
 ### Patch Changes
