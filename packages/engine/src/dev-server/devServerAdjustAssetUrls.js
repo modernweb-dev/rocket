@@ -46,7 +46,8 @@ export function devServerAdjustAssetUrls({
         const outputFilePath = getOutputFilePath(sourceFilePath);
         const sourceRelativeFilePath = path.relative(inputDir, sourceFilePath);
         const outputRelativeFilePath = path.relative(outputDir, outputFilePath);
-        const newBody = await adjustAssetUrl.transform(context.body, {
+        const body = /** @type {string} */ (context.body);
+        const newBody = await adjustAssetUrl.transform(body, {
           sourceFilePath,
           sourceRelativeFilePath,
           outputFilePath,

@@ -2529,6 +2529,11 @@
                   "text": "Simulator states",
                   "id": "simulator-states",
                   "level": 2
+                },
+                {
+                  "text": "Extending mdjs-preview",
+                  "id": "extending-mdjs-preview",
+                  "level": 2
                 }
               ],
               "name": "Preview",

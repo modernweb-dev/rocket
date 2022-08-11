@@ -16,9 +16,6 @@
       "path": "../plugins-manager/tsconfig.json"
     },
     {
-      "path": "../mdjs-core/tsconfig.json"
-    },
-    {
       "path": "../engine/tsconfig.json"
     },
     {
