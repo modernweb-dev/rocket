@@ -1,5 +1,18 @@
 # @rocket/search
 
+## 0.7.0
+
+### Minor Changes
+
+- 5226ab0: BREAKING CHANGE: New version built for @rocket/engine and @rocket/cli 0.20+
+
+  For more information see the [migration guide](https://github.com/modernweb-dev/rocket/blob/next/packages/cli/MIGRATION.md).
+
+### Patch Changes
+
+- Updated dependencies [5226ab0]
+  - @rocket/engine@0.2.0
+
 ## 0.6.0
 
 ### Minor Changes

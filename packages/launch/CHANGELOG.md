@@ -1,5 +1,22 @@
 # @rocket/launch
 
+## 0.21.0
+
+### Minor Changes
+
+- 5226ab0: BREAKING CHANGE: New version built for @rocket/engine and @rocket/cli 0.20+
+
+  For more information see the [migration guide](https://github.com/modernweb-dev/rocket/blob/next/packages/cli/MIGRATION.md).
+
+### Patch Changes
+
+- Updated dependencies [5226ab0]
+- Updated dependencies [5226ab0]
+- Updated dependencies [5226ab0]
+  - @rocket/components@0.2.0
+  - @rocket/cli@0.20.0
+  - @rocket/engine@0.2.0
+
 ## 0.6.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.9.5
+
+### Patch Changes
+
+- 5226ab0: Update `es-module-lexer` version.
+- Updated dependencies [5226ab0]
+  - @mdjs/mdjs-preview@0.5.8
+  - @mdjs/mdjs-story@0.3.2
+
 ## 0.9.4
 
 ### Patch Changes
