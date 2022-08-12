@@ -152,12 +152,7 @@ export class Engine {
    * @param {string} targetDir
    */
   async copyPublicFilesTo(targetDir) {
-    // copy public files
-    const publicDir = path.join(this.docsDir, '..', 'public');
-    if (existsSync(publicDir)) {
-      await fse.copy(publicDir, targetDir);
-    }
-    // copy public files of plugins
+    // 1. copy public files of plugins
     if (this.options.plugins) {
       for (const plugin of this.options.plugins) {
         // @ts-ignore
@@ -170,6 +165,12 @@ export class Engine {
           );
         }
       }
+    }
+
+    // 2. copy public files from inputDir (e.g. user public folder always wins)
+    const publicDir = path.join(this.docsDir, '..', 'public');
+    if (existsSync(publicDir)) {
+      await fse.copy(publicDir, targetDir);
     }
   }
 
