@@ -1,5 +1,11 @@
 # @rocket/engine
 
+## 0.2.1
+
+### Patch Changes
+
+- 367529c: Make sure user provided content in the folder `site/public/*` wins over public folders content provided by plugins.
+
 ## 0.2.0
 
 ### Minor Changes
