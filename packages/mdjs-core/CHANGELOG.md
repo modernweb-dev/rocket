@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.20.0
+
+### Minor Changes
+
+- 35ed64d: BREAKING: Refactor to ESM-only package, use latest rehype/remark/unified dependencies.
+- 6f88d8e: BREAKING: Replace `rehype-prism` with `rehype-prism-plus` as it does not get confused as running in the browser in the SSR context.
+
 ## 0.9.5
 
 ### Patch Changes
