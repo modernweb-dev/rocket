@@ -26,7 +26,7 @@ export const needsLoader = true;
 
 # Overview
 
-```js script
+```js client
 import '@mdjs/mdjs-story/define';
 import '@mdjs/mdjs-preview/define';
 import { html } from '@mdjs/mdjs-story';
@@ -34,10 +34,10 @@ import { html } from '@mdjs/mdjs-story';
 
 Markdown JavaScript (mdjs) is a format that allows you to use JavaScript with Markdown, to create interactive demos. It does so by "annotating" JavaScript that should be executed in Markdown.
 
-To annotate we use a code block with `js script`.
+To annotate we use a code block with `js client`.
 
 ````md
-```js script
+```js client
 // execute me
 ```
 ````
@@ -69,7 +69,7 @@ You can even execute some JavaScript:
 
 <my-el></my-el>
 
-```js script
+```js client
 import { LitElement, html } from 'https://unpkg.com/lit-element?module';
 
 class MyEl extends LitElement {
@@ -87,7 +87,7 @@ customElements.define('my-el', MyEl);
 mdjs comes with some additional helpers you can choose to import:
 
 ````md
-```js script
+```js client
 import '@mdjs/mdjs-story/define';
 import '@mdjs/mdjs-preview/define';
 ```

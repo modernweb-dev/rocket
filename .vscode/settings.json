@@ -7,5 +7,6 @@
   "search.exclude": {
     "**/*-mdjs-generated.js": true,
     "**/dist-types": true,
-  }
+  },
+  "editor.experimental.stickyScroll.enabled": true
 }

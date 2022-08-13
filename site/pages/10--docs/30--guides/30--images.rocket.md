@@ -332,7 +332,3 @@ export function myPreset() {
 ```
 
 </inline-notification>
-
-```js script
-
-```

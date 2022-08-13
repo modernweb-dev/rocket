@@ -1,6 +1,5 @@
-// we load this before the global-dom-shim as otherwise prism thinks it's running in a browser 🙈
 // we need to load the global-dom-shim as otherwise import { html } from 'lit'; breaks
-import 'rehype-prism';
+// https://github.com/lit/lit/issues/2524
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 
 import { parentPort } from 'worker_threads';

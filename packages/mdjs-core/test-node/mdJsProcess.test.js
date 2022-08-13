@@ -26,15 +26,15 @@ describe('mdjsProcess', () => {
   it('extracts code blocks with "js story" and "js preview-story" and places marker tags', async () => {
     const expected = [
       '<p>Intro</p>',
-      '<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>',
-      '</code></pre>',
+      '<pre class="language-js"><code class="language-js code-highlight"><span class="code-line"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>',
+      '</span></code></pre>',
       '<mdjs-story mdjs-story-name="fooStory"></mdjs-story>',
       '<mdjs-preview mdjs-story-name="fooPreviewStory">',
       '',
       '',
       '',
-      '<pre class="language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">fooPreviewStory</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span>',
-      '</code></pre>',
+      '<pre class="language-js"><code class="language-js code-highlight"><span class="code-line"><span class="token keyword module">export</span> <span class="token keyword">const</span> <span class="token function-variable function">fooPreviewStory</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=></span> <span class="token punctuation">{</span><span class="token punctuation">}</span>',
+      '</span></code></pre>',
       '',
       '',
       '',
@@ -97,8 +97,8 @@ describe('mdjsProcess', () => {
   it('can setup all unified plugins via "setupUnifiedPlugins" which accepts a single function or an array of functions', async () => {
     const expected = [
       '<p>Intro</p>',
-      '<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>',
-      '</code></pre>',
+      '<pre class="language-js"><code class="language-js code-highlight"><span class="code-line"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>',
+      '</span></code></pre>',
       '<my-story mdjs-story-name="fooStory"></my-story>',
       '<my-preview mdjs-story-name="fooPreviewStory"></my-preview>',
     ].join('\n');
@@ -127,8 +127,8 @@ describe('mdjsProcess', () => {
 
     const expectedForArray = [
       '<p>Intro</p>',
-      '<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>',
-      '</code></pre>',
+      '<pre class="language-js"><code class="language-js code-highlight"><span class="code-line"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>',
+      '</span></code></pre>',
       '<my-story2 mdjs-story-name="fooStory"></my-story2>',
       '<my-preview2 mdjs-story-name="fooPreviewStory"></my-preview2>',
     ].join('\n');
