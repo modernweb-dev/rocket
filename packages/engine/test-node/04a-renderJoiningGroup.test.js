@@ -1,5 +1,4 @@
 import chai from 'chai';
-// import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 import { html } from 'lit';
 import { renderJoiningGroup } from '../src/helpers/renderJoiningGroup.js';
 import { testLitServerRender } from './test-helpers.js';

@@ -35,7 +35,7 @@
   "scripts": {
     "debug": "DEBUG=engine:rendering yarn test",
     "debug:integration": "PWDEBUG=1 yarn test:integration",
-    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js --timeout 5000 test-node/**/*.test.js test-node/*.test.js",
+    "test": "mocha --require ../../scripts/testMochaGlobalHooks.js --timeout 8000 test-node/**/*.test.js test-node/*.test.js",
     "test:integration": "playwright test test-node/*.spec.js",
     "test:watch": "onchange 'src/**/*.js' 'test-node/**/*.js' -- npm test",
     "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
@@ -47,12 +47,12 @@
   ],
   "dependencies": {
     "@d4kmor/tree-model": "^0.1.3",
-    "@lit-labs/ssr": "^2.0.4",
+    "@lit-labs/ssr": "^2.2.3",
     "@mdjs/core": "^0.20.0",
     "@parcel/watcher": "^2.0.5",
     "@web/dev-server": "^0.1.4",
     "es-module-lexer": "^0.10.5",
-    "lit": "^2.2.5",
+    "lit": "^2.3.0",
     "plugins-manager": "^0.3.0",
     "sax-wasm": "^2.1.3",
     "unist-util-visit": "^4.1.0"

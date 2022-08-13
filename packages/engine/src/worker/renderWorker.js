@@ -1,7 +1,3 @@
-// we need to load the global-dom-shim as otherwise import { html } from 'lit'; breaks
-// https://github.com/lit/lit/issues/2524
-import '@lit-labs/ssr/lib/install-global-dom-shim.js';
-
 import path from 'path';
 import { parentPort } from 'worker_threads';
 import { mkdir, writeFile } from 'fs/promises';

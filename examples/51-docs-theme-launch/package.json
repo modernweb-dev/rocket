@@ -15,7 +15,7 @@
     "@rocket/engine": "^0.2.0",
     "@rocket/launch": "^0.21.0",
     "@rocket/search": "^0.7.0",
-    "lit": "^2.2.5"
+    "lit": "^2.3.0"
   },
   "@rocket/template-name": "Documentation Website (@rocket/launch Theme)",
   "imports": {
