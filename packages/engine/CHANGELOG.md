@@ -1,5 +1,12 @@
 # @rocket/engine
 
+## 0.2.3
+
+### Patch Changes
+
+- 379f08f: Remove the lit workaround to globally load the `global-dom-shim` in the "main thread".
+  Which means only the worker that does the actual SSR rendering will load it.
+
 ## 0.2.2
 
 ### Patch Changes
