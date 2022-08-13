@@ -1,6 +1,5 @@
-// we load this before the global-dom-shim as otherwise prism thinks it's running in a browser 🙈
 // we need to load the global-dom-shim as otherwise import { html } from 'lit'; breaks
-import 'rehype-prism';
+// https://github.com/lit/lit/issues/2524
 import '@lit-labs/ssr/lib/install-global-dom-shim.js';
 
 /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -23,7 +22,7 @@ function escapeRegExp(string) {
 
 const REGEX_REPLACE_ESCAPES = new RegExp(
   escapeRegExp(
-    '\\\\</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>',
+    '\\\\<span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>',
   ),
   'g',
 );
@@ -146,7 +145,7 @@ export async function mdInJsToMdHtmlInJs(toImportFilePath) {
   // this corrects it - escaped
   mdHTML = mdHTML.replace(
     REGEX_REPLACE_ESCAPES,
-    '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">\\\\${</span>',
+    '<span class="token interpolation"><span class="token interpolation-punctuation punctuation">\\\\${</span>',
   );
   return [mdHTML, ...mdjsScriptTag].join('\n');
 }

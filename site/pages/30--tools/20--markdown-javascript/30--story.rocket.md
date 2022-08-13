@@ -28,12 +28,12 @@ export const needsLoader = true;
 
 You can showcase live running code by annotating a code block with `js story`.
 
-```js script
+```js client
 import { html } from '@mdjs/mdjs-story';
 ```
 
 ````md
-```js script
+```js client
 import { html } from '@mdjs/mdjs-story';
 ```
 

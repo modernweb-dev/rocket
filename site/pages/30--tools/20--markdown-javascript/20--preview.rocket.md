@@ -44,7 +44,7 @@ You can showcase live running code by annotating a code block with `js preview-s
 - Settings are ”global” for all Simulators (e.g. changing one will change all)
 - Settings can be remembered for other pages / return visits
 
-```js script
+```js client
 import { html } from '@mdjs/mdjs-preview';
 import './assets/demo-element.js';
 ```
@@ -52,7 +52,7 @@ import './assets/demo-element.js';
 ## JavaScript Story
 
 ````md
-```js script
+```js client
 import { html } from '@mdjs/mdjs-preview';
 import './assets/demo-element.js';
 ```

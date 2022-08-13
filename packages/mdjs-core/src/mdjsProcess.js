@@ -11,18 +11,12 @@ import remark2rehype from 'remark-rehype';
 import raw from 'rehype-raw';
 import htmlSlug from 'rehype-slug';
 import htmlHeading from 'rehype-autolink-headings';
+import rehypePrism from 'rehype-prism-plus';
 import htmlStringify from 'rehype-stringify';
-// @ts-ignore
 import { executeSetupFunctions } from 'plugins-manager';
 import { mdjsParse } from './mdjsParse.js';
 import { mdjsStoryParse } from './mdjsStoryParse.js';
 import { mdjsSetupCode } from './mdjsSetupCode.js';
-
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const loadLanguages = require('prismjs/components/');
-
-let prismLoaded = false;
 
 /** @type {MdjsProcessPlugin[]} */
 const defaultMetaPlugins = [
@@ -39,6 +33,7 @@ const defaultMetaPlugins = [
   { plugin: htmlSlug, options: {} },
   // @ts-ignore
   { plugin: htmlHeading, options: {} },
+  { plugin: rehypePrism, options: {} },
   // @ts-ignore
   { plugin: htmlStringify, options: {} },
 ];
@@ -56,13 +51,6 @@ const defaultMetaPlugins = [
  */
 export async function mdjsProcess(mdjs, { setupUnifiedPlugins = [] } = {}) {
   const parser = unified();
-  if (!prismLoaded) {
-    prismLoaded = true;
-    const rehypePrism = (await import('rehype-prism/lib/src/index.js')).default;
-    loadLanguages(['md', 'shell', 'yml', 'diff']);
-    defaultMetaPlugins.splice(6, 0, { plugin: rehypePrism, options: {} });
-  }
-
   const metaPlugins = executeSetupFunctions(setupUnifiedPlugins, defaultMetaPlugins);
 
   for (const pluginObj of metaPlugins) {
