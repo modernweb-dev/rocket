@@ -1,5 +1,14 @@
 # @rocket/engine
 
+## 0.2.2
+
+### Patch Changes
+
+- 6f88d8e: Get rid of the `rehype-prism` workaround by using latest esm version of mdjs that uses `rehype-prism-plus`
+- Updated dependencies [35ed64d]
+- Updated dependencies [6f88d8e]
+  - @mdjs/core@0.20.0
+
 ## 0.2.1
 
 ### Patch Changes
