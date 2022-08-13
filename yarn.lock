@@ -1248,15 +1248,6 @@
     "@open-wc/scoped-elements" "^2.1.1"
     lit "^2.0.2"
 
-"@lion/overlays@^0.32.0":
-  version "0.32.0"
-  resolved "https://registry.yarnpkg.com/@lion/overlays/-/overlays-0.32.0.tgz#d9c7d0bfd7895768efcf9bcc65a97e330bdcf424"
-  integrity sha512-VyHilarcgWYYM+NDNXxuAiAT8EHipJUHNiaV85OLzwgqqMFC5TsG9wyekqj5iu3mk96R4s/RU1gjqfR9O88INQ==
-  dependencies:
-    "@lion/core" "^0.22.0"
-    "@popperjs/core" "^2.5.4"
-    singleton-manager "^1.4.3"
-
 "@lit-labs/ssr-client@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@lit-labs/ssr-client/-/ssr-client-1.0.1.tgz#b97e121184aa201bbe6f165f3a7dc919f67129a2"
@@ -1401,11 +1392,6 @@
   dependencies:
     "@types/node" "*"
     playwright-core "1.25.0"
-
-"@popperjs/core@^2.5.4":
-  version "2.11.6"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.6.tgz#cee20bd55e68a1720bdab363ecf0c821ded4cd45"
-  integrity sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==
 
 "@rollup/plugin-babel@^5.2.2":
   version "5.3.1"
@@ -7393,11 +7379,6 @@ signal-exit@^3.0.2:
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.7.tgz#a9a1767f8af84155114eaabd73f99273c8f59ad9"
   integrity sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==
-
-singleton-manager@^1.4.3:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/singleton-manager/-/singleton-manager-1.5.0.tgz#725827e3c516cd28c1d1a8533fac04a3f2a75e2b"
-  integrity sha512-38sWGgQlhX4TM9xLHNTdp/qVmD3kGKty8j/d4/xZUL2FLycyCPhYjctWK1gO4FZQa4mc2orPxLmzS5I1QwFMhw==
 
 sinon@^9.2.3:
   version "9.2.4"

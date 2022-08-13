@@ -30,7 +30,7 @@
     "rocket:build": "NODE_DEBUG=engine:rendering node --trace-warnings packages/cli/src/cli.js build",
     "rocket:upgrade": "node packages/cli/src/cli.js upgrade",
     "search": "node packages/cli/src/cli.js search",
-    "setup": "npm run setup:ts-configs && npm run setup:patches",
+    "setup": "npm run setup:ts-configs",
     "setup:patches": "npx patch-package",
     "setup:ts-configs": "node scripts/generate-ts-configs.mjs",
     "start:experimental": "NODE_DEBUG=engine:rendering node --no-warnings --experimental-loader ./packages/engine/src/litCssLoader.js packages/cli/src/cli.js start --open",

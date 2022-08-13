@@ -68,7 +68,7 @@ npx @rocket/create@latest
 
 We are always looking for contributors of all skill levels! If you're looking to ease your way into the project, try out a [good first issue](https://github.com/modernweb-dev/rocket/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
-If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/rocket/blob/next/CONTRIBUTING.md). Also, feel free to drop into [discord](https://rocket.modern-web.dev/chat) and say hi. 👋
+If you are interested in helping contribute to Modern Web, please take a look at our [Contributing Guide](https://github.com/modernweb-dev/rocket/blob/main/CONTRIBUTING.md). Also, feel free to drop into [discord](https://rocket.modern-web.dev/chat) and say hi. 👋
 
 ### Financial Contributors
 
