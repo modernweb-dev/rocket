@@ -50,7 +50,7 @@
     "@rocket/components": "^0.2.0",
     "@rocket/engine": "^0.2.0",
     "@webcomponents/template-shadowroot": "^0.1.0",
-    "lit": "^2.2.5",
+    "lit": "^2.3.0",
     "workbox-window": "^6.1.5"
   },
   "types": "./dist-types/src/index.d.ts",
