@@ -79,6 +79,11 @@ export class Watcher {
   acceptPageUpdates = true;
 
   /**
+   * @type {Set<string>}
+   */
+  _filesToIgnore = new Set();
+
+  /**
    * @type {Map<string, { type: string, jsDependencies?: string[], webSockets?: Set<import('@web/dev-server-core').WebSocket> }>}
    */
   _taskQueue = new Map();
@@ -96,6 +101,9 @@ export class Watcher {
       async (err, events) => {
         if (this.acceptPageUpdates) {
           for (const event of events) {
+            if (this.isIgnoredFile(event.path)) {
+              return;
+            }
             if (event.type === 'create') {
               await this.addCreateTask(event.path);
             }
@@ -109,6 +117,9 @@ export class Watcher {
           await this.executeTaskQueue();
         } else {
           for (const event of events) {
+            if (this.isIgnoredFile(event.path)) {
+              return;
+            }
             if (
               this._taskQueue.has(event.path) ||
               // we exclude files here as `@parcel/watcher` does not support globs in `ignore`
@@ -339,5 +350,27 @@ export class Watcher {
     this.pages.clear();
     this._taskQueue.clear();
     this.acceptPageUpdates = true;
+  }
+
+  /**
+   * @param {string} filePath
+   */
+  addFileToIgnore(filePath) {
+    this._filesToIgnore.add(filePath);
+  }
+
+  /**
+   * @param {string} filePath
+   */
+  removeFileToIgnore(filePath) {
+    this._filesToIgnore.delete(filePath);
+  }
+
+  /**
+   * @param {string} filePath
+   * @returns {boolean}
+   */
+  isIgnoredFile(filePath) {
+    return this._filesToIgnore.has(filePath);
   }
 }

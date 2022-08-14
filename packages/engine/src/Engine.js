@@ -444,7 +444,9 @@ export class Engine {
       }
       return result;
     }
-
+    if (this.watcher) {
+      this.watcher.addFileToIgnore(sourceFilePath);
+    }
     if (rocketHeader) {
       const { needsAnotherRenderingPass } = await rocketHeader.syncComponents({
         outputFileContent: result.fileContent,
@@ -460,6 +462,9 @@ export class Engine {
       }
     }
 
+    if (this.watcher) {
+      this.watcher.removeFileToIgnore(sourceFilePath);
+    }
     return result;
   }
 }
