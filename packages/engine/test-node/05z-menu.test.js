@@ -893,4 +893,40 @@ describe('Engine menus', () => {
       url: '/',
     });
   });
+
+  it('15: link-text attribute', async () => {
+    const { build, readSource } = await setupTestEngine(
+      'fixtures/05-menu/16-link-text-attribute/docs',
+    );
+    await build();
+
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal({
+      h1: 'Home',
+      headlinesWithId: [
+        {
+          id: 'home',
+          level: 1,
+          rawText: 'Welcome to Rocket',
+          text: 'Home',
+        },
+        {
+          id: 'first',
+          level: 2,
+          text: 'First',
+        },
+        {
+          id: 'second',
+          level: 2,
+          rawText: 'Second is best',
+          text: 'Second',
+        },
+      ],
+      level: 0,
+      menuLinkText: 'Home',
+      name: 'Home',
+      outputRelativeFilePath: 'index.html',
+      sourceRelativeFilePath: 'index.rocket.js',
+      url: '/',
+    });
+  });
 });
