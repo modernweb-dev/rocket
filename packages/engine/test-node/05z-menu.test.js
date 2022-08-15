@@ -834,4 +834,21 @@ describe('Engine menus', () => {
 
     await cleanup();
   });
+
+  it('14: get-all-text-but-strip-html', async () => {
+    const { build, readSource } = await setupTestEngine(
+      'fixtures/05-menu/14-get-all-text-but-strip-html/docs',
+    );
+    await build();
+
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal({
+      h1: 'Hello World of JS (JavaScript)!',
+      name: 'Hello World of JS (JavaScript)!',
+      menuLinkText: 'Hello World of JS (JavaScript)!',
+      url: '/',
+      outputRelativeFilePath: 'index.html',
+      sourceRelativeFilePath: 'index.rocket.js',
+      level: 0,
+    });
+  });
 });
