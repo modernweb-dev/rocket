@@ -85,22 +85,22 @@ In most cases you probably will not need to do anything as it will take the text
 So if you have a page like this:
 
 ```md
-# Hello World
+# Learning Rocket
 ```
 
-then it will be called "Hello World" in the menu.
+then it will be called "Learning Rocket" in the menu.
 
 You can overwrite that by using the property `menuLinkText`;
 
 ````md
 ```js server
-export const menuLinkText = 'Hello';
+export const menuLinkText = 'Docs';
 ```
 
-# Hello World
+# Learning Rocket
 ````
 
-Now the menu will be called "Hello".
+Now the menu will be called "Docs".
 
 Within a menu the text of the links is defined by the following priority:
 
@@ -110,6 +110,23 @@ Within a menu the text of the links is defined by the following priority:
 4. sourceRelativeFilePath => fallback if no other option is available
 
 You can influence that data that gets provided to the menu by setting exports.
+
+### link-text="..."
+
+If you want to rename the menu text you can use the attribute `link-text`.
+It works on your h1 for the page title as well as on your h2-h6 for a table of contents menu.
+
+Examples:
+
+```html
+<h1 link-text="Docs">Learning Rocket</h1>
+
+<h2 link-text="Contact">Write us a message</h2>
+```
+
+<inline-notification>
+  You can use HTML within markdown too!
+</inline-notification>
 
 ## Headings with HTML
 
