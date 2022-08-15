@@ -116,10 +116,21 @@ describe('Engine start error handling', () => {
   });
 
   it('04: update-header-while-rendering', async () => {
-    const { readOutput, writeSource, cleanup, engine, setAsOpenedInBrowser, outputExists } =
-      await setupTestEngine(
-        'fixtures/09b-watch-error-handling/04-update-header-while-rendering/docs',
-      );
+    const {
+      readOutput,
+      writeSource,
+      cleanup,
+      engine,
+      setAsOpenedInBrowser,
+      outputExists,
+      anEngineEvent,
+    } = await setupTestEngine(
+      'fixtures/09b-watch-error-handling/04-update-header-while-rendering/docs',
+    );
+    expect(outputExists('index.html')).to.be.false;
+
+    await engine.start();
+    setAsOpenedInBrowser('index.rocket.js');
     await writeSource(
       'index.rocket.js',
       [
@@ -140,13 +151,7 @@ describe('Engine start error handling', () => {
         '`;',
       ].join('\n'),
     );
-
-    await engine.start();
-    setAsOpenedInBrowser('index.rocket.js');
-
-    const { port } = engine.devServer.config;
-    expect(outputExists('index.html')).to.be.false;
-    await fetch(`http://localhost:${port}/`);
+    await anEngineEvent('rocketUpdated');
 
     expect(readOutput('index.html')).to.equal(
       [

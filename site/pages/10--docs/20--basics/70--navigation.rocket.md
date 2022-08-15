@@ -111,6 +111,15 @@ Within a menu the text of the links is defined by the following priority:
 
 You can influence that data that gets provided to the menu by setting exports.
 
+## Headings with HTML
+
+HTML in headings will be ignored for the menu
+
+Some examples:
+
+- `<h1>Hello <em>Word</em></h1>` => `Hello Word`
+- `<h1>Hello <strong>World</strong> of <span>JS <em>(JavaScript)</em></span>!</h1>` => `Hello World of JS (JavaScript)!`
+
 ## Menu No Link
 
 Often you have sections or groups of pages which you want to provide a heading for.

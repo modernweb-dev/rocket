@@ -29,9 +29,23 @@ export function getHtmlMetaData(htmlFilePath) {
     // headlinesWithId: [],
   };
 
+  /** @type {string | undefined} */
+  let capturedHeadlineText = undefined;
   parser.eventHandler = (ev, _data) => {
+    if (ev === SaxEventType.OpenTag) {
+      const data = /** @type {Tag} */ (/** @type {any} */ (_data));
+      if (isHeadline(data)) {
+        capturedHeadlineText = '';
+      }
+    }
+    if (capturedHeadlineText !== undefined && ev === SaxEventType.Text) {
+      const data = /** @type {Text} */ (/** @type {any} */ (_data));
+      capturedHeadlineText += data.value;
+    }
+
     if (ev === SaxEventType.CloseTag) {
       const data = /** @type {Tag} */ (/** @type {any} */ (_data));
+      // ********** <meta name="*" content="*">
       if (data.name === 'meta') {
         const metaName = getAttribute(data, 'name');
         if (metaName === 'menu:link.text') {
@@ -63,26 +77,28 @@ export function getHtmlMetaData(htmlFilePath) {
       if (!metaData.title && data.name === 'title') {
         metaData.title = getText(data);
       }
-      if (!metaData.h1 && data.name === 'h1') {
-        metaData.h1 = getText(data);
-      }
 
+      // ********** <h1> - <h6>
       if (isHeadline(data)) {
         const id = getAttribute(data, 'id');
-        const rawText = getText(data);
         const linkText = getAttribute(data, 'link-text');
-        if (id && rawText) {
+        const text = linkText || capturedHeadlineText || '';
+        if (data.name === 'h1') {
+          metaData.h1 = text;
+        }
+        if (id && text) {
           if (!metaData.headlinesWithId) {
             metaData.headlinesWithId = [];
           }
-          const rawTextObj = linkText ? { rawText } : {};
+          const rawTextObj = linkText ? { rawText: capturedHeadlineText } : {};
           metaData.headlinesWithId.push({
-            text: linkText || rawText,
+            text,
             id,
             level: parseInt(data.name[1], 10),
             ...rawTextObj,
           });
         }
+        capturedHeadlineText = undefined;
       }
     }
   };
@@ -97,6 +113,7 @@ export function getHtmlMetaData(htmlFilePath) {
     });
     readable.on('end', () => {
       parser.end();
+      capturedHeadlineText = undefined;
 
       resolve(metaData);
     });
