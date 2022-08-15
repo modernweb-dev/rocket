@@ -1,5 +1,25 @@
 # @rocket/engine
 
+## 0.2.5
+
+### Patch Changes
+
+- 93503ed: HTML in headings will be ignored for the menu
+  Some examples:
+
+  - `<h1>Hello <em>Word</em></h1>` => `Hello Word`
+  - `<h1>Hello <strong>World</strong> of <span>JS <em>(JavaScript)</em></span>!</h1>` => `Hello World of JS (JavaScript)!`
+
+- 3032ba9: Menus now support special characters in markdown headings.
+
+  Examples:
+
+  ```md
+  # Fun Errors & Feedback
+
+  # &lt;some-button>
+  ```
+
 ## 0.2.4
 
 ### Patch Changes
