@@ -28,7 +28,7 @@
 <p align="center">
   <a href="https://rocket.modern-web.dev">Website</a>
   ·
-  <a href="https://rocket.modern-web.dev/doc/">Documentation</a>
+  <a href="https://rocket.modern-web.dev/docs/">Documentation</a>
   ·
   <a href="https://rocket.modern-web.dev/chat">Discord Community</a>
 </p>
