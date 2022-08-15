@@ -82,7 +82,11 @@ export function getHtmlMetaData(htmlFilePath) {
       if (isHeadline(data)) {
         const id = getAttribute(data, 'id');
         const linkText = getAttribute(data, 'link-text');
-        const text = linkText || capturedHeadlineText || '';
+        const processedCapturedHeadlineText = capturedHeadlineText
+          ?.replace(/&#x3C;/g, '&lt;')
+          .replace(/&#x26;/g, '&')
+          .trim();
+        const text = linkText || processedCapturedHeadlineText || '';
         if (data.name === 'h1') {
           metaData.h1 = text;
         }
@@ -90,7 +94,7 @@ export function getHtmlMetaData(htmlFilePath) {
           if (!metaData.headlinesWithId) {
             metaData.headlinesWithId = [];
           }
-          const rawTextObj = linkText ? { rawText: capturedHeadlineText } : {};
+          const rawTextObj = linkText ? { rawText: processedCapturedHeadlineText } : {};
           metaData.headlinesWithId.push({
             text,
             id,

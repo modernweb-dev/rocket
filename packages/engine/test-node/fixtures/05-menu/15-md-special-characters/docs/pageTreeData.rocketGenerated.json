@@ -1,0 +1,34 @@
+{
+  "h1": "Fun Errors & Feedback",
+  "headlinesWithId": [
+    {
+      "text": "Fun Errors & Feedback",
+      "id": "fun-errors--feedback",
+      "level": 1
+    }
+  ],
+  "name": "Fun Errors & Feedback",
+  "menuLinkText": "Fun Errors & Feedback",
+  "url": "/",
+  "outputRelativeFilePath": "index.html",
+  "sourceRelativeFilePath": "index.rocket.md",
+  "level": 0,
+  "children": [
+    {
+      "h1": "&lt;some-button>",
+      "headlinesWithId": [
+        {
+          "text": "&lt;some-button>",
+          "id": "some-button",
+          "level": 1
+        }
+      ],
+      "name": "&lt;some-button>",
+      "menuLinkText": "&lt;some-button>",
+      "url": "/component/",
+      "outputRelativeFilePath": "component/index.html",
+      "sourceRelativeFilePath": "component.rocket.md",
+      "level": 1
+    }
+  ]
+}
