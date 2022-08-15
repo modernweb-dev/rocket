@@ -851,4 +851,46 @@ describe('Engine menus', () => {
       level: 0,
     });
   });
+
+  it('15: markdown special characters', async () => {
+    const { build, readSource } = await setupTestEngine(
+      'fixtures/05-menu/15-md-special-characters/docs',
+    );
+    await build();
+
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal({
+      children: [
+        {
+          h1: '&lt;some-button>',
+          headlinesWithId: [
+            {
+              id: 'some-button',
+              level: 1,
+              text: '&lt;some-button>',
+            },
+          ],
+          level: 1,
+          menuLinkText: '&lt;some-button>',
+          name: '&lt;some-button>',
+          outputRelativeFilePath: 'component/index.html',
+          sourceRelativeFilePath: 'component.rocket.md',
+          url: '/component/',
+        },
+      ],
+      h1: 'Fun Errors & Feedback',
+      headlinesWithId: [
+        {
+          id: 'fun-errors--feedback',
+          level: 1,
+          text: 'Fun Errors & Feedback',
+        },
+      ],
+      level: 0,
+      menuLinkText: 'Fun Errors & Feedback',
+      name: 'Fun Errors & Feedback',
+      outputRelativeFilePath: 'index.html',
+      sourceRelativeFilePath: 'index.rocket.md',
+      url: '/',
+    });
+  });
 });
