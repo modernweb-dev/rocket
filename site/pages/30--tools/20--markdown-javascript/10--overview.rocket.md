@@ -22,6 +22,9 @@ export async function registerCustomElements() {
 }
 export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
+
+export const title = 'Markdown JavaScript';
+export const subTitle = 'Executable JavaScript in markdown by annotating code blocks';
 ```
 
 # Overview

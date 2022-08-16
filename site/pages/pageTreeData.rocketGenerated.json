@@ -1,8 +1,8 @@
 {
   "title": "Welcome to Rocket",
-  "h1": "\n        \n      ",
-  "name": "\n        \n      ",
-  "menuLinkText": "\n        \n      ",
+  "h1": "",
+  "name": "Welcome to Rocket",
+  "menuLinkText": "Welcome to Rocket",
   "url": "/",
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",
@@ -2239,7 +2239,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Overview | Rocket",
+              "title": "Plugins Manager",
               "h1": "Overview",
               "headlinesWithId": [
                 {
@@ -2313,7 +2313,7 @@
                   "level": 2
                 }
               ],
-              "name": "Overview",
+              "name": "Plugins Manager",
               "menuLinkText": "Overview",
               "url": "/tools/plugins-manager/overview/",
               "outputRelativeFilePath": "tools/plugins-manager/overview/index.html",
@@ -2345,7 +2345,8 @@
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
                 "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
-              "needsLoader": true
+              "needsLoader": true,
+              "subTitle": "Enable fully customizable options for your plugin system"
             }
           ]
         },
@@ -2388,7 +2389,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Overview | Rocket",
+              "title": "Markdown JavaScript",
               "h1": "Overview",
               "headlinesWithId": [
                 {
@@ -2452,12 +2453,22 @@
                   "level": 3
                 },
                 {
+                  "text": "mdjsDocPage",
+                  "id": "mdjsdocpage",
+                  "level": 4
+                },
+                {
+                  "text": "mdjsProcess",
+                  "id": "mdjsprocess",
+                  "level": 4
+                },
+                {
                   "text": "Advanced",
                   "id": "advanced",
                   "level": 3
                 }
               ],
-              "name": "Overview",
+              "name": "Markdown JavaScript",
               "menuLinkText": "Overview",
               "url": "/tools/markdown-javascript/overview/",
               "outputRelativeFilePath": "tools/markdown-javascript/overview/index.html",
@@ -2489,7 +2500,8 @@
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
                 "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
-              "needsLoader": true
+              "needsLoader": true,
+              "subTitle": "Executable JavaScript in markdown by annotating code blocks"
             },
             {
               "title": "Preview | Rocket",
@@ -2655,7 +2667,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Overview | Rocket",
+              "title": "Rocket Rollup Config",
               "h1": "Overview",
               "headlinesWithId": [
                 {
@@ -2689,7 +2701,7 @@
                   "level": 3
                 }
               ],
-              "name": "Overview",
+              "name": "Rocket Rollup Config",
               "menuLinkText": "Overview",
               "url": "/tools/rollup-config/overview/",
               "outputRelativeFilePath": "tools/rollup-config/overview/index.html",
@@ -2721,7 +2733,8 @@
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
                 "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
-              "needsLoader": true
+              "needsLoader": true,
+              "subTitle": "A ready to use and customizable rollup config for web sites, MPAs and SPAs"
             }
           ]
         },
@@ -2764,7 +2777,7 @@
           "needsLoader": true,
           "children": [
             {
-              "title": "Overview | Rocket",
+              "title": "Check HTML links",
               "h1": "Overview",
               "headlinesWithId": [
                 {
@@ -2803,7 +2816,7 @@
                   "level": 2
                 }
               ],
-              "name": "Overview",
+              "name": "Check HTML links",
               "menuLinkText": "Overview",
               "url": "/tools/check-html-links/overview/",
               "outputRelativeFilePath": "tools/check-html-links/overview/index.html",
@@ -2835,7 +2848,8 @@
                 "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
                 "my-counter": "#src/components/MyCounter.js::MyCounter"
               },
-              "needsLoader": true
+              "needsLoader": true,
+              "subTitle": "A fast checker for broken links/references in HTML files"
             }
           ]
         }

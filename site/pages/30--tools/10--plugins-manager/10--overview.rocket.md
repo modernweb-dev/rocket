@@ -22,6 +22,8 @@ export async function registerCustomElements() {
 }
 export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
+export const title = 'Plugins Manager';
+export const subTitle = 'Enable fully customizable options for your plugin system';
 ```
 
 # Overview

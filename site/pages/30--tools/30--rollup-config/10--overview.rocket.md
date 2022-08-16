@@ -22,6 +22,10 @@ export async function registerCustomElements() {
 }
 export const needsLoader = true;
 /* END - Rocket auto generated - do not touch */
+
+export const title = 'Rocket Rollup Config';
+export const subTitle =
+  'A ready to use and customizable rollup config for web sites, MPAs and SPAs';
 ```
 
 # Overview
