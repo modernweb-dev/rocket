@@ -54,7 +54,7 @@ Like any unfamiliar technology, Rocket comes with a slight learning curve. Howev
 
 ### Example Projects
 
-If you prefer to learn Rocket by example, check out our [examples](https://github.com/modernweb-dev/rocket/tree/next/examples) on GitHub.
+If you prefer to learn Rocket by example, check out our [examples](https://github.com/modernweb-dev/rocket/tree/main/examples) on GitHub.
 
 You locally install any of these examples by running `npx @rocket/create@latest` and selecting it within the wizard.
 
