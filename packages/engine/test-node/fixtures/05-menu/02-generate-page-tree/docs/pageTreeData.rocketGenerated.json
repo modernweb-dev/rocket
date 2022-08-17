@@ -8,8 +8,8 @@
   "level": 0,
   "children": [
     {
-      "menuLinkText": "About",
       "title": "About | MyPage",
+      "menuLinkText": "About",
       "h1": "This is About",
       "name": "This is About",
       "url": "/about/",

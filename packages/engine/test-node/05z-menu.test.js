@@ -894,7 +894,7 @@ describe('Engine menus', () => {
     });
   });
 
-  it('15: link-text attribute', async () => {
+  it('16: link-text attribute', async () => {
     const { build, readSource } = await setupTestEngine(
       'fixtures/05-menu/16-link-text-attribute/docs',
     );
@@ -926,6 +926,25 @@ describe('Engine menus', () => {
       name: 'Home',
       outputRelativeFilePath: 'index.html',
       sourceRelativeFilePath: 'index.rocket.js',
+      url: '/',
+    });
+  });
+
+  it('17: title-tag', async () => {
+    const { build, readSource, deleteSource } = await setupTestEngine(
+      'fixtures/05-menu/17-title-tag/docs',
+    );
+    await deleteSource('pageTreeData.rocketGenerated.json');
+    await build();
+
+    expect(JSON.parse(readSource('pageTreeData.rocketGenerated.json'))).to.deep.equal({
+      h1: 'Welcome to Rocket',
+      level: 0,
+      menuLinkText: 'Welcome to Rocket',
+      name: 'Welcome to Rocket',
+      outputRelativeFilePath: 'index.html',
+      sourceRelativeFilePath: 'index.rocket.js',
+      title: 'Welcome to Rocket | Rocket',
       url: '/',
     });
   });

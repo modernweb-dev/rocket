@@ -65,7 +65,7 @@ export class LayoutMain extends Layout {
       },
     ],
     footerMenu: [],
-    titleWrapperFn: title => `${title} | ${this.options.siteName}`,
+    titleWrapperFn: title => (title ? `${title} | ${this.options.siteName}` : ''),
   };
 
   /**

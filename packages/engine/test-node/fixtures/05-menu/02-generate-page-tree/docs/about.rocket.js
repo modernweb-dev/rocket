@@ -6,7 +6,13 @@ export { layout };
 
 import { html } from 'lit';
 export default () => html`
-  <meta name="menu:link.text" content="About" />
-  <title>About | MyPage</title>
-  <h1>This is About</h1>
+  <html>
+    <head>
+      <title>About | MyPage</title>
+    </head>
+    <body>
+      <meta name="menu:link.text" content="About" />
+      <h1>This is About</h1>
+    </body>
+  </html>
 `;

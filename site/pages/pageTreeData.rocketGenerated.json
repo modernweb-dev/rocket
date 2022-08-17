@@ -386,6 +386,31 @@
                   "text": "Recommended Project Structure",
                   "id": "recommended-project-structure",
                   "level": 2
+                },
+                {
+                  "text": "site/pages/",
+                  "id": "sitepages",
+                  "level": 3
+                },
+                {
+                  "text": "site/src/",
+                  "id": "sitesrc",
+                  "level": 3
+                },
+                {
+                  "text": "site/src/components",
+                  "id": "sitesrccomponents",
+                  "level": 3
+                },
+                {
+                  "text": "site/src/layouts",
+                  "id": "sitesrclayouts",
+                  "level": 3
+                },
+                {
+                  "text": "site/public/",
+                  "id": "sitepublic",
+                  "level": 3
                 }
               ],
               "name": "Project Structure",
@@ -759,6 +784,16 @@
                   "level": 3
                 },
                 {
+                  "text": "link-text=\"...\"",
+                  "id": "link-text",
+                  "level": 3
+                },
+                {
+                  "text": "Headings with HTML",
+                  "id": "headings-with-html",
+                  "level": 2
+                },
+                {
                   "text": "Menu No Link",
                   "id": "menu-no-link",
                   "level": 2
@@ -937,7 +972,7 @@
                   "level": 2
                 },
                 {
-                  "text": "The  Function",
+                  "text": "The :resolve Function",
                   "id": "the-resolve-function",
                   "level": 2
                 },
@@ -1432,7 +1467,7 @@
                   "level": 2
                 },
                 {
-                  "text": "1. Simple  Tags and External Files",
+                  "text": "1. Simple &lt;link> Tags and External Files",
                   "id": "1-simple-link-tags-and-external-files",
                   "level": 3
                 },
@@ -1447,7 +1482,7 @@
                   "level": 3
                 },
                 {
-                  "text": "Recommendations &#x26; Best Practices",
+                  "text": "Recommendations & Best Practices",
                   "id": "recommendations--best-practices",
                   "level": 2
                 },

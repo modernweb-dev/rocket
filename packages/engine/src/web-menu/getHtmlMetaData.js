@@ -28,16 +28,20 @@ export function getHtmlMetaData(htmlFilePath) {
   const metaData = {
     // headlinesWithId: [],
   };
-
   /** @type {string | undefined} */
   let capturedHeadlineText = undefined;
+  let withinHTMLHead = false;
   parser.eventHandler = (ev, _data) => {
     if (ev === SaxEventType.OpenTag) {
       const data = /** @type {Tag} */ (/** @type {any} */ (_data));
       if (isHeadline(data)) {
         capturedHeadlineText = '';
       }
+      if (data.name === 'head') {
+        withinHTMLHead = true;
+      }
     }
+
     if (capturedHeadlineText !== undefined && ev === SaxEventType.Text) {
       const data = /** @type {Text} */ (/** @type {any} */ (_data));
       capturedHeadlineText += data.value;
@@ -74,7 +78,7 @@ export function getHtmlMetaData(htmlFilePath) {
           metaData.menuNoLink = getAttribute(data, 'content') !== 'false';
         }
       }
-      if (!metaData.title && data.name === 'title') {
+      if (withinHTMLHead && data.name === 'title') {
         metaData.title = getText(data);
       }
 
@@ -87,7 +91,7 @@ export function getHtmlMetaData(htmlFilePath) {
           .replace(/&#x26;/g, '&')
           .trim();
         const text = linkText || processedCapturedHeadlineText || '';
-        if (data.name === 'h1') {
+        if (!metaData.h1 && data.name === 'h1') {
           metaData.h1 = text;
         }
         if (id && text) {
@@ -103,6 +107,10 @@ export function getHtmlMetaData(htmlFilePath) {
           });
         }
         capturedHeadlineText = undefined;
+      }
+
+      if (data.name === 'head') {
+        withinHTMLHead = false;
       }
     }
   };

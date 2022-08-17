@@ -31,7 +31,7 @@ export class LayoutHome extends Layout {
           return nothing;
         }
         const page = this.options.pageTree.getPage(data.sourceRelativeFilePath);
-        if (page.model.headlinesWithId) {
+        if (page?.model?.headlinesWithId) {
           return html`
             ${page.model.headlinesWithId.map(
               headline => html`
