@@ -31,7 +31,7 @@ export const description = 'Learn how to structure a project with Rocket.';
 # Project Structure
 
 Rocket works with one input folder for all your pages that defaults to `site/pages`.
-Within `pages` there is a `__public` folder that will be copied as is to the output folder.
+Within `pages` there is a `public` folder that will be copied as is to the output folder.
 
 All other files like `layouts`, `css`, `data`, ... can be placed anywhere in your project.
 

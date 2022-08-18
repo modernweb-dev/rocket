@@ -83,7 +83,15 @@ To test it you can create a file
 ```js
 import { html } from 'lit';
 
-export const layout = data => html`<div>${data.content()}</div>`;
+export const layout = data => html`
+  <!DOCTYPE html>
+  <html>
+    <body>
+      <header>My Website</header>
+      <div>${data.content()}</div>
+    </body>
+  </html>
+`;
 ```
 
 Now if you go back to your `site/pages/index.rocket.md` you will see that `layout` got automatically injected.
