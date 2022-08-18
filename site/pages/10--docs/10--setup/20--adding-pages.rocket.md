@@ -48,11 +48,11 @@ This with start rocket in development mode and you will see your site running in
 
 ## What is a page?
 
-A page is a file that ends either with `*.rocket.js`, `*.rocket.md` or `*.rocket.html` and is located in the input directory (`docs` by default). Pages will make up the majority or your website.
+A page is a file that ends either with `*.rocket.js`, `*.rocket.md` or `*.rocket.html` and is located in the input directory (`site/pages` by default). Pages will make up the majority or your website.
 
 The simplest way to get started is to create a file
 
-👉 `docs/index.rocket.md`
+👉 `site/pages/index.rocket.md`
 
 ```md
 # Hello World
@@ -78,7 +78,7 @@ This section will be used to auto inject settings and data via a data cascade.
 
 To test it you can create a file
 
-👉 `docs/recursive.data.js`
+👉 `site/pages/recursive.data.js`
 
 ```js
 import { html } from 'lit';
@@ -86,7 +86,7 @@ import { html } from 'lit';
 export const layout = data => html`<div>${data.content()}</div>`;
 ```
 
-Now if you go back to your `docs/index.rocket.md` you will see that `layout` got automatically injected.
+Now if you go back to your `site/pages/index.rocket.md` you will see that `layout` got automatically injected.
 
 ````md
 ```js server
