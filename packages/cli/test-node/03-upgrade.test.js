@@ -6,7 +6,11 @@ const { expect } = chai;
 describe('Upgrade System', () => {
   it('2021-09-menu', async () => {
     const { build, sourceExists, readSource, backupOrRestoreSource, restoreSource } =
-      await setupTestCli('fixtures/03-upgrade/2022-03-menu', ['upgrade']);
+      await setupTestCli({
+        cwd: 'fixtures/03-upgrade/2022-03-menu',
+        cliOptions: ['upgrade'],
+        testOptions: { captureLogs: true },
+      });
     await backupOrRestoreSource();
 
     await build();

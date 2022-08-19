@@ -7,13 +7,13 @@ const { expect } = chai;
 
 describe('Search', () => {
   it('01: writes the search index', async () => {
-    const { build, readOutput, readPublic } = await setupTestCli(
-      'fixtures/01-single-page/',
-      undefined,
-      {
+    const { build, readOutput, readPublic } = await setupTestCli({
+      cwd: 'fixtures/01-single-page/',
+      options: {
         buildOptimize: true,
       },
-    );
+      testOptions: { captureLogs: true },
+    });
     await build();
 
     const indexString =

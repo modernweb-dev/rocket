@@ -5,7 +5,7 @@ import { setupTestCli } from './test-helpers.js';
 
 export function prepareTestCli(importMetaUrl) {
   const dir = path.dirname(fileURLToPath(importMetaUrl));
-  return (cwd, cliOptions = ['build'], options = {}) => setupTestCli(cwd, cliOptions, options, dir);
+  return fullOptions => setupTestCli({ dir, ...fullOptions });
 }
 
 const { expect } = chai;

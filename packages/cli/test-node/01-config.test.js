@@ -8,11 +8,11 @@ const { expect } = chai;
 
 describe('Config', () => {
   it('01: no config file', async () => {
-    const { build, readOutput, readDevOutput } = await setupTestCli(
-      'fixtures/01-config/01-no-config/',
-      undefined,
-      { buildOptimize: true },
-    );
+    const { build, readOutput, readDevOutput } = await setupTestCli({
+      cwd: 'fixtures/01-config/01-no-config/',
+      options: { buildOptimize: true },
+      testOptions: { captureLogs: true },
+    });
     await build();
 
     expect(readOutput('index.html')).to.equal(
@@ -31,14 +31,21 @@ describe('Config', () => {
   });
 
   it('02: change input dir', async () => {
-    const { build, readDevOutput } = await setupTestCli('fixtures/01-config/02-change-input-dir/');
+    const { build, readDevOutput } = await setupTestCli({
+      cwd: 'fixtures/01-config/02-change-input-dir/',
+      testOptions: { captureLogs: true },
+    });
     await build();
 
     expect(readDevOutput('index.html')).to.equal(['Hello World!'].join('\n'));
   });
 
   it('03: can add a middleware (api proxy) to the dev server', async () => {
-    const { cleanup, cli } = await setupTestCli('fixtures/01-config/03-add-middleware/', ['start']);
+    const { cleanup, cli } = await setupTestCli({
+      cwd: 'fixtures/01-config/03-add-middleware/',
+      cliOptions: ['start'],
+      testOptions: { captureLogs: true },
+    });
     const apiServer = http.createServer((request, response) => {
       if (request.url === '/api/message') {
         response.writeHead(200);
@@ -61,20 +68,22 @@ describe('Config', () => {
   });
 
   it('04: can add a rollup plugin via setupDevServerAndBuildPlugins to build', async () => {
-    const { build, readOutput } = await setupTestCli(
-      'fixtures/01-config/04-add-rollup-plugin/',
-      undefined,
-      { buildOptimize: true },
-    );
+    const { build, readOutput } = await setupTestCli({
+      cwd: 'fixtures/01-config/04-add-rollup-plugin/',
+      options: { buildOptimize: true },
+      testOptions: { captureLogs: true },
+    });
     await build();
     const inlineModule = await readOutput('e97af63d.js', { format: false });
     expect(inlineModule).to.equal('var a={test:"data"};console.log(a);\n');
   });
 
   it('04a: can add a rollup plugin via setupDevServerAndBuildPlugins to start', async () => {
-    const { cli, cleanup } = await setupTestCli('fixtures/01-config/04-add-rollup-plugin/', [
-      'start',
-    ]);
+    const { cli, cleanup } = await setupTestCli({
+      cwd: 'fixtures/01-config/04-add-rollup-plugin/',
+      cliOptions: ['start'],
+      testOptions: { captureLogs: true },
+    });
     await cli.start();
     const { port } = cli?.activePlugin?.engine.devServer.config;
 
@@ -88,9 +97,10 @@ describe('Config', () => {
   });
 
   it('05: long file header comments', async () => {
-    const { build, readSource } = await setupTestCli(
-      'fixtures/01-config/05-long-file-header-comment/',
-    );
+    const { build, readSource } = await setupTestCli({
+      cwd: 'fixtures/01-config/05-long-file-header-comment/',
+      testOptions: { captureLogs: true },
+    });
     await build();
 
     expect(readSource('index.rocket.js', { format: false })).to.equal(

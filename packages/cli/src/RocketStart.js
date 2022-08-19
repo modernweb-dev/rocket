@@ -1,6 +1,7 @@
 import { fromRollup } from '@web/dev-server-rollup';
 
 import { Engine } from '@rocket/engine/server';
+import { logStartMessage } from './start/logStartMessage.js';
 
 export class RocketStart {
   /** @type {Engine | undefined} */
@@ -60,7 +61,14 @@ export class RocketStart {
       setupDevServerPlugins: [...this.cli.options.setupDevServerPlugins, ...withWrap],
     });
     try {
-      console.log('🚀 Engines online');
+      this.engine.events.on('devServerStarted', () => {
+        if (this.engine?.devServer) {
+          logStartMessage(
+            { devServerOptions: this.engine.devServer?.config, engine: this.engine },
+            console,
+          );
+        }
+      });
       await this.engine.start();
     } catch (e) {
       console.log('Engine start errored');
@@ -71,7 +79,6 @@ export class RocketStart {
   async stop({ hard = true } = {}) {
     if (this.engine) {
       await this.engine.stop({ hard });
-      console.log('🚀 Engines offline');
     }
   }
 }

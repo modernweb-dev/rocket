@@ -5,13 +5,13 @@ const { expect } = chai;
 
 describe('Open Graph', () => {
   it('generates the image and adds the meta tags', async () => {
-    const { build, readOutput, outputExists } = await setupTestCli(
-      'fixtures/04-open-graph/01-generate-image-and-inject-meta',
-      undefined,
-      {
+    const { build, readOutput, outputExists } = await setupTestCli({
+      cwd: 'fixtures/04-open-graph/01-generate-image-and-inject-meta',
+      options: {
         buildOptimize: true,
       },
-    );
+      testOptions: { captureLogs: true },
+    });
     await build();
 
     expect(readOutput('index.html', { replaceImageHashes: true })).to.equal(
@@ -35,13 +35,13 @@ describe('Open Graph', () => {
   });
 
   it('handles multiple pages', async () => {
-    const { build, readOutput } = await setupTestCli(
-      'fixtures/04-open-graph/02-multiple-pages',
-      undefined,
-      {
+    const { build, readOutput } = await setupTestCli({
+      cwd: 'fixtures/04-open-graph/02-multiple-pages',
+      options: {
         buildOptimize: true,
       },
-    );
+      testOptions: { captureLogs: true },
+    });
     await build();
 
     expect(readOutput('index.html', { replaceImageHashes: true })).to.equal(

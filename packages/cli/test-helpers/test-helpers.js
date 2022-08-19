@@ -60,7 +60,13 @@ function cleanupLitMarkersFn(text) {
   return newText;
 }
 
-export async function setupTestCli(cwd, cliOptions = ['build'], options = {}, dir) {
+export async function setupTestCli({
+  cwd,
+  cliOptions = ['build'],
+  options = {},
+  testOptions = {},
+  dir,
+}) {
   const resolvedCwd = path.join(dir, cwd.split('/').join(path.sep));
   const useOptions = { buildOptimize: false, buildAutoStop: false, ...options, cwd: resolvedCwd };
   if (useOptions.inputDir) {
@@ -68,6 +74,18 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}, di
   }
   useOptions.outputDir = path.join(resolvedCwd, '__output');
   useOptions.outputDevDir = path.join(resolvedCwd, '__output-dev');
+
+  const capturedLogs = [];
+  const origLog = console.log;
+  const origError = console.error;
+  if (testOptions.captureLogs) {
+    console.log = msg => {
+      capturedLogs.push(msg);
+    };
+    console.error = msg => {
+      capturedLogs.push(msg);
+    };
+  }
 
   const cli = new RocketCli({
     argv: [process.argv[0], new URL('../src/cli.js', import.meta.url).pathname, ...cliOptions],
@@ -184,6 +202,10 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}, di
 
   async function cleanup() {
     await cli.stop({ hard: false });
+    if (testOptions.captureLogs) {
+      console.log = origLog;
+      console.error = origError;
+    }
   }
 
   async function build() {
@@ -243,5 +265,6 @@ export async function setupTestCli(cwd, cliOptions = ['build'], options = {}, di
     renameSource,
     backupOrRestoreSource,
     restoreSource,
+    capturedLogs,
   };
 }
