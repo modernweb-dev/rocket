@@ -36,7 +36,7 @@
     "start:experimental": "NODE_DEBUG=engine:rendering node --no-warnings --experimental-loader ./packages/engine/src/litCssLoader.js packages/cli/src/cli.js start --open",
     "start": "NODE_DEBUG=engine:rendering node --trace-warnings packages/cli/src/cli.js start --open",
     "test": "yarn test:node && yarn test:web",
-    "test:integration": "playwright test packages/*/test-node/*.spec.js",
+    "test:integration": "playwright test packages/*/test-node/*.spec.js --retries=3",
     "test:node": "yarn test:unit && yarn test:integration",
     "test:unit": "node --trace-warnings ./node_modules/.bin/mocha --require ./scripts/testMochaGlobalHooks.js \"packages/*/test-node/**/*.test.{ts,js,mjs,cjs}\" -- --timeout 8000 --reporter dot --exit",
     "test:web": "web-test-runner",

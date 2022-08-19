@@ -5,13 +5,13 @@ const { expect } = chai;
 
 describe('Build', () => {
   it('01: copy public files', async () => {
-    const { build, readOutput, outputExists, readDevOutput } = await setupTestCli(
-      'fixtures/02-build/01-copy-public-files/',
-      undefined,
-      {
+    const { build, readOutput, outputExists, readDevOutput } = await setupTestCli({
+      cwd: 'fixtures/02-build/01-copy-public-files/',
+      options: {
         buildOptimize: true,
       },
-    );
+      testOptions: { captureLogs: true },
+    });
     await build();
 
     expect(readOutput('index.html')).to.equal(

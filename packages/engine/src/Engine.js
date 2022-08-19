@@ -7,7 +7,7 @@
 import { existsSync } from 'fs';
 // TODO: implement copy without extra dependency => node 16.7.0 copy has recursive
 import fse from 'fs-extra';
-import { mkdir, rm } from 'fs/promises';
+import { mkdir, readFile, rm } from 'fs/promises';
 import path from 'path';
 import { EventEmitter } from 'events';
 import { startDevServer } from '@web/dev-server';
@@ -31,6 +31,8 @@ import { devServerAdjustAssetUrls } from './dev-server/devServerAdjustAssetUrls.
 import { RocketHeader } from './file-header/RocketHeader.js';
 
 const logRendering = debuglog('engine:rendering');
+
+const pkgJson = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
 
 export class Engine {
   /** @type {EngineOptions} */
@@ -267,6 +269,7 @@ export class Engine {
       readFileConfig: false,
       // argv: this.__argv,
     });
+    this.events.emit('devServerStarted');
 
     this.devServer.webSockets.on(
       'message',
@@ -468,5 +471,9 @@ export class Engine {
       this.watcher.removeFileToIgnore(sourceFilePath);
     }
     return result;
+  }
+
+  getVersion() {
+    return pkgJson.version;
   }
 }
