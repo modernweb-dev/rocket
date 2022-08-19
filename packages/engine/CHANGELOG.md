@@ -1,5 +1,12 @@
 # @rocket/engine
 
+## 0.2.6
+
+### Patch Changes
+
+- 8dedc56: Add `engine.getVersion()` method
+- 390335d: Improve title tag handling
+
 ## 0.2.5
 
 ### Patch Changes

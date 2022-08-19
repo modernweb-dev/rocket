@@ -1,5 +1,16 @@
 # @rocket/launch
 
+## 0.21.1
+
+### Patch Changes
+
+- 390335d: Improve title tag handling
+- Updated dependencies [8dedc56]
+- Updated dependencies [390335d]
+- Updated dependencies [8dedc56]
+  - @rocket/engine@0.2.6
+  - @rocket/cli@0.20.1
+
 ## 0.21.0
 
 ### Minor Changes

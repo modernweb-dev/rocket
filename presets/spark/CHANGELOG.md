@@ -1,5 +1,14 @@
 # @rocket/spark
 
+## 0.2.1
+
+### Patch Changes
+
+- 390335d: Improve title tag handling
+- Updated dependencies [8dedc56]
+- Updated dependencies [390335d]
+  - @rocket/engine@0.2.6
+
 ## 0.2.0
 
 ### Minor Changes
