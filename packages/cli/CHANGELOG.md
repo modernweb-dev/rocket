@@ -1,5 +1,22 @@
 # @rocket/cli
 
+## 0.20.1
+
+### Patch Changes
+
+- 8dedc56: Add start message for `rocket start`
+
+  ```
+  🚀 Rocket Engine v0.2.5
+
+    🚧 Local:    http://localhost:8000/
+    🌐 Network:  http://xxx.xxx.xxx.xxx:8000/
+  ```
+
+- Updated dependencies [8dedc56]
+- Updated dependencies [390335d]
+  - @rocket/engine@0.2.6
+
 ## 0.20.0
 
 ### Minor Changes

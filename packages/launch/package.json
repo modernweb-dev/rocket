@@ -1,6 +1,6 @@
 {
   "name": "@rocket/launch",
-  "version": "0.21.0",
+  "version": "0.21.1",
   "publishConfig": {
     "access": "public"
   },
@@ -46,9 +46,9 @@
     "preset"
   ],
   "dependencies": {
-    "@rocket/cli": "^0.20.0",
+    "@rocket/cli": "^0.20.1",
     "@rocket/components": "^0.2.0",
-    "@rocket/engine": "^0.2.0",
+    "@rocket/engine": "^0.2.6",
     "@webcomponents/template-shadowroot": "^0.1.0",
     "lit": "^2.3.0",
     "workbox-window": "^6.1.5"
