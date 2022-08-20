@@ -234,10 +234,13 @@ export class RocketCli {
     }
   }
 
-  async clearOutputDirs() {
+  async clearOutputDir() {
     if (this.options.outputDir && existsSync(this.options.outputDir)) {
       await rm(this.options.outputDir, { recursive: true, force: true });
     }
+  }
+
+  async clearOutputDevDir() {
     if (this.options.outputDevDir && existsSync(this.options.outputDevDir)) {
       await rm(this.options.outputDevDir, { recursive: true, force: true });
     }
