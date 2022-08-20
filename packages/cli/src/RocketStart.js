@@ -31,12 +31,12 @@ export class RocketStart {
     if (!this.cli) {
       return;
     }
-    await this.cli.clearOutputDirs();
+    await this.cli.clearOutputDevDir();
 
     // TODO: enable URL support in the Engine and remove this "workaround"
     if (
       typeof this.cli.options.inputDir !== 'string' ||
-      typeof this.cli.options.outputDir !== 'string'
+      typeof this.cli.options.outputDevDir !== 'string'
     ) {
       return;
     }
@@ -51,7 +51,7 @@ export class RocketStart {
     this.engine = new Engine();
     this.engine.setOptions({
       docsDir: this.cli.options.inputDir,
-      outputDir: this.cli.options.outputDir,
+      outputDir: this.cli.options.outputDevDir,
       setupPlugins: this.cli.options.setupEnginePlugins,
       open: this.cli.options.open,
       longFileHeaderWidth: this.cli.options.longFileHeaderWidth,
