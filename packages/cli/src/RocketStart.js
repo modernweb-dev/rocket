@@ -31,6 +31,7 @@ export class RocketStart {
     if (!this.cli) {
       return;
     }
+    await this.cli.clearOutputDirs();
 
     // TODO: enable URL support in the Engine and remove this "workaround"
     if (

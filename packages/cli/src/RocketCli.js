@@ -4,6 +4,7 @@ import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
 import { RocketInit } from './RocketInit.js';
 import { RocketUpgrade } from './RocketUpgrade.js';
+import { RocketPreview } from './RocketPreview.js';
 // import { ignore } from './images/ignore.js';
 
 import path from 'path';
@@ -34,7 +35,7 @@ export class RocketCli {
     open: false,
     cwd: process.cwd(),
     inputDir: 'FALLBACK',
-    outputDir: '_site',
+    outputDir: 'FALLBACK',
     outputDevDir: '_site-dev',
 
     serviceWorkerSourcePath: '',
@@ -93,6 +94,9 @@ export class RocketCli {
     if (this.options.inputDir === 'FALLBACK') {
       this.options.inputDir = path.join(this.options.cwd, 'site', 'pages');
     }
+    if (this.options.outputDir === 'FALLBACK') {
+      this.options.outputDir = path.join(this.options.cwd, '_site');
+    }
     if (this.options.inputDir instanceof URL) {
       this.options.inputDir = this.options.inputDir.pathname;
     }
@@ -122,7 +126,6 @@ export class RocketCli {
   }
 
   async prepare() {
-    await this.clearOutputDirs();
     if (!this.options.presets) {
       return;
     }
@@ -180,6 +183,7 @@ export class RocketCli {
       { plugin: RocketInit, options: {} },
       // { plugin: RocketLint },
       { plugin: RocketUpgrade, options: {} },
+      { plugin: RocketPreview, options: {} },
     ];
 
     if (Array.isArray(this.options.setupCliPlugins)) {
