@@ -1,8 +1,0 @@
-## npm
-node_modules
-npm-debug.log
-
-## Rocket ignore files
-*-mdjs-generated.js
-_site
-_site-dev

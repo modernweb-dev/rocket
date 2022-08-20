@@ -2,7 +2,6 @@
 import { Command } from 'commander';
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
-import { RocketInit } from './RocketInit.js';
 import { RocketUpgrade } from './RocketUpgrade.js';
 import { RocketPreview } from './RocketPreview.js';
 // import { ignore } from './images/ignore.js';
@@ -180,7 +179,6 @@ export class RocketCli {
     let pluginsMeta = [
       { plugin: RocketStart, options: {} },
       { plugin: RocketBuild, options: {} },
-      { plugin: RocketInit, options: {} },
       // { plugin: RocketLint },
       { plugin: RocketUpgrade, options: {} },
       { plugin: RocketPreview, options: {} },
