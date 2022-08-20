@@ -35,6 +35,7 @@
     "setup:ts-configs": "node scripts/generate-ts-configs.mjs",
     "start:experimental": "NODE_DEBUG=engine:rendering node --no-warnings --experimental-loader ./packages/engine/src/litCssLoader.js packages/cli/src/cli.js start --open",
     "start": "NODE_DEBUG=engine:rendering node --trace-warnings packages/cli/src/cli.js start --open",
+    "preview": "node packages/cli/src/cli.js preview --open",
     "test": "yarn test:node && yarn test:web",
     "test:integration": "playwright test packages/*/test-node/*.spec.js --retries=3",
     "test:node": "yarn test:unit && yarn test:integration",

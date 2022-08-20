@@ -88,6 +88,7 @@ export class RocketBuild {
 
   async build() {
     await this.cli.events.dispatchEventDone('build-start');
+    await this.cli.clearOutputDirs();
 
     this.engine = new Engine();
     this.engine.setOptions({
