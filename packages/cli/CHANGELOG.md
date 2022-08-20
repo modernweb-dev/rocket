@@ -1,5 +1,13 @@
 # @rocket/cli
 
+## 0.20.2
+
+### Patch Changes
+
+- 39206a1: `rocket start` now outputs to `_site-dev` instead of `_site`.
+- 39206a1: `rocket start` clears only its output folder (defaults to `_site-dev`)
+- cbfb0f9: Add `rocket preview` command to enable fast checking of the production build
+
 ## 0.20.1
 
 ### Patch Changes
