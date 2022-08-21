@@ -19,32 +19,39 @@ import { parser, SaxEventType } from '../web-menu/sax-parser.js';
  * @returns
  */
 async function defaultAdjustAssetUrl({
-  url,
+  url: fullUrl,
   sourceFilePath,
   sourceRelativeFilePath,
   outputFilePath,
 }) {
+  let url = fullUrl;
+  let fragment = '';
+  if (!url.startsWith('resolve:#') && url.includes('#')) {
+    const urlParts = url.split('#');
+    url = urlParts[0];
+    fragment = `#${urlParts[1]}`;
+  }
   if (url.startsWith('resolve:')) {
     const bareImport = url.substring(8);
     const requireOfSource = createRequire(sourceFilePath);
     const resolvedPath = requireOfSource.resolve(bareImport);
     const rel = path.relative(path.dirname(outputFilePath), resolvedPath);
-    return rel;
+    return rel + fragment;
   }
   if (url.match(/^[a-z]+:/) || url.startsWith('//')) {
-    return url;
+    return url + fragment;
   }
   if (isRocketPageFile(url)) {
     const dir = path.dirname(sourceRelativeFilePath);
-    return sourceRelativeFilePathToUrl(path.join(dir, url));
+    return sourceRelativeFilePathToUrl(path.join(dir, url)) + fragment;
   }
   if (url.startsWith('./') || url.startsWith('../')) {
-    return path.relative(
-      path.dirname(outputFilePath),
-      path.join(path.dirname(sourceFilePath), url),
+    return (
+      path.relative(path.dirname(outputFilePath), path.join(path.dirname(sourceFilePath), url)) +
+      fragment
     );
   }
-  return url;
+  return url + fragment;
 }
 
 export class AdjustAssetUrls {
