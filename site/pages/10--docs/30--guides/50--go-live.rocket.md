@@ -34,6 +34,40 @@ const { resolve } = createRequire(new URL('.', import.meta.url));
 
 A few things are usually needed before going live "for real".
 
+## Make sure all links are correct
+
+When you launch a website you don't want the first feedback to be "that link doesn't work".
+
+To prevent this we want to execute `rocket lint` before going live.
+It will make sure all internal links are correct by using [check-html-links](../../30--tools/40--check-html-links/10--overview.rocket.md).
+Typically we deploy via a Continuous Integration system like GitHub Actions or Netlify Deploy.
+We can also integrate the lint command into that process.
+
+```
+rocket build
+rocket lint
+```
+
+### Fixing broken links
+
+If found a couple of broken links on your page and you want to fix them and verify that they are now correct it might be a little time consuming to create a full production build every time.
+The reason is that a production build is doing a lot of things
+
+1. Generate HTML
+2. Generate & Inject Open Graph Images
+3. Optimize Images (not available yet)
+4. Optimize JavaScript
+
+But there is a way around this. We can use an optional flag `--build-html` which means it will run only (1) and then lint that (non-optimized) HTML output.
+
+So for a more time efficient way of validating link use
+
+```bash
+rocket lint --build-html
+```
+
+Note: We can do this as 2-4 generally does not impact links/references (as long as the optimizations scripts do not have related bugs)
+
 ## Add a Not Found Page
 
 When a user enters a URL that does not exist, a "famous" 404 Page Not Found error occurs.

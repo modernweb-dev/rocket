@@ -1,81 +1,85 @@
-// /* eslint-disable */
-// // @ts-nocheck
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 
-// /** @typedef {import('../types/main').RocketCliOptions} RocketCliOptions */
+// @ts-ignore
+import { CheckHtmlLinksCli } from 'check-html-links';
+import { bold, gray } from 'colorette';
+import { existsSync } from 'fs';
+import path from 'path';
+import { buildHtml } from './build/buildHtml.js';
 
-// import { CheckHtmlLinksCli } from 'check-html-links';
+export class RocketLint {
+  options = {
+    buildHtml: false,
+  };
 
-// export class RocketLint {
-//   static pluginName = 'RocketLint';
-//   commands = ['start', 'build', 'lint'];
+  /**
+   * @param {import('commander').Command} program
+   * @param {import('./RocketCli.js').RocketCli} cli
+   */
+  async setupCommand(program, cli) {
+    this.cli = cli;
+    this.active = true;
 
-//   /**
-//    * @param {RocketCliOptions} config
-//    */
-//   setupCommand(config) {
-//     if (config.command === 'lint') {
-//       config.watch = false;
-//     }
-//     return config;
-//   }
+    program
+      .command('lint')
+      .option('-i, --input-dir <path>', 'path to where to search for source files')
+      .option('-b, --build-html', 'do a quick html only build and then check links')
+      .action(async options => {
+        const { cliOptions, ...lintOptions } = options;
+        cli.setOptions({
+          ...cliOptions,
+          lint: lintOptions,
+        });
+        this.options = { ...this.options, ...cli.options.lint };
+        cli.activePlugin = this;
 
-//   /**
-//    * @param {object} options
-//    * @param {RocketCliOptions} options.config
-//    * @param {any} options.argv
-//    */
-//   async setup({ config, argv, eleventy }) {
-//     this.__argv = argv;
-//     this.config = {
-//       lintInputDir: config.outputDevDir,
-//       lintExecutesEleventyBefore: true,
-//       ...config,
-//     };
-//     this.eleventy = eleventy;
-//   }
+        await this.lint();
+      });
+  }
 
-//   async lintCommand() {
-//     if (this.config.lintExecutesEleventyBefore) {
-//       await this.eleventy.write();
-//       // updated will trigger linting
-//     } else {
-//       await this.__lint();
-//     }
-//   }
+  async lint() {
+    if (!this.cli) {
+      return;
+    }
 
-//   async __lint() {
-//     if (this.config?.pathPrefix) {
-//       console.log('INFO: RocketLint currently does not support being used with a pathPrefix');
-//       return;
-//     }
+    // for typescript as `this.cli.options.outputDir` supports other inputs as well
+    // but the cli will normalize it to a string before calling plugins
+    if (
+      typeof this.cli.options.outputDevDir !== 'string' ||
+      typeof this.cli.options.outputDir !== 'string'
+    ) {
+      return;
+    }
 
-//     const checkLinks = new CheckHtmlLinksCli();
-//     checkLinks.setOptions({
-//       ...this.config.checkLinks,
-//       rootDir: this.config.lintInputDir,
-//       printOnError: false,
-//       continueOnError: true,
-//     });
+    if (this.options.buildHtml) {
+      await buildHtml(this.cli);
+    }
 
-//     const { errors, message } = await checkLinks.run();
-//     if (errors.length > 0) {
-//       if (this.config.command === 'start') {
-//         console.log(message);
-//       } else {
-//         throw new Error(message);
-//       }
-//     }
-//   }
+    const folderToCheck = this.options.buildHtml
+      ? this.cli.options.outputDevDir
+      : this.cli.options.outputDir;
 
-//   async postCommand() {
-//     if (this.config.watch === false) {
-//       await this.__lint();
-//     }
-//   }
+    const rootIndexHtml = path.join(folderToCheck, 'index.html');
+    if (!existsSync(rootIndexHtml)) {
+      console.log(`${bold(`👀 Linting Production Build`)}`);
+      console.log('');
+      console.log(`  🛑 No index.html found in the build directory ${gray(`${rootIndexHtml}`)}`);
+      console.log('  🤔 Did you forget to run `rocket build` before?');
+      console.log('');
+      return;
+    }
 
-//   async updated() {
-//     if (this.config.watch === true) {
-//       await this.__lint();
-//     }
-//   }
-// }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { buildHtml: _drop, ...userCheckHtmlLinksOptions } = this.options;
+
+    const checkLinks = new CheckHtmlLinksCli();
+    checkLinks.setOptions({
+      rootDir: folderToCheck,
+      printOnError: true,
+      continueOnError: false,
+      ...userCheckHtmlLinksOptions,
+    });
+
+    await checkLinks.run();
+  }
+}

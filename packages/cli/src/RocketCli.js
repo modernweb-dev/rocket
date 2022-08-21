@@ -2,6 +2,7 @@
 import { Command } from 'commander';
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';
+import { RocketLint } from './RocketLint.js';
 import { RocketUpgrade } from './RocketUpgrade.js';
 import { RocketPreview } from './RocketPreview.js';
 // import { ignore } from './images/ignore.js';
@@ -52,6 +53,10 @@ export class RocketCli {
     configFile: '',
     absoluteBaseUrl: '',
     clearOutputDir: true,
+
+    lint: {
+      buildHtml: false,
+    },
 
     // /** @type {{[key: string]: ImagePreset}} */
     // imagePresets: {
@@ -179,7 +184,7 @@ export class RocketCli {
     let pluginsMeta = [
       { plugin: RocketStart, options: {} },
       { plugin: RocketBuild, options: {} },
-      // { plugin: RocketLint },
+      { plugin: RocketLint, options: {} },
       { plugin: RocketUpgrade, options: {} },
       { plugin: RocketPreview, options: {} },
     ];
