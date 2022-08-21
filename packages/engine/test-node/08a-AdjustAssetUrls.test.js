@@ -1,5 +1,6 @@
 import chai from 'chai';
 import { AdjustAssetUrls } from '@rocket/engine';
+import { expectThrowsAsync } from './test-helpers.js';
 
 const { expect } = chai;
 
@@ -48,7 +49,7 @@ describe('AdjustAssetUrls', () => {
     );
   });
 
-  it('ignores <a href="#foo"></a>', async () => {
+  it('does not adjust <a href="#foo"></a>', async () => {
     const adjust = new AdjustAssetUrls();
     expect(await adjust.transform('<a href="#foo">go</a>', options)).to.equal(
       '<a href="#foo">go</a>',
@@ -103,5 +104,44 @@ describe('AdjustAssetUrls', () => {
         outputFilePath: '/my/path/to/__output/about/index.html',
       }),
     ).to.equal('<a href="/">go</a>');
+  });
+
+  it('adjust <a href="./about.rocket.js#some-id"></a>', async () => {
+    const adjust = new AdjustAssetUrls();
+    expect(await adjust.transform('<a href="./about.rocket.js#some-id">go</a>', options)).to.equal(
+      '<a href="/about/#some-id">go</a>',
+    );
+    expect(
+      await adjust.transform('<a href="./about.rocket.js#some-id">go</a>', {
+        sourceRelativeFilePath: 'components/index.rocket.js',
+        outputFilePath: '/my/path/to/__output/components/index.html',
+      }),
+    ).to.equal('<a href="/components/about/#some-id">go</a>');
+
+    expect(
+      await adjust.transform('<a href="./about.rocket.js#some-id">go</a>', {
+        sourceRelativeFilePath: 'components.rocket.js',
+        outputFilePath: '/my/path/to/__output/components/index.html',
+      }),
+    ).to.equal('<a href="/about/#some-id">go</a>');
+
+    expect(
+      await adjust.transform('<a href="./index.rocket.js#some-id">go</a>', {
+        sourceRelativeFilePath: 'about.rocket.js',
+        outputFilePath: '/my/path/to/__output/about/index.html',
+      }),
+    ).to.equal('<a href="/#some-id">go</a>');
+  });
+
+  it('still resolves private imports <img src="resolve:#src/logo.svg" />', async () => {
+    const adjust = new AdjustAssetUrls();
+    // we check for the resolve throw as this private import does not exists =>
+    // which means if a not resolve related error in our code happens the test fails
+    await expectThrowsAsync(
+      () => adjust.transform('<img src="resolve:#src/logo.svg" />', options),
+      {
+        errorMatch: /Cannot find module '#src\/logo\.svg'/,
+      },
+    );
   });
 });

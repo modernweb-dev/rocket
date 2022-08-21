@@ -13,6 +13,17 @@ const { expect } = chai;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
+ * Expect a throw in an async function
+ *
+ * @example
+ *   await expectThrowsAsync(() => myAsyncFunction(), {
+ *     errorMatch: /exact throw message/,
+ *   });
+ * @example
+ *   await expectThrowsAsync(() => myAsyncFunction(), {
+ *     errorMatch: /check throw message with a regex/,
+ *   });
+ *
  * @param {function} method
  * @param {string} errorMessage
  */
