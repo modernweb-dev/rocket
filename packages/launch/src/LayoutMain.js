@@ -45,8 +45,17 @@ export class LayoutMain extends Layout {
     headerDarkBackground: false,
     dsdPending: true,
     siteName: 'Rocket',
-    logoSrc: '/icon.svg',
-    logoAlt: 'Rocket Logo',
+    logoSmall: html`
+      <picture>
+        <!-- <source srcset="resolve:@rocket/launch/assets/rocket-logo-dark.svg" media="(prefers-color-scheme: dark)"> -->
+        <img
+          src="resolve:@rocket/launch/assets/rocket-logo-light.svg"
+          alt="Rocket Logo"
+          width="250"
+          height="67.87"
+        />
+      </picture>
+    `,
     gitSiteUrl: 'https://github.com/modernweb-dev/rocket',
     gitBranch: 'next',
     description: 'A static site generator for modern web development',
@@ -147,7 +156,7 @@ export class LayoutMain extends Layout {
 
       header__10: html`
         <a class="logo-link" href="/" slot="logo">
-          <img src="/icon.svg" alt="${this.options.logoAlt}" />
+          ${this.options.logoSmall}
           <span>${this.options.siteName}</span>
         </a>
       `,
@@ -171,7 +180,7 @@ export class LayoutMain extends Layout {
 
       drawer__10: html`
         <a class="logo-link" href="/">
-          <img src="${this.options.logoSrc}" alt="${this.options.logoAlt}" />
+          ${this.options.logoSmall}
           <span>${this.options.siteName}</span>
         </a>
       `,

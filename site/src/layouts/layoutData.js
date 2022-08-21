@@ -19,6 +19,17 @@ export const layoutData = {
   // head__42: html` <link rel="stylesheet" href="resolve:root/src/assets/styles.css" /> `,
   header__40: search,
   drawer__30: search,
+  logoSmall: html`
+    <picture>
+      <!-- <source srcset="resolve:#src/assets/rocket-logo-dark.svg" media="(prefers-color-scheme: dark)"> -->
+      <img
+        src="resolve:#src/assets/rocket-logo-light.svg"
+        alt="Rocket Logo"
+        width="250"
+        height="67.87"
+      />
+    </picture>
+  `,
   footerMenu: [
     {
       name: 'Discover',
