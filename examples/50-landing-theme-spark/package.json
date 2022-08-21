@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rocket build",
     "dev": "npm start",
-    "preview": "rocket preview",
+    "preview": "rocket preview --open",
     "start": "NODE_DEBUG=engine:rendering rocket start --open"
   },
   "devDependencies": {

@@ -21,7 +21,7 @@ export const layoutData = {
           Modern Web<br />
           Internet 12<br />
           0000 Web<br />
-          <a href="#">office@modern-web.dev</a><br />
+          <a href="#">hello@modern-web.dev</a><br />
           <a href="#">0000 / 11223344</a>
         </div>
 

@@ -13,6 +13,10 @@ export async function registerCustomElements() {
     await import('@rocket/components/header.js').then(m => m.RocketHeader),
   );
   customElements.define(
+    'launch-blog-preview',
+    await import('@rocket/launch/blog-preview.js').then(m => m.LaunchBlogPreview),
+  );
+  customElements.define(
     'launch-blog-overview',
     await import('@rocket/launch/blog-overview.js').then(m => m.LaunchBlogOverview),
   );

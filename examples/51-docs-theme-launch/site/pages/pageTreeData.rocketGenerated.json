@@ -1,8 +1,8 @@
 {
   "title": "Welcome to Rocket",
-  "h1": "\n        \n      ",
-  "name": "\n        \n      ",
-  "menuLinkText": "\n        \n      ",
+  "h1": "",
+  "name": "Welcome to Rocket",
+  "menuLinkText": "Welcome to Rocket",
   "url": "/",
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.js",

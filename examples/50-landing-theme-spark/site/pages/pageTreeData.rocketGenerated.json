@@ -1,24 +1,24 @@
 {
   "title": "Spark Rocket Example Template",
-  "h1": "\n        \n        \n      ",
+  "h1": "Home",
   "headlinesWithId": [
     {
       "text": "Home",
       "id": "home",
       "level": 1,
-      "rawText": "\n        \n        \n      "
+      "rawText": "@keyframes textAnimIn {\n        0% {\n          transform: translate3d(0, -120%, 0);\n        }\n\n        100% {\n          transform: translate3d(0, 0%, 0);\n        }\n      }\n\n      @keyframes textAnimOut {\n        0% {\n          transform: translate3d(0, 0%, 0);\n        }\n\n        50% {\n          transform: translate3d(0, -20%, 0);\n        }\n\n        100% {\n          transform: translate3d(0, 120%, 0);\n        }\n      }\n\n      p {\n        position: absolute;\n        top: 0;\n        margin: 0;\n        transform: translate3d(0, -120%, 0);\n      }\n\n      .anim-static {\n        transform: translate3d(0, 0, 0);\n      }\n\n      .anim-in {\n        animation: textAnimIn 0.6s 0.3s forwards;\n      }\n\n      .anim-out {\n        animation: textAnimOut 0.6s forwards;\n      }\n\n      :host {\n        position: block;\n        position: relative;\n        overflow: hidden;\n        display: block;\n        height: 1.5em;\n      }\n      div {\n        display: flex;\n        max-width: 960px;\n        margin: 0 auto;\n      }\n      slot {\n        display: block;\n        flex: 1;\n      }\n    \n          Welcome\n        \n          Hello\n        \n          Aloa\n        lit-part-->\n        to the world of science."
     },
     {
       "text": "Credit",
       "id": "credit",
       "level": 2,
-      "rawText": "\n    People credit me for \n    \n  "
+      "rawText": "People credit me for \n    making the universe interesting,"
     },
     {
       "text": "Knowledge",
       "id": "knowledge",
       "level": 2,
-      "rawText": "\n    I've known from long ago \n    \n  "
+      "rawText": "I've known from long ago \n    that the universe was calling me"
     },
     {
       "text": "Sign Up",
@@ -30,7 +30,7 @@
       "text": "Say",
       "id": "say",
       "level": 2,
-      "rawText": "\n    What others  \n    about us?\n  "
+      "rawText": "What others say \n    about us?"
     },
     {
       "text": "FAQ",
@@ -39,7 +39,7 @@
     }
   ],
   "name": "Spark Rocket Example Template",
-  "menuLinkText": "\n        \n        \n      ",
+  "menuLinkText": "Home",
   "url": "/",
   "outputRelativeFilePath": "index.html",
   "sourceRelativeFilePath": "index.rocket.html",
