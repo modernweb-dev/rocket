@@ -47,6 +47,11 @@ export interface FullRocketCliOptions extends Pick<FullRocketPreset, PresetKeys>
   // rarely used
   configFile: string;
   outputDevDir: URL | string;
+
+  lint: {
+    buildHtml: boolean;
+    [key: string]: any;
+  };
 }
 
 export type RocketCliOptions = Partial<FullRocketCliOptions>;

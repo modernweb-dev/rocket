@@ -54,7 +54,7 @@
   "dependencies": {
     "@rocket/building-rollup": "^0.4.0",
     "@rocket/engine": "^0.2.6",
-    "@web/rollup-plugin-copy": "^0.3.0",
+    "check-html-links": "^0.2.3",
     "colorette": "^2.0.16",
     "commander": "^9.0.0",
     "fs-extra": "^9.0.1",

@@ -1364,6 +1364,16 @@
                   "level": 1
                 },
                 {
+                  "text": "Make sure all links are correct",
+                  "id": "make-sure-all-links-are-correct",
+                  "level": 2
+                },
+                {
+                  "text": "Fixing broken links",
+                  "id": "fixing-broken-links",
+                  "level": 3
+                },
+                {
                   "text": "Add a Not Found Page",
                   "id": "add-a-not-found-page",
                   "level": 2
