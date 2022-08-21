@@ -146,14 +146,6 @@ export class LayoutMain extends Layout {
         <link rel="stylesheet" href="resolve:@rocket/launch/css/markdown.css" />
       `,
 
-      head__50: html`
-        <style>
-          body[dsd-pending] {
-            display: none;
-          }
-        </style>
-      `,
-
       header__10: html`
         <a class="logo-link" href="/" slot="logo">
           ${this.options.logoSmall}
