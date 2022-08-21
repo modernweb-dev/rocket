@@ -122,6 +122,7 @@ export class LaunchHome extends LitElement {
 
       .page-slogan {
         font-size: 18px;
+        padding-top: 25px;
       }
 
       .reason-header {
