@@ -107,6 +107,7 @@ export class LayoutMain extends Layout {
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="color-scheme" content="light" />
+          <meta name="theme-color" content="${data.themeColor?data.themeColor:"#ffffff"}" />
 
           <title-server-only>${title}</title-server-only>
           <meta property="og:title" content="${title}" />
