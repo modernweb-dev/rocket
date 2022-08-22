@@ -3246,6 +3246,121 @@
             "node",
             "SSG"
           ]
+        },
+        {
+          "title": "It is time 🕑 | Rocket",
+          "h1": "It is time 🕑",
+          "headlinesWithId": [
+            {
+              "text": "It is time 🕑",
+              "id": "it-is-time-",
+              "level": 1
+            },
+            {
+              "text": "What has happened since the last update?",
+              "id": "what-has-happened-since-the-last-update",
+              "level": 2
+            },
+            {
+              "text": "Main release",
+              "id": "main-release",
+              "level": 2
+            },
+            {
+              "text": "✨ Rocket highlights ✨",
+              "id": "-rocket-highlights-",
+              "level": 2
+            },
+            {
+              "text": "@rocket/components for SSR & hydration",
+              "id": "rocketcomponents-for-ssr--hydration",
+              "level": 2
+            },
+            {
+              "text": "📖 The Documentation Theme (Launch)",
+              "id": "-the-documentation-theme-launch",
+              "level": 2
+            },
+            {
+              "text": "✨ The Landing Page Theme (Spark)",
+              "id": "-the-landing-page-theme-spark",
+              "level": 2
+            },
+            {
+              "text": "🕑 Getting started",
+              "id": "-getting-started",
+              "level": 2
+            },
+            {
+              "text": "rocket preview",
+              "id": "rocket-preview",
+              "level": 2
+            },
+            {
+              "text": "rocket lint",
+              "id": "rocket-lint",
+              "level": 2
+            },
+            {
+              "text": "There are two modes:",
+              "id": "there-are-two-modes",
+              "level": 2
+            },
+            {
+              "text": "That's all folks! 🤗",
+              "id": "thats-all-folks-",
+              "level": 2
+            }
+          ],
+          "name": "It is time 🕑",
+          "menuLinkText": "It is time 🕑",
+          "url": "/blog/its-time/",
+          "outputRelativeFilePath": "blog/its-time/index.html",
+          "sourceRelativeFilePath": "40--blog/005--its-time/index.rocket.md",
+          "level": 2,
+          "authors": [
+            {
+              "firstName": "Thomas",
+              "lastName": "Allmer",
+              "twitter": "daKmoR",
+              "image": "https://pbs.twimg.com/profile_images/1070490946847105025/UBK4xPzU_400x400.jpg"
+            }
+          ],
+          "components": {
+            "rocket-columns": "@rocket/components/columns.js::RocketColumns",
+            "rocket-card": "@rocket/components/card.js::RocketCard",
+            "rocket-content-area": "@rocket/components/content-area.js::RocketContentArea",
+            "rocket-details": "@rocket/components/details.js::RocketDetails",
+            "rocket-drawer": "@rocket/components/drawer.js::RocketDrawer",
+            "rocket-feature-small": "@rocket/components/feature-small.js::RocketFeatureSmall",
+            "rocket-header": "@rocket/components/header.js::RocketHeader",
+            "rocket-header-scroll-menu": "@rocket/components/header-scroll-menu.js::RocketHeaderScrollMenu",
+            "rocket-icon": "@rocket/components/icon.js::RocketIcon",
+            "rocket-icon-card": "@rocket/components/icon-card.js::RocketIconCard",
+            "rocket-main": "@rocket/components/main.js::RocketMain",
+            "rocket-main-docs": "@rocket/components/main-docs.js::RocketMainDocs",
+            "rocket-opengraph-overview": "@rocket/components/open-graph-overview.js::RocketOpenGraphOverview",
+            "rocket-rotating-text": "@rocket/components/rotating-text.js::RocketRotatingText",
+            "rocket-social-link": "@rocket/components/social-link.js::RocketSocialLink",
+            "rocket-testimonial-small": "@rocket/components/testimonial-small.js::RocketTestimonialSmall",
+            "inline-notification": "@rocket/components/inline-notification.js::InlineNotification",
+            "permanent-notification": "@rocket/components/permanent-notification.js::PermanentNotification",
+            "rocket-search": "@rocket/search/search.js::RocketSearch",
+            "launch-home": "@rocket/launch/home.js::LaunchHome",
+            "launch-blog-overview": "@rocket/launch/blog-overview.js::LaunchBlogOverview",
+            "launch-blog-preview": "@rocket/launch/blog-preview.js::LaunchBlogPreview",
+            "launch-blog-details": "@rocket/launch/blog-details.js::LaunchBlogDetails",
+            "my-counter": "#src/components/MyCounter.js::MyCounter"
+          },
+          "description": "Rocket is now in beta. It is time you check it out.",
+          "needsLoader": true,
+          "publishDate": "2022-08-23T00:00:00.000Z",
+          "tags": [
+            "rocket",
+            "javascript",
+            "node",
+            "SSG"
+          ]
         }
       ]
     }
