@@ -7,6 +7,7 @@ export interface LayoutSidebarOptions extends LayoutOptions {
   [key: TemplateValueKey<'drawer'>]: TemplateValue;
 
   siteName: string;
+  themeColor: string;
   logoSmall: TemplateValue;
   gitSiteUrl: string;
   gitBranch: string;

@@ -45,6 +45,7 @@ export class LayoutMain extends Layout {
     headerDarkBackground: false,
     dsdPending: true,
     siteName: 'Rocket',
+    themeColor: '#ffffff',
     logoSmall: html`
       <picture>
         <!-- <source srcset="resolve:@rocket/launch/assets/rocket-logo-dark.svg" media="(prefers-color-scheme: dark)"> -->
@@ -107,7 +108,7 @@ export class LayoutMain extends Layout {
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="color-scheme" content="light" />
-          <meta name="theme-color" content="${data.themeColor?data.themeColor:"#ffffff"}" />
+          <meta name="theme-color" content="${this.options.themeColor}" />
 
           <title-server-only>${title}</title-server-only>
           <meta property="og:title" content="${title}" />
