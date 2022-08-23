@@ -223,11 +223,16 @@ function isNonHttpSchema(url) {
  * @param {object} options
  * @param {string} options.htmlFilePath
  * @param {string} options.rootDir
+ * @param {string} options.absoluteBaseUrl
  * @param {function(string): boolean} options.ignoreUsage
  */
-async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
+async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage, absoluteBaseUrl }) {
   for (const hrefObj of links) {
-    const { value, anchor } = getValueAndAnchor(hrefObj.value);
+    const { value: rawValue, anchor } = getValueAndAnchor(hrefObj.value);
+
+    const value = rawValue.startsWith(absoluteBaseUrl)
+      ? rawValue.substring(absoluteBaseUrl.length)
+      : rawValue;
 
     const usageObj = {
       attribute: hrefObj.attribute,
@@ -252,8 +257,6 @@ async function resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage }) {
     } else if (valueFile === '' && anchor !== '') {
       addLocalFile(htmlFilePath, anchor, usageObj);
     } else if (value.startsWith('//') || value.startsWith('http')) {
-      // TODO: handle external urls
-      // external url - we do not handle that (yet)
       addExternalLink(htmlFilePath, usageObj);
     } else if (value.startsWith('/')) {
       const filePath = path.join(rootDir, valueFile);
@@ -328,7 +331,7 @@ async function validateExternalLinks(checkExternalLinks) {
  * @param {string} rootDir
  * @param {Options} opts?
  */
-export async function validateFiles(files, rootDir, opts) {
+export async function prepareFiles(files, rootDir, opts) {
   await parserReferences.prepareWasm(saxWasmBuffer);
   await parserIds.prepareWasm(saxWasmBuffer);
 
@@ -350,14 +353,27 @@ export async function validateFiles(files, rootDir, opts) {
   for (const htmlFilePath of files) {
     const { links } = await extractReferences(htmlFilePath);
     numberLinks += links.length;
-    await resolveLinks(links, { htmlFilePath, rootDir, ignoreUsage });
+    await resolveLinks(links, {
+      htmlFilePath,
+      rootDir,
+      ignoreUsage,
+      absoluteBaseUrl: opts?.absoluteBaseUrl,
+    });
   }
+  return { checkLocalFiles, checkExternalLinks, numberLinks };
+}
+
+/**
+ * @param {*} param0
+ * @returns
+ */
+export async function validateFiles({ checkLocalFiles, validateExternals, checkExternalLinks }) {
   await validateLocalFiles(checkLocalFiles);
-  if (opts?.validateExternals) {
+  if (validateExternals) {
     await validateExternalLinks(checkExternalLinks);
   }
 
-  return { errors: errors, numberLinks: numberLinks };
+  return { errors };
 }
 
 /**
@@ -367,6 +383,14 @@ export async function validateFiles(files, rootDir, opts) {
 export async function validateFolder(inRootDir, opts) {
   const rootDir = path.resolve(inRootDir);
   const files = await listFiles('**/*.html', rootDir);
-  const { errors } = await validateFiles(files, rootDir, opts);
+
+  const { checkLocalFiles, checkExternalLinks } = await prepareFiles(files, rootDir, opts);
+
+  const { errors } = await validateFiles({
+    checkLocalFiles,
+    validateExternals: opts?.validateExternals,
+    checkExternalLinks,
+  });
+
   return errors;
 }

@@ -29,10 +29,12 @@ export interface Error {
 export interface Options {
   ignoreLinkPatterns: string[] | null;
   validateExternals: boolean;
+  absoluteBaseUrl: string;
 }
 
 export interface CheckHtmlLinksCliOptions extends Options {
   printOnError: boolean;
   rootDir: string;
   continueOnError: boolean;
+  absoluteBaseUrl: string;
 }

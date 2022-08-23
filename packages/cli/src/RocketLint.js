@@ -24,6 +24,7 @@ export class RocketLint {
       .command('lint')
       .option('-i, --input-dir <path>', 'path to where to search for source files')
       .option('-b, --build-html', 'do a quick html only build and then check links')
+      .option('-e, --validate-externals', 'validate external links')
       .action(async options => {
         const { cliOptions, ...lintOptions } = options;
         cli.setOptions({
@@ -77,6 +78,7 @@ export class RocketLint {
       rootDir: folderToCheck,
       printOnError: true,
       continueOnError: false,
+      absoluteBaseUrl: this.cli.options.absoluteBaseUrl,
       ...userCheckHtmlLinksOptions,
     });
 

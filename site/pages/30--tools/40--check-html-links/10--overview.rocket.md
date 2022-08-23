@@ -61,6 +61,7 @@ npm i -D check-html-links
 | ignore-link-pattern | string  | do not check links matching the pattern                                                             |
 | continue-on-error   | boolean | if present it will not exit with an error code - useful while writing or for temporary passing a ci |
 | validate-externals  | boolean | if present it will validate external links making a request to the linked url                       |
+| absolute-base-url   | string  | the urls of your website - if provided it will handle absolute links that start with it as internal |
 
 ## Usage Examples
 
@@ -76,6 +77,9 @@ npx check-html-links _site --ignore-link-pattern "/users/*" "/users/**/*"
 
 # check external urls
 npx check-html-links _site --validate-externals
+
+# check external urls but treat links like https://rocket.modern-web.dev/about/ as internal
+npx check-html-links _site --validate-externals --absolute-base-url https://rocket.modern-web.dev
 ```
 
 ## Example Output
