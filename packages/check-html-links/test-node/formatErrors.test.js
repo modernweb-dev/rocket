@@ -20,19 +20,19 @@ describe('formatErrors', () => {
     const result = await executeAndFormat('fixtures/test-case');
     expect(result.trim().split('\n')).to.deep.equal([
       '1. missing id="my-teams" in fixtures/test-case/price/index.html',
-      '  from fixtures/test-case/history/index.html:1:9 via href="/price/#my-teams"',
+      '    from fixtures/test-case/history/index.html:1:9 via href="/price/#my-teams"',
       '',
-      '2. missing file fixtures/test-case/about/images/team.png',
-      '  from fixtures/test-case/about/index.html:3:10 via src="./images/team.png"',
+      '  2. missing file fixtures/test-case/about/images/team.png',
+      '    from fixtures/test-case/about/index.html:3:10 via src="./images/team.png"',
       '',
-      '3. missing reference target fixtures/test-case/aboot',
-      '  from fixtures/test-case/about/index.html:6:11 via href="/aboot"',
-      '  from fixtures/test-case/history/index.html:4:11 via href="/aboot"',
-      '  from fixtures/test-case/index.html:4:11 via href="/aboot"',
-      '  ... 2 more references to this target',
+      '  3. missing reference target fixtures/test-case/aboot',
+      '    from fixtures/test-case/about/index.html:6:11 via href="/aboot"',
+      '    from fixtures/test-case/history/index.html:4:11 via href="/aboot"',
+      '    from fixtures/test-case/index.html:4:11 via href="/aboot"',
+      '    ... 2 more references to this target',
       '',
-      '4. missing reference target fixtures/test-case/prce',
-      '  from fixtures/test-case/index.html:1:9 via href="./prce"',
+      '  4. missing reference target fixtures/test-case/prce',
+      '    from fixtures/test-case/index.html:1:9 via href="./prce"',
     ]);
   });
 });

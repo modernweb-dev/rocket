@@ -1374,6 +1374,11 @@
                   "level": 3
                 },
                 {
+                  "text": "Check external links",
+                  "id": "check-external-links",
+                  "level": 3
+                },
+                {
                   "text": "Add a Not Found Page",
                   "id": "add-a-not-found-page",
                   "level": 2

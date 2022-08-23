@@ -6,7 +6,7 @@ import path from 'path';
 import chalk from 'chalk';
 
 import commandLineArgs from 'command-line-args';
-import { validateFiles } from './validateFolder.js';
+import { prepareFiles, validateFiles } from './validateFolder.js';
 import { formatErrors } from './formatErrors.js';
 import { listFiles } from './listFiles.js';
 
@@ -20,6 +20,7 @@ export class CheckHtmlLinksCli {
       { name: 'root-dir', type: String, defaultOption: true },
       { name: 'continue-on-error', type: Boolean },
       { name: 'validate-externals', type: Boolean },
+      { name: 'absolute-base-url', type: String },
     ];
     const options = commandLineArgs(mainDefinitions, {
       stopAtFirstUnknown: true,
@@ -31,6 +32,7 @@ export class CheckHtmlLinksCli {
       rootDir: options['root-dir'],
       ignoreLinkPatterns: options['ignore-link-pattern'],
       validateExternals: options['validate-externals'],
+      absoluteBaseUrl: options['absolute-base-url'],
     };
   }
 
@@ -45,25 +47,47 @@ export class CheckHtmlLinksCli {
   }
 
   async run() {
-    const { ignoreLinkPatterns, rootDir: userRootDir, validateExternals } = this.options;
+    const {
+      ignoreLinkPatterns,
+      rootDir: userRootDir,
+      validateExternals,
+      absoluteBaseUrl,
+    } = this.options;
     const rootDir = userRootDir ? path.resolve(userRootDir) : process.cwd();
     const performanceStart = process.hrtime();
 
-    console.log('👀 Checking if all internal links work...');
     const files = await listFiles('**/*.html', rootDir);
+
+    console.log('Check HTML Links');
 
     const filesOutput =
       files.length == 0
-        ? '🧐 No files to check. Did you select the correct folder?'
-        : `🔥 Found a total of ${chalk.green.bold(files.length)} files to check!`;
+        ? '  🧐 No files to check. Did you select the correct folder?'
+        : `  📖 Found ${chalk.green.bold(files.length)} files containing`;
     console.log(filesOutput);
 
-    const { errors, numberLinks } = await validateFiles(files, rootDir, {
-      ignoreLinkPatterns,
-      validateExternals,
-    });
+    const { numberLinks, checkLocalFiles, checkExternalLinks } = await prepareFiles(
+      files,
+      rootDir,
+      {
+        ignoreLinkPatterns,
+        validateExternals,
+        absoluteBaseUrl,
+      },
+    );
 
-    console.log(`🔗 Found a total of ${chalk.green.bold(numberLinks)} links to validate!\n`);
+    console.log(`    🔗 ${chalk.green.bold(numberLinks)} internal links`);
+    if (validateExternals) {
+      console.log(`    🌐 ${chalk.green.bold(checkExternalLinks.length)} external links`);
+    }
+
+    console.log('  👀 Checking...');
+
+    const { errors } = await validateFiles({
+      checkLocalFiles,
+      validateExternals,
+      checkExternalLinks,
+    });
 
     const performance = process.hrtime(performanceStart);
     /** @type {string[]} */
@@ -75,7 +99,7 @@ export class CheckHtmlLinksCli {
         referenceCount += error.usage.length;
       }
       output = [
-        `❌ Found ${chalk.red.bold(
+        `  ❌ Found ${chalk.red.bold(
           errors.length.toString(),
         )} missing reference targets (used by ${referenceCount} links) while checking ${
           files.length
@@ -83,7 +107,7 @@ export class CheckHtmlLinksCli {
         ...formatErrors(errors)
           .split('\n')
           .map(line => `  ${line}`),
-        `Checking links duration: ${performance[0]}s ${performance[1] / 1000000}ms`,
+        `  🕑 Checking links duration: ${performance[0]}s ${performance[1] / 1000000}ms`,
       ];
       message = output.join('\n');
       if (this.options.printOnError === true) {
@@ -94,7 +118,7 @@ export class CheckHtmlLinksCli {
       }
     } else {
       console.log(
-        `✅ All internal links are valid. (executed in ${performance[0]}s ${
+        `  ✅ All tested links are valid. (executed in ${performance[0]}s ${
           performance[1] / 1000000
         }ms)`,
       );

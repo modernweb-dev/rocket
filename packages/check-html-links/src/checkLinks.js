@@ -22,10 +22,14 @@ const memorizeCheckup = (url, result) => {
  * @param {string} method
  * @returns
  */
-const fetchWrap = async (url, method = 'GET') =>
-  fetch(url, { method })
-    .then(response => response.ok)
-    .catch(() => false);
+const fetchWrap = async (url, method = 'GET') => {
+  return Promise.race([
+    fetch(url, { method })
+      .then(response => response.ok)
+      .catch(() => false),
+    new Promise(resolve => setTimeout(resolve, 10000, false)),
+  ]);
+};
 
 /**
  *

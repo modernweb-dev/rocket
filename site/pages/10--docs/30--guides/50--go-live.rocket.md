@@ -68,6 +68,18 @@ rocket lint --build-html
 
 Note: We can do this as 2-4 generally does not impact links/references (as long as the optimizations scripts do not have related bugs)
 
+### Check external links
+
+`rocket lint` can also check external links.
+This will do a HEAD/GET request to every external link which means if all is green that the website only links to still active websites.
+It however also means that it will do a lot of network requests which will take a while.
+
+Use with care.
+
+```bash
+rocket lint --validate-externals
+```
+
 ## Add a Not Found Page
 
 When a user enters a URL that does not exist, a "famous" 404 Page Not Found error occurs.

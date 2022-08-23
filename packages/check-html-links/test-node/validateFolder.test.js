@@ -104,6 +104,36 @@ describe('validateFolder', () => {
     ]);
   });
 
+  it('validates links with own absolute base url as internal', async () => {
+    const { errors, cleanup } = await execute('fixtures/internal-own-absolute-base-path', {
+      validateExternals: true,
+      absoluteBaseUrl: 'http://localhost',
+    });
+    expect(cleanup(errors)).to.deep.equal([]);
+  });
+
+  it('validates all full urls if there is no absoluteBaseUrl provided', async () => {
+    const { errors, cleanup } = await execute('fixtures/internal-own-absolute-base-path', {
+      validateExternals: true,
+    });
+    expect(cleanup(errors)).to.deep.equal([
+      {
+        filePath: 'fixtures/internal-own-absolute-base-path/index.html',
+        onlyAnchorMissing: false,
+        usage: [
+          {
+            anchor: '',
+            attribute: 'href',
+            character: 9,
+            file: 'fixtures/internal-own-absolute-base-path/index.html',
+            line: 1,
+            value: 'http://localhost/about.html',
+          },
+        ],
+      },
+    ]);
+  });
+
   it('groups multiple usage of the same missing file', async () => {
     const { errors, cleanup } = await execute('fixtures/internal-links-to-same-file');
     expect(cleanup(errors)).to.deep.equal([
