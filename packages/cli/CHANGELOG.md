@@ -1,5 +1,24 @@
 # @rocket/cli
 
+## 0.20.3
+
+### Patch Changes
+
+- a48dcd8: Introducing `rocket lint` to verify if all your links are correct.
+
+  There are two modes:
+
+  ```bash
+  # check existing production build in _site (need to execute "rocket build" before)
+  rocket lint
+
+  # run a fast html only build and then check it
+  rocket lint --build-html
+  ```
+
+- Updated dependencies [0ed3d6d]
+  - @rocket/engine@0.2.7
+
 ## 0.20.2
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # @rocket/launch
 
+## 0.21.2
+
+### Patch Changes
+
+- 87c10ec: Work without JavaScript if Declarative Shadow Dom (DSD) is supported by browser
+- d7e461c: Replace Layout Options `logoSrc` and `logoAlt` strings with a `logoSmall` TemplateResult
+
+  ```diff
+  -  logoSrc: '/icon.svg',
+  -  logoAlt: 'Rocket Logo',
+  +  logoSmall: html`
+  +    <img src="resolve:@rocket/launch/assets/rocket-logo-light.svg" alt="Rocket" width="250" height="67.87" />
+  +  `,
+  ```
+
+- a12adf2: Add padding above slogan an home page
+- Updated dependencies [a48dcd8]
+- Updated dependencies [0ed3d6d]
+  - @rocket/cli@0.20.3
+  - @rocket/engine@0.2.7
+
 ## 0.21.1
 
 ### Patch Changes
