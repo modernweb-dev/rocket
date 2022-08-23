@@ -1,5 +1,22 @@
 # @rocket/engine
 
+## 0.2.7
+
+### Patch Changes
+
+- 0ed3d6d: Adjust urls containing url fragments
+
+  ```html
+  <!-- user writes -->
+  <a href="./about.rocket.js#some-id"></a>
+
+  <!-- rocket outputs -->
+  <!-- before -->
+  <a href="./about.rocket.js#some-id"></a>
+  <!-- after -->
+  <a href="/about/#some-id"></a>
+  ```
+
 ## 0.2.6
 
 ### Patch Changes
