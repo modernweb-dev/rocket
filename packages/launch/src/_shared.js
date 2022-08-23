@@ -3,6 +3,6 @@ export const defaultGlobalOptions = {
   logoSrc: '/icon.svg',
   logoAlt: 'Rocket Logo',
   gitSiteUrl: 'https://github.com/modernweb-dev/rocket',
-  gitBranch: 'master',
+  gitBranch: 'main',
   description: 'A static site generator for modern web development',
 };

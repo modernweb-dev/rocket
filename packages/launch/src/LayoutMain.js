@@ -57,7 +57,7 @@ export class LayoutMain extends Layout {
       </picture>
     `,
     gitSiteUrl: 'https://github.com/modernweb-dev/rocket',
-    gitBranch: 'next',
+    gitBranch: 'main',
     description: 'A static site generator for modern web development',
     socialLinks: [
       {
