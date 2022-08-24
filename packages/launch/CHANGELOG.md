@@ -1,5 +1,13 @@
 # @rocket/launch
 
+## 0.21.3
+
+### Patch Changes
+
+- 660f64c: Change the default gitBranch to main
+- Updated dependencies [68e05f4]
+  - @rocket/cli@0.20.4
+
 ## 0.21.2
 
 ### Patch Changes

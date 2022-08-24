@@ -1,5 +1,20 @@
 # @rocket/cli
 
+## 0.20.4
+
+### Patch Changes
+
+- 68e05f4: `rocket lint` can now validate external links.
+
+  Example:
+
+  ```
+  rocket lint --validate-externals
+  ```
+
+- Updated dependencies [97d5fb2]
+  - check-html-links@0.2.4
+
 ## 0.20.3
 
 ### Patch Changes
