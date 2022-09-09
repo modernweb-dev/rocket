@@ -28,7 +28,7 @@ export const needsLoader = true;
 
 # Layouts
 
-Layout are special in that sense that they output the full html page (including html, head, body, etc).
+Layouts are special in the sense that they output the full html page (including html, head, body, etc).
 
 The simplest layout you can make is
 
@@ -48,7 +48,7 @@ export const layout = data => html`
 `;
 ```
 
-and that will work fine however now every page will have the same `title` in the head.
+and that will work fine, however, now every page will have the same `title` in the head.
 
 If we now have the following markdown file:
 
@@ -95,7 +95,7 @@ For more details see the following [lit issue](https://github.com/lit/lit/issues
 
 </inline-notification>
 
-In order to provide this `data.title` we now need to export is within the page.
+In order to provide this `data.title` we now need to export it within the page.
 The code could look something like this.
 
 ````md
@@ -151,7 +151,7 @@ const layoutB =
 
 <inline-notification type="warning">
 
-Partial html is not supported in [lit](http://lit.dev) as it uses the browser build in html parser which try to "auto correct" your html by closing tags.
+Partial html is not supported in [lit](http://lit.dev) as it uses the browser build in html parser which trys to "auto correct" your html by closing tags.
 e.g. this
 
 <!-- prettier-ignore-start -->

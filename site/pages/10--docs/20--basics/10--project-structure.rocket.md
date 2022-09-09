@@ -53,7 +53,7 @@ e.g.
 
 ## Recommended Project Structure
 
-Even if there is no enforce project structure it still makes sense to follow some common best practices.
+Even if there is no enforced project structure it still makes sense to follow some common best practices.
 
 - `site/pages/*` - All the pages of your website (e.g. all `*.rocket.{js,md,html}` files)
 - `site/pages/about/_assets/*` - Keep assets related to pages close to the page itself (e.g. images, videos, ...)
@@ -116,4 +116,4 @@ Rocket has complete control over how these files get processed, optimized, and b
 
 For most users, the majority of your files will live inside of the `site/pages/` and `site/src/` directory so that Rocket can optimize them in your final build. By contrast, the `site/public/` directory is the place for any files to live outside of the Rocket build process.
 
-If you put a file into the public folder, it will not be processed by Rocket. Instead it will be copied into the build folder untouched. This can be useful for specific file like `robots.txt` or `site.webmanifest` or sometimes for assets like images that you need in a specific location.
+If you put a file into the public folder, it will not be processed by Rocket. Instead it will be copied into the build folder untouched. This can be useful for specific files like `robots.txt` or `site.webmanifest` or sometimes for assets like images that you need in a specific location.

@@ -53,7 +53,7 @@ export const layout = new LayoutSidebar();
 ```
 
 You should also define it as a preset in the configuration so that it can copy some default public files.
-(this step is not requires but it is recommended)
+(this step is not required but it is recommended)
 
 👉 `config/rocket.config.js`
 

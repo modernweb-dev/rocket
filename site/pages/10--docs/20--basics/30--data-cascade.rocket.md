@@ -90,7 +90,7 @@ For that reasons you can override the layout via exporting `layout` on a specifi
 
 In the above example we have 4 layouts we define in different places.
 
-1. Default layout use by all pages unless overwritten in `recursive.data.js`
+1. Default layout used by all pages unless overwritten in `recursive.data.js`
 2. Explicitly specifying a layout `index.rocket.js`
 3. use `blog/local.data.js` to set a layout for all pages in `blog`
 4. use `docs/codelabs/local.data.js` to set a layout for all pages in `codelabs`

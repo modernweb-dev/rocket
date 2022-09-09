@@ -28,11 +28,11 @@ export const needsLoader = true;
 
 # Components
 
-Components in Rocket are the "just" the web standard [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components). They are used to create reusable components that can be used in any web page.
+Components in Rocket are "just" the web standard [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components). They are used to create reusable components that can be used in any web page.
 
 <inline-notification>
 
-Web component only live within the html body. For content within the head or a full html page please see [layouts](./50--layouts.rocket.md).
+Web components only live within the html body. For content within the head or a full html page please see [layouts](./50--layouts.rocket.md).
 
 </inline-notification>
 
@@ -84,7 +84,7 @@ We can now put this code in Rocket JavaScript, Markdown or Html pages.
 <rocket-greeting>Go</rocket-greeting>
 ````
 
-will result a server rendered output that does not load ANY JavaScript
+will result in a server rendered output that does not load ANY JavaScript
 
 ```
 Hello World
@@ -124,7 +124,7 @@ Note the empty lines between html & markdown. They are necessary as this is how 
 
 ## Manually Loading Components
 
-We can define as many components as we want within a page but typically it's best to define them in a separate files.
+We can define as many components as we want within a page but typically it's best to define them in separate files.
 
 So we will move our component code into a new file 👉 `/site/src/components/rocket-greeting.js`
 
@@ -257,8 +257,8 @@ export const components = {
 
 ### Hydration
 
-Component that do not have any interactivity will never need to be hydrated so they may be imported statically on the server side.
-All other component should be handled via the `components` object to enable handling of loading and registration.
+Components that do not have any interactivity will never need to be hydrated so they may be imported statically on the server side.
+All other components should be handled via the `components` object to enable handling of loading and registration.
 
 Doing so enables hydration based on attributes on the component.
 

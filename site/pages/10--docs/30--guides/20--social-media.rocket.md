@@ -34,7 +34,7 @@ export const subTitle =
 Having a nice preview image for social media can be very helpful.
 For that reason Rocket has a specific functionality to generate a preview image.
 
-This functionality is disable by default. You can enable it by exporting a `openGraphLayout` function/class instance.
+This functionality is disabled by default. You can enable it by exporting a `openGraphLayout` function/class instance.
 
 The functionality is the same as normal [Layouts](../20--basics/50--layouts.rocket.md).
 
@@ -53,7 +53,7 @@ The functionality is the same as normal [Layouts](../20--basics/50--layouts.rock
    site/pages/sitemap.xml.rocket.js  -> open graph only happens for html files
    ```
 
-2. During the the build phase is does the following steps
+2. During the build phase it does the following steps
 3. If there is a `filename.opengraph.html` file it will open that file in puppeteer
 4. It sets its screen size to 1200×628px and takes a screenshot with DPR or 2 (e.g. the image will have 2400x1228px)
 5. Adjusts the "output file" e.g. `index.html` by injecting
@@ -66,13 +66,13 @@ The functionality is the same as normal [Layouts](../20--basics/50--layouts.rock
 
    if no `<meta property="og:image"` is present
 
-6. deletes the `filename.opengraph.html` file
+6. Deletes the `filename.opengraph.html` file
 
 ## How to use it
 
 Add an `openGraphLayout` export to our page.
 
-Generally it's probably bet if we put this in our root `recursive.data.js` file which means that every page will have this functionality.
+Generally it's probably best if we put this in our root `recursive.data.js` file which means that every page will have this functionality.
 If a certain page needs a different layout we can override it.
 
 👉 `recursive.data.js`
@@ -244,7 +244,7 @@ export const subTitle = 'From zero to hero';
 
 ## Creating an Overview
 
-Once you have defined an openGraphLayout for all you pages it makes sense to check them.
+Once you have defined an openGraphLayout for all your pages it makes sense to check them.
 This however can be a time consuming process.
 
 So it makes sense to use an overview over all the open graph images we will have.
@@ -312,7 +312,7 @@ export const layout = data => html`
 `;
 ```
 
-There is quite some much in there so let's go though the code.
+There is quite a lot in there so let's go though the code.
 
 ```js
 import { pageTree } from '#src/layouts/layoutData.js';

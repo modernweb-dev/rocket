@@ -93,4 +93,4 @@ If something is missing in the documentation or if you found some part confusing
 
 ## Credit
 
-This getting started guide was originally based off of [astro](https://astro.build/) getting started guide.
+This getting started guide was originally based off the [astro](https://astro.build/) getting started guide.

@@ -35,7 +35,7 @@ export const subTitle = 'Use web fonts to ensure a unique and consistent experie
 Using web fonts can be tricky and as there are so many considerations
 
 - Use a [Variable Font](https://web.dev/variable-fonts/)?
-- How to [reduced the size](https://web.dev/reduce-webfont-size/)?
+- How to [reduce the size](https://web.dev/reduce-webfont-size/)?
 - How to avoid [a layout shift as the font is loaded](https://web.dev/preload-optional-fonts/)?
 - ...
 
@@ -44,7 +44,7 @@ Here is a quick summary of what you should do as of 2022.
 1. Use a variable font
 
    This means only ONE font file needs to be download for all the different weights and widths.
-   This file is usually bigger then one weight of a font but smaller then multiple weights font files.
+   This file is usually bigger than one weight of a font but smaller than multiple weights font files.
 
    Not many fonts are "easily" accessible as a variable font. Often you need to manually [convert](https://convertio.co/ttf-woff/) a variable font ttf file to a web woff2 file.
 
@@ -75,7 +75,7 @@ Here is a quick summary of what you should do as of 2022.
 
 3. Use optional fonts
 
-   In combination with 2. this means there will be NO layout shift at all. Nothing will be display until the font is loaded or a timeout (usually 100ms) is reached. If there is a timeout then for this page visit a fallback font will be used.
+   In combination with 2. this means there will be NO layout shift at all. Nothing will be displayed until the font is loaded or a timeout (usually 100ms) is reached. If there is a timeout then for this page visit a fallback font will be used.
    On the next page load the font will be cached and directly rendered with the web font.
 
    ```css

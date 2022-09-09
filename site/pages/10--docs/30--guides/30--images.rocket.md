@@ -39,7 +39,7 @@ Rocket does handle content images automatically by
 - producing multiple sizes so users download images that are meant for their resolution
 - outputting multiple formats so the device can choose the best image format it supports
 
-And the best thing about is you don't need to do anything.
+And the best thing is you don't need to do anything.
 
 ## Usage
 
@@ -110,11 +110,11 @@ will result in
 
 ## Adjusting options
 
-Under the hood it is using [11ty/image](https://www.11ty.dev/docs/plugins/image/) and all it's options are available.
+Under the hood it is using [11ty/image](https://www.11ty.dev/docs/plugins/image/) and all its options are available.
 
 <inline-notification type="tip">
 
-If you are using a layout preset like `@rocket/launch` then you probably don't want to touch/change these options as the preset will set it for you accordion to its layout needs.
+If you are using a layout preset like `@rocket/launch` then you probably don't want to touch/change these options as the preset will set it for you according to its layout needs.
 
 The default preset for regular markdown content is available as `responsive`.
 
@@ -282,7 +282,7 @@ export default {
 
 ## Default widths
 
-In order to understand the need for having a single image in multiple resolutions we need to understand the our website is served to many different environments and each may come with its own specific device pixel ratio (DPR). The device pixel ratio is the ratio between physical pixels and logical pixels. For instance, the Galaxy S20 report a device pixel ratio of 3, because the physical linear resolution is triple the logical linear resolution.
+In order to understand the need for having a single image in multiple resolutions we need to understand that our website is served to many different environments and each may come with its own specific device pixel ratio (DPR). The device pixel ratio is the ratio between physical pixels and logical pixels. For instance, the Galaxy S20 report a device pixel ratio of 3, because the physical linear resolution is triple the logical linear resolution.
 
 Physical resolution: 1440 x 3200
 Logical resolution: 480 x 1067
