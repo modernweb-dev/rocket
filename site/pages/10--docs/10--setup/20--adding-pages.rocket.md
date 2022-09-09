@@ -44,11 +44,11 @@ Before we get started we need to engage the engines via
 npm start
 ```
 
-This with start rocket in development mode and you will see your site running in your browser.
+This will start rocket in development mode and you will see your site running in your browser.
 
 ## What is a page?
 
-A page is a file that ends either with `*.rocket.js`, `*.rocket.md` or `*.rocket.html` and is located in the input directory (`site/pages` by default). Pages will make up the majority or your website.
+A page is a file that ends either with `*.rocket.js`, `*.rocket.md` or `*.rocket.html` and is located in the input directory (`site/pages` by default). Pages will make up the majority of your website.
 
 The simplest way to get started is to create a file
 

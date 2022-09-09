@@ -30,7 +30,7 @@ export const description = `An intro to Rocket pages, which is the actual websit
 
 # Pages
 
-**Pages** are a the only files that get rendered into the output folder.
+**Pages** are the only files that get rendered into the output folder.
 
 3 types of pages are supported:
 
@@ -38,11 +38,11 @@ export const description = `An intro to Rocket pages, which is the actual websit
 - `*.rocket.html` - A page with HTML content.
 - `*.rocket.js` - A page with JavaScript content.
 
-Feel free to choose a format for each pages that best suits its content.
+Feel free to choose a format for each page that best suits its content.
 
 ## File-based Routing
 
-Rockets uses Pages to do something called **file-based routing.** Every file in your `pages` directory becomes a page on your site, using the file name to decide the final route.
+Rocket uses Pages to do something called **file-based routing.** Every file in your `pages` directory becomes a page on your site, using the file name to decide the final route.
 
 ```
 site/pages/index.rocket.md        -> mysite.com/
@@ -72,7 +72,7 @@ export default () => `
 
 👆 This is the JavaScript version which all other formats automatically convert to.
 
-However for you your convenience you can also write your page in HTML and it will be automatically converted into the JavaScript version above.
+However for your convenience you can also write your page in HTML and it will be automatically converted into the JavaScript version above.
 
 👉 `site/pages/index.rocket.html`
 
@@ -104,8 +104,8 @@ Or you can write markdown.
 
 Markdown and HTML files are automatically converted to their JavaScript equivalents.
 That is also how they get their template literal super powers.
-Those converted files only life for a fraction of a second and are deleted after the page is done rendering.
-If you would like to keep them for debugging or out of curiosity you can export the following flag to prefect the cleanup.
+Those converted files only live for a fraction of a second and are deleted after the page is done rendering.
+If you would like to keep them for debugging or out of curiosity you can export the following flag to prevent the cleanup.
 
 ```js
 export const keepConvertedFiles = true;

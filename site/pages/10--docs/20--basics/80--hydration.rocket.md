@@ -31,7 +31,7 @@ export const needsLoader = true;
 # Hydration
 
 By default all components are only rendered on the server.
-This however means those components are "static" and can not add interactivity.
+However, this means those components are "static" and can not add interactivity.
 
 To add interactivity to your component you can either render it only on the client or you can render on the server and `hydrate` it on the client.
 
@@ -69,9 +69,9 @@ The automatic loading/hydration only works if you [register components to the ro
 
 ## Server Loading
 
-Server Loading has almost zero impact on the client side page performance and is therefore fastest possible solution available.
+Server Loading has almost zero impact on the client side page performance and is therefore the fastest possible solution available.
 
-Loading and rendering on the server is the default and for that reasons does not need to be specified.
+Loading and rendering on the server is the default and for that reason does not need to be specified.
 
 ```html
 <blog-header></blog-header>
@@ -263,7 +263,7 @@ Results in `server rendering` of all `my-component`s.
 Why theses impacts?
 
 1. client - if you eagerly load & render the component on the client then bloating the html of some components by server rendering does not bring any benefit
-2. hydrate - hydration means that all component with the same tag name will be hydrated on the client - you can not keep a server only variation of a component
+2. hydrate - hydration means that all components with the same tag name will be hydrated on the client - you can not keep a server only variation of a component
 3. server - almost zero client side impact
 
 <inline-notification>

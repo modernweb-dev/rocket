@@ -103,7 +103,7 @@ If your package is `"type": "module"` then you can also add exports.
 }
 ```
 
-Once you have an export it also enables to "self" reference your package.
+Once you have an export it also enables you to "self" reference your package.
 Combine this with the `:resolve` function means that you can reference assets always with the same path.
 Completely unrelated to the path of the file itself.
 

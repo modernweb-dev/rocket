@@ -54,7 +54,7 @@ For settings that may be overridden within a page, use the [**data cascade**](./
 
 </inline-notification>
 
-Rocket is primarily build around plugins for each of its systems.
+Rocket is primarily built around plugins for each of its systems.
 
 Given that rocket comes with a list of default plugins and that presets can add plugins it's very important to not "just" set a new "plugins" property.
 
@@ -65,7 +65,7 @@ New plugins can be added and all default plugins can be adjusted or even removed
 ```js
 /** @type {import('rocket/cli').RocketCliConfig} */
 export default {
-  // add a rollup plugins to the web dev server (will be wrapped with @web/dev-server-rollup) AND the rollup build (e.g. enable json importing)
+  // add a rollup plugin to the web dev server (will be wrapped with @web/dev-server-rollup) AND the rollup build (e.g. enable json importing)
   setupDevServerAndBuildPlugins: [],
 
   // add a plugin to the web dev server (will not be wrapped) (e.g. esbuild for TypeScript)
@@ -139,7 +139,7 @@ For some projects you might want to enable non-standard behaviors like importing
 import data from './data.json';
 ```
 
-You can accomplish this with Rollup and dev server plugins. Make sure to add both the dev-server plugin as well as the Rollup plugin, so that the behaviors is the same during development as it is in the production build.
+You can accomplish this with Rollup and dev server plugins. Make sure to add both the dev-server plugin as well as the Rollup plugin, so that the behavior is the same during development as it is in the production build.
 
 For these cases you can use `setupDevServerAndBuildPlugins`, which will automatically add the plugin for you to both Rollup and dev-server:
 
@@ -186,7 +186,7 @@ export default /** @type {import('rocket/cli').RocketCliOptions} */ ({
 
 ### BuildOptions (rollup)
 
-For example if you wanna add an `acron` plugin to rollup
+For example if you wanna add an `acorn` plugin to rollup
 
 ```js
 import { importAssertions } from 'acorn-import-assertions';

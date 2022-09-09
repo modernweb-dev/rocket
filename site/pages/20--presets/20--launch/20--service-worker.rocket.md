@@ -79,7 +79,7 @@ The registration happens via
 <script type="module" src="resolve:@rocket/launch/js/register-service-worker.js"></script>
 ```
 
-Below you find its implementation
+Below you'll find its implementation
 
 ```js server
 const serviceWorkerRegistrationCode = await inlineFile(

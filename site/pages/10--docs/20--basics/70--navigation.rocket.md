@@ -76,7 +76,7 @@ This will result in something like this:
 </nav>
 ```
 
-Rocket comes with multiple build in menus you can see [below](#menu-types).
+Rocket comes with multiple built-in menus you can see [below](#menu-types).
 
 ## Menu Data
 
@@ -107,11 +107,11 @@ Now the menu will be called "Docs".
 Within a menu the text of the links is defined by the following priority:
 
 1. menuLinkText => `export const menuLinkText = 'Page Title In Menu';`
-2. h1 => first `<h1>` in the page)
+2. h1 => first `<h1>` in the page
 3. title => html title tag
 4. sourceRelativeFilePath => fallback if no other option is available
 
-You can influence that data that gets provided to the menu by setting exports.
+You can influence the data that gets provided to the menu by setting exports.
 
 ### link-text="..."
 
@@ -168,7 +168,7 @@ Sometimes there is a need to completely exclude a page from the pageTree.
 Pages with this flag will not exist at all in the pageTree - therefore you will not be able to access them for "anything" not even in a sitemap or an update feed.
 Pages that have sub pages can NOT use this flag as it would mean those sub pages would not have a parent page.
 
-Typical use case are utility pages that are not meant to be accessed by typical users.
+Typical use cases are utility pages that are not meant to be accessed by typical users.
 
 ```js
 export const menuExclude = true;
@@ -245,7 +245,7 @@ In case you want to take full control over the order you can apply the following
    - The menu order and file system order will no longer match
    - But no numbers in folder / filenames
 
-3. Instantiate a new PageTree and providing your own `modelComparatorFn`
+3. Instantiate a new PageTree and provide your own `modelComparatorFn`
 
    ```js
    function modelComparatorFn(a, b) {
@@ -261,7 +261,7 @@ In case you want to take full control over the order you can apply the following
 
 ## Page Tree
 
-The data of the page tree gets saves as a JSON file in the root of the `pages` directory.
+The data of the page tree gets saved as a JSON file in the root of the `pages` directory.
 
 It typically looks something like this:
 
@@ -440,7 +440,7 @@ import {
 5. **NextMenu**
 
    - shows the next page in the tree
-   - is either the first child or he next sibling
+   - is either the first child or the next sibling
 
    ```html
    <web-menu name="next">
