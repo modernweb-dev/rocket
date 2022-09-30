@@ -152,7 +152,11 @@ export class CreateCli {
         await gitHandler.clone('./' + newFolderPath);
         cloneError = false;
       } catch (e) {
-        console.log(`${red('✖')} Could not apply the template - maybe the url is wrong?`);
+        console.log(
+          `${red(
+            '✖',
+          )} Could not apply the template - maybe the url is wrong? If this problem persists, you could try clearing your .degit cache, usually located at ~/.degit`,
+        );
         console.log(`${red('>')} ${e.message}`);
         const response = await prompts({
           type: 'text',
