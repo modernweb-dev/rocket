@@ -117,7 +117,7 @@ which looks like this
 
 Open it on [Codepen](https://codepen.io/daKmoR/pen/qBpQVGK) to play around.
 
-A DSD does not need any JavaScript (in 2022: none chromium browser need a polyfill) to display elements with their styles scoped.
+A DSD does not need any JavaScript (in 2022: non-chromium browsers need a polyfill) to display elements with their styles scoped.
 
 If possible you should always render your component only on the server to avoid unnecessary JavaScript.
 This results in the best possible site performance.
