@@ -7,11 +7,16 @@
 import { unified } from 'unified';
 import markdown from 'remark-parse';
 import gfm from 'remark-gfm';
+// @ts-ignore
 import remark2rehype from 'remark-rehype';
+// @ts-ignore
 import raw from 'rehype-raw';
+// @ts-ignore
 import htmlSlug from 'rehype-slug';
+// @ts-ignore
 import htmlHeading from 'rehype-autolink-headings';
 import rehypePrism from 'rehype-prism-plus';
+// @ts-ignore
 import htmlStringify from 'rehype-stringify';
 import { executeSetupFunctions } from 'plugins-manager';
 import { mdjsParse } from './mdjsParse.js';
