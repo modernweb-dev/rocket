@@ -393,11 +393,6 @@ export class Engine {
     return await urlToSourceFilePath(url, this.docsDir);
   }
 
-  /**
-   * @param {object} [options]
-   * @param {string} [options.triggerSourceFilePath]
-   * @param {boolean} [options.deleteOtherFiles]
-   */
   async renderAllOpenedFiles({ deleteOtherFiles = true, triggerSourceFilePath = '' } = {}) {
     if (this.watcher) {
       for (const [sourceFilePath, page] of this.watcher.pages.entries()) {
