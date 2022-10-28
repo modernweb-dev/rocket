@@ -14,7 +14,7 @@ Foo is great
 ## How to Use
 
 ```bash
-yarn add @foo/demo-wc-card
+npm install @foo/demo-wc-card
 ```
 
 ```js

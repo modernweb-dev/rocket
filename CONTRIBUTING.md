@@ -32,10 +32,10 @@ git checkout -b my-awesome-fix
 
 ## Preparing Your Local Environment for Development
 
-Now that you have cloned the repository, ensure you have [yarn](https://classic.yarnpkg.com/lang/en/) installed, then run the following commands to set up the development environment.
+Now that you have cloned the repository, ensure you have [node](https://nodejs.org/) installed, then run the following commands to set up the development environment.
 
 ```shell
-yarn install
+npm install
 ```
 
 This will download and install all packages needed.
@@ -50,7 +50,7 @@ If you're making cross-package changes, you need to compile the TypeScript code.
 
 ### Running Tests
 
-To run the tests of a package, it's recommended to `cd` into the package directory and then using `yarn test` to run them. This way you're only running tests of that specific package.
+To run the tests of a package, it's recommended to `cd` into the package directory and then using `npm run test` to run them. This way you're only running tests of that specific package.
 
 ### Integration Testing
 
@@ -58,7 +58,7 @@ To see how your changes integrate with everything together you can use the `test
 
 ## Adding New Packages
 
-For all projects the tsconfig/jsconfig configuration files are auto generated. You need to add an entry to the [./workspace-packages.ts](./workspace-packages.ts) to let it generate a config for you. After adding an entry, run `yarn update-package-configs` to generate the files for you.
+For all projects the tsconfig/jsconfig configuration files are auto generated. You need to add an entry to the [./workspace-packages.ts](./workspace-packages.ts) to let it generate a config for you. After adding an entry, run `npm run update-package-configs` to generate the files for you.
 
 ## Creating a Changeset
 
@@ -70,7 +70,7 @@ This documents your intent to release, and allows you to specify a message that 
 Run
 
 ```shell
-yarn changeset
+npm run changeset
 ```
 
 And use the menu to select for which packages you need a release, and then select what kind of release. For the release type, we follow [Semantic Versioning](https://semver.org/), so please take a look if you're unfamiliar.

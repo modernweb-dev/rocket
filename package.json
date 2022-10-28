@@ -26,7 +26,7 @@
     "lint:types": "npm run types",
     "lint:versions": "node scripts/lint-versions.js",
     "postinstall": "npm run setup",
-    "release": "changeset publish && yarn format",
+    "release": "changeset publish && npm run format",
     "rocket:build": "NODE_DEBUG=engine:rendering node --trace-warnings packages/cli/src/cli.js build",
     "rocket:upgrade": "node packages/cli/src/cli.js upgrade",
     "search": "node packages/cli/src/cli.js search",
@@ -36,9 +36,9 @@
     "start:experimental": "NODE_DEBUG=engine:rendering node --no-warnings --experimental-loader ./packages/engine/src/litCssLoader.js packages/cli/src/cli.js start --open",
     "start": "NODE_DEBUG=engine:rendering node --trace-warnings packages/cli/src/cli.js start --open",
     "preview": "node packages/cli/src/cli.js preview --open",
-    "test": "yarn test:node && yarn test:web",
+    "test": "npm run test:node && npm run test:web",
     "test:integration": "playwright test packages/*/test-node/*.spec.js --retries=3",
-    "test:node": "yarn test:unit && yarn test:integration",
+    "test:node": "npm run test:unit && npm run test:integration",
     "test:unit": "node --trace-warnings ./node_modules/.bin/mocha --require ./scripts/testMochaGlobalHooks.js \"packages/*/test-node/**/*.test.{ts,js,mjs,cjs}\" -- --timeout 8000 --reporter dot --exit",
     "test:web": "web-test-runner",
     "types": "run-s types:clear types:copy types:build",
@@ -46,9 +46,9 @@
     "types:clear": "rimraf packages/*/dist-types/",
     "types:copy": "node scripts/workspaces-scripts-bin.mjs types:copy",
     "update-dependency": "node scripts/update-dependency.js",
-    "update-esm-entrypoints": "node scripts/update-esm-entrypoints.mjs && yarn format",
-    "update-package-configs": "node scripts/update-package-configs.mjs && yarn format",
-    "xprestart": "yarn analyze"
+    "update-esm-entrypoints": "node scripts/update-esm-entrypoints.mjs && npm run format",
+    "update-package-configs": "node scripts/update-package-configs.mjs && npm run format",
+    "xprestart": "npm run analyze"
   },
   "dependencies": {},
   "devDependencies": {

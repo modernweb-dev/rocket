@@ -12,15 +12,9 @@ coverage/
 ## npm
 node_modules
 npm-debug.log
-yarn-error.log
 
 ## temp folders
 /.tmp/
-
-## we prefer yarn.lock
-package-lock.json
-## lock files in packages we do not need to save
-packages/*/yarn.lock
 
 ## build output
 dist
@@ -49,3 +43,4 @@ docs_backup
 
 ## Local playground
 examples/testing
+__example_site-for-check-website
