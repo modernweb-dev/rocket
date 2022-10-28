@@ -13,6 +13,10 @@ __output-dev
 
 docs/_merged*
 *-mdjs-generated.js
+*-converted-md-source.js
+*-converted-md.js
+
+__example_site-for-check-website
 
 # sanity example has a separate backend that is unrelated to Rocket
 # therefore it does not need to follow it code rules
