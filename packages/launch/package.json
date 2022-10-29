@@ -13,7 +13,6 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/presets/launch/",
-  "main": "./src/index.js",
   "type": "module",
   "exports": {
     ".": {
@@ -23,13 +22,17 @@
     "./assets/*": "./assets/*",
     "./css/*": "./css/*",
     "./js/*": "./src/public/*",
-    "./*": "./exports/*"
+    "./*": {
+      "types": "./dist-types/exports/*",
+      "default": "./exports/*"
+    }
   },
   "scripts": {
     "analyze": "cem analyze --litelement",
+    "prepublishOnly": "npm run types",
     "test": "mocha --timeout 5000 test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
     "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
-    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+    "types": "wireit"
   },
   "files": [
     "__public",
@@ -51,17 +54,27 @@
     "@rocket/engine": "^0.2.7",
     "@webcomponents/template-shadowroot": "^0.1.0",
     "lit": "^2.3.0",
+    "plugins-manager": "^0.3.1",
     "workbox-window": "^6.1.5"
   },
-  "types": "./dist-types/src/index.d.ts",
   "customElements": "custom-elements.json",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist-types/src/index.d.ts"
+  "wireit": {
+    "types": {
+      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "dependencies": [
+        "../cli:types",
+        "../components:types",
+        "../engine:types",
+        "../plugins-manager:types"
       ],
-      "inline-notification": [
-        "./dist-types/src/inline-notification/index.d.ts"
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.js",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**",
+        ".tsbuildinfo"
       ]
     }
   }

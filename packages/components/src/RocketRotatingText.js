@@ -12,6 +12,8 @@ export class RocketRotatingText extends LitElement {
     this.initIndex = 0;
     this.inIndex = 0;
     this.outIndex = -1;
+    /** @type {string[]} */
+    this.items = [];
   }
 
   next() {

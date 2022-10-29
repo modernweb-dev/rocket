@@ -1,21 +1,19 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { LitElement, html, css } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { repeat } from 'lit/directives/repeat.js';
 import MiniSearch from 'minisearch';
 import { highlightSearchTerms, joinTitleHeadline } from './utils-shared.js';
 
-/** @typedef {import('./types').RocketSearchResult} RocketSearchResult */
+/** @typedef {import('../types/main.js').RocketSearchResult} RocketSearchResult */
 
-// wait for all dialog animations to complete their promises
 /**
+ * Wait for all dialog animations to complete their promises
  *
  * @param {HTMLElement} element
- * @returns
  */
-const animationsComplete = element =>
-  // @ts-ignore
-  Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+function animationsComplete(element) {
+  return Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+}
 
 export class RocketSearch extends LitElement {
   static properties = {
@@ -72,6 +70,7 @@ export class RocketSearch extends LitElement {
       throw new Error(`The given json-url "${this.jsonUrl}" could not be fetched.`);
     }
 
+    // @ts-ignore
     this.miniSearch = MiniSearch.loadJSON(responseText, {
       fields: ['title', 'headline', 'body'],
       searchOptions: {
@@ -202,6 +201,7 @@ export class RocketSearch extends LitElement {
     if (this.miniSearch && changedProperties.has('search')) {
       if (this.search.length > 1) {
         this.results = /** @type {RocketSearchResult[]} */ (
+          // @ts-ignore
           this.miniSearch.search(this.search)
         ).slice(0, this.maxResults);
         if (this.results.length > 0) {

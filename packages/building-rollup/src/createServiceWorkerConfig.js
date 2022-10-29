@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+// @ts-ignore
 import { terser } from 'rollup-plugin-terser';
 import babelPkg from '@rollup/plugin-babel';
 import replace from '@rollup/plugin-replace';
@@ -7,11 +8,19 @@ import { applyPlugins } from 'plugins-manager';
 
 const { babel } = babelPkg;
 
+/** @typedef {import('../types/main.js').BuildingRollupOptions} BuildingRollupOptions */
+
+/**
+ * @param {BuildingRollupOptions} userConfig
+ */
 export function createServiceWorkerConfig(userConfig) {
   const { config, metaPlugins } = createServiceWorkerMetaConfig(userConfig);
   return applyPlugins(config, metaPlugins);
 }
 
+/**
+ * @param {BuildingRollupOptions} userConfig
+ */
 export function createServiceWorkerMetaConfig(userConfig = { output: {} }) {
   const developmentMode =
     typeof userConfig.developmentMode !== 'undefined'
@@ -31,14 +40,19 @@ export function createServiceWorkerMetaConfig(userConfig = { output: {} }) {
     },
   };
 
+  /**
+   * @type {import('plugins-manager').MetaPlugin<any>[]}
+   */
   let metaPlugins = [
     {
+      // @ts-ignore
       plugin: resolve,
       options: {
         moduleDirectories: ['node_modules', 'web_modules'],
       },
     },
     {
+      // @ts-ignore
       plugin: replace,
       options: {
         'process.env.NODE_ENV': JSON.stringify(developmentMode ? 'development' : 'production'),

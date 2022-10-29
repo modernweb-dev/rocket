@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /** @typedef {import('../types/code.js').Story} Story */
 /** @typedef {import('../types/code.js').StoryTypes} StoryTypes */
 /** @typedef {(name: string) => string} TagFunction */

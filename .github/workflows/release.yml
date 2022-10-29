@@ -12,6 +12,8 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
+      - uses: google/wireit@setup-github-actions-caching/v1
+
       - name: Checkout Repo
         uses: actions/checkout@master
         with:
@@ -26,12 +28,6 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
-
-      - name: Build Packages
-        run: npm run build:packages
-
-      - name: Build Types
-        run: npm run types
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets

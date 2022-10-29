@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /** @typedef {import('../types/main.js').Plugin} Plugin */
 
 /**

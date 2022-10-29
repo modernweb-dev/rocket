@@ -1,21 +1,20 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-prototype-builtins */
 import { evaluate } from './evaluate.js';
 import { extractStrategies } from './extractStrategies.js';
 
 export class HydrationLoader {
-  /** @type {import('../../types/main').Components} */
+  /** @type {import('../../types/main.js').Components} */
   components = {};
   isSetup = false;
 
-  /** @type {import('../../types/main').ElementWithStrategy[]}  */
+  /** @type {import('../../types/main.js').ElementWithStrategy[]}  */
   elements = [];
 
   /** @type {{ [key: string]: MediaQueryList }} */
   mediaQueries = {};
 
   /**
-   * @param {import('../../types/main').Components} components
+   * @param {import('../../types/main.js').Components} components
    */
   constructor(components) {
     this.components = components;
@@ -81,11 +80,11 @@ export class HydrationLoader {
   }
 
   /**
-   * @returns {import('../../types/main').ElementWithStrategy[]}
+   * @returns {import('../../types/main.js').ElementWithStrategy[]}
    */
   gatherElements() {
     const els = document.querySelectorAll('[loading]');
-    /** @type {import('../../types/main').ElementWithStrategy[]} */
+    /** @type {import('../../types/main.js').ElementWithStrategy[]} */
     const elements = [];
     for (const el of els) {
       const strategyAttribute = el.getAttribute('loading');

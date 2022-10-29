@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /** @typedef {import('../types/main.js').EngineOptions} EngineOptions */
 /** @typedef {import('../types/main.js').DevServerPlugin} DevServerPlugin */
 /** @typedef {import('../types/main.js').DevServerMiddleware} DevServerMiddleware */

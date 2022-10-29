@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { renderJoiningGroup } from '../helpers/renderJoiningGroup.js';
 import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';

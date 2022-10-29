@@ -8,10 +8,14 @@ export class RocketOpenGraphOverview extends LitElement {
 
   constructor() {
     super();
-    /** @type {{ url: string, sourceRelativeFilePath: string }} */
+    this.inputDir = '';
+    /** @type {{ url: string, sourceRelativeFilePath: string }[]} */
     this.pages = [];
   }
 
+  /**
+   * @param {{ url: string, sourceRelativeFilePath: string }} options
+   */
   renderPage({ url, sourceRelativeFilePath }) {
     const iframeUrl = url.endsWith('/')
       ? `${url}index.opengraph.html`

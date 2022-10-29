@@ -21,6 +21,7 @@ dist
 dist-types
 stats.html
 *.tsbuildinfo
+.wireit
 
 # Rocket Search
 rocket-search-index.json

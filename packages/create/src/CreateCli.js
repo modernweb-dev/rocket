@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Command } from 'commander';
 import prompts from 'prompts';
 import { underline, bold, gray, green, blue, yellow, red } from 'colorette';

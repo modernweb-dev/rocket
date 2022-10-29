@@ -12,7 +12,7 @@ export type GetPluginOptions<T> = T extends Constructor
 
 export interface MetaPlugin<T> {
   plugin: Plugin;
-  options: GetPluginOptions<T>;
+  options: GetPluginOptions<T> | undefined;
 }
 
 export interface ManagerOptions {

@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import puppeteer from 'puppeteer';
 import chai from 'chai';
 import path from 'path';
 import fs from 'fs';
+// @ts-ignore
 import rimraf from 'rimraf';
 import { rollup } from 'rollup';
+// @ts-ignore
 import { startDevServer } from '@web/dev-server';
 import { fileURLToPath } from 'url';
 
@@ -14,6 +15,7 @@ const rootDir = path.resolve(__dirname, '..', 'dist');
 const { expect } = chai;
 
 describe('spa integration tests', () => {
+  // @ts-ignore
   let server;
   /** @type {import('puppeteer').Browser} */
   let browser;
@@ -27,6 +29,7 @@ describe('spa integration tests', () => {
       readCliArgs: false,
       readFileConfig: false,
       logStartMessage: false,
+      // @ts-ignore
       clearTerminalOnReload: false,
     });
     browser = await puppeteer.launch();
@@ -35,6 +38,7 @@ describe('spa integration tests', () => {
 
   after(async () => {
     await browser.close();
+    // @ts-ignore
     await server.stop();
   });
 
@@ -45,6 +49,7 @@ describe('spa integration tests', () => {
   ].forEach(testCase => {
     describe(`testcase ${testCase}`, function describe() {
       this.timeout(30000);
+      // @ts-ignore
       let page;
 
       before(async () => {

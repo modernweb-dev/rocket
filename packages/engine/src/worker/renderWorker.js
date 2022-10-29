@@ -86,7 +86,7 @@ async function renderFile({
         openGraphUrl: url.replace(/\.html$/, '.opengraph.html'),
       };
     }
-    /** @type {import('../../types/layout').renderData} */
+    /** @type {import('../../types/layout.js').renderData} */
     const layoutData = {
       sourceFilePath,
       outputFilePath,

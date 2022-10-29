@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import path from 'path';
@@ -191,11 +190,14 @@ export class RocketHeader {
       const [, exports] = parse(readDataFile.toString());
 
       for (const dataExportName of exports) {
+        // TODO: update to latest es-module-lexer version
+        // @ts-ignore - ts somehow grabs the wrong version of es-module-lexer types... 0.x => strings[], 1.x => {...}[]
         const foundIndex = possibleImports.findIndex(el => el.importName === dataExportName);
         if (foundIndex >= 0) {
           possibleImports[foundIndex].importModuleName = exportModuleName;
         } else {
           possibleImports.push({
+            // @ts-ignore
             importName: dataExportName,
             importModuleName: exportModuleName,
           });

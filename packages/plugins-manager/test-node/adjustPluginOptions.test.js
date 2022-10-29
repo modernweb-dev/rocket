@@ -1,8 +1,6 @@
-// @ts-check
-
 import chai from 'chai';
 
-import { adjustPluginOptions, applyPlugins } from '../index.js';
+import { adjustPluginOptions, applyPlugins } from 'plugins-manager';
 
 const { expect } = chai;
 

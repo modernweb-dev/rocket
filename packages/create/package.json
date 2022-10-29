@@ -13,7 +13,6 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/",
-  "main": "./src/index.js",
   "bin": {
     "create-rocket": "src/cli.js"
   },
@@ -28,8 +27,7 @@
     "prepublishOnly": "node ./scripts/prepublish.js",
     "start": "node ./src/cli.js",
     "test": "mocha test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
-    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
-    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+    "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test"
   },
   "files": [
     "deployments",
@@ -49,13 +47,5 @@
     "commander": "^9.0.0",
     "degit": "^2.0.0",
     "prompts": "^2.2.0"
-  },
-  "types": "./dist-types/src/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist-types/src/index.d.ts"
-      ]
-    }
   }
 }

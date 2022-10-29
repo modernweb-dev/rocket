@@ -13,7 +13,6 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/",
-  "main": "./src/index.js",
   "bin": {
     "rocket": "src/cli.js"
   },
@@ -30,12 +29,13 @@
   },
   "scripts": {
     "build": "npm run rocket:build",
+    "prepublishOnly": "npm run types",
     "rocket:build": "node src/cli.js build -c demo",
     "rocket:start": "node src/cli.js start -c demo",
     "start": "npm run rocket:start",
     "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs} --timeout 8000",
     "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.{js,cjs}' -- npm test",
-    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/",
+    "types": "wireit",
     "xtest:watch": "mocha test/**/*.test.js --parallel --watch"
   },
   "files": [
@@ -67,14 +67,22 @@
     "@types/ip": "^1.1.0",
     "koa-proxy": "^1.0.0-alpha.3"
   },
-  "types": "./dist-types/src/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist-types/src/index.d.ts"
+  "wireit": {
+    "types": {
+      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "dependencies": [
+        "../plugins-manager:types",
+        "../engine:types",
+        "../building-rollup:types"
       ],
-      "test-helpers": [
-        "./dist-types/test-helpers/index.d.ts"
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.js",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**",
+        ".tsbuildinfo"
       ]
     }
   }

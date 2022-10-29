@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 // @ts-ignore https://github.com/lucaong/minisearch/issues/152
 import MiniSearch from 'minisearch';
 import { getIdBlocksOfHtml } from './getIdBlocksOfHtml.js';
@@ -69,6 +67,7 @@ export class RocketCliSearch {
     if (!this.outputDir || !this.inputDir) {
       return;
     }
+    // @ts-ignore
     const miniSearch = new MiniSearch({
       fields: ['title', 'headline', 'body', 'section'], // fields to index for full-text search
       storeFields: ['title', 'headline', 'body', 'section'], // fields to return with search results

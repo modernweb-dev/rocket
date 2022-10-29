@@ -49,12 +49,12 @@ function getStrategy(part, type) {
 
 /**
  * @param {string} input
- * @returns {import("../../types/main").LoadingStrategy}
+ * @returns {import("../../types/main.js").LoadingStrategy}
  */
 export function extractStrategies(input) {
   const parts = getParts(input);
 
-  /** @type {import("../../types/main").LoadingStrategy} */
+  /** @type {import("../../types/main.js").LoadingStrategy} */
   const result = {
     strategyAttribute: input,
     strategies: [],

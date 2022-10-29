@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /**
  * @param {object} options
  * @param {string} options.strategyTemplate
- * @param {import("../../types/main").Strategy[]} options.strategies
+ * @param {import("../../types/main.js").Strategy[]} options.strategies
  * @returns {boolean}
  */
 export function evaluate({ strategyTemplate, strategies }) {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Command } from 'commander';
 import { RocketStart } from './RocketStart.js';
 import { RocketBuild } from './RocketBuild.js';

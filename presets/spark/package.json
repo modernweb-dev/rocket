@@ -13,7 +13,6 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/",
-  "main": "./src/index.js",
   "type": "module",
   "exports": {
     ".": {
@@ -27,8 +26,9 @@
     }
   },
   "scripts": {
+    "prepublishOnly": "npm run types",
     "test": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.{js,cjs} test-node/*.test.{js,cjs}",
-    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+    "types": "wireit"
   },
   "files": [
     "dist-types",
@@ -42,14 +42,25 @@
   "dependencies": {
     "@rocket/components": "^0.2.0",
     "@rocket/engine": "^0.2.6",
-    "lit": "^2.3.0"
+    "lit": "^2.3.0",
+    "plugins-manager": "^0.3.1"
   },
-  "devDependencies": {},
-  "types": "./dist-types/src/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist-types/src/index.d.ts"
+  "wireit": {
+    "types": {
+      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "dependencies": [
+        "../../packages/components:types",
+        "../../packages/engine:types",
+        "../../packages/plugins-manager:types"
+      ],
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.js",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**",
+        ".tsbuildinfo"
       ]
     }
   }

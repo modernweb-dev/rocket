@@ -1,8 +1,13 @@
 import { LitElement, html, css } from 'lit';
 
-// wait for all dialog animations to complete their promises
-const animationsComplete = element =>
-  Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+/**
+ * Wait for all dialog animations to complete their promises
+ *
+ * @param {HTMLElement} element
+ */
+function animationsComplete(element) {
+  return Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+}
 
 export class RocketDrawer extends LitElement {
   static properties = {
@@ -54,6 +59,9 @@ export class RocketDrawer extends LitElement {
     this.open = true;
   }
 
+  /**
+   * @param {import('lit').PropertyValues} changedProperties
+   */
   updated(changedProperties) {
     super.updated(changedProperties);
     if (changedProperties.has('open')) {
@@ -65,16 +73,24 @@ export class RocketDrawer extends LitElement {
     }
   }
 
+  /**
+   * @param {Event} ev
+   */
   closeOnOutsideClick(ev) {
     if (ev.target === this._dialog) {
       this.close();
     }
   }
 
+  /**
+   * @param {import('lit').PropertyValues} changedProperties
+   */
   firstUpdated(changedProperties) {
     super.firstUpdated(changedProperties);
-    this._dialog = this.shadowRoot.querySelector('dialog');
-    this._invoker = this.shadowRoot.querySelector('slot[name="invoker"]')?.assignedElements()[0];
+    this._dialog = this.shadowRoot?.querySelector('dialog');
+    this._invoker = /** @type {HTMLSlotElement} */ (
+      this.shadowRoot?.querySelector('slot[name="invoker"]')
+    )?.assignedElements()[0];
   }
 
   async _close() {
@@ -95,8 +111,10 @@ export class RocketDrawer extends LitElement {
       this._dialog.dispatchEvent(new Event('opened'));
       this._dialog.removeAttribute('inert');
 
-      const focusTarget = this.querySelector('[autofocus]');
-      focusTarget ? focusTarget.focus() : this.shadowRoot.querySelector('button.close').focus();
+      const focusTarget = /** @type {HTMLElement} */ (this.querySelector('[autofocus]'));
+      focusTarget
+        ? focusTarget.focus()
+        : /** @type {HTMLElement} */ (this.shadowRoot?.querySelector('button.close'))?.focus();
     }
   }
 

@@ -13,7 +13,6 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/markdown-javascript/overview/",
-  "main": "./index.js",
   "type": "module",
   "exports": {
     ".": {
@@ -22,25 +21,20 @@
     }
   },
   "scripts": {
-    "prepublishOnly": "publish-docs --github-url https://github.com/modernweb-dev/rocket/ --git-root-dir ../../",
+    "prepublishOnly": "npm run types && publish-docs --github-url https://github.com/modernweb-dev/rocket/ --git-root-dir ../../",
     "start": "npm run start:stories",
     "start:script": "web-dev-server -c demo/script/server.js --root-dir ../../",
     "start:stories": "web-dev-server -c demo/stories/server.js --root-dir ../../",
     "test": "npm run test:node",
     "test:node": "mocha test-node",
     "test:watch": "mocha test-node --watch",
-    "types:copy": "copyfiles -f \"./types/**/*.d.ts\" dist-types/types"
+    "types": "wireit"
   },
   "files": [
-    "*.d.ts",
-    "*.js",
-    "*.mjs",
     "dist-types",
-    "src",
-    "types"
+    "src"
   ],
   "keywords": [
-    "open-wc",
     "markdown",
     "unified",
     "remark"
@@ -73,5 +67,22 @@
     "remark-slug": "^7.0.1",
     "remark-stringify": "^10.0.2"
   },
-  "types": "dist-types/index.d.ts"
+  "types": "dist-types/index.d.ts",
+  "wireit": {
+    "types": {
+      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "dependencies": [
+        "../plugins-manager:types"
+      ],
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.js",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**",
+        ".tsbuildinfo"
+      ]
+    }
+  }
 }
