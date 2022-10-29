@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { LitElement, html, nothing } from 'lit';
 import { LaunchBlogPreview } from './LaunchBlogPreview.js';
 

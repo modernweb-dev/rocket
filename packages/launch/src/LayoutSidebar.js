@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { renderJoiningGroup, TableOfContentsMenu } from '@rocket/engine';
 import { html } from 'lit';
 import { LayoutMain } from './LayoutMain.js';

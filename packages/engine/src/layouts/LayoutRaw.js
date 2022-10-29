@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /** @typedef {import('lit').TemplateResult} TemplateResult */
 
 export class LayoutRaw {

@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import path from 'path';
 import { existsSync } from 'fs';
 import { rollup } from 'rollup';
 
-// @ts-ignore
 import { createMpaConfig, createServiceWorkerConfig } from '@rocket/building-rollup';
 
 // import { rollupPluginHTML } from '@web/rollup-plugin-html';

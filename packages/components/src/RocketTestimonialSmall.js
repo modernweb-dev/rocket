@@ -5,6 +5,11 @@ export class RocketTestimonialSmall extends LitElement {
     cite: { type: String },
   };
 
+  constructor() {
+    super();
+    this.cite = '';
+  }
+
   static styles = css`
     :host {
       display: block;

@@ -1,8 +1,6 @@
-import chai from 'chai';
+import { expect } from 'chai';
 
-import { removePlugin, applyPlugins } from '../index.js';
-
-const { expect } = chai;
+import { removePlugin, applyPlugins } from 'plugins-manager';
 
 describe('removePlugin', () => {
   const firstPlugin = () => 'firstPlugin';

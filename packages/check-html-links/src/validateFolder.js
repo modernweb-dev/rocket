@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import fs from 'fs';
 import saxWasm from 'sax-wasm';
 import minimatch from 'minimatch';

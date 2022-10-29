@@ -13,7 +13,6 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/presets/search/",
-  "main": "./node.js",
   "type": "module",
   "exports": {
     ".": "./exports/index.js",
@@ -26,10 +25,12 @@
   "scripts": {
     "analyze": "cem analyze --litelement",
     "debug": "cd ../../ && npm run debug -- --group search",
+    "prepublishOnly": "npm run types",
     "test": "npm run test:node && npm run test:web",
     "test:node": "mocha --require ../../scripts/testMochaGlobalHooks.js test-node/**/*.test.js test-node/*.test.js",
     "test:watch": "onchange 'src/**/*.{js,cjs}' 'test-node/**/*.js' -- npm run test:node",
-    "test:web": "cd ../../ && npm run test:web -- --group search"
+    "test:web": "cd ../../ && npm run test:web -- --group search",
+    "types": "wireit"
   },
   "files": [
     "*.js",
@@ -52,5 +53,23 @@
   "devDependencies": {
     "@rocket/cli": "^0.20.0"
   },
-  "customElements": "custom-elements.json"
+  "customElements": "custom-elements.json",
+  "wireit": {
+    "types": {
+      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "dependencies": [
+        "../engine:types",
+        "../plugins-manager:types"
+      ],
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.js",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**",
+        ".tsbuildinfo"
+      ]
+    }
+  }
 }

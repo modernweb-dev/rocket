@@ -1,8 +1,18 @@
 import { Layout, renderJoiningGroup } from '@rocket/engine';
 import { pageDefaults } from '@rocket/components';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 
 export class LayoutMain extends Layout {
+  /**
+   * @type {import('../types/main.js').LayoutMainOptions}
+   */
+  options = {
+    ...this.options,
+  };
+
+  /**
+   * @param {import('../types/main.js').LayoutMainOptions} options
+   */
   constructor(options) {
     super(options);
     this.options = {
@@ -28,18 +38,19 @@ export class LayoutMain extends Layout {
 
       header__50: () => {
         if (!this.options.pageTree) {
-          return nothing;
+          return html``;
         }
         const page = this.options.pageTree.getPage('index.rocket.html');
-        if (page.model.headlinesWithId) {
+        if (page && page.model.headlinesWithId) {
           return html`
             ${page.model.headlinesWithId.map(
-              headline => html`
+              (/** @type {{ id: string; text: string; }} */ headline) => html`
                 <a class="headline-link" href="/#${headline.id}">${headline.text}</a>
               `,
             )}
           `;
         }
+        return html``;
       },
     };
   }

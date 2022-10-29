@@ -1,8 +1,6 @@
-import chai from 'chai';
+import { expect } from 'chai';
 
-import { addPlugin, applyPlugins } from '../index.js';
-
-const { expect } = chai;
+import { addPlugin, applyPlugins } from 'plugins-manager';
 
 describe('addPlugin', () => {
   const insertPlugin = ({ firstName = 'first', lastName = 'last' } = {}) =>
@@ -11,15 +9,7 @@ describe('addPlugin', () => {
   const secondPlugin = () => 'secondPlugin';
   const thirdPlugin = () => 'thirdPlugin';
 
-  /**
-   * @template T
-   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
-   */
   const oneExistingPlugin = [{ plugin: firstPlugin, options: {} }];
-  /**
-   * @template T
-   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
-   */
   const threeExistingPlugins = [
     { plugin: firstPlugin, options: {} },
     { plugin: secondPlugin, options: {} },
@@ -111,12 +101,16 @@ describe('addPlugin', () => {
   });
 
   it('[advanced] can add a `wrapPlugin` property to the function itself which will call it on the plugin on init', async () => {
+    /**
+     * @param {import('plugins-manager').AnyFn} plugin
+     */
     function myWrapper(plugin) {
       return () => 'wrapped' + plugin();
     }
 
     const config = applyPlugins({
       setupPlugins: [addPlugin(insertPlugin)].map(mod => {
+        // @ts-ignore
         mod.wrapPlugin = myWrapper;
         return mod;
       }),

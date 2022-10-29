@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 (async () => {
   if ('serviceWorker' in navigator) {
     const { Workbox } = await import('workbox-window');

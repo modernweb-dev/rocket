@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 /** @typedef {import('../types/main').CheckHtmlLinksCliOptions} CheckHtmlLinksCliOptions */
 
 import path from 'path';

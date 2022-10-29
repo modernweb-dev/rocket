@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 const fs = require('fs');
 const path = require('path');
 const EleventyImage = require('@11ty/eleventy-img');

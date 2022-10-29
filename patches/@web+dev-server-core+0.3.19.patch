@@ -1,0 +1,12 @@
+diff --git a/node_modules/@web/dev-server-core/package.json b/node_modules/@web/dev-server-core/package.json
+index c65693c..0e0bdc9 100644
+--- a/node_modules/@web/dev-server-core/package.json
++++ b/node_modules/@web/dev-server-core/package.json
+@@ -16,6 +16,7 @@
+   "main": "dist/index.js",
+   "exports": {
+     ".": {
++      "types": "./index.d.ts",
+       "import": "./index.mjs",
+       "require": "./dist/index.js"
+     },

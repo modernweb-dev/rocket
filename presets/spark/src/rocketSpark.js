@@ -5,6 +5,7 @@ class EnginePluginSpark {
 }
 
 export function rocketSpark() {
+  // @ts-ignore
   return /** @type {import('@rocket/cli').RocketPreset} */ ({
     setupEnginePlugins: [addPlugin(EnginePluginSpark)],
   });

@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /**
  * @template {import('../types/main.js').Plugin} T
  * @param {T} plugin
  * @param {import('../types/main.js').GetPluginOptions<T>} [options]
- * @param {import('../types/main.js').ManagerOptions} [managerOptions]
+ * @param {import('../types/main.js').ManagerOptions} managerOptions
  */
-// @ts-ignore
-export function addPlugin(plugin, options = {}, { how = 'after', location = 'bottom' } = {}) {
+export function addPlugin(plugin, options, { how = 'after', location = 'bottom' } = {}) {
   /**
    * @param {import('../types/main.js').MetaPlugin<T>[]} plugins
    */

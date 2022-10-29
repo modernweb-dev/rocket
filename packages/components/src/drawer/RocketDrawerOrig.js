@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
+
 import { LitElement, html } from 'lit-element';
 import { OverlayMixin, withModalDialogConfig } from '@lion/overlays';
 

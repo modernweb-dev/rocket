@@ -13,10 +13,12 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/tools/building-rollup/",
-  "main": "./index.js",
   "type": "module",
   "exports": {
-    ".": "./index.js"
+    ".": {
+      "types": "./dist-types/src/index.d.ts",
+      "default": "./src/index.js"
+    }
   },
   "scripts": {
     "build:babelrc": "rimraf dist && rollup -c demo/babelrc/rollup.config.js",
@@ -27,6 +29,7 @@
     "build:spa-js-input": "rimraf dist && rollup -c demo/js/rollup.spa-js-input.config.js",
     "build:spa-nomodule": "rimraf dist && rollup -c demo/js/rollup.spa-nomodule.config.js",
     "build:ts": "rimraf dist && rollup -c demo/ts/rollup.spa.config.js",
+    "prepublishOnly": "npm run types",
     "start:babelrc": "npm run build:babelrc && npm run start:build",
     "start:build": "web-dev-server --root-dir dist --compatibility none --open",
     "start:cjs": "npm run build:cjs && npm run start:build",
@@ -38,10 +41,11 @@
     "start:ts": "npm run build:ts && npm run start:build",
     "start:watch": "npm run build:spa-nomodule -- --watch & npm run start:build",
     "test": "npm run test:node",
-    "test:node": "mocha test-node/**/*.test.js --timeout 5000"
+    "test:node": "mocha test-node/**/*.test.js --timeout 5000",
+    "types": "wireit"
   },
   "files": [
-    "*.js",
+    "dist-types",
     "src"
   ],
   "keywords": [
@@ -54,17 +58,35 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@rollup/plugin-babel": "^5.2.2",
-    "@rollup/plugin-node-resolve": "^11.0.1",
-    "@rollup/plugin-replace": "^2.4.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-replace": "^5.0.1",
     "@web/rollup-plugin-html": "^1.8.0",
     "@web/rollup-plugin-import-meta-assets": "^1.0.4",
     "@web/rollup-plugin-polyfills-loader": "^1.1.0",
     "browserslist": "^4.16.1",
+    "plugins-manager": "^0.3.1",
     "rollup-plugin-terser": "^7.0.2",
     "workbox-broadcast-update": "^6.1.5",
     "workbox-cacheable-response": "^6.1.5",
     "workbox-expiration": "^6.1.5",
     "workbox-routing": "^6.1.5",
     "workbox-strategies": "^6.1.5"
+  },
+  "wireit": {
+    "types": {
+      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "dependencies": [
+        "../plugins-manager:types"
+      ],
+      "clean": "if-file-deleted",
+      "files": [
+        "src/**/*.js",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**",
+        ".tsbuildinfo"
+      ]
+    }
   }
 }

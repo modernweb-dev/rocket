@@ -1,7 +1,9 @@
+// @ts-nocheck
+
 import chalk from 'chalk';
 import { highlightSearchTerms, joinTitleHeadline } from './utils-shared.js';
 
-/** @typedef {import('./types').RocketSearchResult} RocketSearchResult */
+/** @typedef {import('../types/main').RocketSearchResult} RocketSearchResult */
 
 const CLEAR_COMMAND = process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H';
 

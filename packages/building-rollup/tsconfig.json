@@ -8,16 +8,8 @@
     "allowJs": true,
     "checkJs": true,
     "emitDeclarationOnly": true,
-    "moduleResolution": "Node16"
+    "moduleResolution": "NodeNext"
   },
-  "references": [],
-  "include": [
-    "src",
-    "types",
-    "test-node"
-  ],
-  "exclude": [
-    "dist",
-    "dist-types"
-  ]
+  "include": ["src", "types", "test-node"],
+  "exclude": ["dist-types"]
 }

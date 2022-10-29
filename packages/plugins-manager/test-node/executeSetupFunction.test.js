@@ -1,18 +1,12 @@
-import chai from 'chai';
+import { expect } from 'chai';
 
-import { executeSetupFunctions, addPlugin } from '../index.js';
-
-const { expect } = chai;
+import { executeSetupFunctions, addPlugin } from 'plugins-manager';
 
 describe('executeSetupFunctions', () => {
   const firstPlugin = () => 'firstPlugin';
   const secondPlugin = () => 'secondPlugin';
   const thirdPlugin = () => 'thirdPlugin';
 
-  /**
-   * @template T
-   * @type {import('../types/main.js.js').MetaPlugin<T>[]}
-   */
   const threeExistingPlugin = [
     { plugin: firstPlugin, options: {} },
     { plugin: secondPlugin, options: {} },

@@ -19,6 +19,13 @@ export class RocketSocialLink extends LitElement {
     siteName: { type: String },
   };
 
+  constructor() {
+    super();
+    this.url = '';
+    this.name = '';
+    this.siteName = '';
+  }
+
   render() {
     return html`
       <a

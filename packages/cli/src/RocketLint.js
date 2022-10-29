@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 // @ts-ignore
 import { CheckHtmlLinksCli } from 'check-html-links';
 import { bold, gray } from 'colorette';

@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/** @typedef {import('../types/code').Story} Story */
-/** @typedef {import('../types/code').ParseResult} ParseResult */
-/** @typedef {import('../types/code').ProcessResult} ProcessResult */
-/** @typedef {import('../types/code').MdjsProcessPlugin} MdjsProcessPlugin */
+/** @typedef {import('../types/code.js').Story} Story */
+/** @typedef {import('../types/code.js').ParseResult} ParseResult */
+/** @typedef {import('../types/code.js').ProcessResult} ProcessResult */
+/** @typedef {import('../types/code.js').MdjsProcessPlugin} MdjsProcessPlugin */
 
 import { unified } from 'unified';
 import markdown from 'remark-parse';
@@ -15,6 +14,7 @@ import raw from 'rehype-raw';
 import htmlSlug from 'rehype-slug';
 // @ts-ignore
 import htmlHeading from 'rehype-autolink-headings';
+// @ts-ignore
 import rehypePrism from 'rehype-prism-plus';
 // @ts-ignore
 import htmlStringify from 'rehype-stringify';

@@ -5,7 +5,6 @@ import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 addEventListener('install', () => {
-  /* eslint-disable @typescript-eslint/ban-ts-comment */
   // @ts-ignore
   skipWaiting();
   /* eslint-enable @typescript-eslint/ban-ts-comment */

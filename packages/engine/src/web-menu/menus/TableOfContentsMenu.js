@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Menu } from './Menu.js';
 
 /** @typedef {import('lit').TemplateResult} TemplateResult */

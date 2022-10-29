@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
 import path from 'path';
 import { TreeModel } from '@d4kmor/tree-model';

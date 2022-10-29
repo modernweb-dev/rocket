@@ -1,8 +1,15 @@
+// @ts-nocheck
+
 import { LitElement, html, css } from 'lit';
 
-// wait for all dialog animations to complete their promises
-const animationsComplete = element =>
-  Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+/**
+ * Wait for all dialog animations to complete their promises
+ *
+ * @param {HTMLElement} element
+ */
+function animationsComplete(element) {
+  return Promise.allSettled(element.getAnimations().map(animation => animation.finished));
+}
 
 export class RocketDialog extends LitElement {
   static properties = {
@@ -31,6 +38,10 @@ export class RocketDialog extends LitElement {
     `;
   }
 
+  /**
+   *
+   * @param {Event} ev
+   */
   async _submit(ev) {
     ev.preventDefault();
     if (ev.target?.value) {
@@ -40,8 +51,10 @@ export class RocketDialog extends LitElement {
   }
 
   firstUpdated() {
-    this._dialog = this.shadowRoot.querySelector('dialog');
-    this._invoker = this.shadowRoot.querySelector('slot[name="invoker"]')?.assignedElements()[0];
+    this._dialog = this.shadowRoot?.querySelector('dialog');
+    this._invoker = /** @type {HTMLSlotElement} */ (
+      this.shadowRoot?.querySelector('slot[name="invoker"]')
+    )?.assignedElements()[0];
   }
 
   async close() {

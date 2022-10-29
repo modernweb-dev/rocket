@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { html } from 'lit';
 
+/**
+ * @param {{ pageTree: import('@rocket/engine').PageTree, titleWrapperFn: (input: string) => string, description: string, siteName: string }} options
+ */
 export function pageDefaults({ pageTree, titleWrapperFn, description, siteName }) {
   return {
     ...defaultHead({ pageTree, titleWrapperFn, description, siteName }),
@@ -8,14 +10,17 @@ export function pageDefaults({ pageTree, titleWrapperFn, description, siteName }
   };
 }
 
+/**
+ * @param {{ pageTree: import('@rocket/engine').PageTree, titleWrapperFn: (input: string) => string, description: string, siteName: string }} options
+ */
 export function defaultHead({ pageTree, titleWrapperFn, description, siteName }) {
   return {
+    /**
+     * @param {any} data
+     */
     head__10: data => {
       const useDescription = data.description ? data.description : description;
-      const title = titleWrapperFn(
-        // @ts-ignore
-        pageTree.getPage(data.sourceRelativeFilePath)?.model?.name,
-      );
+      const title = titleWrapperFn(pageTree.getPage(data.sourceRelativeFilePath)?.model?.name);
       return html`
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

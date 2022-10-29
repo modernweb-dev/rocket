@@ -66,7 +66,7 @@
       "DOM",
       "DOM.Iterable",
       "ES6",
-      "ES2017",
+      "ES2020",
       // Allows array.flatMap. import `array-flat-polyfill` to cover node10
       "ES2019.array",
       "ScriptHost"

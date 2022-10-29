@@ -1,6 +1,6 @@
 import chai from 'chai';
 import path from 'path';
-import fs from 'fs';
+import { readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { rollup } from 'rollup';
 
@@ -8,7 +8,7 @@ const { expect } = chai;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * @param {object} config
+ * @param {import('@rocket/building-rollup').BuildingRollupOptions} config
  */
 async function buildAndWrite(config) {
   const bundle = await rollup(config);
@@ -16,21 +16,27 @@ async function buildAndWrite(config) {
   if (Array.isArray(config.output)) {
     await bundle.write(config.output[0]);
     await bundle.write(config.output[1]);
-  } else {
+  } else if (config.output) {
     await bundle.write(config.output);
   }
 }
 
+/**
+ * @param {string} configString
+ * @returns
+ */
 async function execute(configString) {
   const configPath = path.join(__dirname, 'fixtures', configString.split('/').join(path.sep));
   const config = (await import(configPath)).default;
   await buildAndWrite(config);
 
+  /**
+   * @param {string} fileName
+   */
   return async (fileName, { stripToBody = false, stripStartEndWhitespace = true } = {}) => {
-    let text = await fs.promises.readFile(
-      path.join(config.output.dir, fileName.split('/').join(path.sep)),
-    );
-    text = text.toString();
+    let text = (
+      await readFile(path.join(config.output.dir, fileName.split('/').join(path.sep)))
+    ).toString();
     if (stripToBody) {
       const bodyOpenTagEnd = text.indexOf('>', text.indexOf('<body') + 1) + 1;
       const bodyCloseTagStart = text.indexOf('</body>');

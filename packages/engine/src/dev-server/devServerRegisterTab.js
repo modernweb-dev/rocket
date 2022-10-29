@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { existsSync } from 'fs';
 import path from 'path';
 import { debuglog } from 'util';
