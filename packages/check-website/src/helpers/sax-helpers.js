@@ -1,7 +1,5 @@
 /** @typedef {import('sax-wasm').Tag} Tag */
 
-import { normalizeUrl, normalizeUrlWithHash } from './normalizeUrl.js';
-
 /**
  * @param {Tag} data
  * @param {string} name
@@ -23,6 +21,11 @@ export function getAttributeInfo(data, name) {
   return undefined;
 }
 
+/**
+ * @param {string} pageUrl
+ * @param {string} referenceUrl
+ * @returns {string}
+ */
 export function resolveToFullPageUrl(pageUrl, referenceUrl) {
   // = "mailto:" but html encoded)
   if (referenceUrl.startsWith('&#109;&#97;&#105;&#108;&#116;&#111;&#58;')) {
@@ -35,6 +38,12 @@ export function resolveToFullPageUrl(pageUrl, referenceUrl) {
   return url.href;
 }
 
+/**
+ * @param {string} value Comma 
+ * @param {string} pageUrl 
+ * @param {*} entry 
+ * @returns 
+ */
 export function getLinksFromSrcSet(value, pageUrl, entry) {
   const links = [];
   if (value.includes(',')) {

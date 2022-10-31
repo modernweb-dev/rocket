@@ -1,17 +1,17 @@
-# Check HTML Links
+# Check Website
 
 A fast checker for broken links/references in HTML.
 
 ## Installation
 
 ```shell
-npm i -D check-html-links
+npm i -D check-website
 ```
 
 ## Usage
 
 ```bash
-npx check-html-links _site
+npx check-website
 ```
 
 For docs please see our homepage [https://rocket.modern-web.dev/tools/check-html-links/overview/](https://rocket.modern-web.dev/tools/check-html-links/overview/).

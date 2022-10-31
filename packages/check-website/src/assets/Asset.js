@@ -1,6 +1,5 @@
 import { EventEmitter } from 'events';
 import fetch from 'node-fetch';
-import { normalizeUrl } from '../helpers/normalizeUrl.js';
 
 /** @typedef {import('../../types/main.js').AssetStatus} AssetStatus */
 
@@ -75,6 +74,8 @@ export class Asset {
   options = {
     originUrl: '',
     originPath: '',
+    localPath: '',
+    urlNormalized: '',
     fetch,
     /** @type {import('./AssetManager.js').AssetManager | undefined} */
     assetManager: undefined,
@@ -99,7 +100,7 @@ export class Asset {
   }
 
   exists() {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       if (this.status > ASSET_STATUS.unknown && this.status < ASSET_STATUS.missing) {
         resolve(true);
       } else if (this.options.isLocalUrl(this.url.href)) {

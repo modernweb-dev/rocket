@@ -17,11 +17,16 @@ export class Issue {
     this.options = { ...this.options, ...options };
   }
 
+  /**
+   * @param {(msg: string) => void} logger
+   * @returns {void}
+   */
   render(logger) {
+    const useLogger = logger || this.options.logger;
     if (this.options.duplicate) {
       return;
     }
-    logger(`${this.options.icon} ${this.options.title}: ${this.options.message}`);
-    logger(`  🛠️  ${this.options.filePath}`);
+    useLogger(`${this.options.icon} ${this.options.title}: ${this.options.message}`);
+    useLogger(`  🛠️  ${this.options.filePath}`);
   }
 }

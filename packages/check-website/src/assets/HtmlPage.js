@@ -86,7 +86,7 @@ export class HtmlPage extends Asset {
     }
 
     this.#parsing = true;
-    this.#parsingPromise = new Promise((resolve, reject) => {
+    this.#parsingPromise = new Promise(resolve => {
       if (this.status >= ASSET_STATUS.parsed && this.status < ASSET_STATUS.missing) {
         this.#parsing = false;
         resolve(true);

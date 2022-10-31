@@ -3,12 +3,24 @@ import { ASSET_STATUS } from '../assets/Asset.js';
 import { HtmlPage } from '../assets/HtmlPage.js';
 import { Queue } from '../helpers/Queue.js';
 
-// /** @typedef {import('../assets/HtmlPage.js').HtmlPage} HtmlPage */
 /** @typedef {import('../assets/Asset.js').Asset} Asset */
+/** @typedef {import('../CheckWebsiteCli.js').CheckWebsiteCli} CheckWebsiteCli */
+
 /** @typedef {import('../../types/main.js').Reference} Reference */
-/** @typedef {import('../../types/main.js').CheckResult} CheckResult */
+/** @typedef {import('../../types/main.js').CheckContext} CheckContext */
+/** @typedef {import('../../types/main.js').AddToQueueHelpers} AddToQueueHelpers */
+
 
 export class Plugin {
+  /** @type {import('../issues/IssueManager.js').IssueManager | undefined} */
+  issueManager;
+
+  /** @type {import('../assets/AssetManager.js').AssetManager | undefined} */
+  assetManager;
+
+  /** @type {CheckWebsiteCli | undefined} */
+  cli;
+
   _total = 0;
   _done = 0;
   _passed = 0;
@@ -28,19 +40,20 @@ export class Plugin {
   _queue = new Queue({
     action: async item => {
       let hadIssues = false;
+      /** @type {CheckContext} */
       const context = {
         report: issue => {
           hadIssues = true;
-          this.issueManager.add(issue);
+          this.issueManager?.add(issue);
         },
         item,
-        getAsset: url => this.assetManager.getAsset(url),
+        getAsset: url => this.assetManager?.getAsset(url),
         isLocalUrl: url => this.isLocalUrl(url),
       };
       await this.check(context);
 
       if (item.url && this.isLocalUrl(item.url)) {
-        const targetAsset = this.assetManager.getAsset(item.url);
+        const targetAsset = this.assetManager?.getAsset(item.url);
         if (targetAsset instanceof HtmlPage) {
           targetAsset.parse(); // no await but we request the parse => e.g. we crawl
         }
@@ -79,6 +92,7 @@ export class Plugin {
         if (asset.status >= ASSET_STATUS.parsed) {
           if (!this._processedPages.has(asset)) {
             this._processedPages.add(asset);
+            /** @type {AddToQueueHelpers} */
             const helpers = {
               isLocalUrl: url => this.isLocalUrl(url),
             };
@@ -92,7 +106,7 @@ export class Plugin {
 
   /**
    * @param {HtmlPage} page
-   * @param {{}} helpers
+   * @param {AddToQueueHelpers} helpers
    * @returns {Promise<unknown[]>}
    */
   async addToQueue(page, helpers) {
@@ -114,6 +128,9 @@ export class Plugin {
     }
   }
 
+  /**
+   * @param {CheckWebsiteCli} cli 
+   */
   setup(cli) {
     this._performanceStart = process.hrtime();
     this.cli = cli;
@@ -122,7 +139,7 @@ export class Plugin {
   /**
    * The actual check logic for a single item.
    *
-   * @param {unknown} context
+   * @param {CheckContext} context
    */
   async check(context) {
     // override me
@@ -156,6 +173,9 @@ export class Plugin {
     return this._skipped;
   }
 
+  /**
+   * @param {string} url 
+   */
   isLocalUrl(url) {
     return false;
   }

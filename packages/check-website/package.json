@@ -24,7 +24,7 @@
   "scripts": {
     "test": "mocha --timeout 5000 test-node/**/*.test.js test-node/*.test.js",
     "test:watch": "onchange 'src/**/*.js' 'test-node/**/*.js' -- npm test",
-    "types:copy": "copyfiles \"./types/**/*.d.ts\" dist-types/"
+    "types": "wireit"
   },
   "files": [
     "*.js",
@@ -42,8 +42,20 @@
     "sax-wasm": "^2.0.0",
     "slash": "^4.0.0"
   },
-  "devDependencies": {
-    "@types/glob": "^7.0.0"
-  },
-  "types": "dist-types/index.d.ts"
+  "wireit": {
+    "types": {
+      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "dependencies": [
+        "../plugins-manager:types"
+      ],
+      "files": [
+        "src/**/*.js",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**",
+        ".tsbuildinfo"
+      ]
+    }
+  }
 }

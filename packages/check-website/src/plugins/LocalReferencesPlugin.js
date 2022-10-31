@@ -5,7 +5,8 @@ import { ReferenceIssue } from '../issues/ReferenceIssue.js';
 import { Plugin } from './Plugin.js';
 
 /** @typedef {import('../../types/main.js').Reference} Reference */
-/** @typedef {import('../../types/main.js').CheckResult} CheckResult */
+/** @typedef {import('../../types/main.js').CheckContext} CheckContext */
+/** @typedef {import('../../types/main.js').AddToQueueHelpers} AddToQueueHelpers */
 
 export class LocalReferencesPlugin extends Plugin {
   constructor(options = {}) {
@@ -18,6 +19,7 @@ export class LocalReferencesPlugin extends Plugin {
 
   /**
    * @param {HtmlPage} page
+   * @param {AddToQueueHelpers} helpers
    * @returns {Promise<Reference[]>}
    */
   async addToQueue(page, helpers) {
@@ -32,10 +34,11 @@ export class LocalReferencesPlugin extends Plugin {
   }
 
   /**
-   * @param {{}} context
+   * @param {CheckContext} context
    */
   async check(context) {
-    const { item: reference, report, getAsset, isLocalUrl } = context;
+    const { item, report, getAsset } = context;
+    const reference = /** @type {Reference} */ (item);
     const targetAsset = getAsset(reference.url);
 
     const { page } = reference;

@@ -4,7 +4,8 @@ import { Plugin } from './Plugin.js';
 
 /** @typedef {import('../assets/HtmlPage.js').HtmlPage} HtmlPage */
 /** @typedef {import('../../types/main.js').Reference} Reference */
-/** @typedef {import('../../types/main.js').CheckResult} CheckResult */
+/** @typedef {import('../../types/main.js').CheckContext} CheckContext */
+/** @typedef {import('../../types/main.js').AddToQueueHelpers} AddToQueueHelpers */
 
 export class ExternalReferencesPlugin extends Plugin {
   constructor(options = {}) {
@@ -16,10 +17,11 @@ export class ExternalReferencesPlugin extends Plugin {
   }
 
   /**
-   * @param {Reference} reference
+   * @param {CheckContext} context
    */
   async check(context) {
-    const { item: reference, report, getAsset } = context;
+    const { item, report, getAsset } = context;
+    const reference = /** @type {Reference} */ (item);
     const asset = getAsset(reference.url);
 
     if (!await asset.exists()) {
@@ -33,6 +35,7 @@ export class ExternalReferencesPlugin extends Plugin {
 
   /**
    * @param {HtmlPage} page
+   * @param {AddToQueueHelpers} helpers
    * @returns {Promise<Reference[]>}
    */
   async addToQueue(page, helpers) {

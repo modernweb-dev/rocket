@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { cli } from './cli.js';
 import { hr } from './helpers.js';
 import { LitTerminal } from './LitTerminal.js';

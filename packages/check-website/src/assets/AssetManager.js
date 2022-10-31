@@ -109,6 +109,10 @@ export class AssetManager {
     return asset;
   }
 
+  /**
+   * @param {string} url 
+   * @returns {string}
+   */
   normalizeUrl(url) {
     if (this.options.isLocalUrl(url)) {
       return normalizeToLocalUrl(url);
@@ -116,10 +120,19 @@ export class AssetManager {
     return normalizeUrl(url);
   }
 
+  /**
+   * @param {string} url 
+   * @returns 
+   */
   get(url) {
     return this.assets.get(this.normalizeUrl(url));
   }
 
+
+  /**
+   * @param {string} url 
+   * @returns {boolean}
+   */
   has(url) {
     return this.assets.has(this.normalizeUrl(url));
   }
@@ -128,6 +141,10 @@ export class AssetManager {
     return this.assets.size;
   }
 
+  /**
+   * @param {string} url 
+   * @returns 
+   */
   getAsset(url) {
     let asset = this.get(url);
     if (!asset) {

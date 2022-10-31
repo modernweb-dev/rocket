@@ -13,9 +13,10 @@ const normalizeOptions = {
 
 /**
  * @param {string} url
+ * @param {import('normalize-url').Options} options
  * @returns {string}
  */
-export function normalizeUrl(url, options) {
+export function normalizeUrl(url, options = {}) {
   if (url.startsWith('mailto:')) {
     return url.toLowerCase();
   }
@@ -32,6 +33,10 @@ export function normalizeUrl(url, options) {
   return normalizeUrlDep(url, { ...normalizeOptions, ...options }).toLowerCase();
 }
 
+/**
+ * @param {string} url 
+ * @returns {string}
+ */
 export function normalizeToLocalUrl(url) {
   return normalizeUrl(url, { removeQueryParameters: true });
 }
