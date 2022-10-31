@@ -1,0 +1,29 @@
+import { expect } from 'chai';
+import { red, green } from 'colorette';
+
+import { ExternalReferencesPlugin } from 'check-website';
+import { setupTestCli } from './test-helpers.js';
+
+function getOptions() {
+  return {
+    originUrl: 'https://example.com',
+    plugins: [new ExternalReferencesPlugin()],
+  };
+}
+
+describe('ExternalReferencePlugin', () => {
+  it('01: finds a missing page', async () => {
+    const { execute, capturedLogs } = await setupTestCli(
+      'fixtures/04-ExternalReferencePlugin/01-page-missing',
+      getOptions(),
+      { captureLogs: true },
+    );
+    await execute();
+    expect(capturedLogs.join('\n')).to.include(`${green('1 passed')}, ${red('1 failed')}`);
+  });
+
+  // it('02: finds a missing hash', async () => {
+  //   const { cli } = await setupTestCli('fixtures/04-ExternalReferencePlugin/02-hash-missing');
+  //   await cli.start();
+  // });
+});

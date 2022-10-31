@@ -73,13 +73,13 @@ export class RocketLint {
 
     const checkLinks = new CheckHtmlLinksCli();
     checkLinks.setOptions({
-      rootDir: folderToCheck,
+      inputDir: folderToCheck,
       printOnError: true,
       continueOnError: false,
       absoluteBaseUrl: this.cli.options.absoluteBaseUrl,
       ...userCheckHtmlLinksOptions,
     });
 
-    await checkLinks.run();
+    await checkLinks.start();
   }
 }

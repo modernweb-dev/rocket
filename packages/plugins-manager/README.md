@@ -1,3 +1,3 @@
 # Plugins Manager
 
-[=> See Source <=](../../docs/docs/tools/plugins-manager.md)
+[=> See Source <=](../../site/pages/30--tools/10--plugins-manager/10--overview.rocket.md)
