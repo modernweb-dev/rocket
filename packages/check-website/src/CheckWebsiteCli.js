@@ -186,6 +186,10 @@ export class CheckWebsiteCli extends LitTerminal {
     return `${title} ${progress} ${done}/${total} files | 🕑 ${duration}s`;
   }
 
+  /**
+   * @param {import('../types/main.js').PluginInterface} plugin 
+   * @returns {string}
+   */
   renderPlugin(plugin) {
     const checkLabel = plugin.options.checkLabel;
     const doneNr = plugin.getDone();

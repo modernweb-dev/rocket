@@ -42,7 +42,7 @@ export interface FullCheckWebsiteCliOptions {
   assetManager: AssetManager;
   issueManager: IssueManager;
   configFile: string;
-  plugins: Plugin[];
+  plugins: PluginInterface[];
   isLocalUrl?: (url: string) => boolean;
 }
 
@@ -54,6 +54,7 @@ export interface PluginInterface extends Plugin {
    * The actual check logic for a single item.
    */
   async check(context: CheckContext): Promise<void>;
+  onParseElement?(element: ParseElement, page: HtmlPage): void;
 }
 
 export interface FullAssetManagerOptions {
@@ -62,6 +63,7 @@ export interface FullAssetManagerOptions {
   fetch: fetchType;
   plugins: PluginInterface[];
   isLocalUrl: (url: string) => boolean;
+  onParseElementCallbacks: (((element: ParseElement, page: HtmlPage) => void) | undefined)[]
 }
 
 export type AssetManagerOptions = Partial<FullAssetManagerOptions>;

@@ -49,10 +49,11 @@ export class AssetManager {
     fetch,
     plugins: [],
     isLocalUrl: url => url.startsWith(this.options.originUrl),
+    onParseElementCallbacks: [],
   };
 
   /**
-   * @param {import('../../types/main.js').AssetManagerOptions} options 
+   * @param {import('../../types/main.js').AssetManagerOptions} [options]
    */
   constructor(options) {
     this.options = { ...this.options, ...options };
