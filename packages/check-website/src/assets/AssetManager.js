@@ -42,16 +42,18 @@ export class AssetManager {
     action: item => /** @type {Asset} */ (item).executeExists(),
   });
 
+  /** @type {import('../../types/main.js').FullAssetManagerOptions} */
   options = {
     originUrl: '',
     originPath: '',
     fetch,
-    /** @type {Plugin[]} */
     plugins: [],
-    /** @param {string} url */
     isLocalUrl: url => url.startsWith(this.options.originUrl),
   };
 
+  /**
+   * @param {import('../../types/main.js').AssetManagerOptions} options 
+   */
   constructor(options) {
     this.options = { ...this.options, ...options };
   }

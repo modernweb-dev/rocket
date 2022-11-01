@@ -37,13 +37,6 @@ const currentDir = path.dirname(new URL(import.meta.url).pathname);
 
 function cleanup(page) {
   const keep = {};
-  keep.localPath = page.localPath
-    ? `abs::${path.relative(currentDir, page.localPath)}`
-    : page.localPath;
-  keep.localSourcePath = page.localSourcePath
-    ? `abs::${path.relative(currentDir, page.localSourcePath)}`
-    : page.localSourcePath;
-
   keep.hashes = page.hashes;
   keep.references = page.references.map(ref => ({
     url: ref.url,
@@ -51,6 +44,14 @@ function cleanup(page) {
     tag: ref.tag,
     value: ref.value,
   }));
+  const optKeep = {};
+  optKeep.localPath = page.options.localPath
+    ? `abs::${path.relative(currentDir, page.options.localPath)}`
+    : page.options.localPath;
+  optKeep.localSourcePath = page.options.localSourcePath
+    ? `abs::${path.relative(currentDir, page.options.localSourcePath)}`
+    : page.options.localSourcePath;
+  keep.options = optKeep;
   keep.url = page.url;
   return keep;
 }
@@ -77,8 +78,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/01-hashes.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/01-hashes.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/01-hashes.html',
+        localSourcePath: '',
+      },
       hashes: ['first', 'second', 'third'],
       references: [
         {
@@ -105,8 +108,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://is.mocked.com/'),
-      localPath: '',
-      localSourcePath: '',
+      options: {
+        localPath: '',
+        localSourcePath: '',
+      },
       hashes: ['first', 'second', 'third'],
       references: [
         {
@@ -133,8 +138,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/02-internal-link.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/02-internal-link.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/02-internal-link.html',
+        localSourcePath: '',
+      },
       hashes: [],
       references: [
         {
@@ -177,8 +184,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/03-images.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/03-images.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/03-images.html',
+        localSourcePath: '',
+      },
       hashes: [],
       references: [
         {
@@ -217,8 +226,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/04-picture-srcset.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/04-picture-srcset.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/04-picture-srcset.html',
+        localSourcePath: '',
+      },
       hashes: [],
       references: [
         {
@@ -273,8 +284,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/05-mailto.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/05-mailto.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/05-mailto.html',
+        localSourcePath: '',
+      },
       hashes: [],
       references: [
         {
@@ -308,8 +321,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/06-not-http-schema.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/06-not-http-schema.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/06-not-http-schema.html',
+        localSourcePath: '',
+      },
       hashes: [],
       references: [
         {
@@ -340,8 +355,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/07-tel.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/07-tel.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/07-tel.html',
+        localSourcePath: '',
+      },
       hashes: [],
       references: [
         {
@@ -368,8 +385,10 @@ describe('HtmlPage', () => {
 
     expect(cleanup(page)).to.deep.equal({
       url: new URL('https://example.com/fixtures/01-HtmlPage/08-ignore-about-schema.html'),
-      localPath: 'abs::fixtures/01-HtmlPage/08-ignore-about-schema.html',
-      localSourcePath: '',
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/08-ignore-about-schema.html',
+        localSourcePath: '',
+      },
       hashes: [],
       references: [
         {

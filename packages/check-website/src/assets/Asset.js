@@ -33,11 +33,6 @@ export class Asset {
   url;
 
   /**
-   * @type {string}
-   */
-  urlNormalized = '';
-
-  /**
    * @type {AssetStatus}
    */
   #status = ASSET_STATUS.unknown;
@@ -59,40 +54,29 @@ export class Asset {
    */
   events = new EventEmitter();
 
-  /**
-   * Absolute path to the HTML file on the local filesystem
-   * @type {string}
-   */
   localPath = '';
 
-  /**
-   * Absolute path to the optional source file that generated the asset file
-   * @type {string}
-   */
   localSourcePath = '';
 
+  /** @type {import('../../types/main.js').FullAssetOptions} */
   options = {
     originUrl: '',
     originPath: '',
     localPath: '',
-    urlNormalized: '',
+    localSourcePath: '',
     fetch,
-    /** @type {import('./AssetManager.js').AssetManager | undefined} */
     assetManager: undefined,
-    /** @param {string} url */
     isLocalUrl: url => url.startsWith(this.options.originUrl),
   };
 
   /**
    *
    * @param {URL} url
-   * @param {*} options
+   * @param {import('../../types/main.js').AssetOptions} options
    */
   constructor(url, options) {
     this.options = { ...this.options, ...options };
     this.url = url;
-    this.localPath = this.options.localPath;
-    this.urlNormalized = this.options.urlNormalized;
 
     if (this.url.protocol === 'file:') {
       throw new Error(`File protocol is not supported. Used by ${this.url.href}`);

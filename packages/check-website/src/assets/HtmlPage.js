@@ -41,18 +41,22 @@ export class HtmlPage extends Asset {
     { tagName: 'script', attribute: 'src' },
   ];
 
-  // TODO: enable hooks for astro specifics mainContent, mainContentLang, pathnameLang, isLanguageFallback
+  /** @type {import('../../types/main.js').FullHtmlPageOptions} */
+  options = {
+    ...this.options,
+    onParseElementCallbacks: [],
+  }
 
   /**
-   *
    * @param {URL} url
-   * @param {*} options
+   * @param {import('../../types/main.js').HtmlPageOptions} options
    */
   constructor(url, options) {
     super(url, {
       onParseElementCallbacks: [],
       ...options,
     });
+    this.options = { ...this.options, ...options };
   }
 
   /**
@@ -130,23 +134,24 @@ export class HtmlPage extends Asset {
               const attribute = getAttributeInfo(data, possibleAttributeName);
               if (attribute) {
                 const { value, start, end, name } = attribute;
+                /** @type {Reference} */
                 const entry = {
                   start,
                   end,
                   value,
-                  url: resolveToFullPageUrl(this.url, value),
+                  url: resolveToFullPageUrl(this.url.href, value),
                   page: this,
                   attribute: name,
                   tag: data.name,
                 };
                 if (name === 'srcset') {
-                  const links = getLinksFromSrcSet(value, this.url, entry);
+                  const links = getLinksFromSrcSet(value, this.url.href, entry);
                   this.references.push(...links);
                 } else {
                   this.references.push(entry);
                   if (this.status === ASSET_STATUS.existsLocal) {
                     // only add "sub" assets for local files
-                    this.options.assetManager.addUrl(entry.url);
+                    this.options.assetManager?.addUrl(entry.url);
                   }
                 }
               }
@@ -166,6 +171,7 @@ export class HtmlPage extends Asset {
           }
         }
 
+        /** @type {import('../../types/main.js').ParseElement} */
         const element = {
           tagName: data.name.toUpperCase(),
           getAttribute: name => getAttributeInfo(data, name)?.value,
@@ -187,11 +193,11 @@ export class HtmlPage extends Asset {
 
     return new Promise((resolve, reject) => {
       if (this.status === ASSET_STATUS.existsLocal) {
-        if (!this.localPath) {
+        if (!this.options.localPath) {
           throw new Error(`Missing local path on the asset ${this.url.href}`);
         }
         // Read from FileSystem
-        const readable = fs.createReadStream(this.localPath, streamOptions);
+        const readable = fs.createReadStream(this.options.localPath, streamOptions);
         readable.on('data', chunk => {
           // @ts-expect-error
           parser.write(chunk);
@@ -205,7 +211,7 @@ export class HtmlPage extends Asset {
 
       if (this.status === ASSET_STATUS.existsExternal) {
         // Fetch from the network
-        this.options.fetch(this.url).then(async response => {
+        this.options.fetch(this.url.href).then(async response => {
           if (!response.ok || !response.body) {
             reject('Error in response');
             return;
