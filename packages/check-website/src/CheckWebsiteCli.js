@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-/** @typedef {import('../types/main').CheckHtmlLinksCliOptions} CheckHtmlLinksCliOptions */
+/** @typedef {import('../types/main.js').FullCheckWebsiteCliOptions} FullCheckWebsiteCliOptions */
+/** @typedef {import('../types/main.js').CheckWebsiteCliOptions} CheckWebsiteCliOptions */
 /** @typedef {import('./assets/Asset.js').Asset} Asset */
 
 import { EventEmitter } from 'events';
@@ -21,15 +22,17 @@ import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import { pathToFileURL } from 'url';
 import { normalizeUrl } from './helpers/normalizeUrl.js';
+import { HtmlPage } from './assets/HtmlPage.js';
 
 export class CheckWebsiteCli extends LitTerminal {
-  /** @type {CheckHtmlLinksCliOptions} */
+  /** @type {FullCheckWebsiteCliOptions} */
   options = {
+    configFile: '',
     inputDir: process.cwd(),
     originUrl: '',
     assetManager: new AssetManager(),
     issueManager: new IssueManager(),
-    searchHtmlEntrypoints: false,
+    plugins: [],
   };
 
   /**
@@ -64,11 +67,12 @@ export class CheckWebsiteCli extends LitTerminal {
       new ExternalReferencesPlugin(),
     ];
 
+    /** @param {string} msg */
     this.options.issueManager.logger = msg => this.logStatic(msg);
   }
 
   /**
-   * @param {Partial<CheckHtmlLinksCliOptions>} newOptions
+   * @param {Partial<CheckWebsiteCliOptions>} newOptions
    */
   setOptions(newOptions) {
     this.options = {
@@ -110,6 +114,7 @@ export class CheckWebsiteCli extends LitTerminal {
     }
 
     if (!this.options.isLocalUrl) {
+      /** @param {string} url */
       this.options.isLocalUrl = url => {
         const normalizedUrl = normalizeUrl(url);
         return normalizedUrl.startsWith(this.options.originUrl);
@@ -165,7 +170,9 @@ export class CheckWebsiteCli extends LitTerminal {
 
     // start crawling at the main index.html
     const rootPage = this.options.assetManager.get(this.options.originUrl + '/index.html');
-    await rootPage.parse();
+    if (rootPage && rootPage instanceof HtmlPage) {
+      await rootPage.parse();
+    }
   }
 
   renderParsing() {

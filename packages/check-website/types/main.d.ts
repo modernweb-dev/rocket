@@ -36,6 +36,26 @@ export interface AddToQueueHelpers {
   isLocalUrl: (url: string) => boolean;
 }
 
+export interface FullCheckWebsiteCliOptions {
+  inputDir: string;
+  originUrl: string;
+  assetManager: AssetManager;
+  issueManager: IssueManager;
+  configFile: string;
+  plugins: Plugin[];
+  isLocalUrl?: (url: string) => boolean;
+}
+
+export type CheckWebsiteCliOptions = Partial<FullCheckWebsiteCliOptions>;
+
+
+export interface PluginInterface extends Plugin {
+  /**
+   * The actual check logic for a single item.
+   */
+  async check(context: CheckContext): Promise<void>;
+}
+
 // OLD
 
 export interface Link {

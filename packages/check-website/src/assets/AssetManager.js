@@ -9,23 +9,44 @@ import { normalizeUrl, normalizeToLocalUrl } from '../helpers/normalizeUrl.js';
 import { Queue } from '../helpers/Queue.js';
 import { decodeNumberHtmlEntities } from '../helpers/decodeNumberHtmlEntities.js';
 
+/** @typedef {import('../plugins/Plugin.js').Plugin} Plugin */
+
 const classMap = {
   Asset,
   HtmlPage,
 };
+
+/**
+ * @param {string} url
+ * @returns {URL}
+ */
+function getUrl(url) {
+  try {
+    return new URL(url);
+  } catch (e) {
+    // handle html encoded mailto links like <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;">
+    const decoded = decodeNumberHtmlEntities(url);
+    return new URL(decoded);
+  }
+}
 
 export class AssetManager {
   /** @type {Map<string, Asset | HtmlPage>} */
   assets = new Map();
 
   /** Queue *************************/
-  parsingQueue = new Queue({ action: item => item.executeParse() });
-  existsQueue = new Queue({ action: item => item.executeExists() });
+  parsingQueue = new Queue({
+    action: item => /** @type {HtmlPage} */ (item).executeParse(),
+  });
+  existsQueue = new Queue({
+    action: item => /** @type {Asset} */ (item).executeExists(),
+  });
 
   options = {
     originUrl: '',
     originPath: '',
     fetch,
+    /** @type {Plugin[]} */
     plugins: [],
     /** @param {string} url */
     isLocalUrl: url => url.startsWith(this.options.originUrl),
@@ -82,18 +103,9 @@ export class AssetManager {
    * @returns {Asset | HtmlPage}
    */
   addUrl(url) {
-    let useUrl = url;
-    if (typeof url === 'string') {
-      try {
-        useUrl = new URL(url);
-      } catch (e) {
-        // handle html encoded mailto links like <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;">
-        const decoded = decodeNumberHtmlEntities(url);
-        useUrl = new URL(decoded);
-      }
-    }
+    const useUrl = typeof url === 'string' ? getUrl(url) : url;
     if (this.has(useUrl.href)) {
-      return this.get(useUrl.href);
+      return /** @type {Asset | HtmlPage} */ (this.get(useUrl.href));
     }
 
     const asset = new Asset(useUrl, {
@@ -110,7 +122,7 @@ export class AssetManager {
   }
 
   /**
-   * @param {string} url 
+   * @param {string} url
    * @returns {string}
    */
   normalizeUrl(url) {
@@ -121,16 +133,15 @@ export class AssetManager {
   }
 
   /**
-   * @param {string} url 
-   * @returns 
+   * @param {string} url
+   * @returns
    */
   get(url) {
     return this.assets.get(this.normalizeUrl(url));
   }
 
-
   /**
-   * @param {string} url 
+   * @param {string} url
    * @returns {boolean}
    */
   has(url) {
@@ -142,8 +153,8 @@ export class AssetManager {
   }
 
   /**
-   * @param {string} url 
-   * @returns 
+   * @param {string} url
+   * @returns {Asset | HtmlPage}
    */
   getAsset(url) {
     let asset = this.get(url);

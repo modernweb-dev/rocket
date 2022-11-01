@@ -39,10 +39,10 @@ export function resolveToFullPageUrl(pageUrl, referenceUrl) {
 }
 
 /**
- * @param {string} value Comma 
- * @param {string} pageUrl 
- * @param {*} entry 
- * @returns 
+ * @param {string} value Comma
+ * @param {string} pageUrl
+ * @param {import('../../types/main.js').Reference} entry
+ * @returns
  */
 export function getLinksFromSrcSet(value, pageUrl, entry) {
   const links = [];

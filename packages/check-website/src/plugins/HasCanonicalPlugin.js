@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import path from 'path';
 import { PageIssue } from '../issues/PageIssue.js';
 import { Plugin } from './Plugin.js';

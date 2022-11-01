@@ -7,7 +7,12 @@ import { Plugin } from './Plugin.js';
 /** @typedef {import('../../types/main.js').Reference} Reference */
 /** @typedef {import('../../types/main.js').CheckContext} CheckContext */
 /** @typedef {import('../../types/main.js').AddToQueueHelpers} AddToQueueHelpers */
+/** @typedef {import('../../types/main.js').PluginInterface} PluginInterface */
 
+
+/**
+ * @implement {PluginInterface}
+ */
 export class LocalReferencesPlugin extends Plugin {
   constructor(options = {}) {
     super({

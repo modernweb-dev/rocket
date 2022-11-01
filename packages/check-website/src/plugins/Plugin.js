@@ -9,7 +9,7 @@ import { Queue } from '../helpers/Queue.js';
 /** @typedef {import('../../types/main.js').Reference} Reference */
 /** @typedef {import('../../types/main.js').CheckContext} CheckContext */
 /** @typedef {import('../../types/main.js').AddToQueueHelpers} AddToQueueHelpers */
-
+/** @typedef {import('../../types/main.js').PluginInterface} PluginInterface */
 
 export class Plugin {
   /** @type {import('../issues/IssueManager.js').IssueManager | undefined} */
@@ -38,7 +38,8 @@ export class Plugin {
   _checkItems = new Map();
 
   _queue = new Queue({
-    action: async item => {
+    action: async _item => {
+      const item = /** @type {Reference} */ (_item);
       let hadIssues = false;
       /** @type {CheckContext} */
       const context = {
@@ -47,10 +48,15 @@ export class Plugin {
           this.issueManager?.add(issue);
         },
         item,
-        getAsset: url => this.assetManager?.getAsset(url),
+        getAsset: url => {
+          if (!this.assetManager) {
+            throw Error('Asset manager not available');
+          }
+          return this.assetManager.getAsset(url);
+        },
         isLocalUrl: url => this.isLocalUrl(url),
       };
-      await this.check(context);
+      await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(context);
 
       if (item.url && this.isLocalUrl(item.url)) {
         const targetAsset = this.assetManager?.getAsset(item.url);
@@ -72,7 +78,7 @@ export class Plugin {
     doneAction: () => {
       // TODO: fix magic value - test exit to early if < 10 is used
       setTimeout(() => this.events.emit('done'), 20);
-    }
+    },
   });
 
   _processedPages = new Set();
@@ -83,7 +89,6 @@ export class Plugin {
   events = new EventEmitter();
 
   /**
-   *
    * @param {Asset} asset
    */
   async onNewParsedAsset(asset) {
@@ -129,20 +134,11 @@ export class Plugin {
   }
 
   /**
-   * @param {CheckWebsiteCli} cli 
+   * @param {CheckWebsiteCli} cli
    */
   setup(cli) {
     this._performanceStart = process.hrtime();
     this.cli = cli;
-  }
-
-  /**
-   * The actual check logic for a single item.
-   *
-   * @param {CheckContext} context
-   */
-  async check(context) {
-    // override me
   }
 
   isDone() {
@@ -174,7 +170,7 @@ export class Plugin {
   }
 
   /**
-   * @param {string} url 
+   * @param {string} url
    */
   isLocalUrl(url) {
     return false;

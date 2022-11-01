@@ -1,6 +1,7 @@
 import { formatPerformance } from './formatPerformance.js';
 
 export class Queue {
+  /** @type {unknown[]} */
   #queue = [];
   #done = 0;
 
@@ -9,6 +10,9 @@ export class Queue {
   #action;
   #doneAction;
 
+  /**
+   * @param {{ action: (item: unknown) => Promise<void>, doneAction?: () => void }} params 
+   */
   constructor(params) {
     if (!params?.action) {
       throw new Error(
@@ -19,6 +23,10 @@ export class Queue {
     this.#doneAction = params.doneAction;
   }
 
+  /**
+   * @param {unknown} item
+   * @param {() => void} [cb]
+   */
   add(item, cb) {
     this.#queue.push(item);
     this.requestStart();
@@ -27,13 +35,19 @@ export class Queue {
     }
   }
 
+  /**
+   * @param {unknown[]} items
+   * @param {() => void} [cb]
+   */
   addMultiple(items, cb) {
     items.forEach(item => this.add(item, cb));
   }
 
   #running = false;
   #requestedStart = false;
+  /** @type {[number, number] | undefined} */
   #durationStart;
+  /** @type {[number, number] | undefined} */
   duration;
 
   requestStart() {
