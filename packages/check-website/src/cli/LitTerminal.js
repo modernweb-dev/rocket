@@ -181,6 +181,7 @@ export class LitTerminal {
         ...Object.getOwnPropertySymbols(props),
       ];
       for (const p of propKeys) {
+        // @ts-ignore
         this.createProperty(p, props[p]);
       }
     }
@@ -212,7 +213,7 @@ export class LitTerminal {
    * @nocollapse
    * @category properties
    * @param {PropertyKey} name Name of property
-   * @param {PropertyDeclaration} options Property declaration
+   * @param {import('../../types/LitTerminal.js').PropertyDeclaration} options Property declaration
    */
   static createProperty(name, options) {
     // Note, since this can be called by the `@property` decorator which
@@ -261,10 +262,10 @@ export class LitTerminal {
    *
    * @nocollapse
    * @category properties
-   * @param {string} name
-   * @param {string} key
-   * @param {*} options
-   * @returns
+   * @param {PropertyKey} name
+   * @param {string | symbol} key
+   * @param {import('../../types/LitTerminal.js').PropertyDeclaration} options
+   * @returns {PropertyDescriptor | undefined}
    */
   static getPropertyDescriptor(name, key, options) {
     return {
@@ -335,32 +336,32 @@ export class LitTerminal {
     // return this.getUpdateComplete();
   }
 
-  /**
-   * Override point for the `updateComplete` promise.
-   *
-   * It is not safe to override the `updateComplete` getter directly due to a
-   * limitation in TypeScript which means it is not possible to call a
-   * superclass getter (e.g. `super.updateComplete.then(...)`) when the target
-   * language is ES5 (https://github.com/microsoft/TypeScript/issues/338).
-   * This method should be overridden instead. For example:
-   *
-   * ```ts
-   * class MyElement extends LitElement {
-   *   override async getUpdateComplete() {
-   *     const result = await super.getUpdateComplete();
-   *     await this._myChild.updateComplete;
-   *     return result;
-   *   }
-   * }
-   * ```
-   *
-   * @returns {Promise<boolean>} A promise of a boolean that resolves to true if the update completed
-   *     without triggering another update.
-   * @category updates
-   */
-  getUpdateComplete() {
-    return this.__updatePromise;
-  }
+  // /**
+  //  * Override point for the `updateComplete` promise.
+  //  *
+  //  * It is not safe to override the `updateComplete` getter directly due to a
+  //  * limitation in TypeScript which means it is not possible to call a
+  //  * superclass getter (e.g. `super.updateComplete.then(...)`) when the target
+  //  * language is ES5 (https://github.com/microsoft/TypeScript/issues/338).
+  //  * This method should be overridden instead. For example:
+  //  *
+  //  * ```ts
+  //  * class MyElement extends LitElement {
+  //  *   override async getUpdateComplete() {
+  //  *     const result = await super.getUpdateComplete();
+  //  *     await this._myChild.updateComplete;
+  //  *     return result;
+  //  *   }
+  //  * }
+  //  * ```
+  //  *
+  //  * @returns {Promise<boolean>} A promise of a boolean that resolves to true if the update completed
+  //  *     without triggering another update.
+  //  * @category updates
+  //  */
+  // getUpdateComplete() {
+  //   return this.__updatePromise;
+  // }
 }
 
 const defaultPropertyDeclaration = {
