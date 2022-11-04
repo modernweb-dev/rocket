@@ -11,7 +11,7 @@ import { green, red, gray } from 'colorette';
 import { gatherFiles } from './helpers/gatherFiles.js';
 import { renderProgressBar } from './cli/renderProgressBar.js';
 import { LocalReferencesPlugin } from './plugins/LocalReferencesPlugin.js';
-import { HasCanonicalPlugin } from './plugins/HasCanonicalPlugin.js';
+// import { HasCanonicalPlugin } from './plugins/HasCanonicalPlugin.js';
 import { ExternalReferencesPlugin } from './plugins/ExternalReferencesPlugin.js';
 import { AssetManager } from './assets/AssetManager.js';
 import { LitTerminal } from './cli/LitTerminal.js';
@@ -134,6 +134,8 @@ export class CheckWebsiteCli extends LitTerminal {
     this.options.assetManager = new AssetManager({
       originPath: this.options.inputDir,
       originUrl: this.options.originUrl,
+      // TODO: fix type...
+      // @ts-ignore
       onParseElementCallbacks,
       plugins: this.options.plugins,
       isLocalUrl: this.options.isLocalUrl,

@@ -97,6 +97,9 @@ export class AssetManager {
     const asset = new classMap[typeClass](url, {
       assetManager: this,
       localPath,
+      originPath: this.options.originPath,
+      originUrl: this.options.originUrl,
+      onParseElementCallbacks: this.options.onParseElementCallbacks,
     });
     asset.status = ASSET_STATUS.existsLocal;
     this.assets.set(this.normalizeUrl(url.href), asset);
@@ -128,6 +131,7 @@ export class AssetManager {
       assetManager: this,
       originPath: this.options.originPath,
       originUrl: this.options.originUrl,
+      onParseElementCallbacks: this.options.onParseElementCallbacks,
     });
 
     this.assets.set(this.normalizeUrl(useUrl.href), asset);

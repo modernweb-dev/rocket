@@ -21,7 +21,6 @@ export interface Reference {
 type AssetStatusKeys = keyof typeof ASSET_STATUS;
 export type AssetStatus = typeof ASSET_STATUS[AssetStatusKeys];
 
-
 export interface ParseElement {
   tagName: string;
   getAttribute(name: string): string | undefined;
@@ -50,13 +49,13 @@ export interface FullCheckWebsiteCliOptions {
 
 export type CheckWebsiteCliOptions = Partial<FullCheckWebsiteCliOptions>;
 
-
 export interface PluginInterface extends Plugin {
   /**
    * The actual check logic for a single item.
    */
   check(context: CheckContext): Promise<void>;
   onParseElement?(element: ParseElement, page: HtmlPage): void;
+  onParseElementCallbacks?: ((element: ParseElement, page: HtmlPage) => void)[];
 }
 
 export interface FullAssetManagerOptions {
@@ -65,11 +64,10 @@ export interface FullAssetManagerOptions {
   fetch: fetchType;
   plugins: PluginInterface[];
   isLocalUrl: (url: string) => boolean;
-  onParseElementCallbacks: (((element: ParseElement, page: HtmlPage) => void) | undefined)[]
+  onParseElementCallbacks: ((element: ParseElement, page: HtmlPage) => void)[];
 }
 
 export type AssetManagerOptions = Partial<FullAssetManagerOptions>;
-
 
 // For: assets/Asset.js
 

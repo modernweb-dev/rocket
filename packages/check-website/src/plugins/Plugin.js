@@ -39,7 +39,7 @@ export class Plugin {
 
   _queue = new Queue({
     action: async _item => {
-      const item = /** @type {Reference} */ (_item);
+      const item = /** @type {Reference | HtmlPage} */ (_item);
       let hadIssues = false;
       /** @type {CheckContext} */
       const context = {
@@ -58,10 +58,13 @@ export class Plugin {
       };
       await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(context);
 
-      if (item.url && this.isLocalUrl(item.url)) {
-        const targetAsset = this.assetManager?.getAsset(item.url);
-        if (targetAsset instanceof HtmlPage) {
-          targetAsset.parse(); // no await but we request the parse => e.g. we crawl
+      if (item.url) {
+        const url = item.url instanceof URL ? item.url.href : item.url;
+        if (this.isLocalUrl(url)) {
+          const targetAsset = this.assetManager?.getAsset(url);
+          if (targetAsset instanceof HtmlPage) {
+            targetAsset.parse(); // no await but we request the parse => e.g. we crawl
+          }
         }
       }
 
