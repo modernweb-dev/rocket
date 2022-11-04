@@ -1,8 +1,10 @@
 import { Asset, ASSET_STATUS } from '../src/assets/Asset.js';
 import { AssetManager } from '../src/assets/AssetManager.js';
+import { IssueManager } from '../src/issues/IssueManager.js';
 import { HtmlPage } from '../src/assets/HtmlPage.js';
 import { Plugin } from '../src/plugins/Plugin.js';
 import { RequestInfo, RequestInit, Response } from 'node-fetch';
+import { Issue } from '../src/issues/Issue.js';
 
 type fetchType = (url: RequestInfo, init?: RequestInit) => Promise<Response>;
 
@@ -26,7 +28,7 @@ export interface ParseElement {
 }
 
 export interface CheckContext {
-  report: (issue) => void;
+  report: (issue: Issue) => void;
   item: unknown;
   getAsset: (url: string) => HtmlPage | Asset;
   isLocalUrl: (url: string) => boolean;
@@ -53,7 +55,7 @@ export interface PluginInterface extends Plugin {
   /**
    * The actual check logic for a single item.
    */
-  async check(context: CheckContext): Promise<void>;
+  check(context: CheckContext): Promise<void>;
   onParseElement?(element: ParseElement, page: HtmlPage): void;
 }
 
@@ -92,55 +94,3 @@ export interface FullHtmlPageOptions extends FullAssetOptions {
   onParseElementCallbacks: ((element: ParseElement, page: HtmlPage) => void)[];
 }
 export type HtmlPageOptions = Partial<FullHtmlPageOptions>;
-
-
-
-// OLD
-
-export interface Link {
-  value: string;
-  attribute: string;
-  htmlFilePath: string;
-  line: number;
-  character: number;
-}
-
-export interface Usage {
-  attribute: string;
-  value: string;
-  anchor: string;
-  file: string;
-  line: number;
-  character: number;
-}
-
-export interface LocalFile {
-  filePath: string;
-  usage: Usage[];
-}
-
-export interface Error {
-  filePath: string;
-  onlyAnchorMissing: boolean;
-  usage: Usage[];
-}
-
-export interface Options {
-  ignoreLinkPatterns: string[] | null;
-  validateExternals: boolean;
-  absoluteBaseUrl: string;
-}
-
-export interface CheckHtmlLinksCliOptions extends Options {
-  inputDir: string;
-  assetManager: AssetManager;
-  originUrl: string;
-
-  plugins: Plugin[];
-
-  // old
-  printOnError: boolean;
-  rootDir: string;
-  continueOnError: boolean;
-  absoluteBaseUrl: string;
-}

@@ -77,6 +77,7 @@ export class Asset {
   constructor(url, options) {
     this.options = { ...this.options, ...options };
     this.url = url;
+    this.localPath = this.options.localPath;
 
     if (this.url.protocol === 'file:') {
       throw new Error(`File protocol is not supported. Used by ${this.url.href}`);

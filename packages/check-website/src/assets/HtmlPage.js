@@ -178,16 +178,20 @@ export class HtmlPage extends Asset {
         };
         this.options.onParseElementCallbacks.forEach(cb => cb(element, this));
 
-        // // Check if the page redirects somewhere else using meta refresh
-        // const metaRefreshElement = this.findFirst(
-        //   el =>
-        //     el.tagName.toLowerCase() === 'meta' &&
-        //     el.attribs['http-equiv']?.toLowerCase() === 'refresh',
-        // );
-        // const metaRefreshContent = metaRefreshElement?.attribs['content'];
-        // const metaRefreshMatches = metaRefreshContent?.match(/^([0-9]+)\s*;\s*url\s*=\s*(.+)$/i);
-        // this.redirectTargetUrl = metaRefreshMatches ? new URL(metaRefreshMatches[2], this.href) : null;
-        // this.isRedirect = Boolean(this.redirectTargetUrl);
+        // Check if the page redirects somewhere else using meta refresh
+        if (data.name === 'meta') {
+          const httpEquivData = getAttributeInfo(data, 'http-equiv');
+          if (httpEquivData && httpEquivData.value.toLowerCase() === 'refresh') {
+            const metaRefreshContent = getAttributeInfo(data, 'content')?.value;
+            const metaRefreshMatches = metaRefreshContent?.match(/^([0-9]+)\s*;\s*url\s*=\s*(.+)$/i);
+            this.redirectTargetUrl = metaRefreshMatches ? new URL(metaRefreshMatches[2], this.url.href) : undefined;
+
+            if (this.status === ASSET_STATUS.existsLocal && this.redirectTargetUrl) {
+              // only add "sub" assets for local files
+              this.options.assetManager?.addUrl(this.redirectTargetUrl.href, { mimeType: 'text/html' });
+            }
+          }
+        }
       }
     };
 

@@ -38,6 +38,7 @@ const currentDir = path.dirname(new URL(import.meta.url).pathname);
 function cleanup(page) {
   const keep = {};
   keep.hashes = page.hashes;
+  keep.redirectTargetUrl = page.redirectTargetUrl;
   keep.references = page.references.map(ref => ({
     url: ref.url,
     attribute: ref.attribute,
@@ -83,6 +84,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: ['first', 'second', 'third'],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'href',
@@ -113,6 +115,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: ['first', 'second', 'third'],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'href',
@@ -143,6 +146,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: [],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'href',
@@ -189,6 +193,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: [],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'src',
@@ -231,6 +236,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: [],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'src',
@@ -289,6 +295,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: [],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'href',
@@ -326,6 +333,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: [],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'href',
@@ -360,6 +368,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: [],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'href',
@@ -390,6 +399,7 @@ describe('HtmlPage', () => {
         localSourcePath: '',
       },
       hashes: [],
+      redirectTargetUrl: undefined,
       references: [
         {
           attribute: 'href',
@@ -398,6 +408,34 @@ describe('HtmlPage', () => {
           value: 'about:dino',
         },
       ],
+    });
+  });
+
+  it('09: html meta refresh', async () => {
+    const page = new HtmlPage(
+      new URL('https://example.com/fixtures/01-HtmlPage/09-html-meta-refresh.html'),
+      withTestOptions({
+        localPath: fileURLToPath(
+          new URL('fixtures/01-HtmlPage/09-html-meta-refresh.html', import.meta.url),
+        ),
+      }),
+    );
+    page.status = ASSET_STATUS.existsLocal;
+    await page.parse();
+
+    // the HtmlPage starting it is not added as we only create it for the test
+    // but the redirect it found does get added to the asset manager
+    expect(page.options.assetManager?.size).to.equal(1);
+
+    expect(cleanup(page)).to.deep.equal({
+      url: new URL('https://example.com/fixtures/01-HtmlPage/09-html-meta-refresh.html'),
+      options: {
+        localPath: 'abs::fixtures/01-HtmlPage/09-html-meta-refresh.html',
+        localSourcePath: '',
+      },
+      redirectTargetUrl: new URL('https://example.com/en/getting-started'),
+      hashes: [],
+      references: [],
     });
   });
 });

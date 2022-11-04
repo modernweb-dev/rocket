@@ -13,13 +13,15 @@
   },
   "author": "Modern Web <hello@modern-web.dev> (https://modern-web.dev/)",
   "homepage": "https://rocket.modern-web.dev/docs/tools/check-website/",
-  "main": "./index.js",
   "bin": {
     "check-website": "src/cli.js"
   },
   "type": "module",
   "exports": {
-    ".": "./src/index.js"
+    ".": {
+      "types": "./dist-types/index.d.ts",
+      "default": "./src/index.js"
+    }
   },
   "scripts": {
     "test": "mocha --timeout 5000 test-node/**/*.test.js test-node/*.test.js",
@@ -27,10 +29,8 @@
     "types": "wireit"
   },
   "files": [
-    "*.js",
-    "dist",
-    "dist-types",
-    "src"
+    "src",
+    "dist-types"
   ],
   "dependencies": {
     "colorette": "^2.0.16",
@@ -44,17 +44,18 @@
   },
   "wireit": {
     "types": {
-      "command": "copyfiles \"./types/**/*.d.ts\" dist-types/ && tsc --build --pretty",
+      "command": "tsc --build --pretty",
       "dependencies": [
         "../plugins-manager:types"
       ],
       "files": [
         "src/**/*.js",
+        "test-node/**/*.js",
+        "types",
         "tsconfig.json"
       ],
       "output": [
-        "dist-types/**",
-        ".tsbuildinfo"
+        "dist-types/**"
       ]
     }
   },

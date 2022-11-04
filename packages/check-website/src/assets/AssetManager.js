@@ -69,7 +69,11 @@ export class AssetManager {
   }
 
   /**
+   * It does not check if the asset actually exits.
+   * ONLY call it for asset urls you know exist.
+   *
    * @param {URL} fileUrl
+   * @return {Asset | HtmlPage}
    */
   addExistingFile(fileUrl) {
     const filePath = fileURLToPath(fileUrl);
@@ -77,7 +81,10 @@ export class AssetManager {
     const url = new URL(rel, this.options.originUrl);
     const localPath = path.join(this.options.originPath, rel);
     if (this.has(url.href)) {
-      return this.get(url.href);
+      const found = this.get(url.href);
+      if (found) {
+        return found;
+      }
     }
 
     const mimeType = mime.lookup(fileUrl.pathname);
@@ -103,18 +110,26 @@ export class AssetManager {
 
   /**
    * @param {URL | string} url
+   * @param {{ mimeType?: string }} options
    * @returns {Asset | HtmlPage}
    */
-  addUrl(url) {
+  addUrl(url, { mimeType = '' } = {}) {
     const useUrl = typeof url === 'string' ? getUrl(url) : url;
     if (this.has(useUrl.href)) {
       return /** @type {Asset | HtmlPage} */ (this.get(useUrl.href));
     }
 
-    const asset = new Asset(useUrl, {
+    /** @type {keyof classMap} */
+    let typeClass = 'Asset';
+    if (mimeType === 'text/html') {
+      typeClass = 'HtmlPage';
+    }
+    const asset = new classMap[typeClass](useUrl, {
       assetManager: this,
-      ...this.options,
+      originPath: this.options.originPath,
+      originUrl: this.options.originUrl,
     });
+
     this.assets.set(this.normalizeUrl(useUrl.href), asset);
 
     for (const plugin of this.options.plugins) {
