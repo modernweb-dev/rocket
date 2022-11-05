@@ -5,7 +5,15 @@ import { CheckWebsiteCli } from 'check-website';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+/**
+ *
+ * @param {string} rawInputDir
+ * @param {import('../types/main.js').CheckWebsiteCliOptions} options
+ * @param {{ captureLogs?: boolean }} testOptions
+ * @returns
+ */
 export async function setupTestCli(rawInputDir, options = {}, testOptions = {}) {
+  /** @type {string[]} */
   const capturedLogs = [];
   const origLog = console.log;
   const origError = console.error;
@@ -24,10 +32,10 @@ export async function setupTestCli(rawInputDir, options = {}, testOptions = {}) 
       capturedLogs.push(msg);
     };
     process.stderr.getWindowSize = () => [80, 24];
-    process.stderr.moveCursor = () => {};
-    process.stderr.cursorTo = () => {};
-    process.stderr.clearLine = () => {};
-    process.stderr.clearScreenDown = () => {};
+    process.stderr.moveCursor = () => true;
+    process.stderr.cursorTo = () => true;
+    process.stderr.clearLine = () => true;
+    process.stderr.clearScreenDown = () => true;
   }
 
   const cli = new CheckWebsiteCli();

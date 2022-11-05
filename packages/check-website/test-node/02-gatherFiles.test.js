@@ -3,6 +3,10 @@ import path from 'path';
 import { gatherFiles } from '../src/helpers/gatherFiles.js';
 
 const currentDir = path.dirname(new URL(import.meta.url).pathname);
+
+/**
+ * @param {string[]} files
+ */
 function cleanupFiles(files) {
   return files.map(file => (file ? `abs::${path.relative(currentDir, file)}` : file));
 }

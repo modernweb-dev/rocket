@@ -26,6 +26,9 @@ class MockedFetch {
     return () => Promise.resolve({ ok: true, body: this.stream });
   }
 
+  /**
+   * @param {any} chunk
+   */
   push(chunk) {
     return this.stream.push(chunk);
   }
@@ -35,6 +38,9 @@ const { expect } = chai;
 
 const currentDir = path.dirname(new URL(import.meta.url).pathname);
 
+/**
+ * @param {HtmlPage} page
+ */
 function cleanup(page) {
   const keep = {};
   keep.hashes = page.hashes;
@@ -57,6 +63,9 @@ function cleanup(page) {
   return keep;
 }
 
+/**
+ * @param {import('../types/main.js').HtmlPageOptions} options
+ */
 function withTestOptions(options) {
   return {
     originUrl: 'https://example.com/',
@@ -98,11 +107,13 @@ describe('HtmlPage', () => {
 
   it.skip('01a: fetch it as an external url', async () => {
     const mocked = new MockedFetch({
+      // @ts-ignore
       content: await readFile(new URL('fixtures/01-HtmlPage/01-hashes.html', import.meta.url)),
     });
     const page = new HtmlPage(
       new URL('https://is.mocked.com/'),
       withTestOptions({
+        // @ts-ignore
         fetch: mocked.fetch,
       }),
     );

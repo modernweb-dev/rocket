@@ -10,6 +10,6 @@
     "emitDeclarationOnly": true,
     "moduleResolution": "NodeNext"
   },
-  "include": ["src", "types"],
+  "include": ["src", "test-node", "types"],
   "exclude": ["dist-types"]
 }
