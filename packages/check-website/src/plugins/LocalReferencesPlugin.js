@@ -9,7 +9,6 @@ import { Plugin } from './Plugin.js';
 /** @typedef {import('../../types/main.js').AddToQueueHelpers} AddToQueueHelpers */
 /** @typedef {import('../../types/main.js').PluginInterface} PluginInterface */
 
-
 /**
  * @implement {PluginInterface}
  */

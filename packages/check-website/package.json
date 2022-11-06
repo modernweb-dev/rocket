@@ -29,8 +29,8 @@
     "types": "wireit"
   },
   "files": [
-    "src",
-    "dist-types"
+    "dist-types",
+    "src"
   ],
   "dependencies": {
     "colorette": "^2.0.16",
@@ -39,8 +39,12 @@
     "minimatch": "^3.0.4",
     "node-fetch": "^3.0.0",
     "normalize-url": "^7.2.0",
+    "p-queue": "^7.3.0",
     "sax-wasm": "^2.0.0",
     "slash": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/mime-types": "^2.1.1"
   },
   "wireit": {
     "types": {
@@ -58,8 +62,5 @@
         "dist-types/**"
       ]
     }
-  },
-  "devDependencies": {
-    "@types/mime-types": "^2.1.1"
   }
 }

@@ -92,9 +92,11 @@ export class Asset {
         // Local assets need to be added upfront and are not dynamically discovered - potentially a feature for later
         resolve(false);
       } else {
-        this.options.assetManager?.existsQueue.add(this, () => {
-          resolve(this.status > ASSET_STATUS.unknown && this.status < ASSET_STATUS.missing);
-        });
+        this.options.assetManager?.fetchQueue
+          .add(async () => await this.executeExists())
+          .finally(() => {
+            resolve(this.status > ASSET_STATUS.unknown && this.status < ASSET_STATUS.missing);
+          });
       }
     });
   }
@@ -106,18 +108,21 @@ export class Asset {
     });
     // TODO: detect server redirects (301, 302, etc)?
     // const fetching = fetch(this.url.href, { method: 'HEAD', redirect: "error" });
+    try {
+      const fetching = fetch(this.url.href, { method: 'HEAD' });
+      const response = await Promise.race([fetching, timeout]);
+      if (response && response.ok) {
+        this.status = ASSET_STATUS.existsExternal;
+      } else {
+        this.status = ASSET_STATUS.missing;
+      }
 
-    const fetching = fetch(this.url.href, { method: 'HEAD' });
-    const response = await Promise.race([fetching, timeout]);
-    if (response && response.ok) {
-      this.status = ASSET_STATUS.existsExternal;
-    } else {
-      this.status = ASSET_STATUS.missing;
-    }
-
-    // clear timeout so node process does not need to wait for the timeout to finish
-    if (timeoutTimer) {
-      clearTimeout(timeoutTimer);
+      // clear timeout so node process does not need to wait for the timeout to finish
+      if (timeoutTimer) {
+        clearTimeout(timeoutTimer);
+      }
+    } catch (err) {
+      console.log('fuck');
     }
   }
 

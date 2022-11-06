@@ -45,7 +45,7 @@ export class HtmlPage extends Asset {
   options = {
     ...this.options,
     onParseElementCallbacks: [],
-  }
+  };
 
   /**
    * @param {URL} url
@@ -98,10 +98,12 @@ export class HtmlPage extends Asset {
         if (!this.options.assetManager) {
           throw new Error('You need to pass an assetManager to the options');
         }
-        this.options.assetManager?.parsingQueue.add(this, () => {
-          this.#parsing = false;
-          resolve(true);
-        });
+        this.options.assetManager?.parsingQueue
+          .add(async () => await this.executeParse())
+          .then(() => {
+            this.#parsing = false;
+            resolve(true);
+          });
       }
     });
     return this.#parsingPromise;
@@ -183,12 +185,18 @@ export class HtmlPage extends Asset {
           const httpEquivData = getAttributeInfo(data, 'http-equiv');
           if (httpEquivData && httpEquivData.value.toLowerCase() === 'refresh') {
             const metaRefreshContent = getAttributeInfo(data, 'content')?.value;
-            const metaRefreshMatches = metaRefreshContent?.match(/^([0-9]+)\s*;\s*url\s*=\s*(.+)$/i);
-            this.redirectTargetUrl = metaRefreshMatches ? new URL(metaRefreshMatches[2], this.url.href) : undefined;
+            const metaRefreshMatches = metaRefreshContent?.match(
+              /^([0-9]+)\s*;\s*url\s*=\s*(.+)$/i,
+            );
+            this.redirectTargetUrl = metaRefreshMatches
+              ? new URL(metaRefreshMatches[2], this.url.href)
+              : undefined;
 
             if (this.status === ASSET_STATUS.existsLocal && this.redirectTargetUrl) {
               // only add "sub" assets for local files
-              this.options.assetManager?.addUrl(this.redirectTargetUrl.href, { mimeType: 'text/html' });
+              this.options.assetManager?.addUrl(this.redirectTargetUrl.href, {
+                mimeType: 'text/html',
+              });
             }
           }
         }

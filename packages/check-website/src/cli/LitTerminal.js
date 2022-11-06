@@ -227,6 +227,7 @@ export class LitTerminal {
     // Instead, we expect users to call `requestUpdate` themselves from
     // user-defined accessors. Note that if the super has an accessor we will
     // still overwrite it
+    // eslint-disable-next-line no-prototype-builtins
     if (!options.noAccessor && !this.prototype.hasOwnProperty(name)) {
       const key = typeof name === 'symbol' ? Symbol() : `__${name}`;
       const descriptor = this.getPropertyDescriptor(name, key, options);
@@ -267,6 +268,7 @@ export class LitTerminal {
    * @param {import('../../types/LitTerminal.js').PropertyDeclaration} options
    * @returns {PropertyDescriptor | undefined}
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static getPropertyDescriptor(name, key, options) {
     return {
       /**
@@ -331,7 +333,7 @@ export class LitTerminal {
    *   without triggering another update.
    */
   get updateComplete() {
-      return new Promise(resolve => setTimeout(resolve, 100));
+    return new Promise(resolve => setTimeout(resolve, 100));
     // TODO: implement actual waiting for a finished render
     // return this.getUpdateComplete();
   }

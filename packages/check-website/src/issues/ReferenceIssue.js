@@ -1,4 +1,4 @@
-import { Issue } from "./Issue.js";
+import { Issue } from './Issue.js';
 
 export class ReferenceIssue extends Issue {
   constructor(options = {}) {

@@ -24,7 +24,7 @@ export class ExternalReferencesPlugin extends Plugin {
     const reference = /** @type {Reference} */ (item);
     const asset = getAsset(reference.url);
 
-    if (!await asset.exists()) {
+    if (!(await asset.exists())) {
       const { page } = reference;
       const relPath = path.relative(process.cwd(), page.localPath);
       const filePath = `./${relPath}:${reference.start}`;

@@ -21,8 +21,6 @@ export class Plugin {
   /** @type {CheckWebsiteCli | undefined} */
   cli;
 
-  _total = 0;
-  _done = 0;
   _passed = 0;
   _failed = 0;
   _skipped = 0;
@@ -37,52 +35,7 @@ export class Plugin {
    */
   _checkItems = new Map();
 
-  _queue = new Queue({
-    action: async _item => {
-      const item = /** @type {Reference | HtmlPage} */ (_item);
-      let hadIssues = false;
-      /** @type {CheckContext} */
-      const context = {
-        report: issue => {
-          hadIssues = true;
-          this.issueManager?.add(issue);
-        },
-        item,
-        getAsset: url => {
-          if (!this.assetManager) {
-            throw Error('Asset manager not available');
-          }
-          return this.assetManager.getAsset(url);
-        },
-        isLocalUrl: url => this.isLocalUrl(url),
-      };
-      await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(context);
-
-      if (item.url) {
-        const url = item.url instanceof URL ? item.url.href : item.url;
-        if (this.isLocalUrl(url)) {
-          const targetAsset = this.assetManager?.getAsset(url);
-          if (targetAsset instanceof HtmlPage) {
-            targetAsset.parse(); // no await but we request the parse => e.g. we crawl
-          }
-        }
-      }
-
-      this._done += 1;
-      if (hadIssues) {
-        this._failed += 1;
-      } else {
-        this._passed += 1;
-      }
-      // TODO: add skipped
-      // this._skipped += 1;
-      this.events.emit('progress');
-    },
-    doneAction: () => {
-      // TODO: fix magic value - test exit to early if < 10 is used
-      setTimeout(() => this.events.emit('done'), 20);
-    },
-  });
+  _queue = new Queue();
 
   _processedPages = new Set();
 
@@ -105,7 +58,56 @@ export class Plugin {
               isLocalUrl: url => this.isLocalUrl(url),
             };
             const newQueueItems = await this.addToQueue(asset, helpers);
-            this._queue.addMultiple(newQueueItems);
+            newQueueItems.forEach(_item => {
+              this._queue.add(
+                async () => {
+                  const item = /** @type {Reference | HtmlPage} */ (_item);
+                  let hadIssues = false;
+                  /** @type {CheckContext} */
+                  const context = {
+                    report: issue => {
+                      hadIssues = true;
+                      this.issueManager?.add(issue);
+                    },
+                    item,
+                    getAsset: url => {
+                      if (!this.assetManager) {
+                        throw Error('Asset manager not available');
+                      }
+                      return this.assetManager.getAsset(url);
+                    },
+                    isLocalUrl: url => this.isLocalUrl(url),
+                  };
+                  await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(
+                    context,
+                  );
+
+                  if (item.url) {
+                    const url = item.url instanceof URL ? item.url.href : item.url;
+                    if (this.isLocalUrl(url)) {
+                      const targetAsset = this.assetManager?.getAsset(url);
+                      if (targetAsset instanceof HtmlPage) {
+                        targetAsset.parse(); // no await but we request the parse => e.g. we crawl
+                      }
+                    }
+                  }
+
+                  if (hadIssues) {
+                    this._failed += 1;
+                  } else {
+                    this._passed += 1;
+                  }
+                  // TODO: add skipped
+                  // this._skipped += 1;
+                  this.events.emit('progress');
+                },
+                //   doneAction: () => {
+                //     // TODO: fix magic value - test exit to early if < 10 is used
+                //     setTimeout(() => this.events.emit('done'), 20);
+                //   },
+                // });
+              );
+            });
           }
         }
       });
@@ -117,6 +119,7 @@ export class Plugin {
    * @param {AddToQueueHelpers} helpers
    * @returns {Promise<unknown[]>}
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async addToQueue(page, helpers) {
     return [page];
   }
@@ -134,6 +137,14 @@ export class Plugin {
     if (this.options.title.length > 10) {
       throw new Error(`Plugin title should be max 10 characters. Given "${this.options.title}"`);
     }
+
+    this._queue.on('idle', () => {
+      this.events.emit('idle');
+    });
+  }
+
+  get isIdle() {
+    return this._queue.isIdle;
   }
 
   /**
@@ -142,10 +153,6 @@ export class Plugin {
   setup(cli) {
     this._performanceStart = process.hrtime();
     this.cli = cli;
-  }
-
-  isDone() {
-    return this._queue.isDone();
   }
 
   getTotal() {
@@ -157,7 +164,7 @@ export class Plugin {
   }
 
   getDone() {
-    return this._done;
+    return this._queue.getDone();
   }
 
   getPassed() {
@@ -174,8 +181,10 @@ export class Plugin {
 
   /**
    * @param {string} url
+   * @returns {boolean}
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isLocalUrl(url) {
-    return false;
+    return true;
   }
 }

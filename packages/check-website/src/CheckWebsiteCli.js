@@ -142,6 +142,14 @@ export class CheckWebsiteCli extends LitTerminal {
     });
     const pluginsAndAssetManager = [...this.options.plugins, this.options.assetManager];
 
+    this.options.assetManager.events.on('idle', () => {
+      if (pluginsAndAssetManager.every(p => p.isIdle)) {
+        this.updateComplete.then(() => {
+          this.events.emit('done');
+        });
+      }
+    });
+
     for (const plugin of this.options.plugins) {
       plugin.assetManager = this.options.assetManager;
       plugin.issueManager = this.options.issueManager;
@@ -150,8 +158,8 @@ export class CheckWebsiteCli extends LitTerminal {
       plugin.events.on('progress', () => {
         this.requestUpdate();
       });
-      plugin.events.on('done', () => {
-        if (pluginsAndAssetManager.every(p => p.isDone())) {
+      plugin.events.on('idle', () => {
+        if (pluginsAndAssetManager.every(p => p.isIdle)) {
           this.updateComplete.then(() => {
             this.events.emit('done');
           });
@@ -189,7 +197,7 @@ export class CheckWebsiteCli extends LitTerminal {
   }
 
   /**
-   * @param {import('../types/main.js').PluginInterface} plugin 
+   * @param {import('../types/main.js').PluginInterface} plugin
    * @returns {string}
    */
   renderPlugin(plugin) {

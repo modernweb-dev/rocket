@@ -34,7 +34,7 @@ export function normalizeUrl(url, options = {}) {
 }
 
 /**
- * @param {string} url 
+ * @param {string} url
  * @returns {string}
  */
 export function normalizeToLocalUrl(url) {

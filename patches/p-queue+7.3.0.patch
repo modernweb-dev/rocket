@@ -1,0 +1,13 @@
+diff --git a/node_modules/p-queue/dist/index.d.ts b/node_modules/p-queue/dist/index.d.ts
+index 580fc54..53d37be 100644
+--- a/node_modules/p-queue/dist/index.d.ts
++++ b/node_modules/p-queue/dist/index.d.ts
+@@ -9,6 +9,8 @@ The error thrown by `queue.add()` when a job is aborted before it is run. See `s
+ export declare class AbortError extends Error {
+ }
+ declare type EventName = 'active' | 'idle' | 'empty' | 'add' | 'next' | 'completed' | 'error';
++
++export { PriorityQueue };
+ /**
+ Promise queue with concurrency control.
+ */

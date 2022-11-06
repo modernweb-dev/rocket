@@ -6,8 +6,9 @@ import mime from 'mime-types';
 import { Asset, ASSET_STATUS } from './Asset.js';
 import { HtmlPage } from './HtmlPage.js';
 import { normalizeUrl, normalizeToLocalUrl } from '../helpers/normalizeUrl.js';
-import { Queue } from '../helpers/Queue.js';
 import { decodeNumberHtmlEntities } from '../helpers/decodeNumberHtmlEntities.js';
+import { Queue } from '../helpers/Queue.js';
+import EventEmitter from 'events';
 
 /** @typedef {import('../plugins/Plugin.js').Plugin} Plugin */
 
@@ -34,12 +35,21 @@ export class AssetManager {
   /** @type {Map<string, Asset | HtmlPage>} */
   assets = new Map();
 
+  /**
+   * @readonly
+   */
+  events = new EventEmitter();
+
   /** Queue *************************/
   parsingQueue = new Queue({
-    action: item => /** @type {HtmlPage} */ (item).executeParse(),
+    concurrency: 1,
   });
-  existsQueue = new Queue({
-    action: item => /** @type {Asset} */ (item).executeExists(),
+
+  fetchQueue = new Queue({
+    concurrency: 20,
+    carryoverConcurrencyCount: true,
+    interval: 500,
+    intervalCap: 20,
   });
 
   /** @type {import('../../types/main.js').FullAssetManagerOptions} */
@@ -57,6 +67,13 @@ export class AssetManager {
    */
   constructor(options) {
     this.options = { ...this.options, ...options };
+
+    this.parsingQueue.on('idle', () => {
+      this.events.emit('idle');
+    });
+    this.fetchQueue.on('idle', () => {
+      this.events.emit('idle');
+    });
   }
 
   /**
@@ -190,7 +207,7 @@ export class AssetManager {
     return Array.from(this.assets.values());
   }
 
-  isDone() {
-    return this.existsQueue.isDone() && this.parsingQueue.isDone();
+  get isIdle() {
+    return this.fetchQueue.isIdle && this.parsingQueue.isIdle;
   }
 }
