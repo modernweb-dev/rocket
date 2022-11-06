@@ -46,10 +46,10 @@ export class AssetManager {
   });
 
   fetchQueue = new Queue({
-    concurrency: 20,
+    concurrency: 15,
     carryoverConcurrencyCount: true,
     interval: 500,
-    intervalCap: 20,
+    intervalCap: 10,
   });
 
   /** @type {import('../../types/main.js').FullAssetManagerOptions} */

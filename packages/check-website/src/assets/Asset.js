@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import fetch from 'node-fetch';
+import got from 'got';
 
 /** @typedef {import('../../types/main.js').AssetStatus} AssetStatus */
 
@@ -102,27 +103,13 @@ export class Asset {
   }
 
   async executeExists() {
-    let timeoutTimer;
-    const timeout = new Promise(resolve => {
-      timeoutTimer = setTimeout(resolve, 10000);
-    });
     // TODO: detect server redirects (301, 302, etc)?
     // const fetching = fetch(this.url.href, { method: 'HEAD', redirect: "error" });
     try {
-      const fetching = fetch(this.url.href, { method: 'HEAD' });
-      const response = await Promise.race([fetching, timeout]);
-      if (response && response.ok) {
-        this.status = ASSET_STATUS.existsExternal;
-      } else {
-        this.status = ASSET_STATUS.missing;
-      }
-
-      // clear timeout so node process does not need to wait for the timeout to finish
-      if (timeoutTimer) {
-        clearTimeout(timeoutTimer);
-      }
+      await got(this.url.href, { method: 'HEAD' });
+      this.status = ASSET_STATUS.existsExternal;
     } catch (err) {
-      console.log('fuck');
+      this.status = err?.response?.statusCode || ASSET_STATUS.missing;
     }
   }
 
