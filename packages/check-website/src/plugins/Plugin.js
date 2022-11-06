@@ -1,6 +1,8 @@
+import { gray, green, red } from 'colorette';
 import { EventEmitter } from 'events';
 import { ASSET_STATUS } from '../assets/Asset.js';
 import { HtmlPage } from '../assets/HtmlPage.js';
+import { renderProgressBar } from '../cli/renderProgressBar.js';
 import { Queue } from '../helpers/Queue.js';
 
 /** @typedef {import('../assets/Asset.js').Asset} Asset */
@@ -59,49 +61,45 @@ export class Plugin {
             };
             const newQueueItems = await this.addToQueue(asset, helpers);
             newQueueItems.forEach(_item => {
-              this._queue.add(
-                async () => {
-                  const item = /** @type {Reference | HtmlPage} */ (_item);
-                  let hadIssues = false;
-                  /** @type {CheckContext} */
-                  const context = {
-                    report: issue => {
-                      hadIssues = true;
-                      this.issueManager?.add(issue);
-                    },
-                    item,
-                    getAsset: url => {
-                      if (!this.assetManager) {
-                        throw Error('Asset manager not available');
-                      }
-                      return this.assetManager.getAsset(url);
-                    },
-                    isLocalUrl: url => this.isLocalUrl(url),
-                  };
-                  await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(
-                    context,
-                  );
+              this._queue.add(async () => {
+                const item = /** @type {Reference | HtmlPage} */ (_item);
+                let hadIssues = false;
+                /** @type {CheckContext} */
+                const context = {
+                  report: issue => {
+                    hadIssues = true;
+                    this.issueManager?.add(issue);
+                  },
+                  item,
+                  getAsset: url => {
+                    if (!this.assetManager) {
+                      throw Error('Asset manager not available');
+                    }
+                    return this.assetManager.getAsset(url);
+                  },
+                  isLocalUrl: url => this.isLocalUrl(url),
+                };
+                await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(context);
 
-                  if (item.url) {
-                    const url = item.url instanceof URL ? item.url.href : item.url;
-                    if (this.isLocalUrl(url)) {
-                      const targetAsset = this.assetManager?.getAsset(url);
-                      if (targetAsset instanceof HtmlPage) {
-                        targetAsset.parse(); // no await but we request the parse => e.g. we crawl
-                      }
+                if (item.url) {
+                  const url = item.url instanceof URL ? item.url.href : item.url;
+                  if (this.isLocalUrl(url)) {
+                    const targetAsset = this.assetManager?.getAsset(url);
+                    if (targetAsset instanceof HtmlPage) {
+                      targetAsset.parse(); // no await but we request the parse => e.g. we crawl
                     }
                   }
+                }
 
-                  if (hadIssues) {
-                    this._failed += 1;
-                  } else {
-                    this._passed += 1;
-                  }
-                  // TODO: add skipped
-                  // this._skipped += 1;
-                  this.events.emit('progress');
-                },
-              );
+                if (hadIssues) {
+                  this._failed += 1;
+                } else {
+                  this._passed += 1;
+                }
+                // TODO: add skipped
+                // this._skipped += 1;
+                this.events.emit('progress');
+              });
             });
           }
         }
@@ -181,5 +179,28 @@ export class Plugin {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isLocalUrl(url) {
     return true;
+  }
+
+  render() {
+    const checkLabel = this.options.checkLabel;
+    const doneNr = this.getDone();
+    const passed = this.getPassed();
+    const failed = this.getFailed();
+    const skipped = this.getSkipped();
+    const total = this.getTotal();
+
+    const title = `${this.options.title}:`.padEnd(11);
+    const progress = renderProgressBar(doneNr, 0, total);
+
+    const minNumberLength = `${total}`.length;
+    const done = `${doneNr}`.padStart(minNumberLength);
+
+    const passedTxt = passed > 0 ? `${green(`${passed} passed`)}` : '0 passed';
+    const failedTxt = failed > 0 ? `, ${red(`${failed} failed`)}` : '';
+    const skippedTxt = skipped > 0 ? `, ${gray(`${skipped} skipped`)}` : '';
+    const resultTxt = `${passedTxt}${failedTxt}${skippedTxt}`;
+    const duration = this.getDuration();
+
+    return `${title} ${progress} ${done}/${total} ${checkLabel} | 🕑 ${duration}s | ${resultTxt}`;
   }
 }

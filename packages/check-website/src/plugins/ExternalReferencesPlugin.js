@@ -1,4 +1,5 @@
 import path from 'path';
+import { cli } from '../cli/cli.js';
 import { ReferenceIssue } from '../issues/ReferenceIssue.js';
 import { Plugin } from './Plugin.js';
 
@@ -7,7 +8,21 @@ import { Plugin } from './Plugin.js';
 /** @typedef {import('../../types/main.js').CheckContext} CheckContext */
 /** @typedef {import('../../types/main.js').AddToQueueHelpers} AddToQueueHelpers */
 
+/**
+ * @param {string} url
+ */
+function getDomain(url) {
+  try {
+    const { hostname } = new URL(url);
+    return hostname;
+  } catch {
+    return '';
+  }
+}
+
 export class ExternalReferencesPlugin extends Plugin {
+  domainStats = new Map();
+
   constructor(options = {}) {
     super({
       title: 'External',
@@ -44,8 +59,19 @@ export class ExternalReferencesPlugin extends Plugin {
     for (const reference of page.references) {
       if (!isLocalUrl(reference.url)) {
         checkItems.push(reference);
+        const domain = getDomain(reference.url);
+        this.domainStats.set(domain, (this.domainStats.get(domain) || 0) + 1);
       }
     }
     return checkItems;
+  }
+
+  render() {
+    const top3 = [...this.domainStats.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3);
+    const top3Str = top3.map(([domain, count], i) => `${i + 1}. ${domain} (${count})`).join(', ');
+    return cli`
+      ${super.render()}
+      - Top Domains: ${top3Str}
+    `;
   }
 }

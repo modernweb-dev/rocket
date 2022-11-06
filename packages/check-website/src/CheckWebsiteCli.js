@@ -7,7 +7,7 @@
 import { EventEmitter } from 'events';
 import path from 'path';
 import { Command } from 'commander';
-import { green, red, gray } from 'colorette';
+import { green } from 'colorette';
 import { gatherFiles } from './helpers/gatherFiles.js';
 import { renderProgressBar } from './cli/renderProgressBar.js';
 import { LocalReferencesPlugin } from './plugins/LocalReferencesPlugin.js';
@@ -196,38 +196,11 @@ export class CheckWebsiteCli extends LitTerminal {
     return `${title} ${progress} ${done}/${total} files | 🕑 ${duration}s`;
   }
 
-  /**
-   * @param {import('../types/main.js').PluginInterface} plugin
-   * @returns {string}
-   */
-  renderPlugin(plugin) {
-    const checkLabel = plugin.options.checkLabel;
-    const doneNr = plugin.getDone();
-    const passed = plugin.getPassed();
-    const failed = plugin.getFailed();
-    const skipped = plugin.getSkipped();
-    const total = plugin.getTotal();
-
-    const title = `${plugin.options.title}:`.padEnd(11);
-    const progress = renderProgressBar(doneNr, 0, total);
-
-    const minNumberLength = `${total}`.length;
-    const done = `${doneNr}`.padStart(minNumberLength);
-
-    const passedTxt = passed > 0 ? `${green(`${passed} passed`)}` : '0 passed';
-    const failedTxt = failed > 0 ? `, ${red(`${failed} failed`)}` : '';
-    const skippedTxt = skipped > 0 ? `, ${gray(`${skipped} skipped`)}` : '';
-    const resultTxt = `${passedTxt}${failedTxt}${skippedTxt}`;
-    const duration = plugin.getDuration();
-
-    return `${title} ${progress} ${done}/${total} ${checkLabel} | 🕑 ${duration}s | ${resultTxt}`;
-  }
-
   render() {
     return cli`
       \n${hr()}
       ${this.renderParsing()}
-      ${this.options.plugins.map(plugin => this.renderPlugin(plugin)).join('\n')}
+      ${this.options.plugins.map(plugin => plugin.render()).join('\n')}
     `;
   }
 }
