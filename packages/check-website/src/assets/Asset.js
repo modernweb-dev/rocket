@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import fetch from 'node-fetch';
-import got from 'got';
+import got, { RequestError } from 'got';
 
 /** @typedef {import('../../types/main.js').AssetStatus} AssetStatus */
 
@@ -109,7 +109,10 @@ export class Asset {
       await got(this.url.href, { method: 'HEAD' });
       this.status = ASSET_STATUS.existsExternal;
     } catch (err) {
-      this.status = err?.response?.statusCode || ASSET_STATUS.missing;
+      if (err instanceof RequestError) {
+        this.status =
+          /** @type {AssetStatus} */ (err?.response?.statusCode) || ASSET_STATUS.missing;
+      }
     }
   }
 
