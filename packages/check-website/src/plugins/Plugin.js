@@ -101,11 +101,6 @@ export class Plugin {
                   // this._skipped += 1;
                   this.events.emit('progress');
                 },
-                //   doneAction: () => {
-                //     // TODO: fix magic value - test exit to early if < 10 is used
-                //     setTimeout(() => this.events.emit('done'), 20);
-                //   },
-                // });
               );
             });
           }

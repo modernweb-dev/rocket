@@ -1,4 +1,4 @@
-export { normalizeToLocalUrl, normalizeUrl, normalizeUrlWithHash } from './helpers/normalizeUrl.js';
+export { normalizeToLocalUrl, normalizeUrl } from './helpers/normalizeUrl.js';
 
 export { CheckWebsiteCli } from './CheckWebsiteCli.js';
 

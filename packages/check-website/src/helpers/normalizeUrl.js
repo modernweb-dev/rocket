@@ -40,15 +40,3 @@ export function normalizeUrl(url, options = {}) {
 export function normalizeToLocalUrl(url) {
   return normalizeUrl(url, { removeQueryParameters: true });
 }
-
-/**
- *
- * @param {string} url
- * @returns {string}
- */
-export function normalizeUrlWithHash(url) {
-  return normalizeUrlDep(url, {
-    ...normalizeOptions,
-    stripHash: false,
-  });
-}

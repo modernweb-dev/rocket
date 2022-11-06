@@ -57,19 +57,4 @@ export class HasCanonicalPlugin extends Plugin {
     }
     return;
   }
-  //   if (this.canonicalUrls.has(context.item)) {
-  //     // return CHECK_RESULT.PASSED;
-  //   }
-
-  //   page.addIssue(
-  //     new PageIssue({
-  //       title: 'Missing canonical',
-  //       message: 'The page is missing a <link rel="canonical" href="...">',
-  //       filePath: './' + path.relative(process.cwd(), page.localPath),
-  //       icon: '🦄',
-  //     }),
-  //   );
-
-  //   // return CHECK_RESULT.FAILED;
-  // }
 }

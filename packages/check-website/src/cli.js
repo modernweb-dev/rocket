@@ -8,8 +8,8 @@ const cli = new CheckWebsiteCli();
 
 const cwd = process.cwd();
 const configFiles = [
-  'config/rocket.config.js',
-  'config/rocket.config.mjs',
+  path.join('config', 'rocket.config.js'),
+  path.join('config', 'rocket.config.mjs'),
   'rocket.config.js',
   'rocket.config.mjs',
 ];
