@@ -104,6 +104,9 @@ export class Asset {
   }
 
   async executeExists() {
+    if (this.options.skip) {
+      return;
+    }
     // TODO: detect server redirects (301, 302, etc)?
     // const fetching = fetch(this.url.href, { method: 'HEAD', redirect: "error" });
     try {

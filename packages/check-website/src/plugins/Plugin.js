@@ -67,14 +67,14 @@ export class Plugin {
                 let skip = false;
                 if (item.url) {
                   const url = item.url instanceof URL ? item.url.href : item.url;
+                  const targetAsset = this.assetManager?.getAsset(url);
                   if (this.isLocalUrl(url)) {
-                    const targetAsset = this.assetManager?.getAsset(url);
                     if (targetAsset instanceof HtmlPage) {
                       targetAsset.parse(); // no await but we request the parse => e.g. we crawl
                     }
-                    if (targetAsset?.options.skip) {
-                      skip = true;
-                    }
+                  }
+                  if (targetAsset?.options.skip) {
+                    skip = true;
                   }
                 }
 

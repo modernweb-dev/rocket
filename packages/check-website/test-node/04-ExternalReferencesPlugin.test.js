@@ -26,4 +26,14 @@ describe('ExternalReferencePlugin', () => {
   //   const { cli } = await setupTestCli('fixtures/04-ExternalReferencePlugin/02-hash-missing');
   //   await cli.start();
   // });
+
+  it('03: image service using a none http url', async () => {
+    const { execute, capturedLogs } = await setupTestCli(
+      'fixtures/04-ExternalReferencePlugin/03-image-service-none-http',
+      getOptions(),
+      { captureLogs: true },
+    );
+    await execute();
+    expect(capturedLogs.join('\n')).to.include(`${green('1 passed')}, ${red('1 failed')}`);
+  });
 });

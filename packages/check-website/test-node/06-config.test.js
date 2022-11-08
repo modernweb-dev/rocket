@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { red, green, gray } from 'colorette';
 
-import { LocalReferencesPlugin } from 'check-website';
+import { LocalReferencesPlugin, ExternalReferencesPlugin } from 'check-website';
 import { setupTestCli } from './test-helpers.js';
 
 function getOptions() {
@@ -31,5 +31,15 @@ describe('Config', () => {
     );
     await execute();
     expect(capturedLogs.join('\n')).to.include(`${green('1 passed')}, ${gray('1 skipped')}`);
+  });
+
+  it('03: supports skips for external', async () => {
+    const { execute, capturedLogs } = await setupTestCli(
+      'fixtures/06-config/03-skips-external/site',
+      { originUrl: 'https://example.com', plugins: [new ExternalReferencesPlugin()] },
+      { captureLogs: true },
+    );
+    await execute();
+    expect(capturedLogs.join('\n')).to.include(`${gray('2 skipped')}`);
   });
 });
