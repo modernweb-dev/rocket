@@ -68,6 +68,7 @@ export class Asset {
     fetch,
     assetManager: undefined,
     isLocalUrl: url => url.startsWith(this.options.originUrl),
+    skip: false,
   };
 
   /**

@@ -45,6 +45,7 @@ export interface FullCheckWebsiteCliOptions {
   configFile: string;
   plugins: PluginInterface[];
   isLocalUrl?: (url: string) => boolean;
+  skipCondition?: (url: string) => boolean;
 }
 
 export type CheckWebsiteCliOptions = Partial<FullCheckWebsiteCliOptions>;
@@ -65,6 +66,7 @@ export interface FullAssetManagerOptions {
   plugins: PluginInterface[];
   isLocalUrl: (url: string) => boolean;
   onParseElementCallbacks: ((element: ParseElement, page: HtmlPage) => void)[];
+  skipCondition?: (url: string) => boolean;
 }
 
 export type AssetManagerOptions = Partial<FullAssetManagerOptions>;
@@ -76,6 +78,7 @@ export interface FullAssetOptions {
   originPath: string;
   fetch: fetchType;
   isLocalUrl: (url: string) => boolean;
+  skip: boolean;
   /**
    * Absolute path to the HTML file on the local filesystem
    */

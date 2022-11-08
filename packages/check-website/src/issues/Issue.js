@@ -8,6 +8,7 @@ export class Issue {
     icon: '❌',
     logger: console.log,
     page: null,
+    skip: false,
   };
 
   /**

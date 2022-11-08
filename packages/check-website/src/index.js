@@ -9,3 +9,6 @@ export { HasCanonicalPlugin } from './plugins/HasCanonicalPlugin.js';
 export { Asset, ASSET_STATUS } from './assets/Asset.js';
 export { HtmlPage } from './assets/HtmlPage.js';
 export { AssetManager } from './assets/AssetManager.js';
+
+
+/** @typedef {import('../types/main.js').CheckWebsiteCliOptions} CheckWebsiteCliOptions */

@@ -12,6 +12,10 @@ const configFiles = [
   path.join('config', 'check-website.config.mjs'),
   'check-website.config.js',
   'check-website.config.mjs',
+  path.join('..', 'config', 'check-website.config.js'),
+  path.join('..', 'config', 'check-website.config.mjs'),
+  path.join('..', 'check-website.config.js'),
+  path.join('..', 'check-website.config.mjs'),
 ];
 
 for (const configFile of configFiles) {

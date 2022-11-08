@@ -2,6 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { CheckWebsiteCli } from 'check-website';
+import { existsSync } from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -40,6 +41,11 @@ export async function setupTestCli(rawInputDir, options = {}, testOptions = {}) 
 
   const cli = new CheckWebsiteCli();
   const inputDir = path.join(__dirname, rawInputDir.split('/').join(path.sep));
+
+  const configFilePath = path.join(inputDir, '..', 'config', 'check-website.config.js');
+  if (existsSync(configFilePath)) {
+    cli.options.configFile = configFilePath;
+  }
 
   cli.setOptions({
     inputDir,
