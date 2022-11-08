@@ -139,7 +139,7 @@ export class CheckWebsiteCli extends LitTerminal {
       onParseElementCallbacks,
       plugins: this.options.plugins,
       isLocalUrl: this.options.isLocalUrl,
-      skipCondition: this.options.skipCondition,
+      skips: this.options.skips,
     });
     const pluginsAndAssetManager = [...this.options.plugins, this.options.assetManager];
 

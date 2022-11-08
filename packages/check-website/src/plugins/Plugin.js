@@ -63,24 +63,8 @@ export class Plugin {
             newQueueItems.forEach(_item => {
               this._queue.add(async () => {
                 const item = /** @type {Reference | HtmlPage} */ (_item);
-                let hadIssues = false;
-                /** @type {CheckContext} */
-                const context = {
-                  report: issue => {
-                    hadIssues = true;
-                    this.issueManager?.add(issue);
-                  },
-                  item,
-                  getAsset: url => {
-                    if (!this.assetManager) {
-                      throw Error('Asset manager not available');
-                    }
-                    return this.assetManager.getAsset(url);
-                  },
-                  isLocalUrl: url => this.isLocalUrl(url),
-                };
-                await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(context);
 
+                let skip = false;
                 if (item.url) {
                   const url = item.url instanceof URL ? item.url.href : item.url;
                   if (this.isLocalUrl(url)) {
@@ -88,16 +72,41 @@ export class Plugin {
                     if (targetAsset instanceof HtmlPage) {
                       targetAsset.parse(); // no await but we request the parse => e.g. we crawl
                     }
+                    if (targetAsset?.options.skip) {
+                      skip = true;
+                    }
                   }
                 }
 
-                if (hadIssues) {
-                  this._failed += 1;
+                if (skip === false) {
+                  let hadIssues = false;
+                  /** @type {CheckContext} */
+                  const context = {
+                    report: issue => {
+                      hadIssues = true;
+                      this.issueManager?.add(issue);
+                    },
+                    item,
+                    getAsset: url => {
+                      if (!this.assetManager) {
+                        throw Error('Asset manager not available');
+                      }
+                      return this.assetManager.getAsset(url);
+                    },
+                    isLocalUrl: url => this.isLocalUrl(url),
+                  };
+                  await /** @type {PluginInterface} */ (/** @type {unknown} */ (this)).check(
+                    context,
+                  );
+                  if (hadIssues) {
+                    this._failed += 1;
+                  } else {
+                    this._passed += 1;
+                  }
                 } else {
-                  this._passed += 1;
+                  this._skipped += 1;
                 }
-                // TODO: add skipped
-                // this._skipped += 1;
+
                 this.events.emit('progress');
               });
             });

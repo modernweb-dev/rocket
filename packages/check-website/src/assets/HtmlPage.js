@@ -110,6 +110,9 @@ export class HtmlPage extends Asset {
   }
 
   async executeParse() {
+    if (this.options.skip) {
+      return;
+    }
     if (!(await this.exists())) {
       return;
     }

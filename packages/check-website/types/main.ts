@@ -45,7 +45,7 @@ export interface FullCheckWebsiteCliOptions {
   configFile: string;
   plugins: PluginInterface[];
   isLocalUrl?: (url: string) => boolean;
-  skipCondition?: (url: string) => boolean;
+  skips?: Array<string>;
 }
 
 export type CheckWebsiteCliOptions = Partial<FullCheckWebsiteCliOptions>;
@@ -66,7 +66,7 @@ export interface FullAssetManagerOptions {
   plugins: PluginInterface[];
   isLocalUrl: (url: string) => boolean;
   onParseElementCallbacks: ((element: ParseElement, page: HtmlPage) => void)[];
-  skipCondition?: (url: string) => boolean;
+  skips?: Array<string>;
 }
 
 export type AssetManagerOptions = Partial<FullAssetManagerOptions>;

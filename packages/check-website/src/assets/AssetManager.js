@@ -9,6 +9,7 @@ import { normalizeUrl, normalizeToLocalUrl } from '../helpers/normalizeUrl.js';
 import { decodeNumberHtmlEntities } from '../helpers/decodeNumberHtmlEntities.js';
 import { Queue } from '../helpers/Queue.js';
 import EventEmitter from 'events';
+import minimatch from 'minimatch';
 
 /** @typedef {import('../plugins/Plugin.js').Plugin} Plugin */
 
@@ -105,7 +106,7 @@ export class AssetManager {
     }
 
     const mimeType = mime.lookup(fileUrl.pathname);
-    const skip = this.options.skipCondition && this.options.skipCondition(useUrl.href);
+    const skip = this.options.skips && this.options.skips.some(skip => minimatch(url.href, skip));
 
     /** @type {keyof classMap} */
     let typeClass = 'Asset';
@@ -118,7 +119,7 @@ export class AssetManager {
       originPath: this.options.originPath,
       originUrl: this.options.originUrl,
       onParseElementCallbacks: this.options.onParseElementCallbacks,
-      skip
+      skip,
     });
     asset.status = ASSET_STATUS.existsLocal;
     this.assets.set(this.normalizeUrl(url.href), asset);
@@ -141,7 +142,8 @@ export class AssetManager {
       return /** @type {Asset | HtmlPage} */ (this.get(useUrl.href));
     }
 
-    const skip = this.options.skipCondition && this.options.skipCondition(useUrl.href);
+    const skip =
+      this.options.skips && this.options.skips.some(skip => minimatch(useUrl.href, skip));
 
     /** @type {keyof classMap} */
     let typeClass = 'Asset';
@@ -153,7 +155,7 @@ export class AssetManager {
       originPath: this.options.originPath,
       originUrl: this.options.originUrl,
       onParseElementCallbacks: this.options.onParseElementCallbacks,
-      skip
+      skip,
     });
 
     this.assets.set(this.normalizeUrl(useUrl.href), asset);
