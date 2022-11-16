@@ -57,7 +57,7 @@ export class ExternalReferencesPlugin extends Plugin {
     const { isLocalUrl } = helpers;
     const checkItems = [];
     for (const reference of page.references) {
-      if (!isLocalUrl(reference.url)) {
+      if (reference.url.startsWith('http') && !isLocalUrl(reference.url)) {
         checkItems.push(reference);
         const domain = getDomain(reference.url);
         this.domainStats.set(domain, (this.domainStats.get(domain) || 0) + 1);

@@ -76,5 +76,11 @@ export async function setupTestCli(rawInputDir, options = {}, testOptions = {}) 
     cleanup,
     capturedLogs,
     execute,
+    getLastDynamicLog: () =>
+      capturedLogs
+        .join('\n')
+        .split('────────────────────────────────────────────────────────────────────────────────')
+        // @ts-ignore
+        .at(-1),
   };
 }

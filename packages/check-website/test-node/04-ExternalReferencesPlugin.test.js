@@ -36,4 +36,14 @@ describe('ExternalReferencePlugin', () => {
     await execute();
     expect(capturedLogs.join('\n')).to.include(`${green('1 passed')}, ${red('1 failed')}`);
   });
+
+  it('04: data urls are not interpreted as external', async () => {
+    const { execute, getLastDynamicLog } = await setupTestCli(
+      'fixtures/04-ExternalReferencePlugin/04-data-urls-are-not-external',
+      getOptions(),
+      { captureLogs: true },
+    );
+    await execute();
+    expect(getLastDynamicLog()).to.include(`${green('1 passed')}, ${red('1 failed')}`);
+  });
 });
