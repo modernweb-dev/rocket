@@ -24,6 +24,8 @@ export class Queue extends PQueue {
         this.#durationStart = process.hrtime();
       }
       this.isIdle = false;
+    });
+    this.on('completed', () => {
       this.duration = process.hrtime(this.#durationStart);
     });
     this.on('idle', () => {
