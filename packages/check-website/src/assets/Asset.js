@@ -1,6 +1,9 @@
 import { EventEmitter } from 'events';
 import fetch from 'node-fetch';
 import got, { RequestError } from 'got';
+import CacheableLookup from 'cacheable-lookup';
+
+const dnsCache = new CacheableLookup();
 
 /** @typedef {import('../../types/main.js').AssetStatus} AssetStatus */
 
@@ -110,7 +113,16 @@ export class Asset {
     // TODO: detect server redirects (301, 302, etc)?
     // const fetching = fetch(this.url.href, { method: 'HEAD', redirect: "error" });
     try {
-      await got(this.url.href, { method: 'HEAD' });
+      await got(this.url.href, {
+        method: 'HEAD',
+        retry: {
+          limit: 1,
+          calculateDelay: ({ computedValue }) => {
+            return computedValue / 100;
+          },
+        },
+        dnsCache,
+      });
       this.status = ASSET_STATUS.existsExternal;
     } catch (err) {
       if (err instanceof RequestError) {

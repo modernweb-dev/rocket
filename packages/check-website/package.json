@@ -33,6 +33,7 @@
     "src"
   ],
   "dependencies": {
+    "cacheable-lookup": "^7.0.0",
     "colorette": "^2.0.16",
     "commander": "^9.0.0",
     "got": "^12.5.2",

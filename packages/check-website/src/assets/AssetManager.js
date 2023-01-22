@@ -47,7 +47,7 @@ export class AssetManager {
   });
 
   fetchQueue = new Queue({
-    concurrency: 15,
+    concurrency: 1,
     carryoverConcurrencyCount: true,
     interval: 500,
     intervalCap: 10,
