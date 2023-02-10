@@ -1,6 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
-// @ts-ignore
-import { terser } from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import babelPkg from '@rollup/plugin-babel';
 
 import { applyPlugins } from 'plugins-manager';
