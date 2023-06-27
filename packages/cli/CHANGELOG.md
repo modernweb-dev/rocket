@@ -1,5 +1,17 @@
 # @rocket/cli
 
+## 0.21.0
+
+### Minor Changes
+
+- 74b2b35: Update to Rollup v3 + all plugins that require it
+
+### Patch Changes
+
+- Updated dependencies [74b2b35]
+- Updated dependencies [685e6fd]
+  - @rocket/building-rollup@0.5.0
+
 ## 0.20.4
 
 ### Patch Changes

@@ -11,7 +11,7 @@
     "start": "NODE_DEBUG=engine:rendering rocket start --open"
   },
   "devDependencies": {
-    "@rocket/cli": "^0.20.0",
+    "@rocket/cli": "^0.21.0",
     "@rocket/engine": "^0.2.0",
     "@webcomponents/template-shadowroot": "^0.1.0",
     "lit": "^2.3.0"
