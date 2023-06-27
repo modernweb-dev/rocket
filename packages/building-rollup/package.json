@@ -52,20 +52,20 @@
     "rollup"
   ],
   "peerDependencies": {
-    "rollup": "^2.35.0"
+    "rollup": "^3.0.0"
   },
   "dependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.12.11",
-    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-babel": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.1",
-    "@web/rollup-plugin-html": "^1.8.0",
-    "@web/rollup-plugin-import-meta-assets": "^1.0.4",
-    "@web/rollup-plugin-polyfills-loader": "^1.1.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "@web/rollup-plugin-html": "^2.0.0",
+    "@web/rollup-plugin-import-meta-assets": "^2.0.0",
+    "@web/rollup-plugin-polyfills-loader": "^2.0.0",
     "browserslist": "^4.16.1",
     "plugins-manager": "^0.3.1",
-    "rollup-plugin-terser": "^7.0.2",
     "workbox-broadcast-update": "^6.1.5",
     "workbox-cacheable-response": "^6.1.5",
     "workbox-expiration": "^6.1.5",
