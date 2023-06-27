@@ -1,6 +1,6 @@
 {
   "name": "@rocket/cli",
-  "version": "0.20.4",
+  "version": "0.21.0",
   "publishConfig": {
     "access": "public"
   },
@@ -52,7 +52,7 @@
     "rollup"
   ],
   "dependencies": {
-    "@rocket/building-rollup": "^0.4.1",
+    "@rocket/building-rollup": "^0.5.0",
     "@rocket/engine": "^0.2.7",
     "check-html-links": "^0.2.4",
     "colorette": "^2.0.16",

@@ -1,5 +1,12 @@
 # @rocket/launch
 
+## 0.21.4
+
+### Patch Changes
+
+- Updated dependencies [74b2b35]
+  - @rocket/cli@0.21.0
+
 ## 0.21.3
 
 ### Patch Changes

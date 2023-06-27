@@ -1,5 +1,15 @@
 # @rocket/building-rollup
 
+## 0.5.0
+
+### Minor Changes
+
+- 74b2b35: Update to Rollup v3 + all plugins that require it
+
+### Patch Changes
+
+- 685e6fd: fix json5 security vulnerability
+
 ## 0.4.1
 
 ### Patch Changes

@@ -51,7 +51,7 @@
     "sax-wasm": "^2.0.0"
   },
   "devDependencies": {
-    "@rocket/cli": "^0.20.0"
+    "@rocket/cli": "^0.21.0"
   },
   "customElements": "custom-elements.json",
   "wireit": {
