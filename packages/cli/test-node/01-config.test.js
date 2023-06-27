@@ -74,7 +74,7 @@ describe('Config', () => {
       testOptions: { captureLogs: true },
     });
     await build();
-    const inlineModule = await readOutput('e97af63d.js', { format: false });
+    const inlineModule = await readOutput('ddcef8d1.js', { format: false });
     expect(inlineModule).to.equal('var a={test:"data"};console.log(a);\n');
   });
 

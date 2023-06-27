@@ -1,11 +1,8 @@
 import resolve from '@rollup/plugin-node-resolve';
-// @ts-ignore
-import { terser } from 'rollup-plugin-terser';
-import babelPkg from '@rollup/plugin-babel';
+import terser from '@rollup/plugin-terser';
+import { babel } from '@rollup/plugin-babel';
 
 import { applyPlugins } from 'plugins-manager';
-
-const { babel } = babelPkg;
 
 /** @typedef {import('../types/main.js').BuildingRollupOptions} BuildingRollupOptions */
 
@@ -84,6 +81,7 @@ export function createBasicMetaConfig(userConfig = { output: {} }) {
       },
     },
     {
+      // @ts-ignore
       plugin: terser,
       options: {},
     },

@@ -52,7 +52,7 @@
     "rollup"
   ],
   "dependencies": {
-    "@rocket/building-rollup": "^0.4.0",
+    "@rocket/building-rollup": "^0.4.1",
     "@rocket/engine": "^0.2.7",
     "check-html-links": "^0.2.4",
     "colorette": "^2.0.16",
