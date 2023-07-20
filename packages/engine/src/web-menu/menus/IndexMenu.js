@@ -57,11 +57,12 @@ export class IndexMenu extends Menu {
     if (this.childCondition(node) && node.children) {
       const lvl = node.model.level;
       const levelClass = `lvl-${lvl + 1}`;
-
+      const summaryContent = !node.model.menuNoLink?html`<a href="${node.model.url}">${node.model.menuLinkText}</a>`:node.model.menuLinkText;
+      
       if (lvl > 2) {
         return html`
           <details ?open=${open}>
-            <summary>${node.model.menuLinkText}</summary>
+          <summary>${summaryContent}</summary>
             <ul class=${levelClass}>
               ${node.children.map(/** @param {NodeOfPage} child */ child => this.listItem(child))}
             </ul>
