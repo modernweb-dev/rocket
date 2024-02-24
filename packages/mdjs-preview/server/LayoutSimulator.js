@@ -19,7 +19,6 @@ export class LayoutSimulator {
             import { render } from '@mdjs/mdjs-story';
 
             function sanitize(input, type) {
-              console.log('sanitize', input, type);
               return \`\${document.location.origin}/\${
                 input.match(/[a-zA-Z0-9-_\\/]*/)[0]
               }.\${type}\`;

@@ -267,7 +267,9 @@ export class HydrationLoader {
     if (this.isSetup === false) {
       // Start fetching the Lit hydration support module (note the absence
       // of "await" -- we don't want to block yet).
-      const litHydrateSupportInstalled = import('lit/experimental-hydrate-support.js');
+      const litHydrateSupportInstalled = import(
+        '@lit-labs/ssr-client/lit-element-hydrate-support.js'
+      );
 
       // Check if we require the declarative shadow DOM polyfill. As of
       // February 2022, Chrome and Edge have native support, but Firefox

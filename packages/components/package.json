@@ -43,7 +43,7 @@
   "dependencies": {
     "@webcomponents/template-shadowroot": "^0.1.0",
     "fontawesome-free": "^1.0.4",
-    "lit": "^2.3.0"
+    "lit": "^3.0.0"
   },
   "devDependencies": {},
   "types": "./dist-types/exports/index.d.ts",
