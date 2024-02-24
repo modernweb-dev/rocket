@@ -671,7 +671,6 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
           ? html`
               <iframe
                 part="iframe"
-                csp=${`script-src ${document.location.origin} 'unsafe-inline'; connect-src ws://${document.location.host}/`}
                 .src=${this.iframeUrl}
                 style=${`width: ${this.sizeData.width}px; height: ${this.deviceHeight}px;`}
               ></iframe>
@@ -961,6 +960,10 @@ export class MdJsPreview extends ScopedElementsMixin(LitElement) {
         padding: 5px;
         border: 1px solid #333;
         border-radius: 3px;
+      }
+
+      iframe {
+        min-height: 50px;
       }
 
       /** Showing/Hiding additional code blocks **/

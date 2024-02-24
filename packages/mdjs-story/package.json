@@ -31,7 +31,7 @@
     "src"
   ],
   "dependencies": {
-    "lit": "^2.3.0"
+    "lit": "^3.0.0"
   },
   "types": "dist-types/index.d.ts"
 }

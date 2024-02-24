@@ -13,7 +13,7 @@
   "devDependencies": {
     "@rocket/cli": "^0.21.0",
     "@rocket/engine": "^0.2.0",
-    "lit": "^2.3.0"
+    "lit": "^3.0.0"
   },
   "@rocket/template-name": "Minimal Starter"
 }

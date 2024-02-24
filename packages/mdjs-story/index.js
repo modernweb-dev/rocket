@@ -9,7 +9,6 @@ export {
   getCompatibleStyle,
   supportsAdoptingStyleSheets,
   unsafeCSS,
-  UpdatingElement,
   notEqual,
   ReactiveElement,
   svg,

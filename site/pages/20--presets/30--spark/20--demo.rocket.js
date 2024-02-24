@@ -6,8 +6,6 @@ export { html, setupUnifiedPlugins, openGraphLayout };
 export async function registerCustomElements() {
   // server-only components
   // prettier-ignore
-  customElements.define('rocket-content-area', await import('@rocket/components/content-area.js').then(m => m.RocketContentArea));
-  // prettier-ignore
   customElements.define('rocket-header-scroll-menu', await import('@rocket/components/header-scroll-menu.js').then(m => m.RocketHeaderScrollMenu));
   // prettier-ignore
   customElements.define('permanent-notification', await import('@rocket/components/permanent-notification.js').then(m => m.PermanentNotification));
