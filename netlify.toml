@@ -1,0 +1,8 @@
+[build]
+  publish = "dist"
+
+[[redirects]]
+  from = "/chat"
+  to = "https://discord.gg/sTdpM2rkKJ"
+  status = 301
+  force = true

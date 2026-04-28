@@ -1,0 +1,201 @@
+{
+  "name": "@rocket/js",
+  "version": "0.1.0",
+  "description": "HTML-first static-site metaframework for content sites and Web Component docs.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "static-site-generator",
+    "web-components",
+    "markdown",
+    "html-first",
+    "docs"
+  ],
+  "exports": {
+    "./*": {
+      "types": "./dist-types/exports/*",
+      "default": "./exports/*"
+    },
+    "./layouts/atlasDoc.css": "./src/layouts/atlas/atlasDoc.css",
+    "./layouts/atlasHero.css": "./src/layouts/atlas/atlasHero.css",
+    "./layouts/atlasNotFound.css": "./src/layouts/atlas/atlasNotFound.css",
+    "./docs/assets/*": "./docs/assets/*"
+  },
+  "files": [
+    "exports/",
+    "src/**/*.js",
+    "src/**/*.css",
+    "src/**/*.svg",
+    "src/**/*.txt",
+    "dist-types/**/*.d.ts",
+    "dist-types/**/*.d.ts.map",
+    "docs/assets/",
+    "!src/**/*.test.js",
+    "!dist-types/docs/**",
+    "!dist-types/**/*.test.d.ts",
+    "!dist-types/**/*.test.d.ts.map"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modernweb-dev/rocket.git"
+  },
+  "homepage": "https://rocket.modern-web.dev",
+  "bugs": {
+    "url": "https://github.com/modernweb-dev/rocket/issues"
+  },
+  "funding": {
+    "url": "https://opencollective.com/modern-web"
+  },
+  "scripts": {
+    "start": "npx rocket start",
+    "build": "npx rocket build",
+    "build:start": "npx http-server dist -o",
+    "ai:do": "node scripts/codex-issue-loop.js",
+    "ai:do:loop": "node scripts/codex-issue-loop.js --max 6",
+    "ai:check": "node scripts/codex-issue-loop.js --dry-run",
+    "lint": "eslint . --ignore-pattern .gitignore && prettier \"**/*.{ts,js,json,md}\" --check --ignore-path .gitignore --ignore-path .prettierignore",
+    "format": "eslint . --ignore-pattern .gitignore --fix && prettier \"**/*.{ts,js,json,md}\" --write --ignore-path .gitignore --ignore-path .prettierignore",
+    "types": "wireit",
+    "test": "wireit",
+    "test:browser": "wireit",
+    "test:node": "wireit",
+    "deploy": "wireit",
+    "netlify:link": "wireit",
+    "changeset": "changeset",
+    "prepack": "npm run types",
+    "release": "changeset publish"
+  },
+  "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "*.demo.js"
+        ],
+        "rules": {
+          "no-console": "off"
+        }
+      }
+    ]
+  },
+  "bin": {
+    "rocket": "src/cli/cli.js"
+  },
+  "dependencies": {
+    "@awesome.me/webawesome": "^3.7.0",
+    "@lit-labs/ssr": "^4.1.0",
+    "@sparticuz/chromium": "^148.0.0",
+    "@web/dev-server": "^0.4.6",
+    "bootstrap-icons": "^1.13.1",
+    "commander": "14.0.3",
+    "es-module-lexer": "^2.1.0",
+    "lit": "^3.3.3",
+    "parse5": "^7.3.0",
+    "puppeteer-core": "^25.1.0",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-prism-plus": "^2.0.2",
+    "rehype-raw": "^7.0.0",
+    "rehype-slug": "^6.0.0",
+    "rehype-stringify": "^10.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-rehype": "^11.1.2",
+    "typescript": "6.0.3",
+    "unified": "^11.0.5",
+    "unist-util-inspect": "8.1.0",
+    "unist-util-remove": "^4.0.0",
+    "unist-util-visit": "^5.1.0",
+    "urlpattern-polyfill": "10.1.0",
+    "vite": "^8.0.14"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^10.0.1",
+    "@netlify/functions": "^5.2.2",
+    "@open-wc/testing": "^4.0.0",
+    "@types/hast": "^3.0.4",
+    "@types/mdast": "4.0.4",
+    "@types/node": "^24.12.4",
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
+    "@web/mocks": "^2.0.0",
+    "@web/test-runner": "^0.20.2",
+    "@web/test-runner-playwright": "^0.11.1",
+    "dotenv": "^17.4.2",
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-no-only-tests": "^3.4.0",
+    "globals": "^17.6.0",
+    "netlify-cli": "^26.0.2",
+    "patch-package": "^8.0.1",
+    "prettier": "^3.8.3",
+    "prettier-plugin-packagejson": "^3.0.2",
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.59.4",
+    "vfile": "6.0.3",
+    "wireit": "^0.14.12"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "wireit": {
+    "deploy": {
+      "command": "rm -f ../../node_modules/ssh2/lib/protocol/crypto/build/Release/sshcrypto.node && netlify deploy --prod --site 2439aca3-b7d1-495c-bb8a-478ce089b666 --no-build",
+      "files": [
+        "dist/**/*"
+      ],
+      "dependencies": [
+        "netlify:link",
+        "build"
+      ],
+      "output": []
+    },
+    "types": {
+      "command": "tsc --build --pretty",
+      "files": [
+        "src/**/*",
+        "types/**/*",
+        "tsconfig.json"
+      ],
+      "output": [
+        "dist-types/**"
+      ]
+    },
+    "test": {
+      "dependencies": [
+        "test:browser",
+        "test:node"
+      ]
+    },
+    "test:browser": {
+      "command": "web-test-runner",
+      "files": [
+        "exports/**/*",
+        "src/**/*",
+        "!src/**/*.test.js"
+      ],
+      "output": []
+    },
+    "test:node": {
+      "command": "node --test",
+      "files": [
+        "exports/**/*",
+        "src/**/*",
+        "!src/**/*.test-browser.js"
+      ],
+      "output": []
+    },
+    "netlify:link": {
+      "command": "netlify link --id 2439aca3-b7d1-495c-bb8a-478ce089b666",
+      "files": [],
+      "output": [
+        "./.netlify/state.json"
+      ]
+    }
+  }
+}
