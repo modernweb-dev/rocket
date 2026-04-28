@@ -1,0 +1,28 @@
+node_modules
+dist
+dist-types
+dev.env
+prod.env
+.env.prod
+.env.dev
+.env
+.DS_Store
+temp
+.scratch
+.rocket
+
+# Local Netlify folder
+.netlify
+.wireit
+
+# Playwright MCP runtime data
+.playwright-mcp/
+
+# imported shoelace icons
+sites/app/entrypoint/assets/icons/*
+sites/app-demo/entrypoint/assets/icons/*
+feat/login/src/assets/icons/*
+assets/icons/*
+
+# generated
+**/generated.*

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "noImplicitThis": true,
+    "composite": true,
+    "emitDeclarationOnly": true,
+    "alwaysStrict": true,
+    "types": ["node"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "incremental": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist-types",
+    "rootDir": ".",
+    "lib": ["ESNext.Promise", "ESNext", "DOM"]
+  },
+  "include": ["exports", "src", "exports/types", "docs"],
+  "exclude": ["dist-types", "dist", "**/generated.*"]
+}
