@@ -1,6 +1,6 @@
 {
   "name": "@rocket/js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "HTML-first static-site metaframework for content sites and Web Component docs.",
   "license": "MIT",
   "type": "module",
