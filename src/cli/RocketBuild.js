@@ -273,10 +273,12 @@ export async function renderStaticPages({
       }
       for (const demoPath of standaloneDemoPaths(pagePath, page)) {
         const demoResponse = await pageRuntime.render(new Request(new URL(demoPath, origin)));
-        writeHtml(demoPath, await demoResponse.text());
+        await writeStandaloneDemoResponse(demoPath, page, demoResponse);
       }
     } catch (error) {
-      throw new Error('Failed to render page: ' + pagePath, { cause: error });
+      throw new Error(`Failed to render page: ${pagePath}. ${errorMessage(error)}`, {
+        cause: error,
+      });
     }
   }
   writeIconAssetOutputs(iconAssetStore);
@@ -499,6 +501,22 @@ async function writeStaticResponse(pagePath, response) {
 }
 
 /**
+ * @param {string} demoPath
+ * @param {import('@rocket/js/types.js').Page} page
+ * @param {Response} response
+ */
+async function writeStandaloneDemoResponse(demoPath, page, response) {
+  const body = await response.text();
+  if (!response.ok) {
+    throw new Error(
+      `Standalone Demo URL ${demoPath} for page ${page.file} returned HTTP ${response.status}. ` +
+        `Expected a 2xx response. Body starts with: ${previewResponseBody(body)}`,
+    );
+  }
+  writeHtml(demoPath, body);
+}
+
+/**
  * @param {string} pagePath
  * @returns {boolean}
  */
@@ -542,4 +560,22 @@ function escapeHtml(value) {
     .replaceAll("'", '&#39;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;');
+}
+
+/**
+ * @param {string} body
+ */
+function previewResponseBody(body) {
+  const normalized = body.replace(/\s+/g, ' ').trim();
+  if (!normalized) {
+    return '(empty body)';
+  }
+  return JSON.stringify(normalized.slice(0, 200));
+}
+
+/**
+ * @param {unknown} error
+ */
+function errorMessage(error) {
+  return error instanceof Error ? error.message : String(error);
 }

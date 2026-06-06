@@ -57,7 +57,38 @@ describe('Test standaloneDemoUrl', () => {
     });
   });
 
-  it('04: ignores unknown demos and JavaScript Pages when matching', () => {
+  it('04: matches generated demo URLs for Page paths with and without trailing slashes', () => {
+    for (const pagePath of ['/javascript-demo', '/javascript-demo/']) {
+      const page = makePage({
+        path: pagePath,
+        file: 'docs/javascript-demo.rocket.md',
+        demoNames: ['demoCard'],
+      });
+
+      const match = matchStandaloneDemoUrl(
+        '/javascript-demo/_demo/demoCard/',
+        'https://rocket.test',
+        makePageRegistry(page),
+      );
+
+      assert.deepEqual(
+        {
+          routePath: match?.routePath,
+          params: match?.params,
+          variant: match?.variant,
+          pagePath: match?.page.module.config.path,
+        },
+        {
+          routePath: pagePath,
+          params: {},
+          variant: { kind: 'standalone-demo', demoName: 'demoCard' },
+          pagePath,
+        },
+      );
+    }
+  });
+
+  it('05: ignores unknown demos and JavaScript Pages when matching', () => {
     assert.equal(
       matchStandaloneDemoUrl(
         '/button/_demo/missing/',
@@ -88,7 +119,7 @@ describe('Test standaloneDemoUrl', () => {
     );
   });
 
-  it('05: generates paths and route patterns for Markdown Pages only', () => {
+  it('06: generates paths and route patterns for Markdown Pages only', () => {
     const markdownPage = makePage({
       path: '/guide',
       file: 'docs/guide.rocket.md',

@@ -5,6 +5,7 @@ import { resolve } from '../../resolve.js';
 import { webAwesomeComponents } from '@rocket/js/components/web-awesome.js';
 import { addBootstrapIconLibrary } from '../layout.js';
 import { pageNavigationLinks } from '../../menus/pageNavigation.js';
+import { rocketDemoComponents } from '../../components.js';
 
 export const DEFAULT_ATLAS_DOC_NAVIGATION_ICON_SERVER_BUDGET = 35;
 
@@ -35,21 +36,7 @@ export const atlasDocComponents = {
     className: 'RocketSocialLink',
     loading: 'server',
   },
-  'rocket-code-block': {
-    file: './RocketCodeBlock.js',
-    className: 'RocketCodeBlock',
-    loading: 'hydrate:onVisible',
-  },
-  'rocket-js-demo': {
-    file: './RocketJsDemo.js',
-    className: 'RocketJsDemo',
-    loading: 'client',
-  },
-  'rocket-request-demo': {
-    file: './RocketRequestDemo.js',
-    className: 'RocketRequestDemo',
-    loading: 'client',
-  },
+  ...rocketDemoComponents,
   ...webAwesomeComponents,
 };
 

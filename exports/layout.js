@@ -1,1 +1,1 @@
-export { layout } from '../src/layouts/layout.js';
+export { addBootstrapIconLibrary, layout } from '../src/layouts/layout.js';

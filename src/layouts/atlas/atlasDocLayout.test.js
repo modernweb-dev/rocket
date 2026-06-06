@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
+import { rocketDemoComponents } from '../../components.js';
 import { atlasDocComponents } from './atlasDocLayout.js';
 import { atlasHeroComponents } from './atlasHeroLayout.js';
 
@@ -35,5 +36,18 @@ describe('Test Atlas JavaScript Demo component loading', () => {
       className: 'RocketRequestDemo',
       loading: 'client',
     });
+  });
+
+  it('05: exposes a focused Rocket demo component map', () => {
+    assert.deepEqual(Object.keys(rocketDemoComponents).sort(), [
+      'rocket-code-block',
+      'rocket-js-demo',
+      'rocket-request-demo',
+    ]);
+    assert.deepEqual(
+      atlasDocComponents['rocket-code-block'],
+      rocketDemoComponents['rocket-code-block'],
+    );
+    assert.equal(atlasHeroComponents['rocket-code-block'].loading, 'hydrate:onClientLoad');
   });
 });

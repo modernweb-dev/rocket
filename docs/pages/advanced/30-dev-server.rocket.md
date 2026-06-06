@@ -47,6 +47,17 @@ npm start
 
 The server opens the browser and listens on port `8888` by default.
 
+Use flags when you need a different startup shape:
+
+```bash
+npx rocket start --port 3000
+npx rocket start --no-open
+npx rocket start --no-watch
+```
+
+`--no-open` leaves the browser closed. `--no-watch` disables automatic reload watchers; use
+`Ctrl+R` for manual restarts when you want to reload after a change.
+
 ## Restart
 
 The `rocket start` wrapper keeps a server process running and listens for keyboard input:

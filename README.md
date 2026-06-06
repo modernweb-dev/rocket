@@ -76,8 +76,9 @@ npm install @rocket/js
 npx rocket init
 ```
 
-`rocket init` creates `rocket-config.js`, `docs/pages/index.rocket.md`, and a removable
-project-local Rocket Agent Skill. It also adds npm scripts when the names are available:
+`rocket init` creates a compact Atlas docs starter, including `rocket-config.js`,
+`docs/pages/sharedData.js`, starter Markdown Pages, a static JSON Page for a Request Demo, and a
+removable project-local Rocket Agent Skill. It also adds npm scripts when the names are available:
 
 ```json
 {
@@ -102,7 +103,7 @@ export default {
 };
 ```
 
-The generated `docs/pages/index.rocket.md` gives you a first Page:
+The generated `docs/pages/index.rocket.md` gives you an Atlas hero home Page:
 
 ````md
 ```js server
@@ -112,14 +113,22 @@ export const config = {
     title: 'Rocket Site',
     description: 'Documentation built with Rocket.',
   },
+  menu: {
+    iconName: 'house',
+    order: 0,
+  },
 };
 
-export { layout } from '@rocket/js/layout.js';
+import { atlasHeroLayout, atlasHeroComponents } from '@rocket/js/layouts/atlasHero.js';
+import { heroData } from './sharedData.js';
+
+export const components = atlasHeroComponents;
+export const layout = pageData => atlasHeroLayout(pageData, heroData);
 ```
 
 # Rocket Site
 
-This Page is rendered by Rocket.
+This starter is rendered with Rocket's Atlas hero layout.
 ````
 
 Then run:

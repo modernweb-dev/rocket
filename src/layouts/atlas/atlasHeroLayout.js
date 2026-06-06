@@ -4,6 +4,7 @@ import { resolve } from '../../resolve.js';
 import { webAwesomeComponents } from '@rocket/js/components/web-awesome.js';
 import { addBootstrapIconLibrary } from '../layout.js';
 import { renderHeaderLogo, renderHeaderNav, renderSocials } from './atlasDocLayout.js';
+import { rocketDemoComponents } from '../../components.js';
 
 /** @type {import('@rocket/js/types.js').Components} */
 export const atlasHeroComponents = {
@@ -27,20 +28,10 @@ export const atlasHeroComponents = {
     className: 'FeatureList',
     loading: 'server',
   },
+  ...rocketDemoComponents,
   'rocket-code-block': {
-    file: './RocketCodeBlock.js',
-    className: 'RocketCodeBlock',
+    ...rocketDemoComponents['rocket-code-block'],
     loading: 'hydrate:onClientLoad',
-  },
-  'rocket-js-demo': {
-    file: './RocketJsDemo.js',
-    className: 'RocketJsDemo',
-    loading: 'client',
-  },
-  'rocket-request-demo': {
-    file: './RocketRequestDemo.js',
-    className: 'RocketRequestDemo',
-    loading: 'client',
   },
   ...webAwesomeComponents,
 };

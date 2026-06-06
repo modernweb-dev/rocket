@@ -62,7 +62,7 @@ src, public, existing project instructions, and any existing .agents/skills/rock
 If this is not already a Rocket project:
 - If package.json is missing, create one with npm init -y.
 - Install Rocket with npm install @rocket/js when @rocket/js is missing.
-- Run npx rocket init to create the minimal Rocket shape.
+- Run npx rocket init to create the Rocket starter shape.
 - Read .agents/skills/rocket/SKILL.md if it exists after initialization and follow it.
 
 If this is already a Rocket project:
@@ -72,14 +72,14 @@ If this is already a Rocket project:
   is a clear reason to change them.
 
 Question budget:
-- Ask at most 10 substantive questions total.
+- Ask at most 11 substantive questions total.
 - Ask fewer questions when the project already gives enough information.
 - After 5 substantive questions, or earlier once you can build a coherent first version, ask:
-  "I can start building now with these assumptions, or keep asking up to 5 more questions. Which do
+  "I can start building now with these assumptions, or keep asking up to 6 more questions. Which do
   you prefer?"
 - If I choose to build, summarize your assumptions and start.
 - If I choose to keep going, continue one question at a time until the remaining decisions are
-  resolved or the 10-question limit is reached.
+  resolved or the 11-question limit is reached.
 - If a decision blocks implementation, say why it blocks before building.
 
 Use this decision order. Skip anything answerable from the codebase:
@@ -87,12 +87,13 @@ Use this decision order. Skip anything answerable from the codebase:
 2. Primary visitor action or successful outcome.
 3. Required Pages, navigation, and rough content hierarchy.
 4. Existing content, assets, code, or source material to reuse.
-5. Visual direction, brand constraints, and examples to avoid or emulate.
-6. Content tone, language, and localization needs.
-7. Whether this is a Standalone Rocket Site or component/library documentation.
-8. Request-time behavior, integrations, forms, search, authentication, or other dynamic needs.
-9. Deployment target, Site Origin, and whether publishing should happen now or later.
-10. Launch readiness: favicon assets, Site Head Metadata, discoverability, and verification.
+5. Whether this is a documentation site and whether package-provided Atlas layouts are enough.
+6. Visual direction, brand constraints, and examples to avoid or emulate.
+7. Content tone, language, and localization needs.
+8. Whether this is a Standalone Rocket Site or component/library documentation.
+9. Request-time behavior, integrations, forms, search, authentication, or other dynamic needs.
+10. Deployment target, Site Origin, and whether publishing should happen now or later.
+11. Launch readiness: favicon assets, Site Head Metadata, discoverability, and verification.
 
 You have enough to build a coherent first version when you know or can infer:
 - the site purpose
@@ -113,19 +114,32 @@ Build rules:
 - General Documentation Pages go under docs/pages.
 - Component Reference Pages go next to the component they document.
 - Every Page owns its public URL through config.path.
+- Prefer package-provided Atlas layouts for documentation sites. Use atlasDocLayout for general
+  docs Pages and atlasHeroLayout for standalone docs home Pages unless I explicitly ask for a custom
+  layout.
+- Pages using atlasDocLayout must export atlasDocComponents as components. Pages using
+  atlasHeroLayout must export atlasHeroComponents as components.
+- Direct layout re-exports such as export { layout } from './layout.js' are supported when no local
+  wrapper function is needed.
+- Atlas docs navigation Pages should set menu.iconName with a Bootstrap Icon name.
 - Prefer Markdown Pages for durable content.
 - Use JavaScript Pages only for request-time or programmatic rendering.
 - Keep the first version static unless the interview identifies real request-time behavior.
+- Static JavaScript Pages render once per concrete config.path during rocket build. Static Request
+  Demo examples should point at concrete paths and avoid query-dependent output.
 - Do not invent extra Pages just to hit a count; create the smallest useful Page set for the visitor
   journey.
 - If this is component or Web Component documentation, create at least one Component Reference Page
   with a useful rendered example.
-- Add a local layout, styles, data files, public assets, Site Head Metadata, or deployment config
-  only when the site decisions call for them.
+- Add a custom layout, styles, data files, public assets, Site Head Metadata, or deployment config
+  only when the site decisions call for them. Custom-layout examples must explain component
+  registration and icon-library setup for Rocket-owned components, including addBootstrapIconLibrary
+  from @rocket/js/icons.js when the layout renders rocket-icon.
 - Configure Favicon Asset references only for files that actually exist under public/.
 - Do not enable sitemap or robots until the final production Site Origin is known and the site is
   ready for public crawlers.
 - Do not publish, initialize Git, or commit unless I explicitly ask.
+- Record Rocket package issues separately from project-local workarounds.
 
 Before building, summarize:
 - the decisions you learned from the codebase
@@ -137,16 +151,20 @@ Before building, summarize:
 After building:
 - Run the appropriate Rocket build command, usually npm run build or npm run rocket:build.
 - Fix build failures before finishing.
+- For every js demo Page, verify both the parent Page and the generated Standalone Demo URL
+  /page/_demo/demoName/.
 - If you can start a local dev server, tell me the URL.
 - Summarize changed files, verification results, and deferred launch items.
 ```
 
 ## What the agent should create
 
-For a new project, `npx rocket init` creates the minimal Rocket shape:
+For a new project, `npx rocket init` creates a Rocket starter shape:
 
 - `rocket-config.js`
+- `docs/pages/sharedData.js`
 - `docs/pages/index.rocket.md`
+- starter docs, JavaScript Demo, Request Demo, and static JSON Pages under `docs/pages`
 - `.agents/skills/rocket/SKILL.md`
 - npm scripts for local development and static builds when those names are available
 

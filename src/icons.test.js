@@ -4,14 +4,40 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { describe, it } from 'node:test';
 import {
+  addBootstrapIconLibrary,
   createIconAssetStore,
   finalizeRocketIcons,
   iconsFromPackage,
   iconsFromPath,
+  rocketBootstrapIconLibraries,
+  rocketDefaultBootstrapIconLibrary,
 } from './icons.js';
 
 describe('Test rocket icons', () => {
-  it('01: indexes package-backed Icon Library Sources lazily and returns raw SVG', async () => {
+  it('01: exposes reusable Bootstrap Icon Library config for custom layouts', () => {
+    /** @type {{ libraries?: unknown; options?: unknown }} */
+    const pageData = {};
+
+    addBootstrapIconLibrary({
+      addIconLibraries(iconLibraries, options) {
+        pageData.libraries = iconLibraries;
+        pageData.options = options;
+      },
+    });
+
+    assert.deepEqual(rocketBootstrapIconLibraries, {
+      bootstrap: {
+        type: 'package',
+        packageName: 'bootstrap-icons',
+        files: 'icons/*.svg',
+      },
+    });
+    assert.equal(rocketDefaultBootstrapIconLibrary, 'bootstrap');
+    assert.equal(pageData.libraries, rocketBootstrapIconLibraries);
+    assert.deepEqual(pageData.options, { defaultIconLibrary: 'bootstrap' });
+  });
+
+  it('02: indexes package-backed Icon Library Sources lazily and returns raw SVG', async () => {
     const html = await finalizeRocketIcons(
       '<rocket-icon library="bootstrap" name="alarm"></rocket-icon>',
       {
@@ -28,7 +54,7 @@ describe('Test rocket icons', () => {
     assert.doesNotMatch(html, /data-rocket-icon-manifest|RocketIcon|icon-loading="auto"|size=/);
   });
 
-  it('02: indexes trusted local SVG folder libraries without rewriting SVG content', async () => {
+  it('03: indexes trusted local SVG folder libraries without rewriting SVG content', async () => {
     const tempRoot = mkdtempSync(path.join(tmpdir(), 'rocket-icons-'));
     const iconDir = path.join(tempRoot, 'icons');
     const rawSvg =
@@ -56,7 +82,7 @@ describe('Test rocket icons', () => {
     }
   });
 
-  it('03: fails with clear errors for invalid Icon References and sources', async () => {
+  it('04: fails with clear errors for invalid Icon References and sources', async () => {
     const tempRoot = mkdtempSync(path.join(tmpdir(), 'rocket-icon-errors-'));
     const duplicateDir = path.join(tempRoot, 'duplicates');
     const emptyDir = path.join(tempRoot, 'empty');
@@ -130,7 +156,7 @@ describe('Test rocket icons', () => {
     }
   });
 
-  it('04: emits a passive Icon Manifest and generated raw SVG asset URLs for client-loaded icons', async () => {
+  it('05: emits a passive Icon Manifest and generated raw SVG asset URLs for client-loaded icons', async () => {
     const iconAssetStore = createIconAssetStore();
 
     const html = await finalizeRocketIcons(
@@ -183,7 +209,7 @@ describe('Test rocket icons', () => {
     assert.match(outputsByUrl.get(manifest.icons['bootstrap:bell'])?.svg || '', /<svg/);
   });
 
-  it('05: applies Icon Loading Region budgets only to automatic icons', async () => {
+  it('06: applies Icon Loading Region budgets only to automatic icons', async () => {
     const iconAssetStore = createIconAssetStore();
 
     const html = await finalizeRocketIcons(
@@ -225,7 +251,7 @@ describe('Test rocket icons', () => {
     assert.equal(iconAssetStore.outputs().length, 5);
   });
 
-  it('06: treats zero Icon Server Budgets as deferring every automatic icon', async () => {
+  it('07: treats zero Icon Server Budgets as deferring every automatic icon', async () => {
     const html = await finalizeRocketIcons(
       [
         '<section icon-loading-region icon-server-budget="0">',
@@ -249,7 +275,7 @@ describe('Test rocket icons', () => {
     ]);
   });
 
-  it('07: keeps nested Icon Loading Regions independent from parent budgets', async () => {
+  it('08: keeps nested Icon Loading Regions independent from parent budgets', async () => {
     const html = await finalizeRocketIcons(
       [
         '<main icon-loading-region icon-server-budget="2">',
@@ -283,7 +309,7 @@ describe('Test rocket icons', () => {
     assertClientIcon(html, 'check');
   });
 
-  it('08: fails clearly for invalid Icon Server Budgets', async () => {
+  it('09: fails clearly for invalid Icon Server Budgets', async () => {
     const options = {
       iconLibraries: {
         bootstrap: iconsFromPackage('bootstrap-icons', 'icons/*.svg'),
@@ -308,7 +334,7 @@ describe('Test rocket icons', () => {
     }
   });
 
-  it('09: emits manifest runtime for browser-loaded components and includes server icons', async () => {
+  it('10: emits manifest runtime for browser-loaded components and includes server icons', async () => {
     const iconAssetStore = createIconAssetStore();
 
     const html = await finalizeRocketIcons(
@@ -342,7 +368,7 @@ describe('Test rocket icons', () => {
     assert.equal(iconAssetStore.needsRuntime, true);
   });
 
-  it('10: omits manifest runtime for server icons when components are server-only', async () => {
+  it('11: omits manifest runtime for server icons when components are server-only', async () => {
     const iconAssetStore = createIconAssetStore();
 
     const html = await finalizeRocketIcons('<rocket-icon name="alarm"></rocket-icon>', {
@@ -360,7 +386,7 @@ describe('Test rocket icons', () => {
     assert.equal(iconAssetStore.needsRuntime, false);
   });
 
-  it('11: emits manifest entries for explicit PageData Icon References', async () => {
+  it('12: emits manifest entries for explicit PageData Icon References', async () => {
     const iconAssetStore = createIconAssetStore();
 
     const html = await finalizeRocketIcons(

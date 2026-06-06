@@ -46,6 +46,21 @@ export function iconsFromPath(files) {
   };
 }
 
+export const rocketBootstrapIconLibraries = {
+  bootstrap: iconsFromPackage('bootstrap-icons', 'icons/*.svg'),
+};
+
+export const rocketDefaultBootstrapIconLibrary = 'bootstrap';
+
+/**
+ * @param {{ addIconLibraries: (iconLibraries: import('@rocket/js/types.js').IconLibrariesConfig, options?: { defaultIconLibrary?: string }) => void }} pageData
+ */
+export function addBootstrapIconLibrary(pageData) {
+  pageData.addIconLibraries(rocketBootstrapIconLibraries, {
+    defaultIconLibrary: rocketDefaultBootstrapIconLibrary,
+  });
+}
+
 export class IconAssetStore {
   constructor() {
     /** @type {Map<string, { url: string; svg: string; library: string; name: string }>} */

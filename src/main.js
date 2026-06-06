@@ -6,7 +6,8 @@ import { MessageChannel } from 'node:worker_threads';
 import { customElements } from '@lit-labs/ssr-dom-shim';
 import { readConfig } from './config.js';
 
-const configFilePath = process.argv.at(-1);
+const configFilePath = process.argv[2] || undefined;
+const startOptions = readStartOptions(process.argv[3]);
 
 customElements.define = (name, ctor) => {
   customElements.__definitions.set(name, {
@@ -37,12 +38,13 @@ let devServerConfig = {
       urlLifecycle: config.urlLifecycle,
       iconLibraries: config.iconLibraries,
       defaultIconLibrary: config.defaultIconLibrary,
+      watch: startOptions.watch,
     }),
   ],
-  open: true,
+  open: startOptions.open ?? true,
   nodeResolve: { exportConditions: ['browser'] },
-  watch: true,
-  port: 8888,
+  watch: startOptions.watch ?? true,
+  port: startOptions.port ?? 8888,
 };
 
 devServerConfig = config.adjustDevServerConfig(devServerConfig);
@@ -53,3 +55,18 @@ const server = await startDevServer({
   readCliArgs: false,
   readFileConfig: false,
 });
+
+/**
+ * @param {string | undefined} value
+ * @returns {{ port?: number; open?: boolean; watch?: boolean }}
+ */
+function readStartOptions(value) {
+  if (!value) {
+    return {};
+  }
+  const parsed = JSON.parse(value);
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+    return {};
+  }
+  return /** @type {{ port?: number; open?: boolean; watch?: boolean }} */ (parsed);
+}

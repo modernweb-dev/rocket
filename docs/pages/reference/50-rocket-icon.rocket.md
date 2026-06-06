@@ -216,9 +216,22 @@ Use `rocket-icon` for static documentation icons that should be visible in the f
 Reusable layouts should add their own Icon Libraries during render and use explicit `library` values
 for layout-owned icon choices:
 
+```js label="custom layout icon setup"
+import { addBootstrapIconLibrary } from '@rocket/js/icons.js';
+import { document } from '@rocket/js/layout-helper.js';
+
+export const layout = pageData => {
+  addBootstrapIconLibrary(pageData);
+  return document(pageData, pageData.content);
+};
+```
+
 ```html
 <rocket-icon library="bootstrap" name="arrow-up-right" aria-hidden="true"></rocket-icon>
 ```
+
+For lower-level configuration, `@rocket/js/icons.js` also exports
+`rocketBootstrapIconLibraries` and `rocketDefaultBootstrapIconLibrary`.
 
 Page-configured Atlas menu icons, such as `menu.iconName`, are author-owned names. Keep them
 unqualified in the Page config; Atlas resolves them through the active Default Icon Library until the

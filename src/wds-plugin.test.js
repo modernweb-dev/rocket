@@ -463,6 +463,7 @@ export function renderTemplate() {
       );
 
       assert.ok(watchedDirectories.has('docs/'));
+      await waitFor(() => watchedDirectories.has('src/'));
       assert.ok(watchedDirectories.has('src/'));
 
       const serve = plugin.serve;
@@ -591,6 +592,58 @@ export default function framePage() {
       assert.match(result.body, /data-frame="true"/);
     } finally {
       serverStop?.();
+      fs.watch = originalWatch;
+      process.chdir(originalCwd);
+      rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('09: disables Rocket file watchers when watch is false', async () => {
+    const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-dev-no-watch-'));
+    const originalCwd = process.cwd();
+    const originalWatch = fs.watch;
+    let watchCalls = 0;
+    /** @type {string[]} */
+    const watchedPaths = [];
+    mkdirSync(path.join(projectRoot, 'public'), { recursive: true });
+    writeFileSync(path.join(projectRoot, 'public/favicon.svg'), '<svg></svg>');
+
+    process.chdir(projectRoot);
+    try {
+      // @ts-expect-error Test stub only needs the close method used by serverStop.
+      fs.watch = () => {
+        watchCalls += 1;
+        return { close() {} };
+      };
+      const resolverPort = /** @type {import('node:worker_threads').MessagePort} */ (
+        /** @type {unknown} */ ({
+          on() {
+            return this;
+          },
+          postMessage() {},
+        })
+      );
+      const plugin = createRocketPlugin([], [], resolverPort, { watch: false });
+      const serverStart = plugin.serverStart;
+
+      if (typeof serverStart !== 'function') {
+        assert.fail('expected serverStart hook');
+      }
+      await serverStart(
+        /** @type {any} */ ({
+          fileWatcher: {
+            /** @param {string} filePath */
+            add(filePath) {
+              watchedPaths.push(filePath);
+            },
+          },
+          webSockets: { sendImport() {} },
+        }),
+      );
+
+      assert.equal(watchCalls, 0);
+      assert.deepEqual(watchedPaths, []);
+    } finally {
       fs.watch = originalWatch;
       process.chdir(originalCwd);
       rmSync(projectRoot, { recursive: true, force: true });

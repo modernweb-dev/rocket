@@ -35,8 +35,9 @@ documentation, but the public APIs can still change before `1.0.0`.
 
 ## Package and setup
 
-- `rocket init` creates only a bare-bones Rocket shape. Use [Start With AI](/setup/build-with-ai)
-  when you want a Coding Agent to expand it into a project-specific site.
+- `rocket init` creates a starter docs site, not a finished project-specific site. Use
+  [Start With AI](/setup/build-with-ai) when you want a Coding Agent to adapt it to your audience,
+  content, design, and deployment target.
 - Rocket currently requires Node.js 22 or newer.
 - The package is published as `@rocket/js`; older `@rocket/create` instructions are obsolete for
   the relaunch path.

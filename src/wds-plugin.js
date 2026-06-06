@@ -24,12 +24,13 @@ let pageRegistry = new Map();
 let modules = new Map();
 
 /** @typedef {import('@rocket/js/types.js').UrlLifecycleConfig} UrlLifecycleConfig */
-/** @typedef {{ urlLifecycle?: UrlLifecycleConfig; siteHeadMetadata?: import('@rocket/js/types.js').SiteHeadMetadataConfig; siteOrigin?: string; siteDiscoverability?: import('@rocket/js/types.js').SiteDiscoverabilityConfig; iconLibraries?: import('@rocket/js/types.js').IconLibrariesConfig; defaultIconLibrary?: string; captureSocialPreviewImage?: import('./socialPreviewImages.js').SocialPreviewCapture }} RocketDevServerPluginOptions */
+/** @typedef {{ urlLifecycle?: UrlLifecycleConfig; siteHeadMetadata?: import('@rocket/js/types.js').SiteHeadMetadataConfig; siteOrigin?: string; siteDiscoverability?: import('@rocket/js/types.js').SiteDiscoverabilityConfig; iconLibraries?: import('@rocket/js/types.js').IconLibrariesConfig; defaultIconLibrary?: string; captureSocialPreviewImage?: import('./socialPreviewImages.js').SocialPreviewCapture; watch?: boolean }} RocketDevServerPluginOptions */
 /** @typedef {RocketDevServerPluginOptions | UrlLifecycleConfig} RocketDevServerPluginInput */
 
 /** @type {(include: string[], exclude: (string | RegExp)[], resolverPort: import('node:worker_threads').MessagePort, options?: RocketDevServerPluginInput) => import('@web/dev-server-core').Plugin} */
 export default (include, exclude, resolverPort, options = {}) => {
   const pluginOptions = normalizePluginOptions(options);
+  const watchEnabled = pluginOptions.watch !== false;
   const iconAssetStore = createIconAssetStore();
   /** @type {import('node:fs').FSWatcher[]} */
   const watchers = [];
@@ -65,19 +66,23 @@ export default (include, exclude, resolverPort, options = {}) => {
         } else {
           modules.set(message.url, new Set([message.parent]));
         }
-        watchFileDirectory(message.url);
+        if (watchEnabled) {
+          watchFileDirectory(message.url);
+        }
         resolverPort.postMessage('ok');
       });
       pageRegistry = await getPages(process.cwd(), include, exclude);
       validateDevelopmentPublicAssets(pluginOptions);
-      pageRegistry.forEach(page => {
-        watchFileDirectory(page.file);
-      });
-      modules.forEach((_, url) => {
-        watchFileDirectory(url);
-      });
+      if (watchEnabled) {
+        pageRegistry.forEach(page => {
+          watchFileDirectory(page.file);
+        });
+        modules.forEach((_, url) => {
+          watchFileDirectory(url);
+        });
+      }
       const publicDir = path.join(process.cwd(), PUBLIC_ASSETS_DIR);
-      if (fs.existsSync(publicDir)) {
+      if (watchEnabled && fs.existsSync(publicDir)) {
         fileWatcher?.add(publicDir);
       }
     },

@@ -120,6 +120,10 @@ During `rocket build`, Rocket creates one build-time `Request` for `/build-info.
 JSON response to static output. The Request Demo uses this guide's namespaced demo route so the
 static JSON response can be inspected in place.
 
+Static JavaScript Pages are rendered once per concrete `config.path`. Do not make static output
+depend on query strings, because a static build does not generate separate files for query variants.
+If a Request Demo needs query-specific output, point it at a Page with `render: 'server'`.
+
 Add `render: 'server'` when the Page needs request-time behavior or when the path contains route
 parameters:
 

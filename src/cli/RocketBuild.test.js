@@ -557,7 +557,62 @@ export default function postPage() {
     );
   });
 
-  it('11: fails static JavaScript Pages with parameterized paths before output', async () => {
+  it('11: fails when a generated Standalone Demo renders a non-2xx response', async () => {
+    const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-static-demo-404-'));
+    const originalCwd = process.cwd();
+    const registryPage = makePage({
+      path: '/runtime',
+      file: 'docs/runtime.rocket.md',
+      demoNames: [],
+    });
+    const staticPage = makePage({
+      path: '/runtime',
+      file: 'docs/runtime.rocket.md',
+      demoNames: ['inlineButton'],
+    });
+
+    process.chdir(projectRoot);
+    try {
+      await assert.rejects(
+        () =>
+          renderStaticPages({
+            pages: makePageRegistry(registryPage),
+            staticPages: new Map([[staticPage.module.config.path, staticPage]]),
+            pageModuleLoader: {
+              async load() {
+                return {
+                  kind: 'markdown',
+                  contentFn: () => ['<main>Parent</main>'],
+                };
+              },
+            },
+          }),
+        error => {
+          if (!(error instanceof Error)) {
+            return false;
+          }
+          assert.match(error.message, /Failed to render page: \/runtime/);
+          assert.match(
+            error.message,
+            /Standalone Demo URL \/runtime\/_demo\/inlineButton\/ for page docs\/runtime\.rocket\.md returned HTTP 404/,
+          );
+          assert.ok(error.cause instanceof Error);
+          assert.match(
+            error.cause.message,
+            /Standalone Demo URL \/runtime\/_demo\/inlineButton\/ for page docs\/runtime\.rocket\.md returned HTTP 404/,
+          );
+          assert.match(error.cause.message, /Page not found/);
+          assert.equal(existsSync('tmp-dist-rocket/runtime/_demo/inlineButton/index.html'), false);
+          return true;
+        },
+      );
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
+  it('12: fails static JavaScript Pages with parameterized paths before output', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-static-js-params-'));
     const originalCwd = process.cwd();
     const page = makePage({
@@ -604,7 +659,7 @@ export default function postPage() {
     }
   });
 
-  it('12: builds static JavaScript Page file outputs from extension paths', async () => {
+  it('13: builds static JavaScript Page file outputs from extension paths', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-static-json-page-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -668,7 +723,7 @@ export default function postPage() {
     }
   });
 
-  it('13: emits Sitemap URLs for public concrete Pages when explicitly enabled', async () => {
+  it('14: emits Sitemap URLs for public concrete Pages when explicitly enabled', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-sitemap-build-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -766,7 +821,7 @@ export default function postPage() {
     }
   });
 
-  it('14: does not emit Site Discoverability outputs when only the Site Origin is configured', async () => {
+  it('15: does not emit Site Discoverability outputs when only the Site Origin is configured', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-sitemap-disabled-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -808,7 +863,7 @@ export default function postPage() {
     }
   });
 
-  it('15: fails with an author-facing error when the Sitemap has no Site Origin', async () => {
+  it('16: fails with an author-facing error when the Sitemap has no Site Origin', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-sitemap-missing-origin-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -850,7 +905,7 @@ export default function postPage() {
     }
   });
 
-  it('16: honors Page-level Sitemap opt-out without changing rendering or navigation', async () => {
+  it('17: honors Page-level Sitemap opt-out without changing rendering or navigation', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-sitemap-page-options-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -949,7 +1004,7 @@ export default function hiddenPage() {
     }
   });
 
-  it('17: emits a Robots File with canonical Sitemap URL when explicitly enabled', async () => {
+  it('18: emits a Robots File with canonical Sitemap URL when explicitly enabled', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-robots-build-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -995,7 +1050,7 @@ export default function hiddenPage() {
     }
   });
 
-  it('18: emits the Robots File in the same build as the Sitemap', async () => {
+  it('19: emits the Robots File in the same build as the Sitemap', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-robots-with-sitemap-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1041,7 +1096,7 @@ export default function hiddenPage() {
     }
   });
 
-  it('19: fails with an author-facing error when the Robots File has no Site Origin', async () => {
+  it('20: fails with an author-facing error when the Robots File has no Site Origin', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-robots-missing-origin-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1083,7 +1138,7 @@ export default function hiddenPage() {
     }
   });
 
-  it('20: honors Page-level Robots File options without changing Sitemap rendering or navigation', async () => {
+  it('21: honors Page-level Robots File options without changing Sitemap rendering or navigation', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-robots-page-options-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1197,7 +1252,7 @@ export default function defaultPage() {
     }
   });
 
-  it('21: fails when a generated archive Page collides with a configured Page path', async () => {
+  it('22: fails when a generated archive Page collides with a configured Page path', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-archive-config-collision-'));
     const originalCwd = process.cwd();
     const archivePage = makeArchivePage({
@@ -1251,7 +1306,7 @@ export default function defaultPage() {
     }
   });
 
-  it('22: fails when two generated archive Pages use the same output path', async () => {
+  it('23: fails when two generated archive Pages use the same output path', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-archive-archive-collision-'));
     const originalCwd = process.cwd();
     const archivePage = makeArchivePage({
@@ -1305,7 +1360,7 @@ export default function defaultPage() {
     }
   });
 
-  it('23: fails when a generated archive Page collides with a Standalone Demo URL', async () => {
+  it('24: fails when a generated archive Page collides with a Standalone Demo URL', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-archive-demo-collision-'));
     const originalCwd = process.cwd();
     const demoPage = makePage({
@@ -1360,7 +1415,7 @@ export default function defaultPage() {
     }
   });
 
-  it('24: includes generated archive Pages in Site Discoverability outputs', async () => {
+  it('25: includes generated archive Pages in Site Discoverability outputs', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-archive-discoverability-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs/posts'), { recursive: true });
@@ -1496,7 +1551,7 @@ export default function postPage() {
     }
   });
 
-  it('25: fails when a Redirect source collides with a configured Page path', async () => {
+  it('26: fails when a Redirect source collides with a configured Page path', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-redirect-page-collision-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1551,7 +1606,7 @@ export default function statusPage() {
     }
   });
 
-  it('26: fails when a Redirect source collides with a Standalone Demo URL', async () => {
+  it('27: fails when a Redirect source collides with a Standalone Demo URL', async () => {
     const staticPage = makePage({
       path: '/runtime',
       file: 'docs/runtime.rocket.md',
@@ -1591,7 +1646,7 @@ export default function statusPage() {
     );
   });
 
-  it('27: emits adapterless static Redirect fallback files outside PageData and the Sitemap', async () => {
+  it('28: emits adapterless static Redirect fallback files outside PageData and the Sitemap', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-redirect-fallbacks-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs/guides'), { recursive: true });
@@ -1681,7 +1736,7 @@ export default function currentGuidePage() {
     }
   });
 
-  it('28: emits Netlify native Redirect output alongside generated adapter routes', async () => {
+  it('29: emits Netlify native Redirect output alongside generated adapter routes', async () => {
     const originalCwd = process.cwd();
     const tempRoot = path.join(originalCwd, 'temp');
     mkdirSync(tempRoot, { recursive: true });
@@ -1771,7 +1826,7 @@ export default function runtimePage(_request, { params }) {
     }
   });
 
-  it('29: copies Public Assets during build without adding them to the Sitemap', async () => {
+  it('30: copies Public Assets during build without adding them to the Sitemap', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-public-assets-build-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1825,7 +1880,7 @@ export default function homePage() {
     }
   });
 
-  it('30: fails when a Public Asset collides with a configured Page path', async () => {
+  it('31: fails when a Public Asset collides with a configured Page path', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-public-assets-page-collision-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1869,7 +1924,7 @@ export default function statusPage() {
     }
   });
 
-  it('31: fails when a Public Asset collides with Netlify Redirect output', async () => {
+  it('32: fails when a Public Asset collides with Netlify Redirect output', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-public-assets-netlify-collision-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1920,7 +1975,7 @@ export default function homePage() {
     }
   });
 
-  it('32: rejects clearing the project root when no static entries exist', async () => {
+  it('33: rejects clearing the project root when no static entries exist', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-public-assets-output-root-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -1954,7 +2009,7 @@ export default function homePage() {
     }
   });
 
-  it('33: generates static Default Social Preview Images and emits metadata', async () => {
+  it('34: generates static Default Social Preview Images and emits metadata', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-social-preview-build-'));
     const originalCwd = process.cwd();
     const homePage = makePage({
@@ -2097,7 +2152,7 @@ export default function homePage() {
     }
   });
 
-  it('34: copies generated Default Social Preview Images to final build output', async () => {
+  it('35: copies generated Default Social Preview Images to final build output', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-social-preview-dist-'));
     const originalCwd = process.cwd();
     mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
@@ -2148,7 +2203,7 @@ export default function homePage() {
     }
   });
 
-  it('35: fails static delivery when Social Preview Capture fails', async () => {
+  it('36: fails static delivery when Social Preview Capture fails', async () => {
     const brokenPage = makePage({ path: '/broken', file: 'docs/broken.rocket.md' });
     const pages = new Map([[brokenPage.module.config.path, brokenPage]]);
     const captureError = new Error('browser capture crashed');
@@ -2189,7 +2244,7 @@ export default function homePage() {
     );
   });
 
-  it('36: generates Default Social Preview Images for archive variants and excludes Standalone Demo URLs', async () => {
+  it('37: generates Default Social Preview Images for archive variants and excludes Standalone Demo URLs', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-archive-social-preview-'));
     const originalCwd = process.cwd();
     const cacheDirectory = path.join(projectRoot, '.rocket/social-preview-images');
@@ -2400,7 +2455,7 @@ export default function homePage() {
     }
   });
 
-  it('37: does not emit Social Preview Template Preview routes in static output', async () => {
+  it('38: does not emit Social Preview Template Preview routes in static output', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-social-preview-dev-route-'));
     const originalCwd = process.cwd();
     const page = makePage({
@@ -2453,7 +2508,7 @@ export default function homePage() {
     }
   });
 
-  it('38: publishes only manifest-referenced client icon SVG assets during static rendering', async () => {
+  it('39: publishes only manifest-referenced client icon SVG assets during static rendering', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-static-icons-'));
     const originalCwd = process.cwd();
     const iconDir = path.join(projectRoot, 'src/icons');

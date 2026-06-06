@@ -482,7 +482,7 @@ _Avoid_: Rewrite, alias, Page
 - **Zero-install Agent Onboarding** creates an **Agent Starter Site** by default.
 - An **Agent Starter Site** uses static Pages unless the **Site Author** asks for request-time behavior.
 - A **Rocket Initializer** may create an **Agent Starter Site** in an empty project or add Rocket documentation Pages to an existing codebase.
-- A **Rocket Initializer** creates the smallest durable Rocket site shape; project-specific expansion belongs to a **Coding Agent**.
+- A **Rocket Initializer** creates a compact Atlas-backed **Agent Starter Site** with shared layout data, starter documentation Pages, demo examples, and a **Rocket Agent Skill**; project-specific expansion belongs to a **Coding Agent**.
 - A **Rocket Initializer** creates a **Rocket Agent Skill** by default.
 - A **Rocket Initializer** creates **General Documentation Pages** in the project's documentation area for both **Standalone Rocket Sites** and documentation added to an existing codebase.
 - **Component Reference Pages** may live near the component they document.

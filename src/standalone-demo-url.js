@@ -89,14 +89,16 @@ export function matchStandaloneDemoUrl(pathname, origin, pages) {
     if (!isMarkdownPage(page) || !page.demoNames?.includes(standaloneDemo.demoName)) {
       continue;
     }
-    const match = matchPagePath(standaloneDemo.parentPathname, origin, routePath);
-    if (match) {
-      return {
-        page,
-        routePath,
-        params: match.pathname.groups,
-        variant: { kind: 'standalone-demo', demoName: standaloneDemo.demoName },
-      };
+    for (const parentPathname of parentPathnameCandidates(standaloneDemo.parentPathname)) {
+      const match = matchPagePath(parentPathname, origin, routePath);
+      if (match) {
+        return {
+          page,
+          routePath,
+          params: match.pathname.groups,
+          variant: { kind: 'standalone-demo', demoName: standaloneDemo.demoName },
+        };
+      }
     }
   }
   return null;
@@ -124,6 +126,17 @@ export function normalizeDocumentPath(pagePath) {
 function matchPagePath(pathname, origin, routePath) {
   const pattern = new URLPattern({ pathname: routePath });
   return pattern.exec(pathname, origin);
+}
+
+/**
+ * @param {string} parentPathname
+ */
+function parentPathnameCandidates(parentPathname) {
+  const documentPath = normalizeDocumentPath(parentPathname);
+  if (documentPath === parentPathname) {
+    return [parentPathname];
+  }
+  return [parentPathname, documentPath];
 }
 
 /**

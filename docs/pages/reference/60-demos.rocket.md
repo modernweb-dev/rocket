@@ -249,7 +249,7 @@ collapsed behind `Source`, and keeps controls for opening and copying the reques
 Source row.
 
 ````markdown
-```js request-demo url="/request-time-javascript-pages/demo/build-info.json?source=reference" label="docs/pages/guides/requestTimeBuildInfo.rocket.js" height=240
+```js request-demo url="/request-time-javascript-pages/demo/build-info.json" label="docs/pages/guides/requestTimeBuildInfo.rocket.js" height=240
 export const config = {
   path: '/request-time-javascript-pages/demo/build-info.json',
   render: 'server',
@@ -264,7 +264,7 @@ export default function content() {
 ```
 ````
 
-```js request-demo url="/request-time-javascript-pages/demo/build-info.json?source=reference" label="docs/pages/guides/requestTimeBuildInfo.rocket.js" height=240
+```js request-demo url="/request-time-javascript-pages/demo/build-info.json" label="docs/pages/guides/requestTimeBuildInfo.rocket.js" height=240
 export const config = {
   path: '/request-time-javascript-pages/demo/build-info.json',
   render: 'server',
@@ -283,7 +283,7 @@ export default function content() {
 <div class="demo-metadata-grid" aria-label="Request Demo metadata">
   <article>
     <strong><code>url</code></strong>
-    <p>Required. Must be a site-root path beginning with <code>/</code>. Query strings are supported.</p>
+    <p>Required. Must be a site-root path beginning with <code>/</code>. Query strings are supported when the target Page is request-time rendered.</p>
   </article>
   <article>
     <strong><code>height</code></strong>
@@ -298,6 +298,11 @@ export default function content() {
 Hashes, relative paths, protocol-relative URLs, and external URLs are rejected. Rocket does not
 validate that the target exists in the Page registry, so Request Demos can point at adapter routes,
 intentional 404 examples, or future routes.
+
+Static JavaScript Pages are rendered once during `rocket build` for each concrete `config.path`.
+Static Request Demo examples should point at concrete paths and avoid query-dependent output. If the
+response should change by query string, headers, cookies, route params, or live data, make the
+target Page request-time rendered with `render: 'server'`.
 
 Request Demo source is visible Markdown content only. Rocket does not execute it, extract it as
 `js server` or `js client` setup, bundle it as browser demo code, parse it as a JavaScript Demo, or

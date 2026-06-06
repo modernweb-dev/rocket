@@ -5,6 +5,9 @@ import { debounce } from '../debounce.js';
 import path from 'path';
 
 export class RocketStart {
+  /** @type {RocketStartOptions} */
+  startOptions = {};
+
   /**
    * @param {import('commander').Command} program
    * @param {import('./RocketCli.js').RocketCli} cli
@@ -12,17 +15,29 @@ export class RocketStart {
   async setupCommand(program, cli) {
     this.cli = cli;
 
-    program.command('start').action(async () => {
-      await cli.getConfig();
-      await this.start();
-    });
+    program
+      .command('start')
+      .option('-p, --port <port>', 'port for the development server')
+      .option('--no-open', 'do not open the browser')
+      .option('--no-watch', 'disable automatic file watching and reloads')
+      .action(async options => {
+        const startOptions = normalizeStartOptions(options);
+        await cli.getConfig();
+        await this.start(startOptions);
+      });
   }
 
-  spawnServer() {
+  /**
+   * @param {RocketStartOptions} [options]
+   */
+  spawnServer(options = {}) {
     process.stdin.setRawMode?.(true);
     return spawn(
       'node',
-      [path.join(import.meta.dirname, '../main.js'), this.cli?.configFilePath || ''],
+      startServerArgs({
+        configFilePath: this.cli?.configFilePath,
+        options,
+      }),
       {
         stdio: 'inherit',
         cwd: process.cwd(),
@@ -32,36 +47,42 @@ export class RocketStart {
 
   restartServer() {
     this.server?.kill();
-    this.server = this.spawnServer();
+    this.server = this.spawnServer(this.startOptions);
     console.clear();
     console.log('Restarting rocket server...');
   }
 
-  async start() {
-    this.server = this.spawnServer();
+  /**
+   * @param {RocketStartOptions} [options]
+   */
+  async start(options = {}) {
+    this.startOptions = options;
+    this.server = this.spawnServer(options);
 
-    // watch config
-    watch(
-      path.join(process.cwd(), this.cli?.configFilePath || 'rocket-config.js'),
-      debounce(async (_, filename) => {
-        if (!filename) {
-          return;
-        }
-        this.restartServer();
-      }, 100),
-    );
+    if (options.watch !== false) {
+      // watch config
+      watch(
+        path.join(process.cwd(), this.cli?.configFilePath || 'rocket-config.js'),
+        debounce(async (_, filename) => {
+          if (!filename) {
+            return;
+          }
+          this.restartServer();
+        }, 100),
+      );
 
-    // watch src
-    watch(
-      import.meta.dirname,
-      { recursive: true },
-      debounce(async (_, filename) => {
-        if (!filename) {
-          return;
-        }
-        this.restartServer();
-      }, 100),
-    );
+      // watch src
+      watch(
+        import.meta.dirname,
+        { recursive: true },
+        debounce(async (_, filename) => {
+          if (!filename) {
+            return;
+          }
+          this.restartServer();
+        }, 100),
+      );
+    }
 
     process.stdin.on('data', data => {
       const char = data.toString();
@@ -76,4 +97,49 @@ export class RocketStart {
     });
     console.log('Restart the server with Ctrl+R');
   }
+}
+
+/**
+ * @typedef {{ port?: number; open?: boolean; watch?: boolean }} RocketStartOptions
+ */
+
+/**
+ * @param {{ port?: string; open?: boolean; watch?: boolean }} options
+ * @returns {RocketStartOptions}
+ */
+export function normalizeStartOptions(options) {
+  return {
+    ...(options.port !== undefined ? { port: parsePortOption(options.port) } : {}),
+    ...(options.open !== undefined ? { open: options.open } : {}),
+    ...(options.watch !== undefined ? { watch: options.watch } : {}),
+  };
+}
+
+/**
+ * @param {{ configFilePath?: string; options?: RocketStartOptions }} input
+ */
+export function startServerArgs({ configFilePath, options = {} }) {
+  return [
+    path.join(import.meta.dirname, '../main.js'),
+    configFilePath || '',
+    JSON.stringify(options),
+  ];
+}
+
+/**
+ * @param {string} value
+ */
+function parsePortOption(value) {
+  if (!/^\d+$/.test(value)) {
+    throw new Error(
+      `Invalid --port ${JSON.stringify(value)}. Expected an integer from 1 to 65535.`,
+    );
+  }
+  const port = Number(value);
+  if (port < 1 || port > 65535) {
+    throw new Error(
+      `Invalid --port ${JSON.stringify(value)}. Expected an integer from 1 to 65535.`,
+    );
+  }
+  return port;
 }

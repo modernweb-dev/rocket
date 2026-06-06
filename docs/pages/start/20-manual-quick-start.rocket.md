@@ -29,7 +29,7 @@ export const layout = pageData => atlasDocLayout(pageData, globalData);
 
 # Manual Quick Start
 
-Create the smallest useful Rocket project: one config file, one Markdown Page, and a local dev
+Create a small Rocket documentation starter with Atlas layouts, example Pages, and a local dev
 server.
 
 <wa-callout>
@@ -59,9 +59,8 @@ Initialize the Rocket files:
 npx rocket init
 ```
 
-The initializer creates `rocket-config.js`, `docs/pages/index.rocket.md`, and a removable
-project-local Rocket Agent Skill at `.agents/skills/rocket/SKILL.md`. It does not overwrite
-existing files, install dependencies, or run a build.
+The initializer creates a compact Atlas docs starter. It does not overwrite existing files, install
+dependencies, or run a build.
 
 ## Check the Config
 
@@ -88,33 +87,48 @@ export default {
 }
 ```
 
-## Check the First Page
+## Check the Starter Pages
 
-The generated Page lives at `docs/pages/index.rocket.md`:
+The generated files include:
+
+- `docs/pages/sharedData.js`
+- `docs/pages/index.rocket.md`
+- `docs/pages/docs.rocket.md`
+- `docs/pages/javascript-demo.rocket.md`
+- `docs/pages/request-demo.rocket.md`
+- `docs/pages/site-status.rocket.js`
+
+The home Page uses the package-provided Atlas hero layout:
 
 ````markdown
 ```js server
 export const config = {
   path: '/',
-  metadata: { title: 'My Rocket Site' },
+  metadata: {
+    title: 'Rocket Site',
+    description: 'Documentation built with Rocket.',
+  },
+  menu: {
+    iconName: 'house',
+    order: 0,
+  },
 };
 
-export { layout } from '@rocket/js/layout.js';
+import { atlasHeroLayout, atlasHeroComponents } from '@rocket/js/layouts/atlasHero.js';
+import { heroData } from './sharedData.js';
+
+export const components = atlasHeroComponents;
+export const layout = pageData => atlasHeroLayout(pageData, heroData);
 ```
 
 # Rocket Site
 
-This Page is rendered by Rocket.
-
-## Next steps
-
-- Edit this Page in `docs/pages/index.rocket.md`.
-- Add general documentation Pages under `docs/pages`.
-- Add component reference Pages next to the components they document.
-- Run `npm run build` to verify the site.
+This starter is rendered with Rocket's Atlas hero layout.
 ````
 
 The `path` value controls the public URL. This file renders at `/` because `config.path` is `/`.
+Atlas docs Pages use `atlasDocLayout` and export `atlasDocComponents`. Pages that appear in the
+left navigation include `menu.iconName`, using Bootstrap Icon names.
 
 ## Run the Dev Server
 
@@ -140,11 +154,16 @@ export const config = {
   path: '/about',
   metadata: { title: 'About' },
   menu: {
-    order: 20,
+    iconName: 'info-circle',
+    order: 40,
   },
 };
 
-export { layout } from '@rocket/js/layout.js';
+import { atlasDocLayout, atlasDocComponents } from '@rocket/js/layouts/atlasDoc.js';
+import { docData } from './sharedData.js';
+
+export const components = atlasDocComponents;
+export const layout = pageData => atlasDocLayout(pageData, docData);
 ```
 
 # About
@@ -152,21 +171,8 @@ export { layout } from '@rocket/js/layout.js';
 This page renders at `/about`.
 ````
 
-Add `menu.order` to the home page if you want it to appear before About:
-
-````markdown
-```js server
-export const config = {
-  path: '/',
-  metadata: { title: 'My Rocket Site' },
-  menu: {
-    order: 10,
-  },
-};
-
-export { layout } from '@rocket/js/layout.js';
-```
-````
+The generated home Page already uses `menu.order: 0`, so this About Page appears after the starter
+Pages in the Atlas docs navigation.
 
 ## Build the Site
 

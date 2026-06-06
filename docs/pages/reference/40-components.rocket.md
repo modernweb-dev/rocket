@@ -178,6 +178,20 @@ Rocket ships `rocket-icon` as a built-in Registered Component for trusted SVG ic
 [Rocket Icon](/reference/rocket-icon) for authoring, loading behavior, Icon Libraries, and generated
 asset output.
 
+Rocket also exports a focused demo component map for custom layouts and Pages that need demo frames
+without the full Atlas layout maps:
+
+```js label="demo components"
+import { rocketDemoComponents } from '@rocket/js/components.js';
+
+export const components = {
+  ...rocketDemoComponents,
+};
+```
+
+`rocketDemoComponents` includes `rocket-code-block`, `rocket-js-demo`, and
+`rocket-request-demo`. Atlas layouts already include this map.
+
 ## Page-local Custom Elements
 
 For a small one-off element in a Markdown Page, define the tag in `js client`:

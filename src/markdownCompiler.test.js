@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { collectResult } from '@lit-labs/ssr/lib/render-result.js';
+import { html } from 'lit';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { init, parse as parseExports } from 'es-module-lexer';
@@ -252,6 +253,46 @@ export default () => ({ ok: true });
     assert.match(body, /<rocket-request-demo\b[^>]*\burl="\/api\/default-height\.json"/);
     assert.doesNotMatch(body, /<rocket-request-demo\b[^>]*\bheight=/);
     assert.doesNotMatch(body, /<iframe\b/);
+  });
+
+  it('12: renders Markdown Pages with direct layout re-exports', async () => {
+    const tempDir = mkdtempSync(path.join(process.cwd(), 'temp/rocket-markdown-'));
+    const moduleFile = path.join(tempDir, 'page.mjs');
+    const layoutFile = path.join(tempDir, 'layout.mjs');
+
+    try {
+      writeFileSync(
+        layoutFile,
+        [
+          "import { html } from 'lit';",
+          '',
+          'export const directLayout = data => html`<main data-layout="direct">${data.content}</main>`;',
+        ].join('\n'),
+      );
+      writeFileSync(
+        moduleFile,
+        await compileMarkdownLoad(`\`\`\`js server
+export { directLayout as layout } from './layout.mjs';
+\`\`\`
+
+# Direct Layout
+`),
+      );
+      const module = await import(pathToFileURL(moduleFile).href);
+      const body = await collectResult(
+        module.contentFn(
+          {},
+          /** @param {{ content: unknown }} data */
+          data => html`<main data-layout="default">${data.content}</main>`,
+        ),
+      );
+
+      assert.match(body, /data-layout="direct"/);
+      assert.doesNotMatch(body, /data-layout="default"/);
+      assert.match(body, /Direct Layout/);
+    } finally {
+      rmSync(tempDir, { recursive: true, force: true });
+    }
   });
 });
 

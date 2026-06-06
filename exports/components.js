@@ -1,1 +1,1 @@
-export { parseComponents } from '../src/components.js';
+export { parseComponents, rocketDemoComponents } from '../src/components.js';

@@ -13,6 +13,7 @@ import { visit } from 'unist-util-visit';
 import { init, parse as parseExports } from 'es-module-lexer';
 import { headLinesToTree } from './menu.js';
 import { parseRequestDemoMetadata } from './requestDemoMetadata.js';
+import ts from 'typescript';
 
 /** @type {import('rehype-autolink-headings').Options} */
 const headingAnchorOptions = {
@@ -119,13 +120,14 @@ export function contentFn(data, layout) {
  */
 async function makeJsFile(serverCode, clientCode, markdown, headlines) {
   let litImport = "import { html } from 'lit'";
-  if (/import\s*?{(?:\n|.)*?html(\n|.)*}.*/m.test(serverCode)) {
+  const normalizedServerCode = normalizeLayoutExportBindings(serverCode);
+  if (/import\s*?{(?:\n|.)*?html(\n|.)*}.*/m.test(normalizedServerCode)) {
     litImport = '';
   }
   return `
 import {render} from '@lit-labs/ssr';
 ${litImport}
-${serverCode}
+${normalizedServerCode}
 export function contentFn(data, defaultLayout) {
   let renderLayout = defaultLayout;
   if (typeof layout !== 'undefined') {
@@ -141,6 +143,91 @@ export function contentFn(data, defaultLayout) {
   const layoutResult = renderLayout(data);
   return render(layoutResult);
 }`;
+}
+
+/**
+ * Direct ESM re-exports do not create local bindings, but the generated Markdown module calls the
+ * selected layout from inside contentFn. Rewriting only direct `layout` re-exports keeps the public
+ * Page syntax working while preserving the generated function's local binding lookup.
+ *
+ * @param {string} serverCode
+ * @returns {string}
+ */
+function normalizeLayoutExportBindings(serverCode) {
+  if (typeof serverCode !== 'string') {
+    return '';
+  }
+  const sourceFile = ts.createSourceFile(
+    'page-server.js',
+    serverCode,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.JS,
+  );
+  /** @type {{start: number; end: number; text: string}[]} */
+  const replacements = [];
+
+  for (const statement of sourceFile.statements) {
+    if (
+      !ts.isExportDeclaration(statement) ||
+      !statement.moduleSpecifier ||
+      !statement.exportClause ||
+      !ts.isNamedExports(statement.exportClause)
+    ) {
+      continue;
+    }
+
+    const layoutExport = statement.exportClause.elements.find(
+      element => element.name.text === 'layout',
+    );
+    if (!layoutExport) {
+      continue;
+    }
+
+    const moduleSpecifier = statement.moduleSpecifier.getText(sourceFile);
+    const attributes = statement.attributes ? ` ${statement.attributes.getText(sourceFile)}` : '';
+    const importedName = (layoutExport.propertyName || layoutExport.name).getText(sourceFile);
+    const layoutImportSpecifier =
+      importedName === 'layout' ? 'layout' : `${importedName} as layout`;
+    const replacementLines = [
+      `import { ${layoutImportSpecifier} } from ${moduleSpecifier}${attributes};`,
+      'export { layout };',
+    ];
+
+    const remainingExports = statement.exportClause.elements.filter(
+      element => element !== layoutExport,
+    );
+    if (remainingExports.length) {
+      const remainingSpecifiers = remainingExports.map(element => {
+        if (element.propertyName) {
+          return `${element.propertyName.getText(sourceFile)} as ${element.name.getText(sourceFile)}`;
+        }
+        return element.name.getText(sourceFile);
+      });
+      replacementLines.push(
+        `export { ${remainingSpecifiers.join(', ')} } from ${moduleSpecifier}${attributes};`,
+      );
+    }
+
+    replacements.push({
+      start: statement.getStart(sourceFile),
+      end: statement.end,
+      text: replacementLines.join('\n'),
+    });
+  }
+
+  if (!replacements.length) {
+    return serverCode;
+  }
+
+  let normalizedCode = serverCode;
+  for (const replacement of replacements.toReversed()) {
+    normalizedCode =
+      normalizedCode.slice(0, replacement.start) +
+      replacement.text +
+      normalizedCode.slice(replacement.end);
+  }
+  return normalizedCode;
 }
 
 function parseDemos() {

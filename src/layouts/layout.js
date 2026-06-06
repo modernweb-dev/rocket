@@ -2,7 +2,7 @@
 import { html } from 'lit';
 import { document } from './layout-helper.js';
 import { resolve } from '../resolve.js';
-import { iconsFromPackage } from '../icons.js';
+import { addBootstrapIconLibrary } from '../icons.js';
 
 /** @type {import('@rocket/js/types.js').Layout<null>} */
 export const layout = data => {
@@ -49,14 +49,4 @@ export const singleDemoLayout = data => {
   });
 };
 
-/**
- * @param {import('@rocket/js/PageData.js').PageData} pageData
- */
-export function addBootstrapIconLibrary(pageData) {
-  pageData.addIconLibraries(
-    {
-      bootstrap: iconsFromPackage('bootstrap-icons', 'icons/*.svg'),
-    },
-    { defaultIconLibrary: 'bootstrap' },
-  );
-}
+export { addBootstrapIconLibrary };

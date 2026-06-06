@@ -36,15 +36,27 @@ through npm scripts or `npx`.
 
 ### `rocket init`
 
-Creates the smallest durable Rocket project shape in the current npm project:
+Creates a compact Atlas docs starter in the current npm project:
 
 ```bash
 npx rocket init
 ```
 
-The initializer creates `rocket-config.js`, `docs/pages/index.rocket.md`, and
-`.agents/skills/rocket/SKILL.md` when those files do not exist. It also updates `package.json` when
-possible:
+The initializer creates these files when they do not already exist:
+
+- `rocket-config.js`
+- `docs/pages/sharedData.js`
+- `docs/pages/index.rocket.md`
+- `docs/pages/docs.rocket.md`
+- `docs/pages/javascript-demo.rocket.md`
+- `docs/pages/request-demo.rocket.md`
+- `docs/pages/site-status.rocket.js`
+- `.agents/skills/rocket/SKILL.md`
+
+The starter uses Atlas layouts, exports the matching Atlas component maps, includes navigation
+icons through `menu.iconName`, and includes both JavaScript Demo and Request Demo examples.
+
+It also updates `package.json` when possible:
 
 - adds `"type": "module"` when `type` is missing
 - adds `start` and `build` scripts when those names are available
@@ -65,6 +77,17 @@ npx rocket start
 
 The dev server opens the browser, listens on port `8888` by default, and can be restarted with
 `Ctrl+R` in the terminal.
+
+Useful flags:
+
+```bash
+npx rocket start --port 3000
+npx rocket start --no-open
+npx rocket start --no-watch
+```
+
+`--no-open` keeps the browser closed. `--no-watch` disables Rocket's automatic file watching and
+reloads while keeping manual `Ctrl+R` restarts available.
 
 ### `rocket build`
 
