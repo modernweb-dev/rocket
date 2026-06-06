@@ -572,6 +572,10 @@ export type WorkflowData = {
 export type HeroData = {
   headerData: HeaderData;
   footerData: FooterSection[];
+  /**
+   * Project-owned stylesheet URLs loaded after the package Atlas layout stylesheet.
+   */
+  stylesheets?: string[];
   featuresData?: Feature[];
   heroMainData: HeroMainData;
   whyRocketData?: HomeCard[];
@@ -589,6 +593,10 @@ export type AtlasDocAsideTip = {
 export type DocData = {
   headerData: HeaderData;
   footerData: FooterSection[];
+  /**
+   * Project-owned stylesheet URLs loaded after the package Atlas layout stylesheet.
+   */
+  stylesheets?: string[];
   /**
    * Number of automatic `rocket-icon` hosts in the Atlas docs navigation that
    * should be server-rendered before remaining navigation icons are deferred to

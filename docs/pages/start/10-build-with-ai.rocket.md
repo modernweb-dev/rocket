@@ -62,7 +62,10 @@ src, public, existing project instructions, and any existing .agents/skills/rock
 If this is not already a Rocket project:
 - If package.json is missing, create one with npm init -y.
 - Install Rocket with npm install @rocket/js when @rocket/js is missing.
-- Run npx rocket init to create the Rocket starter shape.
+- If package.json has "type": "commonjs", Rocket needs ESM. Ask before changing it, then update it
+  to "type": "module" or run npx rocket init --yes.
+- Run npx rocket init to create the Rocket starter shape, or npx rocket init --yes after approved
+  CommonJS conversion.
 - Read .agents/skills/rocket/SKILL.md if it exists after initialization and follow it.
 
 If this is already a Rocket project:
@@ -94,6 +97,10 @@ Use this decision order. Skip anything answerable from the codebase:
 9. Request-time behavior, integrations, forms, search, authentication, or other dynamic needs.
 10. Deployment target, Site Origin, and whether publishing should happen now or later.
 11. Launch readiness: favicon assets, Site Head Metadata, discoverability, and verification.
+
+Treat user-added content during the interview as a possible revision to earlier decisions. If a
+later About page request changes the Page list or navigation from question 3, update the plan and
+reconcile the current intent before building.
 
 You have enough to build a coherent first version when you know or can infer:
 - the site purpose
@@ -153,6 +160,9 @@ After building:
 - Fix build failures before finishing.
 - For every js demo Page, verify both the parent Page and the generated Standalone Demo URL
   /page/_demo/demoName/.
+- If npm start fails with EMFILE, retry with npm start -- --no-watch --no-open.
+- When smoke-testing Pages with curl, send Accept: text/html, for example:
+  curl -H 'Accept: text/html' http://localhost:8888/about.
 - If you can start a local dev server, tell me the URL.
 - Summarize changed files, verification results, and deferred launch items.
 ```
@@ -163,6 +173,7 @@ For a new project, `npx rocket init` creates a Rocket starter shape:
 
 - `rocket-config.js`
 - `docs/pages/sharedData.js`
+- `public/rocket-theme.css`
 - `docs/pages/index.rocket.md`
 - starter docs, JavaScript Demo, Request Demo, and static JSON Pages under `docs/pages`
 - `.agents/skills/rocket/SKILL.md`

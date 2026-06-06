@@ -39,6 +39,7 @@ You will build:
 - a Rocket project with a static build script
 - Site Head Metadata for titles, descriptions, canonical URLs, and language
 - user-owned Atlas layout data for the header, socials, and navigation icon budget
+- a public theme stylesheet for Atlas CSS variable overrides
 - a small local wrapper around Rocket's current Atlas docs layout
 - sequential Pages with menu order, menu icons, and a non-linking section group
 - source brand assets resolved by Pages and layout data
@@ -59,6 +60,7 @@ You will build:
 The Atlas docs layout currently renders:
 
 - the header logo, header links, and social links from `siteData.headerData`
+- project theme stylesheets from `siteData.stylesheets`
 - the left documentation menu from Rocket's Page tree
 - automatic menu icons with a configurable server-render budget
 - the current Page content

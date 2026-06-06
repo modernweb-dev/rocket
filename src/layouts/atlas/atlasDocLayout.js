@@ -120,6 +120,13 @@ export function renderHeaderNav(links = []) {
 }
 
 /**
+ * @param {string[] | undefined} stylesheets
+ */
+export function renderStylesheets(stylesheets = []) {
+  return stylesheets.map(href => html`<link rel="stylesheet" href=${href} />`);
+}
+
+/**
  * @param {import('@rocket/js/types.js').PageMetadataCustomValue | undefined} customValue
  * @returns {import('@rocket/js/types.js').AtlasDocAsideTip | false | undefined}
  */
@@ -269,6 +276,7 @@ export const atlasDocLayout = (pageData, data) => {
           href="${resolve('@awesome.me/webawesome/dist/styles/webawesome.css', import.meta)}"
         />
         <link rel="stylesheet" href="${resolve('@rocket/js/layouts/atlasDoc.css', import.meta)}" />
+        ${renderStylesheets(data.stylesheets)}
       `,
     },
   );

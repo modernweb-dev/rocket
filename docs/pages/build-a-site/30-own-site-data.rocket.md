@@ -51,6 +51,7 @@ Keep Atlas layout data in `docs/siteData.js`:
 - header home link
 - top header links
 - social links
+- project-owned theme stylesheets
 - navigation icon server-render budget
 
 ## Add a wordmark
@@ -94,12 +95,15 @@ export const siteData = {
     ],
   },
   footerData: [],
+  stylesheets: ['/rocket-theme.css'],
   navigationIconServerBudget: 35,
 };
 ```
 
 The `headerData` shape is consumed by Rocket's Atlas docs layout. `navLinks` render in the top
-header. Social entries can omit `label` for an icon-only link.
+header. Social entries can omit `label` for an icon-only link. `stylesheets` loads
+project-owned CSS after the package Atlas stylesheet, so keep theme variables in
+`public/rocket-theme.css` instead of scattering style blocks across Pages.
 
 `navigationIconServerBudget` controls how many automatic `rocket-icon` hosts in the documentation
 menu are server-rendered before the remaining automatic icons load in the browser. Keep the default

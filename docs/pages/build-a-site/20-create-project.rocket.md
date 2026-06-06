@@ -115,6 +115,7 @@ export const siteData = {
     socials: [],
   },
   footerData: [],
+  stylesheets: ['/rocket-theme.css'],
   navigationIconServerBudget: 35,
 };
 ```
@@ -122,9 +123,9 @@ export const siteData = {
 The `resolve` helper turns a user-owned asset into a URL that works in development and in the
 static build. For more asset patterns, see [Assets](/reference/assets).
 
-`DocData` is the data shape the Atlas docs layout reads. The docs layout uses `headerData` and
-`navigationIconServerBudget`; keep `footerData` as an empty array until a layout needs footer
-sections.
+`DocData` is the data shape the Atlas docs layout reads. The docs layout uses `headerData`,
+`stylesheets`, and `navigationIconServerBudget`; keep `footerData` as an empty array until a layout
+needs footer sections.
 
 ## Wrap the docs layout
 

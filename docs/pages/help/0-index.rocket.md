@@ -3,13 +3,13 @@ export const config = {
   path: '/help',
   metadata: {
     title: 'Help',
-    description: 'Troubleshoot Rocket projects and understand current alpha limitations.',
+    description: 'Troubleshoot Rocket projects and understand current public alpha limitations.',
     custom: {
       atlasDoc: {
         asideTip: {
           title: 'Help tip',
           description:
-            'Start with troubleshooting for symptoms, then check known limitations when behavior looks unsupported by the current alpha.',
+            'Start with troubleshooting for symptoms, then check known limitations when behavior looks unsupported by the current public alpha.',
         },
       },
     },
@@ -32,9 +32,9 @@ export const layout = pageData => atlasDocLayout(pageData, globalData);
 # Help
 
 Use Help when a Rocket project does not behave as expected or when you need to understand current
-alpha limitations before adoption.
+public alpha limitations before adoption.
 
 ## Pages in this section
 
 - [Troubleshooting](/help/troubleshooting) maps common symptoms to likely causes and fixes.
-- [Known Limitations](/help/known-limitations) sets alpha expectations before adoption.
+- [Known Limitations](/help/known-limitations) sets public alpha expectations before adoption.

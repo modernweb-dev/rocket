@@ -3,13 +3,13 @@ export const config = {
   path: '/examples',
   metadata: {
     title: 'Examples',
-    description: 'Browse complete Rocket examples that show individual features in context.',
+    description: 'Browse small Rocket example pages that demonstrate one feature at a time.',
     custom: {
       atlasDoc: {
         asideTip: {
           title: 'Example tip',
           description:
-            'Use examples as working patterns: compare the Page config, exported components, and rendered output together.',
+            'Use examples as focused implementation slices: compare the Page config, exported components, and rendered output together.',
         },
       },
     },
@@ -31,16 +31,16 @@ export const layout = pageData => atlasDocLayout(pageData, globalData);
 
 # Examples
 
-Examples are live, complete patterns you can compare against your own Rocket project. Use them after
-the tutorial path when you want to see one feature working in context.
+These examples are small, live Rocket Pages. They are not complete example websites. Use them when
+you want to see one Rocket feature in a real Page file and compare the source with the rendered
+output.
 
-For relaunch, Rocket needs three polished public examples: a marketing site, component-library docs,
-and an AI-generated site from a brief. The examples below are the current feature examples that
-support that launch set.
+Full example websites are still a goal. Until those exist, start with the tutorial when you want a
+multi-page project shape, then use these examples for focused implementation questions.
 
-## Available examples
+## Page examples
 
-| Example                                                         | What it proves                                                             |
+| Example page                                                    | What to inspect                                                            |
 | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | [Web Awesome Components](/examples/callout)                     | Markdown Pages can use package Web Components through Rocket registration. |
 | [Component Showcase With Demos](/examples/component-showcase)   | Component documentation can include rendered demos beside source.          |
@@ -48,7 +48,7 @@ support that launch set.
 | [JavaScript Pages With Layouts](/examples/js-pages-with-layout) | Static and server-rendered JavaScript Pages can share docs layout code.    |
 | [API Output](/examples/api-output)                              | JavaScript Pages can emit machine-readable static output.                  |
 
-## Feature examples
+## What Each Page Shows
 
 ### [Web Awesome Components](/examples/callout)
 
@@ -107,7 +107,7 @@ This example covers:
 - hiding API routes from navigation
 - when to switch to `render: 'server'`
 
-## Choosing an example
+## Choose By Task
 
 Start with [Web Awesome Components](/examples/callout) when the Page is mostly Markdown and needs
 package components.
@@ -128,6 +128,7 @@ instead of an HTML document.
 
 - [Start With AI](/setup/build-with-ai) gives a Coding Agent a prompt for a deployable Rocket site.
 - [Manual Quick Start](/setup/manual-quick-start) creates the smallest Rocket project.
+- [Build a Site](/tutorials/acme-ui-docs) shows a multi-page project path.
 - [Pages](/reference/pages) documents Markdown Pages, JavaScript Pages, route paths, and render modes.
 - [Components](/reference/components) explains Registered Components and Page-local Custom Elements.
 - [Component Loading](/component-loading) helps choose `server`, `client`, or `hydrate:*`.

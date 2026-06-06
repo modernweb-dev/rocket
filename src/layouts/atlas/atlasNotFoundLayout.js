@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { document } from '../layout-helper.js';
 import { resolve } from '../../resolve.js';
+import { renderStylesheets } from './atlasDocLayout.js';
 
 /** @type {import('@rocket/js/types.js').Components} */
 export const atlasNotFoundComponents = {};
@@ -61,9 +62,10 @@ export const atlasNotFoundLayout = (pageData, data) => {
     {
       menu: false,
       headerContent: html`<link
-        rel="stylesheet"
-        href="${resolve('@rocket/js/layouts/atlasNotFound.css', import.meta)}"
-      />`,
+          rel="stylesheet"
+          href="${resolve('@rocket/js/layouts/atlasNotFound.css', import.meta)}"
+        />
+        ${renderStylesheets(data.stylesheets)}`,
     },
   );
 };

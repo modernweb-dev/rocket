@@ -11,7 +11,7 @@ release PR can update this file with the final version and package notes.
 
 ## 0.1.0
 
-- Relaunches Rocket as `@rocket/js`.
-- Marks the package as alpha.
+- Starts Rocket's current public alpha as `@rocket/js`.
+- Marks the package as alpha before `1.0.0`.
 - Introduces the AI-assisted setup path, explicit Page config docs, static output docs, and Web
   Component documentation examples.

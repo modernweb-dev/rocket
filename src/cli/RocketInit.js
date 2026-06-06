@@ -5,6 +5,7 @@ import path from 'node:path';
 const ROCKET_CONFIG_PATH = 'rocket-config.js';
 const INDEX_PAGE_PATH = 'docs/pages/index.rocket.md';
 const SHARED_DATA_PATH = 'docs/pages/sharedData.js';
+const THEME_CSS_PATH = 'public/rocket-theme.css';
 const DOCS_PAGE_PATH = 'docs/pages/docs.rocket.md';
 const JAVASCRIPT_DEMO_PAGE_PATH = 'docs/pages/javascript-demo.rocket.md';
 const REQUEST_DEMO_PAGE_PATH = 'docs/pages/request-demo.rocket.md';
@@ -13,6 +14,7 @@ const ROCKET_AGENT_SKILL_PATH = '.agents/skills/rocket/SKILL.md';
 const EXISTING_ROCKET_PAGE_NOISE_THRESHOLD = 3;
 const STARTER_PAGE_FILES = [
   SHARED_DATA_PATH,
+  THEME_CSS_PATH,
   INDEX_PAGE_PATH,
   DOCS_PAGE_PATH,
   JAVASCRIPT_DEMO_PAGE_PATH,
@@ -27,6 +29,8 @@ export default {
 `;
 
 const sharedDataSource = `import { resolve } from '@rocket/js/resolve.js';
+
+const themeStylesheets = ['/rocket-theme.css'];
 
 export const headerData = {
   logo: [
@@ -47,6 +51,7 @@ export const footerData = [];
 export const heroData = {
   headerData,
   footerData,
+  stylesheets: themeStylesheets,
   heroMainData: {
     logoNoText: resolve('@rocket/js/docs/assets/rocket-logo-light.svg', import.meta),
     eyebrow: 'ROCKET STARTER',
@@ -102,8 +107,27 @@ export const heroData = {
 export const docData = {
   headerData,
   footerData,
+  stylesheets: themeStylesheets,
   navigationIconServerBudget: 35,
 };
+`;
+
+const themeCssSource = `:root {
+  --rocket-theme-primary: #e10d14;
+  --rocket-theme-primary-dark: #b90f12;
+  --rocket-theme-link: #0366d6;
+}
+
+.atlas-page,
+.atlas-header,
+.atlas-navigation,
+.atlas-toc,
+.home-main,
+rocket-header {
+  --primary-color: var(--rocket-theme-primary);
+  --primary-color-dark: var(--rocket-theme-primary-dark);
+  --link-color: var(--rocket-theme-link);
+}
 `;
 
 const indexPageSource = `\`\`\`js server
@@ -265,6 +289,7 @@ export default function siteStatusPage() {
 
 const STARTER_PAGE_SOURCES = new Map([
   [SHARED_DATA_PATH, sharedDataSource],
+  [THEME_CSS_PATH, themeCssSource],
   [INDEX_PAGE_PATH, indexPageSource],
   [DOCS_PAGE_PATH, docsPageSource],
   [JAVASCRIPT_DEMO_PAGE_PATH, javascriptDemoPageSource],
@@ -289,10 +314,15 @@ description: Use when editing Rocket Pages, config, layouts, component reference
 - Markdown using Rocket custom elements needs a \`components\` export; use Atlas component maps or \`rocketDemoComponents\`.
 - Add \`menu.iconName\` to Atlas docs navigation Pages so the left navigation has icons.
 - Direct layout re-exports are supported when no local wrapper function is needed.
+- For Atlas theming, use shared layout data with \`stylesheets\` and centralized CSS variables instead of per-Page style injection.
+- To add a general Page, create \`docs/pages/name.rocket.md\`, set \`config.path\`, \`metadata\`, \`menu.iconName\`, and use the shared docs layout.
 - Custom layouts rendering \`rocket-icon\` need \`addBootstrapIconLibrary(pageData)\` before \`document()\`.
 - Static JavaScript Pages render once per concrete path; query/header/cookie/live-data output needs \`render: 'server'\`.
 - Static Request Demos should target concrete non-query URLs.
 - After adding a \`js demo\`, verify the parent Page and Standalone Demo URL \`/page/_demo/demoName/\`.
+- If \`rocket init\` fails because package.json has \`"type": "commonjs"\`, change it to \`"type": "module"\` or rerun \`npx rocket init --yes\`.
+- If dev server watchers fail with \`EMFILE\`, run \`npm start -- --no-watch --no-open\` and use \`Ctrl+R\` for manual restarts.
+- When smoke-testing Pages with curl, send \`Accept: text/html\`: \`curl -H 'Accept: text/html' http://localhost:8888/path\`.
 - Keep \`npm run build\` passing; record Rocket package issues separately from local workarounds.
 `;
 
@@ -304,17 +334,19 @@ export class RocketInit {
     program
       .command('init')
       .description('create a Rocket docs starter')
-      .action(() => {
-        const result = this.init();
+      .option('-y, --yes', 'update an explicit CommonJS package.json type to module')
+      .action(options => {
+        const result = this.init({ yes: options.yes });
         reportInitResult(result);
       });
   }
 
   /**
+   * @param {RocketInitOptions} [options]
    * @returns {RocketInitResult}
    */
-  init() {
-    const packageJsonUpdate = preparePackageJsonUpdate('package.json');
+  init(options = {}) {
+    const packageJsonUpdate = preparePackageJsonUpdate('package.json', options);
     /** @type {RocketInitResult} */
     const result = {
       created: [],
@@ -345,6 +377,12 @@ export class RocketInit {
 
 /**
  * @typedef {{
+ *   yes?: boolean;
+ * }} RocketInitOptions
+ */
+
+/**
+ * @typedef {{
  *   created: string[];
  *   skipped: string[];
  *   packageJson?: {
@@ -359,6 +397,7 @@ export class RocketInit {
 
 /**
  * @param {string} filePath
+ * @param {RocketInitOptions} options
  * @returns {{
  *   changed: boolean;
  *   packageJson: Record<string, any>;
@@ -367,7 +406,7 @@ export class RocketInit {
  *   nextSteps: string[];
  * } | undefined}
  */
-function preparePackageJsonUpdate(filePath) {
+function preparePackageJsonUpdate(filePath, options) {
   if (!existsSync(filePath)) {
     return undefined;
   }
@@ -379,19 +418,19 @@ function preparePackageJsonUpdate(filePath) {
   if (!isPlainRecord(packageJson)) {
     throw new Error('package.json must contain a JSON object');
   }
-  if (packageJson.type === 'commonjs') {
-    throw new Error(
-      `Rocket init expects an ESM project. Found package.json type "commonjs". ` +
-        `Change package.json to "type": "module" before running rocket init.`,
-    );
-  }
 
   /** @type {string[]} */
   const updated = [];
   /** @type {string[]} */
   const skipped = [];
 
-  if (!hasOwn(packageJson, 'type')) {
+  if (packageJson.type === 'commonjs') {
+    if (!options.yes) {
+      throw commonJsProjectError();
+    }
+    packageJson.type = 'module';
+    updated.push('type');
+  } else if (!hasOwn(packageJson, 'type')) {
     packageJson.type = 'module';
     updated.push('type');
   } else if (packageJson.type === 'module') {
@@ -432,6 +471,19 @@ function preparePackageJsonUpdate(filePath) {
     missingRocketDependency: !hasPackageDependency(packageJson, '@rocket/js'),
     nextSteps: rocketNextSteps(packageJson),
   };
+}
+
+function commonJsProjectError() {
+  return new Error(
+    `Rocket init expects an ESM project. Found package.json type "commonjs".\n\n` +
+      `Update package.json before running rocket init:\n` +
+      `-  "type": "commonjs",\n` +
+      `+  "type": "module",\n\n` +
+      `Then rerun:\n` +
+      `  npx rocket init\n\n` +
+      `Or let Rocket apply that package.json change:\n` +
+      `  npx rocket init --yes`,
+  );
 }
 
 /**

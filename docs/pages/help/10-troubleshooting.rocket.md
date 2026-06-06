@@ -62,6 +62,13 @@ export default {
 };
 ```
 
+If the error includes `EMFILE`, the environment has too many file watchers open. Retry without
+automatic watchers or browser opening:
+
+```bash
+npm start -- --no-watch --no-open
+```
+
 ## Page is missing
 
 Likely causes:
@@ -79,6 +86,12 @@ npx rocket start
 ```
 
 Then press `Ctrl+R` in the terminal to restart after adding new directories or changing config.
+
+If the Page works in a browser but returns 404 with plain `curl`, send an HTML accept header:
+
+```bash
+curl -H 'Accept: text/html' http://localhost:8888/docs
+```
 
 ## Page is not in the menu
 

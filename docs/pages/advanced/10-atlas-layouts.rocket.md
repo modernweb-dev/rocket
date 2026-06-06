@@ -111,6 +111,7 @@ export const siteData = {
     ],
   },
   footerData: [],
+  stylesheets: ['/rocket-theme.css'],
   navigationIconServerBudget: 35,
 };
 ```
@@ -126,14 +127,18 @@ URLs are treated as external even when `external` is omitted.
 icon when Rocket has a matching icon asset. The optional `label` shows visible text to the right of
 the icon. Omit `label` for an icon-only link.
 
+`stylesheets` is optional. Use it for project-owned theme CSS loaded after the package Atlas CSS.
+Keep color and spacing overrides centralized there, usually as CSS variables, instead of injecting
+Page-specific style blocks.
+
 `navigationIconServerBudget` controls how many automatic `rocket-icon` hosts in the docs
 navigation are server-rendered before the remaining navigation icons are deferred to the browser.
 Atlas defaults this to `35`, which keeps likely above-the-fold navigation icons in the first HTML
 response while avoiding work for deep navigation entries. Set it in your project-owned `siteData` to
 raise, lower, or zero the budget.
 
-The docs layout reads `headerData` and `navigationIconServerBudget`; keep `footerData` as an empty
-array when the same data module is not used by another layout.
+The docs layout reads `headerData`, `stylesheets`, and `navigationIconServerBudget`; keep
+`footerData` as an empty array when the same data module is not used by another layout.
 
 Keep this data in your project. Do not import Rocket's docs-site `docs/pages/globalData.js` into a
 user site.

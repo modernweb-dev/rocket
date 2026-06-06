@@ -54,6 +54,7 @@ The track covers the current Atlas docs shape:
 
 - a local `docs/docsLayout.js` wrapper around `atlasDocLayout`
 - project-owned `DocData` in `docs/siteData.js`
+- centralized Atlas theme variables in `public/rocket-theme.css`
 - Site Head Metadata in `rocket-config.js`
 - top header links, social links, and menu icon rendering
 - page-specific Atlas aside tips through `metadata.custom.atlasDoc`

@@ -28,6 +28,7 @@ describe('Test RocketInit', () => {
       assert.deepEqual(result.created, [
         'rocket-config.js',
         'docs/pages/sharedData.js',
+        'public/rocket-theme.css',
         'docs/pages/index.rocket.md',
         'docs/pages/docs.rocket.md',
         'docs/pages/javascript-demo.rocket.md',
@@ -88,6 +89,14 @@ export default {
       assert.match(
         readFileSync(path.join(projectRoot, 'docs/pages/sharedData.js'), 'utf8'),
         /export const docData/,
+      );
+      assert.match(
+        readFileSync(path.join(projectRoot, 'docs/pages/sharedData.js'), 'utf8'),
+        /stylesheets: themeStylesheets/,
+      );
+      assert.match(
+        readFileSync(path.join(projectRoot, 'public/rocket-theme.css'), 'utf8'),
+        /--rocket-theme-primary/,
       );
       assert.match(
         readFileSync(path.join(projectRoot, 'docs/pages/javascript-demo.rocket.md'), 'utf8'),
@@ -190,7 +199,7 @@ export default {
     });
   });
 
-  it('03: rejects CommonJS projects before writing files', () => {
+  it('03: rejects CommonJS projects before writing files and gives an exact ESM patch', () => {
     withTempProject(projectRoot => {
       writeFileSync(
         path.join(projectRoot, 'package.json'),
@@ -206,7 +215,7 @@ export default {
 
       assert.throws(
         () => new RocketInit().init(),
-        /Rocket init expects an ESM project.*type "commonjs"/,
+        /Rocket init expects an ESM project.*- {2}"type": "commonjs".*\+ {2}"type": "module".*npx rocket init --yes/s,
       );
       assert.equal(existsSync(path.join(projectRoot, 'rocket-config.js')), false);
       assert.equal(existsSync(path.join(projectRoot, 'docs')), false);
@@ -214,7 +223,44 @@ export default {
     });
   });
 
-  it('04: can run from the CLI before rocket-config.js exists', async () => {
+  it('04: converts CommonJS projects when --yes is provided', () => {
+    withTempProject(() => {
+      writeFileSync(
+        'package.json',
+        JSON.stringify(
+          {
+            name: 'commonjs-project',
+            type: 'commonjs',
+            scripts: {},
+            dependencies: {
+              '@rocket/js': '^0.1.0',
+            },
+          },
+          null,
+          2,
+        ),
+      );
+
+      const result = new RocketInit().init({ yes: true });
+
+      assert.deepEqual(result.created, [
+        'rocket-config.js',
+        'docs/pages/sharedData.js',
+        'public/rocket-theme.css',
+        'docs/pages/index.rocket.md',
+        'docs/pages/docs.rocket.md',
+        'docs/pages/javascript-demo.rocket.md',
+        'docs/pages/request-demo.rocket.md',
+        'docs/pages/site-status.rocket.js',
+        '.agents/skills/rocket/SKILL.md',
+      ]);
+      assert.deepEqual(result.packageJson?.updated, ['type', 'scripts.start', 'scripts.build']);
+      assert.equal(readPackageJson().type, 'module');
+      assert.deepEqual(result.nextSteps, ['npm start', 'npm run build']);
+    });
+  });
+
+  it('05: can run from the CLI before rocket-config.js exists', async () => {
     await withTempProjectAsync(async projectRoot => {
       writeFileSync(
         path.join(projectRoot, 'package.json'),
@@ -235,6 +281,7 @@ export default {
 
       assert.equal(existsSync(path.join(projectRoot, 'rocket-config.js')), true);
       assert.equal(existsSync(path.join(projectRoot, 'docs/pages/sharedData.js')), true);
+      assert.equal(existsSync(path.join(projectRoot, 'public/rocket-theme.css')), true);
       assert.equal(existsSync(path.join(projectRoot, 'docs/pages/index.rocket.md')), true);
       assert.equal(existsSync(path.join(projectRoot, 'docs/pages/docs.rocket.md')), true);
       assert.equal(
@@ -247,13 +294,14 @@ export default {
     });
   });
 
-  it('05: creates files without package.json and reports npx next steps', () => {
+  it('06: creates files without package.json and reports npx next steps', () => {
     withTempProject(() => {
       const result = new RocketInit().init();
 
       assert.deepEqual(result.created, [
         'rocket-config.js',
         'docs/pages/sharedData.js',
+        'public/rocket-theme.css',
         'docs/pages/index.rocket.md',
         'docs/pages/docs.rocket.md',
         'docs/pages/javascript-demo.rocket.md',
@@ -267,7 +315,7 @@ export default {
     });
   });
 
-  it('06: reuses existing npm scripts that already run Rocket commands', () => {
+  it('07: reuses existing npm scripts that already run Rocket commands', () => {
     withTempProject(() => {
       writeFileSync(
         'package.json',
@@ -298,7 +346,7 @@ export default {
     });
   });
 
-  it('07: avoids starter example Pages when a repo already has several Rocket Pages', () => {
+  it('08: avoids starter example Pages when a repo already has several Rocket Pages', () => {
     withTempProject(projectRoot => {
       writeFileSync(
         'package.json',
@@ -322,6 +370,7 @@ export default {
 
       assert.deepEqual(result.created, ['rocket-config.js', '.agents/skills/rocket/SKILL.md']);
       assert.equal(existsSync(path.join(projectRoot, 'docs/pages/sharedData.js')), false);
+      assert.equal(existsSync(path.join(projectRoot, 'public/rocket-theme.css')), false);
       assert.equal(existsSync(path.join(projectRoot, 'docs/pages/index.rocket.md')), false);
       assert.equal(
         existsSync(path.join(projectRoot, 'docs/pages/javascript-demo.rocket.md')),
@@ -329,6 +378,31 @@ export default {
       );
       assert.equal(existsSync(path.join(projectRoot, 'docs/pages/request-demo.rocket.md')), false);
       assert.equal(existsSync(path.join(projectRoot, 'docs/pages/site-status.rocket.js')), false);
+    });
+  });
+
+  it('09: converts CommonJS projects from the CLI when --yes is provided', async () => {
+    await withTempProjectAsync(async () => {
+      writeFileSync(
+        'package.json',
+        JSON.stringify(
+          {
+            type: 'commonjs',
+            dependencies: {
+              '@rocket/js': '^0.1.0',
+            },
+          },
+          null,
+          2,
+        ),
+      );
+
+      const cli = new RocketCli({ argv: ['node', 'rocket', 'init', '--yes'] });
+      await cli.start();
+
+      assert.equal(readPackageJson().type, 'module');
+      assert.equal(existsSync('rocket-config.js'), true);
+      assert.equal(existsSync('public/rocket-theme.css'), true);
     });
   });
 });

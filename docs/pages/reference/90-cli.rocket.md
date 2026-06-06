@@ -46,6 +46,7 @@ The initializer creates these files when they do not already exist:
 
 - `rocket-config.js`
 - `docs/pages/sharedData.js`
+- `public/rocket-theme.css`
 - `docs/pages/index.rocket.md`
 - `docs/pages/docs.rocket.md`
 - `docs/pages/javascript-demo.rocket.md`
@@ -54,7 +55,8 @@ The initializer creates these files when they do not already exist:
 - `.agents/skills/rocket/SKILL.md`
 
 The starter uses Atlas layouts, exports the matching Atlas component maps, includes navigation
-icons through `menu.iconName`, and includes both JavaScript Demo and Request Demo examples.
+icons through `menu.iconName`, wires a central project theme stylesheet, and includes both
+JavaScript Demo and Request Demo examples.
 
 It also updates `package.json` when possible:
 
@@ -66,6 +68,15 @@ It also updates `package.json` when possible:
 `rocket init` does not overwrite existing files, install dependencies, add `@rocket/js` to
 `package.json`, or run a build. Existing CommonJS projects are rejected before any files are
 written.
+
+If `package.json` explicitly contains `"type": "commonjs"`, either change it to
+`"type": "module"` before running init, or let Rocket apply that package change:
+
+```bash
+npx rocket init --yes
+```
+
+Without `--yes`, Rocket prints the exact package patch and stops before writing starter files.
 
 ### `rocket start`
 
@@ -84,10 +95,12 @@ Useful flags:
 npx rocket start --port 3000
 npx rocket start --no-open
 npx rocket start --no-watch
+npx rocket start --no-watch --no-open
 ```
 
 `--no-open` keeps the browser closed. `--no-watch` disables Rocket's automatic file watching and
-reloads while keeping manual `Ctrl+R` restarts available.
+reloads while keeping manual `Ctrl+R` restarts available. Use `--no-watch --no-open` in constrained
+environments where file watching fails with `EMFILE`.
 
 ### `rocket build`
 

@@ -53,10 +53,13 @@ Use flags when you need a different startup shape:
 npx rocket start --port 3000
 npx rocket start --no-open
 npx rocket start --no-watch
+npx rocket start --no-watch --no-open
 ```
 
 `--no-open` leaves the browser closed. `--no-watch` disables automatic reload watchers; use
-`Ctrl+R` for manual restarts when you want to reload after a change.
+`Ctrl+R` for manual restarts when you want to reload after a change. If startup fails with
+`EMFILE`, retry with `npm start -- --no-watch --no-open` or
+`npx rocket start --no-watch --no-open`.
 
 ## Restart
 
@@ -131,6 +134,13 @@ The dev server serves Public Assets from `public/` at their root-relative URLs. 
 The dev server also distinguishes document requests from asset requests. For non-page requests,
 Rocket tries to resolve the requested path relative to the current Page's source file when a
 matching file exists.
+
+Plain `curl` sends `Accept: */*`, which Rocket treats as asset-like in development. When
+smoke-testing a Page from the terminal, send an HTML accept header:
+
+```bash
+curl -H 'Accept: text/html' http://localhost:8888/docs
+```
 
 For build-safe asset URLs, prefer the [`resolve` function](/reference/assets) in Page server code or
 layout code. For stable root-relative files such as favicons, verification files, and downloads,

@@ -3,7 +3,12 @@ import { document } from '../layout-helper.js';
 import { resolve } from '../../resolve.js';
 import { webAwesomeComponents } from '@rocket/js/components/web-awesome.js';
 import { addBootstrapIconLibrary } from '../layout.js';
-import { renderHeaderLogo, renderHeaderNav, renderSocials } from './atlasDocLayout.js';
+import {
+  renderHeaderLogo,
+  renderHeaderNav,
+  renderSocials,
+  renderStylesheets,
+} from './atlasDocLayout.js';
 import { rocketDemoComponents } from '../../components.js';
 
 /** @type {import('@rocket/js/types.js').Components} */
@@ -331,6 +336,7 @@ export const atlasHeroLayout = (pageData, data) => {
           href="${resolve('@awesome.me/webawesome/dist/styles/webawesome.css', import.meta)}"
         />
         <link rel="stylesheet" href="${resolve('@rocket/js/layouts/atlasHero.css', import.meta)}" />
+        ${renderStylesheets(data.stylesheets)}
       `,
     },
   );

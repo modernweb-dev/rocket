@@ -1,4 +1,4 @@
-> Rocket is in alpha. Expect APIs and documentation to keep improving before 1.0.
+> Rocket is in public alpha. Expect APIs and documentation to keep improving before 1.0.
 
 <p align="center">
   <picture width="60%">
@@ -157,29 +157,14 @@ Use Rocket for:
 - documentation sites
 - Web Component and design-system docs
 - AI-generated sites you want to own afterward
-- pages that should ship as HTML before they ship JavaScript
+- pages that should ship as HTML before JavaScript
 
 Do not use Rocket for:
 
 - SPA products with complex client-side routing
 - backend applications
-- projects that need a huge plugin marketplace today
-- teams that want React, Astro, Eleventy, or VitePress conventions specifically
-
-## Why not Astro, Eleventy, or VitePress?
-
-Those are good tools. Rocket chooses a narrower shape:
-
-| Need                       | Rocket |
-| -------------------------- | ------ |
-| Content-first static sites | Yes    |
-| Web Component docs         | Strong |
-| Zero JS default            | Core   |
-| Explicit page config       | Core   |
-| AI-friendly project shape  | Core   |
-| Full app framework         | No     |
-| Huge plugin ecosystem      | No     |
-| React-first authoring      | No     |
+- projects that need a large plugin ecosystem today
+- teams that specifically want React, Astro, Eleventy, or VitePress conventions
 
 ## Package and dependency philosophy
 
@@ -190,8 +175,8 @@ browser JavaScript is only emitted for loading strategies you choose.
 
 ## Status and docs
 
-Rocket is currently **alpha** at `0.1.x`. APIs can change before `1.0.0`; breaking changes are
-documented through changesets and release notes.
+Rocket is currently in **public alpha** at `0.1.x`. APIs can change before `1.0.0`;
+breaking changes are documented through changesets and release notes.
 
 - [Start With AI](https://rocket.modern-web.dev/setup/build-with-ai/)
 - [Manual Quick Start](https://rocket.modern-web.dev/setup/manual-quick-start/)

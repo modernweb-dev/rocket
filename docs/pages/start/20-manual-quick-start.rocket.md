@@ -62,6 +62,10 @@ npx rocket init
 The initializer creates a compact Atlas docs starter. It does not overwrite existing files, install
 dependencies, or run a build.
 
+If an existing `package.json` explicitly says `"type": "commonjs"`, Rocket stops before writing
+files. Change it to `"type": "module"` and rerun `npx rocket init`, or run
+`npx rocket init --yes` when you want Rocket to apply that package change.
+
 ## Check the Config
 
 `rocket-config.js` includes the general documentation Pages under `docs/pages` and colocated
@@ -92,6 +96,7 @@ export default {
 The generated files include:
 
 - `docs/pages/sharedData.js`
+- `public/rocket-theme.css`
 - `docs/pages/index.rocket.md`
 - `docs/pages/docs.rocket.md`
 - `docs/pages/javascript-demo.rocket.md`
@@ -130,6 +135,10 @@ The `path` value controls the public URL. This file renders at `/` because `conf
 Atlas docs Pages use `atlasDocLayout` and export `atlasDocComponents`. Pages that appear in the
 left navigation include `menu.iconName`, using Bootstrap Icon names.
 
+The generated `docs/pages/sharedData.js` wires `public/rocket-theme.css` into Atlas layout data.
+Edit that stylesheet for project-level color variables instead of adding one-off styles to each
+Page.
+
 ## Run the Dev Server
 
 ```bash
@@ -143,6 +152,12 @@ Rocket starts a local dev server and opens the site at `http://localhost:8888`.
   The dev server reloads after page changes. If a new Page does not appear, press
   <code>Ctrl+R</code> in the terminal running Rocket to restart the server.
 </wa-callout>
+
+If startup fails with `EMFILE`, retry without automatic watchers or browser opening:
+
+```bash
+npm start -- --no-watch --no-open
+```
 
 ## Add One More Page
 

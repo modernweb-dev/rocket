@@ -72,6 +72,31 @@ export default {
 Rocket emits the favicon reference in the document head. It does not generate or verify favicon
 files, so the referenced public path should exist in your project.
 
+Update the generated theme stylesheet with Acme colors:
+
+```css label="public/rocket-theme.css"
+:root {
+  --rocket-theme-primary: #0f766e;
+  --rocket-theme-primary-dark: #0f5f59;
+  --rocket-theme-link: #0f766e;
+}
+
+.atlas-page,
+.atlas-header,
+.atlas-navigation,
+.atlas-toc,
+.home-main,
+rocket-header {
+  --primary-color: var(--rocket-theme-primary);
+  --primary-color-dark: var(--rocket-theme-primary-dark);
+  --link-color: var(--rocket-theme-link);
+}
+```
+
+The Atlas layout loads this public stylesheet after its package CSS through
+`siteData.stylesheets`, so these variables stay centralized instead of living in Page-specific
+style blocks.
+
 ## Create the brand Page
 
 Create `docs/pages/brand.rocket.md`:

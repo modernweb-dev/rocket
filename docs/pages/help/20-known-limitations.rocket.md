@@ -3,11 +3,11 @@ export const config = {
   path: '/help/known-limitations',
   metadata: {
     title: 'Known Limitations',
-    description: 'Understand Rocket alpha limitations before adopting it for a production site.',
+    description: 'Understand Rocket public alpha limitations before adopting it for production.',
     custom: {
       atlasDoc: {
         asideTip: {
-          title: 'Alpha tip',
+          title: 'Public alpha tip',
           description:
             'Treat public APIs as useful but still moving before 1.0.0; pin versions and keep production adoption conservative.',
         },
@@ -30,7 +30,7 @@ export const layout = pageData => atlasDocLayout(pageData, globalData);
 
 # Known Limitations
 
-Rocket is alpha software. It is useful for early adopters, content sites, and Web Component
+Rocket is public alpha software. It is useful for early adopters, content sites, and Web Component
 documentation, but the public APIs can still change before `1.0.0`.
 
 ## Package and setup
@@ -40,7 +40,7 @@ documentation, but the public APIs can still change before `1.0.0`.
   content, design, and deployment target.
 - Rocket currently requires Node.js 22 or newer.
 - The package is published as `@rocket/js`; older `@rocket/create` instructions are obsolete for
-  the relaunch path.
+  the current public alpha path.
 
 ## Framework scope
 

@@ -9,6 +9,7 @@ import { RocketMenu } from '../menus/RocketMenu.js';
 import { PageData } from '../PageData.js';
 import { atlasDocLayout } from './atlas/atlasDocLayout.js';
 import { atlasHeroLayout } from './atlas/atlasHeroLayout.js';
+import { atlasNotFoundLayout } from './atlas/atlasNotFoundLayout.js';
 import { document } from './layout-helper.js';
 
 defineSsrRocketMenu();
@@ -346,6 +347,25 @@ describe('Test document helper', () => {
     assert.deepEqual(Object.keys(manifest.icons).sort(), ['bootstrap:gear', 'bootstrap:house']);
     assert.equal(iconAssetStore.outputs().length, 2);
   });
+
+  it('14: loads project Atlas stylesheets after package layout stylesheets', async () => {
+    const docData = {
+      ...makeAtlasSiteData(),
+      stylesheets: ['/rocket-theme.css'],
+    };
+    const heroData = {
+      ...makeAtlasHeroData(),
+      stylesheets: ['/rocket-theme.css'],
+    };
+
+    const docBody = await ssrRender(atlasDocLayout(makeAtlasPageData(), docData));
+    const heroBody = await ssrRender(atlasHeroLayout(makeAtlasPageData(), heroData));
+    const notFoundBody = await ssrRender(atlasNotFoundLayout(makeAtlasPageData(), docData));
+
+    assertStylesheetOrder(docBody, 'atlasDoc.css', '/rocket-theme.css');
+    assertStylesheetOrder(heroBody, 'atlasHero.css', '/rocket-theme.css');
+    assertStylesheetOrder(notFoundBody, 'atlasNotFound.css', '/rocket-theme.css');
+  });
 });
 
 /**
@@ -547,6 +567,12 @@ function makeAtlasHeroData() {
   };
 }
 
+function makeAtlasPageData() {
+  const pageData = new PageData(makePageRegistry(), { title: 'Atlas Page' }, '/atlas');
+  pageData.content = html`<p>Atlas body</p>`;
+  return pageData;
+}
+
 /**
  * @param {string} value
  * @param {RegExp} pattern
@@ -559,6 +585,20 @@ function defineSsrRocketMenu() {
   if (!customElements.get('rocket-menu')) {
     customElements.define('rocket-menu', RocketMenu);
   }
+}
+
+/**
+ * @param {string} body
+ * @param {string} packageStylesheet
+ * @param {string} projectStylesheet
+ */
+function assertStylesheetOrder(body, packageStylesheet, projectStylesheet) {
+  const packageIndex = body.indexOf(packageStylesheet);
+  const projectIndex = body.indexOf(projectStylesheet);
+
+  assert.notEqual(packageIndex, -1);
+  assert.notEqual(projectIndex, -1);
+  assert.ok(projectIndex > packageIndex);
 }
 
 /**

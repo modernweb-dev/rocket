@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "npx rocket start",
-    "build": "npx rocket build",
+    "build": "rm -rf dist && npx rocket build",
     "build:start": "npx http-server dist -o",
     "ai:do": "node scripts/codex-issue-loop.js",
     "ai:do:loop": "node scripts/codex-issue-loop.js --max 6",

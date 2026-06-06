@@ -1,13 +1,14 @@
 # Roadmap
 
-Rocket is currently alpha. This roadmap describes the work that makes the relaunch credible and the
-criteria for a future `1.0.0`.
+Rocket is currently in public alpha. This roadmap describes the work that keeps the public alpha
+credible and the criteria for a future `1.0.0`.
 
-## Relaunch
+## Public Alpha
 
 - Keep the public positioning focused on AI-generated, owned static sites and Web Component docs.
 - Keep README, docs, npm package metadata, and release notes aligned on `@rocket/js`.
-- Publish with npm provenance from GitHub Actions.
+- Treat npm as the `@rocket/js` release channel, not a separate launch status.
+- Continue publishing with npm provenance from GitHub Actions.
 - Maintain `SECURITY.md`, `CHANGELOG.md`, `CONTRIBUTING.md`, and a committed lockfile.
 - Surface one polished marketing-site example, one component-library docs example, and one
   AI-generated-from-brief example.
