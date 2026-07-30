@@ -243,15 +243,17 @@ export class RocketCodeBlock extends LitElement {
 
     return html`
       <figure part=${framePart} class=${isTerminal ? 'terminal' : ''}>
-        ${hasLabel
-          ? html`
-              <figcaption part="caption">
-                <span part="label">${this.label}</span>
-                <span part="language-badge">${languageBadge}</span>
-                ${copyButton}
-              </figcaption>
-            `
-          : ''}
+        ${
+          hasLabel
+            ? html`
+                <figcaption part="caption">
+                  <span part="label">${this.label}</span>
+                  <span part="language-badge">${languageBadge}</span>
+                  ${copyButton}
+                </figcaption>
+              `
+            : ''
+        }
         <div part=${codePart}>
           <slot @slotchange=${() => this.syncSlottedCodeStyles()}></slot>
           ${hasLabel ? '' : copyButton}

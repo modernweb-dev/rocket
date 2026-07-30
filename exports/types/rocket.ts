@@ -401,8 +401,7 @@ export type PagePaginationConfig = {
 };
 
 export type PagePaginationDeclaration =
-  | PagePaginationConfig
-  | ((pageData: PageData) => PagePaginationConfig);
+  PagePaginationConfig | ((pageData: PageData) => PagePaginationConfig);
 
 export type PagePagination = {
   items: PageCollectionEntry[];
@@ -441,8 +440,7 @@ export type PageFeedDeclaration = PageFeedConfig | ((pageData: PageData) => Page
 export type PageStaticParams = Record<string, string>;
 
 export type PageStaticParamsDeclaration =
-  | PageStaticParams[]
-  | ((pageData: PageData) => PageStaticParams[]);
+  PageStaticParams[] | ((pageData: PageData) => PageStaticParams[]);
 
 export type PageRegistrySortDirection = 'asc' | 'desc';
 

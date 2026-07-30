@@ -32,8 +32,7 @@ body {
   overflow: hidden;
   background:
     linear-gradient(135deg, rgb(208 26 28 / 26%) 0%, transparent 28%),
-    linear-gradient(315deg, rgb(255 178 61 / 18%) 0%, transparent 30%),
-    var(--atlas-not-found-bg);
+    linear-gradient(315deg, rgb(255 178 61 / 18%) 0%, transparent 30%), var(--atlas-not-found-bg);
 }
 
 .atlas-not-found::before {

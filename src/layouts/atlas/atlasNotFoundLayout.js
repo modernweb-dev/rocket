@@ -40,9 +40,11 @@ export const atlasNotFoundLayout = (pageData, data) => {
             <div class="atlas-not-found-stars"></div>
             <div class="atlas-not-found-orbit"></div>
             <p class="atlas-not-found-code">404</p>
-            ${rocketLogo
-              ? html`<img class="atlas-not-found-rocket" src=${rocketLogo} alt="" />`
-              : html``}
+            ${
+              rocketLogo
+                ? html`<img class="atlas-not-found-rocket" src=${rocketLogo} alt="" />`
+                : html``
+            }
           </div>
         </main>
       </div>

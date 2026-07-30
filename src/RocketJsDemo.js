@@ -249,7 +249,8 @@ export class RocketJsDemo extends LitElement {
       #bg {
         background-color: #eee;
         width: 100%;
-        overflow: hidden;
+        overflow: auto;
+        max-height: 80vh;
       }
 
       #resize {

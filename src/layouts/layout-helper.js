@@ -30,23 +30,27 @@ export function document(
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>${title}</title>
         ${siteHeadMetadataTemplate(siteHeadMetadata)}
-        ${menu
-          ? html`<style>
-              body {
-                display: flex;
-              }
-              #menu {
-                margin-right: 1em;
-              }
-            </style>`
-          : ''}
+        ${
+          menu
+            ? html`<style>
+                body {
+                  display: flex;
+                }
+                #menu {
+                  margin-right: 1em;
+                }
+              </style>`
+            : ''
+        }
         ${data.clientCode} ${headContent}
       </head>
       <body>
-        ${menu
-          ? html`<nav id="menu" aria-label="Site">${defaultHtmlMenu(data.pageTree)}</nav>
-              <main id="content">${content}</main>`
-          : content}
+        ${
+          menu
+            ? html`<nav id="menu" aria-label="Site">${defaultHtmlMenu(data.pageTree)}</nav>
+                <main id="content">${content}</main>`
+            : content
+        }
       </body>
     </html>`;
 }
@@ -63,21 +67,27 @@ function siteHeadMetadataTemplate(metadata) {
     ${metadata.indexing === 'noindex' ? html`<meta name="robots" content="noindex" />` : ''}
     <link rel="canonical" href=${metadata.canonicalUrl} />
     ${metadata.icons?.ico ? html`<link rel="icon" href=${metadata.icons.ico} sizes="any" />` : ''}
-    ${metadata.icons?.svg
-      ? html`<link rel="icon" href=${metadata.icons.svg} type="image/svg+xml" />`
-      : ''}
-    ${metadata.icons?.appleTouchIcon
-      ? html`<link rel="apple-touch-icon" href=${metadata.icons.appleTouchIcon} />`
-      : ''}
+    ${
+      metadata.icons?.svg
+        ? html`<link rel="icon" href=${metadata.icons.svg} type="image/svg+xml" />`
+        : ''
+    }
+    ${
+      metadata.icons?.appleTouchIcon
+        ? html`<link rel="apple-touch-icon" href=${metadata.icons.appleTouchIcon} />`
+        : ''
+    }
     ${metadata.themeColor ? html`<meta name="theme-color" content=${metadata.themeColor} />` : ''}
     <meta property="og:site_name" content=${metadata.siteName} />
     <meta property="og:title" content=${metadata.title} />
     <meta property="og:description" content=${metadata.description} />
     <meta property="og:url" content=${metadata.canonicalUrl} />
     <meta property="og:type" content="website" />
-    ${metadata.socialPreview?.image
-      ? html`<meta property="og:image" content=${metadata.socialPreview.image} />`
-      : ''}
+    ${
+      metadata.socialPreview?.image
+        ? html`<meta property="og:image" content=${metadata.socialPreview.image} />`
+        : ''
+    }
     <meta
       name="twitter:card"
       content=${metadata.socialPreview?.image ? 'summary_large_image' : 'summary'}
@@ -85,8 +95,10 @@ function siteHeadMetadataTemplate(metadata) {
     <meta name="twitter:title" content=${metadata.title} />
     <meta name="twitter:description" content=${metadata.description} />
     <meta name="twitter:url" content=${metadata.canonicalUrl} />
-    ${metadata.socialPreview?.image
-      ? html`<meta name="twitter:image" content=${metadata.socialPreview.image} />`
-      : ''}
+    ${
+      metadata.socialPreview?.image
+        ? html`<meta name="twitter:image" content=${metadata.socialPreview.image} />`
+        : ''
+    }
   `;
 }

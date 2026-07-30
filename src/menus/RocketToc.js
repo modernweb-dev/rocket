@@ -68,11 +68,13 @@ export class RocketToc extends LitElement {
         >
           ${headline.text}
         </a>
-        ${headline.children.length > 0
-          ? html`<ol>
-              ${headline.children.map(child => this.list(child, depth + 1))}
-            </ol>`
-          : html``}
+        ${
+          headline.children.length > 0
+            ? html`<ol>
+                ${headline.children.map(child => this.list(child, depth + 1))}
+              </ol>`
+            : html``
+        }
       </li>
     `;
   }

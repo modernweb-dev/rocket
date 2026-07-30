@@ -50,20 +50,34 @@ export function renderPageNavigationCard(page, direction) {
   const isNext = direction === 'next';
   const label = isNext ? 'Next Page' : 'Previous Page';
   const icon = html`<span class="page-card-icon" aria-hidden="true">
-    ${isNext
-      ? html`<svg class="page-card-arrow" viewBox="0 0 36 16" focusable="false" aria-hidden="true">
-          <path d="M5 8h25m-7-6 7 6-7 6" />
-        </svg>`
-      : html`<svg class="page-card-arrow" viewBox="0 0 36 16" focusable="false" aria-hidden="true">
-          <path d="M31 8H6m7-6-7 6 7 6" />
-        </svg>`}
+    ${
+      isNext
+        ? html`<svg
+            class="page-card-arrow"
+            viewBox="0 0 36 16"
+            focusable="false"
+            aria-hidden="true"
+          >
+            <path d="M5 8h25m-7-6 7 6-7 6" />
+          </svg>`
+        : html`<svg
+            class="page-card-arrow"
+            viewBox="0 0 36 16"
+            focusable="false"
+            aria-hidden="true"
+          >
+            <path d="M31 8H6m7-6-7 6 7 6" />
+          </svg>`
+    }
   </span>`;
   const text = html`<span class="page-card-text">
     <span class="page-card-label">${label}</span>
     <strong class="page-card-title">${page.linkText}</strong>
-    ${page.sectionLabel
-      ? html`<span class="page-card-section">${page.sectionLabel}</span>`
-      : nothing}
+    ${
+      page.sectionLabel
+        ? html`<span class="page-card-section">${page.sectionLabel}</span>`
+        : nothing
+    }
   </span>`;
 
   return html`<a

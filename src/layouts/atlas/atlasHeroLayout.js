@@ -69,16 +69,18 @@ function renderTrustBadges(badges) {
 
         return html`
           <li>
-            ${href && icon
-              ? html`
-                  <rocket-social-link
-                    url=${href}
-                    name=${icon}
-                    label=${text}
-                    aria-label=${text}
-                  ></rocket-social-link>
-                `
-              : html`<span class="trust-badge-text">${text}</span>`}
+            ${
+              href && icon
+                ? html`
+                    <rocket-social-link
+                      url=${href}
+                      name=${icon}
+                      label=${text}
+                      aria-label=${text}
+                    ></rocket-social-link>
+                  `
+                : html`<span class="trust-badge-text">${text}</span>`
+            }
           </li>
         `;
       })}
@@ -142,13 +144,15 @@ function renderWhyCard(card) {
         <h3>${card.title}</h3>
         <p>${card.description}</p>
       </div>
-      ${card.tags?.length
-        ? html`
-            <ul class="tag-list" aria-label="${card.title} tags">
-              ${card.tags.map(tag => html`<li>${tag}</li>`)}
-            </ul>
-          `
-        : html``}
+      ${
+        card.tags?.length
+          ? html`
+              <ul class="tag-list" aria-label="${card.title} tags">
+                ${card.tags.map(tag => html`<li>${tag}</li>`)}
+              </ul>
+            `
+          : html``
+      }
     </article>
   `;
 }
@@ -303,25 +307,29 @@ export const atlasHeroLayout = (pageData, data) => {
             ${renderInstallPill(hero)} ${renderTrustBadges(hero.badges ?? [])}
           </div>
 
-          ${hero.logoNoText
-            ? html`
-                <div class="hero-art" aria-hidden="true">
-                  <div class="rocket-visual">
-                    <span class="spark spark-one"></span>
-                    <span class="spark spark-two"></span>
-                    <span class="spark spark-three"></span>
-                    <img src=${hero.logoNoText} alt="" width="370" />
+          ${
+            hero.logoNoText
+              ? html`
+                  <div class="hero-art" aria-hidden="true">
+                    <div class="rocket-visual">
+                      <span class="spark spark-one"></span>
+                      <span class="spark spark-two"></span>
+                      <span class="spark spark-three"></span>
+                      <img src=${hero.logoNoText} alt="" width="370" />
+                    </div>
                   </div>
-                </div>
-              `
-            : html``}
+                `
+              : html``
+          }
         </section>
         <div class="home-content">${pageData.content}</div>
         ${renderWhyRocket(data.whyRocketData)}
         ${renderHomeColumns(data.quickStartData, data.workflowData)}
-        ${data.featuresData?.length
-          ? html`<rocket-feature-list .features=${data.featuresData}></rocket-feature-list>`
-          : html``}
+        ${
+          data.featuresData?.length
+            ? html`<rocket-feature-list .features=${data.featuresData}></rocket-feature-list>`
+            : html``
+        }
       </main>
       <rocket-footer .data=${data.footerData}></rocket-footer>
     `,

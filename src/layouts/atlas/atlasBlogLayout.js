@@ -53,9 +53,11 @@ export function renderBlogTags(tags, data) {
       ${tags.map(
         tag => html`
           <li>
-            ${data.tagPathPrefix
-              ? html`<a href=${blogTagPath(data.tagPathPrefix, tag)} rel="tag">${tag}</a>`
-              : html`<span>${tag}</span>`}
+            ${
+              data.tagPathPrefix
+                ? html`<a href=${blogTagPath(data.tagPathPrefix, tag)} rel="tag">${tag}</a>`
+                : html`<span>${tag}</span>`
+            }
           </li>
         `,
       )}
@@ -84,9 +86,11 @@ export function renderBlogByline(metadata, data, language) {
   }
   return html`
     <div class="atlas-blog-byline">
-      ${metadata.date
-        ? html`<time datetime=${metadata.date}>${formatBlogDate(metadata.date, language)}</time>`
-        : ''}
+      ${
+        metadata.date
+          ? html`<time datetime=${metadata.date}>${formatBlogDate(metadata.date, language)}</time>`
+          : ''
+      }
       ${authors.length ? html`<span class="atlas-blog-authors">${authors.join(', ')}</span>` : ''}
       ${renderBlogTags(metadata.tags, data)}
     </div>
@@ -108,11 +112,13 @@ export function renderBlogPostList(items, data, language) {
         item => html`
           <li class="atlas-blog-post-card">
             <h2><a href=${item.url}>${item.metadata.title}</a></h2>
-            ${item.metadata.date
-              ? html`<time datetime=${item.metadata.date}
-                  >${formatBlogDate(item.metadata.date, language)}</time
-                >`
-              : ''}
+            ${
+              item.metadata.date
+                ? html`<time datetime=${item.metadata.date}
+                    >${formatBlogDate(item.metadata.date, language)}</time
+                  >`
+                : ''
+            }
             ${item.metadata.description ? html`<p>${item.metadata.description}</p>` : ''}
             ${renderBlogTags(item.metadata.tags, data)}
           </li>
@@ -131,13 +137,17 @@ export function renderBlogPagination(pagination) {
   }
   return html`
     <nav class="atlas-blog-pagination" aria-label="Blog pages">
-      ${pagination.previousPath
-        ? html`<a href=${pagination.previousPath} rel="prev">Newer posts</a>`
-        : html`<span></span>`}
+      ${
+        pagination.previousPath
+          ? html`<a href=${pagination.previousPath} rel="prev">Newer posts</a>`
+          : html`<span></span>`
+      }
       <span>Page ${pagination.currentPage} of ${pagination.totalPages}</span>
-      ${pagination.nextPath
-        ? html`<a href=${pagination.nextPath} rel="next">Older posts</a>`
-        : html`<span></span>`}
+      ${
+        pagination.nextPath
+          ? html`<a href=${pagination.nextPath} rel="next">Older posts</a>`
+          : html`<span></span>`
+      }
     </nav>
   `;
 }
@@ -181,14 +191,16 @@ function atlasBlogDocument(pageData, data, mainContent) {
         />
         <link rel="stylesheet" href="${resolve('@rocket/js/layouts/atlasDoc.css', import.meta)}" />
         <link rel="stylesheet" href="${resolve('@rocket/js/layouts/atlasBlog.css', import.meta)}" />
-        ${data.feedPath
-          ? html`<link
-              rel="alternate"
-              type="application/atom+xml"
-              href=${data.feedPath}
-              title=${siteName}
-            />`
-          : ''}
+        ${
+          data.feedPath
+            ? html`<link
+                rel="alternate"
+                type="application/atom+xml"
+                href=${data.feedPath}
+                title=${siteName}
+              />`
+            : ''
+        }
         ${renderStylesheets(data.stylesheets)} ${headContent}
       `,
     },
@@ -220,12 +232,14 @@ export const atlasBlogIndexLayout = (pageData, data) => {
       <section class="atlas-blog-index">
         <div class="atlas-blog-intro">
           ${pageData.content}
-          ${data.feedPath
-            ? html`<a class="atlas-blog-feed-link" href=${data.feedPath}>
-                <rocket-icon library="bootstrap" name="rss" aria-hidden="true"></rocket-icon>
-                Feed
-              </a>`
-            : ''}
+          ${
+            data.feedPath
+              ? html`<a class="atlas-blog-feed-link" href=${data.feedPath}>
+                  <rocket-icon library="bootstrap" name="rss" aria-hidden="true"></rocket-icon>
+                  Feed
+                </a>`
+              : ''
+          }
         </div>
         ${renderBlogPostList(items, data, language)} ${renderBlogPagination(pageData.pagination)}
       </section>

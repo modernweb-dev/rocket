@@ -245,22 +245,28 @@ export const atlasDocLayout = (pageData, data) => {
 
         <main id="content" class="atlas-content">${pageData.content}</main>
 
-        ${pageNavigation.previous || pageNavigation.next
-          ? html`<nav id="prev-next" slot="main-footer" class="atlas-prev-next" aria-label="Page">
-              ${pageNavigation.previous
-                ? html`<rocket-previous-page
-                    .pageTree=${pageData.pageTree}
-                    .currentPath=${pageData.url}
-                  ></rocket-previous-page>`
-                : ''}
-              ${pageNavigation.next
-                ? html`<rocket-next-page
-                    .pageTree=${pageData.pageTree}
-                    .currentPath=${pageData.url}
-                  ></rocket-next-page>`
-                : ''}
-            </nav>`
-          : ''}
+        ${
+          pageNavigation.previous || pageNavigation.next
+            ? html`<nav id="prev-next" slot="main-footer" class="atlas-prev-next" aria-label="Page">
+                ${
+                  pageNavigation.previous
+                    ? html`<rocket-previous-page
+                        .pageTree=${pageData.pageTree}
+                        .currentPath=${pageData.url}
+                      ></rocket-previous-page>`
+                    : ''
+                }
+                ${
+                  pageNavigation.next
+                    ? html`<rocket-next-page
+                        .pageTree=${pageData.pageTree}
+                        .currentPath=${pageData.url}
+                      ></rocket-next-page>`
+                    : ''
+                }
+              </nav>`
+            : ''
+        }
 
         <aside slot="aside" class="atlas-toc">
           <rocket-toc toc=${serializedToc}></rocket-toc>
