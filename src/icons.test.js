@@ -37,21 +37,30 @@ describe('Test rocket icons', () => {
     assert.deepEqual(pageData.options, { defaultIconLibrary: 'bootstrap' });
   });
 
-  it('02: indexes package-backed Icon Library Sources lazily and returns raw SVG', async () => {
-    const html = await finalizeRocketIcons(
-      '<rocket-icon library="bootstrap" name="alarm"></rocket-icon>',
-      {
-        iconLibraries: {
-          bootstrap: iconsFromPackage('bootstrap-icons', 'icons/*.svg'),
-        },
-      },
-    );
+  it('02: resolves Rocket-owned Icon packages outside the Site Author project', async () => {
+    const originalCwd = process.cwd();
+    const consumerRoot = mkdtempSync(path.join(tmpdir(), 'rocket-icon-consumer-'));
 
-    assert.match(html, /<rocket-icon library="bootstrap" name="alarm">/);
-    assert.match(html, /<template shadowrootmode="open">/);
-    assert.match(html, /<span part="icon">/);
-    assert.match(html, /<svg[^>]*fill="currentColor"[^>]*>/);
-    assert.doesNotMatch(html, /data-rocket-icon-manifest|RocketIcon|icon-loading="auto"|size=/);
+    try {
+      process.chdir(consumerRoot);
+      const html = await finalizeRocketIcons(
+        '<rocket-icon library="bootstrap" name="alarm"></rocket-icon>',
+        {
+          iconLibraries: {
+            bootstrap: iconsFromPackage('bootstrap-icons', 'icons/*.svg'),
+          },
+        },
+      );
+
+      assert.match(html, /<rocket-icon library="bootstrap" name="alarm">/);
+      assert.match(html, /<template shadowrootmode="open">/);
+      assert.match(html, /<span part="icon">/);
+      assert.match(html, /<svg[^>]*fill="currentColor"[^>]*>/);
+      assert.doesNotMatch(html, /data-rocket-icon-manifest|RocketIcon|icon-loading="auto"|size=/);
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(consumerRoot, { recursive: true, force: true });
+    }
   });
 
   it('03: indexes trusted local SVG folder libraries without rewriting SVG content', async () => {

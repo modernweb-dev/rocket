@@ -294,6 +294,25 @@ export { directLayout as layout } from './layout.mjs';
       rmSync(tempDir, { recursive: true, force: true });
     }
   });
+
+  it('13: imports generated Markdown Page runtime dependencies through Rocket', async () => {
+    const source = `# Runtime dependencies
+
+\`\`\`js demo
+export const runtimeDemo = () => 'runtime';
+\`\`\`
+`;
+    const moduleCodes = [
+      await compileMarkdownLoad(source),
+      await compileMarkdownLoad(source, { singleDemo: 'runtimeDemo' }),
+    ];
+
+    for (const moduleCode of moduleCodes) {
+      assert.match(moduleCode, /import \{ html, render \} from '@rocket\/js\/ssr\.js';/);
+      assert.doesNotMatch(moduleCode, /from '@lit-labs\/ssr'/);
+      assert.doesNotMatch(moduleCode, /from 'lit'/);
+    }
+  });
 });
 
 function defineRocketCodeBlock() {

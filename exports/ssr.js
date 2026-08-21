@@ -1,1 +1,1 @@
-export { ssrRender } from '../src/ssr.js';
+export { html, render, ssrRender } from '../src/ssr.js';
