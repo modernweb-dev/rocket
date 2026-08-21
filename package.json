@@ -110,7 +110,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-no-only-tests": "^3.4.0",
     "globals": "^17.6.0",
-    "netlify-cli": "^26.0.2",
+    "netlify-cli": "^27.1.2",
     "prettier": "^3.8.3",
     "prettier-plugin-packagejson": "^3.0.2",
     "typescript-eslint": "^8.59.4",
