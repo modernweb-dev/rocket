@@ -5,6 +5,7 @@ import customRocketPlugin from './wds-plugin.js';
 import { MessageChannel } from 'node:worker_threads';
 import { customElements } from '@lit-labs/ssr-dom-shim';
 import { readConfig } from './config.js';
+import { preferProjectPackagesPlugin } from './prefer-project-packages-plugin.js';
 
 const configFilePath = process.argv[2] || undefined;
 const startOptions = readStartOptions(process.argv[3]);
@@ -40,6 +41,7 @@ let devServerConfig = {
       defaultIconLibrary: config.defaultIconLibrary,
       watch: startOptions.watch,
     }),
+    preferProjectPackagesPlugin(),
   ],
   open: startOptions.open ?? true,
   nodeResolve: { exportConditions: ['browser'] },

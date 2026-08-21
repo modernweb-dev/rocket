@@ -723,7 +723,11 @@ async function iconSourceFiles(source) {
  */
 function packageRoot(packageName) {
   try {
-    return path.dirname(require.resolve(`${packageName}/package.json`, { paths: [process.cwd()] }));
+    return path.dirname(
+      require.resolve(`${packageName}/package.json`, {
+        paths: [process.cwd(), import.meta.dirname],
+      }),
+    );
   } catch (error) {
     throw new Error(`Could not resolve Icon package ${JSON.stringify(packageName)}.`, {
       cause: error,

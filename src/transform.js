@@ -90,10 +90,11 @@ export async function mdToJsSingleDemo(md, demo) {
 
   const code = /** @type {{client: string; server: string}} */ (result.data.code);
 
-  const litImport = hasTopLevelHtmlBinding(code.server) ? '' : "import { html } from 'lit'";
+  const runtimeImport = hasTopLevelHtmlBinding(code.server)
+    ? "import { render } from '@rocket/js/ssr.js';"
+    : "import { html, render } from '@rocket/js/ssr.js';";
   const moduleCode = `
-import {render} from '@lit-labs/ssr';
-${litImport}
+${runtimeImport}
 ${code.server}
 export function contentFn(data, layout) {
   data._clientCode = \`${code.client
@@ -117,12 +118,11 @@ export function contentFn(data, layout) {
  */
 async function makeJsFile(serverCode, clientCode, markdown, headlines) {
   const normalizedServerCode = normalizeLayoutExportBindings(serverCode);
-  const litImport = hasTopLevelHtmlBinding(normalizedServerCode)
-    ? ''
-    : "import { html } from 'lit'";
+  const runtimeImport = hasTopLevelHtmlBinding(normalizedServerCode)
+    ? "import { render } from '@rocket/js/ssr.js';"
+    : "import { html, render } from '@rocket/js/ssr.js';";
   return `
-import {render} from '@lit-labs/ssr';
-${litImport}
+${runtimeImport}
 ${normalizedServerCode}
 export function contentFn(data, defaultLayout) {
   let renderLayout = defaultLayout;
