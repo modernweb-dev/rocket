@@ -237,7 +237,11 @@ function extractDemoNames() {
     const node = /** @type {import('mdast').Code} */ (_node);
     if (isDemoCodeNode(node) && typeof node.value === 'string') {
       for (const exported of parseExports(node.value)[1]) {
-        demoNames.push(exported.ln || exported.n);
+        if (exported.type === 'direct') {
+          demoNames.push(exported.localName || exported.name);
+        } else if (exported.type === 'reexport') {
+          demoNames.push(exported.name);
+        }
       }
     }
   };

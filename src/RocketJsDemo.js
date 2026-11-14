@@ -215,11 +215,13 @@ export class RocketJsDemo extends LitElement {
               @click=${() => this.copyStandaloneDemoUrl()}
             >
               <wa-icon
-                name=${this._copyState === 'success'
-                  ? 'check'
-                  : this._copyState === 'error'
-                    ? 'xmark'
-                    : 'copy'}
+                name=${
+                  this._copyState === 'success'
+                    ? 'check'
+                    : this._copyState === 'error'
+                      ? 'xmark'
+                      : 'copy'
+                }
                 variant=${this._copyState === 'copy' ? 'regular' : 'solid'}
               ></wa-icon>
             </wa-button>

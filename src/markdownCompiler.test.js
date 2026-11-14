@@ -26,7 +26,9 @@ describe('Test markdownCompiler', () => {
 
       const compiledModule = await compileMarkdownLoad(source);
       const [, exports] = parseExports(compiledModule);
-      const exportsComponents = exports.some(exported => exported.n === 'components');
+      const exportsComponents = exports.some(
+        exported => exported.type !== 'reexport-all' && exported.name === 'components',
+      );
       if (!exportsComponents) {
         missingComponentsExports.push(path.relative(projectRoot, pageFile));
       }

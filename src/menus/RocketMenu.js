@@ -47,25 +47,31 @@ export class RocketMenu extends LitElement {
 
     return html`
       <li class=${classMap(itemClasses)}>
-        ${page.menuNoLink
-          ? html`<span class=${classMap(classes)}>${title}</span>`
-          : html`<a
-              href=${ifDefined(page.url)}
-              class=${classMap(classes)}
-              aria-current=${ifDefined(isCurrent ? 'page' : undefined)}
-              >${page.iconName
-                ? html`<rocket-icon
-                    class="nav-icon"
-                    name=${page.iconName}
-                    aria-hidden="true"
-                  ></rocket-icon>`
-                : ''}<span class="nav-text">${title}</span></a
-            >`}
-        ${page.children.length > 0
-          ? html`<ul>
-              ${page.children.map(child => this.list(child, depth + 1))}
-            </ul>`
-          : ''}
+        ${
+          page.menuNoLink
+            ? html`<span class=${classMap(classes)}>${title}</span>`
+            : html`<a
+                href=${ifDefined(page.url)}
+                class=${classMap(classes)}
+                aria-current=${ifDefined(isCurrent ? 'page' : undefined)}
+                >${
+                  page.iconName
+                    ? html`<rocket-icon
+                        class="nav-icon"
+                        name=${page.iconName}
+                        aria-hidden="true"
+                      ></rocket-icon>`
+                    : ''
+                }<span class="nav-text">${title}</span></a
+              >`
+        }
+        ${
+          page.children.length > 0
+            ? html`<ul>
+                ${page.children.map(child => this.list(child, depth + 1))}
+              </ul>`
+            : ''
+        }
       </li>
     `;
   }

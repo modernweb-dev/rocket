@@ -140,8 +140,7 @@ type PagePaginationConfig = {
 };
 
 type PagePaginationDeclaration =
-  | PagePaginationConfig
-  | ((pageData: PageData) => PagePaginationConfig);
+  PagePaginationConfig | ((pageData: PageData) => PagePaginationConfig);
 
 type JavaScriptPageModule = {
   pagination?: PagePaginationDeclaration;

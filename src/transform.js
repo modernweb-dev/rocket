@@ -412,7 +412,13 @@ export function isDemoCodeNode(node) {
  */
 function demoExportName(code) {
   const [, moduleExports] = parseExports(code);
-  const name = moduleExports[0] && (moduleExports[0].ln || moduleExports[0].n);
+  const first = moduleExports[0];
+  const name =
+    first?.type === 'direct'
+      ? first.localName || first.name
+      : first?.type === 'reexport'
+        ? first.name
+        : undefined;
   if (!name) {
     throw new Error(
       'A ```js demo code block must export the demo function, ' +
