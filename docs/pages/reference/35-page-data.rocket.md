@@ -130,6 +130,10 @@ export const layout = pageData => {
 Each reference must include `name`; omit `library` only when the active Page has a Default Icon
 Library.
 
+`pageData.setWebAwesomeIconLibrary(library)` makes `wa-icon` elements on the Page load their SVGs
+from a configured Icon Library served by Rocket instead of Web Awesome's CDN. See
+[wa-icon in browser components](/reference/rocket-icon#wa-icon-in-browser-components).
+
 `pageData.siteHeadMetadata` is set when project config enables Site Head Metadata. It contains the
 current Page's formatted title, description, canonical URL, site name, default description, and
 language for Rocket-owned document helpers. It does not control Document Baseline Metadata such as

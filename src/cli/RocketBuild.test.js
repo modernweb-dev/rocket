@@ -2569,6 +2569,61 @@ export default function homePage() {
     }
   });
 
+  it('47: publishes every icon of the Web Awesome Icon Library for wa-icon', async () => {
+    const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-static-wa-icons-'));
+    const originalCwd = process.cwd();
+    const iconDir = path.join(projectRoot, 'src/icons');
+    const boxSvg = '<svg viewBox="0 0 8 8"><path d="M0 0h8v8H0z"/></svg>';
+    const circleSvg = '<svg viewBox="0 0 8 8"><circle cx="4" cy="4" r="4"/></svg>';
+    mkdirSync(iconDir, { recursive: true });
+    writeFileSync(path.join(iconDir, 'box.svg'), boxSvg);
+    writeFileSync(path.join(iconDir, 'circle.svg'), circleSvg);
+
+    const page = makePage({ path: '/icons', file: 'docs/icons.rocket.js', title: 'Icons' });
+    const pages = makePageRegistry(page);
+    const staticPages = new Map([[page.module.config.path, page]]);
+
+    process.chdir(projectRoot);
+    try {
+      await renderStaticPages({
+        pages,
+        staticPages,
+        pageModuleLoader: {
+          async load() {
+            return {
+              kind: 'javascript',
+              /** @type {(request: Request, context: { pageData: import('../PageData.js').PageData }) => string} */
+              body(_request, { pageData }) {
+                pageData.setWebAwesomeIconLibrary('local');
+                return '<html><head></head><body><wa-icon name="box"></wa-icon></body></html>';
+              },
+            };
+          },
+        },
+        iconLibraries: {
+          local: iconsFromPath(path.join(iconDir, '*.svg')),
+        },
+      });
+
+      assert.match(
+        readFileSync('tmp-dist-rocket/icons/index.html', 'utf8'),
+        /data-rocket-wa-icon-library/,
+      );
+      assert.deepEqual(globSync('_rocket/wa-icons/**/*.svg', { cwd: 'tmp-dist-rocket' }).sort(), [
+        '_rocket/wa-icons/local/box.svg',
+        '_rocket/wa-icons/local/circle.svg',
+      ]);
+      assert.equal(readFileSync('tmp-dist-rocket/_rocket/wa-icons/local/box.svg', 'utf8'), boxSvg);
+      assert.equal(
+        readFileSync('tmp-dist-rocket/_rocket/wa-icons/local/circle.svg', 'utf8'),
+        circleSvg,
+      );
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
   it('40: emits Page Feed output for archive Pages with a feed export', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-feed-build-'));
     const originalCwd = process.cwd();

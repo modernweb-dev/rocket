@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import * as parse5 from 'parse5';
+import { resolve } from './resolve.js';
 
 const require = createRequire(import.meta.url);
 
@@ -13,6 +14,8 @@ const ICON_REFERENCE_CONFIG_FIELDS = new Set(['library', 'name']);
 const ROCKET_ICON_ASSET_PREFIX = '/_rocket/icons/';
 const ROCKET_ICON_DEFINE_MODULE_PATH = '/_rocket/rocket-icon.js';
 const ROCKET_ICON_CLASS_MODULE_PATH = '/_rocket/RocketIcon.js';
+const WEB_AWESOME_ICON_ASSET_PREFIX = '/_rocket/wa-icons/';
+const WEB_AWESOME_ICON_LIBRARY_MODULE = '@awesome.me/webawesome/dist/components/icon/library.js';
 const SHADOW_ICON_STYLE =
   ':host{display:inline-block;width:1em;height:1em;vertical-align:-0.125em;line-height:1}' +
   ':host([hidden]){display:none}' +
@@ -66,6 +69,52 @@ export class IconAssetStore {
     /** @type {Map<string, { url: string; svg: string; library: string; name: string }>} */
     this.assets = new Map();
     this.needsRuntime = false;
+    /** @type {Map<string, { library: string; config: import('@rocket/js/types.js').NormalizedIconLibraryConfig }>} */
+    this.webAwesomeIconLibraries = new Map();
+  }
+
+  /**
+   * Publishes every icon of an Icon Library at `/_rocket/wa-icons/{library}/{name}.svg`, because
+   * browser code may ask `wa-icon` for any name.
+   *
+   * @param {string} library
+   * @param {import('@rocket/js/types.js').NormalizedIconLibraryConfig} config
+   */
+  addWebAwesomeIconLibrary(library, config) {
+    this.webAwesomeIconLibraries.set(sanitizePathSegment(library), { library, config });
+  }
+
+  /**
+   * @param {string} url
+   * @returns {Promise<{ url: string; svg: string } | undefined>}
+   */
+  async getWebAwesomeIcon(url) {
+    const match = /^\/_rocket\/wa-icons\/([^/]+)\/([^/]+)\.svg$/.exec(url);
+    const entry = match && this.webAwesomeIconLibraries.get(match[1]);
+    if (!match || !entry) {
+      return undefined;
+    }
+    let name;
+    try {
+      name = decodeURIComponent(match[2]);
+    } catch {
+      return undefined;
+    }
+    const svg = (await indexIconLibrary(entry.library, entry.config)).get(name);
+    return svg === undefined ? undefined : { url, svg };
+  }
+
+  async webAwesomeIconOutputs() {
+    const outputs = [];
+    for (const [segment, { library, config }] of this.webAwesomeIconLibraries) {
+      for (const [name, svg] of await indexIconLibrary(library, config)) {
+        outputs.push({
+          url: `${WEB_AWESOME_ICON_ASSET_PREFIX}${segment}/${name}.svg`,
+          svg,
+        });
+      }
+    }
+    return outputs;
   }
 
   /**
@@ -177,6 +226,7 @@ export function validateIconLibrariesConfig(iconLibraries) {
  *     _iconLibraries?: Map<string, import('@rocket/js/types.js').NormalizedIconLibraryConfig>;
  *     _defaultIconLibrary?: string;
  *     _iconReferences?: import('@rocket/js/types.js').IconReferenceConfig[];
+ *     _webAwesomeIconLibrary?: string;
  *     _hydrationScript?: string;
  *     _hasBrowserLoadedComponents?: boolean;
  *   };
@@ -185,6 +235,15 @@ export function validateIconLibrariesConfig(iconLibraries) {
  * @returns {Promise<string>}
  */
 export async function finalizeRocketIcons(html, options = {}) {
+  const output = await finalizeRocketIconHostsAndManifest(html, options);
+  return finalizeWebAwesomeIcons(output, options);
+}
+
+/**
+ * @param {string} html
+ * @param {Parameters<typeof finalizeRocketIcons>[1] & {}} options
+ */
+async function finalizeRocketIconHostsAndManifest(html, options) {
   const lowerHtml = html.toLowerCase();
   const hasIconHosts = lowerHtml.includes('<rocket-icon');
   const hasIconLoadingPolicy =
@@ -259,6 +318,63 @@ export async function finalizeRocketIcons(html, options = {}) {
     defaultLibrary: resolver.defaultLibrary,
     icons: manifestIcons,
   });
+}
+
+/**
+ * Points Web Awesome's `default` icon library at the Page's Web Awesome Icon Library, so
+ * `wa-icon` elements created by browser code load self-hosted SVGs instead of a CDN.
+ *
+ * @param {string} html
+ * @param {Parameters<typeof finalizeRocketIcons>[1] & {}} options
+ */
+async function finalizeWebAwesomeIcons(html, options) {
+  const library = options.pageData?._webAwesomeIconLibrary;
+  if (!library) {
+    return html;
+  }
+  if (!pageNeedsDeferredIconRuntime(options.pageData) && !/<wa-icon\b/i.test(html)) {
+    return html;
+  }
+  const resolver = createIconResolver({
+    layoutIconLibraries: options.layoutIconLibraries || options.pageData?._iconLibraries,
+    layoutDefaultIconLibrary:
+      options.layoutDefaultIconLibrary || options.pageData?._defaultIconLibrary,
+    projectIconLibraries: options.iconLibraries,
+    projectDefaultIconLibrary: options.defaultIconLibrary,
+  });
+  const config = resolver.libraries.get(library);
+  if (!config) {
+    throw new Error(`Web Awesome Icon Library "${library}" is not configured.`);
+  }
+  options.iconAssetStore?.addWebAwesomeIconLibrary(library, config);
+
+  const iconBaseUrl = `${WEB_AWESOME_ICON_ASSET_PREFIX}${sanitizePathSegment(library)}/`;
+  const registrationHtml =
+    '<script type="module" data-rocket-wa-icon-library>' +
+    `import { registerIconLibrary } from '${resolve(WEB_AWESOME_ICON_LIBRARY_MODULE, import.meta)}';` +
+    `registerIconLibrary('default', { resolver: name => '${iconBaseUrl}' + encodeURIComponent(name) + '.svg' });` +
+    '</script>';
+  return insertBeforeFirstHeadScript(html, registrationHtml);
+}
+
+/**
+ * Module scripts run in document order, so a script placed before the Page's first script
+ * runs before any component code it loads.
+ *
+ * @param {string} html
+ * @param {string} insertion
+ */
+function insertBeforeFirstHeadScript(html, insertion) {
+  const lowerHtml = html.toLowerCase();
+  const headClose = lowerHtml.indexOf('</head>');
+  const firstScript = lowerHtml.indexOf('<script');
+  if (firstScript !== -1 && (headClose === -1 || firstScript < headClose)) {
+    return html.slice(0, firstScript) + insertion + html.slice(firstScript);
+  }
+  if (headClose !== -1) {
+    return html.slice(0, headClose) + insertion + html.slice(headClose);
+  }
+  return insertion + html;
 }
 
 /**

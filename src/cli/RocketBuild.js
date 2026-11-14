@@ -300,7 +300,7 @@ export async function renderStaticPages({
       });
     }
   }
-  writeIconAssetOutputs(iconAssetStore);
+  await writeIconAssetOutputs(iconAssetStore);
   if (emitRedirectFallbacks) {
     writeRedirectFallbackFiles(urlLifecycle?.redirects);
   }
@@ -504,8 +504,11 @@ function copyStaticFileOutputs(outDir) {
 /**
  * @param {import('../icons.js').IconAssetStore} iconAssetStore
  */
-function writeIconAssetOutputs(iconAssetStore) {
+async function writeIconAssetOutputs(iconAssetStore) {
   for (const output of iconAssetStore.outputs()) {
+    writeFileOutput(output.url, Buffer.from(output.svg, 'utf8'));
+  }
+  for (const output of await iconAssetStore.webAwesomeIconOutputs()) {
     writeFileOutput(output.url, Buffer.from(output.svg, 'utf8'));
   }
   if (!iconAssetStore.needsRuntime) {

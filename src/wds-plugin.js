@@ -129,7 +129,8 @@ export default (include, exclude, resolverPort, options = {}) => {
           type: rocketIconRuntime.type,
         };
       }
-      const iconAsset = iconAssetStore.get(context.path);
+      const iconAsset =
+        iconAssetStore.get(context.path) ?? (await iconAssetStore.getWebAwesomeIcon(context.path));
       if (iconAsset) {
         return {
           body: iconAsset.svg,

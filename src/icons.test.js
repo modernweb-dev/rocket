@@ -426,7 +426,74 @@ describe('Test rocket icons', () => {
     assert.equal(iconAssetStore.outputs().length, 2);
     assert.equal(iconAssetStore.needsRuntime, true);
   });
+
+  it('13: points wa-icon at the Web Awesome Icon Library before browser components load', async () => {
+    const html = await finalizeRocketIcons(
+      [
+        '<!doctype html><html><head><title>Icons</title>',
+        '<script type="module">import("/src/TaskApp.js");</script>',
+        '</head><body><task-app></task-app></body></html>',
+      ].join(''),
+      {
+        pageData: {
+          _hasBrowserLoadedComponents: true,
+          _iconLibraries: new Map([
+            ['bootstrap', { sources: [iconsFromPackage('bootstrap-icons', 'icons/*.svg')] }],
+          ]),
+          _webAwesomeIconLibrary: 'bootstrap',
+        },
+      },
+    );
+
+    const registration = readWebAwesomeIconLibraryScript(html);
+    assert.match(
+      registration,
+      /import \{ registerIconLibrary \} from '\/node_modules\/@awesome\.me\/webawesome\/dist\/components\/icon\/library\.js';/,
+    );
+    assert.match(registration, /registerIconLibrary\('default', \{/);
+    assert.match(registration, /'\/_rocket\/wa-icons\/bootstrap\/'/);
+    assert.doesNotMatch(registration, /https?:/);
+    assert.ok(
+      html.indexOf('data-rocket-wa-icon-library') < html.indexOf('import("/src/TaskApp.js")'),
+      'Expected the wa-icon registration before the component script',
+    );
+  });
+
+  it('14: leaves wa-icon alone on Pages without browser code or without the option', async () => {
+    const bootstrapLibraries = new Map([
+      ['bootstrap', { sources: [iconsFromPackage('bootstrap-icons', 'icons/*.svg')] }],
+    ]);
+    const page = '<!doctype html><html><head><title>Icons</title></head><body></body></html>';
+
+    const serverOnly = await finalizeRocketIcons(page, {
+      pageData: { _iconLibraries: bootstrapLibraries, _webAwesomeIconLibrary: 'bootstrap' },
+    });
+    const notOptedIn = await finalizeRocketIcons(page, {
+      pageData: { _iconLibraries: bootstrapLibraries, _hasBrowserLoadedComponents: true },
+    });
+
+    assert.doesNotMatch(serverOnly, /data-rocket-wa-icon-library/);
+    assert.doesNotMatch(notOptedIn, /data-rocket-wa-icon-library/);
+  });
+
+  it('15: fails clearly when the Web Awesome Icon Library is not configured', async () => {
+    await assert.rejects(
+      finalizeRocketIcons('<html><head></head><body></body></html>', {
+        pageData: { _hasBrowserLoadedComponents: true, _webAwesomeIconLibrary: 'missing' },
+      }),
+      /Web Awesome Icon Library "missing" is not configured/,
+    );
+  });
 });
+
+/**
+ * @param {string} html
+ */
+function readWebAwesomeIconLibraryScript(html) {
+  const match = /<script type="module" data-rocket-wa-icon-library>(.*?)<\/script>/s.exec(html);
+  assert.ok(match, 'Expected the wa-icon library registration script');
+  return match[1];
+}
 
 /**
  * @param {string} html
