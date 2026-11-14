@@ -39,19 +39,23 @@ export class MainMenu extends LitElement {
     classes[level] = true;
     return html`
       <li>
-        ${page.menuNoLink
-          ? html`<span class=${classMap(classes)}>${title}</span>`
-          : html`<a
-              href=${ifDefined(page.url)}
-              class=${classMap(classes)}
-              aria-current=${ifDefined(isCurrent ? 'page' : undefined)}
-              >${title}</a
-            >`}
-        ${page.children.length > 0
-          ? html`<ul>
-              ${page.children.map(child => this.list(child, depth + 1))}
-            </ul>`
-          : ''}
+        ${
+          page.menuNoLink
+            ? html`<span class=${classMap(classes)}>${title}</span>`
+            : html`<a
+                href=${ifDefined(page.url)}
+                class=${classMap(classes)}
+                aria-current=${ifDefined(isCurrent ? 'page' : undefined)}
+                >${title}</a
+              >`
+        }
+        ${
+          page.children.length > 0
+            ? html`<ul>
+                ${page.children.map(child => this.list(child, depth + 1))}
+              </ul>`
+            : ''
+        }
       </li>
     `;
   }
