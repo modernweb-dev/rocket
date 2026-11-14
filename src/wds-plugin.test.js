@@ -649,6 +649,95 @@ export default function framePage() {
       rmSync(projectRoot, { recursive: true, force: true });
     }
   });
+
+  it('10: serves any icon of the Web Awesome Icon Library for wa-icon', async () => {
+    const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-wa-icons-dev-'));
+    const originalCwd = process.cwd();
+    const iconDir = path.join(projectRoot, 'src/icons');
+    const circleSvg = '<svg viewBox="0 0 8 8"><circle cx="4" cy="4" r="4"/></svg>';
+    mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
+    mkdirSync(iconDir, { recursive: true });
+    writeFileSync(path.join(iconDir, 'box.svg'), '<svg viewBox="0 0 8 8"></svg>');
+    writeFileSync(path.join(iconDir, 'circle.svg'), circleSvg);
+    writeFileSync(
+      path.join(projectRoot, 'docs/index.rocket.js'),
+      `
+export const config = {
+  path: '/',
+  metadata: { title: 'Home' },
+  menu: false,
+};
+
+export default function homePage(request, { pageData }) {
+  pageData.setWebAwesomeIconLibrary('local');
+  return '<html><head></head><body><wa-icon name="box"></wa-icon></body></html>';
+}
+      `,
+    );
+
+    process.chdir(projectRoot);
+    /** @type {(() => void) | undefined} */
+    let serverStop;
+    /** @type {import('node:worker_threads').MessagePort | undefined} */
+    let resolverPort;
+    const originalWatch = fs.watch;
+    try {
+      // @ts-expect-error Test stub only needs the close method used by serverStop.
+      fs.watch = () => ({
+        close() {},
+      });
+      const { port1, port2 } = new MessageChannel();
+      resolverPort = port2;
+      register('./markdownHook.js', {
+        parentURL: import.meta.url,
+        data: { port: port1 },
+        transferList: [port1],
+      });
+      const plugin = createRocketPlugin(['docs/**/*.rocket.js'], [], port2, {
+        iconLibraries: {
+          local: { type: 'path', files: path.join(iconDir, '*.svg') },
+        },
+      });
+      const serverStart = plugin.serverStart;
+      if (typeof serverStart !== 'function') {
+        assert.fail('expected serverStart hook');
+      }
+      serverStop = typeof plugin.serverStop === 'function' ? plugin.serverStop : undefined;
+      await serverStart(/** @type {any} */ ({ webSockets: { sendImport() {} } }));
+
+      const serve = plugin.serve;
+      if (typeof serve !== 'function') {
+        assert.fail('expected serve hook');
+      }
+      /** @param {string} urlPath @param {string} accept */
+      const request = (urlPath, accept) =>
+        /** @type {any} */ (
+          serve(
+            /** @type {any} */ ({
+              header: { accept },
+              path: urlPath,
+              url: urlPath,
+              origin: 'https://rocket.test',
+              method: 'GET',
+              status: 200,
+            }),
+          )
+        );
+
+      const pageResult = await request('/', 'text/html');
+      const iconResult = await request('/_rocket/wa-icons/local/circle.svg', 'image/svg+xml');
+
+      assert.match(pageResult.body, /data-rocket-wa-icon-library/);
+      assert.equal(iconResult.type, 'image/svg+xml');
+      assert.equal(iconResult.body, circleSvg);
+    } finally {
+      serverStop?.();
+      resolverPort?.close();
+      fs.watch = originalWatch;
+      process.chdir(originalCwd);
+      rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
 });
 
 /**

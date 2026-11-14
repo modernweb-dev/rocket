@@ -44,6 +44,8 @@ export class PageData {
     this._defaultIconLibrary = undefined;
     /** @type {import('@rocket/js/types.js').IconReferenceConfig[]} */
     this._iconReferences = [];
+    /** @type {string | undefined} */
+    this._webAwesomeIconLibrary = undefined;
     /** @type {import('@rocket/js/types.js').PageMetadata} */
     this.metadata = pageMetadata;
     /** @type {string | import('lit').TemplateResult} */
@@ -117,6 +119,19 @@ export class PageData {
       }
       this._defaultIconLibrary = defaultIconLibrary;
     }
+  }
+
+  /**
+   * Makes `wa-icon` elements on this Page resolve their names from a configured Icon Library
+   * served by Rocket, instead of Web Awesome's default CDN icon library.
+   *
+   * @param {string} library
+   */
+  setWebAwesomeIconLibrary(library) {
+    if (typeof library !== 'string' || library.trim() === '') {
+      throw new Error('Web Awesome Icon Library must be a non-empty string.');
+    }
+    this._webAwesomeIconLibrary = library.trim();
   }
 
   /**

@@ -241,6 +241,31 @@ Keep `wa-icon` when the Page is intentionally demonstrating Web Awesome itself, 
 Awesome component example needs Web Awesome-specific icon features such as `family`, `variant`, or
 custom Web Awesome icon libraries.
 
+## wa-icon in browser components
+
+Web Awesome components and component packages built on them, such as `@open-wc/components`,
+create `wa-icon` elements in the browser. By default `wa-icon` loads its SVGs from Font Awesome's
+CDN. A layout can point Web Awesome's `default` icon library at a configured Icon Library instead:
+
+```js label="layout.js"
+import { addBootstrapIconLibrary } from '@rocket/js/icons.js';
+import { document } from '@rocket/js/layout-helper.js';
+
+export const layout = pageData => {
+  addBootstrapIconLibrary(pageData);
+  pageData.setWebAwesomeIconLibrary('bootstrap');
+  return document(pageData, pageData.content);
+};
+```
+
+On Pages that have browser-loaded Registered Components or a `wa-icon` element, Rocket then adds a
+module script before the Page's first script that registers the `default` library with a resolver for
+`/_rocket/wa-icons/bootstrap/{name}.svg`. The development server serves any icon of that library at
+those URLs, and static builds publish the whole library there, because browser code may ask for any
+name. `wa-icon` elements that name another `library`, such as Web Awesome's inline `system` icons,
+are unchanged. The registration imports `@awesome.me/webawesome/dist/components/icon/library.js`
+from the project, so it shares the icon registry with the project's Web Awesome components.
+
 ## Generated assets
 
 When a Page uses `icon-loading="client"`, defers automatic icons through a region, or has

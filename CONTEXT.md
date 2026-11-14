@@ -144,6 +144,10 @@ _Avoid_: Global icon limit, inline icon cap, icon threshold
 The rendered Page output that maps rendered or explicitly Page-added Icon References to generated icon asset URLs when client-side icon fetching is needed.
 _Avoid_: Icon registry, icon map, asset list
 
+**Web Awesome Icon Library**:
+The Icon Library that Rocket registers as Web Awesome's `default` icon library on a Page, so `wa-icon` elements load self-hosted SVGs.
+_Avoid_: wa-icon library, CDN icons, icon fallback
+
 **Code Block**:
 A rendered fenced code example in a Markdown Page.
 _Avoid_: Snippet, source panel
