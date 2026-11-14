@@ -459,21 +459,78 @@ describe('Test rocket icons', () => {
     );
   });
 
-  it('14: leaves wa-icon alone on Pages without browser code or without the option', async () => {
+  it('14: registers the Web Awesome Icon Library whenever the Page opts in', async () => {
     const bootstrapLibraries = new Map([
       ['bootstrap', { sources: [iconsFromPackage('bootstrap-icons', 'icons/*.svg')] }],
     ]);
-    const page = '<!doctype html><html><head><title>Icons</title></head><body></body></html>';
+    const page = [
+      '<!doctype html><html><head><title>Icons</title>',
+      '<script type="module" src="/src/app.js"></script>',
+      '</head><body></body></html>',
+    ].join('');
 
-    const serverOnly = await finalizeRocketIcons(page, {
+    const optedIn = await finalizeRocketIcons(page, {
       pageData: { _iconLibraries: bootstrapLibraries, _webAwesomeIconLibrary: 'bootstrap' },
     });
     const notOptedIn = await finalizeRocketIcons(page, {
       pageData: { _iconLibraries: bootstrapLibraries, _hasBrowserLoadedComponents: true },
     });
 
-    assert.doesNotMatch(serverOnly, /data-rocket-wa-icon-library/);
+    assert.match(optedIn, /data-rocket-wa-icon-library/);
+    assert.ok(
+      optedIn.indexOf('data-rocket-wa-icon-library') < optedIn.indexOf('/src/app.js'),
+      'Expected the wa-icon registration before the layout script',
+    );
     assert.doesNotMatch(notOptedIn, /data-rocket-wa-icon-library/);
+  });
+
+  it('16: keeps import maps before the wa-icon registration and ignores commented scripts', async () => {
+    const html = await finalizeRocketIcons(
+      [
+        '<!doctype html><html><head><title>Icons</title>',
+        '<!-- <script type="module" src="/commented.js"></script> -->',
+        '<script type="importmap">{"imports":{"lit":"/lit.js"}}</script>',
+        '<script type="module" src="/src/app.js"></script>',
+        '<script type=\'importmap\'>{"imports":{"x":"/x.js"}}</script>',
+        '</head><body></body></html>',
+      ].join(''),
+      {
+        pageData: {
+          _iconLibraries: new Map([
+            ['bootstrap', { sources: [iconsFromPackage('bootstrap-icons', 'icons/*.svg')] }],
+          ]),
+          _webAwesomeIconLibrary: 'bootstrap',
+        },
+      },
+    );
+
+    const registration = html.indexOf('<script type="module" data-rocket-wa-icon-library>');
+    assert.ok(registration > html.indexOf('/commented.js'), 'Expected comments to be skipped');
+    assert.ok(registration > html.lastIndexOf('importmap'), 'Expected every import map first');
+    assert.ok(registration < html.indexOf('</head>'), 'Expected the registration in the head');
+  });
+
+  it('17: places the wa-icon registration between an import map and the first module script', async () => {
+    const html = await finalizeRocketIcons(
+      [
+        '<!doctype html><html><head><title>Icons</title>',
+        '<script type="importmap">{"imports":{"lit":"/lit.js"}}</script>',
+        '<script type="module" src="/src/app.js"></script>',
+        '</head><body></body></html>',
+      ].join(''),
+      {
+        pageData: {
+          _iconLibraries: new Map([
+            ['bootstrap', { sources: [iconsFromPackage('bootstrap-icons', 'icons/*.svg')] }],
+          ]),
+          _webAwesomeIconLibrary: 'bootstrap',
+        },
+      },
+    );
+
+    const registration = html.indexOf('data-rocket-wa-icon-library');
+    assert.ok(registration > html.indexOf('importmap'), 'Expected the import map first');
+    assert.ok(registration < html.indexOf('/src/app.js'), 'Expected it before the app script');
   });
 
   it('15: fails clearly when the Web Awesome Icon Library is not configured', async () => {

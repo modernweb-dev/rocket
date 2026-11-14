@@ -332,9 +332,6 @@ async function finalizeWebAwesomeIcons(html, options) {
   if (!library) {
     return html;
   }
-  if (!pageNeedsDeferredIconRuntime(options.pageData) && !/<wa-icon\b/i.test(html)) {
-    return html;
-  }
   const resolver = createIconResolver({
     layoutIconLibraries: options.layoutIconLibraries || options.pageData?._iconLibraries,
     layoutDefaultIconLibrary:
@@ -354,27 +351,52 @@ async function finalizeWebAwesomeIcons(html, options) {
     `import { registerIconLibrary } from '${resolve(WEB_AWESOME_ICON_LIBRARY_MODULE, import.meta)}';` +
     `registerIconLibrary('default', { resolver: name => '${iconBaseUrl}' + encodeURIComponent(name) + '.svg' });` +
     '</script>';
-  return insertBeforeFirstHeadScript(html, registrationHtml);
+  return insertWebAwesomeIconRegistration(html, registrationHtml);
 }
 
 /**
- * Module scripts run in document order, so a script placed before the Page's first script
- * runs before any component code it loads.
+ * Places the registration after every import map, because browsers ignore or restrict an import
+ * map that follows a module script. Otherwise it goes before the Page's first head script: module
+ * scripts run in document order, so it runs before component code. Scripts inside HTML comments
+ * are ignored.
  *
  * @param {string} html
  * @param {string} insertion
  */
-function insertBeforeFirstHeadScript(html, insertion) {
-  const lowerHtml = html.toLowerCase();
-  const headClose = lowerHtml.indexOf('</head>');
-  const firstScript = lowerHtml.indexOf('<script');
-  if (firstScript !== -1 && (headClose === -1 || firstScript < headClose)) {
-    return html.slice(0, firstScript) + insertion + html.slice(firstScript);
+function insertWebAwesomeIconRegistration(html, insertion) {
+  const scanHtml = html
+    .replace(/<!--[\s\S]*?(?:-->|$)/g, comment => ' '.repeat(comment.length))
+    .toLowerCase();
+  const headClose = scanHtml.indexOf('</head>');
+  /** @type {number[]} */
+  const scriptStarts = [];
+  let afterImportMaps = 0;
+  const scriptOpen = /<script(?=[\s>/])[^>]*>/g;
+  let match;
+  while ((match = scriptOpen.exec(scanHtml))) {
+    const close = scanHtml.indexOf('</script', scriptOpen.lastIndex);
+    const closeEnd = close === -1 ? -1 : scanHtml.indexOf('>', close);
+    const end = closeEnd === -1 ? scanHtml.length : closeEnd + 1;
+    if (/\btype\s*=\s*["']?importmap["'\s/>]/.test(match[0])) {
+      afterImportMaps = end;
+    } else {
+      scriptStarts.push(match.index);
+    }
+    scriptOpen.lastIndex = end;
   }
-  if (headClose !== -1) {
-    return html.slice(0, headClose) + insertion + html.slice(headClose);
+
+  const firstHeadScript = scriptStarts.find(
+    start => start >= afterImportMaps && (headClose === -1 || start < headClose),
+  );
+  let index;
+  if (firstHeadScript !== undefined) {
+    index = firstHeadScript;
+  } else if (headClose !== -1 && headClose >= afterImportMaps) {
+    index = headClose;
+  } else {
+    index = afterImportMaps;
   }
-  return insertion + html;
+  return html.slice(0, index) + insertion + html.slice(index);
 }
 
 /**
