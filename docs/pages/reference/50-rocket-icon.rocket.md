@@ -258,13 +258,22 @@ export const layout = pageData => {
 };
 ```
 
-On Pages that have browser-loaded Registered Components or a `wa-icon` element, Rocket then adds a
-module script before the Page's first script that registers the `default` library with a resolver for
-`/_rocket/wa-icons/bootstrap/{name}.svg`. The development server serves any icon of that library at
-those URLs, and static builds publish the whole library there, because browser code may ask for any
-name. `wa-icon` elements that name another `library`, such as Web Awesome's inline `system` icons,
-are unchanged. The registration imports `@awesome.me/webawesome/dist/components/icon/library.js`
-from the project, so it shares the icon registry with the project's Web Awesome components.
+On every Page whose layout calls `setWebAwesomeIconLibrary`, Rocket adds a module script that
+registers the `default` library with a resolver for `/_rocket/wa-icons/bootstrap/{name}.svg`. The
+script goes after the Page's import maps and before its first other head script. The development
+server serves any icon of that library at those URLs, and static builds publish the whole library
+there, because browser code may ask for any name. `wa-icon` elements that name another `library`,
+such as Web Awesome's inline `system` icons, are unchanged. The registration imports
+`@awesome.me/webawesome/dist/components/icon/library.js` from the project, so it shares the icon
+registry with the project's Web Awesome components.
+
+This replaces Web Awesome's `default` library on those Pages, so it only knows the names of the
+configured Icon Library. A `wa-icon` that uses a Font Awesome-only name, such as `house` or `gear`,
+or Font Awesome's `family` and `variant` attributes, no longer loads from the CDN and may render
+blank. Use the configured library's names, or give such icons their own Web Awesome icon library.
+
+Publishing the whole library adds one SVG file per icon to the build output. For Bootstrap Icons
+that is about 2,000 files, around 1.2 MB in total.
 
 ## Generated assets
 

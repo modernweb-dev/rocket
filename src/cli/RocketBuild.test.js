@@ -6,8 +6,11 @@ import {
   mkdtempSync,
   readFileSync,
   rmSync,
+  symlinkSync,
   writeFileSync,
 } from 'node:fs';
+import { createServer } from 'node:http';
+import puppeteer from 'puppeteer-core';
 import { render } from '@lit-labs/ssr';
 import { collectResult } from '@lit-labs/ssr/lib/render-result.js';
 import { tmpdir } from 'node:os';
@@ -19,6 +22,7 @@ import { PageRuntimeError } from '../page-runtime.js';
 import { netlify } from '../adapters/netlify.js';
 import { document } from '../layouts/layout-helper.js';
 import { iconsFromPath } from '../icons.js';
+import { createSocialPreviewBrowserLaunchOptions } from '../socialPreviewImages.js';
 
 describe('Test RocketBuild', () => {
   it('01: splits static and server-rendered Pages', () => {
@@ -2624,6 +2628,95 @@ export default function homePage() {
     }
   });
 
+  it('48: bundled wa-icon loads self-hosted SVGs without contacting the Font Awesome CDN', async () => {
+    const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-wa-icons-bundle-'));
+    const originalCwd = process.cwd();
+    const circleSvg =
+      '<svg viewBox="0 0 8 8" data-local-icon="circle"><circle cx="4" cy="4" r="4"/></svg>';
+    mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
+    mkdirSync(path.join(projectRoot, 'src/icons'), { recursive: true });
+    symlinkSync(path.resolve('node_modules'), path.join(projectRoot, 'node_modules'), 'dir');
+    writeFileSync(path.join(projectRoot, 'src/icons/circle.svg'), circleSvg);
+    writeFileSync(
+      path.join(projectRoot, 'src/app.js'),
+      "import '@awesome.me/webawesome/dist/components/icon/icon.js';\n",
+    );
+    writeFileSync(
+      path.join(projectRoot, 'docs/index.rocket.js'),
+      `
+export const config = { path: '/', metadata: { title: 'Icons' }, menu: false };
+
+export default function iconsPage(request, { pageData }) {
+  pageData.setWebAwesomeIconLibrary('local');
+  return '<!doctype html><html><head><title>Icons</title>' +
+    '<script type="importmap">{"imports":{}}</script>' +
+    '<script type="module" src="/../src/app.js"></script>' +
+    '</head><body><wa-icon name="circle"></wa-icon></body></html>';
+}
+      `,
+    );
+    /** @type {any} */
+    const build = new RocketBuild();
+    build.cli = {
+      config: {
+        includeGlobs: ['docs/**/*.rocket.js'],
+        excludeRegex: [],
+        iconLibraries: {
+          local: iconsFromPath(path.join(projectRoot, 'src/icons/*.svg')),
+        },
+        /**
+         * @param {any} config
+         */
+        adjustDevServerConfig(config) {
+          return config;
+        },
+      },
+    };
+
+    process.chdir(projectRoot);
+    /** @type {import('node:http').Server | undefined} */
+    let server;
+    /** @type {import('puppeteer-core').Browser | undefined} */
+    let browser;
+    try {
+      await build.build();
+
+      server = await serveDirectory(path.join(projectRoot, 'dist'));
+      const address = /** @type {import('node:net').AddressInfo} */ (server.address());
+      const origin = `http://127.0.0.1:${address.port}`;
+      browser = await puppeteer.launch(await createSocialPreviewBrowserLaunchOptions());
+      const page = await browser.newPage();
+      /** @type {string[]} */
+      const externalRequests = [];
+      await page.setRequestInterception(true);
+      page.on('request', request => {
+        if (new URL(request.url()).origin === origin) {
+          request.continue();
+        } else {
+          externalRequests.push(request.url());
+          request.abort();
+        }
+      });
+
+      await page.goto(`${origin}/`, { waitUntil: 'networkidle0' });
+      const rendered = await page.waitForFunction(
+        () =>
+          globalThis.document
+            .querySelector('wa-icon')
+            ?.shadowRoot?.querySelector('svg[data-local-icon="circle"]') !== null,
+        { timeout: 10000 },
+      );
+
+      assert.ok(await rendered.jsonValue());
+      assert.deepEqual(externalRequests, []);
+    } finally {
+      await browser?.close();
+      server?.close();
+      process.chdir(originalCwd);
+      rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
+
   it('40: emits Page Feed output for archive Pages with a feed export', async () => {
     const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-feed-build-'));
     const originalCwd = process.cwd();
@@ -2934,6 +3027,36 @@ export default async function homePage(_request, { pageData }) {
 /**
  * @returns {import('@rocket/js/types.js').Page}
  */
+/**
+ * @param {string} root
+ * @returns {Promise<import('node:http').Server>}
+ */
+function serveDirectory(root) {
+  /** @type {Record<string, string>} */
+  const contentTypes = {
+    '.html': 'text/html',
+    '.js': 'text/javascript',
+    '.css': 'text/css',
+    '.svg': 'image/svg+xml',
+  };
+  const server = createServer((request, response) => {
+    const urlPath = decodeURIComponent(new URL(request.url || '/', 'http://localhost').pathname);
+    let file = path.join(root, urlPath);
+    if (!file.startsWith(root) || !existsSync(file)) {
+      response.writeHead(404).end();
+      return;
+    }
+    if (urlPath.endsWith('/')) {
+      file = path.join(file, 'index.html');
+    }
+    response.writeHead(200, {
+      'content-type': contentTypes[path.extname(file)] || 'application/octet-stream',
+    });
+    response.end(readFileSync(file));
+  });
+  return new Promise(resolve => server.listen(0, '127.0.0.1', () => resolve(server)));
+}
+
 function makeFeedPage() {
   const blog = makePage({ path: '/blog', file: 'docs/blog.rocket.js', title: 'Blog' });
   blog.module.feed = pageData => ({
