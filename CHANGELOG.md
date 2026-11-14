@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.3.0
+
+### Minor Changes
+
+- e488c90: Add a `cloudflare()` adapter for sites that deploy static Rocket Pages next to an existing
+  Cloudflare Worker. `rocket start` runs the Worker from the site's `wrangler.jsonc` on the same
+  origin and port as the Pages, and hands it the paths in `assets.run_worker_first`. `rocket build`
+  checks that `assets.directory` matches the build output, writes `.assetsignore`, and writes
+  `urlLifecycle.redirects` to `_redirects`. Server-rendered Pages are not supported by this adapter
+  yet. Adapters can now adjust the dev server through an optional
+  `adjustDevServerConfig(config, context)` hook. Wrangler `^4.162.0` is an optional peer dependency,
+  loaded only by this adapter.
+
+### Patch Changes
+
+- 847924b: Add `pageData.setWebAwesomeIconLibrary(library)`. Layouts can point Web Awesome's `default` icon
+  library at a configured Icon Library, so `wa-icon` elements created by browser components, for
+  example in `@open-wc/components`, load SVGs from `/_rocket/wa-icons/{library}/{name}.svg` instead of
+  Font Awesome's CDN. The development server serves any icon of that library, and static builds
+  publish the whole library (about 2,000 SVG files for Bootstrap Icons). Font Awesome-only names and
+  variants stop resolving on Pages that opt in.
+- d2fdb53: Update dependencies, including `@web/dev-server` 1.0, `@sparticuz/chromium` 153, `es-module-lexer` 3 and `puppeteer-core` 25.17. Demo export names are now read from the new `es-module-lexer` export shape.
+
 ## 0.2.1
 
 ### Patch Changes
