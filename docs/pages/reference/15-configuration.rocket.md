@@ -104,7 +104,9 @@ path either as string inclusion or as a regular expression. `node_modules` is al
 `adjustDevServerConfig` receives Rocket's default `@web/dev-server` config and returns the config
 that should be used locally.
 
-`adapter` is required only when the project has Pages with `config.render: 'server'`.
+`adapter` is required only when the project has Pages with `config.render: 'server'`, or when the
+deployment target needs its own dev server behavior, as with the
+[Cloudflare Adapter](/cloudflare-adapter).
 
 `siteOrigin` is the canonical absolute origin for the deployed site. Configure it when Rocket needs
 to emit generated outputs or Site Head Metadata with public absolute URLs.
@@ -199,6 +201,15 @@ export default {
 ```
 
 Without an adapter, `rocket build` fails early when it finds server-rendered Pages.
+
+Sites that deploy a Cloudflare Worker next to their static Pages use the
+[Cloudflare Adapter](/cloudflare-adapter) instead, which also runs the Worker inside
+`rocket start`.
+
+An adapter is an object with a `name`, a `build(context)` hook that runs after `rocket build`
+writes its output, and an optional `adjustDevServerConfig(config, context)` hook for
+`rocket start`. The dev hook receives the dev server config and the Pages, project root and Rocket
+config, may be async, and runs before the config's own `adjustDevServerConfig`.
 
 ## Icon Libraries
 
@@ -707,4 +718,7 @@ The path is resolved from the current working directory.
 - [Pages](/reference/pages) documents Page config and route paths.
 - [Assets](/reference/assets) documents Public Assets and stable root-relative URLs.
 - [Dev Server](/advanced/dev-server) documents local serving behavior.
-- [Netlify Adapter](/netlify-adapter) documents the built-in deployment adapter.
+- [Netlify Adapter](/netlify-adapter) documents the built-in deployment adapter for server-rendered
+  Pages.
+- [Cloudflare Adapter](/cloudflare-adapter) documents the adapter for Cloudflare Workers Static
+  Assets with a Worker.

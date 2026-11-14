@@ -6,6 +6,7 @@ import { MessageChannel } from 'node:worker_threads';
 import { customElements } from '@lit-labs/ssr-dom-shim';
 import { readConfig } from './config.js';
 import { preferProjectPackagesPlugin } from './prefer-project-packages-plugin.js';
+import { getPages } from './pages.js';
 
 const configFilePath = process.argv[2] || undefined;
 const startOptions = readStartOptions(process.argv[3]);
@@ -49,6 +50,20 @@ let devServerConfig = {
   port: startOptions.port ?? 8888,
 };
 
+if (config.adapter?.adjustDevServerConfig) {
+  try {
+    devServerConfig = await config.adapter.adjustDevServerConfig(devServerConfig, {
+      pages: await getPages(process.cwd(), config.includeGlobs, config.excludeRegex),
+      projectRoot: process.cwd(),
+      config,
+    });
+  } catch (error) {
+    // Adapter startup checks are author-facing, so show the message like the CLI does.
+    // eslint-disable-next-line no-console
+    console.error(error instanceof Error && !process.env.ROCKET_DEBUG ? error.message : error);
+    process.exit(1);
+  }
+}
 devServerConfig = config.adjustDevServerConfig(devServerConfig);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

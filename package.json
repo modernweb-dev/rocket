@@ -115,7 +115,16 @@
     "prettier-plugin-packagejson": "^3.0.2",
     "typescript-eslint": "^8.59.4",
     "vfile": "^6.0.3",
-    "wireit": "^0.14.12"
+    "wireit": "^0.14.12",
+    "wrangler": "^4.162.0"
+  },
+  "peerDependencies": {
+    "wrangler": "^4.162.0"
+  },
+  "peerDependenciesMeta": {
+    "wrangler": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=22"
