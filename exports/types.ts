@@ -52,6 +52,7 @@ export type {
   ResolvedRocketConfig,
   RocketAdapter,
   RocketAdapterBuildContext,
+  RocketAdapterDevContext,
   RocketConfig,
   RedirectConfig,
   RedirectStatus,

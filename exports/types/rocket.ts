@@ -111,9 +111,24 @@ export type RocketAdapterBuildContext = {
   defaultSocialPreviewImages?: Map<string, string>;
 };
 
+export type RocketAdapterDevContext = {
+  /** Pages discovered when `rocket start` starts. */
+  pages: PageRegistry;
+  projectRoot: string;
+  config: ResolvedRocketConfig;
+};
+
 export type RocketAdapter = {
   name: string;
   build: (context: RocketAdapterBuildContext) => void | Promise<void>;
+  /**
+   * Adjusts the `rocket start` dev server config, for example to run the deployment target's
+   * runtime next to Rocket. Runs before the Rocket config's own `adjustDevServerConfig`.
+   */
+  adjustDevServerConfig?: (
+    config: DevServerConfig,
+    context: RocketAdapterDevContext,
+  ) => DevServerConfig | Promise<DevServerConfig>;
 };
 
 export type SiteDiscoverabilityConfig = {

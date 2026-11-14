@@ -40,3 +40,9 @@ jobs:
 
       - name: Test
         run: npm run test
+
+      # The lockfile tests the lowest Wrangler in the peer range; this tests the newest one.
+      - name: Test the cloudflare adapter with the newest Wrangler in its peer range
+        run: |
+          npm install --no-save "wrangler@$(node -p "require('./package.json').peerDependencies.wrangler")"
+          node --test src/adapters/cloudflare.test.js
