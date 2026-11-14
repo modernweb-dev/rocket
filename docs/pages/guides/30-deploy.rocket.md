@@ -101,9 +101,10 @@ See [Netlify Adapter](/netlify-adapter) for the full adapter reference and verif
 
 ## Deploy to Cloudflare with a Worker
 
-Sites that pair static Pages with a Cloudflare Worker use `adapter: cloudflare()`. Rocket builds the
-static Pages into `dist/` for Workers Static Assets, and `rocket start` runs the Worker on the same
-origin. See [Cloudflare Adapter](/cloudflare-adapter).
+Sites that pair static Pages with an existing Cloudflare Worker use `adapter: cloudflare()`. Rocket
+builds the static Pages and `_redirects` into `dist/` for Workers Static Assets, and `rocket start`
+runs the Worker on the same origin and port. The Cloudflare adapter does not support server-rendered
+Pages yet. See [Cloudflare Adapter](/cloudflare-adapter).
 
 ## Pre-deploy checklist
 

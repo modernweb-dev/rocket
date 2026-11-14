@@ -262,7 +262,7 @@ function invalidSiteOriginError(siteOrigin) {
 function validateRedirectConfig(redirects = []) {
   const sources = new Set();
   for (const redirect of redirects) {
-    // whitespace would corrupt whitespace-delimited outputs like Netlify _redirects
+    // whitespace would corrupt whitespace-delimited outputs like Netlify and Cloudflare _redirects
     if (containsWhitespace(redirect.source) || containsWhitespace(redirect.target)) {
       throw new Error(
         `Invalid Redirect from ${JSON.stringify(redirect.source)} to ${JSON.stringify(

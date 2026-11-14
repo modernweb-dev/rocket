@@ -6,6 +6,7 @@ import path from 'node:path';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { debounce } from '../debounce.js';
+import { makeRedirectsFileSource, writeRedirectsFile } from './redirects.js';
 
 /**
  * @typedef {typeof import('wrangler')} Wrangler
@@ -30,7 +31,7 @@ export function cloudflare({ config = './wrangler.jsonc' } = {}) {
         wrangler.unstable_readConfig({ config: configPath }).assets?.run_worker_first,
         configPath,
       );
-      assertNoShadowedPages(context.pages, workerPaths);
+      assertNotShadowed(context, workerPaths);
       /** @param {string} requestPath */
       const isWorkerPath = requestPath =>
         workerPaths.some(prefix => requestPath.startsWith(prefix));
@@ -81,10 +82,12 @@ export function cloudflare({ config = './wrangler.jsonc' } = {}) {
       };
     },
     async build(context) {
-      assertStaticOnly(context);
+      assertNoServerPages(context);
       const configPath = path.resolve(context.projectRoot, config);
       const wrangler = await loadWrangler();
       const { assets } = wrangler.unstable_readConfig({ config: configPath });
+      assertNotShadowed(context, workerPathPrefixes(assets?.run_worker_first, configPath));
+      assertCloudflareRedirects(context.config.urlLifecycle?.redirects ?? []);
       const assetsDirectory =
         assets?.directory && path.resolve(path.dirname(configPath), assets.directory);
       if (assetsDirectory !== path.resolve(context.outDir)) {
@@ -98,28 +101,58 @@ export function cloudflare({ config = './wrangler.jsonc' } = {}) {
       // manifest out of the upload.
       mkdirSync(context.outDir, { recursive: true });
       writeFileSync(path.join(context.outDir, '.assetsignore'), '.vite\n');
+      // Wrangler reads `_redirects` itself and leaves it out of the upload.
+      writeRedirectsFile(context);
     },
   };
 }
 
 /**
- * Workers Static Assets serves files only. Server-rendered Pages and Redirects would need code in
- * the Worker, which this adapter does not generate yet.
+ * Server-rendered Pages need a Rocket request handler inside the Worker, which this adapter does
+ * not generate yet.
  *
  * @param {import('@rocket/js/types.js').RocketAdapterBuildContext} context
  */
-function assertStaticOnly(context) {
+function assertNoServerPages(context) {
   if (context.serverPages.size) {
     throw new Error(
       `The cloudflare() adapter does not support Pages with render: 'server' yet: ` +
         `${Array.from(context.serverPages.keys()).join(', ')}`,
     );
   }
-  if (context.config.urlLifecycle?.redirects?.length) {
+}
+
+// Wrangler's `_redirects` limits. It skips rules past them with a warning instead of failing.
+const MAX_STATIC_REDIRECTS = 2000;
+const MAX_REDIRECT_LINE_LENGTH = 2000;
+
+/**
+ * Rocket Redirects match their source exactly. Cloudflare reads `*` and `:name` in a source as a
+ * splat or placeholder, so such a source would match other paths too.
+ *
+ * @param {import('@rocket/js/types.js').RedirectConfig[]} redirects
+ */
+function assertCloudflareRedirects(redirects) {
+  if (redirects.length > MAX_STATIC_REDIRECTS) {
     throw new Error(
-      'The cloudflare() adapter does not support urlLifecycle.redirects yet. ' +
-        'Handle redirects in the Worker instead.',
+      `${redirects.length} Redirects are configured, but Cloudflare's _redirects file supports ` +
+        `at most ${MAX_STATIC_REDIRECTS}. Handle the rest in the Worker.`,
     );
+  }
+  for (const redirect of redirects) {
+    if (/\*|:[A-Za-z]/.test(redirect.source)) {
+      throw new Error(
+        `The Redirect source ${JSON.stringify(redirect.source)} contains "*" or ":name", ` +
+          `which Cloudflare's _redirects file reads as a pattern rather than an exact path.`,
+      );
+    }
+    const line = makeRedirectsFileSource([redirect]).trimEnd();
+    if (line.length > MAX_REDIRECT_LINE_LENGTH) {
+      throw new Error(
+        `The Redirect from ${JSON.stringify(redirect.source)} is longer than the ` +
+          `${MAX_REDIRECT_LINE_LENGTH} characters Cloudflare's _redirects file allows per rule.`,
+      );
+    }
   }
 }
 
@@ -383,19 +416,32 @@ function workerPathPrefixes(runWorkerFirst, configPath) {
 }
 
 /**
- * A Page under a Worker path would render in Rocket's build but never be reached in production.
+ * The Worker answers `run_worker_first` paths before static assets and `_redirects`, so a Page or
+ * Redirect under one would never be reached in production.
  *
- * @param {import('@rocket/js/types.js').PageRegistry} pages
+ * @param {{ pages: import('@rocket/js/types.js').PageRegistry; config: import('@rocket/js/types.js').ResolvedRocketConfig }} context
  * @param {string[]} workerPaths
  */
-function assertNoShadowedPages(pages, workerPaths) {
+function assertNotShadowed({ pages, config }, workerPaths) {
+  /** @param {string} urlPath */
+  const shadowingPrefix = urlPath => workerPaths.find(workerPath => urlPath.startsWith(workerPath));
   for (const [pagePath, page] of pages) {
-    const prefix = workerPaths.find(workerPath => pagePath.startsWith(workerPath));
+    const prefix = shadowingPrefix(pagePath);
     if (prefix) {
       throw new Error(
         `The Page ${pagePath} (${page.file}) is shadowed by "${prefix}*" in assets.run_worker_first: ` +
           `the Worker answers that path, so the Page would never be served. ` +
           `Move the Page or narrow run_worker_first.`,
+      );
+    }
+  }
+  for (const redirect of config.urlLifecycle?.redirects ?? []) {
+    const prefix = shadowingPrefix(redirect.source);
+    if (prefix) {
+      throw new Error(
+        `The Redirect source ${redirect.source} is shadowed by "${prefix}*" in ` +
+          `assets.run_worker_first: the Worker answers that path, so the Redirect would never apply. ` +
+          `Handle it in the Worker or narrow run_worker_first.`,
       );
     }
   }
@@ -414,7 +460,8 @@ const HOP_BY_HOP_HEADERS = new Set([
 ]);
 
 /**
- * Hands one request to the Worker without a network hop and writes its response back unchanged.
+ * Hands one request to the Worker and writes its response back unchanged, so Worker paths share
+ * the Rocket dev server's origin and port.
  *
  * @param {KoaContext} ctx
  * @param {Worker} worker

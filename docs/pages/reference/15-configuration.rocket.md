@@ -202,9 +202,9 @@ export default {
 
 Without an adapter, `rocket build` fails early when it finds server-rendered Pages.
 
-Sites that deploy a Cloudflare Worker next to their static Pages use the
-[Cloudflare Adapter](/cloudflare-adapter) instead, which also runs the Worker inside
-`rocket start`.
+Sites that deploy static Pages next to an existing Cloudflare Worker use the
+[Cloudflare Adapter](/cloudflare-adapter), which also runs the Worker inside `rocket start`. It does
+not support server-rendered Pages yet.
 
 An adapter is an object with a `name`, a `build(context)` hook that runs after `rocket build`
 writes its output, and an optional `adjustDevServerConfig(config, context)` hook for
