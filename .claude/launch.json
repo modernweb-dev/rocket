@@ -5,7 +5,7 @@
       "name": "rocket-docs",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["rocket", "start"],
-      "port": 8000
+      "port": 8888
     },
     {
       "name": "rocket-dist",

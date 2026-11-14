@@ -69,7 +69,7 @@ export default {
 
 Public Asset URLs cannot collide with Page URLs or Rocket-generated outputs such as `sitemap.xml`,
 `robots.txt`, Standalone Demo URLs, generated archive Pages, Default Social Preview Images, Redirect
-fallback files, or adapter outputs such as Netlify `_redirects`.
+fallback files, or adapter outputs such as the Netlify and Cloudflare `_redirects`.
 
 Files under hidden dot paths are ignored by default, except for `.well-known`. Symlinks are rejected
 because Public Assets must be regular files.

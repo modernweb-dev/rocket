@@ -45,5 +45,5 @@ specific production workflow.
 - [Deploy](/deploy) prepares static and server-rendered Rocket sites for production hosting.
 - [Netlify Adapter](/netlify-adapter) documents the built-in adapter for server-rendered Pages on
   Netlify.
-- [Cloudflare Adapter](/cloudflare-adapter) runs a Cloudflare Worker inside `rocket start` and
-  deploys static Pages to Workers Static Assets.
+- [Cloudflare Adapter](/cloudflare-adapter) deploys static Pages next to an existing Cloudflare
+  Worker and runs that Worker inside `rocket start`. Server-rendered Pages are not supported yet.

@@ -5,6 +5,12 @@ import { paginatedArchivePaths } from './page-pagination.js';
 import { normalizeDocumentPath, standaloneDemoPaths } from './standalone-demo-url.js';
 import { needsDefaultSocialPreviewImage, publicSocialPreviewPages } from './socialPreviewImages.js';
 
+/** Adapters that write `_redirects` into the build output, by adapter name. */
+const REDIRECTS_FILE_HOSTS = new Map([
+  ['netlify', 'Netlify'],
+  ['cloudflare', 'Cloudflare'],
+]);
+
 export const PUBLIC_ASSETS_DIR = 'public';
 
 /**
@@ -237,8 +243,9 @@ function generatedOutputClaims({ pages, generatedPages, config, emitRedirectFall
   if (config.siteDiscoverability?.robots === true) {
     claims.set('/robots.txt', 'generated Robots File');
   }
-  if (config.adapter?.name === 'netlify' && config.urlLifecycle?.redirects?.length) {
-    claims.set('/_redirects', 'Netlify Redirect output');
+  const redirectsFileHost = REDIRECTS_FILE_HOSTS.get(config.adapter?.name ?? '');
+  if (redirectsFileHost && config.urlLifecycle?.redirects?.length) {
+    claims.set('/_redirects', `${redirectsFileHost} Redirect output`);
   }
 
   return claims;

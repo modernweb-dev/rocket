@@ -186,6 +186,20 @@ describe('Test cloudflare adapter: startup checks', () => {
     }
   });
 
+  it('13b: rejects a Redirect source that a Worker path would shadow', async () => {
+    const app = makeFixtureApp();
+    try {
+      await assert.rejects(
+        stopIfStarted(
+          startDevServerWithAdapter(app.root, { redirects: [{ source: '/api/v1', target: '/' }] }),
+        ),
+        /The Redirect source \/api\/v1 is shadowed by "\/api\/\*" in assets\.run_worker_first/,
+      );
+    } finally {
+      app.remove();
+    }
+  });
+
   it('14: makes rocket start fail with a clear error when a Page is shadowed', async () => {
     const app = makeFixtureApp({
       files: {
@@ -280,18 +294,55 @@ export default () => '<main>Live</main>';
     }
   });
 
-  it('20: rejects URL Lifecycle Redirects instead of dropping them', async () => {
+  it('20: writes URL Lifecycle Redirects to _redirects instead of HTML fallback files', async () => {
     const app = makeFixtureApp({
       files: {
-        'rocket-config.js': `
-import { cloudflare } from '@rocket/js/adapters/cloudflare.js';
+        'rocket-config.js': rocketConfigWithRedirects([
+          { source: '/old-guide', target: '/', status: 301 },
+          {
+            source: '/external-docs',
+            target: 'https://docs.example.com/?from=rocket',
+            status: 302,
+          },
+          { source: '/latest', target: '/' },
+        ]),
+      },
+    });
+    try {
+      const build = await runRocket(app.root, ['build']);
 
-export default {
-  includeGlobs: ['src/**/*.rocket.js'],
-  urlLifecycle: { redirects: [{ source: '/old', target: '/' }] },
-  adapter: cloudflare(),
-};
-`,
+      assert.equal(build.code, 0, build.output);
+      assert.equal(
+        readFileSync(path.join(app.root, 'dist/_redirects'), 'utf8'),
+        [
+          '/old-guide / 301',
+          '/external-docs https://docs.example.com/?from=rocket 302',
+          '/latest / 308',
+          '',
+        ].join('\n'),
+      );
+      assert.equal(existsSync(path.join(app.root, 'dist/old-guide/index.html')), false);
+    } finally {
+      app.remove();
+    }
+  });
+
+  it('21: writes no _redirects without configured Redirects', async () => {
+    const app = makeFixtureApp();
+    try {
+      const build = await runRocket(app.root, ['build']);
+
+      assert.equal(build.code, 0, build.output);
+      assert.equal(existsSync(path.join(app.root, 'dist/_redirects')), false);
+    } finally {
+      app.remove();
+    }
+  });
+
+  it('22: rejects a Redirect source that a Worker path would shadow', async () => {
+    const app = makeFixtureApp({
+      files: {
+        'rocket-config.js': rocketConfigWithRedirects([{ source: '/api/v1', target: '/' }]),
       },
     });
     try {
@@ -300,13 +351,84 @@ export default {
       assert.notEqual(build.code, 0);
       assert.match(
         build.output,
-        /cloudflare\(\) adapter does not support urlLifecycle\.redirects yet/,
+        /The Redirect source \/api\/v1 is shadowed by "\/api\/\*" in assets\.run_worker_first/,
       );
     } finally {
       app.remove();
     }
   });
+
+  it('23: rejects a Page that a Worker path would shadow', async () => {
+    const app = makeFixtureApp({
+      files: {
+        'src/tasks.rocket.js': `
+export const config = { path: '/api/tasks', metadata: { title: 'Tasks' }, menu: false };
+export default () => '<main>Tasks page</main>';
+`,
+      },
+    });
+    try {
+      const build = await runRocket(app.root, ['build']);
+
+      assert.notEqual(build.code, 0);
+      assert.match(build.output, /The Page \/api\/tasks \(src\/tasks\.rocket\.js\) is shadowed/);
+    } finally {
+      app.remove();
+    }
+  });
+
+  for (const [index, source] of [
+    ['24a', '/docs/*'],
+    ['24b', '/docs/:slug'],
+  ]) {
+    it(`${index}: rejects the Redirect source ${source}, which Cloudflare reads as a pattern`, async () => {
+      const app = makeFixtureApp({
+        files: { 'rocket-config.js': rocketConfigWithRedirects([{ source, target: '/' }]) },
+      });
+      try {
+        const build = await runRocket(app.root, ['build']);
+
+        assert.notEqual(build.code, 0);
+        assert.match(build.output, /reads as a pattern rather than an exact path/);
+      } finally {
+        app.remove();
+      }
+    });
+  }
+
+  it('25: rejects more Redirects than Cloudflare applies', async () => {
+    const redirects = Array.from({ length: 2001 }, (_, index) => ({
+      source: `/old-${index}`,
+      target: '/',
+    }));
+    const app = makeFixtureApp({
+      files: { 'rocket-config.js': rocketConfigWithRedirects(redirects) },
+    });
+    try {
+      const build = await runRocket(app.root, ['build']);
+
+      assert.notEqual(build.code, 0);
+      assert.match(build.output, /2001 Redirects are configured, .* supports at most 2000/);
+    } finally {
+      app.remove();
+    }
+  });
 });
+
+/**
+ * @param {import('@rocket/js/types.js').RedirectConfig[]} redirects
+ */
+function rocketConfigWithRedirects(redirects) {
+  return `
+import { cloudflare } from '@rocket/js/adapters/cloudflare.js';
+
+export default {
+  includeGlobs: ['src/**/*.rocket.js'],
+  urlLifecycle: { redirects: ${JSON.stringify(redirects)} },
+  adapter: cloudflare(),
+};
+`;
+}
 
 /**
  * Runs a Rocket CLI command to completion.
@@ -375,11 +497,11 @@ async function assertRecoversFromFailedFirstStart(brokenWorker) {
  * Starts a bare dev server in this process, adjusted by the `cloudflare()` adapter hook only.
  *
  * @param {string} projectRoot
- * @param {{ pages?: import('@rocket/js/types.js').PageRegistry; options?: { config?: string }; watch?: boolean }} [input]
+ * @param {{ pages?: import('@rocket/js/types.js').PageRegistry; redirects?: import('@rocket/js/types.js').RedirectConfig[]; options?: { config?: string }; watch?: boolean }} [input]
  */
 async function startDevServerWithAdapter(
   projectRoot,
-  { pages = new Map(), options, watch = false } = {},
+  { pages = new Map(), redirects, options, watch = false } = {},
 ) {
   process.env.WRANGLER_SEND_METRICS = 'false';
   const adapter = cloudflare(options);
@@ -390,7 +512,12 @@ async function startDevServerWithAdapter(
     {
       pages,
       projectRoot,
-      config: { includeGlobs: [], excludeRegex: [], adjustDevServerConfig: _ => _ },
+      config: {
+        includeGlobs: [],
+        excludeRegex: [],
+        adjustDevServerConfig: _ => _,
+        ...(redirects && { urlLifecycle: { redirects } }),
+      },
     },
   );
   return startDevServer({

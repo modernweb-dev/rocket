@@ -7,6 +7,7 @@ import { build } from 'vite';
 import { normalizeIconLibrariesConfig, rocketIconRuntimeOutputs } from '../icons.js';
 import { rocketMarkdownPlugin } from '../markdownCompiler.js';
 import { standaloneDemoRoutePatterns } from '../standalone-demo-url.js';
+import { writeRedirectsFile } from './redirects.js';
 
 const ROCKET_ICON_FUNCTION_PATHS = [
   '/_rocket/icons/:library/:iconFile',
@@ -28,33 +29,10 @@ export function netlify() {
   return {
     name: 'netlify',
     async build(context) {
-      writeNetlifyRedirectOutput(context);
+      writeRedirectsFile(context);
       await buildNetlifyFunction(context);
     },
   };
-}
-
-/**
- * @param {import('@rocket/js/types.js').RocketAdapterBuildContext} context
- */
-function writeNetlifyRedirectOutput(context) {
-  const redirects = context.config.urlLifecycle?.redirects || [];
-  if (!redirects.length) {
-    return;
-  }
-
-  mkdirSync(context.outDir, { recursive: true });
-  writeFileSync(path.join(context.outDir, '_redirects'), makeNetlifyRedirectsSource(redirects));
-}
-
-/**
- * @param {import('@rocket/js/types.js').RedirectConfig[]} redirects
- */
-function makeNetlifyRedirectsSource(redirects) {
-  return redirects
-    .map(redirect => `${redirect.source} ${redirect.target} ${redirect.status || 308}`)
-    .join('\n')
-    .concat('\n');
 }
 
 /**

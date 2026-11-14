@@ -114,6 +114,28 @@ describe('Test publicAssets', () => {
     );
   });
 
+  it('04b: rejects a Public Asset that collides with Cloudflare Redirect output', () => {
+    assert.throws(
+      () =>
+        validatePublicAssetCollisions({
+          publicAssets: [
+            {
+              file: '/project/public/_redirects',
+              relativePath: '_redirects',
+              publicPath: '/_redirects',
+            },
+          ],
+          pages: new Map(),
+          generatedPages: new Map(),
+          config: /** @type {any} */ ({
+            adapter: { name: 'cloudflare' },
+            urlLifecycle: { redirects: [{ source: '/old', target: '/' }] },
+          }),
+        }),
+      /Public Asset public\/_redirects collides with Cloudflare Redirect output at \/_redirects/,
+    );
+  });
+
   it('05: rejects Public Asset URL collisions with generated Social Preview Images', () => {
     const page = {
       file: 'docs/about.rocket.md',
