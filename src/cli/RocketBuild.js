@@ -5,6 +5,7 @@ import { MessageChannel } from 'node:worker_threads';
 import { build } from 'vite';
 import path from 'node:path';
 import { PageRuntime } from '../page-runtime.js';
+import { stylesheetOrderPlugins } from './stylesheetOrderPlugin.js';
 import { createIconAssetStore, rocketIconRuntimeOutputs } from '../icons.js';
 import { hasPagePagination, paginatedArchivePaths } from '../page-pagination.js';
 import { hasPageFeed, pageFeedPath } from '../feeds.js';
@@ -131,6 +132,7 @@ export class RocketBuild {
         await build({
           configFile: false,
           root: 'tmp-dist-rocket',
+          plugins: [stylesheetOrderPlugins()],
           build: {
             outDir,
             target: 'esnext',
