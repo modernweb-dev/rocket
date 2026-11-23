@@ -3022,6 +3022,81 @@ export default async function homePage(_request, { pageData }) {
       rmSync(projectRoot, { recursive: true, force: true });
     }
   });
+
+  it('49: keeps Public Asset stylesheets after the bundled Atlas Layout CSS in static builds', async () => {
+    const projectRoot = mkdtempSync(path.join(tmpdir(), 'rocket-atlas-stylesheet-order-build-'));
+    const originalCwd = process.cwd();
+    const atlasDocModule = new URL('../../exports/layouts/atlasDoc.js', import.meta.url).href;
+    const litModule = import.meta.resolve('lit');
+    const litSsrModule = import.meta.resolve('@lit-labs/ssr');
+    const collectResultModule = import.meta.resolve('@lit-labs/ssr/lib/render-result.js');
+    mkdirSync(path.join(projectRoot, 'docs'), { recursive: true });
+    mkdirSync(path.join(projectRoot, 'public'), { recursive: true });
+    writeFileSync(
+      path.join(projectRoot, 'public/site-theme.css'),
+      ':root { --primary-color: purple; }',
+    );
+    writeFileSync(
+      path.join(projectRoot, 'docs/index.rocket.js'),
+      `
+import { atlasDocLayout } from '${atlasDocModule}';
+import { html } from '${litModule}';
+import { render } from '${litSsrModule}';
+import { collectResult } from '${collectResultModule}';
+
+export const config = { path: '/', metadata: { title: 'Home' }, menu: false };
+
+const data = {
+  headerData: { logo: ['/logo.svg'], homeLink: '/', socials: [], navLinks: [] },
+  footerData: [],
+  stylesheets: ['/site-theme.css'],
+};
+
+export default async function homePage(_request, { pageData }) {
+  pageData.content = html\`<h1>Home</h1>\`;
+  return collectResult(render(atlasDocLayout(pageData, data)));
+}
+      `,
+    );
+    /** @type {any} */
+    const build = new RocketBuild();
+    build.cli = {
+      config: {
+        includeGlobs: ['docs/**/*.rocket.js'],
+        excludeRegex: [],
+        /** @param {any} config */
+        adjustDevServerConfig(config) {
+          return config;
+        },
+      },
+    };
+
+    process.chdir(projectRoot);
+    try {
+      await build.build();
+
+      const builtHtml = readFileSync('dist/index.html', 'utf8');
+      const head = builtHtml.slice(0, builtHtml.indexOf('</head>'));
+      const stylesheetHrefs = Array.from(
+        head.matchAll(/<link\b[^>]*\brel="stylesheet"[^>]*\bhref="([^"]+)"/g),
+        match => match[1],
+      );
+      const themeIndex = stylesheetHrefs.indexOf('/site-theme.css');
+      const bundledIndexes = stylesheetHrefs
+        .map((href, index) => (/^\/assets\/.+\.css$/.test(href) ? index : -1))
+        .filter(index => index !== -1);
+      assert.ok(themeIndex !== -1, `expected /site-theme.css in ${stylesheetHrefs}`);
+      assert.ok(bundledIndexes.length > 0, `expected bundled CSS in ${stylesheetHrefs}`);
+      assert.ok(
+        bundledIndexes.every(index => index < themeIndex),
+        `expected /site-theme.css after the bundled CSS, got ${stylesheetHrefs}`,
+      );
+      assert.doesNotMatch(builtHtml, /data-rocket-css|rocket-css-slot/);
+    } finally {
+      process.chdir(originalCwd);
+      rmSync(projectRoot, { recursive: true, force: true });
+    }
+  });
 });
 
 /**
